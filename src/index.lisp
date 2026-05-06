@@ -3,7 +3,7 @@
 (defparameter *schema-version* "taffish.index/v1")
 
 (defun bool-json (value)
-  (if value t nil))
+  (if value t :false))
 
 (defun project-record-json (record)
   (let ((container (plist-ref record :container)))

@@ -55,7 +55,10 @@
     (values string nil)))
 
 (defun env (name &optional default)
-  (or (uiop:getenv name) default))
+  (let ((value (uiop:getenv name)))
+    (if (blank-string-p value)
+        default
+        value)))
 
 (defun ensure-directory (path)
   (ensure-directories-exist (uiop:ensure-directory-pathname path)))
@@ -104,11 +107,12 @@
 
 (defun curl-args (url &key token github-json)
   (append
-   (list "--fail" "--silent" "--show-error" "--location")
+   (list "--fail" "--silent" "--show-error" "--location"
+         "--retry" "3" "--retry-delay" "2")
    (when github-json
      (list "--header" "Accept: application/vnd.github+json"
            "--header" "X-GitHub-Api-Version: 2022-11-28"))
-   (when token
+   (when (not (blank-string-p token))
      (list "--header" (format nil "Authorization: Bearer ~A" token)))
    (list url)))
 
@@ -123,6 +127,12 @@
       (allow-fail nil)
       (t
        (error "curl failed (~A): ~A~%~A" code url err)))))
+
+(defun preview-string (string &optional (limit 300))
+  (let ((clean (or string "")))
+    (if (> (length clean) limit)
+        (format nil "~A..." (subseq clean 0 limit))
+        clean)))
 
 (defun url-safe-segment (string)
   "Encode enough for GitHub path segments used by this builder."

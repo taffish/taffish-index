@@ -12,10 +12,28 @@
   (format nil "~A~A" *github-api* path))
 
 (defun github-api-json (path &key token)
-  (parse-json
-   (curl-text (github-api-url path)
-              :token (or token (github-token))
-              :github-json t)))
+  (let* ((url (github-api-url path))
+         (raw (curl-text url
+                         :token (or token (github-token))
+                         :github-json t)))
+    (when (blank-string-p raw)
+      (error "GitHub API returned an empty response: ~A" url))
+    (handler-case
+        (parse-json raw)
+      (error (c)
+        (error "GitHub API returned non-JSON or unsupported JSON: ~A~%~A~%Response preview: ~A"
+               url c (preview-string raw))))))
+
+(defun github-api-array (path)
+  (let ((json (github-api-json path)))
+    (cond
+      ((json-array-p json)
+       (json-array-values json))
+      ((json-object-p json)
+       (error "expected GitHub API array from ~A, got object message: ~A"
+              path (or (json-ref json "message") json)))
+      (t
+       (error "expected GitHub API array from ~A" path)))))
 
 (defun github-paged-list (path)
   (let ((page 1)
@@ -23,8 +41,7 @@
     (loop
       (let* ((sep (if (find #\? path) "&" "?"))
              (paged-path (format nil "~A~Aper_page=100&page=~A" path sep page))
-             (json (github-api-json paged-path))
-             (items (json-array-values json)))
+             (items (github-api-array paged-path)))
         (unless items
           (return (nreverse out)))
         (dolist (item items)
@@ -34,8 +51,16 @@
         (incf page)))))
 
 (defun github-list-org-repositories (org)
-  (github-paged-list
-   (format nil "/orgs/~A/repos?type=all" (url-safe-segment org))))
+  (let ((segment (url-safe-segment org)))
+    (handler-case
+        (github-paged-list
+         (format nil "/orgs/~A/repos?type=all" segment))
+      (error (org-error)
+        (format *error-output*
+                "[taffish-index] warning: failed to list /orgs/~A/repos, trying /users/~A/repos: ~A~%"
+                org org org-error)
+        (github-paged-list
+         (format nil "/users/~A/repos?type=all" segment))))))
 
 (defun github-list-tags (full-name)
   (github-paged-list

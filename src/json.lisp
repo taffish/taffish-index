@@ -69,6 +69,11 @@
            (write-char char out)))))))
 
 (defun %json-parse-number (string pos)
+  (unless (and (< pos (length string))
+               (find (char string pos) "-0123456789"))
+    (error "unexpected JSON character ~S at ~A"
+           (and (< pos (length string)) (char string pos))
+           pos))
   (let ((start pos))
     (loop while (and (< pos (length string))
                      (find (char string pos) "-+0123456789.eE"))
@@ -135,9 +140,12 @@
     (#\{ (%json-parse-object string pos))
     (#\[ (%json-parse-array string pos))
     (#\t (%json-expect string pos "true" t))
-    (#\f (%json-expect string pos "false" nil))
+    (#\f (%json-expect string pos "false" :false))
     (#\n (%json-expect string pos "null" :null))
-    (otherwise (%json-parse-number string pos))))
+    ((#\- #\0 #\1 #\2 #\3 #\4 #\5 #\6 #\7 #\8 #\9)
+     (%json-parse-number string pos))
+    (otherwise
+     (error "unexpected JSON character ~S at ~A" (char string pos) pos))))
 
 (defun parse-json (string)
   (multiple-value-bind (value pos)
@@ -196,9 +204,11 @@
        (princ value out))
       ((eq value t)
        (write-string "true" out))
-      ((or (null value) (eq value :false))
+      ((eq value :false)
        (write-string "false" out))
       ((eq value :null)
+       (write-string "null" out))
+      ((null value)
        (write-string "null" out))
       (t
        (%write-json-string (princ-to-string value) out)))))
