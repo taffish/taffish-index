@@ -1,0 +1,51 @@
+name: Build TAFFISH index
+
+on:
+  workflow_dispatch:
+    inputs:
+      include_default_branch:
+        description: "Also index default branch snapshots"
+        required: true
+        type: boolean
+        default: false
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: taffish-index
+  cancel-in-progress: false
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    env:
+      TAFFISH_ORG: ${{ vars.TAFFISH_ORG || 'taffish-org' }}
+      TAFFISH_BOT_TOKEN: ${{ secrets.TAFFISH_BOT_TOKEN || github.token }}
+      TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH: ${{ inputs.include_default_branch && 'true' || 'false' }}
+    steps:
+      - name: Checkout index repository
+        uses: actions/checkout@v6
+
+      - name: Install SBCL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sbcl
+
+      - name: Build index
+        run: |
+          sbcl --script scripts/build-index.lisp -- --org "${TAFFISH_ORG}" --output index
+
+      - name: Commit generated index
+        run: |
+          git config user.name "taffish-index[bot]"
+          git config user.email "taffish-index[bot]@users.noreply.github.com"
+          git add index
+          if git diff --cached --quiet; then
+            echo "Index is already up to date."
+          else
+            git commit -m "Update TAFFISH index"
+            git push
+          fi
