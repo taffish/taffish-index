@@ -78,3 +78,12 @@
           (required
            (error "missing TOML field: [~A].~A" section-name key))
           (t nil))))))
+
+(defun toml-section-pairs (toml section-name)
+  (let ((section (gethash section-name toml)))
+    (when section
+      (let (pairs)
+        (maphash (lambda (key value)
+                   (push (cons key value) pairs))
+                 section)
+        (sort pairs #'string< :key #'car)))))

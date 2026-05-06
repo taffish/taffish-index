@@ -127,6 +127,86 @@
       ((< (plist-ref a :release) (plist-ref b :release)) -1)
       (t 0))))
 
+(defun platform-token-char-p (char)
+  (or (ascii-alpha-char-p char)
+      (digit-char-p char)
+      (member char '(#\- #\_ #\.) :test #'char=)))
+
+(defun valid-platform-token-p (token)
+  (and (stringp token)
+       (> (length token) 0)
+       (not (find-if-not #'platform-token-char-p token))))
+
+(defun normalize-token (token)
+  (string-downcase (trim-string token)))
+
+(defun parse-platform-token-list (raw field-name)
+  (when raw
+    (ensure-string-field raw field-name)
+    (let ((out nil))
+      (dolist (token (split-string raw #\,))
+        (let ((clean (normalize-token token)))
+          (when (blank-string-p clean)
+            (error "~A contains an empty token" field-name))
+          (unless (valid-platform-token-p clean)
+            (error "~A contains an invalid token: ~S" field-name clean))
+          (unless (member clean out :test #'string=)
+            (push clean out))))
+      (nreverse out))))
+
+(defun ensure-positive-integer-field (value field-name)
+  (unless (or (null value)
+              (and (integerp value) (> value 0)))
+    (error "~A must be a positive integer when present" field-name))
+  value)
+
+(defun parse-dependencies-section (toml package-name)
+  (let ((pairs (toml-section-pairs toml "dependencies"))
+        (out nil))
+    (dolist (pair pairs)
+      (let* ((dep-name (car pair))
+             (constraint (cdr pair))
+             (clean-constraint nil))
+        (unless (valid-project-name-p dep-name)
+          (error "[dependencies] has an invalid package name: ~S" dep-name))
+        (when (string= dep-name package-name)
+          (error "[dependencies] package can't depend on itself: ~S" dep-name))
+        (unless (stringp constraint)
+          (error "[dependencies].~A must be a string constraint" dep-name))
+        (setf clean-constraint (trim-string constraint))
+        (when (blank-string-p clean-constraint)
+          (error "[dependencies].~A must be a non-empty string constraint" dep-name))
+        (push (list :name dep-name
+                    :constraint clean-constraint)
+              out)))
+    (nreverse out)))
+
+(defun parse-platform-section (toml)
+  (let* ((os-list (parse-platform-token-list
+                   (toml-ref toml "platform" "os")
+                   "[platform].os"))
+         (arch-list (parse-platform-token-list
+                     (toml-ref toml "platform" "arch")
+                     "[platform].arch"))
+         (container-mode (toml-ref toml "platform" "container"))
+         (min-cpus (ensure-positive-integer-field
+                    (toml-ref toml "platform" "min_cpus")
+                    "[platform].min_cpus"))
+         (min-memory-mb (ensure-positive-integer-field
+                         (toml-ref toml "platform" "min_memory_mb")
+                         "[platform].min_memory_mb")))
+    (when container-mode
+      (setf container-mode (normalize-token
+                            (ensure-string-field container-mode "[platform].container")))
+      (unless (member container-mode '("optional" "required" "forbidden")
+                      :test #'string=)
+        (error "[platform].container must be one of optional|required|forbidden")))
+    (list :os os-list
+          :arch arch-list
+          :container (or container-mode "optional")
+          :min-cpus min-cpus
+          :min-memory-mb min-memory-mb)))
+
 (defun validate-project-from-toml
     (toml-string file-exists-p &key source-repository ref commit html-url
                              enforce-repository)
@@ -158,6 +238,8 @@
          (runtime-command-mode (ensure-boolean-field
                                 (toml-ref toml "runtime" "command_mode" :required t)
                                 "[runtime].command_mode"))
+         (dependencies (parse-dependencies-section toml name))
+         (platform (parse-platform-section toml))
          (image (toml-ref toml "container" "image"))
          (dockerfile (toml-ref toml "container" "dockerfile"))
          (id nil)
@@ -214,6 +296,8 @@
           :command-name command-name
           :runtime-pipe runtime-pipe
           :runtime-command-mode runtime-command-mode
+          :dependencies dependencies
+          :platform platform
           :main main
           :help "docs/help.md"
           :container container

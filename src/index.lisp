@@ -5,6 +5,22 @@
 (defun bool-json (value)
   (if value t :false))
 
+(defun dependency-list-json (dependencies)
+  (cons :array
+        (mapcar (lambda (dep)
+                  (json-object
+                   (cons "name" (plist-ref dep :name))
+                   (cons "constraint" (plist-ref dep :constraint))))
+                dependencies)))
+
+(defun platform-json (platform)
+  (json-object
+   (cons "os" (cons :array (or (plist-ref platform :os) nil)))
+   (cons "arch" (cons :array (or (plist-ref platform :arch) nil)))
+   (cons "container" (plist-ref platform :container))
+   (cons "min_cpus" (or (plist-ref platform :min-cpus) :null))
+   (cons "min_memory_mb" (or (plist-ref platform :min-memory-mb) :null))))
+
 (defun project-record-json (record)
   (let ((container (plist-ref record :container)))
     (json-object
@@ -24,6 +40,13 @@
            (json-object
             (cons "pipe" (bool-json (plist-ref record :runtime-pipe)))
             (cons "command_mode" (bool-json (plist-ref record :runtime-command-mode)))))
+     (cons "dependencies"
+           (json-object
+            (cons "packages"
+                  (dependency-list-json (or (plist-ref record :dependencies) nil)))))
+     (cons "platform"
+           (platform-json (or (plist-ref record :platform)
+                              (list :os nil :arch nil :container "optional"))))
      (cons "paths"
            (json-object
             (cons "main" (plist-ref record :main))

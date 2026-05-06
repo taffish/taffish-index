@@ -37,6 +37,32 @@ A repository is considered a TAFFISH app when:
 
 The builder prefers release tags. Default branch indexing can be enabled for development snapshots.
 
+## Optional Metadata
+
+`taffish.toml` can include dependency and platform constraints:
+
+```toml
+[dependencies]
+blast = ">=2.0.0-r1"
+seqtk = "^1.0.0-r3"
+
+[platform]
+os = "linux,darwin"
+arch = "amd64,arm64"
+container = "required"       # optional|required|forbidden
+min_cpus = 2
+min_memory_mb = 4096
+```
+
+These fields are exported into each version record under:
+
+- `dependencies.packages[]`
+- `platform.os[]`
+- `platform.arch[]`
+- `platform.container`
+- `platform.min_cpus`
+- `platform.min_memory_mb`
+
 ## Local Test
 
 From this repository root:
