@@ -118,9 +118,12 @@
 (defun scan-github-repository (repo-json &key include-default-branch)
   (let* ((full-name (repo-full-name repo-json))
          (default-branch (repo-default-branch repo-json))
+         (default-toml (github-raw-text full-name default-branch "taffish.toml"))
          (records nil)
          (warnings nil)
          (release-tags nil))
+    (unless default-toml
+      (return-from scan-github-repository (values nil nil)))
     (handler-case
         (setf release-tags
               (remove-if-not
@@ -149,8 +152,16 @@
                   warnings)))))
     (when include-default-branch
       (handler-case
-          (let ((record (scan-github-ref full-name default-branch
-                                         :enforce-repository t)))
+          (let ((record
+                  (validate-project-from-toml
+                   default-toml
+                   (lambda (path)
+                     (github-file-exists-p full-name default-branch path))
+                   :source-repository full-name
+                   :ref default-branch
+                   :html-url (format nil "https://github.com/~A/tree/~A"
+                                     full-name default-branch)
+                   :enforce-repository t)))
             (when record
               (push record records)))
         (error (c)

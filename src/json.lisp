@@ -26,7 +26,9 @@
 
 (defun %json-skip-ws (string pos)
   (loop while (and (< pos (length string))
-                   (find (char string pos) " \t\r\n"))
+                   (member (char string pos)
+                           '(#\Space #\Tab #\Newline #\Return)
+                           :test #'char=))
         do (incf pos)
         finally (return pos)))
 
@@ -34,7 +36,7 @@
   (unless (char= #\" (char string pos))
     (error "expected JSON string at ~A" pos))
   (incf pos)
-  (with-output-to-string (out)
+  (let ((out (make-string-output-stream)))
     (loop
       (when (>= pos (length string))
         (error "unterminated JSON string"))
@@ -42,7 +44,8 @@
         (incf pos)
         (cond
           ((char= char #\")
-           (return (values (get-output-stream-string out) pos)))
+           (return-from %json-parse-string
+             (values (get-output-stream-string out) pos)))
           ((char= char #\\)
            (when (>= pos (length string))
              (error "unterminated JSON escape"))
