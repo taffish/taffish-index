@@ -1,13 +1,13 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-07T09:44:13Z",
+  "generated_at": "2026-05-07T10:48:16Z",
   "organization": "taffish",
   "counts": {
     "packages": 1,
     "versions": 2,
     "commands": 1,
     "repositories": 1,
-    "warnings": 0
+    "warnings": 1
   },
   "packages": {
     "my-test-tool": {
@@ -35,9 +35,7 @@
             "pipe": true,
             "command_mode": true
           },
-          "dependencies": {
-            "packages": []
-          },
+          "dependencies": {},
           "platform": {
             "os": [],
             "arch": [],
@@ -59,7 +57,7 @@
           "source": {
             "repository": "taffish/my-test-tool",
             "ref": "v0.1.0-r1",
-            "commit": "3feb0991e208d040187f29a258dccf77dd783cf7",
+            "commit": "de790e8bda1bdd5af68d217928bbd348c2fec6d4",
             "html_url": "https://github.com/taffish/my-test-tool/tree/v0.1.0-r1"
           }
         },
@@ -80,9 +78,7 @@
             "pipe": true,
             "command_mode": true
           },
-          "dependencies": {
-            "packages": []
-          },
+          "dependencies": {},
           "platform": {
             "os": [],
             "arch": [],
@@ -104,7 +100,7 @@
           "source": {
             "repository": "taffish/my-test-tool",
             "ref": "v0.1.0-r2",
-            "commit": "bcb87f3c45dc3cb1bfec5b45ec412b150f502c49",
+            "commit": "aa48a7f0b15f8235aca9e9b8d75a80057525dbf9",
             "html_url": "https://github.com/taffish/my-test-tool/tree/v0.1.0-r2"
           }
         }
@@ -125,5 +121,11 @@
       ]
     }
   },
-  "warnings": []
+  "warnings": [
+    {
+      "repository": "taffish/my-test-flow",
+      "ref": "v0.1.0-r1",
+      "message": "unsupported TOML value: \" [\\\"0.1.0-r1\\\", \\\"0.1.0-r2\\\"]\""
+    }
+  ]
 }
