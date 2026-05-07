@@ -5,13 +5,13 @@
 (defun bool-json (value)
   (if value t :false))
 
-(defun dependency-list-json (dependencies)
-  (cons :array
-        (mapcar (lambda (dep)
-                  (json-object
-                   (cons "name" (plist-ref dep :name))
-                   (cons "constraint" (plist-ref dep :constraint))))
-                dependencies)))
+(defun dependencies-json (dependencies)
+  (let (pairs)
+    (dolist (dep dependencies)
+      (push (cons (plist-ref dep :command)
+                  (plist-ref dep :version))
+            pairs))
+    (cons :object (nreverse pairs))))
 
 (defun platform-json (platform)
   (json-object
@@ -41,9 +41,7 @@
             (cons "pipe" (bool-json (plist-ref record :runtime-pipe)))
             (cons "command_mode" (bool-json (plist-ref record :runtime-command-mode)))))
      (cons "dependencies"
-           (json-object
-            (cons "packages"
-                  (dependency-list-json (or (plist-ref record :dependencies) nil)))))
+           (dependencies-json (or (plist-ref record :dependencies) nil)))
      (cons "platform"
            (platform-json (or (plist-ref record :platform)
                               (list :os nil :arch nil :container "optional"))))

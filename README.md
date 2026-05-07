@@ -43,8 +43,8 @@ The builder prefers release tags. Default branch indexing can be enabled for dev
 
 ```toml
 [dependencies]
-blast = ">=2.0.0-r1"
-seqtk = "^1.0.0-r3"
+taf-dep-tool = "0.1.0-r1"
+taf-next-step = "latest"
 
 [platform]
 os = "linux,darwin"
@@ -56,7 +56,7 @@ min_memory_mb = 4096
 
 These fields are exported into each version record under:
 
-- `dependencies.packages[]`
+- `dependencies` (command => version-id object map)
 - `platform.os[]`
 - `platform.arch[]`
 - `platform.container`

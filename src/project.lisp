@@ -15,6 +15,12 @@
        (not (member (char name 0) '(#\- #\.) :test #'char=))
        (not (find-if-not #'project-name-char-p name))))
 
+(defun valid-command-name-p (name)
+  (and (stringp name)
+       (string-prefix-p "taf-" name)
+       (> (length name) 4)
+       (valid-project-name-p (subseq name 4))))
+
 (defun valid-version-string-p (version)
   (and (stringp version)
        (> (length version) 0)
@@ -160,24 +166,26 @@
     (error "~A must be a positive integer when present" field-name))
   value)
 
-(defun parse-dependencies-section (toml package-name)
+(defun parse-dependencies-section (toml command-name)
   (let ((pairs (toml-section-pairs toml "dependencies"))
         (out nil))
     (dolist (pair pairs)
-      (let* ((dep-name (car pair))
-             (constraint (cdr pair))
-             (clean-constraint nil))
-        (unless (valid-project-name-p dep-name)
-          (error "[dependencies] has an invalid package name: ~S" dep-name))
-        (when (string= dep-name package-name)
-          (error "[dependencies] package can't depend on itself: ~S" dep-name))
-        (unless (stringp constraint)
-          (error "[dependencies].~A must be a string constraint" dep-name))
-        (setf clean-constraint (trim-string constraint))
-        (when (blank-string-p clean-constraint)
-          (error "[dependencies].~A must be a non-empty string constraint" dep-name))
-        (push (list :name dep-name
-                    :constraint clean-constraint)
+      (let* ((dep-command (car pair))
+             (version-id (cdr pair))
+             (clean-version-id nil))
+        (unless (valid-command-name-p dep-command)
+          (error "[dependencies] has an invalid command key (must start with taf-): ~S"
+                 dep-command))
+        (when (string= dep-command command-name)
+          (error "[dependencies] command can't depend on itself: ~S" dep-command))
+        (unless (stringp version-id)
+          (error "[dependencies].~A must be a string version id" dep-command))
+        (setf clean-version-id (trim-string version-id))
+        (when (blank-string-p clean-version-id)
+          (error "[dependencies].~A must be a non-empty string version id"
+                 dep-command))
+        (push (list :command dep-command
+                    :version clean-version-id)
               out)))
     (nreverse out)))
 
@@ -238,7 +246,7 @@
          (runtime-command-mode (ensure-boolean-field
                                 (toml-ref toml "runtime" "command_mode" :required t)
                                 "[runtime].command_mode"))
-         (dependencies (parse-dependencies-section toml name))
+         (dependencies (parse-dependencies-section toml command-name))
          (platform (parse-platform-section toml))
          (image (toml-ref toml "container" "image"))
          (dockerfile (toml-ref toml "container" "dockerfile"))
