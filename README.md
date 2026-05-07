@@ -2,7 +2,7 @@
 
 `taffish-index` is the generated package index for TAFFISH.
 
-The repository is intentionally static. Its GitHub Actions workflow scans `taffish-org`, finds repositories that look like TAFFISH apps, and updates:
+The repository is intentionally static. Its GitHub Actions workflow scans `taffish`, finds repositories that look like TAFFISH apps, and updates:
 
 ```text
 index/index.json
@@ -19,7 +19,7 @@ taf update
 and download:
 
 ```text
-https://raw.githubusercontent.com/taffish-org/taffish-index/main/index/index.json
+https://raw.githubusercontent.com/taffish/taffish-index/main/index/index.json
 ```
 
 Then `taf install <name>` can resolve package metadata from the cached index.
@@ -93,4 +93,4 @@ sbcl --script scripts/build-index.lisp -- --org "$TAFFISH_ORG" --output index
 
 and commits changed `index/` files back to this repository.
 
-Configure repository variable `TAFFISH_ORG` if the organization is not `taffish-org`. Configure secret `TAFFISH_BOT_TOKEN` if the workflow must read private repositories; otherwise the default `GITHUB_TOKEN` is enough for public repository scans.
+Configure repository variable `TAFFISH_ORG` if the organization is not `taffish`. Configure secret `TAFFISH_BOT_TOKEN` if the workflow must read private repositories; otherwise the default `GITHUB_TOKEN` is enough for public repository scans.

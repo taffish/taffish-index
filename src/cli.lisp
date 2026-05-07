@@ -6,7 +6,7 @@
 
 Options:
   --org <ORG>                    Scan GitHub organization
-                                  [env TAFFISH_ORG or taffish-org]
+                                  [env TAFFISH_ORG or taffish]
   --local-repo <PATH>            Add a local TAFFISH app repository
   --output <DIR>                 Output directory [index]
   --include-default-branch       Also index default branch snapshots
@@ -17,7 +17,7 @@ Options:
 (defun parse-cli-args (args)
   (when (and args (string= (car args) "--"))
     (setf args (cdr args)))
-  (let ((org (env "TAFFISH_ORG" "taffish-org"))
+  (let ((org (env "TAFFISH_ORG" "taffish"))
         (local-repos nil)
         (output "index")
         (include-default-branch
