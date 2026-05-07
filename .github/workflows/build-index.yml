@@ -22,7 +22,6 @@ jobs:
   build-index:
     runs-on: ubuntu-latest
     env:
-      TAFFISH_ORG: ${{ vars.TAFFISH_ORG || 'taffish' }}
       TAFFISH_BOT_TOKEN: ${{ secrets.TAFFISH_BOT_TOKEN || github.token }}
       TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH: ${{ inputs.include_default_branch && 'true' || 'false' }}
     steps:
@@ -36,7 +35,7 @@ jobs:
 
       - name: Build index
         run: |
-          sbcl --script scripts/build-index.lisp -- --org "${TAFFISH_ORG}" --output index
+          sbcl --script scripts/build-index.lisp -- --org "taffish" --output index
 
       - name: Commit generated index
         run: |

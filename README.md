@@ -88,9 +88,9 @@ sbcl --script scripts/build-index.lisp -- --local-repo ../../../taffish/test/my-
 It installs SBCL, runs:
 
 ```sh
-sbcl --script scripts/build-index.lisp -- --org "$TAFFISH_ORG" --output index
+sbcl --script scripts/build-index.lisp -- --org "taffish" --output index
 ```
 
 and commits changed `index/` files back to this repository.
 
-Configure repository variable `TAFFISH_ORG` if the organization is not `taffish`. Configure secret `TAFFISH_BOT_TOKEN` if the workflow must read private repositories; otherwise the default `GITHUB_TOKEN` is enough for public repository scans.
+The automation is fixed to scan the `taffish` organization. Configure secret `TAFFISH_BOT_TOKEN` if the workflow must read private repositories; otherwise the default `GITHUB_TOKEN` is enough for public repository scans.
