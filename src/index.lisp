@@ -5,11 +5,16 @@
 (defun bool-json (value)
   (if value t :false))
 
+(defun dependency-version-json (versions)
+  (if (and versions (null (cdr versions)))
+      (car versions)
+      (cons :array (or versions nil))))
+
 (defun dependencies-json (dependencies)
   (let (pairs)
     (dolist (dep dependencies)
       (push (cons (plist-ref dep :command)
-                  (plist-ref dep :version))
+                  (dependency-version-json (plist-ref dep :versions)))
             pairs))
     (cons :object (nreverse pairs))))
 

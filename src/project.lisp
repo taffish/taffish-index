@@ -166,26 +166,49 @@
     (error "~A must be a positive integer when present" field-name))
   value)
 
+(defun normalize-dependency-version-id (value dep-command)
+  (unless (stringp value)
+    (error "[dependencies].~A version id must be a string" dep-command))
+  (let ((clean (trim-string value)))
+    (when (blank-string-p clean)
+      (error "[dependencies].~A version id must be a non-empty string"
+             dep-command))
+    clean))
+
+(defun parse-dependency-version-ids (raw-value dep-command)
+  (cond
+    ((stringp raw-value)
+     (list (normalize-dependency-version-id raw-value dep-command)))
+    ((listp raw-value)
+     (let ((out nil))
+       (dolist (item raw-value)
+         (let ((version-id (normalize-dependency-version-id item dep-command)))
+           (unless (member version-id out :test #'string=)
+             (push version-id out))))
+       (when (null out)
+         (error "[dependencies].~A version array must not be empty"
+                dep-command))
+       (nreverse out)))
+    (t
+     (error "[dependencies].~A must be a string or an array of strings"
+            dep-command))))
+
 (defun parse-dependencies-section (toml command-name)
   (let ((pairs (toml-section-pairs toml "dependencies"))
         (out nil))
     (dolist (pair pairs)
       (let* ((dep-command (car pair))
-             (version-id (cdr pair))
-             (clean-version-id nil))
+             (version-raw-value (cdr pair))
+             (version-ids nil))
         (unless (valid-command-name-p dep-command)
           (error "[dependencies] has an invalid command key (must start with taf-): ~S"
                  dep-command))
         (when (string= dep-command command-name)
           (error "[dependencies] command can't depend on itself: ~S" dep-command))
-        (unless (stringp version-id)
-          (error "[dependencies].~A must be a string version id" dep-command))
-        (setf clean-version-id (trim-string version-id))
-        (when (blank-string-p clean-version-id)
-          (error "[dependencies].~A must be a non-empty string version id"
-                 dep-command))
+        (setf version-ids
+              (parse-dependency-version-ids version-raw-value dep-command))
         (push (list :command dep-command
-                    :version clean-version-id)
+                    :versions version-ids)
               out)))
     (nreverse out)))
 

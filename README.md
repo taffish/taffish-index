@@ -45,6 +45,7 @@ The builder prefers release tags. Default branch indexing can be enabled for dev
 [dependencies]
 taf-dep-tool = "0.1.0-r1"
 taf-next-step = "latest"
+taf-x = ["0.1.0-r1", "0.1.0-r2"]
 
 [platform]
 os = "linux,darwin"
@@ -56,7 +57,7 @@ min_memory_mb = 4096
 
 These fields are exported into each version record under:
 
-- `dependencies` (command => version-id object map)
+- `dependencies` (command => version-id or version-id array)
 - `platform.os[]`
 - `platform.arch[]`
 - `platform.container`

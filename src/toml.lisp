@@ -12,10 +12,52 @@
   (let ((clean (trim-string line)))
     (string-downcase (subseq clean 1 (1- (length clean))))))
 
+(defun split-toml-array-items (body)
+  (let ((items nil)
+        (start 0)
+        (in-string nil)
+        (escape nil))
+    (loop for index from 0 below (length body) do
+      (let ((char (char body index)))
+        (cond
+          (escape
+           (setf escape nil))
+          ((and in-string (char= char #\\))
+           (setf escape t))
+          ((and in-string (char= char #\"))
+           (setf in-string nil))
+          ((and (not in-string) (char= char #\"))
+           (setf in-string t))
+          ((and (not in-string) (char= char #\,))
+           (push (subseq body start index) items)
+           (setf start (1+ index))))))
+    (when in-string
+      (error "unterminated string in TOML array: ~S" body))
+    (push (subseq body start) items)
+    (nreverse items)))
+
+(defun parse-toml-array-value (raw-value)
+  (let* ((value (trim-string raw-value))
+         (len (length value)))
+    (unless (and (>= len 2)
+                 (char= #\[ (char value 0))
+                 (char= #\] (char value (1- len))))
+      (error "invalid TOML array: ~S" raw-value))
+    (let ((body (trim-string (subseq value 1 (1- len)))))
+      (if (blank-string-p body)
+          nil
+          (mapcar #'parse-toml-value
+                  (mapcar #'trim-string
+                          (split-toml-array-items body)))))))
+
 (defun parse-toml-value (raw-value)
   (let* ((value (trim-string raw-value))
          (len (length value)))
     (cond
+      ((and (>= len 2)
+            (char= #\[ (char value 0))
+            (char= #\] (char value (1- len))))
+       (parse-toml-array-value value))
       ((and (>= len 2)
             (char= #\" (char value 0))
             (char= #\" (char value (1- len))))
