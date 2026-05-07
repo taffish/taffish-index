@@ -83,7 +83,9 @@ sbcl --script scripts/build-index.lisp -- --local-repo ../../../taffish/test/my-
 `.github/workflows/build-index.yml` runs on:
 
 - manual dispatch,
-- hourly schedule.
+- daily schedule.
+
+The scheduled run uses cron `17 1 * * *` (UTC).
 
 It installs SBCL, runs:
 
