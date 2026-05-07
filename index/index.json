@@ -1,15 +1,68 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-07T10:50:37Z",
+  "generated_at": "2026-05-07T10:54:02Z",
   "organization": "taffish",
   "counts": {
-    "packages": 1,
-    "versions": 2,
-    "commands": 1,
-    "repositories": 1,
-    "warnings": 1
+    "packages": 2,
+    "versions": 3,
+    "commands": 2,
+    "repositories": 2,
+    "warnings": 0
   },
   "packages": {
+    "my-test-flow": {
+      "name": "my-test-flow",
+      "latest": "0.1.0-r1",
+      "repository_url": "https://github.com/taffish/my-test-flow",
+      "command": {
+        "name": "taf-my-test-flow"
+      },
+      "versions": {
+        "0.1.0-r1": {
+          "name": "my-test-flow",
+          "kind": "flow",
+          "version": "0.1.0",
+          "release": 1,
+          "version_id": "0.1.0-r1",
+          "tag": "v0.1.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/my-test-flow",
+          "repository_slug": "taffish/my-test-flow",
+          "command": {
+            "name": "taf-my-test-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-my-test-tool": [
+              "0.1.0-r1",
+              "0.1.0-r2"
+            ]
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "source": {
+            "repository": "taffish/my-test-flow",
+            "ref": "v0.1.0-r1",
+            "commit": "fbd4d591d8f9a05363f7fd3df283312868e27e7a",
+            "html_url": "https://github.com/taffish/my-test-flow/tree/v0.1.0-r1"
+          }
+        }
+      }
+    },
     "my-test-tool": {
       "name": "my-test-tool",
       "latest": "0.1.0-r2",
@@ -108,12 +161,22 @@
     }
   },
   "commands": {
+    "taf-my-test-flow": {
+      "package": "my-test-flow",
+      "version": "0.1.0-r1"
+    },
     "taf-my-test-tool": {
       "package": "my-test-tool",
       "version": "0.1.0-r2"
     }
   },
   "repositories": {
+    "taffish/my-test-flow": {
+      "repository": "taffish/my-test-flow",
+      "packages": [
+        "my-test-flow"
+      ]
+    },
     "taffish/my-test-tool": {
       "repository": "taffish/my-test-tool",
       "packages": [
@@ -121,11 +184,5 @@
       ]
     }
   },
-  "warnings": [
-    {
-      "repository": "taffish/my-test-flow",
-      "ref": "v0.1.0-r1",
-      "message": "unsupported TOML value: \" [\\\"0.1.0-r1\\\", \\\"0.1.0-r2\\\"]\""
-    }
-  ]
+  "warnings": []
 }
