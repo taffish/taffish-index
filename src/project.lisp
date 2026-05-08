@@ -238,6 +238,36 @@
           :min-cpus min-cpus
           :min-memory-mb min-memory-mb)))
 
+(defparameter *upstream-string-fields*
+  '(("name" . :name)
+    ("type" . :type)
+    ("homepage" . :homepage)
+    ("repository" . :repository)
+    ("release_url" . :release-url)
+    ("docker_image" . :docker-image)
+    ("version" . :version)
+    ("license" . :license)
+    ("citation" . :citation)
+    ("doi" . :doi)
+    ("pmid" . :pmid)))
+
+(defun parse-upstream-section (toml)
+  (let ((section (gethash "upstream" toml))
+        (out nil))
+    (when section
+      (dolist (field *upstream-string-fields*)
+        (let* ((toml-key (car field))
+               (plist-key (cdr field))
+               (raw-value (gethash toml-key section)))
+          (when (stringp raw-value)
+            (let ((value (trim-string raw-value)))
+              (unless (blank-string-p value)
+                (setf (getf out plist-key)
+                      (if (eq plist-key :type)
+                          (normalize-token value)
+                          value))))))))
+    out))
+
 (defun validate-project-from-toml
     (toml-string file-exists-p &key source-repository ref commit html-url
                              enforce-repository)
@@ -271,6 +301,7 @@
                                 "[runtime].command_mode"))
          (dependencies (parse-dependencies-section toml command-name))
          (platform (parse-platform-section toml))
+         (upstream (parse-upstream-section toml))
          (image (toml-ref toml "container" "image"))
          (dockerfile (toml-ref toml "container" "dockerfile"))
          (id nil)
@@ -329,6 +360,7 @@
           :runtime-command-mode runtime-command-mode
           :dependencies dependencies
           :platform platform
+          :upstream upstream
           :main main
           :help "docs/help.md"
           :container container

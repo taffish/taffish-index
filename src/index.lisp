@@ -26,50 +26,79 @@
    (cons "min_cpus" (or (plist-ref platform :min-cpus) :null))
    (cons "min_memory_mb" (or (plist-ref platform :min-memory-mb) :null))))
 
+(defparameter *upstream-json-fields*
+  '(("name" . :name)
+    ("type" . :type)
+    ("homepage" . :homepage)
+    ("repository" . :repository)
+    ("release_url" . :release-url)
+    ("docker_image" . :docker-image)
+    ("version" . :version)
+    ("license" . :license)
+    ("citation" . :citation)
+    ("doi" . :doi)
+    ("pmid" . :pmid)))
+
+(defun upstream-json (upstream)
+  (when upstream
+    (let (pairs)
+      (dolist (field *upstream-json-fields*)
+        (let ((value (plist-ref upstream (cdr field))))
+          (when value
+            (push (cons (car field) value) pairs))))
+      (when pairs
+        (cons :object (nreverse pairs))))))
+
 (defun project-record-json (record)
-  (let ((container (plist-ref record :container)))
-    (json-object
-     (cons "name" (plist-ref record :name))
-     (cons "kind" (plist-ref record :kind))
-     (cons "version" (plist-ref record :version))
-     (cons "release" (plist-ref record :release))
-     (cons "version_id" (plist-ref record :version-id))
-     (cons "tag" (plist-ref record :tag))
-     (cons "license" (or (plist-ref record :license) :null))
-     (cons "repository_url" (plist-ref record :repository-url))
-     (cons "repository_slug" (plist-ref record :repository-slug))
-     (cons "command"
-           (json-object
-            (cons "name" (plist-ref record :command-name))))
-     (cons "runtime"
-           (json-object
-            (cons "pipe" (bool-json (plist-ref record :runtime-pipe)))
-            (cons "command_mode" (bool-json (plist-ref record :runtime-command-mode)))))
-     (cons "dependencies"
-           (dependencies-json (or (plist-ref record :dependencies) nil)))
-     (cons "platform"
-           (platform-json (or (plist-ref record :platform)
-                              (list :os nil :arch nil :container "optional"))))
-     (cons "paths"
-           (json-object
-            (cons "main" (plist-ref record :main))
-            (cons "help" (plist-ref record :help))
-            (cons "dockerfile" (or (plist-ref container :dockerfile) :null))))
-     (cons "container"
-           (if container
-               (json-object
-                (cons "image" (or (plist-ref container :image) :null))
-                (cons "dockerfile" (or (plist-ref container :dockerfile) :null))
-                (cons "image_tag" (or (plist-ref container :image-tag) :null))
-                (cons "image_tag_matches_version"
-                      (bool-json (plist-ref container :image-tag-matches-version))))
-               :null))
-     (cons "source"
-           (json-object
-            (cons "repository" (plist-ref record :source-repository))
-            (cons "ref" (or (plist-ref record :source-ref) :null))
-            (cons "commit" (or (plist-ref record :source-commit) :null))
-            (cons "html_url" (or (plist-ref record :source-html-url) :null)))))))
+  (let ((container (plist-ref record :container))
+        (upstream (upstream-json (plist-ref record :upstream))))
+    (apply
+     #'json-object
+     (append
+      (list
+       (cons "name" (plist-ref record :name))
+       (cons "kind" (plist-ref record :kind))
+       (cons "version" (plist-ref record :version))
+       (cons "release" (plist-ref record :release))
+       (cons "version_id" (plist-ref record :version-id))
+       (cons "tag" (plist-ref record :tag))
+       (cons "license" (or (plist-ref record :license) :null))
+       (cons "repository_url" (plist-ref record :repository-url))
+       (cons "repository_slug" (plist-ref record :repository-slug))
+       (cons "command"
+             (json-object
+              (cons "name" (plist-ref record :command-name))))
+       (cons "runtime"
+             (json-object
+              (cons "pipe" (bool-json (plist-ref record :runtime-pipe)))
+              (cons "command_mode" (bool-json (plist-ref record :runtime-command-mode)))))
+       (cons "dependencies"
+             (dependencies-json (or (plist-ref record :dependencies) nil)))
+       (cons "platform"
+             (platform-json (or (plist-ref record :platform)
+                                (list :os nil :arch nil :container "optional"))))
+       (cons "paths"
+             (json-object
+              (cons "main" (plist-ref record :main))
+              (cons "help" (plist-ref record :help))
+              (cons "dockerfile" (or (plist-ref container :dockerfile) :null))))
+       (cons "container"
+             (if container
+                 (json-object
+                  (cons "image" (or (plist-ref container :image) :null))
+                  (cons "dockerfile" (or (plist-ref container :dockerfile) :null))
+                  (cons "image_tag" (or (plist-ref container :image-tag) :null))
+                  (cons "image_tag_matches_version"
+                        (bool-json (plist-ref container :image-tag-matches-version))))
+                 :null))
+       (cons "source"
+             (json-object
+              (cons "repository" (plist-ref record :source-repository))
+              (cons "ref" (or (plist-ref record :source-ref) :null))
+              (cons "commit" (or (plist-ref record :source-commit) :null))
+              (cons "html_url" (or (plist-ref record :source-html-url) :null)))))
+      (when upstream
+        (list (cons "upstream" upstream)))))))
 
 (defun warning-json (warning)
   (json-object

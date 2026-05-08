@@ -39,7 +39,7 @@ The builder prefers release tags. Default branch indexing can be enabled for dev
 
 ## Optional Metadata
 
-`taffish.toml` can include dependency and platform constraints:
+`taffish.toml` can include dependency, platform, and upstream source metadata:
 
 ```toml
 [dependencies]
@@ -53,6 +53,18 @@ arch = "amd64,arm64"
 container = "required"       # optional|required|forbidden
 min_cpus = 2
 min_memory_mb = 4096
+
+[upstream]
+name = "CD-HIT"
+type = "github"              # official|github|gitlab|archive|docker|apt|conda|other
+homepage = "https://github.com/weizhongli/cdhit"
+repository = "weizhongli/cdhit"
+release_url = "https://github.com/weizhongli/cdhit/releases"
+version = "4.8.1"
+license = "GPL-2.0"
+citation = "Fu et al. 2012"
+doi = "10.1093/bioinformatics/bts565"
+pmid = "23060610"
 ```
 
 These fields are exported into each version record under:
@@ -63,20 +75,26 @@ These fields are exported into each version record under:
 - `platform.container`
 - `platform.min_cpus`
 - `platform.min_memory_mb`
+- `upstream` (only when at least one recognized upstream field is provided)
+
+Recognized upstream fields are `name`, `type`, `homepage`, `repository`,
+`release_url`, `docker_image`, `version`, `license`, `citation`, `doi`, and
+`pmid`. Unknown or empty upstream fields are ignored, and missing upstream
+metadata is omitted instead of being represented as `null` or `none`.
 
 ## Local Test
 
 From this repository root:
 
 ```sh
-sbcl --script scripts/build-index.lisp -- --local-repo ../../taffish/test/my-test-tool --output index
+sbcl --script scripts/build-index.lisp -- --no-org --local-repo ../../taffish/test/my-test-tool --output index
 ```
 
 From the `taffish-hub` workspace root:
 
 ```sh
 cd repos/taffish-index
-sbcl --script scripts/build-index.lisp -- --local-repo ../../../taffish/test/my-test-tool --output index
+sbcl --script scripts/build-index.lisp -- --no-org --local-repo ../../../taffish/test/my-test-tool --output index
 ```
 
 ## GitHub Automation
