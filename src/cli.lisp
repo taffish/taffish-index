@@ -7,6 +7,7 @@
 Options:
   --org <ORG>                    Scan GitHub organization
                                   [env TAFFISH_ORG or taffish]
+  --no-org                       Disable GitHub organization scan
   --local-repo <PATH>            Add a local TAFFISH app repository
   --output <DIR>                 Output directory [index]
   --include-default-branch       Also index default branch snapshots
