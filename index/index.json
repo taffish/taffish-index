@@ -1,15 +1,71 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-08T04:25:51Z",
+  "generated_at": "2026-05-08T19:01:36Z",
   "organization": "taffish",
   "counts": {
-    "packages": 2,
-    "versions": 5,
-    "commands": 2,
-    "repositories": 2,
+    "packages": 3,
+    "versions": 6,
+    "commands": 3,
+    "repositories": 3,
     "warnings": 0
   },
   "packages": {
+    "augustus": {
+      "name": "augustus",
+      "latest": "3.5.0-r1",
+      "repository_url": "https://github.com/taffish/augustus",
+      "command": {
+        "name": "taf-augustus"
+      },
+      "versions": {
+        "3.5.0-r1": {
+          "name": "augustus",
+          "kind": "tool",
+          "version": "3.5.0",
+          "release": 1,
+          "version_id": "3.5.0-r1",
+          "tag": "v3.5.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/augustus",
+          "repository_slug": "taffish/augustus",
+          "command": {
+            "name": "taf-augustus"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/augustus:3.5.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.5.0-r1",
+            "image_tag_matches_version": true
+          },
+          "source": {
+            "repository": "taffish/augustus",
+            "ref": "v3.5.0-r1",
+            "commit": "1f3f79b73d3b77ad1d18cb897f9022e17520d637",
+            "html_url": "https://github.com/taffish/augustus/tree/v3.5.0-r1"
+          },
+          "upstream": {
+            "type": "github"
+          }
+        }
+      }
+    },
     "my-test-flow": {
       "name": "my-test-flow",
       "latest": "0.1.0-r2",
@@ -248,6 +304,10 @@
     }
   },
   "commands": {
+    "taf-augustus": {
+      "package": "augustus",
+      "version": "3.5.0-r1"
+    },
     "taf-my-test-flow": {
       "package": "my-test-flow",
       "version": "0.1.0-r2"
@@ -258,6 +318,12 @@
     }
   },
   "repositories": {
+    "taffish/augustus": {
+      "repository": "taffish/augustus",
+      "packages": [
+        "augustus"
+      ]
+    },
     "taffish/my-test-flow": {
       "repository": "taffish/my-test-flow",
       "packages": [
