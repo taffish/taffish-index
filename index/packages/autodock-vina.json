@@ -1,0 +1,56 @@
+{
+  "name": "autodock-vina",
+  "latest": "1.2.7-r1",
+  "repository_url": "https://github.com/taffish/autodock-vina",
+  "command": {
+    "name": "taf-autodock-vina"
+  },
+  "versions": {
+    "1.2.7-r1": {
+      "name": "autodock-vina",
+      "kind": "tool",
+      "version": "1.2.7",
+      "release": 1,
+      "version_id": "1.2.7-r1",
+      "tag": "v1.2.7-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/autodock-vina",
+      "repository_slug": "taffish/autodock-vina",
+      "command": {
+        "name": "taf-autodock-vina"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/autodock-vina:1.2.7-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.2.7-r1",
+        "image_tag_matches_version": true
+      },
+      "source": {
+        "repository": "taffish/autodock-vina",
+        "ref": "v1.2.7-r1",
+        "commit": "3ab12e99b733b526866c3a7acc08a9e1d26885e2",
+        "html_url": "https://github.com/taffish/autodock-vina/tree/v1.2.7-r1"
+      },
+      "upstream": {
+        "type": "github"
+      }
+    }
+  }
+}
