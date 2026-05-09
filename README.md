@@ -41,6 +41,22 @@ The official index URL is:
 https://raw.githubusercontent.com/taffish/taffish-index/main/index/index.json
 ```
 
+TAFFISH `0.2.0` can also read a mirrored index through runtime config:
+
+```toml
+[index]
+url = "https://gitee.com/taffish-org/taffish-index/raw/main/index/index.json"
+
+[[source.rewrite]]
+from = "https://github.com/taffish/"
+to = "https://gitee.com/taffish-org/"
+enabled = true
+```
+
+`taf update` reads `[index].url`; `taf install` applies `source.rewrite` when
+cloning app repositories. Mirror operators must keep compatible repositories,
+release tags, and the same index schema.
+
 This repository does not build container images. Image builds belong to each app
 repository.
 
