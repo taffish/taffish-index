@@ -21,6 +21,7 @@
 - [本地测试](#本地测试)
 - [配置](#配置)
 - [相关仓库](#相关仓库)
+- [许可证](#许可证)
 - [当前状态](#当前状态)
 
 ## 在 TAFFISH Hub 中的角色
@@ -254,6 +255,13 @@ GitHub Actions workflow 会优先使用 repository secret 中的 `TAFFISH_BOT_TO
 - [taffish/taffish](https://github.com/taffish/taffish)：CLI 和编译器二进制发布仓库。
 - [taffish/taffish-docs](https://github.com/taffish/taffish-docs)：开发者文档仓库。
 - [taffish/taffish.github.io](https://github.com/taffish/taffish.github.io)：网页版 Hub。
+
+## 许可证
+
+index builder 源码和仓库自动化使用 [Apache License 2.0](LICENSE) 授权。
+
+`index/` 目录下生成的机器可读索引数据使用 [CC0 1.0 Universal](LICENSE-DATA)
+进行公共领域贡献，方便镜像、缓存和第三方包索引消费。
 
 ## 当前状态
 

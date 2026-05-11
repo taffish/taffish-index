@@ -22,6 +22,7 @@ discovery and installation.
 - [Local Test](#local-test)
 - [Configuration](#configuration)
 - [Related Repositories](#related-repositories)
+- [License](#license)
 - [Status](#status)
 
 ## Role in TAFFISH Hub
@@ -260,6 +261,15 @@ available, and falls back to `GITHUB_TOKEN`.
 - [taffish/taffish](https://github.com/taffish/taffish): CLI and compiler binary distribution.
 - [taffish/taffish-docs](https://github.com/taffish/taffish-docs): developer documentation.
 - [taffish/taffish.github.io](https://github.com/taffish/taffish.github.io): web Hub.
+
+## License
+
+The index builder source code and repository automation are licensed under the
+[Apache License 2.0](LICENSE).
+
+The generated machine-readable index data under `index/` is dedicated under
+[CC0 1.0 Universal](LICENSE-DATA), to make mirroring, caching, and third-party
+package-index consumption straightforward.
 
 ## Status
 
