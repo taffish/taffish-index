@@ -1,0 +1,87 @@
+{
+  "name": "augustus",
+  "latest": "3.5.0-r1",
+  "repository_url": "https://github.com/taffish/augustus",
+  "command": {
+    "name": "taf-augustus"
+  },
+  "versions": {
+    "3.5.0-r1": {
+      "name": "augustus",
+      "kind": "tool",
+      "version": "3.5.0",
+      "release": 1,
+      "version_id": "3.5.0-r1",
+      "tag": "v3.5.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/augustus",
+      "repository_slug": "taffish/augustus",
+      "command": {
+        "name": "taf-augustus"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/augustus:3.5.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.5.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:699a412e86f146aea757b5d13bad55c9d5cd6ebf1260bda414a6b5fd2134d18f",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64",
+          "unknown/unknown"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:51613a2797c9087a39814acf0e5b5867a87adc07018e620abd2d0c2725784f49",
+          "linux/arm64": "sha256:20e62ad139eca5ad706608aba8b7be095f829aa1e0b171e26fd457dc9128e56a",
+          "unknown/unknown": "sha256:9e034a038bc4f94051854100528956708d108afb4d203042eb0294ec441bd71e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 60,
+        "exist": [
+          "augustus"
+        ],
+        "test": [
+          "augustus --species=help",
+          "augustus --version 2>&1 | grep -F 'AUGUSTUS (3.5.0)' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-12T11:14:14Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-12T11:14:14Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/augustus",
+        "ref": "v3.5.0-r1",
+        "commit": "72bb1e3ba02bbc284b61552e11e0b96a9a941dac",
+        "html_url": "https://github.com/taffish/augustus/tree/v3.5.0-r1"
+      },
+      "upstream": {
+        "type": "github"
+      }
+    }
+  }
+}
