@@ -248,6 +248,9 @@ Smoke：
 - `exist` 和 `test` 不能同时为空。
 - 默认 `TODO` 占位会被拒绝。
 - smoke 命令由 index 自动化运行，不由本地 `taf check` 运行。
+- `test` 条目是 TOML 字符串，并会在 smoke 容器中通过 `sh -lc` 执行。index
+  支持 `\"` 这类 TOML 转义；但如果命令本身需要嵌套引号，建议在 shell
+  片段内部使用单引号，例如 `test = ["python -c 'import vina, rdkit'"]`，可读性更好，也更不容易写错。
 
 ## GitHub 自动化
 

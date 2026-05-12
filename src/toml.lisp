@@ -50,6 +50,57 @@
                   (mapcar #'trim-string
                           (split-toml-array-items body)))))))
 
+(defun parse-toml-hex-codepoint (string start count)
+  (let ((end (+ start count))
+        (code 0))
+    (when (> end (length string))
+      (error "incomplete TOML unicode escape in string"))
+    (loop for index from start below end do
+      (let ((digit (digit-char-p (char string index) 16)))
+        (unless digit
+          (error "invalid TOML unicode escape in string"))
+        (setf code (+ (* code 16) digit))))
+    (let ((char (code-char code)))
+      (unless char
+        (error "invalid TOML unicode codepoint: ~X" code))
+      (values char end))))
+
+(defun parse-toml-basic-string (body)
+  (with-output-to-string (out)
+    (let ((index 0)
+          (len (length body)))
+      (loop while (< index len) do
+        (let ((char (char body index)))
+          (cond
+            ((char= char #\\)
+             (incf index)
+             (when (>= index len)
+               (error "unterminated TOML escape in string"))
+             (let ((escape (char body index)))
+               (case escape
+                 (#\" (write-char #\" out))
+                 (#\\ (write-char #\\ out))
+                 (#\b (write-char (code-char #x08) out))
+                 (#\t (write-char #\Tab out))
+                 (#\n (write-char #\Newline out))
+                 (#\f (write-char (code-char #x0C) out))
+                 (#\r (write-char #\Return out))
+                 (#\u
+                  (multiple-value-bind (decoded next-index)
+                      (parse-toml-hex-codepoint body (1+ index) 4)
+                    (write-char decoded out)
+                    (setf index (1- next-index))))
+                 (#\U
+                  (multiple-value-bind (decoded next-index)
+                      (parse-toml-hex-codepoint body (1+ index) 8)
+                    (write-char decoded out)
+                    (setf index (1- next-index))))
+                 (otherwise
+                  (error "unsupported TOML escape sequence: \\~A" escape)))))
+            (t
+             (write-char char out))))
+        (incf index)))))
+
 (defun parse-toml-value (raw-value)
   (let* ((value (trim-string raw-value))
          (len (length value)))
@@ -61,7 +112,7 @@
       ((and (>= len 2)
             (char= #\" (char value 0))
             (char= #\" (char value (1- len))))
-       (subseq value 1 (1- len)))
+       (parse-toml-basic-string (subseq value 1 (1- len))))
       ((string-equal value "true") t)
       ((string-equal value "false") nil)
       ((and (> len 0)
