@@ -16,6 +16,7 @@
 - [生成文件](#生成文件)
 - [索引格式](#索引格式)
 - [包发现规则](#包发现规则)
+- [可信 Gate](#可信-gate)
 - [可选元数据](#可选元数据)
 - [GitHub 自动化](#github-自动化)
 - [本地测试](#本地测试)
@@ -66,10 +67,15 @@ index builder 会写入：
 index/index.json
 index/packages/<package>.json
 index/commands/<command>.json
+index/reports/latest.json
+index/reports/<timestamp>.json
 ```
 
 `index/index.json` 是完整索引。拆分后的 package 和 command 文件用于更小粒度
 的读取场景。
+
+report 文件会记录扫描 warning 和可信 gate 失败。失败的新版本不会进入主 index；
+维护者需要查看 report，修复 app 仓库后，该版本才能变成可安装版本。
 
 生成文件会被有意提交到仓库中。它们就是发布出来的静态索引，使 `taf` 不需要
 自定义 Hub 后端服务器也可以下载和消费索引。
@@ -89,7 +95,7 @@ index/commands/<command>.json
 | `schema_version` | 索引 schema 标识。 |
 | `generated_at` | UTC 生成时间。 |
 | `organization` | 被扫描的 GitHub 组织，通常是 `taffish`。 |
-| `counts` | packages、versions、commands、repositories 和 warnings 的统计。 |
+| `counts` | packages、versions、commands、repositories、warnings 和 failed trust gates 的统计。 |
 | `packages` | 以 package name 为 key 的 package 记录。 |
 | `commands` | 以基础 command name 为 key 的 command 查询记录。 |
 | `repositories` | 以 `owner/repo` 为 key 的 repository 查询记录。 |
@@ -99,7 +105,8 @@ index/commands/<command>.json
 `0.1.0-r1`。
 
 每个 version record 包含 package 元数据、runtime 标记、dependency 元数据、
-platform 约束、source ref 信息、可选 container 元数据和可选 upstream 元数据。
+platform 约束、source ref 信息、可选 container 元数据、可选 smoke 元数据、trust
+状态和可选 upstream 元数据。
 
 ## 包发现规则
 
@@ -118,9 +125,65 @@ platform 约束、source ref 信息、可选 container 元数据和可选 upstre
 
 builder 优先索引 release tag。默认分支 snapshot 只在显式开启时用于开发场景。
 
+## 可信 Gate
+
+对于每个 `repository + version_id`，builder 会先检查已有的 `index/index.json`：
+
+- 如果该版本已经存在，并且 release tag 仍指向同一个 commit，默认复用旧记录。
+- 如果是新增版本，或使用 `--force-recheck`，builder 会执行可信 gate。
+- 如果 release tag 指向的 commit 发生变化，该版本会被拒绝并写入 report，而不是静默替换旧记录。
+
+对于容器化 app，当前可信 gate 会：
+
+1. 校验 `[smoke]` 元数据；
+2. 使用 Docker buildx 检查容器镜像 digest 和平台列表；
+3. 在声明的 backend 中运行 smoke checks；
+4. 只有全部通过时，才把该版本写入主 index。
+
+Docker/Podman smoke 运行会使用 `--network none`，不会挂载仓库，也不会把 GitHub
+token 或 secrets 传入容器。Apptainer smoke 在该 backend 可用时使用干净的隔离环境。
+
+主 index 保留通过检查或此前已经接受的稳定版本。Gate 失败会写入
+`index/reports/latest.json` 和带时间戳的 report 文件。`taf update` 和
+`taf install` 只消费稳定主 index，维护者通过 reports 修复失败的 app release。
+
+此前已经接受的版本可能暂时没有完整 trust 元数据，直到重新发布或使用
+`--force-recheck` 重新检查。这可以在 Hub 过渡到更严格的 0.8.0 可信模型时保持安装稳定。
+
+当前 container 元数据形态：
+
+```json
+"container": {
+  "image": "ghcr.io/taffish/my-tool:0.1.0-r1",
+  "dockerfile": "docker/Dockerfile",
+  "image_tag": "0.1.0-r1",
+  "image_tag_matches_version": true,
+  "digest": "sha256:manifest-list-digest",
+  "platforms": ["linux/amd64", "linux/arm64"],
+  "platform_digests": {
+    "linux/amd64": "sha256:...",
+    "linux/arm64": "sha256:..."
+  }
+}
+```
+
+当前 smoke 结果形态：
+
+```json
+"smoke": {
+  "backend": "docker",
+  "timeout": 60,
+  "exist": ["samtools"],
+  "test": ["samtools --help"],
+  "status": "passed",
+  "checked_at": "2026-05-12T08:00:00Z",
+  "backend_used": "docker"
+}
+```
+
 ## 可选元数据
 
-`taffish.toml` 可以包含依赖、平台约束和 upstream 来源元数据。
+`taffish.toml` 可以包含依赖、平台约束、smoke 元数据和 upstream 来源元数据。
 
 示例：
 
@@ -135,6 +198,12 @@ arch = "amd64,arm64"
 container = "required"       # optional|required|forbidden
 min_cpus = 2
 min_memory_mb = 4096
+
+[smoke]
+backend = "docker"
+timeout = 60
+exist = ["cd-hit"]
+test = ["cd-hit -h"]
 
 [upstream]
 name = "CD-HIT"
@@ -169,6 +238,16 @@ Upstream：
 - 空字段和未知字段会被忽略。
 - 缺失 upstream 元数据时，JSON 中会省略 `upstream`，不会写成 `null`、
   `none` 或 `"not provided"`。
+
+Smoke：
+
+- 容器化项目必须定义 `[smoke]`。
+- `backend` 必须是 `docker`、`podman` 或 `apptainer`。
+- `timeout` 必须是正整数。
+- `exist` 和 `test` 必须是由非空字符串组成的数组。
+- `exist` 和 `test` 不能同时为空。
+- 默认 `TODO` 占位会被拒绝。
+- smoke 命令由 index 自动化运行，不由本地 `taf check` 运行。
 
 ## GitHub 自动化
 
@@ -236,6 +315,7 @@ CLI 选项：
 --include-default-branch     同时索引默认分支 snapshot
 --include-archived           包含 archived GitHub 仓库
 --include-forks              包含 fork 仓库
+--force-recheck              即使存在缓存 trust 元数据，也重新执行 digest/smoke gate
 -h, --help                   显示命令帮助
 ```
 
@@ -246,6 +326,7 @@ CLI 选项：
 | `TAFFISH_ORG` | 未提供 `--org` 时使用的默认组织。默认是 `taffish`。 |
 | `TAFFISH_BOT_TOKEN` | builder 使用的 GitHub API token。 |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | 设为 `1`、`true` 或 `yes` 时启用默认分支 snapshot。 |
+| `TAFFISH_INDEX_FORCE_RECHECK` | 设为 `1`、`true` 或 `yes` 时重新执行 digest/smoke gate。 |
 
 GitHub Actions workflow 会优先使用 repository secret 中的 `TAFFISH_BOT_TOKEN`，
 如果没有配置，则回退到 `GITHUB_TOKEN`。

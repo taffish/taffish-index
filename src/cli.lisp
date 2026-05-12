@@ -13,6 +13,8 @@ Options:
   --include-default-branch       Also index default branch snapshots
   --include-archived             Include archived GitHub repositories
   --include-forks                Include fork repositories
+  --force-recheck                Re-run digest/smoke gates even when cached
+                                  trust metadata exists
   -h, --help                     Show this help")
 
 (defun parse-cli-args (args)
@@ -23,6 +25,10 @@ Options:
         (output "index")
         (include-default-branch
           (member (env "TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH")
+                  '("1" "true" "TRUE" "yes" "YES")
+                  :test #'string=))
+        (force-recheck
+          (member (env "TAFFISH_INDEX_FORCE_RECHECK")
                   '("1" "true" "TRUE" "yes" "YES")
                   :test #'string=))
         (include-archived nil)
@@ -38,6 +44,7 @@ Options:
                         :local-repos (nreverse local-repos)
                         :output output
                         :include-default-branch include-default-branch
+                        :force-recheck force-recheck
                         :include-archived include-archived
                         :include-forks include-forks
                         :help help))
@@ -65,6 +72,9 @@ Options:
                  ((string= (car rest) "--include-forks")
                   (setf include-forks t)
                   (parse (cdr rest)))
+                 ((string= (car rest) "--force-recheck")
+                  (setf force-recheck t)
+                  (parse (cdr rest)))
                  (t
                   (error "unknown option: ~A" (car rest))))))
       (parse args))))
@@ -81,11 +91,13 @@ Options:
                           :include-default-branch
                           (plist-ref options :include-default-branch)
                           :include-archived (plist-ref options :include-archived)
-                          :include-forks (plist-ref options :include-forks))))
-              (format t "[taffish-index] wrote index: ~A packages, ~A versions, ~A warnings~%"
+                          :include-forks (plist-ref options :include-forks)
+                          :force-recheck (plist-ref options :force-recheck))))
+              (format t "[taffish-index] wrote index: ~A packages, ~A versions, ~A warnings, ~A failed gates~%"
                       (json-ref (json-ref index "counts") "packages")
                       (json-ref (json-ref index "counts") "versions")
-                      (json-ref (json-ref index "counts") "warnings")))))
+                      (json-ref (json-ref index "counts") "warnings")
+                      (json-ref (json-ref index "counts") "failed")))))
     (error (c)
       (format *error-output* "[taffish-index:error] ~A~%" c)
       (uiop:quit 1))))

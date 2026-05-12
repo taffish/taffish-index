@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: write
+  packages: read
 
 concurrency:
   group: taffish-index
@@ -32,6 +33,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y sbcl
+
+      - name: Check Docker buildx
+        run: |
+          docker --version
+          docker buildx version
 
       - name: Build index
         run: |

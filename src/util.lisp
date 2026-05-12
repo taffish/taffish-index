@@ -98,12 +98,41 @@
     (format nil "~4,'0D-~2,'0D-~2,'0DT~2,'0D:~2,'0D:~2,'0DZ"
             year month day hour minute second)))
 
+(defun timestamp-for-filename (&optional (timestamp (utc-timestamp)))
+  (let ((out (copy-seq timestamp)))
+    (loop for i from 0 below (length out) do
+      (when (member (char out i) '(#\: #\-) :test #'char=)
+        (setf (char out i) #\_)))
+    out))
+
 (defun run-program-string (program args &key input ignore-error-status)
   (uiop:run-program (cons program args)
                     :input input
                     :output :string
                     :error-output :string
                     :ignore-error-status ignore-error-status))
+
+(defun program-available-p (program)
+  (multiple-value-bind (_out _err code)
+      (run-program-string "sh"
+                          (list "-c" (format nil "command -v ~A >/dev/null 2>&1"
+                                              program))
+                          :ignore-error-status t)
+    (declare (ignore _out _err))
+    (= code 0)))
+
+(defun run-command (program args &key input)
+  (multiple-value-bind (out err code)
+      (run-program-string program args
+                          :input input
+                          :ignore-error-status t)
+    (values (= code 0) out err code)))
+
+(defun limit-string (string &optional (limit 1000))
+  (let ((clean (or string "")))
+    (if (> (length clean) limit)
+        (format nil "~A..." (subseq clean 0 limit))
+        clean)))
 
 (defun curl-args (url &key token github-json)
   (append

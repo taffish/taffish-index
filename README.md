@@ -17,6 +17,7 @@ discovery and installation.
 - [Generated Files](#generated-files)
 - [Index Format](#index-format)
 - [Package Discovery](#package-discovery)
+- [Trust Gate](#trust-gate)
 - [Optional Metadata](#optional-metadata)
 - [GitHub Automation](#github-automation)
 - [Local Test](#local-test)
@@ -69,10 +70,16 @@ The index builder writes:
 index/index.json
 index/packages/<package>.json
 index/commands/<command>.json
+index/reports/latest.json
+index/reports/<timestamp>.json
 ```
 
 `index/index.json` is the full index. Split package and command files are written
 for consumers that want smaller lookups.
+
+Report files record scan warnings and trust-gate failures. Failed new versions
+are not added to the main index; maintainers inspect reports and fix the app
+repository before the version can become installable.
 
 Generated files are committed intentionally. They are the published static index
 that `taf` can download without requiring a custom Hub backend server.
@@ -92,7 +99,7 @@ Top-level fields include:
 | `schema_version` | Index schema identifier. |
 | `generated_at` | UTC generation timestamp. |
 | `organization` | Scanned GitHub organization, normally `taffish`. |
-| `counts` | Summary counts for packages, versions, commands, repositories, and warnings. |
+| `counts` | Summary counts for packages, versions, commands, repositories, warnings, and failed trust gates. |
 | `packages` | Package records keyed by package name. |
 | `commands` | Command lookup records keyed by base command name. |
 | `repositories` | Repository lookup records keyed by `owner/repo`. |
@@ -103,7 +110,7 @@ Each package record contains a `versions` object keyed by version id, such as
 
 Each version record contains package metadata, runtime flags, dependency
 metadata, platform constraints, source ref information, optional container
-metadata, and optional upstream metadata.
+metadata, optional smoke metadata, trust status, and optional upstream metadata.
 
 ## Package Discovery
 
@@ -123,10 +130,73 @@ A repository is considered a TAFFISH app when:
 The builder prefers release tags. Default branch snapshots are only indexed when
 explicitly enabled for development use.
 
+## Trust Gate
+
+For each `repository + version_id`, the builder checks the previous
+`index/index.json` first:
+
+- If the version already exists and the release tag still points to the same
+  commit, the previous record is reused by default.
+- If the version is new, or `--force-recheck` is used, the builder applies the
+  trust gate.
+- If a release tag changes commit, the version is rejected and reported instead
+  of silently replacing the previous record.
+
+For containerized apps, the trust gate currently:
+
+1. validates `[smoke]` metadata;
+2. inspects the container image digest and platform list with Docker buildx;
+3. runs smoke checks inside the declared backend;
+4. adds the version to the main index only when all checks pass.
+
+Docker/Podman smoke runs use `--network none`, do not mount the repository, and
+do not pass GitHub tokens or secrets into the container. Apptainer smoke uses a
+clean contained environment when that backend is available.
+
+The main index keeps passed or previously accepted versions. Gate failures are
+written to `index/reports/latest.json` and timestamped report files. `taf update`
+and `taf install` consume the stable main index, while maintainers use reports
+to fix failed app releases.
+
+Previously accepted versions may not have full trust metadata until they are
+republished or rechecked with `--force-recheck`. This preserves install
+stability while the Hub transitions to the stricter 0.8.0 trust model.
+
+Current container metadata shape:
+
+```json
+"container": {
+  "image": "ghcr.io/taffish/my-tool:0.1.0-r1",
+  "dockerfile": "docker/Dockerfile",
+  "image_tag": "0.1.0-r1",
+  "image_tag_matches_version": true,
+  "digest": "sha256:manifest-list-digest",
+  "platforms": ["linux/amd64", "linux/arm64"],
+  "platform_digests": {
+    "linux/amd64": "sha256:...",
+    "linux/arm64": "sha256:..."
+  }
+}
+```
+
+Current smoke result shape:
+
+```json
+"smoke": {
+  "backend": "docker",
+  "timeout": 60,
+  "exist": ["samtools"],
+  "test": ["samtools --help"],
+  "status": "passed",
+  "checked_at": "2026-05-12T08:00:00Z",
+  "backend_used": "docker"
+}
+```
+
 ## Optional Metadata
 
-`taffish.toml` can include dependencies, platform constraints, and upstream
-source metadata.
+`taffish.toml` can include dependencies, platform constraints, smoke metadata,
+and upstream source metadata.
 
 Example:
 
@@ -141,6 +211,12 @@ arch = "amd64,arm64"
 container = "required"       # optional|required|forbidden
 min_cpus = 2
 min_memory_mb = 4096
+
+[smoke]
+backend = "docker"
+timeout = 60
+exist = ["cd-hit"]
+test = ["cd-hit -h"]
 
 [upstream]
 name = "CD-HIT"
@@ -175,6 +251,16 @@ Upstream:
 - Empty or unknown upstream fields are ignored.
 - Missing upstream metadata is omitted from JSON rather than represented as
   `null`, `none`, or `"not provided"`.
+
+Smoke:
+
+- Containerized projects must define `[smoke]`.
+- `backend` must be `docker`, `podman`, or `apptainer`.
+- `timeout` must be a positive integer.
+- `exist` and `test` must be arrays of non-empty strings.
+- `exist` and `test` cannot both be empty.
+- Default `TODO` placeholders are rejected.
+- Smoke commands are run by the index automation, not by local `taf check`.
 
 ## GitHub Automation
 
@@ -242,6 +328,8 @@ CLI options:
 --include-default-branch     Also index default branch snapshots
 --include-archived           Include archived GitHub repositories
 --include-forks              Include fork repositories
+--force-recheck              Re-run digest/smoke gates even when cached trust
+                             metadata exists
 -h, --help                   Show command help
 ```
 
@@ -252,6 +340,7 @@ Environment variables:
 | `TAFFISH_ORG` | Default organization if `--org` is not provided. Defaults to `taffish`. |
 | `TAFFISH_BOT_TOKEN` | GitHub API token used by the builder. |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | Enables default branch snapshots when set to `1`, `true`, or `yes`. |
+| `TAFFISH_INDEX_FORCE_RECHECK` | Re-runs digest/smoke gates when set to `1`, `true`, or `yes`. |
 
 The GitHub Actions workflow uses `TAFFISH_BOT_TOKEN` from repository secrets when
 available, and falls back to `GITHUB_TOKEN`.

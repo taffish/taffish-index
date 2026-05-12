@@ -166,6 +166,31 @@
     (error "~A must be a positive integer when present" field-name))
   value)
 
+(defun ensure-required-positive-integer-field (value field-name)
+  (unless (and (integerp value) (> value 0))
+    (error "~A must be a positive integer" field-name))
+  value)
+
+(defun string-contains-p (needle haystack &key (test #'char=))
+  (and (stringp needle)
+       (stringp haystack)
+       (not (null (search needle haystack :test test)))))
+
+(defun ensure-string-array-field (value field-name)
+  (unless (listp value)
+    (error "~A must be an array of strings" field-name))
+  (let ((out nil))
+    (dolist (item value)
+      (unless (stringp item)
+        (error "~A must contain only strings" field-name))
+      (let ((clean (trim-string item)))
+        (when (blank-string-p clean)
+          (error "~A must not contain blank strings" field-name))
+        (when (string-contains-p "TODO" clean :test #'char-equal)
+          (error "~A contains TODO placeholder: ~S" field-name clean))
+        (push clean out)))
+    (nreverse out)))
+
 (defun normalize-dependency-version-id (value dep-command)
   (unless (stringp value)
     (error "[dependencies].~A version id must be a string" dep-command))
@@ -238,6 +263,36 @@
           :min-cpus min-cpus
           :min-memory-mb min-memory-mb)))
 
+(defun parse-smoke-section (toml container-present-p)
+  (declare (ignore container-present-p))
+  (let ((section (gethash "smoke" toml)))
+    (cond
+      ((null section)
+       nil)
+      (t
+       (let* ((backend (normalize-token
+                        (ensure-string-field
+                         (toml-ref toml "smoke" "backend" :required t)
+                         "[smoke].backend")))
+              (timeout (ensure-required-positive-integer-field
+                        (toml-ref toml "smoke" "timeout" :required t)
+                        "[smoke].timeout"))
+              (exist (ensure-string-array-field
+                      (toml-ref toml "smoke" "exist" :required t)
+                      "[smoke].exist"))
+              (test (ensure-string-array-field
+                     (toml-ref toml "smoke" "test" :required t)
+                     "[smoke].test")))
+         (unless (member backend '("docker" "podman" "apptainer")
+                         :test #'string=)
+           (error "[smoke].backend must be one of docker|podman|apptainer"))
+         (when (and (null exist) (null test))
+           (error "[smoke].exist and [smoke].test cannot both be empty"))
+         (list :backend backend
+               :timeout timeout
+               :exist exist
+               :test test))))))
+
 (defparameter *upstream-string-fields*
   '(("name" . :name)
     ("type" . :type)
@@ -306,7 +361,8 @@
          (dockerfile (toml-ref toml "container" "dockerfile"))
          (id nil)
          (tag nil)
-         (container nil))
+         (container nil)
+         (smoke nil))
     (unless (valid-project-name-p name)
       (error "[package].name is not a valid TAFFISH project name: ~S" name))
     (unless (member kind '("tool" "flow") :test #'string=)
@@ -346,6 +402,7 @@
                     :image-tag raw-image-tag
                     :image-tag-matches-version (and raw-image-tag
                                                     (string= raw-image-tag id))))))
+    (setf smoke (parse-smoke-section toml (not (null container))))
     (list :name name
           :kind kind
           :version version
@@ -364,6 +421,7 @@
           :main main
           :help "docs/help.md"
           :container container
+          :smoke smoke
           :source-repository (or source-repository repository-slug)
           :source-ref ref
           :source-commit commit
