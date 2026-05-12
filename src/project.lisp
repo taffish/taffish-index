@@ -177,6 +177,8 @@
        (not (null (search needle haystack :test test)))))
 
 (defun ensure-string-array-field (value field-name)
+  (when (null value)
+    (return-from ensure-string-array-field nil))
   (unless (listp value)
     (error "~A must be an array of strings" field-name))
   (let ((out nil))
@@ -263,6 +265,9 @@
           :min-cpus min-cpus
           :min-memory-mb min-memory-mb)))
 
+(defparameter *default-smoke-backend* "docker")
+(defparameter *default-smoke-timeout* 60)
+
 (defun parse-smoke-section (toml container-present-p)
   (declare (ignore container-present-p))
   (let ((section (gethash "smoke" toml)))
@@ -272,16 +277,18 @@
       (t
        (let* ((backend (normalize-token
                         (ensure-string-field
-                         (toml-ref toml "smoke" "backend" :required t)
+                         (or (toml-ref toml "smoke" "backend")
+                             *default-smoke-backend*)
                          "[smoke].backend")))
               (timeout (ensure-required-positive-integer-field
-                        (toml-ref toml "smoke" "timeout" :required t)
+                        (or (toml-ref toml "smoke" "timeout")
+                            *default-smoke-timeout*)
                         "[smoke].timeout"))
               (exist (ensure-string-array-field
-                      (toml-ref toml "smoke" "exist" :required t)
+                      (toml-ref toml "smoke" "exist")
                       "[smoke].exist"))
               (test (ensure-string-array-field
-                     (toml-ref toml "smoke" "test" :required t)
+                     (toml-ref toml "smoke" "test")
                      "[smoke].test")))
          (unless (member backend '("docker" "podman" "apptainer")
                          :test #'string=)

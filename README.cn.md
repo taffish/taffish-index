@@ -242,9 +242,9 @@ Upstream：
 Smoke：
 
 - 容器化项目必须定义 `[smoke]`。
-- `backend` 必须是 `docker`、`podman` 或 `apptainer`。
-- `timeout` 必须是正整数。
-- `exist` 和 `test` 必须是由非空字符串组成的数组。
+- `backend` 如果存在，必须是 `docker`、`podman` 或 `apptainer`；缺省为 `docker`。
+- `timeout` 如果存在，必须是正整数；缺省为 `60`。
+- `exist` 和 `test` 如果存在，必须是由非空字符串组成的数组。
 - `exist` 和 `test` 不能同时为空。
 - 默认 `TODO` 占位会被拒绝。
 - smoke 命令由 index 自动化运行，不由本地 `taf check` 运行。
@@ -333,8 +333,8 @@ GitHub Actions workflow 会优先使用 repository secret 中的 `TAFFISH_BOT_TO
 
 ## 相关仓库
 
-- [taffish/taffish](https://github.com/taffish/taffish)：CLI 和编译器二进制发布仓库。
-- [taffish/taffish-docs](https://github.com/taffish/taffish-docs)：开发者文档仓库。
+- [taffish/taffish](https://github.com/taffish/taffish)：CLI/编译器开源源码仓库、安装器、release 载荷和源码树开发文档。
+- [taffish/taffish-docs](https://github.com/taffish/taffish-docs)：面向用户、app 作者、Hub/index 维护者、MCP 和安全模型的公共文档仓库。
 - [taffish/taffish.github.io](https://github.com/taffish/taffish.github.io)：网页版 Hub。
 
 ## 许可证

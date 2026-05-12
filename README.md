@@ -255,9 +255,9 @@ Upstream:
 Smoke:
 
 - Containerized projects must define `[smoke]`.
-- `backend` must be `docker`, `podman`, or `apptainer`.
-- `timeout` must be a positive integer.
-- `exist` and `test` must be arrays of non-empty strings.
+- `backend`, when present, must be `docker`, `podman`, or `apptainer`; missing `backend` defaults to `docker`.
+- `timeout`, when present, must be a positive integer; missing `timeout` defaults to `60`.
+- `exist` and `test`, when present, must be arrays of non-empty strings.
 - `exist` and `test` cannot both be empty.
 - Default `TODO` placeholders are rejected.
 - Smoke commands are run by the index automation, not by local `taf check`.
@@ -347,8 +347,8 @@ available, and falls back to `GITHUB_TOKEN`.
 
 ## Related Repositories
 
-- [taffish/taffish](https://github.com/taffish/taffish): CLI and compiler binary distribution.
-- [taffish/taffish-docs](https://github.com/taffish/taffish-docs): developer documentation.
+- [taffish/taffish](https://github.com/taffish/taffish): open-source CLI/compiler source repository, installers, release payloads, and source-tree developer docs.
+- [taffish/taffish-docs](https://github.com/taffish/taffish-docs): public documentation for users, app authors, Hub/index maintainers, MCP, and the security model.
 - [taffish/taffish.github.io](https://github.com/taffish/taffish.github.io): web Hub.
 
 ## License
