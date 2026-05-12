@@ -426,12 +426,24 @@
     (when pos
       (subseq line (1+ pos)))))
 
+(defun known-platform-component-p (value)
+  (and (stringp value)
+       (not (blank-string-p value))
+       (not (string-equal "unknown" (trim-string value)))))
+
+(defun known-platform-string-p (platform)
+  (let ((parts (and (stringp platform) (split-string platform #\/))))
+    (and (>= (length parts) 2)
+         (known-platform-component-p (first parts))
+         (known-platform-component-p (second parts)))))
+
 (defun platform-from-json (platform)
   (let ((os (json-ref platform "os"))
         (arch (json-ref platform "architecture"))
         (variant (json-ref platform "variant")))
-    (when (and (stringp os) (stringp arch))
-      (if (and (stringp variant) (not (blank-string-p variant)))
+    (when (and (known-platform-component-p os)
+               (known-platform-component-p arch))
+      (if (known-platform-component-p variant)
           (format nil "~A/~A/~A" os arch variant)
           (format nil "~A/~A" os arch)))))
 
@@ -470,8 +482,7 @@
                    (sha-from-name-line (line-after-prefix clean "Name:"))))
             ((line-after-prefix clean "Platform:")
              (let ((platform (line-after-prefix clean "Platform:")))
-               (unless (or (blank-string-p platform)
-                           (string= platform "unknown/unknown"))
+               (when (known-platform-string-p platform)
                  (setf platforms (add-unique-string platform platforms))
                  (when current-digest
                    (push (cons platform current-digest) platform-digests)))))))))
