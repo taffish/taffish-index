@@ -1,0 +1,95 @@
+{
+  "name": "autodock-vina",
+  "latest": "1.2.7-r1",
+  "repository_url": "https://github.com/taffish/autodock-vina",
+  "command": {
+    "name": "taf-autodock-vina"
+  },
+  "versions": {
+    "1.2.7-r1": {
+      "name": "autodock-vina",
+      "kind": "tool",
+      "version": "1.2.7",
+      "release": 1,
+      "version_id": "1.2.7-r1",
+      "tag": "v1.2.7-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/autodock-vina",
+      "repository_slug": "taffish/autodock-vina",
+      "command": {
+        "name": "taf-autodock-vina"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/autodock-vina:1.2.7-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.2.7-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:83aaedbc1a15a2ece8a8dd07aacd84b45d08c4d4eaf55e44be178f6fd674b0b1",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:64a98ef862a1d3f1c1e73d0b8ab31df24dbc5a757f52d39bc183beda8f6d29b8",
+          "linux/arm64": "sha256:10f3d0fa5c53e29335e5928771bfe5dc50041ed276573388d96aef42554eeb2a"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "vina",
+          "vina_split",
+          "mk_prepare_ligand.py",
+          "mk_prepare_receptor.py",
+          "mk_export.py",
+          "python"
+        ],
+        "test": [
+          "vina --help",
+          "vina --version 2>&1 | grep -F '1.2.7' >/dev/null",
+          "vina_split --help",
+          "mk_prepare_ligand.py -h",
+          "mk_prepare_receptor.py -h",
+          "mk_export.py -h",
+          "python -c \"import vina, rdkit, meeko, gemmi, prody\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-12T18:09:03Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-12T18:09:03Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/autodock-vina",
+        "ref": "v1.2.7-r1",
+        "commit": "9e538ee4f34957d08241604824687e4b74e2d4c6",
+        "html_url": "https://github.com/taffish/autodock-vina/tree/v1.2.7-r1"
+      },
+      "upstream": {
+        "type": "github"
+      }
+    }
+  }
+}
