@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-13T06:44:47Z",
+  "generated_at": "2026-05-13T07:36:09Z",
   "organization": "taffish",
   "counts": {
-    "packages": 3,
-    "versions": 3,
-    "commands": 3,
-    "repositories": 3,
+    "packages": 4,
+    "versions": 4,
+    "commands": 4,
+    "repositories": 4,
     "warnings": 0,
     "failed": 1
   },
@@ -275,6 +275,103 @@
           }
         }
       }
+    },
+    "bcftools": {
+      "name": "bcftools",
+      "latest": "1.23.1-r1",
+      "repository_url": "https://github.com/taffish/bcftools",
+      "command": {
+        "name": "taf-bcftools"
+      },
+      "versions": {
+        "1.23.1-r1": {
+          "name": "bcftools",
+          "kind": "tool",
+          "version": "1.23.1",
+          "release": 1,
+          "version_id": "1.23.1-r1",
+          "tag": "v1.23.1-r1",
+          "license": "GPL-3.0",
+          "repository_url": "https://github.com/taffish/bcftools",
+          "repository_slug": "taffish/bcftools",
+          "command": {
+            "name": "taf-bcftools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bcftools:1.23.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.23.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6a1ca70a2038856008f00221d82c9faf492fbdb711ac9fd9ebd1ee80fa1136db",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:cc6219e8bf0d5a7d301cac3f95de161d5cfe214d601853168f2e6c8a742880bc",
+              "linux/arm64": "sha256:625cf5b74e33ec66a4636dd1c21a5c6b60f60fbe6af6221db461cb825a156197"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 60,
+            "exist": [
+              "bcftools",
+              "bgzip",
+              "tabix",
+              "plot-vcfstats",
+              "python",
+              "perl"
+            ],
+            "test": [
+              "bcftools --help",
+              "bcftools --version 2>&1 | grep -F 'bcftools 1.23.1' >/dev/null",
+              "bcftools polysomy -h 2>&1 | grep -F 'bcftools polysomy' >/dev/null",
+              "bcftools cnv -h 2>&1 | grep -F 'bcftools cnv' >/dev/null",
+              "bcftools plugin -l >/dev/null",
+              "plot-vcfstats -h >/dev/null",
+              "python -c 'import gffutils, matplotlib, numpy'",
+              "bgzip --help >/dev/null",
+              "tabix --help >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-13T07:36:09Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-13T07:36:09Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bcftools",
+            "ref": "v1.23.1-r1",
+            "commit": "fe93f98eb5d664fe64458fd5964d81c49785955e",
+            "html_url": "https://github.com/taffish/bcftools/tree/v1.23.1-r1"
+          },
+          "upstream": {
+            "type": "github"
+          }
+        }
+      }
     }
   },
   "commands": {
@@ -289,6 +386,10 @@
     "taf-bamtools": {
       "package": "bamtools",
       "version": "2.5.3-r1"
+    },
+    "taf-bcftools": {
+      "package": "bcftools",
+      "version": "1.23.1-r1"
     }
   },
   "repositories": {
@@ -308,6 +409,12 @@
       "repository": "taffish/bamtools",
       "packages": [
         "bamtools"
+      ]
+    },
+    "taffish/bcftools": {
+      "repository": "taffish/bcftools",
+      "packages": [
+        "bcftools"
       ]
     }
   },
