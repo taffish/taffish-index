@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-13T07:50:40Z",
+  "generated_at": "2026-05-13T09:47:25Z",
   "organization": "taffish",
   "counts": {
-    "packages": 5,
-    "versions": 5,
-    "commands": 5,
-    "repositories": 5,
+    "packages": 6,
+    "versions": 6,
+    "commands": 6,
+    "repositories": 6,
     "warnings": 0,
     "failed": 0
   },
@@ -373,6 +373,100 @@
         }
       }
     },
+    "bedtools": {
+      "name": "bedtools",
+      "latest": "2.31.1-r1",
+      "repository_url": "https://github.com/taffish/bedtools",
+      "command": {
+        "name": "taf-bedtools"
+      },
+      "versions": {
+        "2.31.1-r1": {
+          "name": "bedtools",
+          "kind": "tool",
+          "version": "2.31.1",
+          "release": 1,
+          "version_id": "2.31.1-r1",
+          "tag": "v2.31.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bedtools",
+          "repository_slug": "taffish/bedtools",
+          "command": {
+            "name": "taf-bedtools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bedtools:2.31.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.31.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4329f1085f98803ecabdfc7f88a495a2238384a9b8d80c6fd634cd49e495f6d1",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:061ef61163faddf6b4c0be7f90e858855e6a4e1daa03452a4a4e131460e08c04",
+              "linux/arm64": "sha256:78d5f45b6f5a99e184b6d859f715a36017705f1b7be1e07a405e2c35b585d77b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 60,
+            "exist": [
+              "bedtools",
+              "intersectBed",
+              "sortBed",
+              "genomeCoverageBed"
+            ],
+            "test": [
+              "bedtools --version | grep -F 'bedtools v2.31.1' >/dev/null",
+              "bedtools --help >/dev/null",
+              "bedtools intersect -h 2>&1 | grep -F 'Tool:    bedtools intersect' >/dev/null",
+              "bedtools sort -h 2>&1 | grep -F 'Tool:    bedtools sort' >/dev/null",
+              "bedtools merge -h 2>&1 | grep -F 'Tool:    bedtools merge' >/dev/null",
+              "bedtools genomecov -h 2>&1 | grep -F 'Tool:    bedtools genomecov' >/dev/null",
+              "intersectBed -h 2>&1 | grep -F 'Tool:    bedtools intersect' >/dev/null",
+              "printf 'chr1\\t0\\t10\\nchr1\\t20\\t30\\n' >/tmp/taf-bedtools-a.bed && printf 'chr1\\t5\\t12\\n' >/tmp/taf-bedtools-b.bed && printf 'chr1\\t5\\t10\\n' >/tmp/taf-bedtools-expected.bed && bedtools intersect -a /tmp/taf-bedtools-a.bed -b /tmp/taf-bedtools-b.bed | cmp - /tmp/taf-bedtools-expected.bed"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-13T09:47:25Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-13T09:47:25Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bedtools",
+            "ref": "v2.31.1-r1",
+            "commit": "f24ea4d406cb00de1ad5fd812f67008c1fc158c0",
+            "html_url": "https://github.com/taffish/bedtools/tree/v2.31.1-r1"
+          },
+          "upstream": {
+            "type": "github"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -495,6 +589,10 @@
       "package": "bcftools",
       "version": "1.23.1-r1"
     },
+    "taf-bedtools": {
+      "package": "bedtools",
+      "version": "2.31.1-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -523,6 +621,12 @@
       "repository": "taffish/bcftools",
       "packages": [
         "bcftools"
+      ]
+    },
+    "taffish/bedtools": {
+      "repository": "taffish/bedtools",
+      "packages": [
+        "bedtools"
       ]
     },
     "taffish/samtools": {
