@@ -10,6 +10,8 @@ Options:
   --no-org                       Disable GitHub organization scan
   --local-repo <PATH>            Add a local TAFFISH app repository
   --output <DIR>                 Output directory [index]
+  --meta-overrides <PATH>        Optional meta override TOML
+                                  [env TAFFISH_INDEX_META_OVERRIDES or meta-overrides.toml]
   --include-default-branch       Also index default branch snapshots
   --include-archived             Include archived GitHub repositories
   --include-forks                Include fork repositories
@@ -23,6 +25,7 @@ Options:
   (let ((org (env "TAFFISH_ORG" "taffish"))
         (local-repos nil)
         (output "index")
+        (meta-overrides (env "TAFFISH_INDEX_META_OVERRIDES" "meta-overrides.toml"))
         (include-default-branch
           (member (env "TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH")
                   '("1" "true" "TRUE" "yes" "YES")
@@ -43,6 +46,7 @@ Options:
                   (list :org org
                         :local-repos (nreverse local-repos)
                         :output output
+                        :meta-overrides meta-overrides
                         :include-default-branch include-default-branch
                         :force-recheck force-recheck
                         :include-archived include-archived
@@ -62,6 +66,9 @@ Options:
                   (parse (cddr rest)))
                  ((string= (car rest) "--output")
                   (setf output (next rest "--output"))
+                  (parse (cddr rest)))
+                 ((string= (car rest) "--meta-overrides")
+                  (setf meta-overrides (next rest "--meta-overrides"))
                   (parse (cddr rest)))
                  ((string= (car rest) "--include-default-branch")
                   (setf include-default-branch t)
@@ -88,6 +95,8 @@ Options:
                           :org (plist-ref options :org)
                           :local-repos (plist-ref options :local-repos)
                           :output-dir (plist-ref options :output)
+                          :meta-overrides-file
+                          (plist-ref options :meta-overrides)
                           :include-default-branch
                           (plist-ref options :include-default-branch)
                           :include-archived (plist-ref options :include-archived)

@@ -109,8 +109,9 @@ Each package record contains a `versions` object keyed by version id, such as
 `0.1.0-r1`.
 
 Each version record contains package metadata, runtime flags, dependency
-metadata, platform constraints, source ref information, optional container
-metadata, optional smoke metadata, trust status, and optional upstream metadata.
+metadata, platform constraints, optional human-facing meta fields, source ref
+information, optional container metadata, optional smoke metadata, trust status,
+and optional upstream metadata.
 
 ## Package Discovery
 
@@ -195,8 +196,8 @@ Current smoke result shape:
 
 ## Optional Metadata
 
-`taffish.toml` can include dependencies, platform constraints, smoke metadata,
-and upstream source metadata.
+`taffish.toml` can include dependencies, platform constraints, human-facing
+meta fields, smoke metadata, and upstream source metadata.
 
 Example:
 
@@ -211,6 +212,12 @@ arch = "amd64,arm64"
 container = "required"       # optional|required|forbidden
 min_cpus = 2
 min_memory_mb = 4096
+
+[meta]
+domain = "bio"
+categories = ["genomics", "clustering"]
+keywords = ["sequence", "identity", "cd-hit"]
+description = "Sequence clustering toolkit for reducing redundancy in biological sequence datasets."
 
 [smoke]
 backend = "docker"
@@ -243,6 +250,15 @@ Platform:
 - `os` and `arch` are comma-separated token lists.
 - `container` defaults to `optional`.
 - `min_cpus` and `min_memory_mb` must be positive integers when present.
+
+Meta:
+
+- `domain` is a broad domain token such as `bio`, `ml`, `chem`, `devops`, or `general`.
+- `categories` are normalized category tokens used for Hub filtering and browsing.
+- `keywords` are normalized search tokens used to improve package discovery.
+- `description` is a short human-facing summary for Hub pages and repository metadata.
+- New app releases should prefer native `[meta]` in `taffish.toml`.
+- Existing immutable release tags can be supplemented through `meta-overrides.toml`.
 
 Upstream:
 
@@ -329,6 +345,7 @@ CLI options:
 --no-org                     Disable GitHub organization scan
 --local-repo <PATH>          Add a local TAFFISH app repository
 --output <DIR>               Output directory, default index
+--meta-overrides <PATH>      Optional meta override TOML, default meta-overrides.toml
 --include-default-branch     Also index default branch snapshots
 --include-archived           Include archived GitHub repositories
 --include-forks              Include fork repositories
@@ -345,9 +362,33 @@ Environment variables:
 | `TAFFISH_BOT_TOKEN` | GitHub API token used by the builder. |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | Enables default branch snapshots when set to `1`, `true`, or `yes`. |
 | `TAFFISH_INDEX_FORCE_RECHECK` | Re-runs digest/smoke gates when set to `1`, `true`, or `yes`. |
+| `TAFFISH_INDEX_META_OVERRIDES` | Optional path to a meta override TOML file. Defaults to `meta-overrides.toml`. |
 
 The GitHub Actions workflow uses `TAFFISH_BOT_TOKEN` from repository secrets when
 available, and falls back to `GITHUB_TOKEN`.
+
+## Meta Overrides
+
+`meta-overrides.toml` lets the index add display/search metadata to already
+published immutable app releases without creating a new `-rN` release only for
+description changes.
+
+Each override section must include `repository` and `version_id`, then any
+supported meta fields:
+
+```toml
+[bcftools-1.23.1-r1]
+repository = "taffish/bcftools"
+version_id = "1.23.1-r1"
+domain = "bio"
+categories = ["genomics", "variant-calling", "vcf-bcf"]
+keywords = ["vcf", "bcf", "variant", "htslib"]
+description = "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
+```
+
+Overrides are applied after app metadata is read from GitHub. If a future
+release already carries native `[meta]`, the exact-version override can be
+removed or left to intentionally adjust the published display metadata.
 
 ## Related Repositories
 

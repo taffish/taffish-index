@@ -265,6 +265,58 @@
           :min-cpus min-cpus
           :min-memory-mb min-memory-mb)))
 
+(defun parse-meta-token-list (raw field-name)
+  (when raw
+    (unless (listp raw)
+      (error "~A must be an array of strings" field-name))
+    (let ((out nil))
+      (dolist (item raw)
+        (unless (stringp item)
+          (error "~A must contain only strings" field-name))
+        (let ((clean (normalize-token item)))
+          (when (blank-string-p clean)
+            (error "~A must not contain blank strings" field-name))
+          (unless (valid-platform-token-p clean)
+            (error "~A contains an invalid token: ~S" field-name clean))
+          (unless (member clean out :test #'string=)
+            (push clean out))))
+      (nreverse out))))
+
+(defun parse-meta-description (raw field-name)
+  (when raw
+    (ensure-string-field raw field-name)
+    (let ((clean (trim-string raw)))
+      (unless (blank-string-p clean)
+        clean))))
+
+(defun parse-meta-table (section field-prefix)
+  (when section
+    (let* ((domain-raw (gethash "domain" section))
+           (domain (and domain-raw
+                        (normalize-token
+                         (ensure-string-field domain-raw
+                                              (format nil "~A.domain" field-prefix)))))
+           (categories (parse-meta-token-list
+                        (gethash "categories" section)
+                        (format nil "~A.categories" field-prefix)))
+           (keywords (parse-meta-token-list
+                      (gethash "keywords" section)
+                      (format nil "~A.keywords" field-prefix)))
+           (description (parse-meta-description
+                         (gethash "description" section)
+                         (format nil "~A.description" field-prefix))))
+      (when domain
+        (unless (valid-platform-token-p domain)
+          (error "~A.domain contains an invalid token: ~S" field-prefix domain)))
+      (when (or domain categories keywords description)
+        (list :domain domain
+              :categories categories
+              :keywords keywords
+              :description description)))))
+
+(defun parse-meta-section (toml)
+  (parse-meta-table (gethash "meta" toml) "[meta]"))
+
 (defparameter *default-smoke-backend* "docker")
 (defparameter *default-smoke-timeout* 60)
 
@@ -363,6 +415,7 @@
                                 "[runtime].command_mode"))
          (dependencies (parse-dependencies-section toml command-name))
          (platform (parse-platform-section toml))
+         (meta (parse-meta-section toml))
          (upstream (parse-upstream-section toml))
          (image (toml-ref toml "container" "image"))
          (dockerfile (toml-ref toml "container" "dockerfile"))
@@ -424,6 +477,7 @@
           :runtime-command-mode runtime-command-mode
           :dependencies dependencies
           :platform platform
+          :meta meta
           :upstream upstream
           :main main
           :help "docs/help.md"

@@ -29,6 +29,15 @@
 (defun string-list-json (values)
   (cons :array (or values nil)))
 
+(defun meta-json (meta)
+  (if meta
+      (json-object
+       (cons "domain" (or (plist-ref meta :domain) :null))
+       (cons "categories" (string-list-json (plist-ref meta :categories)))
+       (cons "keywords" (string-list-json (plist-ref meta :keywords)))
+       (cons "description" (or (plist-ref meta :description) :null)))
+      :null))
+
 (defun alist-json-object (alist)
   (cons :object
         (sort (copy-list (or alist nil)) #'string< :key #'car)))
@@ -122,6 +131,7 @@
        (cons "platform"
              (platform-json (or (plist-ref record :platform)
                                 (list :os nil :arch nil :container "optional"))))
+       (cons "meta" (meta-json (plist-ref record :meta)))
        (cons "paths"
              (json-object
               (cons "main" (plist-ref record :main))
@@ -305,6 +315,23 @@
           :platform-digests
           (json-platform-digests-alist (json-ref container "platform_digests")))))
 
+(defun json-meta-plist (meta)
+  (unless (json-nullish-p meta)
+    (let ((out nil)
+          (domain (json-ref meta "domain"))
+          (description (json-ref meta "description"))
+          (categories (json-string-list-value (json-ref meta "categories")))
+          (keywords (json-string-list-value (json-ref meta "keywords"))))
+      (when (stringp domain)
+        (setf (getf out :domain) domain))
+      (when categories
+        (setf (getf out :categories) categories))
+      (when keywords
+        (setf (getf out :keywords) keywords))
+      (when (stringp description)
+        (setf (getf out :description) description))
+      out)))
+
 (defun json-smoke-plist (smoke)
   (unless (json-nullish-p smoke)
     (list :backend (json-ref smoke "backend")
@@ -351,6 +378,7 @@
           :runtime-command-mode (json-bool-value (json-ref runtime "command_mode"))
           :dependencies (json-dependencies-plist (json-ref record "dependencies"))
           :platform (json-platform-plist (json-ref record "platform"))
+          :meta (json-meta-plist (json-ref record "meta"))
           :upstream (json-upstream-plist upstream)
           :main (json-ref paths "main")
           :help (json-ref paths "help")
@@ -395,6 +423,56 @@
     (dolist (record records)
       (setf (gethash (record-cache-key record) table) record))
     table))
+
+(defun meta-override-key (repository version-id)
+  (format nil "~A|~A" (normalize-slug repository) version-id))
+
+(defun read-meta-overrides (path)
+  (let ((table (make-hash-table :test #'equal)))
+    (when (and path (file-exists-p path))
+      (let ((toml (parse-taffish-toml-string (read-string-file path))))
+        (maphash
+         (lambda (section-name section)
+           (let* ((repository
+                    (ensure-string-field
+                     (gethash "repository" section)
+                     (format nil "[~A].repository" section-name)))
+                  (version-id
+                    (ensure-string-field
+                     (gethash "version_id" section)
+                     (format nil "[~A].version_id" section-name)))
+                  (meta (parse-meta-table section (format nil "[~A]" section-name))))
+             (unless meta
+               (error "[~A] must define at least one meta field" section-name))
+             (setf (gethash (meta-override-key repository version-id) table)
+                   meta)))
+         toml)))
+    table))
+
+(defun merge-meta (base override)
+  (if override
+      (copy-record-set
+       (or base nil)
+       :domain (or (plist-ref override :domain)
+                   (and base (plist-ref base :domain)))
+       :categories (or (plist-ref override :categories)
+                       (and base (plist-ref base :categories)))
+       :keywords (or (plist-ref override :keywords)
+                     (and base (plist-ref base :keywords)))
+       :description (or (plist-ref override :description)
+                        (and base (plist-ref base :description))))
+      base))
+
+(defun apply-meta-overrides-to-records (records overrides)
+  (mapcar
+   (lambda (record)
+     (let ((override (gethash (record-cache-key record) overrides)))
+       (if override
+           (copy-record-set
+            record
+            :meta (merge-meta (plist-ref record :meta) override))
+           record)))
+   records))
 
 (defun same-source-commit-p (previous candidate)
   (and previous
@@ -665,7 +743,8 @@
           ((and previous
                 (not force-recheck)
                 (same-source-commit-p previous record))
-           (push previous accepted))
+           (push (copy-record-set previous :meta (plist-ref record :meta))
+                 accepted))
           (t
            (handler-case
                (push (enrich-record record checked-at) accepted)
@@ -724,10 +803,12 @@
          (cdr pair))))))
 
 (defun build-index (&key org local-repos output-dir include-default-branch
-                      include-archived include-forks force-recheck)
+                      include-archived include-forks force-recheck
+                      meta-overrides-file)
   (let* ((output (uiop:ensure-directory-pathname output-dir))
          (previous-records (read-previous-index output))
          (previous-map (previous-record-map previous-records))
+         (meta-overrides (read-meta-overrides meta-overrides-file))
          (generated-at (utc-timestamp))
          (records nil)
          (warnings nil))
@@ -744,6 +825,7 @@
                                     :include-forks include-forks)
         (setf records (append github-records records)
               warnings (append github-warnings warnings))))
+    (setf records (apply-meta-overrides-to-records records meta-overrides))
     (multiple-value-bind (accepted-records failures)
         (process-records (nreverse records) previous-map
                          :force-recheck force-recheck
