@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-12T18:09:03Z",
+  "generated_at": "2026-05-13T04:16:42Z",
   "organization": "taffish",
   "counts": {
-    "packages": 2,
-    "versions": 2,
-    "commands": 2,
-    "repositories": 2,
+    "packages": 3,
+    "versions": 3,
+    "commands": 3,
+    "repositories": 3,
     "warnings": 0,
     "failed": 0
   },
@@ -190,6 +190,91 @@
           }
         }
       }
+    },
+    "bamtools": {
+      "name": "bamtools",
+      "latest": "2.5.3-r1",
+      "repository_url": "https://github.com/taffish/bamtools",
+      "command": {
+        "name": "taf-bamtools"
+      },
+      "versions": {
+        "2.5.3-r1": {
+          "name": "bamtools",
+          "kind": "tool",
+          "version": "2.5.3",
+          "release": 1,
+          "version_id": "2.5.3-r1",
+          "tag": "v2.5.3-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bamtools",
+          "repository_slug": "taffish/bamtools",
+          "command": {
+            "name": "taf-bamtools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bamtools:2.5.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.5.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f0483f66a54c34ba3ec330bfa68b1c806ca91a5057db90b1cacef27ae762d62f",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e50e1f2366df5a7fbba125aa3934296de5389bad302adf10091ee4386e1a4e13",
+              "linux/arm64": "sha256:13dc54b297289bfacbb8f58584054517eaf996f7c255cd5f88cb026669223a35"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 60,
+            "exist": [
+              "bamtools"
+            ],
+            "test": [
+              "bamtools --help",
+              "bamtools --version 2>&1 | grep -F 'bamtools 2.5.3' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-13T04:16:42Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-13T04:16:42Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bamtools",
+            "ref": "v2.5.3-r1",
+            "commit": "580ad7aa5e1e66b0eba2f075758195746db56b6f",
+            "html_url": "https://github.com/taffish/bamtools/tree/v2.5.3-r1"
+          },
+          "upstream": {
+            "type": "github"
+          }
+        }
+      }
     }
   },
   "commands": {
@@ -200,6 +285,10 @@
     "taf-autodock-vina": {
       "package": "autodock-vina",
       "version": "1.2.7-r1"
+    },
+    "taf-bamtools": {
+      "package": "bamtools",
+      "version": "2.5.3-r1"
     }
   },
   "repositories": {
@@ -213,6 +302,12 @@
       "repository": "taffish/autodock-vina",
       "packages": [
         "autodock-vina"
+      ]
+    },
+    "taffish/bamtools": {
+      "repository": "taffish/bamtools",
+      "packages": [
+        "bamtools"
       ]
     }
   },
