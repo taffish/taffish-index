@@ -282,6 +282,22 @@
             (push clean out))))
       (nreverse out))))
 
+(defun parse-meta-token (raw field-name)
+  (when raw
+    (ensure-string-field raw field-name)
+    (let ((clean (normalize-token raw)))
+      (when (blank-string-p clean)
+        (error "~A must not be blank" field-name))
+      (unless (valid-platform-token-p clean)
+        (error "~A contains an invalid token: ~S" field-name clean))
+      clean)))
+
+(defun merge-meta-categories (categories category)
+  (let ((out (copy-list (or categories nil))))
+    (when (and category (not (member category out :test #'string=)))
+      (setf out (append out (list category))))
+    out))
+
 (defun parse-meta-description (raw field-name)
   (when raw
     (ensure-string-field raw field-name)
@@ -296,15 +312,23 @@
                         (normalize-token
                          (ensure-string-field domain-raw
                                               (format nil "~A.domain" field-prefix)))))
-           (categories (parse-meta-token-list
-                        (gethash "categories" section)
-                        (format nil "~A.categories" field-prefix)))
+           (category (parse-meta-token
+                      (gethash "category" section)
+                      (format nil "~A.category" field-prefix)))
+           (raw-categories (parse-meta-token-list
+                            (gethash "categories" section)
+                            (format nil "~A.categories" field-prefix)))
+           (categories (merge-meta-categories raw-categories category))
            (keywords (parse-meta-token-list
                       (gethash "keywords" section)
                       (format nil "~A.keywords" field-prefix)))
-           (description (parse-meta-description
-                         (gethash "description" section)
-                         (format nil "~A.description" field-prefix))))
+           (description
+            (or (parse-meta-description
+                 (gethash "description" section)
+                 (format nil "~A.description" field-prefix))
+                (parse-meta-description
+                 (gethash "summary" section)
+                 (format nil "~A.summary" field-prefix)))))
       (when domain
         (unless (valid-platform-token-p domain)
           (error "~A.domain contains an invalid token: ~S" field-prefix domain)))
@@ -355,6 +379,7 @@
 (defparameter *upstream-string-fields*
   '(("name" . :name)
     ("type" . :type)
+    ("url" . :url)
     ("homepage" . :homepage)
     ("repository" . :repository)
     ("release_url" . :release-url)

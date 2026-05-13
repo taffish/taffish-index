@@ -31,11 +31,15 @@
 
 (defun meta-json (meta)
   (if meta
-      (json-object
-       (cons "domain" (or (plist-ref meta :domain) :null))
-       (cons "categories" (string-list-json (plist-ref meta :categories)))
-       (cons "keywords" (string-list-json (plist-ref meta :keywords)))
-       (cons "description" (or (plist-ref meta :description) :null)))
+      (let* ((categories (plist-ref meta :categories))
+             (description (plist-ref meta :description)))
+        (json-object
+         (cons "domain" (or (plist-ref meta :domain) :null))
+         (cons "category" (or (first categories) :null))
+         (cons "categories" (string-list-json categories))
+         (cons "keywords" (string-list-json (plist-ref meta :keywords)))
+         (cons "summary" (or description :null))
+         (cons "description" (or description :null))))
       :null))
 
 (defun alist-json-object (alist)
@@ -83,6 +87,7 @@
 (defparameter *upstream-json-fields*
   '(("name" . :name)
     ("type" . :type)
+    ("url" . :url)
     ("homepage" . :homepage)
     ("repository" . :repository)
     ("release_url" . :release-url)
@@ -319,11 +324,16 @@
   (unless (json-nullish-p meta)
     (let ((out nil)
           (domain (json-ref meta "domain"))
-          (description (json-ref meta "description"))
+          (description (or (json-ref meta "description")
+                           (json-ref meta "summary")))
+          (category (json-ref meta "category"))
           (categories (json-string-list-value (json-ref meta "categories")))
           (keywords (json-string-list-value (json-ref meta "keywords"))))
       (when (stringp domain)
         (setf (getf out :domain) domain))
+      (when (and (stringp category)
+                 (not (member category categories :test #'string=)))
+        (setf categories (append categories (list category))))
       (when categories
         (setf (getf out :categories) categories))
       (when keywords

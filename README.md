@@ -161,7 +161,7 @@ to fix failed app releases.
 
 Previously accepted versions may not have full trust metadata until they are
 republished or rechecked with `--force-recheck`. This preserves install
-stability while the Hub transitions to the stricter 0.8.0 trust model.
+stability while the Hub follows the stricter 0.8.x trust model.
 
 Current container metadata shape:
 
@@ -199,6 +199,10 @@ Current smoke result shape:
 `taffish.toml` can include dependencies, platform constraints, human-facing
 meta fields, smoke metadata, and upstream source metadata.
 
+TAFFISH `0.8.1` documents `[meta]` and `[upstream]` as optional ecosystem
+metadata. New public Hub apps should provide them when useful, while old
+immutable releases can be supplemented with `meta-overrides.toml`.
+
 Example:
 
 ```toml
@@ -215,9 +219,9 @@ min_memory_mb = 4096
 
 [meta]
 domain = "bio"
-categories = ["genomics", "clustering"]
+category = "clustering"
 keywords = ["sequence", "identity", "cd-hit"]
-description = "Sequence clustering toolkit for reducing redundancy in biological sequence datasets."
+summary = "Sequence clustering toolkit for reducing redundancy in biological sequence datasets."
 
 [smoke]
 backend = "docker"
@@ -228,6 +232,7 @@ test = ["cd-hit -h"]
 [upstream]
 name = "CD-HIT"
 type = "github"              # official|github|gitlab|archive|docker|apt|conda|other
+url = "https://github.com/weizhongli/cdhit"
 homepage = "https://github.com/weizhongli/cdhit"
 repository = "weizhongli/cdhit"
 release_url = "https://github.com/weizhongli/cdhit/releases"
@@ -254,16 +259,20 @@ Platform:
 Meta:
 
 - `domain` is a broad domain token such as `bio`, `ml`, `chem`, `devops`, or `general`.
-- `categories` are normalized category tokens used for Hub filtering and browsing.
+- `category` is the primary category token used for Hub filtering and browsing.
 - `keywords` are normalized search tokens used to improve package discovery.
-- `description` is a short human-facing summary for Hub pages and repository metadata.
+- `summary` is a short human-facing description for Hub pages and repository metadata.
+- `categories` and `description` are accepted Hub-side aliases. The index
+  normalizes `category` into `categories` and `summary` into `description`, then
+  emits both forms for compatibility.
 - New app releases should prefer native `[meta]` in `taffish.toml`.
 - Existing immutable release tags can be supplemented through `meta-overrides.toml`.
 
 Upstream:
 
-- Recognized fields are `name`, `type`, `homepage`, `repository`, `release_url`,
-  `docker_image`, `version`, `license`, `citation`, `doi`, and `pmid`.
+- Recognized fields are `name`, `type`, `url`, `homepage`, `repository`,
+  `release_url`, `docker_image`, `version`, `license`, `citation`, `doi`, and
+  `pmid`.
 - Empty or unknown upstream fields are ignored.
 - Missing upstream metadata is omitted from JSON rather than represented as
   `null`, `none`, or `"not provided"`.
