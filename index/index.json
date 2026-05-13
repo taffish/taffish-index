@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-13T12:51:17Z",
+  "generated_at": "2026-05-13T15:05:08Z",
   "organization": "taffish",
   "counts": {
-    "packages": 6,
-    "versions": 6,
-    "commands": 6,
-    "repositories": 6,
+    "packages": 7,
+    "versions": 7,
+    "commands": 7,
+    "repositories": 7,
     "warnings": 0,
     "failed": 0
   },
@@ -566,6 +566,114 @@
         }
       }
     },
+    "biser": {
+      "name": "biser",
+      "latest": "1.4-r1",
+      "repository_url": "https://github.com/taffish/biser",
+      "command": {
+        "name": "taf-biser"
+      },
+      "versions": {
+        "1.4-r1": {
+          "name": "biser",
+          "kind": "tool",
+          "version": "1.4",
+          "release": 1,
+          "version_id": "1.4-r1",
+          "tag": "v1.4-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/biser",
+          "repository_slug": "taffish/biser",
+          "command": {
+            "name": "taf-biser"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "segmental-duplication",
+              "comparative-genomics"
+            ],
+            "keywords": [
+              "biser",
+              "segmental-duplication",
+              "genome-assembly",
+              "bedpe",
+              "samtools",
+              "codon"
+            ],
+            "summary": "Tool for detecting and decomposing segmental duplications in one or more genome assemblies.",
+            "description": "Tool for detecting and decomposing segmental duplications in one or more genome assemblies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/biser:1.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:ad83388404f39ba985b419ac46591653ddea0d146a8d2789b97bdab9f5a5945d",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:41e624b4e7fd9bcf0e311f2e8548adc820e6a5897de89ebfb76b67300ad6cc2f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 60,
+            "exist": [
+              "biser",
+              "samtools",
+              "python"
+            ],
+            "test": [
+              "biser --version 2>&1 | grep -F 'biser v1.4' >/dev/null",
+              "biser --help 2>&1 | grep -F 'Segmental duplication detection tool' >/dev/null",
+              "samtools --version 2>&1 | grep -F 'samtools 1.23.1' >/dev/null",
+              "samtools --version 2>&1 | grep -F 'Using htslib 1.23.1' >/dev/null",
+              "python -c 'import biser, ncls, numpy, tqdm, multiprocess'",
+              "printf '>chr1\\nACGTACGT\\n' >/tmp/taf-biser.fa && samtools faidx /tmp/taf-biser.fa && test -s /tmp/taf-biser.fa.fai"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-13T15:05:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-13T15:05:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/biser",
+            "ref": "v1.4-r1",
+            "commit": "9f6e5ad1490747127ad6f898f5d4e1fb664ca11d",
+            "html_url": "https://github.com/taffish/biser/tree/v1.4-r1"
+          },
+          "upstream": {
+            "type": "github"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -713,6 +821,10 @@
       "package": "bedtools",
       "version": "2.31.1-r1"
     },
+    "taf-biser": {
+      "package": "biser",
+      "version": "1.4-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -747,6 +859,12 @@
       "repository": "taffish/bedtools",
       "packages": [
         "bedtools"
+      ]
+    },
+    "taffish/biser": {
+      "repository": "taffish/biser",
+      "packages": [
+        "biser"
       ]
     },
     "taffish/samtools": {
