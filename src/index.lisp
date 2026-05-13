@@ -544,13 +544,13 @@
          (gate-error "smoke" "~A is not available on this runner" backend))
        (values "timeout"
                (list timeout-string backend "run" "--rm" "--network" "none"
-                     "--entrypoint" "sh" image "-lc" command)))
+                     "--entrypoint" "sh" image "-c" command)))
       ((string= backend "apptainer")
        (unless (program-available-p "apptainer")
          (gate-error "smoke" "apptainer is not available on this runner"))
        (values "timeout"
                (list timeout-string "apptainer" "exec" "--cleanenv" "--containall"
-                     (smoke-image-ref backend image) "sh" "-lc" command)))
+                     (smoke-image-ref backend image) "sh" "-c" command)))
       (t
        (gate-error "smoke" "unsupported smoke backend: ~A" backend)))))
 

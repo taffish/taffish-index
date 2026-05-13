@@ -261,7 +261,7 @@ Smoke:
 - `exist` and `test` cannot both be empty.
 - Default `TODO` placeholders are rejected.
 - Smoke commands are run by the index automation, not by local `taf check`.
-- `test` entries are TOML strings and are executed through `sh -lc` inside the
+- `test` entries are TOML strings and are executed through `sh -c` inside the
   smoke container. TOML escapes such as `\"` are supported, but shell snippets
   that need nested quoting are easier to read when the inner command uses single
   quotes, for example `test = ["python -c 'import vina, rdkit'"]`.
