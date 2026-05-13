@@ -1,0 +1,104 @@
+{
+  "name": "samtools",
+  "latest": "1.23.1-r1",
+  "repository_url": "https://github.com/taffish/samtools",
+  "command": {
+    "name": "taf-samtools"
+  },
+  "versions": {
+    "1.23.1-r1": {
+      "name": "samtools",
+      "kind": "tool",
+      "version": "1.23.1",
+      "release": 1,
+      "version_id": "1.23.1-r1",
+      "tag": "v1.23.1-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/samtools",
+      "repository_slug": "taffish/samtools",
+      "command": {
+        "name": "taf-samtools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/samtools:1.23.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.23.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:e1d5efa76f4bb3636d0014da4cf15b938c930cc689090cddf264ac7d95042ab1",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3700d83c1af53560e21afac17beea09c0f264acb0310e12ca5095464c143b60e",
+          "linux/arm64": "sha256:d510a0dc76630c2ae51d9c22c7ce6e382f85ffb737fde1331d630f2506f207e6"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 60,
+        "exist": [
+          "samtools",
+          "bgzip",
+          "tabix",
+          "htsfile",
+          "plot-bamstats",
+          "plot-ampliconstats",
+          "gnuplot",
+          "perl"
+        ],
+        "test": [
+          "samtools --help",
+          "samtools --version 2>&1 | grep -F 'samtools 1.23.1' >/dev/null",
+          "samtools --version 2>&1 | grep -F 'Using htslib 1.23.1' >/dev/null",
+          "samtools view --help 2>&1 | grep -F 'Usage: samtools view' >/dev/null",
+          "samtools sort --help 2>&1 | grep -F 'Usage: samtools sort' >/dev/null",
+          "samtools quickcheck --help 2>&1 | grep -F 'Usage: samtools quickcheck' >/dev/null",
+          "samtools tview --help 2>&1 | grep -F 'Usage: samtools tview' >/dev/null",
+          "bgzip --help >/dev/null",
+          "tabix --help >/dev/null",
+          "htsfile --help >/dev/null",
+          "gnuplot --version >/dev/null",
+          "plot-bamstats -h 2>&1 | grep -F 'Usage: plot-bamstats' >/dev/null",
+          "plot-ampliconstats -help 2>&1 | grep -F 'Usage: plot-ampliconstats' >/dev/null",
+          "perl -MURI::Escape -e 'print uri_escape(qq(ok))' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-13T07:50:40Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-13T07:50:40Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/samtools",
+        "ref": "v1.23.1-r1",
+        "commit": "50b32be48d0ab6f5da5114b935c659e35596a103",
+        "html_url": "https://github.com/taffish/samtools/tree/v1.23.1-r1"
+      },
+      "upstream": {
+        "type": "github"
+      }
+    }
+  }
+}
