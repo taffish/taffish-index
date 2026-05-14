@@ -191,7 +191,7 @@ upstream 来源元数据。
 
 TAFFISH `0.8.1` 已将 `[meta]` 和 `[upstream]` 文档化为可选生态元数据。
 新的公开 Hub app 应在有价值时提供它们；已发布且不可变的旧 release 可以通过
-`metadata-overrides.toml` 补充展示元数据和已有 upstream 的开源协议信息。
+`metadata-overrides.toml` 补充展示元数据和已有 upstream 的归属/引用信息。
 
 示例：
 
@@ -268,8 +268,8 @@ Upstream：
 - 空字段和未知字段会被忽略。
 - 缺失 upstream 元数据时，JSON 中会省略 `upstream`，不会写成 `null`、
   `none` 或 `"not provided"`。
-- `metadata-overrides.toml` 可以为已经存在 upstream 的 record 补充 `license`，
-  但不会凭空创建新的 upstream object。
+- `metadata-overrides.toml` 可以为已经存在 upstream 的 record 补充 `license`、
+  `citation`、`doi` 和 `pmid`，但不会凭空创建新的 upstream object。
 
 Smoke：
 
@@ -373,12 +373,14 @@ GitHub Actions workflow 会优先使用 repository secret 中的 `TAFFISH_BOT_TO
 ## Metadata Overrides
 
 `metadata-overrides.toml` 用于给已经发布且不可变的 app release 补充展示/搜索
-元数据，以及已经声明的 upstream 仓库的开源协议信息，避免只为了
-description/category/keyword/license 这类信息创建新的 `-rN` release。
+元数据，以及已经声明的 upstream 仓库的归属/引用信息，避免只为了
+description/category/keyword/license/citation/DOI/PMID 这类信息创建新的 `-rN`
+release。
 
 每个 override section 必须包含 `repository` 和 `version_id`，然后可以包含任意
-支持的 meta 字段。如果要补充已有 upstream 仓库的 license，可以使用相邻的
-`[<section>.upstream]` 表，只写 `license`：
+支持的 meta 字段。如果要补充已有 upstream 仓库的归属/引用字段，可以使用相邻的
+`[<section>.upstream]` 表，写入 `license`、`citation`、`doi`，以及可选的
+`pmid`：
 
 ```toml
 [bcftools-1.23.1-r1]
@@ -391,13 +393,17 @@ description = "Toolkit for variant calling and manipulating VCF/BCF genomic vari
 
 [bcftools-1.23.1-r1.upstream]
 license = "MIT/Expat or GPL"
+citation = "Danecek et al. 2021"
+doi = "10.1093/gigascience/giab008"
+pmid = "33590861"
 ```
 
 Override 会在从 GitHub 读取 app 元数据之后合并。如果未来某个新 release 已经在
 `taffish.toml` 中原生携带 `[meta]` 或 `[upstream]`，对应的精确版本 override
 可以删除，也可以保留用于有意调整发布后的展示元数据。Upstream override 会被刻意限制为
-`upstream.license`，并且只合并到已经存在 upstream 的 record 上；它补充的是已有
-upstream 仓库的开源协议，而不是创建新的 upstream object。
+归属/引用字段（`license`、`citation`、`doi` 和 `pmid`），并且只合并到已经存在
+upstream 的 record 上；它补充的是已有 upstream 仓库的信息，而不是创建新的
+upstream object。
 
 ## 相关仓库
 

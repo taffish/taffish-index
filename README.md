@@ -204,7 +204,7 @@ meta fields, smoke metadata, and upstream source metadata.
 
 TAFFISH `0.8.1` documents `[meta]` and `[upstream]` as optional ecosystem
 metadata. New public Hub apps should provide them when useful, while old
-immutable releases can have display metadata and existing upstream license
+immutable releases can have display metadata and existing upstream attribution
 metadata supplemented with `metadata-overrides.toml`.
 
 Example:
@@ -285,8 +285,9 @@ Upstream:
 - Empty or unknown upstream fields are ignored.
 - Missing upstream metadata is omitted from JSON rather than represented as
   `null`, `none`, or `"not provided"`.
-- `metadata-overrides.toml` may supplement `license` on records that already
-  have upstream data, but it does not create a new upstream object.
+- `metadata-overrides.toml` may supplement `license`, `citation`, `doi`, and
+  `pmid` on records that already have upstream data, but it does not create a
+  new upstream object.
 
 Smoke:
 
@@ -392,13 +393,15 @@ available, and falls back to `GITHUB_TOKEN`.
 ## Metadata Overrides
 
 `metadata-overrides.toml` lets the index add display/search metadata and the
-open-source license of an already declared upstream repository to published
+attribution metadata of an already declared upstream repository to published
 immutable app releases without creating a new `-rN` release only for metadata
-changes.
+changes such as description, category, keywords, license, citation, DOI, or
+PMID.
 
 Each override section must include `repository` and `version_id`, then any
-supported meta fields. To supplement the license of an existing upstream
-repository, use a sibling `[<section>.upstream]` table with `license`:
+supported meta fields. To supplement attribution fields of an existing upstream
+repository, use a sibling `[<section>.upstream]` table with `license`,
+`citation`, `doi`, and optionally `pmid`:
 
 ```toml
 [bcftools-1.23.1-r1]
@@ -411,15 +414,18 @@ description = "Toolkit for variant calling and manipulating VCF/BCF genomic vari
 
 [bcftools-1.23.1-r1.upstream]
 license = "MIT/Expat or GPL"
+citation = "Danecek et al. 2021"
+doi = "10.1093/gigascience/giab008"
+pmid = "33590861"
 ```
 
 Overrides are applied after app metadata is read from GitHub. If a future
 release already carries native `[meta]` or `[upstream]`, the exact-version
 override can be removed or left to intentionally adjust the published display
-metadata. Upstream overrides are intentionally limited to `upstream.license` and
-only merge into records that already have upstream data, so they supplement the
-open-source license of the existing upstream repository instead of creating a
-new upstream object.
+metadata. Upstream overrides are intentionally limited to attribution fields
+(`license`, `citation`, `doi`, and `pmid`) and only merge into records that
+already have upstream data, so they supplement the existing upstream repository
+instead of creating a new upstream object.
 
 ## Related Repositories
 

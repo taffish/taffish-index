@@ -483,13 +483,16 @@
 (defun override-upstream-section (toml section-name)
   (gethash (format nil "~A.upstream" section-name) toml))
 
-(defun parse-upstream-license-override (section field-prefix)
+(defun upstream-attribution-override-field-p (field)
+  (member field '("license" "citation" "doi" "pmid") :test #'string-equal))
+
+(defun parse-upstream-attribution-override (section field-prefix)
   (when section
     (maphash
      (lambda (key value)
        (declare (ignore value))
-       (unless (string-equal key "license")
-         (error "~A.~A is not supported; metadata overrides may only supplement upstream.license"
+       (unless (upstream-attribution-override-field-p key)
+         (error "~A.~A is not supported; metadata overrides may only supplement upstream license/citation/doi/pmid"
                 field-prefix
                 key)))
      section)
@@ -525,7 +528,7 @@
                     (meta (parse-meta-table section
                                             (format nil "[~A]" section-name)))
                     (upstream-section (override-upstream-section toml section-name))
-                    (upstream (parse-upstream-license-override
+                    (upstream (parse-upstream-attribution-override
                                upstream-section
                                (format nil "[~A.upstream]" section-name))))
                (unless (or meta upstream)
@@ -571,7 +574,7 @@
            (let ((upstream-override (plist-ref override :upstream))
                  (upstream (plist-ref record :upstream)))
              (when (and upstream-override (not upstream))
-               (error "metadata override for ~A defines upstream.license, but the record has no upstream to merge"
+               (error "metadata override for ~A defines upstream attribution fields, but the record has no upstream to merge"
                       (record-cache-key record)))
              (copy-record-set
               record
