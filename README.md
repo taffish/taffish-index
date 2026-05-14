@@ -138,6 +138,9 @@ For each `repository + version_id`, the builder checks the previous
 
 - If the version already exists and the release tag still points to the same
   commit, the previous record is reused by default.
+- Reused records preserve cached trust-gate results such as container digest,
+  platform digests, smoke status, and trust status, while refreshing safe parsed
+  metadata such as dependencies, platform constraints, meta, and upstream fields.
 - If the version is new, or `--force-recheck` is used, the builder applies the
   trust gate.
 - If a release tag changes commit, the version is rejected and reported instead

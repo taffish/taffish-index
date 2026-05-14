@@ -259,6 +259,43 @@
       (setf (getf out key) value))
     out))
 
+(defun copy-cached-keys (target cache keys)
+  (let ((out (copy-list target)))
+    (dolist (key keys out)
+      (let ((value (plist-ref cache key)))
+        (when value
+          (setf (getf out key) value))))))
+
+(defun cached-container-record (current previous)
+  (cond
+    ((and current previous)
+     (copy-cached-keys current previous
+                       '(:digest :platforms :platform-digests)))
+    (current current)
+    (t previous)))
+
+(defun cached-smoke-record (current previous)
+  (cond
+    ((and current previous)
+     (copy-cached-keys current previous
+                       '(:status :checked-at :backend-used)))
+    (current current)
+    (t previous)))
+
+(defun cached-accepted-record (current previous)
+  "Refresh safe parsed metadata while preserving cached trust-gate results."
+  (copy-record-set current
+                   :container
+                   (cached-container-record
+                    (plist-ref current :container)
+                    (plist-ref previous :container))
+                   :smoke
+                   (cached-smoke-record
+                    (plist-ref current :smoke)
+                    (plist-ref previous :smoke))
+                   :trust
+                   (plist-ref previous :trust)))
+
 (defun json-nullish-p (value)
   (or (null value) (eq value :null)))
 
@@ -753,7 +790,7 @@
           ((and previous
                 (not force-recheck)
                 (same-source-commit-p previous record))
-           (push (copy-record-set previous :meta (plist-ref record :meta))
+           (push (cached-accepted-record record previous)
                  accepted))
           (t
            (handler-case
