@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-14T15:40:01Z",
+  "generated_at": "2026-05-14T16:04:52Z",
   "organization": "taffish",
   "counts": {
-    "packages": 8,
-    "versions": 8,
-    "commands": 8,
-    "repositories": 8,
+    "packages": 9,
+    "versions": 9,
+    "commands": 9,
+    "repositories": 9,
     "warnings": 0,
     "failed": 0
   },
@@ -863,6 +863,89 @@
         }
       }
     },
+    "blast-flow": {
+      "name": "blast-flow",
+      "latest": "0.1.0-r2",
+      "repository_url": "https://github.com/taffish/blast-flow",
+      "command": {
+        "name": "taf-blast-flow"
+      },
+      "versions": {
+        "0.1.0-r2": {
+          "name": "blast-flow",
+          "kind": "flow",
+          "version": "0.1.0",
+          "release": 2,
+          "version_id": "0.1.0-r2",
+          "tag": "v0.1.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/blast-flow",
+          "repository_slug": "taffish/blast-flow",
+          "command": {
+            "name": "taf-blast-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-blast": "2.17.0-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-search",
+            "categories": [
+              "sequence-search",
+              "alignment",
+              "workflow",
+              "genomics",
+              "proteomics"
+            ],
+            "keywords": [
+              "blast-flow",
+              "blast",
+              "blast+",
+              "makeblastdb",
+              "blastn",
+              "blastp",
+              "blastx",
+              "tblastn",
+              "tblastx",
+              "local-database",
+              "sequence-alignment"
+            ],
+            "summary": "Focused TAFFISH flow that builds a local BLAST+ database from FASTA with makeblastdb, then runs one BLAST+ search command against it.",
+            "description": "Focused TAFFISH flow that builds a local BLAST+ database from FASTA with makeblastdb, then runs one BLAST+ search command against it."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-05-14T16:04:52Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/blast-flow",
+            "ref": "v0.1.0-r2",
+            "commit": "f0f296461274a139e066de4948f8d7a3d2e76d8f",
+            "html_url": "https://github.com/taffish/blast-flow/tree/v0.1.0-r2"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -1023,6 +1106,10 @@
       "package": "blast",
       "version": "2.17.0-r1"
     },
+    "taf-blast-flow": {
+      "package": "blast-flow",
+      "version": "0.1.0-r2"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -1069,6 +1156,12 @@
       "repository": "taffish/blast",
       "packages": [
         "blast"
+      ]
+    },
+    "taffish/blast-flow": {
+      "repository": "taffish/blast-flow",
+      "packages": [
+        "blast-flow"
       ]
     },
     "taffish/samtools": {
