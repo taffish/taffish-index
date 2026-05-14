@@ -1,0 +1,145 @@
+{
+  "name": "busco",
+  "latest": "6.0.0-r1",
+  "repository_url": "https://github.com/taffish/busco",
+  "command": {
+    "name": "taf-busco"
+  },
+  "versions": {
+    "6.0.0-r1": {
+      "name": "busco",
+      "kind": "tool",
+      "version": "6.0.0",
+      "release": 1,
+      "version_id": "6.0.0-r1",
+      "tag": "v6.0.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/busco",
+      "repository_slug": "taffish/busco",
+      "command": {
+        "name": "taf-busco"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "transcriptomics",
+          "proteomics",
+          "quality-control",
+          "orthology"
+        ],
+        "keywords": [
+          "busco",
+          "orthologs",
+          "genome-completeness",
+          "annotation-completeness",
+          "odb12",
+          "quality-control",
+          "genomics",
+          "transcriptomics",
+          "proteomics"
+        ],
+        "summary": "BUSCO v6 for assessing genome, transcriptome, and protein-set completeness using Benchmarking Universal Single-Copy Orthologs.",
+        "description": "BUSCO v6 for assessing genome, transcriptome, and protein-set completeness using Benchmarking Universal Single-Copy Orthologs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/busco:6.0.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "6.0.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:8f540925d6bc11a2076f27c9620b1a1350801b395b57d43f67e97794ec807f5f",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3fb1ea79b360639d0755b787c2cc3ecbe83d94ba3dd822760405784ca4f241bf"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "busco",
+          "taf-busco-entrypoint",
+          "python3",
+          "hmmsearch",
+          "tblastn",
+          "makeblastdb",
+          "augustus",
+          "prodigal",
+          "metaeuk",
+          "miniprot",
+          "stats.sh",
+          "run_sepp.py",
+          "wget"
+        ],
+        "test": [
+          "taf-busco-entrypoint | grep -F 'taf-busco wraps BUSCO v6.' >/dev/null",
+          "taf-busco-entrypoint --version 2>&1 | grep -F 'BUSCO 6.0.0' >/dev/null",
+          "busco --version 2>&1 | grep -F 'BUSCO 6.0.0' >/dev/null",
+          "busco --help 2>&1 | grep -F 'usage: busco' >/dev/null",
+          "busco --help 2>&1 | grep -F -- '--auto-lineage' >/dev/null",
+          "busco --help 2>&1 | grep -F -- '--offline' >/dev/null",
+          "busco --help 2>&1 | grep -F -- '--plot' >/dev/null",
+          "python3 --version >/dev/null",
+          "hmmsearch -h 2>&1 | grep -F 'HMMER' >/dev/null",
+          "tblastn -version 2>&1 | grep -F 'tblastn' >/dev/null",
+          "makeblastdb -version 2>&1 | grep -F 'makeblastdb' >/dev/null",
+          "augustus --version >/dev/null",
+          "prodigal -v 2>&1 | grep -F 'Prodigal' >/dev/null",
+          "metaeuk -h >/dev/null",
+          "miniprot --version >/dev/null",
+          "stats.sh 2>&1 | grep -F 'basic assembly statistics' >/dev/null",
+          "run_sepp.py --help 2>&1 | grep -F 'run_sepp.py' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-14T17:58:29Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-14T17:58:29Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/busco",
+        "ref": "v6.0.0-r1",
+        "commit": "541b01f555205eb3ac6565b1e9dd983cac9cdd2a",
+        "html_url": "https://github.com/taffish/busco/tree/v6.0.0-r1"
+      },
+      "upstream": {
+        "name": "BUSCO",
+        "type": "docker",
+        "url": "https://busco.ezlab.org/",
+        "homepage": "https://busco.ezlab.org/",
+        "repository": "ezlab/busco",
+        "release_url": "https://gitlab.com/ezlab/busco/-/releases/6.0.0",
+        "docker_image": "docker.io/ezlabgva/busco:v6.0.0_cv1",
+        "version": "6.0.0",
+        "license": "MIT",
+        "citation": "Tegenfeldt et al. 2025",
+        "doi": "10.1093/nar/gkae987",
+        "pmid": "39535043"
+      }
+    }
+  }
+}
