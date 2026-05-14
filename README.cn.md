@@ -248,6 +248,8 @@ Meta：
 - `domain` 是大的领域 token，例如 `bio`、`ml`、`chem`、`devops` 或 `general`。
 - `category` 是用于 Hub 筛选和浏览的主分类 token。
 - `keywords` 是用于增强搜索的软件关键词。
+- `category`、`categories` 和 `keywords` 接受由字母、数字、`.`、`_`、`-`
+  和 `+` 组成的简单搜索 token，因此 `blast+` 这类别名是合法的。
 - `summary` 是面向用户的简短说明，可用于 Hub 页面和仓库元数据。
 - `categories` 和 `description` 是兼容的 Hub 侧别名。index 会把 `category`
   归一化到 `categories`，把 `summary` 归一化到 `description`，并在输出时保留两种形式。

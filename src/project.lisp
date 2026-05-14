@@ -143,6 +143,15 @@
        (> (length token) 0)
        (not (find-if-not #'platform-token-char-p token))))
 
+(defun meta-token-char-p (char)
+  (or (platform-token-char-p char)
+      (char= char #\+)))
+
+(defun valid-meta-token-p (token)
+  (and (stringp token)
+       (> (length token) 0)
+       (not (find-if-not #'meta-token-char-p token))))
+
 (defun normalize-token (token)
   (string-downcase (trim-string token)))
 
@@ -276,7 +285,7 @@
         (let ((clean (normalize-token item)))
           (when (blank-string-p clean)
             (error "~A must not contain blank strings" field-name))
-          (unless (valid-platform-token-p clean)
+          (unless (valid-meta-token-p clean)
             (error "~A contains an invalid token: ~S" field-name clean))
           (unless (member clean out :test #'string=)
             (push clean out))))
@@ -288,7 +297,7 @@
     (let ((clean (normalize-token raw)))
       (when (blank-string-p clean)
         (error "~A must not be blank" field-name))
-      (unless (valid-platform-token-p clean)
+      (unless (valid-meta-token-p clean)
         (error "~A contains an invalid token: ~S" field-name clean))
       clean)))
 
