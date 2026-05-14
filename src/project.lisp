@@ -400,15 +400,16 @@
     ("doi" . :doi)
     ("pmid" . :pmid)))
 
-(defun parse-upstream-section (toml)
-  (let ((section (gethash "upstream" toml))
-        (out nil))
+(defun parse-upstream-table (section field-prefix)
+  (let ((out nil))
     (when section
       (dolist (field *upstream-string-fields*)
         (let* ((toml-key (car field))
                (plist-key (cdr field))
                (raw-value (gethash toml-key section)))
-          (when (stringp raw-value)
+          (when raw-value
+            (ensure-string-field raw-value
+                                 (format nil "~A.~A" field-prefix toml-key))
             (let ((value (trim-string raw-value)))
               (unless (blank-string-p value)
                 (setf (getf out plist-key)
@@ -416,6 +417,9 @@
                           (normalize-token value)
                           value))))))))
     out))
+
+(defun parse-upstream-section (toml)
+  (parse-upstream-table (gethash "upstream" toml) "[upstream]"))
 
 (defun validate-project-from-toml
     (toml-string file-exists-p &key source-repository ref commit html-url

@@ -191,7 +191,7 @@ upstream 来源元数据。
 
 TAFFISH `0.8.1` 已将 `[meta]` 和 `[upstream]` 文档化为可选生态元数据。
 新的公开 Hub app 应在有价值时提供它们；已发布且不可变的旧 release 可以通过
-`meta-overrides.toml` 补充。
+`metadata-overrides.toml` 补充。
 
 示例：
 
@@ -257,7 +257,7 @@ Meta：
 - `categories` 和 `description` 是兼容的 Hub 侧别名。index 会把 `category`
   归一化到 `categories`，把 `summary` 归一化到 `description`，并在输出时保留两种形式。
 - 新 app release 应优先在 `taffish.toml` 中原生提供 `[meta]`。
-- 已经发布且不可变的旧 release 可以通过 `meta-overrides.toml` 补充。
+- 已经发布且不可变的旧 release 可以通过 `metadata-overrides.toml` 补充。
 
 Upstream：
 
@@ -345,7 +345,8 @@ CLI 选项：
 --no-org                     禁用 GitHub 组织扫描
 --local-repo <PATH>          添加一个本地 TAFFISH app 仓库
 --output <DIR>               输出目录，默认 index
---meta-overrides <PATH>      可选 meta override TOML，默认 meta-overrides.toml
+--metadata-overrides <PATH>  可选 metadata override TOML，默认 metadata-overrides.toml
+--meta-overrides <PATH>      --metadata-overrides 的兼容别名
 --include-default-branch     同时索引默认分支 snapshot
 --include-archived           包含 archived GitHub 仓库
 --include-forks              包含 fork 仓库
@@ -361,19 +362,21 @@ CLI 选项：
 | `TAFFISH_BOT_TOKEN` | builder 使用的 GitHub API token。 |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | 设为 `1`、`true` 或 `yes` 时启用默认分支 snapshot。 |
 | `TAFFISH_INDEX_FORCE_RECHECK` | 设为 `1`、`true` 或 `yes` 时重新执行 digest/smoke gate。 |
-| `TAFFISH_INDEX_META_OVERRIDES` | 可选 meta override TOML 路径。默认是 `meta-overrides.toml`。 |
+| `TAFFISH_INDEX_METADATA_OVERRIDES` | 可选 metadata override TOML 路径。默认是 `metadata-overrides.toml`。 |
+| `TAFFISH_INDEX_META_OVERRIDES` | 旧 override 路径环境变量的兼容回退。 |
 
 GitHub Actions workflow 会优先使用 repository secret 中的 `TAFFISH_BOT_TOKEN`，
 如果没有配置，则回退到 `GITHUB_TOKEN`。
 
-## Meta Overrides
+## Metadata Overrides
 
-`meta-overrides.toml` 用于给已经发布且不可变的 app release 补充展示和搜索
-元数据，避免只为了 description/category/keyword 这类信息创建新的 `-rN`
-release。
+`metadata-overrides.toml` 用于给已经发布且不可变的 app release 补充展示/搜索
+元数据和 upstream 来源元数据，避免只为了 description/category/keyword/license
+这类信息创建新的 `-rN` release。
 
 每个 override section 必须包含 `repository` 和 `version_id`，然后可以包含任意
-支持的 meta 字段：
+支持的 meta 字段。可选 upstream override 使用相邻的 `[<section>.upstream]`
+表：
 
 ```toml
 [bcftools-1.23.1-r1]
@@ -383,11 +386,25 @@ domain = "bio"
 categories = ["genomics", "variant-calling", "vcf-bcf"]
 keywords = ["vcf", "bcf", "variant", "htslib"]
 description = "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
+
+[bcftools-1.23.1-r1.upstream]
+name = "BCFtools"
+type = "github"
+homepage = "https://samtools.github.io/bcftools/"
+repository = "samtools/bcftools"
+release_url = "https://github.com/samtools/bcftools/releases"
+version = "1.23.1"
+license = "MIT/Expat or GPL"
+citation = "Danecek et al. 2021"
+doi = "10.1093/gigascience/giab008"
+pmid = "33590861"
 ```
 
 Override 会在从 GitHub 读取 app 元数据之后合并。如果未来某个新 release 已经在
-`taffish.toml` 中原生携带 `[meta]`，对应的精确版本 override 可以删除，也可以
-保留用于有意调整发布后的展示元数据。
+`taffish.toml` 中原生携带 `[meta]` 或 `[upstream]`，对应的精确版本 override
+可以删除，也可以保留用于有意调整发布后的展示元数据。Upstream override 会按字段
+合并到原生 upstream 数据上，因此可以补足旧 release tag 中只为 update 检查保留的
+最小 upstream repository 信息。
 
 ## 相关仓库
 

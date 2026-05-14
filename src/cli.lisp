@@ -10,8 +10,10 @@ Options:
   --no-org                       Disable GitHub organization scan
   --local-repo <PATH>            Add a local TAFFISH app repository
   --output <DIR>                 Output directory [index]
-  --meta-overrides <PATH>        Optional meta override TOML
-                                  [env TAFFISH_INDEX_META_OVERRIDES or meta-overrides.toml]
+  --metadata-overrides <PATH>    Optional metadata override TOML
+                                  [env TAFFISH_INDEX_METADATA_OVERRIDES
+                                   or metadata-overrides.toml]
+  --meta-overrides <PATH>        Compatibility alias for --metadata-overrides
   --include-default-branch       Also index default branch snapshots
   --include-archived             Include archived GitHub repositories
   --include-forks                Include fork repositories
@@ -19,13 +21,20 @@ Options:
                                   trust metadata exists
   -h, --help                     Show this help")
 
+(defun default-metadata-overrides-path ()
+  (or (env "TAFFISH_INDEX_METADATA_OVERRIDES")
+      (env "TAFFISH_INDEX_META_OVERRIDES")
+      (if (file-exists-p "metadata-overrides.toml")
+          "metadata-overrides.toml"
+          "meta-overrides.toml")))
+
 (defun parse-cli-args (args)
   (when (and args (string= (car args) "--"))
     (setf args (cdr args)))
   (let ((org (env "TAFFISH_ORG" "taffish"))
         (local-repos nil)
         (output "index")
-        (meta-overrides (env "TAFFISH_INDEX_META_OVERRIDES" "meta-overrides.toml"))
+        (metadata-overrides (default-metadata-overrides-path))
         (include-default-branch
           (member (env "TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH")
                   '("1" "true" "TRUE" "yes" "YES")
@@ -46,7 +55,7 @@ Options:
                   (list :org org
                         :local-repos (nreverse local-repos)
                         :output output
-                        :meta-overrides meta-overrides
+                        :metadata-overrides metadata-overrides
                         :include-default-branch include-default-branch
                         :force-recheck force-recheck
                         :include-archived include-archived
@@ -67,8 +76,9 @@ Options:
                  ((string= (car rest) "--output")
                   (setf output (next rest "--output"))
                   (parse (cddr rest)))
-                 ((string= (car rest) "--meta-overrides")
-                  (setf meta-overrides (next rest "--meta-overrides"))
+                 ((member (car rest) '("--metadata-overrides" "--meta-overrides")
+                          :test #'string=)
+                  (setf metadata-overrides (next rest (car rest)))
                   (parse (cddr rest)))
                  ((string= (car rest) "--include-default-branch")
                   (setf include-default-branch t)
@@ -95,8 +105,8 @@ Options:
                           :org (plist-ref options :org)
                           :local-repos (plist-ref options :local-repos)
                           :output-dir (plist-ref options :output)
-                          :meta-overrides-file
-                          (plist-ref options :meta-overrides)
+                          :metadata-overrides-file
+                          (plist-ref options :metadata-overrides)
                           :include-default-branch
                           (plist-ref options :include-default-branch)
                           :include-archived (plist-ref options :include-archived)

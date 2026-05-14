@@ -204,7 +204,7 @@ meta fields, smoke metadata, and upstream source metadata.
 
 TAFFISH `0.8.1` documents `[meta]` and `[upstream]` as optional ecosystem
 metadata. New public Hub apps should provide them when useful, while old
-immutable releases can be supplemented with `meta-overrides.toml`.
+immutable releases can be supplemented with `metadata-overrides.toml`.
 
 Example:
 
@@ -271,7 +271,7 @@ Meta:
   normalizes `category` into `categories` and `summary` into `description`, then
   emits both forms for compatibility.
 - New app releases should prefer native `[meta]` in `taffish.toml`.
-- Existing immutable release tags can be supplemented through `meta-overrides.toml`.
+- Existing immutable release tags can be supplemented through `metadata-overrides.toml`.
 
 Upstream:
 
@@ -362,7 +362,8 @@ CLI options:
 --no-org                     Disable GitHub organization scan
 --local-repo <PATH>          Add a local TAFFISH app repository
 --output <DIR>               Output directory, default index
---meta-overrides <PATH>      Optional meta override TOML, default meta-overrides.toml
+--metadata-overrides <PATH>  Optional metadata override TOML, default metadata-overrides.toml
+--meta-overrides <PATH>      Compatibility alias for --metadata-overrides
 --include-default-branch     Also index default branch snapshots
 --include-archived           Include archived GitHub repositories
 --include-forks              Include fork repositories
@@ -379,19 +380,21 @@ Environment variables:
 | `TAFFISH_BOT_TOKEN` | GitHub API token used by the builder. |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | Enables default branch snapshots when set to `1`, `true`, or `yes`. |
 | `TAFFISH_INDEX_FORCE_RECHECK` | Re-runs digest/smoke gates when set to `1`, `true`, or `yes`. |
-| `TAFFISH_INDEX_META_OVERRIDES` | Optional path to a meta override TOML file. Defaults to `meta-overrides.toml`. |
+| `TAFFISH_INDEX_METADATA_OVERRIDES` | Optional path to a metadata override TOML file. Defaults to `metadata-overrides.toml`. |
+| `TAFFISH_INDEX_META_OVERRIDES` | Compatibility fallback for the older override path variable. |
 
 The GitHub Actions workflow uses `TAFFISH_BOT_TOKEN` from repository secrets when
 available, and falls back to `GITHUB_TOKEN`.
 
-## Meta Overrides
+## Metadata Overrides
 
-`meta-overrides.toml` lets the index add display/search metadata to already
-published immutable app releases without creating a new `-rN` release only for
-description changes.
+`metadata-overrides.toml` lets the index add display/search metadata and upstream
+source metadata to already published immutable app releases without creating a
+new `-rN` release only for metadata changes.
 
 Each override section must include `repository` and `version_id`, then any
-supported meta fields:
+supported meta fields. Optional upstream overrides use a sibling
+`[<section>.upstream]` table:
 
 ```toml
 [bcftools-1.23.1-r1]
@@ -401,11 +404,26 @@ domain = "bio"
 categories = ["genomics", "variant-calling", "vcf-bcf"]
 keywords = ["vcf", "bcf", "variant", "htslib"]
 description = "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
+
+[bcftools-1.23.1-r1.upstream]
+name = "BCFtools"
+type = "github"
+homepage = "https://samtools.github.io/bcftools/"
+repository = "samtools/bcftools"
+release_url = "https://github.com/samtools/bcftools/releases"
+version = "1.23.1"
+license = "MIT/Expat or GPL"
+citation = "Danecek et al. 2021"
+doi = "10.1093/gigascience/giab008"
+pmid = "33590861"
 ```
 
 Overrides are applied after app metadata is read from GitHub. If a future
-release already carries native `[meta]`, the exact-version override can be
-removed or left to intentionally adjust the published display metadata.
+release already carries native `[meta]` or `[upstream]`, the exact-version
+override can be removed or left to intentionally adjust the published display
+metadata. Upstream overrides merge field-by-field with native upstream data, so
+they can supplement old release tags that only declared a minimal upstream
+repository for update checking.
 
 ## Related Repositories
 

@@ -474,27 +474,58 @@
 (defun meta-override-key (repository version-id)
   (format nil "~A|~A" (normalize-slug repository) version-id))
 
-(defun read-meta-overrides (path)
+(defun upstream-override-section-p (section-name)
+  (string-suffix-p ".upstream" section-name :test #'char-equal))
+
+(defun upstream-override-parent-section (section-name)
+  (strip-suffix ".upstream" section-name :test #'char-equal))
+
+(defun override-upstream-section (toml section-name)
+  (gethash (format nil "~A.upstream" section-name) toml))
+
+(defun validate-meta-override-sections (toml)
+  (maphash
+   (lambda (section-name section)
+     (declare (ignore section))
+     (when (and (upstream-override-section-p section-name)
+                (not (gethash (upstream-override-parent-section section-name) toml)))
+       (error "[~A] must have a matching [~A] section"
+              section-name
+              (upstream-override-parent-section section-name))))
+   toml))
+
+(defun read-metadata-overrides (path)
   (let ((table (make-hash-table :test #'equal)))
     (when (and path (file-exists-p path))
       (let ((toml (parse-taffish-toml-string (read-string-file path))))
+        (validate-meta-override-sections toml)
         (maphash
          (lambda (section-name section)
-           (let* ((repository
-                    (ensure-string-field
-                     (gethash "repository" section)
-                     (format nil "[~A].repository" section-name)))
-                  (version-id
-                    (ensure-string-field
-                     (gethash "version_id" section)
-                     (format nil "[~A].version_id" section-name)))
-                  (meta (parse-meta-table section (format nil "[~A]" section-name))))
-             (unless meta
-               (error "[~A] must define at least one meta field" section-name))
-             (setf (gethash (meta-override-key repository version-id) table)
-                   meta)))
+           (unless (upstream-override-section-p section-name)
+             (let* ((repository
+                      (ensure-string-field
+                       (gethash "repository" section)
+                       (format nil "[~A].repository" section-name)))
+                    (version-id
+                      (ensure-string-field
+                       (gethash "version_id" section)
+                       (format nil "[~A].version_id" section-name)))
+                    (meta (parse-meta-table section
+                                            (format nil "[~A]" section-name)))
+                    (upstream-section (override-upstream-section toml section-name))
+                    (upstream (parse-upstream-table
+                               upstream-section
+                               (format nil "[~A.upstream]" section-name))))
+               (unless (or meta upstream)
+                 (error "[~A] must define at least one meta field or an upstream override"
+                        section-name))
+               (setf (gethash (meta-override-key repository version-id) table)
+                     (list :meta meta :upstream upstream)))))
          toml)))
     table))
+
+(defun read-meta-overrides (path)
+  (read-metadata-overrides path))
 
 (defun merge-meta (base override)
   (if override
@@ -510,16 +541,32 @@
                         (and base (plist-ref base :description))))
       base))
 
-(defun apply-meta-overrides-to-records (records overrides)
+(defun merge-upstream (base override)
+  (if override
+      (let ((out (copy-list (or base nil))))
+        (dolist (field *upstream-json-fields* out)
+          (let* ((plist-key (cdr field))
+                 (value (plist-ref override plist-key)))
+            (when value
+              (setf (getf out plist-key) value)))))
+      base))
+
+(defun apply-metadata-overrides-to-records (records overrides)
   (mapcar
    (lambda (record)
      (let ((override (gethash (record-cache-key record) overrides)))
        (if override
            (copy-record-set
             record
-            :meta (merge-meta (plist-ref record :meta) override))
+            :meta (merge-meta (plist-ref record :meta)
+                              (plist-ref override :meta))
+            :upstream (merge-upstream (plist-ref record :upstream)
+                                      (plist-ref override :upstream)))
            record)))
    records))
+
+(defun apply-meta-overrides-to-records (records overrides)
+  (apply-metadata-overrides-to-records records overrides))
 
 (defun same-source-commit-p (previous candidate)
   (and previous
@@ -851,11 +898,13 @@
 
 (defun build-index (&key org local-repos output-dir include-default-branch
                       include-archived include-forks force-recheck
-                      meta-overrides-file)
+                      metadata-overrides-file meta-overrides-file)
   (let* ((output (uiop:ensure-directory-pathname output-dir))
          (previous-records (read-previous-index output))
          (previous-map (previous-record-map previous-records))
-         (meta-overrides (read-meta-overrides meta-overrides-file))
+         (metadata-overrides-file (or metadata-overrides-file
+                                      meta-overrides-file))
+         (metadata-overrides (read-metadata-overrides metadata-overrides-file))
          (generated-at (utc-timestamp))
          (records nil)
          (warnings nil))
@@ -872,7 +921,7 @@
                                     :include-forks include-forks)
         (setf records (append github-records records)
               warnings (append github-warnings warnings))))
-    (setf records (apply-meta-overrides-to-records records meta-overrides))
+    (setf records (apply-metadata-overrides-to-records records metadata-overrides))
     (multiple-value-bind (accepted-records failures)
         (process-records (nreverse records) previous-map
                          :force-recheck force-recheck
