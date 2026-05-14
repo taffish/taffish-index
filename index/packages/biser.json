@@ -36,19 +36,19 @@
         "category": "genomics",
         "categories": [
           "genomics",
-          "segmental-duplication",
-          "comparative-genomics"
+          "structural-variation",
+          "segmental-duplication"
         ],
         "keywords": [
           "biser",
           "segmental-duplication",
-          "genome-assembly",
-          "bedpe",
+          "copy-number",
           "samtools",
-          "codon"
+          "cigar",
+          "bam"
         ],
-        "summary": "Tool for detecting and decomposing segmental duplications in one or more genome assemblies.",
-        "description": "Tool for detecting and decomposing segmental duplications in one or more genome assemblies."
+        "summary": "Tool for detecting and analyzing segmental duplications from read alignments.",
+        "description": "Tool for detecting and analyzing segmental duplications from read alignments."
       },
       "paths": {
         "main": "src/main.taf",
@@ -101,8 +101,16 @@
         "html_url": "https://github.com/taffish/biser/tree/v1.4-r1"
       },
       "upstream": {
+        "name": "BISER",
         "type": "github",
-        "repository": "0xTCG/biser"
+        "homepage": "https://github.com/0xTCG/biser#readme",
+        "repository": "0xTCG/biser",
+        "release_url": "https://github.com/0xTCG/biser/tags",
+        "version": "1.4",
+        "license": "MIT",
+        "citation": "Iseric et al. 2022",
+        "doi": "10.1186/s13015-022-00210-2",
+        "pmid": "35303886"
       }
     }
   }
