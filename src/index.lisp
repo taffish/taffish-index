@@ -483,6 +483,18 @@
 (defun override-upstream-section (toml section-name)
   (gethash (format nil "~A.upstream" section-name) toml))
 
+(defun parse-upstream-license-override (section field-prefix)
+  (when section
+    (maphash
+     (lambda (key value)
+       (declare (ignore value))
+       (unless (string-equal key "license")
+         (error "~A.~A is not supported; metadata overrides may only supplement upstream.license"
+                field-prefix
+                key)))
+     section)
+    (parse-upstream-table section field-prefix)))
+
 (defun validate-meta-override-sections (toml)
   (maphash
    (lambda (section-name section)
@@ -513,7 +525,7 @@
                     (meta (parse-meta-table section
                                             (format nil "[~A]" section-name)))
                     (upstream-section (override-upstream-section toml section-name))
-                    (upstream (parse-upstream-table
+                    (upstream (parse-upstream-license-override
                                upstream-section
                                (format nil "[~A.upstream]" section-name))))
                (unless (or meta upstream)
@@ -543,7 +555,7 @@
 
 (defun merge-upstream (base override)
   (if override
-      (let ((out (copy-list (or base nil))))
+      (let ((out (copy-list base)))
         (dolist (field *upstream-json-fields* out)
           (let* ((plist-key (cdr field))
                  (value (plist-ref override plist-key)))
@@ -556,12 +568,16 @@
    (lambda (record)
      (let ((override (gethash (record-cache-key record) overrides)))
        (if override
-           (copy-record-set
-            record
-            :meta (merge-meta (plist-ref record :meta)
-                              (plist-ref override :meta))
-            :upstream (merge-upstream (plist-ref record :upstream)
-                                      (plist-ref override :upstream)))
+           (let ((upstream-override (plist-ref override :upstream))
+                 (upstream (plist-ref record :upstream)))
+             (when (and upstream-override (not upstream))
+               (error "metadata override for ~A defines upstream.license, but the record has no upstream to merge"
+                      (record-cache-key record)))
+             (copy-record-set
+              record
+              :meta (merge-meta (plist-ref record :meta)
+                                (plist-ref override :meta))
+              :upstream (merge-upstream upstream upstream-override)))
            record)))
    records))
 

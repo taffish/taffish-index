@@ -204,7 +204,8 @@ meta fields, smoke metadata, and upstream source metadata.
 
 TAFFISH `0.8.1` documents `[meta]` and `[upstream]` as optional ecosystem
 metadata. New public Hub apps should provide them when useful, while old
-immutable releases can be supplemented with `metadata-overrides.toml`.
+immutable releases can have display metadata and existing upstream license
+metadata supplemented with `metadata-overrides.toml`.
 
 Example:
 
@@ -284,6 +285,8 @@ Upstream:
 - Empty or unknown upstream fields are ignored.
 - Missing upstream metadata is omitted from JSON rather than represented as
   `null`, `none`, or `"not provided"`.
+- `metadata-overrides.toml` may supplement `license` on records that already
+  have upstream data, but it does not create a new upstream object.
 
 Smoke:
 
@@ -388,13 +391,14 @@ available, and falls back to `GITHUB_TOKEN`.
 
 ## Metadata Overrides
 
-`metadata-overrides.toml` lets the index add display/search metadata and upstream
-source metadata to already published immutable app releases without creating a
-new `-rN` release only for metadata changes.
+`metadata-overrides.toml` lets the index add display/search metadata and the
+open-source license of an already declared upstream repository to published
+immutable app releases without creating a new `-rN` release only for metadata
+changes.
 
 Each override section must include `repository` and `version_id`, then any
-supported meta fields. Optional upstream overrides use a sibling
-`[<section>.upstream]` table:
+supported meta fields. To supplement the license of an existing upstream
+repository, use a sibling `[<section>.upstream]` table with `license`:
 
 ```toml
 [bcftools-1.23.1-r1]
@@ -406,24 +410,16 @@ keywords = ["vcf", "bcf", "variant", "htslib"]
 description = "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
 
 [bcftools-1.23.1-r1.upstream]
-name = "BCFtools"
-type = "github"
-homepage = "https://samtools.github.io/bcftools/"
-repository = "samtools/bcftools"
-release_url = "https://github.com/samtools/bcftools/releases"
-version = "1.23.1"
 license = "MIT/Expat or GPL"
-citation = "Danecek et al. 2021"
-doi = "10.1093/gigascience/giab008"
-pmid = "33590861"
 ```
 
 Overrides are applied after app metadata is read from GitHub. If a future
 release already carries native `[meta]` or `[upstream]`, the exact-version
 override can be removed or left to intentionally adjust the published display
-metadata. Upstream overrides merge field-by-field with native upstream data, so
-they can supplement old release tags that only declared a minimal upstream
-repository for update checking.
+metadata. Upstream overrides are intentionally limited to `upstream.license` and
+only merge into records that already have upstream data, so they supplement the
+open-source license of the existing upstream repository instead of creating a
+new upstream object.
 
 ## Related Repositories
 
