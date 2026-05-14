@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-14T16:04:52Z",
+  "generated_at": "2026-05-14T16:28:28Z",
   "organization": "taffish",
   "counts": {
-    "packages": 9,
-    "versions": 9,
-    "commands": 9,
-    "repositories": 9,
+    "packages": 10,
+    "versions": 10,
+    "commands": 10,
+    "repositories": 10,
     "warnings": 0,
     "failed": 0
   },
@@ -946,6 +946,147 @@
         }
       }
     },
+    "bowtie2": {
+      "name": "bowtie2",
+      "latest": "2.5.5-r1",
+      "repository_url": "https://github.com/taffish/bowtie2",
+      "command": {
+        "name": "taf-bowtie2"
+      },
+      "versions": {
+        "2.5.5-r1": {
+          "name": "bowtie2",
+          "kind": "tool",
+          "version": "2.5.5",
+          "release": 1,
+          "version_id": "2.5.5-r1",
+          "tag": "v2.5.5-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bowtie2",
+          "repository_slug": "taffish/bowtie2",
+          "command": {
+            "name": "taf-bowtie2"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "alignment",
+              "sequence-alignment",
+              "ngs"
+            ],
+            "keywords": [
+              "bowtie2",
+              "read-alignment",
+              "short-read-alignment",
+              "fastq",
+              "sam",
+              "indexing",
+              "ngs"
+            ],
+            "summary": "Fast and memory-efficient aligner for sequencing reads against long reference genomes using Bowtie 2 indexes.",
+            "description": "Fast and memory-efficient aligner for sequencing reads against long reference genomes using Bowtie 2 indexes."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bowtie2:2.5.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.5.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b93d81981c48721596864683d5890e6dc018a3aad23b92c8db83e0b20d0c5f28",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b85b17811504dfa13e9a1a2abed6ea1a0deba8b317c6baeb94676d1c4dd6d707",
+              "linux/arm64": "sha256:2444a14a02d03b4e0e67bbe6ea7674bc231cc4483395b7952d822761d7ed7af1"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "bowtie2",
+              "bowtie2-build",
+              "bowtie2-inspect",
+              "bowtie2-align-s",
+              "bowtie2-align-l",
+              "bowtie2-align-s-debug",
+              "bowtie2-align-l-debug",
+              "bowtie2-build-s",
+              "bowtie2-build-l",
+              "bowtie2-build-s-debug",
+              "bowtie2-build-l-debug",
+              "bowtie2-inspect-s",
+              "bowtie2-inspect-l",
+              "bowtie2-inspect-s-debug",
+              "bowtie2-inspect-l-debug",
+              "taf-bowtie2-entrypoint",
+              "perl",
+              "python3",
+              "gzip",
+              "bzip2"
+            ],
+            "test": [
+              "taf-bowtie2-entrypoint | grep -F 'taf-bowtie2 wraps the Bowtie 2 command suite.' >/dev/null",
+              "taf-bowtie2-entrypoint --version 2>&1 | grep -F 'version 2.5.5' >/dev/null",
+              "bowtie2 --version 2>&1 | grep -F 'version 2.5.5' >/dev/null",
+              "bowtie2-build --version 2>&1 | grep -F 'version 2.5.5' >/dev/null",
+              "bowtie2-inspect --version 2>&1 | grep -F 'version 2.5.5' >/dev/null",
+              "bowtie2 --help 2>&1 | grep -F 'Usage:' >/dev/null",
+              "bowtie2-build --help 2>&1 | grep -F 'Usage:' >/dev/null",
+              "bowtie2-inspect --help 2>&1 | grep -F 'Usage:' >/dev/null",
+              "gzip --version >/dev/null && bzip2 --help >/dev/null",
+              "printf '>ref\\nACGTACGTTGCAAGTCGATCGTACGATCGTTAACCGGTTAACCGGTT\\n' >/tmp/taf-bowtie2-ref.fa && bowtie2-build /tmp/taf-bowtie2-ref.fa /tmp/taf-bowtie2-ref >/dev/null && printf '@read1\\nTGCAAGTCGATCGTACGATCGTTAACCGGTTA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' >/tmp/taf-bowtie2-read.fq && gzip -c /tmp/taf-bowtie2-read.fq >/tmp/taf-bowtie2-read.fq.gz && bzip2 -c /tmp/taf-bowtie2-read.fq >/tmp/taf-bowtie2-read.fq.bz2 && bowtie2 -x /tmp/taf-bowtie2-ref -U /tmp/taf-bowtie2-read.fq.gz -S /tmp/taf-bowtie2-gz.sam --quiet && grep -v '^@' /tmp/taf-bowtie2-gz.sam | awk '$3!=\"*\"{found=1} END{exit !found}' && bowtie2 -x /tmp/taf-bowtie2-ref -U /tmp/taf-bowtie2-read.fq.bz2 -S /tmp/taf-bowtie2-bz2.sam --quiet && grep -v '^@' /tmp/taf-bowtie2-bz2.sam | awk '$3!=\"*\"{found=1} END{exit !found}' && bowtie2-inspect -n /tmp/taf-bowtie2-ref | grep -Fx ref >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-14T16:28:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-14T16:28:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bowtie2",
+            "ref": "v2.5.5-r1",
+            "commit": "aed37dd5e60ff98695167d6c53baf972cbb5c92d",
+            "html_url": "https://github.com/taffish/bowtie2/tree/v2.5.5-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://bowtie-bio.sourceforge.net/bowtie2/index.shtml",
+            "repository": "BenLangmead/bowtie2",
+            "release_url": "https://github.com/BenLangmead/bowtie2/releases/tag/v2.5.5",
+            "version": "2.5.5",
+            "license": "GPL-3.0-or-later",
+            "citation": "Langmead and Salzberg 2012",
+            "doi": "10.1038/nmeth.1923",
+            "pmid": "22388286"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -1110,6 +1251,10 @@
       "package": "blast-flow",
       "version": "0.1.0-r2"
     },
+    "taf-bowtie2": {
+      "package": "bowtie2",
+      "version": "2.5.5-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -1162,6 +1307,12 @@
       "repository": "taffish/blast-flow",
       "packages": [
         "blast-flow"
+      ]
+    },
+    "taffish/bowtie2": {
+      "repository": "taffish/bowtie2",
+      "packages": [
+        "bowtie2"
       ]
     },
     "taffish/samtools": {
