@@ -260,6 +260,8 @@ Upstream：
 
 - 已识别字段包括 `name`、`type`、`url`、`homepage`、`repository`、
   `release_url`、`docker_image`、`version`、`license`、`citation`、`doi` 和 `pmid`。
+- `repository` 是正式的上游仓库字段。`repo` 也会作为兼容别名被接受，并在
+  JSON 输出中归一化为 `repository`。
 - 空字段和未知字段会被忽略。
 - 缺失 upstream 元数据时，JSON 中会省略 `upstream`，不会写成 `null`、
   `none` 或 `"not provided"`。

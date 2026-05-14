@@ -275,6 +275,9 @@ Upstream:
 - Recognized fields are `name`, `type`, `url`, `homepage`, `repository`,
   `release_url`, `docker_image`, `version`, `license`, `citation`, `doi`, and
   `pmid`.
+- `repository` is the canonical upstream repository field. `repo` is also
+  accepted as a compatibility alias and is normalized to `repository` in JSON
+  output.
 - Empty or unknown upstream fields are ignored.
 - Missing upstream metadata is omitted from JSON rather than represented as
   `null`, `none`, or `"not provided"`.

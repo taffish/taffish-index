@@ -390,6 +390,7 @@
     ("type" . :type)
     ("url" . :url)
     ("homepage" . :homepage)
+    ("repo" . :repository)
     ("repository" . :repository)
     ("release_url" . :release-url)
     ("docker_image" . :docker-image)
