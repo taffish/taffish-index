@@ -1,0 +1,159 @@
+{
+  "name": "blast",
+  "latest": "2.17.0-r1",
+  "repository_url": "https://github.com/taffish/blast",
+  "command": {
+    "name": "taf-blast"
+  },
+  "versions": {
+    "2.17.0-r1": {
+      "name": "blast",
+      "kind": "tool",
+      "version": "2.17.0",
+      "release": 1,
+      "version_id": "2.17.0-r1",
+      "tag": "v2.17.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/blast",
+      "repository_slug": "taffish/blast",
+      "command": {
+        "name": "taf-blast"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "sequence-search",
+        "categories": [
+          "sequence-search",
+          "alignment",
+          "genomics",
+          "proteomics"
+        ],
+        "keywords": [
+          "blast",
+          "blast+",
+          "blastn",
+          "blastp",
+          "blastx",
+          "tblastn",
+          "tblastx",
+          "makeblastdb",
+          "sequence-alignment"
+        ],
+        "summary": "NCBI BLAST+ suite for nucleotide and protein sequence similarity search and local BLAST database workflows.",
+        "description": "NCBI BLAST+ suite for nucleotide and protein sequence similarity search and local BLAST database workflows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/blast:2.17.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.17.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:72ab8be4d4bf3944db9bd74b653a447f85948dff659fedffcaf4a49ac2687421",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b9097231baa4dab367dbad7e9beb275f9266b5b5c6376c5afe88597b8492b2ee",
+          "linux/arm64": "sha256:cc2d3c15e136e893dcbb339e467b15fc00803501d0e31cbcb145d48fb415f74f"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "blastn",
+          "blastp",
+          "blastx",
+          "tblastn",
+          "tblastx",
+          "makeblastdb",
+          "blastdbcmd",
+          "blast_formatter",
+          "dustmasker",
+          "segmasker",
+          "windowmasker",
+          "psiblast",
+          "rpsblast",
+          "rpstblastn",
+          "deltablast",
+          "makeprofiledb",
+          "makembindex",
+          "convert2blastmask",
+          "blastdb_aliastool",
+          "blastdbcheck",
+          "update_blastdb.pl",
+          "cleanup-blastdb-volumes.py",
+          "taf-blast-entrypoint",
+          "perl",
+          "python3",
+          "curl"
+        ],
+        "test": [
+          "taf-blast-entrypoint | grep -F 'taf-blast wraps the NCBI BLAST+ command suite.' >/dev/null",
+          "taf-blast-entrypoint --version 2>&1 | grep -F '2.17.0' >/dev/null",
+          "taf-blast-entrypoint blastn -version 2>&1 | grep -F '2.17.0' >/dev/null",
+          "blastn -version 2>&1 | grep -F '2.17.0' >/dev/null",
+          "blastp -version 2>&1 | grep -F '2.17.0' >/dev/null",
+          "blastn -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "blastp -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "blastx -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "tblastn -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "tblastx -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "makeblastdb -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "blastdbcmd -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "blast_formatter -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "dustmasker -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "segmasker -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "update_blastdb.pl --help >/dev/null",
+          "cleanup-blastdb-volumes.py --help >/dev/null",
+          "printf '>subject1\\nACGTACGTACGTACGTACGT\\n' >/tmp/taf-blast-db.fa && makeblastdb -in /tmp/taf-blast-db.fa -dbtype nucl -out /tmp/taf-blast-db >/dev/null && printf '>query1\\nACGTACGT\\n' >/tmp/taf-blast-query.fa && blastn -task blastn-short -query /tmp/taf-blast-query.fa -db /tmp/taf-blast-db -outfmt '6 qseqid sseqid pident length' | awk '$1==\"query1\" && $2==\"subject1\" {found=1} END {exit !found}'"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-14T05:47:55Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-14T05:47:55Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/blast",
+        "ref": "v2.17.0-r1",
+        "commit": "079c3933deb8f08433f057f8440bb2a8e038866d",
+        "html_url": "https://github.com/taffish/blast/tree/v2.17.0-r1"
+      },
+      "upstream": {
+        "name": "NCBI BLAST+",
+        "type": "official",
+        "url": "https://blast.ncbi.nlm.nih.gov/",
+        "homepage": "https://blast.ncbi.nlm.nih.gov/",
+        "release_url": "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.17.0/",
+        "docker_image": "docker.io/ncbi/blast:2.17.0",
+        "version": "2.17.0",
+        "license": "Public Domain",
+        "citation": "Camacho et al. 2009",
+        "doi": "10.1186/1471-2105-10-421",
+        "pmid": "20003500"
+      }
+    }
+  }
+}
