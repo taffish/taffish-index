@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-15T11:03:21Z",
+  "generated_at": "2026-05-15T11:51:53Z",
   "organization": "taffish",
   "counts": {
-    "packages": 18,
-    "versions": 18,
-    "commands": 18,
-    "repositories": 18,
+    "packages": 19,
+    "versions": 19,
+    "commands": 19,
+    "repositories": 19,
     "warnings": 0,
     "failed": 0
   },
@@ -2148,6 +2148,132 @@
         }
       }
     },
+    "craq": {
+      "name": "craq",
+      "latest": "1.10-r1",
+      "repository_url": "https://github.com/taffish/craq",
+      "command": {
+        "name": "taf-craq"
+      },
+      "versions": {
+        "1.10-r1": {
+          "name": "craq",
+          "kind": "tool",
+          "version": "1.10",
+          "release": 1,
+          "version_id": "1.10-r1",
+          "tag": "v1.10-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/craq",
+          "repository_slug": "taffish/craq",
+          "command": {
+            "name": "taf-craq"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "quality-assessment",
+              "read-mapping"
+            ],
+            "keywords": [
+              "craq",
+              "assembly-quality",
+              "genome-assembly",
+              "aqi",
+              "misassembly",
+              "clipping",
+              "cre",
+              "cse",
+              "ngs",
+              "long-reads"
+            ],
+            "summary": "Reference-free genome assembly assessment and correction using clipped read alignment signals.",
+            "description": "Reference-free genome assembly assessment and correction using clipped read alignment signals."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/craq:1.10-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.10-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c6eef3182208562bb5c64b13e2337ae392e3f1f68193e304f61fd797413852e6",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b494016cb81e5f7644ae0479760f4d811b707e9d8fd1533a17656c245cc87756",
+              "linux/arm64": "sha256:ac25c15bf8158e0b7fd6a8304c8f53b50448c41f0cbbc675337df86c8e0d1700"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "craq",
+              "perl",
+              "bash",
+              "samtools",
+              "minimap2",
+              "bc",
+              "python"
+            ],
+            "test": [
+              "test \"$(cat /opt/craq/VERSION)\" = '1.10'",
+              "craq -h 2>&1 | grep -F 'CRAQ Version' >/dev/null",
+              "samtools --version | grep -F 'samtools' >/dev/null",
+              "minimap2 --version >/dev/null",
+              "python -c 'import matplotlib, pycircos, Bio, requests'",
+              "test -s /opt/craq/Example/Genome.fa && test -s /opt/craq/Example/SMS_sort.bam && test -s /opt/craq/Example/NGS_sort.bam",
+              "mkdir -p /tmp/taf-craq-smoke && cd /tmp/taf-craq-smoke && cp /opt/craq/Example/Genome.fa . && cp /opt/craq/Example/SMS_sort.bam* . && cp /opt/craq/Example/NGS_sort.bam* . && craq -g Genome.fa -sms SMS_sort.bam -ngs NGS_sort.bam -rw 1500 -pl T -D Output >/tmp/taf-craq-smoke.log 2>&1 && test -s Output/runAQI_out/out_final.Report && test -s Output/runAQI_out/out_regional.Report && test -s Output/runAQI_out/out_circos.pdf"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-15T11:51:53Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-15T11:51:53Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/craq",
+            "ref": "v1.10-r1",
+            "commit": "8dc0a64c9024aeddb9d216ee831ffc1cca6e9168",
+            "html_url": "https://github.com/taffish/craq/tree/v1.10-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://github.com/JiaoLaboratory/CRAQ",
+            "repository": "JiaoLaboratory/CRAQ",
+            "release_url": "https://github.com/JiaoLaboratory/CRAQ/releases/tag/v1.10",
+            "version": "1.10",
+            "license": "MIT",
+            "citation": "Li et al. 2023",
+            "doi": "10.1038/s41467-023-42336-w"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -2348,6 +2474,10 @@
       "package": "cpc2",
       "version": "1.0.1-r1"
     },
+    "taf-craq": {
+      "package": "craq",
+      "version": "1.10-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -2454,6 +2584,12 @@
       "repository": "taffish/cpc2",
       "packages": [
         "cpc2"
+      ]
+    },
+    "taffish/craq": {
+      "repository": "taffish/craq",
+      "packages": [
+        "craq"
       ]
     },
     "taffish/samtools": {
