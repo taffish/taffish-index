@@ -1,0 +1,123 @@
+{
+  "name": "cpc2",
+  "latest": "1.0.1-r1",
+  "repository_url": "https://github.com/taffish/cpc2",
+  "command": {
+    "name": "taf-cpc2"
+  },
+  "versions": {
+    "1.0.1-r1": {
+      "name": "cpc2",
+      "kind": "tool",
+      "version": "1.0.1",
+      "release": 1,
+      "version_id": "1.0.1-r1",
+      "tag": "v1.0.1-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/cpc2",
+      "repository_slug": "taffish/cpc2",
+      "command": {
+        "name": "taf-cpc2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "transcriptomics",
+        "categories": [
+          "transcriptomics",
+          "lncrna",
+          "coding-potential",
+          "rna"
+        ],
+        "keywords": [
+          "cpc2",
+          "coding-potential",
+          "lncrna",
+          "transcript",
+          "orf",
+          "fickett-score",
+          "svm",
+          "libsvm"
+        ],
+        "summary": "Coding Potential Calculator 2 for classifying transcript coding potential from sequence-intrinsic features.",
+        "description": "Coding Potential Calculator 2 for classifying transcript coding potential from sequence-intrinsic features."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/cpc2:1.0.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.0.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:3cf38137b206f2799e6b35bc1988080023e313656e11ca1af1527a22f021c202",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:63b6071c29e03d24773f1dbaac9779a9ae3e8329a6be854a18f608d2f7d1191f",
+          "linux/arm64": "sha256:e780fda3c8119961c925f6efd92f9ea2b34165edc2a3a714f052a9bd9ffaaa97"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "CPC2.py",
+          "python",
+          "svm-scale",
+          "svm-predict"
+        ],
+        "test": [
+          "test \"$(cat /opt/cpc2/VERSION)\" = '1.0.1'",
+          "CPC2.py -h | grep -F 'Usage: CPC2.py' >/dev/null",
+          "CPC2.py --version | grep -F 'CPC2.py 0.1' >/dev/null",
+          "python -c 'import Bio, numpy, six; import sys; sys.path.insert(0, \"/opt/cpc2/bin\"); import seqio, compress'",
+          "test -s /opt/cpc2/data/cpc2.model && test -s /opt/cpc2/data/cpc2.range",
+          "mkdir -p /tmp/taf-cpc2-test && cd /tmp/taf-cpc2-test && printf '>coding\\nATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG\\n>noncoding\\nTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT\\n' > input.fa && CPC2.py -i input.fa -o cpc2-out >/dev/null && test -s cpc2-out.txt && head -n 1 cpc2-out.txt | grep -F 'coding_probability' >/dev/null && grep -E 'coding|noncoding' cpc2-out.txt >/dev/null",
+          "mkdir -p /tmp/taf-cpc2-orf-test && cd /tmp/taf-cpc2-orf-test && printf '>coding\\nATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG\\n' > input.fa && CPC2.py -i input.fa -o cpc2-orf --ORF >/dev/null && test -s cpc2-orf.txt && head -n 1 cpc2-orf.txt | grep -F 'ORF_Start' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-15T11:03:21Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-15T11:03:21Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/cpc2",
+        "ref": "v1.0.1-r1",
+        "commit": "007aff10f8cc9a28d09046aaf16f34cb372a3f34",
+        "html_url": "https://github.com/taffish/cpc2/tree/v1.0.1-r1"
+      },
+      "upstream": {
+        "type": "github",
+        "homepage": "https://github.com/gao-lab/CPC2_standalone",
+        "repository": "gao-lab/CPC2_standalone",
+        "release_url": "https://github.com/gao-lab/CPC2_standalone/releases/tag/v1.0.1",
+        "version": "1.0.1",
+        "license": "GPL-3.0-only",
+        "citation": "Kang et al. 2017",
+        "doi": "10.1093/nar/gkx428",
+        "pmid": "28521017"
+      }
+    }
+  }
+}
