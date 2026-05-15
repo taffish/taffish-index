@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-14T17:58:29Z",
+  "generated_at": "2026-05-15T04:10:55Z",
   "organization": "taffish",
   "counts": {
-    "packages": 11,
-    "versions": 11,
-    "commands": 11,
-    "repositories": 11,
+    "packages": 12,
+    "versions": 12,
+    "commands": 12,
+    "repositories": 12,
     "warnings": 0,
     "failed": 0
   },
@@ -1232,6 +1232,141 @@
         }
       }
     },
+    "bustools": {
+      "name": "bustools",
+      "latest": "0.45.1-r1",
+      "repository_url": "https://github.com/taffish/bustools",
+      "command": {
+        "name": "taf-bustools"
+      },
+      "versions": {
+        "0.45.1-r1": {
+          "name": "bustools",
+          "kind": "tool",
+          "version": "0.45.1",
+          "release": 1,
+          "version_id": "0.45.1-r1",
+          "tag": "v0.45.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bustools",
+          "repository_slug": "taffish/bustools",
+          "command": {
+            "name": "taf-bustools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "rna-seq",
+              "bus"
+            ],
+            "keywords": [
+              "bus",
+              "single-cell",
+              "scrna-seq",
+              "barcode",
+              "umi",
+              "matrix",
+              "kallisto",
+              "kb"
+            ],
+            "summary": "Toolkit for manipulating BUS files and producing single-cell RNA-seq count matrices.",
+            "description": "Toolkit for manipulating BUS files and producing single-cell RNA-seq count matrices."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bustools:0.45.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.45.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:99bb7aa220b22ffc40da548ec94034034e38e891cc5a944fd95b4f66d65f0dd2",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2023d5f4937944761f09d1c10616964f94e8719f3d7759b4ee7b711b8f1ec246",
+              "linux/arm64": "sha256:18919a039b71d9571c45966d43e014dc733e1f29508ddcfadb532a125f5adfd0"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 60,
+            "exist": [
+              "bustools"
+            ],
+            "test": [
+              "bustools version | grep -F 'bustools, version 0.45.1' >/dev/null",
+              "{ bustools 2>&1 || true; } | grep -F 'bustools 0.45.1' >/dev/null",
+              "bustools cite | grep -F 'Nature Biotechnology' >/dev/null",
+              "bustools sort 2>&1 | grep -F 'Usage: bustools sort' >/dev/null",
+              "bustools correct 2>&1 | grep -F 'Usage: bustools correct' >/dev/null",
+              "bustools count 2>&1 | grep -F 'Usage: bustools count' >/dev/null",
+              "bustools inspect 2>&1 | grep -F 'Usage: bustools inspect' >/dev/null",
+              "bustools allowlist 2>&1 | grep -F 'Usage: bustools allowlist' >/dev/null",
+              "bustools capture 2>&1 | grep -F 'Usage: bustools capture' >/dev/null",
+              "bustools text 2>&1 | grep -F 'Usage: bustools text' >/dev/null",
+              "bustools fromtext 2>&1 | grep -F 'Usage: bustools fromtext' >/dev/null",
+              "bustools extract 2>&1 | grep -F 'Usage: bustools extract' >/dev/null",
+              "bustools umicorrect 2>&1 | grep -F 'Usage: bustools umicorrect' >/dev/null",
+              "bustools compress 2>&1 | grep -F 'Usage: bustools compress' >/dev/null",
+              "bustools decompress 2>&1 | grep -F 'Usage: bustools {inflate | decompress}' >/dev/null",
+              "bustools project 2>&1 | grep -F 'Usage: bustools project' >/dev/null",
+              "bustools linker 2>&1 | grep -F 'Usage: bustools linker' >/dev/null",
+              "bustools collapse 2>&1 | grep -F 'Usage: bustools collapse' >/dev/null",
+              "bustools clusterhist 2>&1 | grep -F 'Usage: bustools clusterhist' >/dev/null",
+              "bustools predict 2>&1 | grep -F 'Usage: bustools predict' >/dev/null",
+              "bustools merge 2>&1 | grep -F 'Usage: bustools merge' >/dev/null",
+              "bustools mash 2>&1 | grep -F 'Usage: bustools mash' >/dev/null",
+              "bustools inflate 2>&1 | grep -F 'Usage: bustools {inflate | decompress}' >/dev/null",
+              "bustools dump 2>&1 | grep -F 'Usage: bustools text' >/dev/null",
+              "bustools whitelist 2>&1 | grep -F 'Usage: bustools allowlist' >/dev/null",
+              "mkdir -p /tmp/taf-bustools-test && cd /tmp/taf-bustools-test && printf 'AAAAAAAAAAAAAAAA\\tCCCCCCCCCCCC\\t0\\t1\\n' > input.txt && bustools fromtext -o input.bus input.txt && bustools text -p input.bus | grep -F 'AAAAAAAAAAAAAAAA' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-15T04:10:55Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-15T04:10:55Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bustools",
+            "ref": "v0.45.1-r1",
+            "commit": "19f28466fb1640a0f362fbc03a8052ee52114799",
+            "html_url": "https://github.com/taffish/bustools/tree/v0.45.1-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "repository": "BUStools/bustools",
+            "license": "BSD-2-Clause",
+            "citation": "Melsted et al. 2021",
+            "doi": "10.1038/s41587-021-00870-2",
+            "pmid": "33795888"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -1404,6 +1539,10 @@
       "package": "busco",
       "version": "6.0.0-r1"
     },
+    "taf-bustools": {
+      "package": "bustools",
+      "version": "0.45.1-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -1468,6 +1607,12 @@
       "repository": "taffish/busco",
       "packages": [
         "busco"
+      ]
+    },
+    "taffish/bustools": {
+      "repository": "taffish/bustools",
+      "packages": [
+        "bustools"
       ]
     },
     "taffish/samtools": {
