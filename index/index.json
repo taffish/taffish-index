@@ -1,14 +1,14 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-15T05:02:03Z",
+  "generated_at": "2026-05-15T05:07:11Z",
   "organization": "taffish",
   "counts": {
-    "packages": 12,
-    "versions": 12,
-    "commands": 12,
-    "repositories": 12,
+    "packages": 13,
+    "versions": 13,
+    "commands": 13,
+    "repositories": 13,
     "warnings": 0,
-    "failed": 1
+    "failed": 0
   },
   "packages": {
     "augustus": {
@@ -1367,6 +1367,138 @@
         }
       }
     },
+    "bwa": {
+      "name": "bwa",
+      "latest": "0.7.19-r1",
+      "repository_url": "https://github.com/taffish/bwa",
+      "command": {
+        "name": "taf-bwa"
+      },
+      "versions": {
+        "0.7.19-r1": {
+          "name": "bwa",
+          "kind": "tool",
+          "version": "0.7.19",
+          "release": 1,
+          "version_id": "0.7.19-r1",
+          "tag": "v0.7.19-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bwa",
+          "repository_slug": "taffish/bwa",
+          "command": {
+            "name": "taf-bwa"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "alignment",
+              "sequence-alignment",
+              "short-read-alignment",
+              "ngs"
+            ],
+            "keywords": [
+              "bwa",
+              "bwa-mem",
+              "bwa-backtrack",
+              "bwa-sw",
+              "burrows-wheeler",
+              "alignment",
+              "short-read",
+              "fastq",
+              "sam",
+              "indexing",
+              "ngs"
+            ],
+            "summary": "Burrows-Wheeler Aligner for mapping DNA sequence reads to large reference genomes.",
+            "description": "Burrows-Wheeler Aligner for mapping DNA sequence reads to large reference genomes."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bwa:0.7.19-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.7.19-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4500d3ff69fddb0f1a7c073767cdafc12ce8d6823e336d747539b5b502cb5ebf",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0e3969b399596167c43e08bb630fe05516f5e1c95cd9ce97b29a5d79c76fb79f",
+              "linux/arm64": "sha256:d2e0dcc874c90e38a9a659ab6ef313b9d89f97d5bf29e04bd978eea9173ddcde"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 60,
+            "exist": [
+              "bwa",
+              "qualfa2fq.pl",
+              "xa2multi.pl"
+            ],
+            "test": [
+              "{ bwa 2>&1 || true; } | grep -F 'Version: 0.7.19' >/dev/null",
+              "{ bwa 2>&1 || true; } | grep -F 'Command: index' >/dev/null",
+              "{ bwa index 2>&1 || true; } | grep -F 'bwa index' >/dev/null",
+              "{ bwa mem 2>&1 || true; } | grep -F 'Usage: bwa mem' >/dev/null",
+              "{ bwa aln 2>&1 || true; } | grep -F 'bwa aln' >/dev/null",
+              "{ bwa samse 2>&1 || true; } | grep -F 'Usage: bwa samse' >/dev/null",
+              "{ bwa sampe 2>&1 || true; } | grep -F 'bwa sampe' >/dev/null",
+              "{ bwa bwasw 2>&1 || true; } | grep -F 'bwa bwasw' >/dev/null",
+              "{ bwa fastmap 2>&1 || true; } | grep -F 'bwa fastmap' >/dev/null",
+              "{ bwa pemerge 2>&1 || true; } | grep -F 'bwa pemerge' >/dev/null",
+              "{ bwa shm 2>&1 || true; } | grep -F 'bwa shm' >/dev/null",
+              "mkdir -p /tmp/taf-bwa-test && cd /tmp/taf-bwa-test && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && printf '@r1\\nACGTACGTACGT\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && bwa index ref.fa >/dev/null 2>&1 && bwa mem ref.fa reads.fq 2>/dev/null | grep -F 'SN:chr1' >/dev/null && bwa aln ref.fa reads.fq > reads.sai 2>/dev/null && bwa samse ref.fa reads.sai reads.fq 2>/dev/null | grep -F 'SN:chr1' >/dev/null",
+              "mkdir -p /tmp/taf-bwa-helper-test && cd /tmp/taf-bwa-helper-test && printf '>r1\\nACGT\\n' > reads.fa && printf '>r1\\n40 40 40 40\\n' > reads.qual && qualfa2fq.pl reads.fa reads.qual | grep -F '@r1' >/dev/null && printf 'r1\\t0\\tchr1\\t1\\t60\\t4M\\t=\\t1\\t0\\tACGT\\tFFFF\\tXA:Z:chr2,+2,4M,0;\\n' | xa2multi.pl | grep -F 'NM:i:0' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-15T05:07:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-15T05:07:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bwa",
+            "ref": "v0.7.19-r1",
+            "commit": "9346cf403c1aa3a6b4070243eaaf765690835479",
+            "html_url": "https://github.com/taffish/bwa/tree/v0.7.19-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "http://bio-bwa.sourceforge.net/",
+            "repository": "lh3/bwa",
+            "release_url": "https://github.com/lh3/bwa/releases/tag/v0.7.19",
+            "version": "0.7.19",
+            "license": "GPL-3.0",
+            "citation": "Li and Durbin 2009",
+            "doi": "10.1093/bioinformatics/btp324",
+            "pmid": "19451168"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -1543,6 +1675,10 @@
       "package": "bustools",
       "version": "0.45.1-r1"
     },
+    "taf-bwa": {
+      "package": "bwa",
+      "version": "0.7.19-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -1613,6 +1749,12 @@
       "repository": "taffish/bustools",
       "packages": [
         "bustools"
+      ]
+    },
+    "taffish/bwa": {
+      "repository": "taffish/bwa",
+      "packages": [
+        "bwa"
       ]
     },
     "taffish/samtools": {
