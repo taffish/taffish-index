@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-15T07:38:00Z",
+  "generated_at": "2026-05-15T08:42:09Z",
   "organization": "taffish",
   "counts": {
-    "packages": 15,
-    "versions": 15,
-    "commands": 15,
-    "repositories": 15,
+    "packages": 16,
+    "versions": 16,
+    "commands": 16,
+    "repositories": 16,
     "warnings": 0,
     "failed": 0
   },
@@ -1775,6 +1775,126 @@
         }
       }
     },
+    "clustal-omega": {
+      "name": "clustal-omega",
+      "latest": "1.2.4-r1",
+      "repository_url": "https://github.com/taffish/clustal-omega",
+      "command": {
+        "name": "taf-clustal-omega"
+      },
+      "versions": {
+        "1.2.4-r1": {
+          "name": "clustal-omega",
+          "kind": "tool",
+          "version": "1.2.4",
+          "release": 1,
+          "version_id": "1.2.4-r1",
+          "tag": "v1.2.4-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/clustal-omega",
+          "repository_slug": "taffish/clustal-omega",
+          "command": {
+            "name": "taf-clustal-omega"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "alignment",
+            "categories": [
+              "alignment",
+              "multiple-sequence-alignment",
+              "sequence-analysis",
+              "phylogenetics"
+            ],
+            "keywords": [
+              "clustal-omega",
+              "clustalo",
+              "multiple-sequence-alignment",
+              "msa",
+              "protein-alignment",
+              "dna",
+              "rna",
+              "guide-tree",
+              "stockholm",
+              "clustal"
+            ],
+            "summary": "Clustal Omega multiple sequence alignment tool for proteins, DNA, and RNA.",
+            "description": "Clustal Omega multiple sequence alignment tool for proteins, DNA, and RNA."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/clustal-omega:1.2.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.2.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d542aca050ab5ccc44194838a5ed861610f659da4c60efdb733230fdf20efef4",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c0908e2b323f2ed3c8312f41b65e692443f946682e3b3680c2384c610b5edd05",
+              "linux/arm64": "sha256:4c2ef02585685427bca6282918a9c76d9fadd4ee4d4e10ab39512849ac260ebf"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "clustalo"
+            ],
+            "test": [
+              "clustalo --version | grep -Fx '1.2.4' >/dev/null",
+              "clustalo --help 2>&1 | grep -F 'Usage: clustalo' >/dev/null",
+              "ldd $(command -v clustalo) | grep -F 'libargtable2' >/dev/null",
+              "printf '>seq1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>seq2\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANL\\n>seq3\\nGKTAYIAKQRQISFVKSHFSRQLDERVGLIEVQANN\\n' >/tmp/taf-clustalo.fa && clustalo -i /tmp/taf-clustalo.fa -o /tmp/taf-clustalo.clu --outfmt=clu --force --threads=1 >/dev/null && grep -F 'CLUSTAL O(1.2.4)' /tmp/taf-clustalo.clu >/dev/null && clustalo -i /tmp/taf-clustalo.fa -o /tmp/taf-clustalo.sto --outfmt=st --guidetree-out=/tmp/taf-clustalo.dnd --distmat-out=/tmp/taf-clustalo.dist --full --force --threads=1 >/dev/null && grep -F '# STOCKHOLM' /tmp/taf-clustalo.sto >/dev/null && test -s /tmp/taf-clustalo.dnd && test -s /tmp/taf-clustalo.dist"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-15T08:42:09Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-15T08:42:09Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/clustal-omega",
+            "ref": "v1.2.4-r1",
+            "commit": "f2c44943d515d1e284960fa01eec22142a7a2a12",
+            "html_url": "https://github.com/taffish/clustal-omega/tree/v1.2.4-r1"
+          },
+          "upstream": {
+            "name": "Clustal Omega",
+            "type": "official",
+            "url": "https://www.ebi.ac.uk/jdispatcher/msa/clustalo",
+            "homepage": "https://www.ebi.ac.uk/jdispatcher/msa/clustalo",
+            "release_url": "https://packages.debian.org/bookworm/clustalo",
+            "version": "1.2.4",
+            "license": "GPL-2.0-or-later",
+            "citation": "Sievers et al. 2011",
+            "doi": "10.1038/msb.2011.75",
+            "pmid": "21988835"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -1963,6 +2083,10 @@
       "package": "circos",
       "version": "0.69-10-r1"
     },
+    "taf-clustal-omega": {
+      "package": "clustal-omega",
+      "version": "1.2.4-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -2051,6 +2175,12 @@
       "repository": "taffish/circos",
       "packages": [
         "circos"
+      ]
+    },
+    "taffish/clustal-omega": {
+      "repository": "taffish/clustal-omega",
+      "packages": [
+        "clustal-omega"
       ]
     },
     "taffish/samtools": {
