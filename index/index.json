@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-15T11:51:53Z",
+  "generated_at": "2026-05-15T12:17:10Z",
   "organization": "taffish",
   "counts": {
     "packages": 19,
-    "versions": 19,
+    "versions": 20,
     "commands": 19,
     "repositories": 19,
     "warnings": 0,
@@ -1234,7 +1234,7 @@
     },
     "bustools": {
       "name": "bustools",
-      "latest": "0.45.1-r1",
+      "latest": "0.45.1-r2",
       "repository_url": "https://github.com/taffish/bustools",
       "command": {
         "name": "taf-bustools"
@@ -1355,6 +1355,131 @@
             "ref": "v0.45.1-r1",
             "commit": "19f28466fb1640a0f362fbc03a8052ee52114799",
             "html_url": "https://github.com/taffish/bustools/tree/v0.45.1-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "repository": "BUStools/bustools",
+            "license": "BSD-2-Clause",
+            "citation": "Melsted et al. 2021",
+            "doi": "10.1038/s41587-021-00870-2",
+            "pmid": "33795888"
+          }
+        },
+        "0.45.1-r2": {
+          "name": "bustools",
+          "kind": "tool",
+          "version": "0.45.1",
+          "release": 2,
+          "version_id": "0.45.1-r2",
+          "tag": "v0.45.1-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bustools",
+          "repository_slug": "taffish/bustools",
+          "command": {
+            "name": "taf-bustools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "rna-seq",
+              "bus"
+            ],
+            "keywords": [
+              "bus",
+              "single-cell",
+              "scrna-seq",
+              "barcode",
+              "umi",
+              "matrix",
+              "kallisto",
+              "kb"
+            ],
+            "summary": "Toolkit for manipulating BUS files and producing single-cell RNA-seq count matrices.",
+            "description": "Toolkit for manipulating BUS files and producing single-cell RNA-seq count matrices."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bustools:0.45.1-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.45.1-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:08fe5ccd39a253b9a68a012bf20c08892a2fc5319846a651f8b63cf8d5ff69dc",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ecab3aedbcbeec293a9f78e125a33c435bf04a021480f92fa369b16a2670293f",
+              "linux/arm64": "sha256:f3a522f5aacc702f53fdad845911e185d9e4e6e3400eec56ec6f3ac448efa897"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 60,
+            "exist": [
+              "bustools"
+            ],
+            "test": [
+              "bustools version | grep -F 'bustools, version 0.45.1' >/dev/null",
+              "{ bustools 2>&1 || true; } | grep -F 'bustools 0.45.1' >/dev/null",
+              "bustools cite | grep -F 'Nature Biotechnology' >/dev/null",
+              "bustools sort 2>&1 | grep -F 'Usage: bustools sort' >/dev/null",
+              "bustools correct 2>&1 | grep -F 'Usage: bustools correct' >/dev/null",
+              "bustools count 2>&1 | grep -F 'Usage: bustools count' >/dev/null",
+              "bustools inspect 2>&1 | grep -F 'Usage: bustools inspect' >/dev/null",
+              "bustools allowlist 2>&1 | grep -F 'Usage: bustools allowlist' >/dev/null",
+              "bustools capture 2>&1 | grep -F 'Usage: bustools capture' >/dev/null",
+              "bustools text 2>&1 | grep -F 'Usage: bustools text' >/dev/null",
+              "bustools fromtext 2>&1 | grep -F 'Usage: bustools fromtext' >/dev/null",
+              "bustools extract 2>&1 | grep -F 'Usage: bustools extract' >/dev/null",
+              "bustools umicorrect 2>&1 | grep -F 'Usage: bustools umicorrect' >/dev/null",
+              "bustools compress 2>&1 | grep -F 'Usage: bustools compress' >/dev/null",
+              "bustools decompress 2>&1 | grep -F 'Usage: bustools {inflate | decompress}' >/dev/null",
+              "bustools project 2>&1 | grep -F 'Usage: bustools project' >/dev/null",
+              "bustools linker 2>&1 | grep -F 'Usage: bustools linker' >/dev/null",
+              "bustools collapse 2>&1 | grep -F 'Usage: bustools collapse' >/dev/null",
+              "bustools clusterhist 2>&1 | grep -F 'Usage: bustools clusterhist' >/dev/null",
+              "bustools predict 2>&1 | grep -F 'Usage: bustools predict' >/dev/null",
+              "bustools merge 2>&1 | grep -F 'Usage: bustools merge' >/dev/null",
+              "bustools mash 2>&1 | grep -F 'Usage: bustools mash' >/dev/null",
+              "bustools inflate 2>&1 | grep -F 'Usage: bustools {inflate | decompress}' >/dev/null",
+              "bustools dump 2>&1 | grep -F 'Usage: bustools text' >/dev/null",
+              "bustools whitelist 2>&1 | grep -F 'Usage: bustools allowlist' >/dev/null",
+              "mkdir -p /tmp/taf-bustools-test && cd /tmp/taf-bustools-test && printf 'AAAAAAAAAAAAAAAA\\tCCCCCCCCCCCC\\t0\\t1\\n' > input.txt && bustools fromtext -o input.bus input.txt && bustools text -p input.bus | grep -F 'AAAAAAAAAAAAAAAA' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-15T12:17:10Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-15T12:17:10Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bustools",
+            "ref": "v0.45.1-r2",
+            "commit": "dedda500badcba7bb56daa1d5b2ebfeaabf4aaf1",
+            "html_url": "https://github.com/taffish/bustools/tree/v0.45.1-r2"
           },
           "upstream": {
             "type": "github",
@@ -2448,7 +2573,7 @@
     },
     "taf-bustools": {
       "package": "bustools",
-      "version": "0.45.1-r1"
+      "version": "0.45.1-r2"
     },
     "taf-bwa": {
       "package": "bwa",
