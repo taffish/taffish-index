@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-15T05:07:11Z",
+  "generated_at": "2026-05-15T05:45:26Z",
   "organization": "taffish",
   "counts": {
-    "packages": 13,
-    "versions": 13,
-    "commands": 13,
-    "repositories": 13,
+    "packages": 14,
+    "versions": 14,
+    "commands": 14,
+    "repositories": 14,
     "warnings": 0,
     "failed": 0
   },
@@ -1499,6 +1499,147 @@
         }
       }
     },
+    "cdhit": {
+      "name": "cdhit",
+      "latest": "4.8.1-r1",
+      "repository_url": "https://github.com/taffish/cdhit",
+      "command": {
+        "name": "taf-cdhit"
+      },
+      "versions": {
+        "4.8.1-r1": {
+          "name": "cdhit",
+          "kind": "tool",
+          "version": "4.8.1",
+          "release": 1,
+          "version_id": "4.8.1-r1",
+          "tag": "v4.8.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/cdhit",
+          "repository_slug": "taffish/cdhit",
+          "command": {
+            "name": "taf-cdhit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-clustering",
+            "categories": [
+              "sequence-clustering",
+              "sequence-deduplication",
+              "fasta",
+              "metagenomics",
+              "ngs"
+            ],
+            "keywords": [
+              "cd-hit",
+              "cd-hit-est",
+              "cd-hit-2d",
+              "cd-hit-est-2d",
+              "cd-hit-454",
+              "clustering",
+              "sequence-identity",
+              "redundancy",
+              "fasta",
+              "protein",
+              "nucleotide"
+            ],
+            "summary": "Fast clustering and comparison of protein or nucleotide sequence datasets.",
+            "description": "Fast clustering and comparison of protein or nucleotide sequence datasets."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/cdhit:4.8.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.8.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6039f8910ee1ce271d09dcd87d50c71587a54c0310cf95a3578c3eaf067c4b90",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:61c5edb2de45f08615ee2981b5ddd9cd63ddbb0b671986540e8f1178fa21623a",
+              "linux/arm64": "sha256:9d78881199dacb8faf8c8dd70a9bb5e8661123b047bccff047b931457e221305"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "cd-hit",
+              "cd-hit-est",
+              "cd-hit-2d",
+              "cd-hit-est-2d",
+              "cd-hit-div",
+              "cd-hit-454",
+              "cd-hit-dup",
+              "cd-hit-lap",
+              "read-linker",
+              "clstr_size_stat.pl",
+              "clstr_sort_by.pl",
+              "perl",
+              "gzip"
+            ],
+            "test": [
+              "{ cd-hit 2>&1 || true; } | grep -F 'CD-HIT version 4.8.1' >/dev/null",
+              "{ cd-hit-est 2>&1 || true; } | grep -F 'CD-HIT version 4.8.1' >/dev/null",
+              "{ cd-hit-2d 2>&1 || true; } | grep -F 'CD-HIT version 4.8.1' >/dev/null",
+              "{ cd-hit-est-2d 2>&1 || true; } | grep -F 'CD-HIT version 4.8.1' >/dev/null",
+              "{ cd-hit-div 2>&1 || true; } | grep -F 'Usage' >/dev/null",
+              "{ cd-hit-454 2>&1 || true; } | grep -F 'CD-HIT version 4.8.1' >/dev/null",
+              "{ cd-hit-dup 2>&1 || true; } | grep -F 'CD-HIT-DUP' >/dev/null",
+              "{ cd-hit-lap 2>&1 || true; } | grep -F 'Minimum length of overlapping part' >/dev/null",
+              "{ read-linker 2>&1 || true; } | grep -F 'Maximum number of errors' >/dev/null",
+              "mkdir -p /tmp/taf-cdhit-test && cd /tmp/taf-cdhit-test && printf '>p1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>p2\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>p3\\nGILGFVFTLTVPSERKELKQLLQK\\n' > proteins.fa && cd-hit -i proteins.fa -o proteins.nr -c 1.0 -n 5 -M 0 -T 1 >/dev/null && test -s proteins.nr && test -s proteins.nr.clstr && clstr_size_stat.pl proteins.nr.clstr > proteins.nr.size && test -s proteins.nr.size",
+              "mkdir -p /tmp/taf-cdhit-est-test && cd /tmp/taf-cdhit-est-test && printf '>n1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>n2\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>n3\\nTTGCAAGCTTGCAAGCTTGCAAGCTTGCAAGCTTGCAAGC\\n' > nucleotides.fa && cd-hit-est -i nucleotides.fa -o nucleotides.nr -c 1.0 -n 10 -M 0 -T 1 >/dev/null && test -s nucleotides.nr && test -s nucleotides.nr.clstr",
+              "mkdir -p /tmp/taf-cdhit-gz-test && cd /tmp/taf-cdhit-gz-test && printf '>p1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>p2\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > proteins.fa && gzip -c proteins.fa > proteins.fa.gz && cd-hit -i proteins.fa.gz -o proteins.gz.nr -c 1.0 -n 5 -M 0 -T 1 >/dev/null && test -s proteins.gz.nr"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-15T05:45:26Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-15T05:45:26Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/cdhit",
+            "ref": "v4.8.1-r1",
+            "commit": "17ee4305a6472a35fcee9eefa00943acbea025af",
+            "html_url": "https://github.com/taffish/cdhit/tree/v4.8.1-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "http://cd-hit.org/",
+            "repository": "weizhongli/cdhit",
+            "release_url": "https://github.com/weizhongli/cdhit/releases/tag/V4.8.1",
+            "version": "4.8.1",
+            "license": "GPL-2.0",
+            "citation": "Li and Godzik 2006",
+            "doi": "10.1093/bioinformatics/btl158",
+            "pmid": "16731699"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -1679,6 +1820,10 @@
       "package": "bwa",
       "version": "0.7.19-r1"
     },
+    "taf-cdhit": {
+      "package": "cdhit",
+      "version": "4.8.1-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -1755,6 +1900,12 @@
       "repository": "taffish/bwa",
       "packages": [
         "bwa"
+      ]
+    },
+    "taffish/cdhit": {
+      "repository": "taffish/cdhit",
+      "packages": [
+        "cdhit"
       ]
     },
     "taffish/samtools": {
