@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-17T07:26:01Z",
+  "generated_at": "2026-05-17T09:16:35Z",
   "organization": "taffish",
   "counts": {
-    "packages": 26,
-    "versions": 27,
-    "commands": 26,
-    "repositories": 26,
+    "packages": 27,
+    "versions": 28,
+    "commands": 27,
+    "repositories": 27,
     "warnings": 0,
     "failed": 1
   },
@@ -3205,6 +3205,141 @@
         }
       }
     },
+    "foldseek": {
+      "name": "foldseek",
+      "latest": "10-r1",
+      "repository_url": "https://github.com/taffish/foldseek",
+      "command": {
+        "name": "taf-foldseek"
+      },
+      "versions": {
+        "10-r1": {
+          "name": "foldseek",
+          "kind": "tool",
+          "version": "10",
+          "release": 1,
+          "version_id": "10-r1",
+          "tag": "v10-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/foldseek",
+          "repository_slug": "taffish/foldseek",
+          "command": {
+            "name": "taf-foldseek"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structure-search",
+            "categories": [
+              "structure-search",
+              "protein-structure",
+              "clustering",
+              "multimer",
+              "structural-biology"
+            ],
+            "keywords": [
+              "foldseek",
+              "protein-structure",
+              "structure-search",
+              "pdb",
+              "mmcif",
+              "3di",
+              "tm-score",
+              "easy-search",
+              "easy-cluster",
+              "multimer"
+            ],
+            "summary": "Fast protein structure search, clustering, and multimer comparison for PDB/mmCIF structure datasets.",
+            "description": "Fast protein structure search, clustering, and multimer comparison for PDB/mmCIF structure datasets."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/foldseek:10-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "10-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:bb33d4675bc04fedfcc6ab38755ae0dfe39c8490d52a23ce1fb853e7e7fe9e03",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c398fd0ad63d594daa03bcc962f78f1d029f21a4ac23ff4c7ea01060ebc0f866",
+              "linux/arm64": "sha256:d76520761039db5ae7448f4ea115e374935d2b9ffa0bcede70d03a58bef513ec"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "foldseek",
+              "bash",
+              "gawk",
+              "grep",
+              "curl",
+              "wget",
+              "xargs",
+              "tar",
+              "gzip"
+            ],
+            "test": [
+              "foldseek version | grep -Fx '941cd33ff0771cd2e3f144e3293e22a2b87e9fda' >/dev/null",
+              "foldseek 2>&1 | grep -F 'foldseek Version: 941cd33ff0771cd2e3f144e3293e22a2b87e9fda' >/dev/null",
+              "foldseek easy-search 2>&1 | grep -F 'usage: foldseek easy-search' >/dev/null",
+              "foldseek createdb 2>&1 | grep -F 'usage: foldseek createdb' >/dev/null",
+              "foldseek databases 2>&1 | grep -F 'usage: foldseek databases' >/dev/null",
+              "for module in easy-cluster easy-rbh easy-multimersearch easy-multimercluster convertalis convert2pdb createmultimerreport createindex createclusearchdb; do foldseek \"$module\" 2>&1 | grep -F \"usage: foldseek $module\" >/dev/null || exit 1; done",
+              "bash -lc 'printf ok' | grep -Fx ok >/dev/null",
+              "mkdir -p /tmp/taf-foldseek-search/query /tmp/taf-foldseek-search/target && cd /tmp/taf-foldseek-search && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek easy-search query/q1.pdb target result.m8 tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-easy-search.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && grep -F 't1' result.m8 >/dev/null",
+              "mkdir -p /tmp/taf-foldseek-cluster/structures && cd /tmp/taf-foldseek-cluster && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb structures/s1.pdb && cp structures/s1.pdb structures/s2.pdb && foldseek easy-cluster structures cluster tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-cluster.log 2>&1 && test -s cluster_cluster.tsv && test -s cluster_rep_seq.fasta && test -s cluster_all_seqs.fasta && grep -F 's1' cluster_cluster.tsv >/dev/null",
+              "mkdir -p /tmp/taf-foldseek-rbh/query /tmp/taf-foldseek-rbh/target && cd /tmp/taf-foldseek-rbh && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek easy-rbh query/q1.pdb target rbh.m8 tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-rbh.log 2>&1 && test -s rbh.m8 && grep -F 'q1' rbh.m8 >/dev/null",
+              "mkdir -p /tmp/taf-foldseek-db/query /tmp/taf-foldseek-db/target && cd /tmp/taf-foldseek-db && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek createdb query qDB --threads 1 >/tmp/taf-foldseek-createdb-query.log 2>&1 && foldseek createdb target tDB --threads 1 >/tmp/taf-foldseek-createdb-target.log 2>&1 && foldseek search qDB tDB resDB tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-search-db.log 2>&1 && foldseek convertalis qDB tDB resDB res.m8 >/tmp/taf-foldseek-convertalis.log 2>&1 && test -s res.m8 && grep -F 'q1' res.m8 >/dev/null && foldseek convert2pdb tDB out.pdb >/tmp/taf-foldseek-convert2pdb.log 2>&1 && test -s out.pdb && grep -F 'ATOM' out.pdb >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-17T09:16:35Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-17T09:16:35Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/foldseek",
+            "ref": "v10-r1",
+            "commit": "92cb2137e8924d0d724c0f120312984cfe1216ed",
+            "html_url": "https://github.com/taffish/foldseek/tree/v10-r1"
+          },
+          "upstream": {
+            "name": "Foldseek",
+            "type": "github",
+            "homepage": "https://github.com/steineggerlab/foldseek",
+            "repository": "steineggerlab/foldseek",
+            "release_url": "https://github.com/steineggerlab/foldseek/releases/tag/10-941cd33",
+            "version": "10-941cd33",
+            "license": "GPL-3.0",
+            "citation": "van Kempen et al. 2023; Barrio-Hernandez et al. 2023; Kim et al. 2024",
+            "doi": "10.1038/s41587-023-01773-0; 10.1038/s41586-023-06510-w; 10.1101/2024.04.14.589414"
+          }
+        }
+      }
+    },
     "mmseqs2": {
       "name": "mmseqs2",
       "latest": "18-r1",
@@ -3570,6 +3705,10 @@
       "package": "fastqc",
       "version": "0.12.1-r1"
     },
+    "taf-foldseek": {
+      "package": "foldseek",
+      "version": "10-r1"
+    },
     "taf-mmseqs2": {
       "package": "mmseqs2",
       "version": "18-r1"
@@ -3722,6 +3861,12 @@
       "repository": "taffish/fastqc",
       "packages": [
         "fastqc"
+      ]
+    },
+    "taffish/foldseek": {
+      "repository": "taffish/foldseek",
+      "packages": [
+        "foldseek"
       ]
     },
     "taffish/mmseqs2": {
