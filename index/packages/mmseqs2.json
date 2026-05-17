@@ -1,6 +1,6 @@
 {
   "name": "mmseqs2",
-  "latest": "18-r1",
+  "latest": "18-r2",
   "repository_url": "https://github.com/taffish/mmseqs2",
   "command": {
     "name": "taf-mmseqs2"
@@ -120,6 +120,135 @@
         "ref": "v18-r1",
         "commit": "b2b4cf8c89f1fc33f1555c5c43b0f62d2c46a952",
         "html_url": "https://github.com/taffish/mmseqs2/tree/v18-r1"
+      },
+      "upstream": {
+        "name": "MMseqs2",
+        "type": "github",
+        "homepage": "https://github.com/soedinglab/MMseqs2",
+        "repository": "soedinglab/MMseqs2",
+        "release_url": "https://github.com/soedinglab/MMseqs2/releases/tag/18-8cc5c",
+        "version": "18-8cc5c",
+        "license": "MIT",
+        "citation": "Steinegger and Soeding 2017; Steinegger and Soeding 2018; Mirdita et al. 2019; Mirdita et al. 2021; Kallenborn et al. 2024",
+        "doi": "10.1038/nbt.3988; 10.1038/s41467-018-04964-5; 10.1093/bioinformatics/bty1057; 10.1093/bioinformatics/btab184; 10.1101/2024.11.13.623350"
+      }
+    },
+    "18-r2": {
+      "name": "mmseqs2",
+      "kind": "tool",
+      "version": "18",
+      "release": 2,
+      "version_id": "18-r2",
+      "tag": "v18-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/mmseqs2",
+      "repository_slug": "taffish/mmseqs2",
+      "command": {
+        "name": "taf-mmseqs2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "sequence-search",
+        "categories": [
+          "sequence-search",
+          "sequence-clustering",
+          "taxonomy",
+          "protein",
+          "nucleotide"
+        ],
+        "keywords": [
+          "mmseqs2",
+          "mmseqs",
+          "sequence-search",
+          "sequence-clustering",
+          "easy-search",
+          "easy-cluster",
+          "taxonomy",
+          "metagenomics",
+          "protein",
+          "nucleotide"
+        ],
+        "summary": "Ultra-fast sequence search, clustering, and taxonomy workflows for protein and nucleotide datasets.",
+        "description": "Ultra-fast sequence search, clustering, and taxonomy workflows for protein and nucleotide datasets."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/mmseqs2:18-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "18-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:88365b4e2e90d477562a0fbb706396af6de1c60ee4fdce2f366c68bcf3833a58",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a0f5f3e081285ca288bd1f9bce9fc4d38360ed242d83509c8a7982192b5e9279",
+          "linux/arm64": "sha256:e0a0a4a533bc17195c20bd0d755ca5af783a5a1e6f7b7fca10e2354a56e360e1"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "mmseqs",
+          "bash",
+          "gawk",
+          "grep",
+          "curl",
+          "wget",
+          "xargs",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz"
+        ],
+        "test": [
+          "mmseqs version | grep -Fx '8cc5ce367b5638c4306c2d7cfc652dd099a4643f' >/dev/null",
+          "if [ \"$(uname -m)\" = 'x86_64' ] || [ \"$(uname -m)\" = 'amd64' ]; then for b in /opt/mmseqs2/bin/mmseqs_sse2 /opt/mmseqs2/bin/mmseqs_sse41 /opt/mmseqs2/bin/mmseqs_avx2; do \"$b\" version | grep -Fx '8cc5ce367b5638c4306c2d7cfc652dd099a4643f' >/dev/null || exit 1; done; else /opt/mmseqs2/bin/mmseqs_arm64 version | grep -Fx '8cc5ce367b5638c4306c2d7cfc652dd099a4643f' >/dev/null; fi",
+          "mmseqs 2>&1 | grep -F 'MMseqs2 Version: 8cc5ce367b5638c4306c2d7cfc652dd099a4643f' >/dev/null",
+          "mmseqs easy-search 2>&1 | grep -F 'usage: mmseqs easy-search' >/dev/null",
+          "mmseqs createdb 2>&1 | grep -F 'usage: mmseqs createdb' >/dev/null",
+          "mmseqs databases 2>&1 | grep -F 'usage: mmseqs databases' >/dev/null",
+          "for module in easy-taxonomy fwbw pairaln taxonomyreport createdmptaxonomy; do mmseqs \"$module\" 2>&1 | grep -F \"usage: mmseqs $module\" >/dev/null || exit 1; done",
+          "bash -lc 'printf ok' | grep -Fx ok >/dev/null",
+          "mkdir -p /tmp/taf-mmseqs2-createdb && cd /tmp/taf-mmseqs2-createdb && printf '>s1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > seqs.fa && gzip -c seqs.fa > seqs.fa.gz && bzip2 -c seqs.fa > seqs.fa.bz2 && mmseqs createdb seqs.fa.gz seqdb --threads 1 >/tmp/taf-mmseqs2-createdb.log 2>&1 && test -s seqdb && test -s seqdb.index && mmseqs createdb seqs.fa.bz2 seqdb_bz --threads 1 >/tmp/taf-mmseqs2-createdb-bz.log 2>&1 && test -s seqdb_bz && test -s seqdb_bz.index",
+          "mkdir -p /tmp/taf-mmseqs2-search && cd /tmp/taf-mmseqs2-search && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > target.fa && mmseqs easy-search query.fa target.fa result.m8 tmp --threads 1 -s 1.0 >/tmp/taf-mmseqs2-easy-search.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && grep -F 't1' result.m8 >/dev/null",
+          "mkdir -p /tmp/taf-mmseqs2-cluster && cd /tmp/taf-mmseqs2-cluster && printf '>s1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>s2\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>s3\\nGILGFVFTLTVPSERKELKQLLQK\\n' > seqs.fa && mmseqs easy-cluster seqs.fa cluster tmp --threads 1 --min-seq-id 0.9 -c 0.8 >/tmp/taf-mmseqs2-cluster.log 2>&1 && test -s cluster_cluster.tsv && grep -F 's1' cluster_cluster.tsv >/dev/null && grep -F 's2' cluster_cluster.tsv >/dev/null",
+          "mkdir -p /tmp/taf-mmseqs2-lin-rbh && cd /tmp/taf-mmseqs2-lin-rbh && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>q2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n>t3\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\n' > target.fa && mmseqs easy-linclust target.fa lin tmp-lin --threads 1 --min-seq-id 0.9 -c 0.8 >/tmp/taf-mmseqs2-linclust.log 2>&1 && test -s lin_cluster.tsv && mmseqs easy-rbh query.fa target.fa rbh.m8 tmp-rbh --threads 1 -s 1.0 >/tmp/taf-mmseqs2-rbh.log 2>&1 && test -s rbh.m8 && grep -F 'q1' rbh.m8 >/dev/null",
+          "mkdir -p /tmp/taf-mmseqs2-db-workflow && cd /tmp/taf-mmseqs2-db-workflow && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>q2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n>t3\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\n' > target.fa && mmseqs createdb query.fa queryDB --threads 1 >/tmp/taf-mmseqs2-createdb-query.log 2>&1 && mmseqs createdb target.fa targetDB --threads 1 >/tmp/taf-mmseqs2-createdb-target.log 2>&1 && mmseqs search queryDB targetDB resultDB tmp-search --threads 1 -s 1.0 >/tmp/taf-mmseqs2-search-db.log 2>&1 && mmseqs convertalis queryDB targetDB resultDB result.m8 >/tmp/taf-mmseqs2-convertalis.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && mmseqs createtsv queryDB targetDB resultDB result.tsv >/tmp/taf-mmseqs2-createtsv.log 2>&1 && test -s result.tsv && mmseqs convert2fasta targetDB target.back.fa >/tmp/taf-mmseqs2-convert2fasta.log 2>&1 && test -s target.back.fa && grep -F '>t1' target.back.fa >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-17T10:20:01Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-17T10:20:01Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/mmseqs2",
+        "ref": "v18-r2",
+        "commit": "9ddbf3c0eb5a0d01408acf4e6ed9fd1b526a6118",
+        "html_url": "https://github.com/taffish/mmseqs2/tree/v18-r2"
       },
       "upstream": {
         "name": "MMseqs2",
