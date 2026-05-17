@@ -1,0 +1,123 @@
+{
+  "name": "gfatools",
+  "latest": "0.5.5-r1",
+  "repository_url": "https://github.com/taffish/gfatools",
+  "command": {
+    "name": "taf-gfatools"
+  },
+  "versions": {
+    "0.5.5-r1": {
+      "name": "gfatools",
+      "kind": "tool",
+      "version": "0.5.5",
+      "release": 1,
+      "version_id": "0.5.5-r1",
+      "tag": "v0.5.5-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/gfatools",
+      "repository_slug": "taffish/gfatools",
+      "command": {
+        "name": "taf-gfatools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "sequence-graph",
+        "categories": [
+          "sequence-graph",
+          "pangenome",
+          "gfa",
+          "rgfa",
+          "assembly-graph"
+        ],
+        "keywords": [
+          "gfatools",
+          "gfa",
+          "rgfa",
+          "pangenome",
+          "sequence-graph",
+          "assembly-graph",
+          "fasta",
+          "bed",
+          "paf2gfa"
+        ],
+        "summary": "Utilities for manipulating GFA and rGFA sequence graphs, including subgraph extraction, statistics, FASTA/BED conversion, graph transformation, and PAF-to-GFA conversion.",
+        "description": "Utilities for manipulating GFA and rGFA sequence graphs, including subgraph extraction, statistics, FASTA/BED conversion, graph transformation, and PAF-to-GFA conversion."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/gfatools:0.5.5-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.5.5-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:f60f6eb7b8c953caa87a067c63e5a38c3a1371406688ed41bdaafd4393304092",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:7f5bdd891588949736e7c063816393be7cc048b99ac6bc0c6310f4ab456ff756",
+          "linux/arm64": "sha256:a3317fb76ec7ab8e69b590788714c4009acb41cdd0bc99da3cb4369c63157949"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "gfatools",
+          "paf2gfa"
+        ],
+        "test": [
+          "gfatools version | grep -F 'gfa.h: 0.5-r235-dirty' >/dev/null",
+          "gfatools 2>&1 | grep -F 'Usage: gfatools <command> <arguments>' >/dev/null",
+          "paf2gfa 2>&1 | grep -F 'Usage: paf2gfa' >/dev/null",
+          "mkdir -p /tmp/taf-gfatools-gfa && cd /tmp/taf-gfatools-gfa && printf 'S\\ts1\\tACGT\\tSN:Z:chr1\\tSO:i:0\\tSR:i:0\\nS\\ts2\\tTTAA\\tSN:Z:chr1\\tSO:i:4\\tSR:i:0\\nL\\ts1\\t+\\ts2\\t+\\t0M\\n' > tiny.gfa && gfatools stat tiny.gfa > stat.txt && grep -F 'Number of segments: 2' stat.txt >/dev/null && gfatools gfa2fa tiny.gfa > segments.fa && grep -F '>s1' segments.fa >/dev/null && grep -F 'ACGT' segments.fa >/dev/null && gfatools view -S tiny.gfa > noseq.gfa && test -s noseq.gfa",
+          "mkdir -p /tmp/taf-gfatools-rgfa && cd /tmp/taf-gfatools-rgfa && printf 'S\\ts1\\tACGT\\tSN:Z:chr1\\tSO:i:0\\tSR:i:0\\nS\\ts2\\tTTAA\\tSN:Z:chr1\\tSO:i:4\\tSR:i:0\\nL\\ts1\\t+\\ts2\\t+\\t0M\\n' > tiny.gfa && gfatools gfa2fa -s tiny.gfa > stable.fa && grep -F '>chr1' stable.fa >/dev/null && grep -F 'ACGTTTAA' stable.fa >/dev/null && gfatools gfa2bed -s tiny.gfa > stable.bed && grep -F 'chr1' stable.bed >/dev/null",
+          "mkdir -p /tmp/taf-gfatools-asm && cd /tmp/taf-gfatools-asm && printf 'S\\ts1\\tACGT\\tSN:Z:chr1\\tSO:i:0\\tSR:i:0\\nS\\ts2\\tTTAA\\tSN:Z:chr1\\tSO:i:4\\tSR:i:0\\nL\\ts1\\t+\\ts2\\t+\\t0M\\n' > tiny.gfa && gfatools asm -u tiny.gfa > unitigs.gfa && test -s unitigs.gfa && grep -F 'S' unitigs.gfa >/dev/null",
+          "mkdir -p /tmp/taf-gfatools-paf2gfa && cd /tmp/taf-gfatools-paf2gfa && printf 'r1\\t10\\t5\\t10\\t+\\tr2\\t10\\t0\\t5\\t5\\t5\\t60\\n' > tiny.paf && paf2gfa -o 1 tiny.paf > graph.gfa && test -s graph.gfa && grep -F 'L' graph.gfa >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-17T17:20:37Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-17T17:20:37Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/gfatools",
+        "ref": "v0.5.5-r1",
+        "commit": "573a67fb931f0a5f1930bd0cbcf3b644b67b292f",
+        "html_url": "https://github.com/taffish/gfatools/tree/v0.5.5-r1"
+      },
+      "upstream": {
+        "name": "gfatools",
+        "type": "github",
+        "homepage": "https://github.com/lh3/gfatools",
+        "repository": "lh3/gfatools",
+        "release_url": "https://github.com/lh3/gfatools/tree/final-gt",
+        "version": "final-gt",
+        "license": "MIT",
+        "citation": "Li, Feng, and Chu 2020",
+        "doi": "10.1186/s13059-020-02168-z"
+      }
+    }
+  }
+}
