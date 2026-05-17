@@ -1,0 +1,142 @@
+{
+  "name": "freebayes",
+  "latest": "1.3.10-r1",
+  "repository_url": "https://github.com/taffish/freebayes",
+  "command": {
+    "name": "taf-freebayes"
+  },
+  "versions": {
+    "1.3.10-r1": {
+      "name": "freebayes",
+      "kind": "tool",
+      "version": "1.3.10",
+      "release": 1,
+      "version_id": "1.3.10-r1",
+      "tag": "v1.3.10-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/freebayes",
+      "repository_slug": "taffish/freebayes",
+      "command": {
+        "name": "taf-freebayes"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "variant-calling",
+        "categories": [
+          "variant-calling",
+          "genomics",
+          "vcf",
+          "bam",
+          "haplotype"
+        ],
+        "keywords": [
+          "freebayes",
+          "variant-calling",
+          "haplotype",
+          "snp",
+          "indel",
+          "mnp",
+          "vcf",
+          "bam",
+          "cram",
+          "population-genomics"
+        ],
+        "summary": "Haplotype-based Bayesian variant caller for SNPs, indels, MNPs, and complex small variants from BAM or CRAM alignments.",
+        "description": "Haplotype-based Bayesian variant caller for SNPs, indels, MNPs, and complex small variants from BAM or CRAM alignments."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/freebayes:1.3.10-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.3.10-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:1e87512756629e46cbd8e3343b49531785d281d048f392afaf6dcca6554b1343",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:cfb9d6e20f8dd4c8bd6d6049412fb089085ff8a17e7331fdf1625d9f17894ca8",
+          "linux/arm64": "sha256:0d4e90626aa17d276122586e1c1e3f54ad3d77ada1fec3f386c3f2080c6d3de2"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "freebayes",
+          "bamleftalign",
+          "freebayes-parallel",
+          "fasta_generate_regions.py",
+          "coverage_to_regions.py",
+          "vcffirstheader",
+          "vcfstreamsort",
+          "vcfuniq",
+          "vcffilter",
+          "vcfallelicprimitives",
+          "parallel",
+          "samtools",
+          "bgzip",
+          "tabix",
+          "python3",
+          "perl"
+        ],
+        "test": [
+          "freebayes --version 2>&1 | grep -F 'v1.3.10' >/dev/null",
+          "freebayes --help 2>&1 | grep -F 'usage: freebayes' >/dev/null",
+          "bamleftalign --help >/dev/null 2>&1 || true",
+          "fasta_generate_regions.py --help >/dev/null",
+          "coverage_to_regions.py 2>&1 | grep -F 'usage:' >/dev/null",
+          "freebayes-parallel 2>&1 | grep -F 'usage:' >/dev/null",
+          "printf '##fileformat=VCFv4.1\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\nchr1\\t5\\t.\\tA\\tT\\t30\\t.\\tTYPE=snp\\n' | vcffirstheader | grep -F '#CHROM' >/dev/null",
+          "mkdir -p /tmp/taf-freebayes-regions && cd /tmp/taf-freebayes-regions && printf 'chr1\\t25\\t6\\t25\\t26\\n' > ref.fa.fai && fasta_generate_regions.py ref.fa.fai 10 | grep -F 'chr1:0-10' >/dev/null",
+          "mkdir -p /tmp/taf-freebayes-call && cd /tmp/taf-freebayes-call && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && freebayes -f ref.fa --min-alternate-count 1 --min-alternate-fraction 0 reads.bam > calls.vcf && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null && grep -F 'chr1' calls.vcf >/dev/null",
+          "mkdir -p /tmp/taf-freebayes-leftalign && cd /tmp/taf-freebayes-leftalign && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAC\\tFFFFFFFFFF\\n' > reads.sam && samtools view -bS reads.sam | bamleftalign -f ref.fa -c > left.bam && samtools view left.bam | grep -F 'read1' >/dev/null",
+          "mkdir -p /tmp/taf-freebayes-parallel && cd /tmp/taf-freebayes-parallel && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && printf 'chr1:0-20\\n' > regions.txt && freebayes-parallel regions.txt 1 -f ref.fa --min-alternate-count 1 --min-alternate-fraction 0 reads.bam > parallel.vcf && test -s parallel.vcf && grep -F '#CHROM' parallel.vcf >/dev/null && grep -F 'chr1' parallel.vcf >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-17T14:32:22Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-17T14:32:22Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/freebayes",
+        "ref": "v1.3.10-r1",
+        "commit": "3d22f01bd3d0871099dc5a3d2719922d989c85c1",
+        "html_url": "https://github.com/taffish/freebayes/tree/v1.3.10-r1"
+      },
+      "upstream": {
+        "name": "freebayes",
+        "type": "github",
+        "homepage": "https://github.com/freebayes/freebayes",
+        "repository": "freebayes/freebayes",
+        "release_url": "https://github.com/freebayes/freebayes/releases/tag/v1.3.10",
+        "version": "1.3.10",
+        "license": "MIT",
+        "citation": "Garrison and Marth 2012",
+        "doi": "10.48550/arXiv.1207.3907"
+      }
+    }
+  }
+}
