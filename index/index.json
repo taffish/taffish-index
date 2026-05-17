@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-17T15:14:53Z",
+  "generated_at": "2026-05-17T15:55:54Z",
   "organization": "taffish",
   "counts": {
-    "packages": 29,
-    "versions": 31,
-    "commands": 29,
-    "repositories": 29,
+    "packages": 30,
+    "versions": 32,
+    "commands": 30,
+    "repositories": 30,
     "warnings": 0,
     "failed": 1
   },
@@ -3614,6 +3614,129 @@
         }
       }
     },
+    "genomescope": {
+      "name": "genomescope",
+      "latest": "2.1.0-r1",
+      "repository_url": "https://github.com/taffish/genomescope",
+      "command": {
+        "name": "taf-genomescope"
+      },
+      "versions": {
+        "2.1.0-r1": {
+          "name": "genomescope",
+          "kind": "tool",
+          "version": "2.1.0",
+          "release": 1,
+          "version_id": "2.1.0-r1",
+          "tag": "v2.1.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/genomescope",
+          "repository_slug": "taffish/genomescope",
+          "command": {
+            "name": "taf-genomescope"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-profiling",
+            "categories": [
+              "genome-profiling",
+              "kmer",
+              "assembly-qc",
+              "genome-size",
+              "polyploidy"
+            ],
+            "keywords": [
+              "genomescope",
+              "genomescope2",
+              "kmer",
+              "k-mer",
+              "histogram",
+              "genome-size",
+              "heterozygosity",
+              "repetitiveness",
+              "polyploid",
+              "assembly"
+            ],
+            "summary": "Reference-free genome profiling from k-mer count histograms, estimating genome size, heterozygosity, repetitiveness, and ploidy-aware model fits.",
+            "description": "Reference-free genome profiling from k-mer count histograms, estimating genome size, heterozygosity, repetitiveness, and ploidy-aware model fits."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/genomescope:2.1.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.1.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:42d3b8a47fac43111d744e4a05b35d84844a14449552ce8975da069bd5555efe",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:5412bedd20862d6b45cddc06ff2ba950df5cbed4475e9fbba3989911702b387e",
+              "linux/arm64": "sha256:af8f93a87b7369b6479813f392a646a7730cef43389336dd66f7b741cc5ab102"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "genomescope.R",
+              "R",
+              "Rscript"
+            ],
+            "test": [
+              "genomescope.R --version | grep -F 'GenomeScope 2.0' >/dev/null",
+              "genomescope.R --help | grep -F 'input histogram file' >/dev/null",
+              "Rscript -e \"stopifnot(as.character(packageVersion('genomescope')) == '2.1.0'); library(argparse); library(jsonlite); library(minpack.lm); library(genomescope)\"",
+              "mkdir -p /tmp/taf-genomescope-smoke && cd /tmp/taf-genomescope-smoke && genomescope.R -i /opt/genomescope/tests/inputk21.hist -o output -k 21 --json_report >/tmp/taf-genomescope-smoke.log 2>&1 && test -s output/summary.txt && test -s output/linear_plot.png && test -s output/log_plot.png && test -s output/report.json && grep -F 'Genome Haploid Length' output/summary.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-17T15:55:54Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-17T15:55:54Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/genomescope",
+            "ref": "v2.1.0-r1",
+            "commit": "9544eba68cdd9d259253f8d990eb1a1b02e5a9f6",
+            "html_url": "https://github.com/taffish/genomescope/tree/v2.1.0-r1"
+          },
+          "upstream": {
+            "name": "GenomeScope 2.0",
+            "type": "github",
+            "homepage": "http://genomescope.org/genomescope2.0/",
+            "repository": "tbenavi1/genomescope2.0",
+            "release_url": "https://github.com/tbenavi1/genomescope2.0/tree/v2.1.0",
+            "version": "2.1.0",
+            "license": "Apache-2.0",
+            "citation": "Ranallo-Benavidez, Jaron, and Schatz 2020",
+            "doi": "10.1038/s41467-020-14998-3",
+            "pmid": "32188846"
+          }
+        }
+      }
+    },
     "mmseqs2": {
       "name": "mmseqs2",
       "latest": "18-r2",
@@ -4120,6 +4243,10 @@
       "package": "gatk",
       "version": "4.6.2.0-r1"
     },
+    "taf-genomescope": {
+      "package": "genomescope",
+      "version": "2.1.0-r1"
+    },
     "taf-mmseqs2": {
       "package": "mmseqs2",
       "version": "18-r2"
@@ -4290,6 +4417,12 @@
       "repository": "taffish/gatk",
       "packages": [
         "gatk"
+      ]
+    },
+    "taffish/genomescope": {
+      "repository": "taffish/genomescope",
+      "packages": [
+        "genomescope"
       ]
     },
     "taffish/mmseqs2": {
