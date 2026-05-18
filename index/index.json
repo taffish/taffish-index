@@ -1,14 +1,15 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-18T13:21:47Z",
+  "generated_at": "2026-05-18T14:02:03Z",
   "organization": "taffish",
   "counts": {
-    "packages": 39,
-    "versions": 48,
-    "commands": 39,
-    "repositories": 39,
+    "packages": 41,
+    "versions": 50,
+    "commands": 41,
+    "repositories": 41,
     "warnings": 0,
-    "failed": 1
+    "failed": 0,
+    "rejected": 1
   },
   "packages": {
     "augustus": {
@@ -5821,6 +5822,262 @@
         }
       }
     },
+    "kallisto": {
+      "name": "kallisto",
+      "latest": "0.52.0-r1",
+      "repository_url": "https://github.com/taffish/kallisto",
+      "command": {
+        "name": "taf-kallisto"
+      },
+      "versions": {
+        "0.52.0-r1": {
+          "name": "kallisto",
+          "kind": "tool",
+          "version": "0.52.0",
+          "release": 1,
+          "version_id": "0.52.0-r1",
+          "tag": "v0.52.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/kallisto",
+          "repository_slug": "taffish/kallisto",
+          "command": {
+            "name": "taf-kallisto"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "quantification",
+              "single-cell",
+              "pseudoalignment"
+            ],
+            "keywords": [
+              "kallisto",
+              "rna-seq",
+              "pseudoalignment",
+              "transcript-quantification",
+              "bus",
+              "single-cell",
+              "hdf5",
+              "pseudobam",
+              "genomebam"
+            ],
+            "summary": "Fast RNA-seq pseudoalignment and quantification with index, quant, quant-tcc, BUS, HDF5, pseudobam, and genomebam support.",
+            "description": "Fast RNA-seq pseudoalignment and quantification with index, quant, quant-tcc, BUS, HDF5, pseudobam, and genomebam support."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/kallisto:0.52.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.52.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f51d9bb52347dfaf719de5b9fd86c76d4c6255af9cf2407509834a7a78a4f4a6",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b9cb171eb78bfc82332bb496615b8c429128c48bbc007f97a730bc5d0d1fceaf",
+              "linux/arm64": "sha256:220fd2a87ff04d9006a10ccd82f354777907131abe2d41285b05471eaf35af7f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "kallisto",
+              "bash",
+              "gzip"
+            ],
+            "test": [
+              "kallisto version | grep -F 'kallisto, version 0.52.0' >/dev/null",
+              "kallisto 2>&1 | grep -F 'Usage: kallisto <CMD>' >/dev/null && kallisto cite | grep -F 'Nature Biotechnology' >/dev/null",
+              "kallisto index 2>&1 | grep -F 'Usage: kallisto index' >/dev/null && kallisto quant 2>&1 | grep -F 'Usage: kallisto quant' >/dev/null && kallisto quant-tcc 2>&1 | grep -F 'Usage: kallisto quant-tcc' >/dev/null && kallisto bus 2>&1 | grep -F 'Usage: kallisto bus' >/dev/null && kallisto h5dump 2>&1 | grep -F 'Usage:  kallisto h5dump' >/dev/null && kallisto inspect 2>&1 | grep -F 'Usage: kallisto inspect' >/dev/null",
+              "kallisto quant 2>&1 | grep -F -- '--pseudobam' >/dev/null && kallisto quant 2>&1 | grep -F -- '--genomebam' >/dev/null && ldd /opt/kallisto/bin/kallisto | grep -F 'libhdf5' >/dev/null",
+              "mkdir -p /tmp/taf-kallisto-index && cd /tmp/taf-kallisto-index && printf '>tx1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGGTTACGATGCTAGTACCGATCGTACGATGGCATCGTACGAA\\n>tx2\\nTTCAGGCTACGATGCTAGGATCGATACCGTTAGCTGACTGACCTAGGCTTACGATCCGTAGCTAACGATGCTGATCGTACCTGAGCTAGCTT\\n' > transcripts.fa && gzip -c transcripts.fa > transcripts.fa.gz && kallisto index -i transcripts.idx transcripts.fa.gz && test -s transcripts.idx && kallisto inspect transcripts.idx > inspect.txt 2>&1 && grep -F '[index] number of targets: 2' inspect.txt >/dev/null",
+              "mkdir -p /tmp/taf-kallisto-quant && cd /tmp/taf-kallisto-quant && printf '>tx1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGGTTACGATGCTAGTACCGATCGTACGATGGCATCGTACGAA\\n>tx2\\nTTCAGGCTACGATGCTAGGATCGATACCGTTAGCTGACTGACCTAGGCTTACGATCCGTAGCTAACGATGCTGATCGTACCTGAGCTAGCTT\\n' > transcripts.fa && kallisto index -i transcripts.idx transcripts.fa && printf '@r1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGG\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTCAGGCTACGATGCTAGGATCGATACCGTTAGCTGACTGACCTAGGCTT\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && kallisto quant -i transcripts.idx -o quant -t 1 --single -l 60 -s 5 -b 1 reads.fq && test -s quant/abundance.tsv && test -s quant/abundance.h5 && grep -F '\"n_targets\": 2' quant/run_info.json >/dev/null && kallisto h5dump -o h5txt quant/abundance.h5 && test -s h5txt/abundance.tsv && grep -F 'target_id' h5txt/abundance.tsv >/dev/null",
+              "mkdir -p /tmp/taf-kallisto-pbam && cd /tmp/taf-kallisto-pbam && printf '>tx1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGGTTACGATGCTAGTACCGATCGTACGATGGCATCGTACGAA\\n>tx2\\nTTCAGGCTACGATGCTAGGATCGATACCGTTAGCTGACTGACCTAGGCTTACGATCCGTAGCTAACGATGCTGATCGTACCTGAGCTAGCTT\\n' > transcripts.fa && kallisto index -i transcripts.idx transcripts.fa && printf '@r1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGG\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && kallisto quant -i transcripts.idx -o pbam -t 1 --single -l 60 -s 5 --pseudobam reads.fq && test -s pbam/pseudoalignments.bam",
+              "mkdir -p /tmp/taf-kallisto-bus && cd /tmp/taf-kallisto-bus && printf '>tx1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGGTTACGATGCTAGTACCGATCGTACGATGGCATCGTACGAA\\n>tx2\\nTTCAGGCTACGATGCTAGGATCGATACCGTTAGCTGACTGACCTAGGCTTACGATCCGTAGCTAACGATGCTGATCGTACCTGAGCTAGCTT\\n' > transcripts.fa && kallisto index -i transcripts.idx transcripts.fa && printf '@r1\\nAAAAAAAAAAAAAAAACCCCCCCCCC\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@r1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGG\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && kallisto bus -i transcripts.idx -o bus -x 10xv2 -t 1 r1.fq r2.fq && test -s bus/output.bus && test -s bus/matrix.ec && test -s bus/transcripts.txt && grep -F '\"n_targets\": 2' bus/run_info.json >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T14:02:03Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T14:02:03Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/kallisto",
+            "ref": "v0.52.0-r1",
+            "commit": "a68c83625ecb3c41eef06ac74baeede3d8ebc15f",
+            "html_url": "https://github.com/taffish/kallisto/tree/v0.52.0-r1"
+          },
+          "upstream": {
+            "name": "kallisto",
+            "type": "github",
+            "homepage": "https://pachterlab.github.io/kallisto/",
+            "repository": "pachterlab/kallisto",
+            "release_url": "https://github.com/pachterlab/kallisto/releases/tag/v0.52.0",
+            "version": "0.52.0",
+            "license": "BSD-2-Clause",
+            "citation": "Bray et al. 2016",
+            "doi": "10.1038/nbt.3519",
+            "pmid": "27043002"
+          }
+        }
+      }
+    },
+    "kmc": {
+      "name": "kmc",
+      "latest": "3.2.4-r1",
+      "repository_url": "https://github.com/taffish/kmc",
+      "command": {
+        "name": "taf-kmc"
+      },
+      "versions": {
+        "3.2.4-r1": {
+          "name": "kmc",
+          "kind": "tool",
+          "version": "3.2.4",
+          "release": 1,
+          "version_id": "3.2.4-r1",
+          "tag": "v3.2.4-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/kmc",
+          "repository_slug": "taffish/kmc",
+          "command": {
+            "name": "taf-kmc"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "kmer",
+            "categories": [
+              "kmer",
+              "sequence-analysis",
+              "fastq",
+              "fasta",
+              "counting"
+            ],
+            "keywords": [
+              "kmc",
+              "k-mer",
+              "kmer-counting",
+              "kmc_tools",
+              "kmc_dump",
+              "fastq",
+              "fasta",
+              "bam",
+              "gzip",
+              "kff",
+              "set-operations",
+              "histogram"
+            ],
+            "summary": "Fast disk-based k-mer counting and KMC database manipulation for FASTQ, FASTA, BAM, gzipped reads, and KFF/KMC outputs.",
+            "description": "Fast disk-based k-mer counting and KMC database manipulation for FASTQ, FASTA, BAM, gzipped reads, and KFF/KMC outputs."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/kmc:3.2.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.2.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4c389801f882ca86477b610e70b2d522924bc5b2f5c8e867206b81b99b585a50",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e81ae4807573396f4e8b97894ed22fd3ba0d7ebba4cd41b370da4c51ab7cac10",
+              "linux/arm64": "sha256:d618591fccd05fe15e25bf3f534815b932b006160e1d15f4e1d06fdbb3cc9c46"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "kmc",
+              "kmc_tools",
+              "kmc_dump",
+              "gzip",
+              "sh"
+            ],
+            "test": [
+              "kmc 2>&1 | grep -F 'K-Mer Counter (KMC) ver. 3.2.4' >/dev/null",
+              "kmc_tools 2>&1 | grep -F 'kmc_tools ver. 3.2.4' >/dev/null && kmc_dump 2>&1 | grep -F 'KMC dump ver. 3.2.4' >/dev/null",
+              "kmc_tools transform 2>&1 | grep -F 'Available operations:' >/dev/null && kmc_tools simple 2>&1 | grep -F 'set operation' >/dev/null && kmc_tools complex 2>&1 | grep -F 'more than 2 input' >/dev/null && kmc_tools filter 2>&1 | grep -F \"The 'filter'\" >/dev/null",
+              "mkdir -p /tmp/taf-kmc-count/tmp && cd /tmp/taf-kmc-count && printf '@r1\\nACGTACGT\\n+\\nFFFFFFFF\\n@r2\\nACGTTCGT\\n+\\nFFFFFFFF\\n' > reads.fq && kmc -k3 -m2 -ci1 -t1 reads.fq reads_k3 tmp >/tmp/taf-kmc-count.log 2>&1 && test -s reads_k3.kmc_pre && test -s reads_k3.kmc_suf && kmc_tools transform reads_k3 dump dump.txt >/tmp/taf-kmc-transform.log 2>&1 && grep -E '^ACG[[:space:]]+7$' dump.txt >/dev/null && kmc_dump reads_k3 dump2.txt >/tmp/taf-kmc-dump.log 2>&1 && grep -E '^ACG[[:space:]]+7$' dump2.txt >/dev/null",
+              "mkdir -p /tmp/taf-kmc-gzip/tmp && cd /tmp/taf-kmc-gzip && printf '@r1\\nACGTACGT\\n+\\nFFFFFFFF\\n@r2\\nACGTTCGT\\n+\\nFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && kmc -k3 -m2 -ci1 -t1 reads.fq.gz reads_gz tmp >/tmp/taf-kmc-gzip.log 2>&1 && test -s reads_gz.kmc_pre && test -s reads_gz.kmc_suf && kmc_tools transform reads_gz histogram hist.txt >/tmp/taf-kmc-hist.log 2>&1 && test -s hist.txt",
+              "mkdir -p /tmp/taf-kmc-simple/tmp && cd /tmp/taf-kmc-simple && printf '@a\\nACGTACGT\\n+\\nFFFFFFFF\\n' > a.fq && printf '@b\\nACGTAAAA\\n+\\nFFFFFFFF\\n' > b.fq && kmc -k3 -m2 -ci1 -t1 a.fq a tmp >/tmp/taf-kmc-a.log 2>&1 && kmc -k3 -m2 -ci1 -t1 b.fq b tmp >/tmp/taf-kmc-b.log 2>&1 && kmc_tools simple a b union ab_union >/tmp/taf-kmc-simple.log 2>&1 && test -s ab_union.kmc_pre && test -s ab_union.kmc_suf && kmc_tools transform ab_union dump union.txt >/tmp/taf-kmc-union.log 2>&1 && grep -F 'AAA' union.txt >/dev/null",
+              "mkdir -p /tmp/taf-kmc-filter/tmp && cd /tmp/taf-kmc-filter && printf '@a\\nACGTACGT\\n+\\nFFFFFFFF\\n@b\\nTTTTTTTT\\n+\\nFFFFFFFF\\n' > reads.fq && kmc -k3 -m2 -ci1 -t1 reads.fq db tmp >/tmp/taf-kmc-filter-count.log 2>&1 && kmc_tools filter db reads.fq -ci1 filtered.fq >/tmp/taf-kmc-filter.log 2>&1 && test -s filtered.fq && grep -F '@a' filtered.fq >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T14:02:03Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T14:02:03Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/kmc",
+            "ref": "v3.2.4-r1",
+            "commit": "5f53e8df41a0e75c0220ef84f58d513d772ba27a",
+            "html_url": "https://github.com/taffish/kmc/tree/v3.2.4-r1"
+          },
+          "upstream": {
+            "name": "KMC",
+            "type": "github",
+            "homepage": "https://github.com/refresh-bio/KMC",
+            "repository": "refresh-bio/KMC",
+            "release_url": "https://github.com/refresh-bio/KMC/releases/tag/v3.2.4",
+            "version": "3.2.4",
+            "license": "GPL-3.0",
+            "citation": "Kokot et al. 2017; Deorowicz et al. 2015; Deorowicz et al. 2013",
+            "doi": "10.1093/bioinformatics/btx304; 10.1093/bioinformatics/btv022; 10.1186/1471-2105-14-160",
+            "pmid": "28472236; 25609798; 23679007"
+          }
+        }
+      }
+    },
     "mmseqs2": {
       "name": "mmseqs2",
       "latest": "18-r2",
@@ -6367,6 +6624,14 @@
       "package": "juicer",
       "version": "2.20.00-r1"
     },
+    "taf-kallisto": {
+      "package": "kallisto",
+      "version": "0.52.0-r1"
+    },
+    "taf-kmc": {
+      "package": "kmc",
+      "version": "3.2.4-r1"
+    },
     "taf-mmseqs2": {
       "package": "mmseqs2",
       "version": "18-r2"
@@ -6597,6 +6862,18 @@
       "repository": "taffish/juicer",
       "packages": [
         "juicer"
+      ]
+    },
+    "taffish/kallisto": {
+      "repository": "taffish/kallisto",
+      "packages": [
+        "kallisto"
+      ]
+    },
+    "taffish/kmc": {
+      "repository": "taffish/kmc",
+      "packages": [
+        "kmc"
       ]
     },
     "taffish/mmseqs2": {
