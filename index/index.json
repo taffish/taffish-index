@@ -1,13 +1,13 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-18T15:03:38Z",
+  "generated_at": "2026-05-18T15:31:01Z",
   "organization": "taffish",
   "counts": {
-    "packages": 42,
-    "versions": 52,
-    "commands": 42,
-    "repositories": 42,
-    "warnings": 0,
+    "packages": 43,
+    "versions": 53,
+    "commands": 43,
+    "repositories": 43,
+    "warnings": 1,
     "failed": 0,
     "rejected": 1
   },
@@ -6362,6 +6362,132 @@
         }
       }
     },
+    "merfin": {
+      "name": "merfin",
+      "latest": "1.1-r1",
+      "repository_url": "https://github.com/taffish/merfin",
+      "command": {
+        "name": "taf-merfin"
+      },
+      "versions": {
+        "1.1-r1": {
+          "name": "merfin",
+          "kind": "tool",
+          "version": "1.1",
+          "release": 1,
+          "version_id": "1.1-r1",
+          "tag": "v1.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/merfin",
+          "repository_slug": "taffish/merfin",
+          "command": {
+            "name": "taf-merfin"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "variant-filtering",
+              "polishing",
+              "quality-control",
+              "kmer"
+            ],
+            "keywords": [
+              "merfin",
+              "meryl",
+              "k-mer",
+              "assembly-polishing",
+              "variant-filtering",
+              "qv",
+              "completeness",
+              "genome-evaluation"
+            ],
+            "summary": "Merfin improves variant filtering, assembly evaluation, and polishing through k-mer validation.",
+            "description": "Merfin improves variant filtering, assembly evaluation, and polishing through k-mer validation."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/merfin:1.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e060c915221defd44a1a32d872443ae2116020bae0737efc0666d4f12dd0e063",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:5052af3751b4fb62baf6fccb18c681a29a524284c69178bef57c312f320da48e",
+              "linux/arm64": "sha256:ee64eb969a261c38e4f1f75ea3ff5daaa2d497302fff75f56e84b307f466a8ff"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "merfin",
+              "meryl",
+              "gzip",
+              "bzip2",
+              "xz"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/merfin/VERSION)\" = '1.1'",
+              "test \"$(cat /usr/local/share/doc/merfin/MERYL_COMMIT)\" = 'd8f336f791b92c2a265e70bba9f995621b67d195'",
+              "merfin 2>&1 | grep -F 'usage:' >/dev/null",
+              "merfin 2>&1 | grep -F -- '-loose (least conservative)' >/dev/null",
+              "meryl -h 2>&1 | grep -F 'COMMANDS:' >/dev/null",
+              "ldd \"$(command -v merfin)\" | grep -F 'libgomp' >/dev/null",
+              "mkdir -p /tmp/taf-merfin-smoke && cd /tmp/taf-merfin-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl count memory=0.1 threads=1 k=21 seq.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && meryl histogram read.meryl > read.hist && test -s read.hist && merfin -hist -sequence seq.fa -readmers read.meryl -peak 1 -output merfin.hist -threads 1 > merfin.out 2> merfin.log && test -s merfin.hist && grep -F 'Merfin QV*' merfin.log >/dev/null && grep -F 'Bye!' merfin.log >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T15:31:01Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T15:31:01Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/merfin",
+            "ref": "v1.1-r1",
+            "commit": "1582743ad22662b5ea533657b178aecb6240e7f2",
+            "html_url": "https://github.com/taffish/merfin/tree/v1.1-r1"
+          },
+          "upstream": {
+            "name": "Merfin",
+            "type": "github",
+            "homepage": "https://github.com/arangrhie/merfin",
+            "repository": "arangrhie/merfin",
+            "release_url": "https://github.com/arangrhie/merfin/releases/tag/v1.1",
+            "version": "1.1",
+            "license": "Apache-2.0",
+            "citation": "Formenti et al. 2022",
+            "doi": "10.1038/s41592-022-01445-y",
+            "pmid": "35361932"
+          }
+        }
+      }
+    },
     "mmseqs2": {
       "name": "mmseqs2",
       "latest": "18-r2",
@@ -6920,6 +7046,10 @@
       "package": "mafft",
       "version": "7.525-r2"
     },
+    "taf-merfin": {
+      "package": "merfin",
+      "version": "1.1-r1"
+    },
     "taf-mmseqs2": {
       "package": "mmseqs2",
       "version": "18-r2"
@@ -7170,6 +7300,12 @@
         "mafft"
       ]
     },
+    "taffish/merfin": {
+      "repository": "taffish/merfin",
+      "packages": [
+        "merfin"
+      ]
+    },
     "taffish/mmseqs2": {
       "repository": "taffish/mmseqs2",
       "packages": [
@@ -7183,5 +7319,11 @@
       ]
     }
   },
-  "warnings": []
+  "warnings": [
+    {
+      "repository": "taffish/mcscanx",
+      "ref": "v1.0.0-r1",
+      "message": "[meta].keywords contains an invalid token: \"ka/ks\""
+    }
+  ]
 }
