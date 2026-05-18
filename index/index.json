@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-18T06:26:52Z",
+  "generated_at": "2026-05-18T07:57:33Z",
   "organization": "taffish",
   "counts": {
-    "packages": 33,
-    "versions": 42,
-    "commands": 33,
-    "repositories": 33,
+    "packages": 34,
+    "versions": 43,
+    "commands": 34,
+    "repositories": 34,
     "warnings": 0,
     "failed": 1
   },
@@ -4956,6 +4956,181 @@
         }
       }
     },
+    "hicexplorer": {
+      "name": "hicexplorer",
+      "latest": "3.7.6-r1",
+      "repository_url": "https://github.com/taffish/hicexplorer",
+      "command": {
+        "name": "taf-hicexplorer"
+      },
+      "versions": {
+        "3.7.6-r1": {
+          "name": "hicexplorer",
+          "kind": "tool",
+          "version": "3.7.6",
+          "release": 1,
+          "version_id": "3.7.6-r1",
+          "tag": "v3.7.6-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/hicexplorer",
+          "repository_slug": "taffish/hicexplorer",
+          "command": {
+            "name": "taf-hicexplorer"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "hic",
+            "categories": [
+              "hic",
+              "chromatin",
+              "genomics",
+              "visualization",
+              "quality-control"
+            ],
+            "keywords": [
+              "hicexplorer",
+              "hi-c",
+              "capture-hi-c",
+              "micro-c",
+              "contact-matrix",
+              "cooler",
+              "hicmatrix",
+              "tad",
+              "loops",
+              "compartments",
+              "visualization"
+            ],
+            "summary": "HiCExplorer command-line suite for processing, normalizing, analyzing, converting, and visualizing Hi-C, capture Hi-C, and Micro-C contact matrices.",
+            "description": "HiCExplorer command-line suite for processing, normalizing, analyzing, converting, and visualizing Hi-C, capture Hi-C, and Micro-C contact matrices."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/hicexplorer:3.7.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.7.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:62683f3d97e6af2788b3f97d0a2e4304de59fb358e3d05559755f218d6e6faac",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:37f3b7b85394f9519f955a587b65e25f37f3dfc33eb0376297ef094fc645c6ad",
+              "linux/arm64": "sha256:422435a9090287a29a4be83a7e8a2ff8289b620b817fda91f5c7c49ad7e63f46"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "hicexplorer",
+              "hicFindRestSite",
+              "hicAggregateContacts",
+              "hicBuildMatrix",
+              "hicBuildMatrixMicroC",
+              "hicCorrectMatrix",
+              "hicCorrelate",
+              "hicFindTADs",
+              "hicMergeMatrixBins",
+              "hicPlotMatrix",
+              "hicPlotDistVsCounts",
+              "hicPlotTADs",
+              "hicSumMatrices",
+              "hicInfo",
+              "hicQC",
+              "hicCompareMatrices",
+              "hicPCA",
+              "hicTransform",
+              "hicPlotViewpoint",
+              "chicViewpointBackgroundModel",
+              "chicPlotViewpoint",
+              "chicViewpoint",
+              "chicAggregateStatistic",
+              "chicDifferentialTest",
+              "chicQualityControl",
+              "chicSignificantInteractions",
+              "hicConvertFormat",
+              "hicAdjustMatrix",
+              "hicNormalize",
+              "hicAverageRegions",
+              "hicPlotAverageRegions",
+              "hicDetectLoops",
+              "hicValidateLocations",
+              "hicMergeLoops",
+              "hicCompartmentalization",
+              "hicQuickQC",
+              "hicPlotSVL",
+              "hicCreateThresholdFile",
+              "hicHyperoptDetectLoops",
+              "hicHyperoptDetectLoopsHiCCUPS",
+              "hicMergeDomains",
+              "hicDifferentialTAD",
+              "chicExportData",
+              "hicInterIntraTAD",
+              "hicTADClassifier",
+              "hicTrainTADClassifier",
+              "python",
+              "samtools",
+              "bedtools",
+              "dot"
+            ],
+            "test": [
+              "hicexplorer --version 2>&1 | grep -F '3.7.6' >/dev/null",
+              "hicexplorer --help 2>&1 | grep -F 'hicBuildMatrix' >/dev/null && hicexplorer --help 2>&1 | grep -F 'hicPlotMatrix' >/dev/null && hicexplorer --help 2>&1 | grep -F 'chicViewpoint' >/dev/null",
+              "hicInfo --version 2>&1 | grep -F '3.7.6' >/dev/null && hicBuildMatrix --version 2>&1 | grep -F '3.7.6' >/dev/null && hicBuildMatrixMicroC --version 2>&1 | grep -F '3.7.6' >/dev/null && hicConvertFormat --version 2>&1 | grep -F '3.7.6' >/dev/null && hicPlotMatrix --version 2>&1 | grep -F '3.7.6' >/dev/null && chicViewpoint --version 2>&1 | grep -F '3.7.6' >/dev/null",
+              "hicBuildMatrix --help 2>&1 | grep -F 'usage:' >/dev/null && hicBuildMatrixMicroC --help 2>&1 | grep -F 'usage:' >/dev/null && hicCorrectMatrix --help 2>&1 | grep -F 'usage:' >/dev/null && hicPlotTADs --help 2>&1 | grep -F 'usage:' >/dev/null && hicConvertFormat --help 2>&1 | grep -F 'usage:' >/dev/null",
+              "python -c 'import hicexplorer, hicmatrix, cooler, pybedtools, pyBigWig, pysam, sklearn, matplotlib, graphviz'",
+              "samtools --version | grep -F 'samtools 1.23.1' >/dev/null && bedtools --version | grep -F 'v2.31.1' >/dev/null && dot -V 2>&1 | grep -F 'graphviz' >/dev/null",
+              "mkdir -p /tmp/taf-hicexplorer-rest && cd /tmp/taf-hicexplorer-rest && printf '>chr1\\nAAAAGATCAAAAGATCTTTT\\n' > genome.fa && hicFindRestSite --fasta genome.fa --searchPattern GATC --outFile sites.bed && test -s sites.bed && grep -F 'chr1' sites.bed >/dev/null",
+              "mkdir -p /tmp/taf-hicexplorer-cool && cd /tmp/taf-hicexplorer-cool && python -c 'import cooler, pandas as pd; bins = pd.DataFrame({\"chrom\": [\"chr1\", \"chr1\"], \"start\": [0, 1000], \"end\": [1000, 2000]}); pixels = pd.DataFrame({\"bin1_id\": [0, 0, 1], \"bin2_id\": [0, 1, 1], \"count\": [5, 2, 3]}); cooler.create_cooler(\"tiny.cool\", bins=bins, pixels=pixels, ordered=True)' && hicInfo --matrices tiny.cool | grep -F 'tiny.cool' >/dev/null && hicPlotMatrix --matrix tiny.cool --outFileName tiny.png >/dev/null && test -s tiny.png && hicConvertFormat --matrices tiny.cool --inputFormat cool --outputFormat h5 --outFileName tiny.h5 >/dev/null && test -s tiny.h5 && hicInfo --matrices tiny.h5 | grep -F 'tiny.h5' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T07:57:33Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T07:57:33Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/hicexplorer",
+            "ref": "v3.7.6-r1",
+            "commit": "70db7f1d5471080c8b7f508d4c90def12b7850fa",
+            "html_url": "https://github.com/taffish/hicexplorer/tree/v3.7.6-r1"
+          },
+          "upstream": {
+            "name": "HiCExplorer",
+            "type": "github",
+            "homepage": "https://hicexplorer.readthedocs.io/",
+            "repository": "deeptools/HiCExplorer",
+            "release_url": "https://github.com/deeptools/HiCExplorer/releases/tag/3.7.6",
+            "version": "3.7.6",
+            "license": "GPL-3.0-or-later",
+            "citation": "Wolff et al. 2020; Wolff et al. 2018; Ramirez et al. 2018",
+            "doi": "10.1093/nar/gkaa220",
+            "pmid": "32301980"
+          }
+        }
+      }
+    },
     "mmseqs2": {
       "name": "mmseqs2",
       "latest": "18-r2",
@@ -5478,6 +5653,10 @@
       "package": "haphic",
       "version": "1.0.7-r1"
     },
+    "taf-hicexplorer": {
+      "package": "hicexplorer",
+      "version": "3.7.6-r1"
+    },
     "taf-mmseqs2": {
       "package": "mmseqs2",
       "version": "18-r2"
@@ -5672,6 +5851,12 @@
       "repository": "taffish/haphic",
       "packages": [
         "haphic"
+      ]
+    },
+    "taffish/hicexplorer": {
+      "repository": "taffish/hicexplorer",
+      "packages": [
+        "hicexplorer"
       ]
     },
     "taffish/mmseqs2": {
