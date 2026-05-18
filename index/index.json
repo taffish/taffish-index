@@ -1,13 +1,13 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-18T15:31:01Z",
+  "generated_at": "2026-05-18T15:43:29Z",
   "organization": "taffish",
   "counts": {
-    "packages": 43,
-    "versions": 53,
-    "commands": 43,
-    "repositories": 43,
-    "warnings": 1,
+    "packages": 44,
+    "versions": 54,
+    "commands": 44,
+    "repositories": 44,
+    "warnings": 0,
     "failed": 0,
     "rejected": 1
   },
@@ -6362,6 +6362,154 @@
         }
       }
     },
+    "mcscanx": {
+      "name": "mcscanx",
+      "latest": "1.0.0-r1",
+      "repository_url": "https://github.com/taffish/mcscanx",
+      "command": {
+        "name": "taf-mcscanx"
+      },
+      "versions": {
+        "1.0.0-r1": {
+          "name": "mcscanx",
+          "kind": "tool",
+          "version": "1.0.0",
+          "release": 1,
+          "version_id": "1.0.0-r1",
+          "tag": "v1.0.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/mcscanx",
+          "repository_slug": "taffish/mcscanx",
+          "command": {
+            "name": "taf-mcscanx"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "comparative-genomics",
+            "categories": [
+              "comparative-genomics",
+              "synteny",
+              "collinearity",
+              "gene-duplication",
+              "visualization"
+            ],
+            "keywords": [
+              "mcscanx",
+              "synteny",
+              "collinearity",
+              "duplicate-gene-classifier",
+              "dot-plot",
+              "circle-plot",
+              "comparative-genomics",
+              "ka/ks",
+              "bioperl"
+            ],
+            "summary": "MCScanX collinearity and synteny analysis toolkit with core C++ programs, Java plotters, and Perl downstream analysis helpers.",
+            "description": "MCScanX collinearity and synteny analysis toolkit with core C++ programs, Java plotters, and Perl downstream analysis helpers."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/mcscanx:1.0.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.0.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:392c5b4f68839b6fbbc79b154747535ea29264faf91cbe6402d04156faf36c44",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f3414ec5cf8eb44ee8fa4412b05ac0198c6c3f98226ce2358984e10d2a899e94",
+              "linux/arm64": "sha256:ac2737e7f0a2572331505852ea7c8e0c5588e65747ee4ef20bad2cb9b3276dae"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "MCScanX",
+              "MCScanX_h",
+              "duplicate_gene_classifier",
+              "detect_collinear_tandem_arrays",
+              "detect_syntenic_tandem_arrays",
+              "dissect_multiple_alignment",
+              "dot_plotter",
+              "dual_synteny_plotter",
+              "circle_plotter",
+              "bar_plotter",
+              "family_circle_plotter",
+              "family_tree_plotter",
+              "family_tree_plotter_show_length",
+              "family_tree_plotter_chr",
+              "add_ka_and_ks_to_collinearity.pl",
+              "add_kaks_to_synteny.pl",
+              "group_collinear_genes.pl",
+              "group_syntenic_genes.pl",
+              "detect_collinearity_within_gene_families.pl",
+              "detect_synteny_within_gene_families.pl",
+              "origin_enrichment_analysis.pl",
+              "mkCircosInputs.pl",
+              "java",
+              "perl",
+              "clustalw"
+            ],
+            "test": [
+              "grep -Fx '1.0.0' /opt/mcscanx/VERSION >/dev/null && MCScanX -h 2>&1 | grep -F '[Usage]' >/dev/null && MCScanX_h -h 2>&1 | grep -F '[Usage]' >/dev/null && duplicate_gene_classifier -h 2>&1 | grep -F '[Usage]' >/dev/null",
+              "detect_collinear_tandem_arrays 2>&1 | grep -F 'Usage:' >/dev/null && detect_syntenic_tandem_arrays 2>&1 | grep -F 'Usage:' >/dev/null && dissect_multiple_alignment 2>&1 | grep -F 'Usage:' >/dev/null",
+              "dot_plotter 2>&1 | grep -F 'Usage: java dot_plotter' >/dev/null && dual_synteny_plotter 2>&1 | grep -F 'Usage: java dual_synteny_plotter' >/dev/null && circle_plotter 2>&1 | grep -F 'Usage: java circle_plotter' >/dev/null && bar_plotter 2>&1 | grep -F 'Usage: java bar_plotter' >/dev/null",
+              "family_circle_plotter 2>&1 | grep -F 'Usage: java family_circle_plotter' >/dev/null && family_tree_plotter 2>&1 | grep -F 'Usage: java family_tree_plotter' >/dev/null && family_tree_plotter_show_length 2>&1 | grep -F 'Usage: java family_tree_plotter' >/dev/null && family_tree_plotter_chr 2>&1 | grep -F 'Usage: java family_tree_plotter' >/dev/null",
+              "add_ka_and_ks_to_collinearity.pl 2>&1 | grep -F 'Usage:' >/dev/null && add_kaks_to_synteny.pl 2>&1 | grep -F 'Usage:' >/dev/null && group_collinear_genes.pl 2>&1 | grep -F 'Usage:' >/dev/null && perl -MBio::SeqIO -MBio::Tools::Run::Alignment::Clustalw -e 1 && clustalw -help 2>&1 | grep -i 'clustal' >/dev/null",
+              "mkdir -p /tmp/taf-mcscanx-core && cd /tmp/taf-mcscanx-core && printf 'aa1\\taa1g1\\t100\\t200\\nbb1\\tbb1g1\\t100\\t200\\naa1\\taa1g2\\t300\\t400\\nbb1\\tbb1g2\\t300\\t400\\n' > toy.gff && printf 'aa1g1\\tbb1g1\\t100.00\\t100\\t0\\t0\\t1\\t100\\t1\\t100\\t1e-50\\t200\\naa1g2\\tbb1g2\\t100.00\\t100\\t0\\t0\\t1\\t100\\t1\\t100\\t1e-40\\t180\\n' > toy.blast && MCScanX toy -s 2 -a >/tmp/taf-mcscanx-core.log 2>&1 && test -s toy.collinearity && grep -F '# MATCH_SIZE: 2' toy.collinearity >/dev/null",
+              "mkdir -p /tmp/taf-mcscanx-h && cd /tmp/taf-mcscanx-h && printf 'aa1\\taa1g1\\t100\\t200\\nbb1\\tbb1g1\\t100\\t200\\naa1\\taa1g2\\t300\\t400\\nbb1\\tbb1g2\\t300\\t400\\n' > toy.gff && printf 'aa1g1\\tbb1g1\\t1e-50\\naa1g2\\tbb1g2\\t1e-40\\n' > toy.homology && MCScanX_h toy -s 2 -a >/tmp/taf-mcscanx-h.log 2>&1 && test -s toy.collinearity && grep -F '# MATCH_SIZE: 2' toy.collinearity >/dev/null",
+              "mkdir -p /tmp/taf-mcscanx-group && cd /tmp/taf-mcscanx-group && printf '0\\taa1g1\\tbb1g1\\n' > collinear.txt && group_collinear_genes.pl -i collinear.txt -o groups.txt && grep -F 'aa1g1' groups.txt >/dev/null && printf 'fam1\\taa1g1\\tbb1g1\\n' > families.txt && detect_collinearity_within_gene_families.pl -i families.txt -d collinear.txt -o family-collinear.txt && grep -F 'aa1g1:bb1g1' family-collinear.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T15:43:29Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T15:43:29Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/mcscanx",
+            "ref": "v1.0.0-r1",
+            "commit": "e962a678804182531fa8cdf7d4ecea5c0a781304",
+            "html_url": "https://github.com/taffish/mcscanx/tree/v1.0.0-r1"
+          },
+          "upstream": {
+            "name": "MCScanX",
+            "type": "github",
+            "homepage": "http://chibba.pgml.uga.edu/mcscan2/",
+            "repository": "wyp1125/MCScanX",
+            "release_url": "https://github.com/wyp1125/MCScanX/tree/v1.0.0",
+            "version": "1.0.0",
+            "license": "BSD-2-Clause",
+            "citation": "Wang et al. 2012",
+            "doi": "10.1093/nar/gkr1293",
+            "pmid": "22217600"
+          }
+        }
+      }
+    },
     "merfin": {
       "name": "merfin",
       "latest": "1.1-r1",
@@ -7046,6 +7194,10 @@
       "package": "mafft",
       "version": "7.525-r2"
     },
+    "taf-mcscanx": {
+      "package": "mcscanx",
+      "version": "1.0.0-r1"
+    },
     "taf-merfin": {
       "package": "merfin",
       "version": "1.1-r1"
@@ -7300,6 +7452,12 @@
         "mafft"
       ]
     },
+    "taffish/mcscanx": {
+      "repository": "taffish/mcscanx",
+      "packages": [
+        "mcscanx"
+      ]
+    },
     "taffish/merfin": {
       "repository": "taffish/merfin",
       "packages": [
@@ -7319,11 +7477,5 @@
       ]
     }
   },
-  "warnings": [
-    {
-      "repository": "taffish/mcscanx",
-      "ref": "v1.0.0-r1",
-      "message": "[meta].keywords contains an invalid token: \"ka/ks\""
-    }
-  ]
+  "warnings": []
 }
