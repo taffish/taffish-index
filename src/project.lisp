@@ -147,10 +147,19 @@
   (or (platform-token-char-p char)
       (char= char #\+)))
 
+(defun keyword-token-char-p (char)
+  (or (meta-token-char-p char)
+      (char= char #\/)))
+
 (defun valid-meta-token-p (token)
   (and (stringp token)
        (> (length token) 0)
        (not (find-if-not #'meta-token-char-p token))))
+
+(defun valid-keyword-token-p (token)
+  (and (stringp token)
+       (> (length token) 0)
+       (not (find-if-not #'keyword-token-char-p token))))
 
 (defun normalize-token (token)
   (string-downcase (trim-string token)))
@@ -274,7 +283,7 @@
           :min-cpus min-cpus
           :min-memory-mb min-memory-mb)))
 
-(defun parse-meta-token-list (raw field-name)
+(defun parse-meta-token-list (raw field-name &key (validator #'valid-meta-token-p))
   (when raw
     (unless (listp raw)
       (error "~A must be an array of strings" field-name))
@@ -285,7 +294,7 @@
         (let ((clean (normalize-token item)))
           (when (blank-string-p clean)
             (error "~A must not contain blank strings" field-name))
-          (unless (valid-meta-token-p clean)
+          (unless (funcall validator clean)
             (error "~A contains an invalid token: ~S" field-name clean))
           (unless (member clean out :test #'string=)
             (push clean out))))
@@ -330,7 +339,8 @@
            (categories (merge-meta-categories raw-categories category))
            (keywords (parse-meta-token-list
                       (gethash "keywords" section)
-                      (format nil "~A.keywords" field-prefix)))
+                      (format nil "~A.keywords" field-prefix)
+                      :validator #'valid-keyword-token-p))
            (description
             (or (parse-meta-description
                  (gethash "description" section)

@@ -271,8 +271,10 @@ Meta:
 - `domain` is a broad domain token such as `bio`, `ml`, `chem`, `devops`, or `general`.
 - `category` is the primary category token used for Hub filtering and browsing.
 - `keywords` are normalized search tokens used to improve package discovery.
-- `category`, `categories`, and `keywords` accept simple search tokens made of
-  letters, digits, `.`, `_`, `-`, and `+`, so aliases such as `blast+` are valid.
+- `category` and `categories` accept simple filter tokens made of letters,
+  digits, `.`, `_`, `-`, and `+`.
+- `keywords` accept the same characters plus `/`, so common aliases such as
+  `blast+`, `ka/ks`, and `dn/ds` are valid search tokens.
 - `summary` is a short human-facing description for Hub pages and repository metadata.
 - `categories` and `description` are accepted Hub-side aliases. The index
   normalizes `category` into `categories` and `summary` into `description`, then
