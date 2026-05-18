@@ -149,7 +149,8 @@
 
 (defun keyword-token-char-p (char)
   (or (meta-token-char-p char)
-      (char= char #\/)))
+      (char= char #\/)
+      (char= char #\Space)))
 
 (defun valid-meta-token-p (token)
   (and (stringp token)

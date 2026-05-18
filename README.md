@@ -273,8 +273,9 @@ Meta:
 - `keywords` are normalized search tokens used to improve package discovery.
 - `category` and `categories` accept simple filter tokens made of letters,
   digits, `.`, `_`, `-`, and `+`.
-- `keywords` accept the same characters plus `/`, so common aliases such as
-  `blast+`, `ka/ks`, and `dn/ds` are valid search tokens.
+- `keywords` accept the same characters plus `/` and spaces, so common aliases
+  and phrases such as `blast+`, `ka/ks`, `dn/ds`, and
+  `multiple sequence alignment` are valid search terms.
 - `summary` is a short human-facing description for Hub pages and repository metadata.
 - `categories` and `description` are accepted Hub-side aliases. The index
   normalizes `category` into `categories` and `summary` into `description`, then
