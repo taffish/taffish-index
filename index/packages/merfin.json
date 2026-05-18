@@ -1,6 +1,6 @@
 {
   "name": "merfin",
-  "latest": "1.1-r1",
+  "latest": "1.1-r2",
   "repository_url": "https://github.com/taffish/merfin",
   "command": {
     "name": "taf-merfin"
@@ -108,6 +108,124 @@
         "ref": "v1.1-r1",
         "commit": "1582743ad22662b5ea533657b178aecb6240e7f2",
         "html_url": "https://github.com/taffish/merfin/tree/v1.1-r1"
+      },
+      "upstream": {
+        "name": "Merfin",
+        "type": "github",
+        "homepage": "https://github.com/arangrhie/merfin",
+        "repository": "arangrhie/merfin",
+        "release_url": "https://github.com/arangrhie/merfin/releases/tag/v1.1",
+        "version": "1.1",
+        "license": "Apache-2.0",
+        "citation": "Formenti et al. 2022",
+        "doi": "10.1038/s41592-022-01445-y",
+        "pmid": "35361932"
+      }
+    },
+    "1.1-r2": {
+      "name": "merfin",
+      "kind": "tool",
+      "version": "1.1",
+      "release": 2,
+      "version_id": "1.1-r2",
+      "tag": "v1.1-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/merfin",
+      "repository_slug": "taffish/merfin",
+      "command": {
+        "name": "taf-merfin"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-assembly",
+        "categories": [
+          "genome-assembly",
+          "variant-filtering",
+          "polishing",
+          "quality-control",
+          "kmer"
+        ],
+        "keywords": [
+          "merfin",
+          "meryl",
+          "k-mer",
+          "assembly-polishing",
+          "variant-filtering",
+          "qv",
+          "completeness",
+          "genome-evaluation"
+        ],
+        "summary": "Merfin improves variant filtering, assembly evaluation, and polishing through k-mer validation.",
+        "description": "Merfin improves variant filtering, assembly evaluation, and polishing through k-mer validation."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/merfin:1.1-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.1-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:e64b493a8e6c0af713da34ee89b26b1aacd3cd856b386cdfd94358f71002d0ca",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ae2b5d03da0d202c97976b10b47661ba23c4f8865b4a55cf18e62de3ad7ee7b3",
+          "linux/arm64": "sha256:19315466314e07d72fc09a120e883a06ddf218f92ce1f971e8793cc3cca33a71"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "merfin",
+          "meryl",
+          "gzip",
+          "bzip2",
+          "xz"
+        ],
+        "test": [
+          "test \"$(cat /usr/local/share/doc/merfin/VERSION)\" = '1.1'",
+          "test \"$(cat /usr/local/share/doc/merfin/MERYL_COMMIT)\" = 'd8f336f791b92c2a265e70bba9f995621b67d195'",
+          "merfin --version 2>&1 | grep -F 'merfin 1.1' >/dev/null",
+          "meryl --version 2>&1 | grep -F 'merfin 1.1' >/dev/null",
+          "merfin 2>&1 | grep -F 'usage:' >/dev/null",
+          "merfin 2>&1 | grep -F -- '-loose (least conservative)' >/dev/null",
+          "meryl -h 2>&1 | grep -F 'COMMANDS:' >/dev/null",
+          "ldd \"$(command -v merfin)\" | grep -F 'libgomp' >/dev/null",
+          "mkdir -p /tmp/taf-merfin-smoke && cd /tmp/taf-merfin-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl count memory=0.1 threads=1 k=21 seq.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && meryl histogram read.meryl > read.hist && test -s read.hist && merfin -hist -sequence seq.fa -readmers read.meryl -peak 1 -output merfin.hist -threads 1 > merfin.out 2> merfin.log && test -s merfin.hist && grep -F 'Merfin QV*' merfin.log >/dev/null && grep -F 'Bye!' merfin.log >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-18T16:27:04Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-18T16:27:04Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/merfin",
+        "ref": "v1.1-r2",
+        "commit": "02cbb19b62c58426ca8639bce16bbc1f08487407",
+        "html_url": "https://github.com/taffish/merfin/tree/v1.1-r2"
       },
       "upstream": {
         "name": "Merfin",
