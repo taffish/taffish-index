@@ -1,0 +1,126 @@
+{
+  "name": "juicer",
+  "latest": "2.20.00-r1",
+  "repository_url": "https://github.com/taffish/juicer",
+  "command": {
+    "name": "taf-juicer"
+  },
+  "versions": {
+    "2.20.00-r1": {
+      "name": "juicer",
+      "kind": "tool",
+      "version": "2.20.00",
+      "release": 1,
+      "version_id": "2.20.00-r1",
+      "tag": "v2.20.00-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/juicer",
+      "repository_slug": "taffish/juicer",
+      "command": {
+        "name": "taf-juicer"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "hic",
+        "categories": [
+          "hic",
+          "chromatin-conformation",
+          "contact-map",
+          "3d-genome",
+          "genomics"
+        ],
+        "keywords": [
+          "juicer",
+          "juicer-tools",
+          "juicebox",
+          "hic",
+          "contact-map",
+          "pre",
+          "dump",
+          "addnorm",
+          "arrowhead",
+          "hiccups",
+          "apa",
+          "pearsons",
+          "eigenvector"
+        ],
+        "summary": "Juicer Tools 2.20.00 command-line utilities for creating, validating, dumping, normalizing, and analyzing .hic contact map files.",
+        "description": "Juicer Tools 2.20.00 command-line utilities for creating, validating, dumping, normalizing, and analyzing .hic contact map files."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/juicer:2.20.00-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.20.00-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:4ff6d049a4ce00730b44d8cdb665de991bd716ad05999728a568fbe6a4204684",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:32de74f131f500b749c649625d3ebd49affc6590c43833593d21cec9be252732",
+          "linux/arm64": "sha256:4e337eddc6ff13db895d31792fec7c13a2b79d0a88a5683f1d5aced4557b6e0e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "juicer_tools",
+          "java",
+          "sh"
+        ],
+        "test": [
+          "juicer_tools --help 2>&1 | grep -F 'Juicer Tools Version 2.20.00' >/dev/null && juicer_tools --help 2>&1 | grep -F 'pre [options]' >/dev/null",
+          "juicer_tools pre 2>&1 | grep -F 'Usage:   juicer_tools pre' >/dev/null && juicer_tools dump 2>&1 | grep -F 'Usage:   juicer_tools dump' >/dev/null && juicer_tools validate 2>&1 | grep -F 'Usage:   juicer_tools validate' >/dev/null",
+          "juicer_tools addNorm 2>&1 | grep -F 'Usage:   juicer_tools addNorm' >/dev/null && juicer_tools pearsons 2>&1 | grep -F 'Usage:   juicer_tools pearsons' >/dev/null && juicer_tools eigenvector 2>&1 | grep -F 'Usage:   juicer_tools eigenvector' >/dev/null",
+          "juicer_tools apa 2>&1 | grep -F 'Usage:   juicer_tools apa' >/dev/null && juicer_tools arrowhead 2>&1 | grep -F 'Usage:   juicer_tools arrowhead' >/dev/null && juicer_tools hiccups 2>&1 | grep -F 'Usage:   juicer_tools hiccups' >/dev/null && juicer_tools hiccupsdiff 2>&1 | grep -F 'Usage:   juicer_tools hiccupsdiff' >/dev/null",
+          "mkdir -p /tmp/taf-juicer-pre && cd /tmp/taf-juicer-pre && printf 'chr1\\t10000\\n' > chrom.sizes && printf '0 chr1 100 0 0 chr1 500 1\\n0 chr1 1000 0 0 chr1 1500 1\\n0 chr1 2000 0 0 chr1 2500 1\\n0 chr1 3000 0 0 chr1 3500 1\\n' > contacts.txt && JUICER_TOOLS_JAVA_XMX=512m juicer_tools pre -n -r 1000 contacts.txt tiny.hic chrom.sizes >/dev/null && test -s tiny.hic && JUICER_TOOLS_JAVA_XMX=512m juicer_tools validate tiny.hic 2>&1 | grep -F 'Validation successful' >/dev/null && JUICER_TOOLS_JAVA_XMX=512m juicer_tools dump observed NONE tiny.hic chr1 chr1 BP 1000 dump.txt >/dev/null && grep -F '0\t0\t1.0' dump.txt >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-18T13:21:47Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-18T13:21:47Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/juicer",
+        "ref": "v2.20.00-r1",
+        "commit": "9e277102ec7a2173792089ae7b1d2eed023ac501",
+        "html_url": "https://github.com/taffish/juicer/tree/v2.20.00-r1"
+      },
+      "upstream": {
+        "type": "github",
+        "homepage": "https://aidenlab.org/juicer/",
+        "repository": "aidenlab/Juicebox",
+        "release_url": "https://github.com/aidenlab/Juicebox/releases/tag/v2.20.00",
+        "version": "2.20.00",
+        "license": "MIT",
+        "citation": "Durand et al. 2016",
+        "doi": "10.1016/j.cels.2016.07.002",
+        "pmid": "27467249"
+      }
+    }
+  }
+}
