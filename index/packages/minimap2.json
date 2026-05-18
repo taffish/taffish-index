@@ -1,0 +1,130 @@
+{
+  "name": "minimap2",
+  "latest": "2.30-r1",
+  "repository_url": "https://github.com/taffish/minimap2",
+  "command": {
+    "name": "taf-minimap2"
+  },
+  "versions": {
+    "2.30-r1": {
+      "name": "minimap2",
+      "kind": "tool",
+      "version": "2.30",
+      "release": 1,
+      "version_id": "2.30-r1",
+      "tag": "v2.30-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/minimap2",
+      "repository_slug": "taffish/minimap2",
+      "command": {
+        "name": "taf-minimap2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "sequence-alignment",
+        "categories": [
+          "sequence-alignment",
+          "long-read",
+          "short-read",
+          "rna-seq",
+          "assembly-alignment",
+          "overlap"
+        ],
+        "keywords": [
+          "minimap2",
+          "paf",
+          "sam",
+          "ont",
+          "pacbio",
+          "hifi",
+          "iso-seq",
+          "splice",
+          "asm5",
+          "map-ont",
+          "paftools"
+        ],
+        "summary": "Fast pairwise nucleotide sequence alignment for long reads, short reads, spliced RNA-seq reads, assembly-to-assembly alignment, all-vs-all overlap, and PAF/SAM utility workflows.",
+        "description": "Fast pairwise nucleotide sequence alignment for long reads, short reads, spliced RNA-seq reads, assembly-to-assembly alignment, all-vs-all overlap, and PAF/SAM utility workflows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/minimap2:2.30-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.30-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:61f5d29ef672b76e2e63ed4e0c7ac981486ba73a23e11280c06abd6fad3bbd88",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:dea3cbb2454e8247a91ba6c986cbcce049a5309fb86e8139c46f5fa07b9b7c84",
+          "linux/arm64": "sha256:1d8a6a151654c0718c403a2aea5d36eef486ad70f9dd052235e04d81256298bb"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "minimap2",
+          "paftools.js",
+          "k8",
+          "gzip",
+          "bash"
+        ],
+        "test": [
+          "minimap2 --version | grep -Fx '2.30-r1287' >/dev/null",
+          "minimap2 --help 2>&1 | grep -F 'Usage: minimap2' >/dev/null && minimap2 --help 2>&1 | grep -F 'map-ont' >/dev/null",
+          "paftools.js version | grep -Fx '2.30-r1287' >/dev/null && paftools.js 2>&1 | grep -F 'Usage: paftools.js <command>' >/dev/null",
+          "ldd \"$(command -v minimap2)\" | grep -F 'libz' >/dev/null && ldd \"$(command -v k8)\" | grep -F 'libz' >/dev/null",
+          "mkdir -p /tmp/taf-minimap2-sam && cd /tmp/taf-minimap2-sam && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -a -k9 -w5 ref.fa reads.fa > aln.sam && grep -F '@SQ' aln.sam >/dev/null && grep -F 'read1' aln.sam >/dev/null",
+          "mkdir -p /tmp/taf-minimap2-paf && cd /tmp/taf-minimap2-paf && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -c --cs -k9 -w5 ref.fa reads.fa > aln.paf && grep -F 'cg:Z:' aln.paf >/dev/null && paftools.js view aln.paf > view.txt && test -s view.txt",
+          "mkdir -p /tmp/taf-minimap2-index && cd /tmp/taf-minimap2-index && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -k9 -w5 -d ref.mmi ref.fa && gzip -c reads.fa > reads.fa.gz && minimap2 ref.mmi reads.fa.gz > indexed.paf && grep -F 'read1' indexed.paf >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-18T16:18:16Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-18T16:18:16Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/minimap2",
+        "ref": "v2.30-r1",
+        "commit": "9a37f938b3d113ae9c4091511d30e6d158592417",
+        "html_url": "https://github.com/taffish/minimap2/tree/v2.30-r1"
+      },
+      "upstream": {
+        "name": "minimap2",
+        "type": "github",
+        "homepage": "https://lh3.github.io/minimap2/",
+        "repository": "lh3/minimap2",
+        "release_url": "https://github.com/lh3/minimap2/releases/tag/v2.30",
+        "version": "2.30",
+        "license": "MIT",
+        "citation": "Li 2018; Li 2021",
+        "doi": "10.1093/bioinformatics/bty191; 10.1093/bioinformatics/btab705",
+        "pmid": "29750242; 34623391"
+      }
+    }
+  }
+}

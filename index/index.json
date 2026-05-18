@@ -1,14 +1,14 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-18T15:43:29Z",
+  "generated_at": "2026-05-18T16:18:16Z",
   "organization": "taffish",
   "counts": {
-    "packages": 44,
-    "versions": 54,
-    "commands": 44,
-    "repositories": 44,
+    "packages": 46,
+    "versions": 56,
+    "commands": 46,
+    "repositories": 46,
     "warnings": 0,
-    "failed": 0,
+    "failed": 1,
     "rejected": 1
   },
   "packages": {
@@ -6636,6 +6636,274 @@
         }
       }
     },
+    "merqury": {
+      "name": "merqury",
+      "latest": "1.3-r1",
+      "repository_url": "https://github.com/taffish/merqury",
+      "command": {
+        "name": "taf-merqury"
+      },
+      "versions": {
+        "1.3-r1": {
+          "name": "merqury",
+          "kind": "tool",
+          "version": "1.3",
+          "release": 1,
+          "version_id": "1.3-r1",
+          "tag": "v1.3-r1",
+          "license": "Public Domain",
+          "repository_url": "https://github.com/taffish/merqury",
+          "repository_slug": "taffish/merqury",
+          "command": {
+            "name": "taf-merqury"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "quality-control",
+              "phasing",
+              "kmer",
+              "visualization"
+            ],
+            "keywords": [
+              "merqury",
+              "meryl",
+              "k-mer",
+              "assembly-evaluation",
+              "qv",
+              "completeness",
+              "hap-mer",
+              "phasing",
+              "spectra-cn"
+            ],
+            "summary": "Merqury evaluates genome assemblies with k-mer spectra, QV, completeness, and phasing statistics.",
+            "description": "Merqury evaluates genome assemblies with k-mer spectra, QV, completeness, and phasing statistics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/merqury:1.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:69e72db7130429409dfec2980f76bac32363c31fa493cc1c68c70147b6519534",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:69f6bc8e7d86f2e73acc0f4f7964f443b6667bb74f525e6d583f6dc047df5ddb"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "merqury.sh",
+              "merqury",
+              "best_k.sh",
+              "qv.sh",
+              "spectra-cn.sh",
+              "plot_spectra_cn.R",
+              "meryl",
+              "meryl-lookup",
+              "Rscript",
+              "java",
+              "bedtools",
+              "samtools",
+              "pigz",
+              "bash"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/merqury/VERSION)\" = '1.3'",
+              "test \"$(cat /usr/local/share/doc/merqury/MERYL_VERSION)\" = '1.4.1'",
+              "test \"$MERQURY\" = '/opt/merqury' && test -x \"$MERQURY/merqury.sh\"",
+              "merqury.sh 2>&1 | grep -F 'Usage: merqury.sh' >/dev/null",
+              "best_k.sh 1000000 2>&1 | grep -E '^14\\.' >/dev/null",
+              "meryl -h 2>&1 | grep -F 'COMMANDS:' >/dev/null",
+              "meryl-lookup 2>&1 | grep -F 'usage:' >/dev/null",
+              "Rscript -e 'library(argparse); library(ggplot2); library(scales)'",
+              "plot_spectra_cn.R --help 2>&1 | grep -F 'spectra-cn plots' >/dev/null",
+              "java -version >/dev/null 2>&1 && bedtools --version >/dev/null && samtools --version >/dev/null && pigz --version >/dev/null",
+              "mkdir -p /tmp/taf-merqury-smoke && cd /tmp/taf-merqury-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > asm.fa && meryl k=21 memory=0.1 count asm.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && merqury.sh read.meryl asm.fa out > run.out 2> run.err && test -s out.qv && test -s out.completeness.stats && test -s out.asm.spectra-cn.ln.png && test -s out.spectra-asm.ln.png && test -e asm_only.wig && grep -F 'asm_only.wig generated.' logs/out.spectra-cn.log >/dev/null && grep -F 'Done!' logs/out.spectra-cn.log >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T16:18:16Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T16:18:16Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/merqury",
+            "ref": "v1.3-r1",
+            "commit": "6504a0832db91d60fa0454498808b1cf404b4cd1",
+            "html_url": "https://github.com/taffish/merqury/tree/v1.3-r1"
+          },
+          "upstream": {
+            "name": "Merqury",
+            "type": "github",
+            "homepage": "https://github.com/marbl/merqury",
+            "repository": "marbl/merqury",
+            "release_url": "https://github.com/marbl/merqury/releases/tag/v1.3",
+            "version": "1.3",
+            "license": "Public Domain",
+            "citation": "Rhie et al. 2020",
+            "doi": "10.1186/s13059-020-02134-9",
+            "pmid": "32928274"
+          }
+        }
+      }
+    },
+    "minimap2": {
+      "name": "minimap2",
+      "latest": "2.30-r1",
+      "repository_url": "https://github.com/taffish/minimap2",
+      "command": {
+        "name": "taf-minimap2"
+      },
+      "versions": {
+        "2.30-r1": {
+          "name": "minimap2",
+          "kind": "tool",
+          "version": "2.30",
+          "release": 1,
+          "version_id": "2.30-r1",
+          "tag": "v2.30-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/minimap2",
+          "repository_slug": "taffish/minimap2",
+          "command": {
+            "name": "taf-minimap2"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-alignment",
+            "categories": [
+              "sequence-alignment",
+              "long-read",
+              "short-read",
+              "rna-seq",
+              "assembly-alignment",
+              "overlap"
+            ],
+            "keywords": [
+              "minimap2",
+              "paf",
+              "sam",
+              "ont",
+              "pacbio",
+              "hifi",
+              "iso-seq",
+              "splice",
+              "asm5",
+              "map-ont",
+              "paftools"
+            ],
+            "summary": "Fast pairwise nucleotide sequence alignment for long reads, short reads, spliced RNA-seq reads, assembly-to-assembly alignment, all-vs-all overlap, and PAF/SAM utility workflows.",
+            "description": "Fast pairwise nucleotide sequence alignment for long reads, short reads, spliced RNA-seq reads, assembly-to-assembly alignment, all-vs-all overlap, and PAF/SAM utility workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/minimap2:2.30-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.30-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:61f5d29ef672b76e2e63ed4e0c7ac981486ba73a23e11280c06abd6fad3bbd88",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:dea3cbb2454e8247a91ba6c986cbcce049a5309fb86e8139c46f5fa07b9b7c84",
+              "linux/arm64": "sha256:1d8a6a151654c0718c403a2aea5d36eef486ad70f9dd052235e04d81256298bb"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "minimap2",
+              "paftools.js",
+              "k8",
+              "gzip",
+              "bash"
+            ],
+            "test": [
+              "minimap2 --version | grep -Fx '2.30-r1287' >/dev/null",
+              "minimap2 --help 2>&1 | grep -F 'Usage: minimap2' >/dev/null && minimap2 --help 2>&1 | grep -F 'map-ont' >/dev/null",
+              "paftools.js version | grep -Fx '2.30-r1287' >/dev/null && paftools.js 2>&1 | grep -F 'Usage: paftools.js <command>' >/dev/null",
+              "ldd \"$(command -v minimap2)\" | grep -F 'libz' >/dev/null && ldd \"$(command -v k8)\" | grep -F 'libz' >/dev/null",
+              "mkdir -p /tmp/taf-minimap2-sam && cd /tmp/taf-minimap2-sam && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -a -k9 -w5 ref.fa reads.fa > aln.sam && grep -F '@SQ' aln.sam >/dev/null && grep -F 'read1' aln.sam >/dev/null",
+              "mkdir -p /tmp/taf-minimap2-paf && cd /tmp/taf-minimap2-paf && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -c --cs -k9 -w5 ref.fa reads.fa > aln.paf && grep -F 'cg:Z:' aln.paf >/dev/null && paftools.js view aln.paf > view.txt && test -s view.txt",
+              "mkdir -p /tmp/taf-minimap2-index && cd /tmp/taf-minimap2-index && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -k9 -w5 -d ref.mmi ref.fa && gzip -c reads.fa > reads.fa.gz && minimap2 ref.mmi reads.fa.gz > indexed.paf && grep -F 'read1' indexed.paf >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T16:18:16Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T16:18:16Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/minimap2",
+            "ref": "v2.30-r1",
+            "commit": "9a37f938b3d113ae9c4091511d30e6d158592417",
+            "html_url": "https://github.com/taffish/minimap2/tree/v2.30-r1"
+          },
+          "upstream": {
+            "name": "minimap2",
+            "type": "github",
+            "homepage": "https://lh3.github.io/minimap2/",
+            "repository": "lh3/minimap2",
+            "release_url": "https://github.com/lh3/minimap2/releases/tag/v2.30",
+            "version": "2.30",
+            "license": "MIT",
+            "citation": "Li 2018; Li 2021",
+            "doi": "10.1093/bioinformatics/bty191; 10.1093/bioinformatics/btab705",
+            "pmid": "29750242; 34623391"
+          }
+        }
+      }
+    },
     "mmseqs2": {
       "name": "mmseqs2",
       "latest": "18-r2",
@@ -7202,6 +7470,14 @@
       "package": "merfin",
       "version": "1.1-r1"
     },
+    "taf-merqury": {
+      "package": "merqury",
+      "version": "1.3-r1"
+    },
+    "taf-minimap2": {
+      "package": "minimap2",
+      "version": "2.30-r1"
+    },
     "taf-mmseqs2": {
       "package": "mmseqs2",
       "version": "18-r2"
@@ -7462,6 +7738,18 @@
       "repository": "taffish/merfin",
       "packages": [
         "merfin"
+      ]
+    },
+    "taffish/merqury": {
+      "repository": "taffish/merqury",
+      "packages": [
+        "merqury"
+      ]
+    },
+    "taffish/minimap2": {
+      "repository": "taffish/minimap2",
+      "packages": [
+        "minimap2"
       ]
     },
     "taffish/mmseqs2": {
