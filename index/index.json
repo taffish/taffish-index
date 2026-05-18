@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-18T11:37:57Z",
+  "generated_at": "2026-05-18T11:51:42Z",
   "organization": "taffish",
   "counts": {
-    "packages": 37,
-    "versions": 46,
-    "commands": 37,
-    "repositories": 37,
+    "packages": 38,
+    "versions": 47,
+    "commands": 38,
+    "repositories": 38,
     "warnings": 0,
     "failed": 1
   },
@@ -5568,6 +5568,133 @@
         }
       }
     },
+    "jellyfish": {
+      "name": "jellyfish",
+      "latest": "2.3.1-r1",
+      "repository_url": "https://github.com/taffish/jellyfish",
+      "command": {
+        "name": "taf-jellyfish"
+      },
+      "versions": {
+        "2.3.1-r1": {
+          "name": "jellyfish",
+          "kind": "tool",
+          "version": "2.3.1",
+          "release": 1,
+          "version_id": "2.3.1-r1",
+          "tag": "v2.3.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/jellyfish",
+          "repository_slug": "taffish/jellyfish",
+          "command": {
+            "name": "taf-jellyfish"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "k-mer-counting",
+              "sequence-analysis",
+              "sequencing"
+            ],
+            "keywords": [
+              "jellyfish",
+              "k-mer",
+              "kmer",
+              "k-mer-counting",
+              "fasta",
+              "fastq",
+              "sam",
+              "bam",
+              "cram",
+              "bloom-filter"
+            ],
+            "summary": "Fast multi-threaded k-mer counter for DNA sequence data, with count, dump, query, histo, stats, mem, and Bloom-counter modes.",
+            "description": "Fast multi-threaded k-mer counter for DNA sequence data, with count, dump, query, histo, stats, mem, and Bloom-counter modes."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/jellyfish:2.3.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:40f2006d3f9c3173ffe2343af815ffc3863e390d7b1d55ca3183b5aa3073cd96",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:59cd3e0f10262527864006aea5e813f69bb6f2646799bb85b703ec0daaf677e2",
+              "linux/arm64": "sha256:8bfa3afbf38a2f053058c745dd80e3a040cd08eb9972119337c7d14ece9ebf7e"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "jellyfish",
+              "bash",
+              "gzip",
+              "gunzip"
+            ],
+            "test": [
+              "jellyfish --version | grep -F 'jellyfish 2.3.1' >/dev/null",
+              "jellyfish --help 2>&1 | grep -F 'Usage: jellyfish' >/dev/null",
+              "jellyfish count --help 2>&1 | grep -F 'Usage: jellyfish count' >/dev/null && jellyfish dump --help 2>&1 | grep -F 'Usage: jellyfish dump' >/dev/null && jellyfish histo --help 2>&1 | grep -F 'Usage: jellyfish histo' >/dev/null && jellyfish query --help 2>&1 | grep -F 'Usage: jellyfish query' >/dev/null && jellyfish stats --help 2>&1 | grep -F 'Usage: jellyfish stats' >/dev/null && jellyfish info --help 2>&1 | grep -F 'Usage: jellyfish info' >/dev/null && jellyfish merge --help 2>&1 | grep -F 'Usage: jellyfish merge' >/dev/null && jellyfish mem --help 2>&1 | grep -F 'Usage: jellyfish mem' >/dev/null && jellyfish bc --help 2>&1 | grep -F 'Usage: jellyfish bc' >/dev/null && jellyfish cite --help 2>&1 | grep -F 'Usage: jellyfish cite' >/dev/null",
+              "ldd \"$(command -v jellyfish)\" | grep -F 'libjellyfish-2.0' >/dev/null && ldd \"$(command -v jellyfish)\" | grep -F 'libhts' >/dev/null",
+              "mkdir -p /tmp/taf-jellyfish-count && cd /tmp/taf-jellyfish-count && printf '>seq1\\nACGTACGTACGT\\n>seq2\\nACGTACGT\\n' > reads.fa && jellyfish count -m 4 -s 100 -t 1 -C -o counts.jf reads.fa && test -s counts.jf && jellyfish dump -c counts.jf > dump.tsv && grep -F 'ACGT 5' dump.tsv >/dev/null && jellyfish query counts.jf ACGT > query.txt && grep -F 'ACGT 5' query.txt >/dev/null && jellyfish histo counts.jf > histo.tsv && grep -E '^3[[:space:]]+1$' histo.tsv >/dev/null && jellyfish stats counts.jf > stats.txt && grep -F 'Distinct:' stats.txt >/dev/null",
+              "mkdir -p /tmp/taf-jellyfish-merge && cd /tmp/taf-jellyfish-merge && printf '>seq1\\nACGTACGTACGT\\n' > reads1.fa && printf '>seq2\\nACGTACGT\\n' > reads2.fa && jellyfish count -m 4 -s 100 -t 1 -C -o a.jf reads1.fa && jellyfish count -m 4 -s 100 -t 1 -C -o b.jf reads2.fa && jellyfish info a.jf | grep -F 'canonical: yes' >/dev/null && jellyfish merge -o merged.jf a.jf b.jf && test -s merged.jf && jellyfish query merged.jf ACGT | grep -F 'ACGT 5' >/dev/null && jellyfish cite | grep -F 'Bioinformatics' >/dev/null",
+              "mkdir -p /tmp/taf-jellyfish-gzip && cd /tmp/taf-jellyfish-gzip && printf '>seq1\\nACGTACGTACGT\\n' > reads.fa && gzip -c reads.fa > reads.fa.gz && gunzip -c reads.fa.gz | jellyfish count -m 4 -s 100 -t 1 -C -o pipe.jf /dev/fd/0 && test -s pipe.jf && jellyfish query pipe.jf ACGT | grep -F 'ACGT 3' >/dev/null",
+              "mkdir -p /tmp/taf-jellyfish-sam && cd /tmp/taf-jellyfish-sam && printf '@SQ\\tSN:chr1\\tLN:12\\nr1\\t0\\tchr1\\t1\\t60\\t12M\\t*\\t0\\t0\\tACGTACGTACGT\\tFFFFFFFFFFFF\\n' > reads.sam && jellyfish count -m 4 -s 100 -t 1 -C -o sam.jf reads.sam && test -s sam.jf && jellyfish query sam.jf ACGT | grep -F 'ACGT 3' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T11:51:42Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T11:51:42Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/jellyfish",
+            "ref": "v2.3.1-r1",
+            "commit": "2eadadb45a691094ca239448387b063512dc7c57",
+            "html_url": "https://github.com/taffish/jellyfish/tree/v2.3.1-r1"
+          },
+          "upstream": {
+            "name": "Jellyfish",
+            "type": "github",
+            "homepage": "https://github.com/gmarcais/Jellyfish",
+            "repository": "gmarcais/Jellyfish",
+            "release_url": "https://github.com/gmarcais/Jellyfish/releases/tag/v2.3.1",
+            "version": "2.3.1",
+            "license": "BSD-3-Clause OR GPL-3.0-only",
+            "citation": "Marcais and Kingsford 2011",
+            "doi": "10.1093/bioinformatics/btr011",
+            "pmid": "21217122"
+          }
+        }
+      }
+    },
     "mmseqs2": {
       "name": "mmseqs2",
       "latest": "18-r2",
@@ -6106,6 +6233,10 @@
       "package": "hmmer",
       "version": "3.4-r1"
     },
+    "taf-jellyfish": {
+      "package": "jellyfish",
+      "version": "2.3.1-r1"
+    },
     "taf-mmseqs2": {
       "package": "mmseqs2",
       "version": "18-r2"
@@ -6324,6 +6455,12 @@
       "repository": "taffish/hmmer",
       "packages": [
         "hmmer"
+      ]
+    },
+    "taffish/jellyfish": {
+      "repository": "taffish/jellyfish",
+      "packages": [
+        "jellyfish"
       ]
     },
     "taffish/mmseqs2": {
