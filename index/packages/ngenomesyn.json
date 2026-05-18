@@ -1,0 +1,127 @@
+{
+  "name": "ngenomesyn",
+  "latest": "1.43-r1",
+  "repository_url": "https://github.com/taffish/ngenomesyn",
+  "command": {
+    "name": "taf-ngenomesyn"
+  },
+  "versions": {
+    "1.43-r1": {
+      "name": "ngenomesyn",
+      "kind": "tool",
+      "version": "1.43",
+      "release": 1,
+      "version_id": "1.43-r1",
+      "tag": "v1.43-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/ngenomesyn",
+      "repository_slug": "taffish/ngenomesyn",
+      "command": {
+        "name": "taf-ngenomesyn"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "comparative-genomics",
+        "categories": [
+          "comparative-genomics",
+          "synteny",
+          "genome-visualization",
+          "publication-graphics"
+        ],
+        "keywords": [
+          "ngenomesyn",
+          "synteny",
+          "comparative-genomics",
+          "svg",
+          "png",
+          "minimap2",
+          "mummer"
+        ],
+        "summary": "NGenomeSyn genome-synteny visualization toolkit with SVG/PNG plotting and pairwise link-preparation helpers.",
+        "description": "NGenomeSyn genome-synteny visualization toolkit with SVG/PNG plotting and pairwise link-preparation helpers."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/ngenomesyn:1.43-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.43-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:79013c53cecbcf0d9dba4839542618016188bfbaa9d1a5278ef74d5eae87e5d5",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:fb2aa17b60246b057ef3e1a4c7e9ee9baa9da9922020cd4b9da9d95de0a519e4",
+          "linux/arm64": "sha256:d3897b457b0154d56830d2076fea0e3d69f94c9d4cf62db25fad849e2bb8883b"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "NGenomeSyn",
+          "GetTwoGenomeSyn.pl",
+          "GetTwoGenomeSyn",
+          "perl",
+          "convert",
+          "rsvg-convert",
+          "minimap2",
+          "nucmer",
+          "delta-filter",
+          "show-coords",
+          "gzip"
+        ],
+        "test": [
+          "NGenomeSyn -help 2>&1 | grep -F 'Version:1.43' >/dev/null && GetTwoGenomeSyn -help 2>&1 | grep -F 'Version:1.43' >/dev/null && perl -MSVG -MSwitch -e 1",
+          "mkdir -p /tmp/taf-ngenomesyn-plot && cd /tmp/taf-ngenomesyn-plot && printf 'chr1\\t1\\t1000\\nchr2\\t1\\t800\\n' > a.len && printf 'chrA\\t1\\t900\\nchrB\\t1\\t700\\n' > b.len && printf 'chr1\\t100\\t350\\tchrA\\t120\\t360\\tfill=#66c2a5\\nchr2\\t80\\t260\\tchrB\\t90\\t240\\tfill=#fc8d62\\n' > ab.link && printf 'SetParaFor = global\\nGenomeInfoFile1=a.len\\nGenomeInfoFile2=b.len\\nLinkFileRef1VsRef2=ab.link\\nSetParaFor = Genome1\\nGenomeName=A\\nSetParaFor = Genome2\\nGenomeName=B\\n' > in.conf && NGenomeSyn -InConf in.conf -OutPut out >/tmp/taf-ngenomesyn-plot.log 2>&1 && test -s out.svg && test -s out.png && grep -F '<svg' out.svg >/dev/null",
+          "mkdir -p /tmp/taf-ngenomesyn-helper && cd /tmp/taf-ngenomesyn-helper && printf 'q1\\t1000\\t10\\t120\\t+\\tt1\\t2000\\t20\\t130\\t110\\t110\\t60\\nq2\\t1000\\t10\\t40\\t-\\tt2\\t2000\\t300\\t330\\t30\\t30\\t60\\n' > toy.paf && GetTwoGenomeSyn Paf2Link toy.paf 50 toy.link && grep -F 'q1' toy.link >/dev/null && ! grep -F 'q2' toy.link >/dev/null",
+          "convert -version | grep -F 'ImageMagick' >/dev/null && rsvg-convert --version >/dev/null && minimap2 --version >/dev/null && case \"$(nucmer -V)\" in 4.*) true;; *) exit 1;; esac && command -v delta-filter >/dev/null && command -v show-coords >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-18T17:57:56Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-18T17:57:56Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/ngenomesyn",
+        "ref": "v1.43-r1",
+        "commit": "d3e9fbdae33535421f832aba8bf1cb23fe249e9c",
+        "html_url": "https://github.com/taffish/ngenomesyn/tree/v1.43-r1"
+      },
+      "upstream": {
+        "name": "NGenomeSyn",
+        "type": "github",
+        "homepage": "https://github.com/hewm2008/NGenomeSyn",
+        "repository": "hewm2008/NGenomeSyn",
+        "release_url": "https://github.com/hewm2008/NGenomeSyn/releases/tag/v1.43",
+        "version": "1.43",
+        "license": "MIT",
+        "citation": "He et al. 2023",
+        "doi": "10.1093/bioinformatics/btad121",
+        "pmid": "36883694"
+      }
+    }
+  }
+}
