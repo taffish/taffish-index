@@ -81,6 +81,10 @@ Report files record scan warnings and trust-gate failures. Failed new versions
 are not added to the main index; maintainers inspect reports and fix the app
 repository before the version can become installable.
 
+Known-bad immutable releases can be listed in `rejected-releases.toml`. Rejected
+versions are skipped before digest or smoke gates run, are not added to the main
+index, and are reported separately from transient trust-gate failures.
+
 Generated files are committed intentionally. They are the published static index
 that `taf` can download without requiring a custom Hub backend server.
 
@@ -99,7 +103,7 @@ Top-level fields include:
 | `schema_version` | Index schema identifier. |
 | `generated_at` | UTC generation timestamp. |
 | `organization` | Scanned GitHub organization, normally `taffish`. |
-| `counts` | Summary counts for packages, versions, commands, repositories, warnings, and failed trust gates. |
+| `counts` | Summary counts for packages, versions, commands, repositories, warnings, failed trust gates, and known rejected releases. |
 | `packages` | Package records keyed by package name. |
 | `commands` | Command lookup records keyed by base command name. |
 | `repositories` | Repository lookup records keyed by `owner/repo`. |
@@ -158,9 +162,11 @@ do not pass GitHub tokens or secrets into the container. Apptainer smoke uses a
 clean contained environment when that backend is available.
 
 The main index keeps passed or previously accepted versions. Gate failures are
-written to `index/reports/latest.json` and timestamped report files. `taf update`
-and `taf install` consume the stable main index, while maintainers use reports
-to fix failed app releases.
+written to `index/reports/latest.json` and timestamped report files. Known-bad
+immutable releases listed in `rejected-releases.toml` are skipped and reported
+under `rejected` instead of being re-smoked on every run. `taf update` and
+`taf install` consume the stable main index, while maintainers use reports to
+fix failed app releases.
 
 Previously accepted versions may not have full trust metadata until they are
 republished or rechecked with `--force-recheck`. This preserves install
@@ -368,6 +374,7 @@ CLI options:
 --output <DIR>               Output directory, default index
 --metadata-overrides <PATH>  Optional metadata override TOML, default metadata-overrides.toml
 --meta-overrides <PATH>      Compatibility alias for --metadata-overrides
+--rejected-releases <PATH>   Optional known rejected release TOML, default rejected-releases.toml
 --include-default-branch     Also index default branch snapshots
 --include-archived           Include archived GitHub repositories
 --include-forks              Include fork repositories
@@ -386,6 +393,7 @@ Environment variables:
 | `TAFFISH_INDEX_FORCE_RECHECK` | Re-runs digest/smoke gates when set to `1`, `true`, or `yes`. |
 | `TAFFISH_INDEX_METADATA_OVERRIDES` | Optional path to a metadata override TOML file. Defaults to `metadata-overrides.toml`. |
 | `TAFFISH_INDEX_META_OVERRIDES` | Compatibility fallback for the older override path variable. |
+| `TAFFISH_INDEX_REJECTED_RELEASES` | Optional path to a known rejected release TOML file. Defaults to `rejected-releases.toml` when present. |
 
 The GitHub Actions workflow uses `TAFFISH_BOT_TOKEN` from repository secrets when
 available, and falls back to `GITHUB_TOKEN`.
@@ -426,6 +434,29 @@ metadata. Upstream overrides are intentionally limited to attribution fields
 (`license`, `citation`, `doi`, and `pmid`) and only merge into records that
 already have upstream data, so they supplement the existing upstream repository
 instead of creating a new upstream object.
+
+## Rejected Releases
+
+`rejected-releases.toml` records immutable app releases that should not be
+rechecked or added to the main index. Use it only when a version is known to be
+bad and has been superseded by a later release. Temporary network, registry, or
+runner failures should stay in `index/reports/latest.json` and should not be
+added here.
+
+Example:
+
+```toml
+[fastp-1.3.3-r1]
+repository = "taffish/fastp"
+version_id = "1.3.3-r1"
+ref = "v1.3.3-r1"
+replacement = "1.3.3-r2"
+reason = "Immutable release has invalid smoke commands; fixed by v1.3.3-r2."
+```
+
+Required fields are `repository`, `version_id`, and `reason`. `ref` is optional
+but recommended, because it makes the rejection target explicit. `replacement`
+is optional and only used for maintainer-facing reports.
 
 ## Related Repositories
 

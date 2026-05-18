@@ -542,6 +542,39 @@
 (defun read-meta-overrides (path)
   (read-metadata-overrides path))
 
+(defun read-rejected-releases (path)
+  (let ((table (make-hash-table :test #'equal)))
+    (when (and path (file-exists-p path))
+      (let ((toml (parse-taffish-toml-string (read-string-file path))))
+        (maphash
+         (lambda (section-name section)
+           (let* ((repository
+                    (ensure-string-field
+                     (gethash "repository" section)
+                     (format nil "[~A].repository" section-name)))
+                  (version-id
+                    (ensure-string-field
+                     (gethash "version_id" section)
+                     (format nil "[~A].version_id" section-name)))
+                  (reason
+                    (ensure-string-field
+                     (gethash "reason" section)
+                     (format nil "[~A].reason" section-name)))
+                  (ref (gethash "ref" section))
+                  (replacement (gethash "replacement" section)))
+             (when (and ref (not (stringp ref)))
+               (error "[~A].ref must be a string" section-name))
+             (when (and replacement (not (stringp replacement)))
+               (error "[~A].replacement must be a string" section-name))
+             (setf (gethash (meta-override-key repository version-id) table)
+                   (list :repository (normalize-slug repository)
+                         :version-id version-id
+                         :ref ref
+                         :reason reason
+                         :replacement replacement))))
+         toml)))
+    table))
+
 (defun merge-meta (base override)
   (if override
       (copy-record-set
@@ -823,10 +856,31 @@
      (cons "message" message)
      (cons "image" (or (plist-ref container :image) :null)))))
 
+(defun rejected-release-for-record (record rejected-map)
+  (let ((entry (and rejected-map
+                    (gethash (record-cache-key record) rejected-map))))
+    (when entry
+      (let ((ref (plist-ref entry :ref)))
+        (when (or (not ref)
+                  (string= ref (or (plist-ref record :source-ref) "")))
+          entry)))))
+
+(defun rejected-record (record rejection)
+  (let ((container (plist-ref record :container)))
+    (json-object
+     (cons "repository" (or (plist-ref record :source-repository)
+                            (plist-ref record :repository-slug)
+                            :null))
+     (cons "ref" (or (plist-ref record :source-ref) :null))
+     (cons "version_id" (or (plist-ref record :version-id) :null))
+     (cons "reason" (or (plist-ref rejection :reason) :null))
+     (cons "replacement" (or (plist-ref rejection :replacement) :null))
+     (cons "image" (or (plist-ref container :image) :null)))))
+
 (defun warning-report-json (warning)
   (warning-json warning))
 
-(defun build-report-json (failures warnings &key organization generated-at)
+(defun build-report-json (failures warnings &key rejected organization generated-at)
   (json-object
    (cons "schema_version" "taffish.index.report/v1")
    (cons "generated_at" generated-at)
@@ -834,17 +888,23 @@
    (cons "counts"
          (json-object
           (cons "failed" (length failures))
+          (cons "rejected" (length rejected))
           (cons "warnings" (length warnings))))
    (cons "failed" (cons :array failures))
+   (cons "rejected" (cons :array rejected))
    (cons "warnings" (cons :array (mapcar #'warning-report-json warnings)))))
 
-(defun process-records (records previous-map &key force-recheck checked-at)
+(defun process-records (records previous-map &key rejected-map force-recheck checked-at)
   (let ((accepted nil)
-        (failures nil))
+        (failures nil)
+        (rejected nil))
     (dolist (record records)
       (let ((previous (and (not force-recheck)
-                           (gethash (record-cache-key record) previous-map))))
+                           (gethash (record-cache-key record) previous-map)))
+            (rejection (rejected-release-for-record record rejected-map)))
         (cond
+          (rejection
+           (push (rejected-record record rejection) rejected))
           ((changed-source-commit-p previous record)
            (push (failure-record
                   record
@@ -869,9 +929,9 @@
              (error (c)
                (push (failure-record record "gate" (format nil "~A" c))
                      failures)))))))
-    (values (nreverse accepted) (nreverse failures))))
+    (values (nreverse accepted) (nreverse failures) (nreverse rejected))))
 
-(defun build-index-json (records warnings &key organization failures-count generated-at)
+(defun build-index-json (records warnings &key organization failures-count rejected-count generated-at)
   (let ((packages (make-hash-table :test #'equal))
         (commands (make-hash-table :test #'equal))
         (repositories (make-hash-table :test #'equal)))
@@ -888,7 +948,8 @@
             (cons "commands" (hash-table-count commands))
             (cons "repositories" (hash-table-count repositories))
             (cons "warnings" (length warnings))
-            (cons "failed" (or failures-count 0))))
+            (cons "failed" (or failures-count 0))
+            (cons "rejected" (or rejected-count 0))))
      (cons "packages" (sorted-object-from-hash packages #'package-entry-json))
      (cons "commands" (sorted-object-from-hash commands #'command-entry-json))
      (cons "repositories" (sorted-object-from-hash repositories #'repository-entry-json))
@@ -917,13 +978,15 @@
 
 (defun build-index (&key org local-repos output-dir include-default-branch
                       include-archived include-forks force-recheck
-                      metadata-overrides-file meta-overrides-file)
+                      metadata-overrides-file meta-overrides-file
+                      rejected-releases-file)
   (let* ((output (uiop:ensure-directory-pathname output-dir))
          (previous-records (read-previous-index output))
          (previous-map (previous-record-map previous-records))
          (metadata-overrides-file (or metadata-overrides-file
                                       meta-overrides-file))
          (metadata-overrides (read-metadata-overrides metadata-overrides-file))
+         (rejected-releases (read-rejected-releases rejected-releases-file))
          (generated-at (utc-timestamp))
          (records nil)
          (warnings nil))
@@ -941,8 +1004,9 @@
         (setf records (append github-records records)
               warnings (append github-warnings warnings))))
     (setf records (apply-metadata-overrides-to-records records metadata-overrides))
-    (multiple-value-bind (accepted-records failures)
+    (multiple-value-bind (accepted-records failures rejected)
         (process-records (nreverse records) previous-map
+                         :rejected-map rejected-releases
                          :force-recheck force-recheck
                          :checked-at generated-at)
       (let* ((final-warnings (nreverse warnings))
@@ -950,9 +1014,11 @@
                                       final-warnings
                                       :organization org
                                       :failures-count (length failures)
+                                      :rejected-count (length rejected)
                                       :generated-at generated-at))
              (report (build-report-json failures
                                         final-warnings
+                                        :rejected rejected
                                         :organization org
                                         :generated-at generated-at)))
         (delete-directory-contents output)

@@ -14,6 +14,9 @@ Options:
                                   [env TAFFISH_INDEX_METADATA_OVERRIDES
                                    or metadata-overrides.toml]
   --meta-overrides <PATH>        Compatibility alias for --metadata-overrides
+  --rejected-releases <PATH>     Optional known rejected release TOML
+                                  [env TAFFISH_INDEX_REJECTED_RELEASES
+                                   or rejected-releases.toml]
   --include-default-branch       Also index default branch snapshots
   --include-archived             Include archived GitHub repositories
   --include-forks                Include fork repositories
@@ -28,6 +31,11 @@ Options:
           "metadata-overrides.toml"
           "meta-overrides.toml")))
 
+(defun default-rejected-releases-path ()
+  (or (env "TAFFISH_INDEX_REJECTED_RELEASES")
+      (and (file-exists-p "rejected-releases.toml")
+           "rejected-releases.toml")))
+
 (defun parse-cli-args (args)
   (when (and args (string= (car args) "--"))
     (setf args (cdr args)))
@@ -35,6 +43,7 @@ Options:
         (local-repos nil)
         (output "index")
         (metadata-overrides (default-metadata-overrides-path))
+        (rejected-releases (default-rejected-releases-path))
         (include-default-branch
           (member (env "TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH")
                   '("1" "true" "TRUE" "yes" "YES")
@@ -56,6 +65,7 @@ Options:
                         :local-repos (nreverse local-repos)
                         :output output
                         :metadata-overrides metadata-overrides
+                        :rejected-releases rejected-releases
                         :include-default-branch include-default-branch
                         :force-recheck force-recheck
                         :include-archived include-archived
@@ -79,6 +89,9 @@ Options:
                  ((member (car rest) '("--metadata-overrides" "--meta-overrides")
                           :test #'string=)
                   (setf metadata-overrides (next rest (car rest)))
+                  (parse (cddr rest)))
+                 ((string= (car rest) "--rejected-releases")
+                  (setf rejected-releases (next rest "--rejected-releases"))
                   (parse (cddr rest)))
                  ((string= (car rest) "--include-default-branch")
                   (setf include-default-branch t)
@@ -107,16 +120,19 @@ Options:
                           :output-dir (plist-ref options :output)
                           :metadata-overrides-file
                           (plist-ref options :metadata-overrides)
+                          :rejected-releases-file
+                          (plist-ref options :rejected-releases)
                           :include-default-branch
                           (plist-ref options :include-default-branch)
                           :include-archived (plist-ref options :include-archived)
                           :include-forks (plist-ref options :include-forks)
                           :force-recheck (plist-ref options :force-recheck))))
-              (format t "[taffish-index] wrote index: ~A packages, ~A versions, ~A warnings, ~A failed gates~%"
+              (format t "[taffish-index] wrote index: ~A packages, ~A versions, ~A warnings, ~A failed gates, ~A rejected releases~%"
                       (json-ref (json-ref index "counts") "packages")
                       (json-ref (json-ref index "counts") "versions")
                       (json-ref (json-ref index "counts") "warnings")
-                      (json-ref (json-ref index "counts") "failed")))))
+                      (json-ref (json-ref index "counts") "failed")
+                      (json-ref (json-ref index "counts") "rejected")))))
     (error (c)
       (format *error-output* "[taffish-index:error] ~A~%" c)
       (uiop:quit 1))))
