@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-18T05:37:52Z",
+  "generated_at": "2026-05-18T06:26:52Z",
   "organization": "taffish",
   "counts": {
     "packages": 33,
-    "versions": 35,
+    "versions": 42,
     "commands": 33,
     "repositories": 33,
     "warnings": 0,
@@ -593,7 +593,7 @@
     },
     "biser": {
       "name": "biser",
-      "latest": "1.4-r1",
+      "latest": "1.4-r2",
       "repository_url": "https://github.com/taffish/biser",
       "command": {
         "name": "taf-biser"
@@ -692,6 +692,109 @@
             "ref": "v1.4-r1",
             "commit": "9f6e5ad1490747127ad6f898f5d4e1fb664ca11d",
             "html_url": "https://github.com/taffish/biser/tree/v1.4-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "repository": "0xTCG/biser",
+            "license": "MIT",
+            "citation": "Iseric et al. 2022",
+            "doi": "10.1186/s13015-022-00210-2",
+            "pmid": "35303886"
+          }
+        },
+        "1.4-r2": {
+          "name": "biser",
+          "kind": "tool",
+          "version": "1.4",
+          "release": 2,
+          "version_id": "1.4-r2",
+          "tag": "v1.4-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/biser",
+          "repository_slug": "taffish/biser",
+          "command": {
+            "name": "taf-biser"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "segmental-duplication",
+              "comparative-genomics"
+            ],
+            "keywords": [
+              "biser",
+              "segmental-duplication",
+              "genome-assembly",
+              "bedpe",
+              "samtools",
+              "codon"
+            ],
+            "summary": "Tool for detecting and decomposing segmental duplications in one or more genome assemblies.",
+            "description": "Tool for detecting and decomposing segmental duplications in one or more genome assemblies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/biser:1.4-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.4-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:47af8a723c8e124e3e1fb1bfd127a64cf4575f273db5858d7b242398e6b00bf1",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a1c8b63a242878b57b3ddb4a0d3542774e2249d51f4a5a26f91c1dd5c7d396fc"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 60,
+            "exist": [
+              "biser",
+              "samtools",
+              "python"
+            ],
+            "test": [
+              "biser --version 2>&1 | grep -F 'biser v1.4' >/dev/null",
+              "biser --help 2>&1 | grep -F 'Segmental duplication detection tool' >/dev/null",
+              "samtools --version 2>&1 | grep -F 'samtools 1.23.1' >/dev/null",
+              "samtools --version 2>&1 | grep -F 'Using htslib 1.23.1' >/dev/null",
+              "python -c 'import biser, ncls, numpy, tqdm, multiprocess'",
+              "printf '>chr1\\nACGTACGT\\n' >/tmp/taf-biser.fa && samtools faidx /tmp/taf-biser.fa && test -s /tmp/taf-biser.fa.fai"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/biser",
+            "ref": "v1.4-r2",
+            "commit": "68beed347d1e1e3eb5e4dcc058d8d9f0f5ad35aa",
+            "html_url": "https://github.com/taffish/biser/tree/v1.4-r2"
           },
           "upstream": {
             "type": "github",
@@ -1089,7 +1192,7 @@
     },
     "busco": {
       "name": "busco",
-      "latest": "6.0.0-r1",
+      "latest": "6.0.0-r2",
       "repository_url": "https://github.com/taffish/busco",
       "command": {
         "name": "taf-busco"
@@ -1214,6 +1317,141 @@
             "ref": "v6.0.0-r1",
             "commit": "541b01f555205eb3ac6565b1e9dd983cac9cdd2a",
             "html_url": "https://github.com/taffish/busco/tree/v6.0.0-r1"
+          },
+          "upstream": {
+            "name": "BUSCO",
+            "type": "docker",
+            "url": "https://busco.ezlab.org/",
+            "homepage": "https://busco.ezlab.org/",
+            "repository": "ezlab/busco",
+            "release_url": "https://gitlab.com/ezlab/busco/-/releases/6.0.0",
+            "docker_image": "docker.io/ezlabgva/busco:v6.0.0_cv1",
+            "version": "6.0.0",
+            "license": "MIT",
+            "citation": "Tegenfeldt et al. 2025",
+            "doi": "10.1093/nar/gkae987",
+            "pmid": "39535043"
+          }
+        },
+        "6.0.0-r2": {
+          "name": "busco",
+          "kind": "tool",
+          "version": "6.0.0",
+          "release": 2,
+          "version_id": "6.0.0-r2",
+          "tag": "v6.0.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/busco",
+          "repository_slug": "taffish/busco",
+          "command": {
+            "name": "taf-busco"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "transcriptomics",
+              "proteomics",
+              "quality-control",
+              "orthology"
+            ],
+            "keywords": [
+              "busco",
+              "orthologs",
+              "genome-completeness",
+              "annotation-completeness",
+              "odb12",
+              "quality-control",
+              "genomics",
+              "transcriptomics",
+              "proteomics"
+            ],
+            "summary": "BUSCO v6 for assessing genome, transcriptome, and protein-set completeness using Benchmarking Universal Single-Copy Orthologs.",
+            "description": "BUSCO v6 for assessing genome, transcriptome, and protein-set completeness using Benchmarking Universal Single-Copy Orthologs."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/busco:6.0.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "6.0.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:ce55a734fd346d28c5a1631c022fa585de8798e98b40bdca5d55904463ac8f4e",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b2661960dd59f54b5bfdb1a18dce1a36663108820c87aaf4f2658d7ba32d8e1b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "busco",
+              "taf-busco-entrypoint",
+              "python3",
+              "hmmsearch",
+              "tblastn",
+              "makeblastdb",
+              "augustus",
+              "prodigal",
+              "metaeuk",
+              "miniprot",
+              "stats.sh",
+              "run_sepp.py",
+              "wget"
+            ],
+            "test": [
+              "taf-busco-entrypoint | grep -F 'taf-busco wraps BUSCO v6.' >/dev/null",
+              "taf-busco-entrypoint --version 2>&1 | grep -F 'BUSCO 6.0.0' >/dev/null",
+              "busco --version 2>&1 | grep -F 'BUSCO 6.0.0' >/dev/null",
+              "busco --help 2>&1 | grep -F 'usage: busco' >/dev/null",
+              "busco --help 2>&1 | grep -F -- '--auto-lineage' >/dev/null",
+              "busco --help 2>&1 | grep -F -- '--offline' >/dev/null",
+              "busco --help 2>&1 | grep -F -- '--plot' >/dev/null",
+              "python3 --version >/dev/null",
+              "hmmsearch -h 2>&1 | grep -F 'HMMER' >/dev/null",
+              "tblastn -version 2>&1 | grep -F 'tblastn' >/dev/null",
+              "makeblastdb -version 2>&1 | grep -F 'makeblastdb' >/dev/null",
+              "augustus --version >/dev/null",
+              "prodigal -v 2>&1 | grep -F 'Prodigal' >/dev/null",
+              "metaeuk -h >/dev/null",
+              "miniprot --version >/dev/null",
+              "stats.sh 2>&1 | grep -F 'basic assembly statistics' >/dev/null",
+              "run_sepp.py --help 2>&1 | grep -F 'run_sepp.py' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/busco",
+            "ref": "v6.0.0-r2",
+            "commit": "297b951795aee492d2c674154a3144d4aa652c45",
+            "html_url": "https://github.com/taffish/busco/tree/v6.0.0-r2"
           },
           "upstream": {
             "name": "BUSCO",
@@ -2022,7 +2260,7 @@
     },
     "compleasm": {
       "name": "compleasm",
-      "latest": "0.2.7-r1",
+      "latest": "0.2.7-r2",
       "repository_url": "https://github.com/taffish/compleasm",
       "command": {
         "name": "taf-compleasm"
@@ -2135,6 +2373,126 @@
             "ref": "v0.2.7-r1",
             "commit": "35cb8bf48f1dcbde73254c35d8e248dfaec20e56",
             "html_url": "https://github.com/taffish/compleasm/tree/v0.2.7-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://github.com/huangnengCSU/compleasm",
+            "repository": "huangnengCSU/compleasm",
+            "release_url": "https://github.com/huangnengCSU/compleasm/releases/tag/v0.2.7",
+            "version": "0.2.7",
+            "license": "Apache-2.0 AND LicenseRef-BUSCO",
+            "citation": "Huang and Li 2023",
+            "doi": "10.1093/bioinformatics/btad595",
+            "pmid": "37758247"
+          }
+        },
+        "0.2.7-r2": {
+          "name": "compleasm",
+          "kind": "tool",
+          "version": "0.2.7",
+          "release": 2,
+          "version_id": "0.2.7-r2",
+          "tag": "v0.2.7-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/compleasm",
+          "repository_slug": "taffish/compleasm",
+          "command": {
+            "name": "taf-compleasm"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "assembly-quality",
+              "completeness",
+              "busco",
+              "annotation"
+            ],
+            "keywords": [
+              "compleasm",
+              "busco",
+              "genome-completeness",
+              "miniprot",
+              "hmmer",
+              "sepp",
+              "odb12",
+              "orthologs",
+              "assembly-quality"
+            ],
+            "summary": "Fast genome and protein completeness assessment based on BUSCO marker genes and miniprot.",
+            "description": "Fast genome and protein completeness assessment based on BUSCO marker genes and miniprot."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/compleasm:0.2.7-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.2.7-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:398e699bc50c360ce569279b2ff543dc0daa396c51ff61de6bbbbea468cfabc7",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:5f193886e02cad790117db50b57a39a4a44e9d797f889e8ef1ee012994a57223"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "compleasm",
+              "miniprot",
+              "hmmsearch",
+              "run_sepp.py",
+              "python"
+            ],
+            "test": [
+              "compleasm --version | grep -F 'compleasm 0.2.7' >/dev/null",
+              "compleasm --help | grep -F 'Compleasm modules help' >/dev/null",
+              "compleasm run --help | grep -F 'usage: compleasm run' >/dev/null",
+              "compleasm analyze --help | grep -F 'usage: compleasm analyze' >/dev/null",
+              "compleasm download --help | grep -F 'usage: compleasm download' >/dev/null",
+              "compleasm list --help | grep -F 'usage: compleasm list' >/dev/null",
+              "compleasm miniprot --help | grep -F 'usage: compleasm miniprot' >/dev/null",
+              "compleasm protein --help | grep -F 'usage: compleasm protein' >/dev/null",
+              "miniprot --version 2>&1 | grep -F '0.18' >/dev/null",
+              "hmmsearch -h | grep -F 'HMMER' >/dev/null",
+              "run_sepp.py -h | grep -F 'usage: run_sepp.py' >/dev/null",
+              "python -c 'import pandas, dendropy; import compleasm'",
+              "mkdir -p /tmp/taf-compleasm-test && cd /tmp/taf-compleasm-test && printf '>chr1\\nATGAAAACCGCTTACATTGCTAAACAACGTCAAATTTCTTTTGTTAAATCTCATTTTTCTCGTCAACTGGAAGAACGTCTGGGTCTGATTGAAGTTCAAGCTAATAAT\\n' > genome.fa && printf '>prot1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > proteins.faa && compleasm miniprot -a genome.fa -p proteins.faa -o miniprot-out -t 1 >/dev/null && test -s miniprot-out/miniprot_output.gff && test -e miniprot-out/miniprot.done"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/compleasm",
+            "ref": "v0.2.7-r2",
+            "commit": "0439d497907abdbdc00678e10774640c52fd830f",
+            "html_url": "https://github.com/taffish/compleasm/tree/v0.2.7-r2"
           },
           "upstream": {
             "type": "github",
@@ -2401,7 +2759,7 @@
     },
     "cufflinks": {
       "name": "cufflinks",
-      "latest": "2.2.1-r1",
+      "latest": "2.2.1-r2",
       "repository_url": "https://github.com/taffish/cufflinks",
       "command": {
         "name": "taf-cufflinks"
@@ -2531,12 +2889,137 @@
             "doi": "10.1038/nbt.1621",
             "pmid": "20436464"
           }
+        },
+        "2.2.1-r2": {
+          "name": "cufflinks",
+          "kind": "tool",
+          "version": "2.2.1",
+          "release": 2,
+          "version_id": "2.2.1-r2",
+          "tag": "v2.2.1-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/cufflinks",
+          "repository_slug": "taffish/cufflinks",
+          "command": {
+            "name": "taf-cufflinks"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "assembly",
+              "quantification",
+              "differential-expression"
+            ],
+            "keywords": [
+              "cufflinks",
+              "cuffdiff",
+              "cuffcompare",
+              "cuffmerge",
+              "cuffquant",
+              "cuffnorm",
+              "rna-seq",
+              "transcript-assembly",
+              "gtf",
+              "sam",
+              "bam",
+              "fpkm"
+            ],
+            "summary": "Cufflinks suite for reference-guided transcript assembly, abundance estimation, and RNA-seq differential expression workflows.",
+            "description": "Cufflinks suite for reference-guided transcript assembly, abundance estimation, and RNA-seq differential expression workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/cufflinks:2.2.1-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.1-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:bfaddbefcdf5ab1190645faf3ab5a99062d850b4b5a7f379b3521227fdec4959",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2765bae7ad5265c0ccd273d591509d4c2ff12bc6918fdd874cb2d3157e3ac68b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "cufflinks",
+              "cuffcompare",
+              "cuffmerge",
+              "cuffquant",
+              "cuffdiff",
+              "cuffnorm",
+              "gffread",
+              "gtf_to_sam",
+              "python3",
+              "sort"
+            ],
+            "test": [
+              "{ cufflinks 2>&1 || true; } | grep -F 'cufflinks v2.2.1' >/dev/null",
+              "{ cuffcompare 2>&1 || true; } | grep -F 'cuffcompare v2.2.1' >/dev/null",
+              "cuffmerge --help 2>&1 | grep -F 'cuffmerge takes two or more Cufflinks GTF files' >/dev/null",
+              "{ cuffquant 2>&1 || true; } | grep -F 'cuffquant v2.2.1' >/dev/null",
+              "{ cuffdiff 2>&1 || true; } | grep -F 'cuffdiff v2.2.1' >/dev/null",
+              "{ cuffnorm 2>&1 || true; } | grep -F 'cuffnorm v2.2.1' >/dev/null",
+              "{ gffread -h 2>&1 || true; } | grep -F 'Usage:' >/dev/null",
+              "{ gtf_to_sam 2>&1 || true; } | grep -F 'gtf_to_sam v2.2.1' >/dev/null",
+              "python3 -m py_compile $(command -v cuffmerge)",
+              "mkdir -p /tmp/taf-cufflinks-test && cd /tmp/taf-cufflinks-test && printf 'chr1\\tTAF\\texon\\t1\\t100\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > tiny.gtf && gffread tiny.gtf -o tiny.out.gff && test -s tiny.out.gff && cuffcompare tiny.gtf >/tmp/taf-cufflinks-cuffcompare.log 2>&1 && test -s cuffcmp.combined.gtf && grep -F 'transcript_id' cuffcmp.combined.gtf >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/cufflinks",
+            "ref": "v2.2.1-r2",
+            "commit": "1955211ea5f2e0bc82d0ca9f234524b7785aa3ca",
+            "html_url": "https://github.com/taffish/cufflinks/tree/v2.2.1-r2"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://cole-trapnell-lab.github.io/cufflinks/",
+            "repository": "cole-trapnell-lab/cufflinks",
+            "release_url": "https://github.com/cole-trapnell-lab/cufflinks/releases/tag/v2.2.1",
+            "version": "2.2.1",
+            "license": "BSL-1.0",
+            "citation": "Trapnell et al. 2010",
+            "doi": "10.1038/nbt.1621",
+            "pmid": "20436464"
+          }
         }
       }
     },
     "edta": {
       "name": "edta",
-      "latest": "2.3.0-r1",
+      "latest": "2.3.0-r2",
       "repository_url": "https://github.com/taffish/edta",
       "command": {
         "name": "taf-edta"
@@ -2679,12 +3162,150 @@
             "doi": "10.1186/s13059-019-1905-y",
             "pmid": "31843001"
           }
+        },
+        "2.3.0-r2": {
+          "name": "edta",
+          "kind": "tool",
+          "version": "2.3.0",
+          "release": 2,
+          "version_id": "2.3.0-r2",
+          "tag": "v2.3.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/edta",
+          "repository_slug": "taffish/edta",
+          "command": {
+            "name": "taf-edta"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "repeat-annotation",
+              "transposable-elements",
+              "annotation",
+              "pangenome"
+            ],
+            "keywords": [
+              "edta",
+              "panedta",
+              "transposable-elements",
+              "repeatmasker",
+              "repeatmodeler",
+              "ltr-retriever",
+              "tir-learner",
+              "helitronscanner",
+              "te-annotation",
+              "repeat-library"
+            ],
+            "summary": "Extensive de novo TE Annotator for constructing high-quality transposable element libraries and genome repeat annotations.",
+            "description": "Extensive de novo TE Annotator for constructing high-quality transposable element libraries and genome repeat annotations."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/edta:2.3.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:525e19295bbcf12ba70126295d52050a9399d7be6bf5443e55b0274ea36d696a",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2be62220eea020193ad5b3528acdd769ce1dae72fa15f15fd62a4a21885b31f0"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "EDTA.pl",
+              "EDTA_raw.pl",
+              "EDTA_processK.pl",
+              "lib-test.pl",
+              "panEDTA.sh",
+              "RepeatMasker",
+              "RepeatModeler",
+              "BuildDatabase",
+              "LTR_retriever",
+              "LTR_FINDER_parallel",
+              "LTR_HARVEST_parallel",
+              "TIR-Learner",
+              "HelitronScanner",
+              "AnnoSINE_v2",
+              "TEsorter",
+              "makeblastdb",
+              "blastn",
+              "blastx",
+              "gt",
+              "grf-main",
+              "trf",
+              "mdust",
+              "cd-hit-est",
+              "samtools",
+              "bedtools",
+              "Rscript",
+              "python3",
+              "perl",
+              "java"
+            ],
+            "test": [
+              "EDTA.pl -h 2>&1 | grep -i 'Extensive de-novo TE Annotator' >/dev/null",
+              "EDTA.pl --check_dependencies 2>&1 | grep -i 'All passed' >/dev/null",
+              "EDTA_raw.pl -h 2>&1 | grep -i 'Obtain raw TE libraries' >/dev/null",
+              "EDTA_processK.pl -h 2>&1 | grep -i 'Perform EDTA' >/dev/null",
+              "lib-test.pl -h 2>&1 | grep -i 'To test' >/dev/null",
+              "panEDTA.sh 2>&1 | grep -i 'Pan-genome' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/edta",
+            "ref": "v2.3.0-r2",
+            "commit": "2f007933135a2a0a55e594e1db3bb6c5616a92a2",
+            "html_url": "https://github.com/taffish/edta/tree/v2.3.0-r2"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://github.com/oushujun/EDTA",
+            "repository": "oushujun/EDTA",
+            "release_url": "https://github.com/oushujun/EDTA/releases/tag/v2.3.0",
+            "version": "2.3.0",
+            "license": "GPL-3.0-only",
+            "citation": "Ou et al. 2019; Ou et al. 2024 for panEDTA",
+            "doi": "10.1186/s13059-019-1905-y",
+            "pmid": "31843001"
+          }
         }
       }
     },
     "esm-fold": {
       "name": "esm-fold",
-      "latest": "2.0.0-r1",
+      "latest": "2.0.0-r2",
       "repository_url": "https://github.com/taffish/esm-fold",
       "command": {
         "name": "taf-esm-fold"
@@ -2789,6 +3410,118 @@
             "ref": "v2.0.0-r1",
             "commit": "8f56a8a142975e29053ce34052c3969871c583a2",
             "html_url": "https://github.com/taffish/esm-fold/tree/v2.0.0-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://github.com/facebookresearch/esm",
+            "repository": "facebookresearch/esm",
+            "release_url": "https://github.com/facebookresearch/esm/releases/tag/v2.0.0",
+            "version": "2.0.0",
+            "license": "MIT",
+            "citation": "Lin et al. 2023",
+            "doi": "10.1126/science.ade2574",
+            "pmid": "36927031"
+          }
+        },
+        "2.0.0-r2": {
+          "name": "esm-fold",
+          "kind": "tool",
+          "version": "2.0.0",
+          "release": 2,
+          "version_id": "2.0.0-r2",
+          "tag": "v2.0.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/esm-fold",
+          "repository_slug": "taffish/esm-fold",
+          "command": {
+            "name": "taf-esm-fold"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "protein-structure",
+            "categories": [
+              "protein-structure",
+              "structure-prediction",
+              "deep-learning",
+              "protein"
+            ],
+            "keywords": [
+              "esmfold",
+              "esm",
+              "protein-language-model",
+              "structure-prediction",
+              "pdb",
+              "gpu",
+              "cpu",
+              "pytorch",
+              "openfold"
+            ],
+            "summary": "TAFFISH wrapper for ESMFold structure prediction from protein FASTA sequences, with persistent model cache and automatic NVIDIA runtime flag selection.",
+            "description": "TAFFISH wrapper for ESMFold structure prediction from protein FASTA sequences, with persistent model cache and automatic NVIDIA runtime flag selection."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/esm-fold:2.0.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.0.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6832ea158130d031517a91c8039529406f60d84aba83a118c6e7db1ae7c13f39",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b908b22091314aa9917dc87d91960a95473c642ca06488489a8d5d9706e5377b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "esm-fold",
+              "python",
+              "python3",
+              "pip",
+              "nvcc"
+            ],
+            "test": [
+              "esm-fold -h | grep -F 'Path to input FASTA file' >/dev/null",
+              "python -c 'import importlib.metadata as m; assert m.version(\"fair-esm\") == \"2.0.0\"'",
+              "python -c 'import torch; assert torch.__version__.startswith(\"1.12.1\")'",
+              "python -c 'import esm, openfold, deepspeed, dllogger, tree; assert callable(esm.pretrained.esmfold_v1)'",
+              "python -c 'from pathlib import Path; assert \"model = model.float()\" in Path(\"/opt/esm/scripts/esmfold_inference.py\").read_text()'",
+              "python -c 'from pathlib import Path; from esm.data import read_fasta; p=Path(\"/tmp/taf-esm-fold-smoke.fa\"); p.write_text(\">toy\\nMKT\\n\"); assert list(read_fasta(p)) == [(\"toy\", \"MKT\")]'"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/esm-fold",
+            "ref": "v2.0.0-r2",
+            "commit": "fc59f209b24d6839c215cf8528a3cf94a95f3e0c",
+            "html_url": "https://github.com/taffish/esm-fold/tree/v2.0.0-r2"
           },
           "upstream": {
             "type": "github",
@@ -3484,7 +4217,7 @@
     },
     "gatk": {
       "name": "gatk",
-      "latest": "4.6.2.0-r1",
+      "latest": "4.6.2.0-r2",
       "repository_url": "https://github.com/taffish/gatk",
       "command": {
         "name": "taf-gatk"
@@ -3598,6 +4331,128 @@
             "ref": "v4.6.2.0-r1",
             "commit": "1d210d3238057e9b7ea081b4dcd9f9e66245630e",
             "html_url": "https://github.com/taffish/gatk/tree/v4.6.2.0-r1"
+          },
+          "upstream": {
+            "name": "GATK",
+            "type": "github",
+            "homepage": "https://gatk.broadinstitute.org/",
+            "repository": "broadinstitute/gatk",
+            "release_url": "https://github.com/broadinstitute/gatk/releases/tag/4.6.2.0",
+            "version": "4.6.2.0",
+            "license": "Apache-2.0",
+            "citation": "McKenna et al. 2010",
+            "doi": "10.1101/gr.107524.110",
+            "pmid": "20644199"
+          }
+        },
+        "4.6.2.0-r2": {
+          "name": "gatk",
+          "kind": "tool",
+          "version": "4.6.2.0",
+          "release": 2,
+          "version_id": "4.6.2.0-r2",
+          "tag": "v4.6.2.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/gatk",
+          "repository_slug": "taffish/gatk",
+          "command": {
+            "name": "taf-gatk"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "variant-calling",
+            "categories": [
+              "variant-calling",
+              "genomics",
+              "germline",
+              "somatic",
+              "spark"
+            ],
+            "keywords": [
+              "gatk",
+              "gatk4",
+              "variant-calling",
+              "haplotypecaller",
+              "mutect2",
+              "genotypegvcfs",
+              "bqsr",
+              "vcf",
+              "bam",
+              "cram",
+              "spark"
+            ],
+            "summary": "Genome Analysis Toolkit 4 for germline and somatic variant discovery, genotyping, filtering, and related genomics workflows.",
+            "description": "Genome Analysis Toolkit 4 for germline and somatic variant discovery, genotyping, filtering, and related genomics workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/gatk:4.6.2.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.6.2.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b87efc3b139be1e6cb62ef69e424c6debcfdcbf59ac203a07ecabc3090be7922",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b6efcec27c6f2d321e2ba21dd8d59d38f281130383237e0b1ef4fe7fcf4ced27"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "gatk",
+              "java",
+              "python",
+              "python3",
+              "R",
+              "Rscript",
+              "samtools",
+              "bcftools",
+              "bedtools",
+              "tabix"
+            ],
+            "test": [
+              "gatk --version 2>&1 | grep -F '4.6.2.0' >/dev/null",
+              "gatk --list 2>&1 | grep -F 'HaplotypeCaller' >/dev/null && gatk --list 2>&1 | grep -F 'Mutect2' >/dev/null",
+              "gatk HaplotypeCaller --help 2>&1 | grep -F 'USAGE: HaplotypeCaller' >/dev/null",
+              "mkdir -p /tmp/taf-gatk-dict && cd /tmp/taf-gatk-dict && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-dict.log 2>&1 && test -s ref.dict && grep -F '@SQ' ref.dict >/dev/null",
+              "mkdir -p /tmp/taf-gatk-vcf && cd /tmp/taf-gatk-vcf && printf '##fileformat=VCFv4.2\\n##contig=<ID=chr1,length=20>\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\nchr1\\t5\\t.\\tA\\tT\\t30\\tPASS\\t.\\n' > tiny.vcf && gatk IndexFeatureFile -I tiny.vcf >/tmp/taf-gatk-vcf.log 2>&1 && test -s tiny.vcf.idx",
+              "mkdir -p /tmp/taf-gatk-printreads && cd /tmp/taf-gatk-printreads && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-printreads-dict.log 2>&1 && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk PrintReads -R ref.fa -I reads.bam -O out.bam >/tmp/taf-gatk-printreads.log 2>&1 && test -s out.bam && samtools view out.bam | grep -F 'read1' >/dev/null",
+              "mkdir -p /tmp/taf-gatk-hc && cd /tmp/taf-gatk-hc && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-hc-dict.log 2>&1 && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:40\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread3\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread4\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk HaplotypeCaller -R ref.fa -I reads.bam -O calls.vcf >/tmp/taf-gatk-hc.log 2>&1 && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-18T06:26:52Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/gatk",
+            "ref": "v4.6.2.0-r2",
+            "commit": "7d9deb9d44d85fa4c8cd580571fcfdcdbdd4bd82",
+            "html_url": "https://github.com/taffish/gatk/tree/v4.6.2.0-r2"
           },
           "upstream": {
             "name": "GATK",
@@ -4521,7 +5376,7 @@
     },
     "taf-biser": {
       "package": "biser",
-      "version": "1.4-r1"
+      "version": "1.4-r2"
     },
     "taf-blast": {
       "package": "blast",
@@ -4537,7 +5392,7 @@
     },
     "taf-busco": {
       "package": "busco",
-      "version": "6.0.0-r1"
+      "version": "6.0.0-r2"
     },
     "taf-bustools": {
       "package": "bustools",
@@ -4561,7 +5416,7 @@
     },
     "taf-compleasm": {
       "package": "compleasm",
-      "version": "0.2.7-r1"
+      "version": "0.2.7-r2"
     },
     "taf-cpc2": {
       "package": "cpc2",
@@ -4573,15 +5428,15 @@
     },
     "taf-cufflinks": {
       "package": "cufflinks",
-      "version": "2.2.1-r1"
+      "version": "2.2.1-r2"
     },
     "taf-edta": {
       "package": "edta",
-      "version": "2.3.0-r1"
+      "version": "2.3.0-r2"
     },
     "taf-esm-fold": {
       "package": "esm-fold",
-      "version": "2.0.0-r1"
+      "version": "2.0.0-r2"
     },
     "taf-evidencemodeler": {
       "package": "evidencemodeler",
@@ -4605,7 +5460,7 @@
     },
     "taf-gatk": {
       "package": "gatk",
-      "version": "4.6.2.0-r1"
+      "version": "4.6.2.0-r2"
     },
     "taf-genomescope": {
       "package": "genomescope",

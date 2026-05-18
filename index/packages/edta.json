@@ -1,6 +1,6 @@
 {
   "name": "edta",
-  "latest": "2.3.0-r1",
+  "latest": "2.3.0-r2",
   "repository_url": "https://github.com/taffish/edta",
   "command": {
     "name": "taf-edta"
@@ -131,6 +131,144 @@
         "ref": "v2.3.0-r1",
         "commit": "f04af76e9a7b8724d6b8aacaf3ee5f513e4007cb",
         "html_url": "https://github.com/taffish/edta/tree/v2.3.0-r1"
+      },
+      "upstream": {
+        "type": "github",
+        "homepage": "https://github.com/oushujun/EDTA",
+        "repository": "oushujun/EDTA",
+        "release_url": "https://github.com/oushujun/EDTA/releases/tag/v2.3.0",
+        "version": "2.3.0",
+        "license": "GPL-3.0-only",
+        "citation": "Ou et al. 2019; Ou et al. 2024 for panEDTA",
+        "doi": "10.1186/s13059-019-1905-y",
+        "pmid": "31843001"
+      }
+    },
+    "2.3.0-r2": {
+      "name": "edta",
+      "kind": "tool",
+      "version": "2.3.0",
+      "release": 2,
+      "version_id": "2.3.0-r2",
+      "tag": "v2.3.0-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/edta",
+      "repository_slug": "taffish/edta",
+      "command": {
+        "name": "taf-edta"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "repeat-annotation",
+          "transposable-elements",
+          "annotation",
+          "pangenome"
+        ],
+        "keywords": [
+          "edta",
+          "panedta",
+          "transposable-elements",
+          "repeatmasker",
+          "repeatmodeler",
+          "ltr-retriever",
+          "tir-learner",
+          "helitronscanner",
+          "te-annotation",
+          "repeat-library"
+        ],
+        "summary": "Extensive de novo TE Annotator for constructing high-quality transposable element libraries and genome repeat annotations.",
+        "description": "Extensive de novo TE Annotator for constructing high-quality transposable element libraries and genome repeat annotations."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/edta:2.3.0-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.3.0-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:525e19295bbcf12ba70126295d52050a9399d7be6bf5443e55b0274ea36d696a",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:2be62220eea020193ad5b3528acdd769ce1dae72fa15f15fd62a4a21885b31f0"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "EDTA.pl",
+          "EDTA_raw.pl",
+          "EDTA_processK.pl",
+          "lib-test.pl",
+          "panEDTA.sh",
+          "RepeatMasker",
+          "RepeatModeler",
+          "BuildDatabase",
+          "LTR_retriever",
+          "LTR_FINDER_parallel",
+          "LTR_HARVEST_parallel",
+          "TIR-Learner",
+          "HelitronScanner",
+          "AnnoSINE_v2",
+          "TEsorter",
+          "makeblastdb",
+          "blastn",
+          "blastx",
+          "gt",
+          "grf-main",
+          "trf",
+          "mdust",
+          "cd-hit-est",
+          "samtools",
+          "bedtools",
+          "Rscript",
+          "python3",
+          "perl",
+          "java"
+        ],
+        "test": [
+          "EDTA.pl -h 2>&1 | grep -i 'Extensive de-novo TE Annotator' >/dev/null",
+          "EDTA.pl --check_dependencies 2>&1 | grep -i 'All passed' >/dev/null",
+          "EDTA_raw.pl -h 2>&1 | grep -i 'Obtain raw TE libraries' >/dev/null",
+          "EDTA_processK.pl -h 2>&1 | grep -i 'Perform EDTA' >/dev/null",
+          "lib-test.pl -h 2>&1 | grep -i 'To test' >/dev/null",
+          "panEDTA.sh 2>&1 | grep -i 'Pan-genome' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-18T06:26:52Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-18T06:26:52Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/edta",
+        "ref": "v2.3.0-r2",
+        "commit": "2f007933135a2a0a55e594e1db3bb6c5616a92a2",
+        "html_url": "https://github.com/taffish/edta/tree/v2.3.0-r2"
       },
       "upstream": {
         "type": "github",

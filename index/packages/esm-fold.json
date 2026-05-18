@@ -1,6 +1,6 @@
 {
   "name": "esm-fold",
-  "latest": "2.0.0-r1",
+  "latest": "2.0.0-r2",
   "repository_url": "https://github.com/taffish/esm-fold",
   "command": {
     "name": "taf-esm-fold"
@@ -105,6 +105,118 @@
         "ref": "v2.0.0-r1",
         "commit": "8f56a8a142975e29053ce34052c3969871c583a2",
         "html_url": "https://github.com/taffish/esm-fold/tree/v2.0.0-r1"
+      },
+      "upstream": {
+        "type": "github",
+        "homepage": "https://github.com/facebookresearch/esm",
+        "repository": "facebookresearch/esm",
+        "release_url": "https://github.com/facebookresearch/esm/releases/tag/v2.0.0",
+        "version": "2.0.0",
+        "license": "MIT",
+        "citation": "Lin et al. 2023",
+        "doi": "10.1126/science.ade2574",
+        "pmid": "36927031"
+      }
+    },
+    "2.0.0-r2": {
+      "name": "esm-fold",
+      "kind": "tool",
+      "version": "2.0.0",
+      "release": 2,
+      "version_id": "2.0.0-r2",
+      "tag": "v2.0.0-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/esm-fold",
+      "repository_slug": "taffish/esm-fold",
+      "command": {
+        "name": "taf-esm-fold"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "protein-structure",
+        "categories": [
+          "protein-structure",
+          "structure-prediction",
+          "deep-learning",
+          "protein"
+        ],
+        "keywords": [
+          "esmfold",
+          "esm",
+          "protein-language-model",
+          "structure-prediction",
+          "pdb",
+          "gpu",
+          "cpu",
+          "pytorch",
+          "openfold"
+        ],
+        "summary": "TAFFISH wrapper for ESMFold structure prediction from protein FASTA sequences, with persistent model cache and automatic NVIDIA runtime flag selection.",
+        "description": "TAFFISH wrapper for ESMFold structure prediction from protein FASTA sequences, with persistent model cache and automatic NVIDIA runtime flag selection."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/esm-fold:2.0.0-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.0.0-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6832ea158130d031517a91c8039529406f60d84aba83a118c6e7db1ae7c13f39",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b908b22091314aa9917dc87d91960a95473c642ca06488489a8d5d9706e5377b"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "esm-fold",
+          "python",
+          "python3",
+          "pip",
+          "nvcc"
+        ],
+        "test": [
+          "esm-fold -h | grep -F 'Path to input FASTA file' >/dev/null",
+          "python -c 'import importlib.metadata as m; assert m.version(\"fair-esm\") == \"2.0.0\"'",
+          "python -c 'import torch; assert torch.__version__.startswith(\"1.12.1\")'",
+          "python -c 'import esm, openfold, deepspeed, dllogger, tree; assert callable(esm.pretrained.esmfold_v1)'",
+          "python -c 'from pathlib import Path; assert \"model = model.float()\" in Path(\"/opt/esm/scripts/esmfold_inference.py\").read_text()'",
+          "python -c 'from pathlib import Path; from esm.data import read_fasta; p=Path(\"/tmp/taf-esm-fold-smoke.fa\"); p.write_text(\">toy\\nMKT\\n\"); assert list(read_fasta(p)) == [(\"toy\", \"MKT\")]'"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-18T06:26:52Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-18T06:26:52Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/esm-fold",
+        "ref": "v2.0.0-r2",
+        "commit": "fc59f209b24d6839c215cf8528a3cf94a95f3e0c",
+        "html_url": "https://github.com/taffish/esm-fold/tree/v2.0.0-r2"
       },
       "upstream": {
         "type": "github",

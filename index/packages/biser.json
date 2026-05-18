@@ -1,6 +1,6 @@
 {
   "name": "biser",
-  "latest": "1.4-r1",
+  "latest": "1.4-r2",
   "repository_url": "https://github.com/taffish/biser",
   "command": {
     "name": "taf-biser"
@@ -99,6 +99,109 @@
         "ref": "v1.4-r1",
         "commit": "9f6e5ad1490747127ad6f898f5d4e1fb664ca11d",
         "html_url": "https://github.com/taffish/biser/tree/v1.4-r1"
+      },
+      "upstream": {
+        "type": "github",
+        "repository": "0xTCG/biser",
+        "license": "MIT",
+        "citation": "Iseric et al. 2022",
+        "doi": "10.1186/s13015-022-00210-2",
+        "pmid": "35303886"
+      }
+    },
+    "1.4-r2": {
+      "name": "biser",
+      "kind": "tool",
+      "version": "1.4",
+      "release": 2,
+      "version_id": "1.4-r2",
+      "tag": "v1.4-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/biser",
+      "repository_slug": "taffish/biser",
+      "command": {
+        "name": "taf-biser"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "segmental-duplication",
+          "comparative-genomics"
+        ],
+        "keywords": [
+          "biser",
+          "segmental-duplication",
+          "genome-assembly",
+          "bedpe",
+          "samtools",
+          "codon"
+        ],
+        "summary": "Tool for detecting and decomposing segmental duplications in one or more genome assemblies.",
+        "description": "Tool for detecting and decomposing segmental duplications in one or more genome assemblies."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/biser:1.4-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.4-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:47af8a723c8e124e3e1fb1bfd127a64cf4575f273db5858d7b242398e6b00bf1",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a1c8b63a242878b57b3ddb4a0d3542774e2249d51f4a5a26f91c1dd5c7d396fc"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 60,
+        "exist": [
+          "biser",
+          "samtools",
+          "python"
+        ],
+        "test": [
+          "biser --version 2>&1 | grep -F 'biser v1.4' >/dev/null",
+          "biser --help 2>&1 | grep -F 'Segmental duplication detection tool' >/dev/null",
+          "samtools --version 2>&1 | grep -F 'samtools 1.23.1' >/dev/null",
+          "samtools --version 2>&1 | grep -F 'Using htslib 1.23.1' >/dev/null",
+          "python -c 'import biser, ncls, numpy, tqdm, multiprocess'",
+          "printf '>chr1\\nACGTACGT\\n' >/tmp/taf-biser.fa && samtools faidx /tmp/taf-biser.fa && test -s /tmp/taf-biser.fa.fai"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-18T06:26:52Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-18T06:26:52Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/biser",
+        "ref": "v1.4-r2",
+        "commit": "68beed347d1e1e3eb5e4dcc058d8d9f0f5ad35aa",
+        "html_url": "https://github.com/taffish/biser/tree/v1.4-r2"
       },
       "upstream": {
         "type": "github",
