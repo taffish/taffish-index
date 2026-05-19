@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T16:27:53Z",
+  "generated_at": "2026-05-19T16:54:14Z",
   "organization": "taffish",
   "counts": {
-    "packages": 69,
-    "versions": 100,
-    "commands": 69,
-    "repositories": 69,
+    "packages": 70,
+    "versions": 101,
+    "commands": 70,
+    "repositories": 70,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -12853,6 +12853,126 @@
         }
       }
     },
+    "srf": {
+      "name": "srf",
+      "latest": "20240109-r1",
+      "repository_url": "https://github.com/taffish/srf",
+      "command": {
+        "name": "taf-srf"
+      },
+      "versions": {
+        "20240109-r1": {
+          "name": "srf",
+          "kind": "tool",
+          "version": "20240109",
+          "release": 1,
+          "version_id": "20240109-r1",
+          "tag": "v20240109-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/srf",
+          "repository_slug": "taffish/srf",
+          "command": {
+            "name": "taf-srf"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "satellite-repeat",
+            "categories": [
+              "satellite-repeat",
+              "repeat-analysis",
+              "kmer",
+              "assembly"
+            ],
+            "keywords": [
+              "srf",
+              "satellite repeat finder",
+              "satellite dna",
+              "tandem repeat",
+              "k-mer",
+              "kmc",
+              "k8"
+            ],
+            "summary": "SRF assembles satellite repeat units from high-occurrence k-mer count tables.",
+            "description": "SRF assembles satellite repeat units from high-occurrence k-mer count tables."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/srf:20240109-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "20240109-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:dba5f104fbce02b39cd3f8840875b2c446e760d14b1ff35f1d62a8ffbc115262",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:31d280990560c5e958e93092f44b110607290892be3d14f6d3febb0f1f2ceabb",
+              "linux/arm64": "sha256:262a06d5b9e005b998c7017975a2cf3576072ac03e4bc7c0554c4fae33288baf"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "srf",
+              "srfutils.js",
+              "fmd-occ",
+              "k8",
+              "gzip",
+              "ldd",
+              "sh"
+            ],
+            "test": [
+              "test \"$(sed -n 's/^commit=//p' /opt/srf/share/doc/srf/source.txt)\" = 'e54ca8c8eccf6b1f19428b0f862f2c90575290a0' && test \"$(sed -n 's/^version=//p' /opt/srf/share/doc/srf/source.txt)\" = '20240109' && { srf 2>&1 || true; } | grep -F 'Usage: srf [options] <in.txt>' >/dev/null && { fmd-occ 2>&1 || true; } | grep -F 'Usage: fmd-occ [options] <in1.fmd>' >/dev/null && { srfutils.js 2>&1 || true; } | grep -F 'Usage: srfutils.js <command>' >/dev/null && ldd $(command -v srf) | grep -F 'libz.so' >/dev/null && ldd $(command -v k8) | grep -F 'libz.so' >/dev/null",
+              "mkdir -p /tmp/taf-srf-core && cd /tmp/taf-srf-core && printf 'CCCCC 10\\n' > count.txt && srf -p tiny -l 1 count.txt > out.fa 2> out.log && grep -F '[M::main] read 1 distinct k-mers' out.log >/dev/null && grep -F '>tiny#circ1-1 min=10,max=10,avg=10' out.fa >/dev/null && grep -Fx 'C' out.fa >/dev/null && gzip -c count.txt > count.txt.gz && srf -p gz -l 1 count.txt.gz > gz.fa && grep -F '>gz#circ1-1' gz.fa >/dev/null",
+              "mkdir -p /tmp/taf-srf-utils && cd /tmp/taf-srf-utils && printf '>circ1-4\\nACGT\\n' > circ.fa && srfutils.js enlong -l 10 circ.fa > enlong.fa && grep -F 'ACGTACGTACGT' enlong.fa >/dev/null && printf '>a\\nACGT\\n>b\\nACGT\\n' > merge.fa && srfutils.js merge merged merge.fa > merged.fa && grep -F '>merged*0001 a' merged.fa >/dev/null && test \"$(grep -c '^>' merged.fa)\" -eq 1 && printf 'chr1\\t0\\t20\\tcirc1-4\\t2.5\\t100\\t4\\t1\\n' > hit.bed && srfutils.js bed2abun hit.bed > abun.txt && grep -F 'circ1-4' abun.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T16:54:14Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T16:54:14Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/srf",
+            "ref": "v20240109-r1",
+            "commit": "6ebe5ee33387aebae093dba2ffc76a05a50506fd",
+            "html_url": "https://github.com/taffish/srf/tree/v20240109-r1"
+          },
+          "upstream": {
+            "name": "srf",
+            "type": "github",
+            "homepage": "https://github.com/lh3/srf",
+            "repository": "lh3/srf",
+            "release_url": "https://github.com/lh3/srf/commit/e54ca8c8eccf6b1f19428b0f862f2c90575290a0",
+            "version": "20240109",
+            "license": "MIT",
+            "citation": "Zhang, Chu, Cheng and Li 2023, arXiv:2304.09729"
+          }
+        }
+      }
+    },
     "trf": {
       "name": "trf",
       "latest": "4.09.1-r1",
@@ -13248,6 +13368,10 @@
     "taf-sra-tools": {
       "package": "sra-tools",
       "version": "3.4.1-r1"
+    },
+    "taf-srf": {
+      "package": "srf",
+      "version": "20240109-r1"
     },
     "taf-trf": {
       "package": "trf",
@@ -13661,6 +13785,12 @@
       "repository": "taffish/sra-tools",
       "packages": [
         "sra-tools"
+      ]
+    },
+    "taffish/srf": {
+      "repository": "taffish/srf",
+      "packages": [
+        "srf"
       ]
     },
     "taffish/trf": {
