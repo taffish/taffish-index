@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T15:48:51Z",
+  "generated_at": "2026-05-19T16:18:57Z",
   "organization": "taffish",
   "counts": {
-    "packages": 67,
-    "versions": 98,
-    "commands": 67,
-    "repositories": 67,
+    "packages": 68,
+    "versions": 99,
+    "commands": 68,
+    "repositories": 68,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -12575,6 +12575,149 @@
         }
       }
     },
+    "sra-tools": {
+      "name": "sra-tools",
+      "latest": "3.4.1-r1",
+      "repository_url": "https://github.com/taffish/sra-tools",
+      "command": {
+        "name": "taf-sra-tools"
+      },
+      "versions": {
+        "3.4.1-r1": {
+          "name": "sra-tools",
+          "kind": "tool",
+          "version": "3.4.1",
+          "release": 1,
+          "version_id": "3.4.1-r1",
+          "tag": "v3.4.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/sra-tools",
+          "repository_slug": "taffish/sra-tools",
+          "command": {
+            "name": "taf-sra-tools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-archive",
+            "categories": [
+              "sequence-archive",
+              "data-download",
+              "fastq",
+              "sequencing",
+              "sra"
+            ],
+            "keywords": [
+              "sra-tools",
+              "sra-toolkit",
+              "sra",
+              "ncbi",
+              "sequence-read-archive",
+              "prefetch",
+              "fasterq-dump",
+              "fastq-dump",
+              "vdb",
+              "fastq"
+            ],
+            "summary": "NCBI SRA Toolkit command suite for downloading Sequence Read Archive runs and converting SRA data to FASTQ/FASTA and related formats.",
+            "description": "NCBI SRA Toolkit command suite for downloading Sequence Read Archive runs and converting SRA data to FASTQ/FASTA and related formats."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/sra-tools:3.4.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.4.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c1eabfe3529e04afdb797eed456f99f632d43ffd7d89cdd951a031c962a07ad2",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6eaaaa0dcf6755fa5214e4be99df65dcd3e747bfb1229fd86ace52e659d7bcdb",
+              "linux/arm64": "sha256:c585c8a8263c0200d4330af83ae5779f16d25d034af3e7743dc19df18c7bfbed"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "fasterq-dump",
+              "prefetch",
+              "fastq-dump",
+              "vdb-config",
+              "vdb-validate",
+              "vdb-dump",
+              "sra-info",
+              "sra-stat",
+              "sra-search",
+              "sam-dump",
+              "srapath",
+              "test-sra",
+              "abi-dump",
+              "illumina-dump",
+              "sff-dump",
+              "align-info",
+              "rcexplain",
+              "kdbmeta",
+              "vdb-encrypt",
+              "vdb-decrypt"
+            ],
+            "test": [
+              "fasterq-dump --version 2>&1 | grep -Fx 'fasterq-dump : 3.4.1' >/dev/null",
+              "prefetch --version 2>&1 | grep -Fx 'prefetch : 3.4.1' >/dev/null && fastq-dump --version 2>&1 | grep -Fx 'fastq-dump : 3.4.1' >/dev/null",
+              "vdb-config --version 2>&1 | grep -Fx 'vdb-config : 3.4.1' >/dev/null && vdb-validate --version 2>&1 | grep -Fx 'vdb-validate : 3.4.1' >/dev/null && sra-info --version 2>&1 | grep -Fx 'sra-info : 3.4.1' >/dev/null",
+              "fasterq-dump --help 2>&1 | grep -F 'fasterq-dump <accession>' >/dev/null && prefetch --help 2>&1 | grep -F 'Download SRA files and their dependencies' >/dev/null",
+              "vdb-dump --help 2>&1 | grep -F 'vdb-dump <path>' >/dev/null && sra-info --help 2>&1 | grep -F 'sra-info <accession>' >/dev/null && sra-search --help 2>&1 | grep -F 'sra-search [Options] query accession' >/dev/null",
+              "mkdir -p /tmp/taf-sra-home && HOME=/tmp/taf-sra-home vdb-config --prefetch-to-cwd >/tmp/taf-sra-vdb-config.log 2>&1 && test -s /tmp/taf-sra-home/.ncbi/user-settings.mkfg && grep -F '/repository/user/ad/public/root = \".\"' /tmp/taf-sra-home/.ncbi/user-settings.mkfg >/dev/null && grep -F '/tools/prefetch/download_to_cache = \"false\"' /tmp/taf-sra-home/.ncbi/user-settings.mkfg >/dev/null",
+              "mkdir -p /tmp/taf-sra-test && HOME=/tmp/taf-sra-test test-sra +s+c -X text 2>&1 | grep -F 'NCBI SRA Toolkit release version: 3.4.1.' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T16:18:57Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T16:18:57Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/sra-tools",
+            "ref": "v3.4.1-r1",
+            "commit": "fff86ff25f015bfa83b2d623b6a966ad2e2541f8",
+            "html_url": "https://github.com/taffish/sra-tools/tree/v3.4.1-r1"
+          },
+          "upstream": {
+            "name": "SRA Toolkit",
+            "type": "github",
+            "homepage": "https://github.com/ncbi/sra-tools/wiki",
+            "repository": "ncbi/sra-tools",
+            "release_url": "https://github.com/ncbi/sra-tools/releases/tag/3.4.1",
+            "version": "3.4.1",
+            "license": "Public Domain",
+            "citation": "NCBI SRA Toolkit; NCBI Sequence Read Archive",
+            "doi": "10.1093/nar/gkq1019",
+            "pmid": "21062823"
+          }
+        }
+      }
+    },
     "trf": {
       "name": "trf",
       "latest": "4.09.1-r1",
@@ -12962,6 +13105,10 @@
     "taf-soapnuke": {
       "package": "soapnuke",
       "version": "2.1.9-r1"
+    },
+    "taf-sra-tools": {
+      "package": "sra-tools",
+      "version": "3.4.1-r1"
     },
     "taf-trf": {
       "package": "trf",
@@ -13363,6 +13510,12 @@
       "repository": "taffish/soapnuke",
       "packages": [
         "soapnuke"
+      ]
+    },
+    "taffish/sra-tools": {
+      "repository": "taffish/sra-tools",
+      "packages": [
+        "sra-tools"
       ]
     },
     "taffish/trf": {
