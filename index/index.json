@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T14:36:12Z",
+  "generated_at": "2026-05-19T15:17:38Z",
   "organization": "taffish",
   "counts": {
-    "packages": 64,
-    "versions": 94,
-    "commands": 64,
-    "repositories": 64,
+    "packages": 66,
+    "versions": 96,
+    "commands": 66,
+    "repositories": 66,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -9729,6 +9729,126 @@
         }
       }
     },
+    "multiqc": {
+      "name": "multiqc",
+      "latest": "1.35-r1",
+      "repository_url": "https://github.com/taffish/multiqc",
+      "command": {
+        "name": "taf-multiqc"
+      },
+      "versions": {
+        "1.35-r1": {
+          "name": "multiqc",
+          "kind": "tool",
+          "version": "1.35",
+          "release": 1,
+          "version_id": "1.35-r1",
+          "tag": "v1.35-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/multiqc",
+          "repository_slug": "taffish/multiqc",
+          "command": {
+            "name": "taf-multiqc"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "quality-control",
+            "categories": [
+              "quality-control",
+              "reports",
+              "sequencing",
+              "multi-tool-qc"
+            ],
+            "keywords": [
+              "multiqc",
+              "quality-control",
+              "qc",
+              "html-report",
+              "fastqc",
+              "custom-content",
+              "sequencing",
+              "ngs"
+            ],
+            "summary": "Aggregate bioinformatics analysis results across many samples and tools into a single interactive HTML report.",
+            "description": "Aggregate bioinformatics analysis results across many samples and tools into a single interactive HTML report."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/multiqc:1.35-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.35-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:58adc3b36e33ded86fe7fac26bd6f32d9544cc94650969173bee374cf4ab70c2",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ae0273173a62e90b15052c8e7a31559134c0bc2bbbf1dbbdaaa3539ca3f5e6a6"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "multiqc",
+              "python",
+              "python3"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata; print(importlib.metadata.version(\"multiqc\"))')\" = '1.35'",
+              "multiqc --version 2>&1 | grep -F '1.35' >/dev/null",
+              "multiqc --help 2>&1 | grep -F 'Usage:' >/dev/null && multiqc --help 2>&1 | grep -F 'MultiQC' >/dev/null",
+              "python -c 'import multiqc, plotly, pyarrow, polars, yaml, rich_click, pydantic'",
+              "mkdir -p /tmp/taf-multiqc-custom && cd /tmp/taf-multiqc-custom && printf 'id: \"taf_custom_metrics\"\\nsection_name: \"TAFFISH Custom Metrics\"\\ndescription: \"Minimal custom content smoke test.\"\\nplot_type: \"bargraph\"\\npconfig:\\n  id: \"taf_custom_bargraph\"\\n  title: \"TAFFISH Custom Metrics\"\\n  ylab: \"Count\"\\ndata:\\n  sample_a:\\n    metric_a: 12\\n    metric_b: 4\\n  sample_b:\\n    metric_a: 8\\n    metric_b: 9\\n' > metrics_mqc.yaml && multiqc . --outdir out --data-format json --force --quiet && test -s out/multiqc_report.html && test -s out/multiqc_data/multiqc_data.json && grep -F 'TAFFISH Custom Metrics' out/multiqc_report.html >/dev/null && grep -F 'taf_custom_bargraph' out/multiqc_data/multiqc_data.json >/dev/null",
+              "python -c 'import os, plotly.graph_objects as go; fig = go.Figure(data=[go.Bar(x=[\"sample\"], y=[1])]); fig.write_image(\"/tmp/taf-multiqc-kaleido.png\"); assert os.path.getsize(\"/tmp/taf-multiqc-kaleido.png\") > 0'"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T15:17:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T15:17:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/multiqc",
+            "ref": "v1.35-r1",
+            "commit": "84524a9597e9dae0f32b9cb6c9907e24c25ded5e",
+            "html_url": "https://github.com/taffish/multiqc/tree/v1.35-r1"
+          },
+          "upstream": {
+            "name": "MultiQC",
+            "type": "github",
+            "homepage": "https://seqera.io/multiqc/",
+            "repository": "MultiQC/MultiQC",
+            "release_url": "https://github.com/MultiQC/MultiQC/releases/tag/v1.35",
+            "version": "1.35",
+            "license": "GPL-3.0-or-later",
+            "citation": "Ewels et al. 2016",
+            "doi": "10.1093/bioinformatics/btw354",
+            "pmid": "27312411"
+          }
+        }
+      }
+    },
     "muscle": {
       "name": "muscle",
       "latest": "5.3-r2",
@@ -11288,6 +11408,149 @@
         }
       }
     },
+    "repeatmasker": {
+      "name": "repeatmasker",
+      "latest": "4.2.3-r1",
+      "repository_url": "https://github.com/taffish/repeatmasker",
+      "command": {
+        "name": "taf-repeatmasker"
+      },
+      "versions": {
+        "4.2.3-r1": {
+          "name": "repeatmasker",
+          "kind": "tool",
+          "version": "4.2.3",
+          "release": 1,
+          "version_id": "4.2.3-r1",
+          "tag": "v4.2.3-r1",
+          "license": "OSL-2.1",
+          "repository_url": "https://github.com/taffish/repeatmasker",
+          "repository_slug": "taffish/repeatmasker",
+          "command": {
+            "name": "taf-repeatmasker"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "repeat-annotation",
+            "categories": [
+              "repeat-annotation",
+              "genome-masking",
+              "genomics",
+              "transposable-elements",
+              "fasta"
+            ],
+            "keywords": [
+              "repeatmasker",
+              "interspersed repeats",
+              "low complexity dna",
+              "dfam",
+              "famdb",
+              "repbase",
+              "rmblast",
+              "trf",
+              "hmmer",
+              "softmask"
+            ],
+            "summary": "RepeatMasker screens DNA sequences for interspersed repeats and low-complexity DNA, producing repeat annotations and masked FASTA output.",
+            "description": "RepeatMasker screens DNA sequences for interspersed repeats and low-complexity DNA, producing repeat annotations and masked FASTA output."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/repeatmasker:4.2.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.2.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e05ab937131025608ffca85140b43cd4012ef6b991528a717d985efa24ec2bff",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:35168891e938e8fd74ab0878934f5efdb6704798b9f136308b54bebea0004417"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "RepeatMasker",
+              "ProcessRepeats",
+              "RepeatProteinMask",
+              "famdb.py",
+              "RM2Bed.py",
+              "rmOutToGFF3.pl",
+              "buildSummary.pl",
+              "calcDivergenceFromAlign.pl",
+              "createRepeatLandscape.pl",
+              "rmToTrackHub.pl",
+              "rmblastn",
+              "makeblastdb",
+              "trf",
+              "nhmmer",
+              "hmmsearch",
+              "twoBitInfo",
+              "bedToBigBed",
+              "whereis",
+              "python3",
+              "perl",
+              "curl",
+              "gzip"
+            ],
+            "test": [
+              "RepeatMasker -v 2>&1 | grep -F 'RepeatMasker version 4.2.3' >/dev/null && rmblastn -version 2>&1 | grep -F 'rmblastn: 2.17.1+' >/dev/null && trf -v 2>&1 | grep -F 'Tandem Repeats Finder, Version 4.09' >/dev/null && nhmmer -h 2>&1 | grep -F 'HMMER' >/dev/null && twoBitInfo 2>&1 | grep -F 'twoBitInfo' >/dev/null && bedToBigBed 2>&1 | grep -F 'bedToBigBed' >/dev/null && test \"${BLAST_USAGE_REPORT}\" = 'false'",
+              "RepeatMasker -help 2>&1 | grep -F 'RepeatMasker is a program that screens DNA sequences' >/dev/null && RepeatMasker -help 2>&1 | grep -F -- '-lib' >/dev/null && ProcessRepeats -help 2>&1 | grep -F 'ProcessRepeats' >/dev/null",
+              "famdb.py -i /opt/RepeatMasker/Libraries/famdb info 2>&1 | grep -F 'Database: Dfam' >/dev/null && famdb.py -i /opt/RepeatMasker/Libraries/famdb info 2>&1 | grep -F 'Version : 3.9' >/dev/null && famdb.py -i /opt/RepeatMasker/Libraries/famdb info 2>&1 | grep -F '1 Partitions Present' >/dev/null",
+              "grep -F \"'DEFAULT_SEARCH_ENGINE'\" /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F \"rmblast\" /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F '/opt/rmblast/bin' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F '/usr/bin/trf' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F '/usr/bin' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null",
+              "mkdir -p /tmp/taf-repeatmasker-smoke/out && cd /tmp/taf-repeatmasker-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && RepeatMasker -pa 1 -engine rmblast -lib repeats.fa -dir out input.fa >/tmp/taf-repeatmasker-smoke/run.log 2>&1 && test -s out/input.fa.out && test -s out/input.fa.masked && grep -F 'ToyRepeat' out/input.fa.out >/dev/null && grep -F 'seq1' out/input.fa.masked >/dev/null && grep -F 'NNNNN' out/input.fa.masked >/dev/null",
+              "mkdir -p /tmp/taf-repeatmasker-gff-smoke/out && cd /tmp/taf-repeatmasker-gff-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && RepeatMasker -pa 1 -engine rmblast -lib repeats.fa -gff -dir out input.fa >/tmp/taf-repeatmasker-gff-smoke/run.log 2>&1 && test -s out/input.fa.out && test -s out/input.fa.out.gff && grep -F 'Target \"Motif:ToyRepeat\"' out/input.fa.out.gff >/dev/null",
+              "mkdir -p /tmp/taf-repeatmasker-utils-smoke/out && cd /tmp/taf-repeatmasker-utils-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && RepeatMasker -pa 1 -engine rmblast -lib repeats.fa -dir out input.fa >/tmp/taf-repeatmasker-utils-smoke/run.log 2>&1 && rmOutToGFF3.pl out/input.fa.out > out/input.fa.util.gff && test -s out/input.fa.util.gff && grep -F 'ToyRepeat' out/input.fa.util.gff >/dev/null && buildSummary.pl out/input.fa.out > out/input.fa.summary && test -s out/input.fa.summary && grep -F 'ToyRepeat' out/input.fa.summary >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T15:17:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T15:17:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/repeatmasker",
+            "ref": "v4.2.3-r1",
+            "commit": "777254525537dc9b404e61486eac0fd060fb5e4b",
+            "html_url": "https://github.com/taffish/repeatmasker/tree/v4.2.3-r1"
+          },
+          "upstream": {
+            "name": "RepeatMasker",
+            "type": "official",
+            "url": "https://www.repeatmasker.org/",
+            "homepage": "https://www.repeatmasker.org/",
+            "release_url": "https://www.repeatmasker.org/RepeatMasker/",
+            "version": "4.2.3",
+            "license": "OSL-2.1 with bundled Dfam/FamDB CC0 code/data notices, RMBlast/NCBI components, and UCSC command-line utilities",
+            "citation": "Smit, Hubley, and Green; Dfam Consortium; Camacho et al. 2009 for BLAST+",
+            "doi": "10.1186/1471-2105-10-421",
+            "pmid": "20003500"
+          }
+        }
+      }
+    },
     "rmblast": {
       "name": "rmblast",
       "latest": "2.17.1-r1",
@@ -12392,6 +12655,10 @@
       "package": "mmseqs2",
       "version": "18-r3"
     },
+    "taf-multiqc": {
+      "package": "multiqc",
+      "version": "1.35-r1"
+    },
     "taf-muscle": {
       "package": "muscle",
       "version": "5.3-r2"
@@ -12423,6 +12690,10 @@
     "taf-quast": {
       "package": "quast",
       "version": "5.3.0-r1"
+    },
+    "taf-repeatmasker": {
+      "package": "repeatmasker",
+      "version": "4.2.3-r1"
     },
     "taf-rmblast": {
       "package": "rmblast",
@@ -12748,6 +13019,12 @@
         "mmseqs2"
       ]
     },
+    "taffish/multiqc": {
+      "repository": "taffish/multiqc",
+      "packages": [
+        "multiqc"
+      ]
+    },
     "taffish/muscle": {
       "repository": "taffish/muscle",
       "packages": [
@@ -12794,6 +13071,12 @@
       "repository": "taffish/quast",
       "packages": [
         "quast"
+      ]
+    },
+    "taffish/repeatmasker": {
+      "repository": "taffish/repeatmasker",
+      "packages": [
+        "repeatmasker"
       ]
     },
     "taffish/rmblast": {
