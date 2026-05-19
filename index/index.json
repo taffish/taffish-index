@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T15:17:38Z",
+  "generated_at": "2026-05-19T15:48:51Z",
   "organization": "taffish",
   "counts": {
-    "packages": 66,
-    "versions": 96,
-    "commands": 66,
-    "repositories": 66,
+    "packages": 67,
+    "versions": 98,
+    "commands": 67,
+    "repositories": 67,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -9731,7 +9731,7 @@
     },
     "multiqc": {
       "name": "multiqc",
-      "latest": "1.35-r1",
+      "latest": "1.35-r2",
       "repository_url": "https://github.com/taffish/multiqc",
       "command": {
         "name": "taf-multiqc"
@@ -9833,6 +9833,118 @@
             "ref": "v1.35-r1",
             "commit": "84524a9597e9dae0f32b9cb6c9907e24c25ded5e",
             "html_url": "https://github.com/taffish/multiqc/tree/v1.35-r1"
+          },
+          "upstream": {
+            "name": "MultiQC",
+            "type": "github",
+            "homepage": "https://seqera.io/multiqc/",
+            "repository": "MultiQC/MultiQC",
+            "release_url": "https://github.com/MultiQC/MultiQC/releases/tag/v1.35",
+            "version": "1.35",
+            "license": "GPL-3.0-or-later",
+            "citation": "Ewels et al. 2016",
+            "doi": "10.1093/bioinformatics/btw354",
+            "pmid": "27312411"
+          }
+        },
+        "1.35-r2": {
+          "name": "multiqc",
+          "kind": "tool",
+          "version": "1.35",
+          "release": 2,
+          "version_id": "1.35-r2",
+          "tag": "v1.35-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/multiqc",
+          "repository_slug": "taffish/multiqc",
+          "command": {
+            "name": "taf-multiqc"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "quality-control",
+            "categories": [
+              "quality-control",
+              "reports",
+              "sequencing",
+              "multi-tool-qc"
+            ],
+            "keywords": [
+              "multiqc",
+              "quality-control",
+              "qc",
+              "html-report",
+              "fastqc",
+              "custom-content",
+              "sequencing",
+              "ngs"
+            ],
+            "summary": "Aggregate bioinformatics analysis results across many samples and tools into a single interactive HTML report.",
+            "description": "Aggregate bioinformatics analysis results across many samples and tools into a single interactive HTML report."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/multiqc:1.35-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.35-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:8be883b6a5083c7a21b96d0b9a93c7353cc690330d443adb64dec1ceaede0d39",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:473b8014fe9ce0a4ae2a90a5c321fa611a5bfeb5e4aacb8888cf0e1b363ce574",
+              "linux/arm64": "sha256:eaa6fe84c426f3a647e9024346c20957c7084e16db513e74807710645d857f1f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "multiqc",
+              "python",
+              "python3"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata; print(importlib.metadata.version(\"multiqc\"))')\" = '1.35'",
+              "multiqc --version 2>&1 | grep -F '1.35' >/dev/null",
+              "multiqc --help 2>&1 | grep -F 'Usage:' >/dev/null && multiqc --help 2>&1 | grep -F 'MultiQC' >/dev/null",
+              "python -c 'import multiqc, plotly, pyarrow, polars, yaml, rich_click, pydantic'",
+              "mkdir -p /tmp/taf-multiqc-custom && cd /tmp/taf-multiqc-custom && printf 'id: \"taf_custom_metrics\"\\nsection_name: \"TAFFISH Custom Metrics\"\\ndescription: \"Minimal custom content smoke test.\"\\nplot_type: \"bargraph\"\\npconfig:\\n  id: \"taf_custom_bargraph\"\\n  title: \"TAFFISH Custom Metrics\"\\n  ylab: \"Count\"\\ndata:\\n  sample_a:\\n    metric_a: 12\\n    metric_b: 4\\n  sample_b:\\n    metric_a: 8\\n    metric_b: 9\\n' > metrics_mqc.yaml && multiqc . --outdir out --data-format json --force --quiet && test -s out/multiqc_report.html && test -s out/multiqc_data/multiqc_data.json && grep -F 'TAFFISH Custom Metrics' out/multiqc_report.html >/dev/null && grep -F 'taf_custom_bargraph' out/multiqc_data/multiqc_data.json >/dev/null",
+              "python -c 'import os, plotly.graph_objects as go; fig = go.Figure(data=[go.Bar(x=[\"sample\"], y=[1])]); fig.write_image(\"/tmp/taf-multiqc-kaleido.png\"); assert os.path.getsize(\"/tmp/taf-multiqc-kaleido.png\") > 0'"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T15:48:51Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T15:48:51Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/multiqc",
+            "ref": "v1.35-r2",
+            "commit": "ded4a842939b6a9074847820aa231bcc33ed8bc0",
+            "html_url": "https://github.com/taffish/multiqc/tree/v1.35-r2"
           },
           "upstream": {
             "name": "MultiQC",
@@ -12335,6 +12447,134 @@
         }
       }
     },
+    "soapnuke": {
+      "name": "soapnuke",
+      "latest": "2.1.9-r1",
+      "repository_url": "https://github.com/taffish/soapnuke",
+      "command": {
+        "name": "taf-soapnuke"
+      },
+      "versions": {
+        "2.1.9-r1": {
+          "name": "soapnuke",
+          "kind": "tool",
+          "version": "2.1.9",
+          "release": 1,
+          "version_id": "2.1.9-r1",
+          "tag": "v2.1.9-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/soapnuke",
+          "repository_slug": "taffish/soapnuke",
+          "command": {
+            "name": "taf-soapnuke"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "quality-control",
+              "preprocessing",
+              "bam",
+              "cram"
+            ],
+            "keywords": [
+              "soapnuke",
+              "fastq",
+              "bam",
+              "cram",
+              "quality filtering",
+              "adapter trimming",
+              "stlfr",
+              "srna",
+              "metagenomics"
+            ],
+            "summary": "SOAPnuke integrated quality control and preprocessing for FASTQ, BAM, and CRAM sequencing data.",
+            "description": "SOAPnuke integrated quality control and preprocessing for FASTQ, BAM, and CRAM sequencing data."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/soapnuke:2.1.9-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.1.9-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:88bddd2890bd95a829eb942e9931226367f068edd2d87d0d6820f3477ce18fd0",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6a69cb3a215d6085b01e0ff5fb4a3ab716342b9fad5e183cf373fb44e07e1868",
+              "linux/arm64": "sha256:554aab19f43f0d27e8de07e9b2b50cc2e8309798bdbc73c2b46fb91859cc40bd"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "SOAPnuke",
+              "soapnuke",
+              "samtools",
+              "Rscript",
+              "gawk",
+              "gzip",
+              "ldd",
+              "sh"
+            ],
+            "test": [
+              "SOAPnuke -v 2>&1 | grep -F 'SOAPnuke filter tools version 2.1.9' >/dev/null && soapnuke -v 2>&1 | grep -F 'SOAPnuke filter tools version 2.1.9' >/dev/null && SOAPnuke 2>&1 | grep -F 'Program: SOAPnuke' >/dev/null && SOAPnuke filter -h 2>&1 | grep -F 'Usage: filter' >/dev/null && SOAPnuke filtersRNA -h 2>&1 | grep -F 'Usage: filtersRNA' >/dev/null && SOAPnuke filterMeta -h 2>&1 | grep -F 'Usage: filterMeta' >/dev/null && SOAPnuke filterStLFR -h 2>&1 | grep -F 'Usage: filterStLFR' >/dev/null && SOAPnuke filterHts -h 2>&1 | grep -F 'Usage: filterHts' >/dev/null && ldd $(command -v SOAPnuke) | grep -F 'libhts' >/dev/null && ldd $(command -v SOAPnuke) | grep -F 'libz' >/dev/null",
+              "mkdir -p /tmp/taf-soapnuke-pe && cd /tmp/taf-soapnuke-pe && printf '@r1/1\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@r1/2\\nTGCATGCATGCATGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && SOAPnuke filter -1 r1.fq -2 r2.fq -C clean_1.fq -D clean_2.fq -o out -T 1 -4 5 -l 5 -q 0.5 -n 0.5 && grep -F '@r1/1' out/clean_1.fq >/dev/null && grep -F '@r1/2' out/clean_2.fq >/dev/null && test -s out/Basic_Statistics_of_Sequencing_Quality.txt && test -s out/Statistics_of_Filtered_Reads.txt",
+              "mkdir -p /tmp/taf-soapnuke-mods && cd /tmp/taf-soapnuke-mods && printf '@s1\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && SOAPnuke filtersRNA -1 reads.fq.gz -C srna_clean.fq.gz -o srna -T 1 -4 5 -l 5 -q 0.5 -n 0.5 && test -s srna/srna_clean.fq.gz && test -s srna/Basic_Statistics_of_Sequencing_Quality.txt && SOAPnuke filterMeta -1 reads.fq -C meta_clean.fq -o meta -T 1 -4 5 -l 5 -q 0.5 -n 0.5 && grep -F '@s1' meta/meta_clean.fq >/dev/null",
+              "mkdir -p /tmp/taf-soapnuke-hts && cd /tmp/taf-soapnuke-hts && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\nr1\\t0\\tchr1\\t1\\t60\\t32M\\t*\\t0\\t0\\tACGTACGTACGTACGTACGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > in.sam && samtools view -bS in.sam > in.bam && SOAPnuke filterHts -1 in.bam -2 clean.bam -o out -T 1 -4 5 -l 5 -q 0.5 -n 0.5 && test -s out/clean.bam && samtools view out/clean.bam | grep -F 'r1' >/dev/null",
+              "Rscript /opt/soapnuke/Rscripts/Q20Q30.R 2>&1 | grep -F 'Usage:' >/dev/null && Rscript /opt/soapnuke/Rscripts/base.R 2>&1 | grep -F 'Usage:' >/dev/null && Rscript /opt/soapnuke/Rscripts/quality.R 2>&1 | grep -F 'Usage:' >/dev/null && test -s /opt/soapnuke/share/doc/Readme.md && grep -F 'SOAPnuke is released under' /opt/soapnuke/share/doc/Readme.md >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T15:48:51Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T15:48:51Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/soapnuke",
+            "ref": "v2.1.9-r1",
+            "commit": "8efbef4a5d95ee22cb0ddec65e318181ef4cb823",
+            "html_url": "https://github.com/taffish/soapnuke/tree/v2.1.9-r1"
+          },
+          "upstream": {
+            "name": "SOAPnuke",
+            "type": "github",
+            "homepage": "https://github.com/BGI-flexlab/SOAPnuke",
+            "repository": "BGI-flexlab/SOAPnuke",
+            "release_url": "https://github.com/BGI-flexlab/SOAPnuke/releases/tag/SOAPnuke2.1.9",
+            "version": "2.1.9",
+            "license": "GPL-3.0-only",
+            "citation": "Chen et al. 2018, Gigascience",
+            "doi": "10.1093/gigascience/gix120",
+            "pmid": "29220494"
+          }
+        }
+      }
+    },
     "trf": {
       "name": "trf",
       "latest": "4.09.1-r1",
@@ -12657,7 +12897,7 @@
     },
     "taf-multiqc": {
       "package": "multiqc",
-      "version": "1.35-r1"
+      "version": "1.35-r2"
     },
     "taf-muscle": {
       "package": "muscle",
@@ -12718,6 +12958,10 @@
     "taf-seqtk": {
       "package": "seqtk",
       "version": "1.5-r1"
+    },
+    "taf-soapnuke": {
+      "package": "soapnuke",
+      "version": "2.1.9-r1"
     },
     "taf-trf": {
       "package": "trf",
@@ -13113,6 +13357,12 @@
       "repository": "taffish/seqtk",
       "packages": [
         "seqtk"
+      ]
+    },
+    "taffish/soapnuke": {
+      "repository": "taffish/soapnuke",
+      "packages": [
+        "soapnuke"
       ]
     },
     "taffish/trf": {
