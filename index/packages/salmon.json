@@ -1,0 +1,123 @@
+{
+  "name": "salmon",
+  "latest": "1.11.4-r1",
+  "repository_url": "https://github.com/taffish/salmon",
+  "command": {
+    "name": "taf-salmon"
+  },
+  "versions": {
+    "1.11.4-r1": {
+      "name": "salmon",
+      "kind": "tool",
+      "version": "1.11.4",
+      "release": 1,
+      "version_id": "1.11.4-r1",
+      "tag": "v1.11.4-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/salmon",
+      "repository_slug": "taffish/salmon",
+      "command": {
+        "name": "taf-salmon"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "transcriptomics",
+          "quantification",
+          "alignment",
+          "indexing"
+        ],
+        "keywords": [
+          "salmon",
+          "rna-seq",
+          "transcript abundance",
+          "selective alignment",
+          "sshash",
+          "quant",
+          "quantmerge"
+        ],
+        "summary": "Salmon transcript-level RNA-seq quantification with indexing, selective-alignment quantification, alignment-based quantification, and quantification merging.",
+        "description": "Salmon transcript-level RNA-seq quantification with indexing, selective-alignment quantification, alignment-based quantification, and quantification merging."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/salmon:1.11.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.11.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:dbcdfb7ca72e6bd79885430b4b272104dadb8f6fb2fcf1a359f3ef52a4c5388d",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:8872f667bc81a298d3eafb60cfd62395238925f78f66dd7819abfc39e2c285ce",
+          "linux/arm64": "sha256:b28747132370d822782465e639fa04249a1d8a7cff79d61ad20af89b830d1ab4"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "salmon",
+          "ldd",
+          "locale",
+          "sh"
+        ],
+        "test": [
+          "test \"$(salmon --version)\" = 'salmon 1.11.4' && salmon --no-version-check --help 2>&1 | grep -F 'salmon v1.11.4' >/dev/null && salmon --no-version-check --cite 2>&1 | grep -F '10.1038/nmeth.4197' >/dev/null && ldd $(command -v salmon) | grep -F 'libstdc++.so' >/dev/null && ! ldd $(command -v salmon) | grep -F 'not found' >/dev/null",
+          "salmon --no-version-check index --help 2>&1 | grep -F 'Creates a salmon index' >/dev/null && salmon --no-version-check quant --help-reads 2>&1 | grep -F 'selective-alignment-based' >/dev/null && salmon --no-version-check quant --help-alignment 2>&1 | grep -F 'alignment-based' >/dev/null && salmon --no-version-check quantmerge --help 2>&1 | grep -F 'Merge multiple quantification results' >/dev/null",
+          "rm -rf /tmp/taf-salmon-index && mkdir -p /tmp/taf-salmon-index && cd /tmp/taf-salmon-index && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 >/tmp/taf-salmon-index.log 2>&1 && test -s idx/info.json && test -s idx/sshash.bin && grep -F '\"num_kmers\"' idx/info.json >/dev/null",
+          "rm -rf /tmp/taf-salmon-quant && mkdir -p /tmp/taf-salmon-quant && cd /tmp/taf-salmon-quant && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 >/tmp/taf-salmon-quant-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r3\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o quant -p 1 --minAssignedFrags 1 -q >/tmp/taf-salmon-quant.log 2>&1 && test -s quant/quant.sf && grep -F 'Name' quant/quant.sf >/dev/null && grep -F 'tx1' quant/quant.sf >/dev/null && grep -F 'tx2' quant/quant.sf >/dev/null",
+          "rm -rf /tmp/taf-salmon-merge && mkdir -p /tmp/taf-salmon-merge/q1 /tmp/taf-salmon-merge/q2 && cd /tmp/taf-salmon-merge && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t100.0\\t2.0\\ntx2\\t40\\t2.432\\t0.0\\t0.0\\n' > q1/quant.sf && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t10.0\\t1.0\\ntx2\\t40\\t2.432\\t90.0\\t9.0\\n' > q2/quant.sf && salmon --no-version-check quantmerge --quants q1 q2 --names s1 s2 --column TPM -o merged.tsv >/tmp/taf-salmon-merge.log 2>&1 && grep -F 'Name' merged.tsv >/dev/null && grep -F 'tx2' merged.tsv >/dev/null && grep -F '90' merged.tsv >/dev/null",
+          "{ salmon --no-version-check alevin > /tmp/taf-salmon-alevin.out 2>&1 && exit 1 || true; } && grep -F 'alevin-fry' /tmp/taf-salmon-alevin.out >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T14:36:12Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T14:36:12Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/salmon",
+        "ref": "v1.11.4-r1",
+        "commit": "f3818cb3c2458969b291526a510adf5f44c1100f",
+        "html_url": "https://github.com/taffish/salmon/tree/v1.11.4-r1"
+      },
+      "upstream": {
+        "name": "Salmon",
+        "type": "github",
+        "homepage": "https://combine-lab.github.io/salmon/",
+        "repository": "COMBINE-lab/salmon",
+        "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v1.11.4",
+        "version": "1.11.4",
+        "license": "GPL-3.0-or-later",
+        "citation": "Patro et al. 2017, Nature Methods",
+        "doi": "10.1038/nmeth.4197",
+        "pmid": "28263959"
+      }
+    }
+  }
+}
