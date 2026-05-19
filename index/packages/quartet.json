@@ -1,0 +1,149 @@
+{
+  "name": "quartet",
+  "latest": "1.2.5-r1",
+  "repository_url": "https://github.com/taffish/quartet",
+  "command": {
+    "name": "taf-quartet"
+  },
+  "versions": {
+    "1.2.5-r1": {
+      "name": "quartet",
+      "kind": "tool",
+      "version": "1.2.5",
+      "release": 1,
+      "version_id": "1.2.5-r1",
+      "tag": "v1.2.5-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/quartet",
+      "repository_slug": "taffish/quartet",
+      "command": {
+        "name": "taf-quartet"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-assembly",
+        "categories": [
+          "genome-assembly",
+          "telomere",
+          "centromere",
+          "gap-filling",
+          "genome-annotation"
+        ],
+        "keywords": [
+          "quartet",
+          "t2t",
+          "assemblymapper",
+          "gapfiller",
+          "teloexplorer",
+          "centrominer",
+          "telomere",
+          "centromere",
+          "mummer",
+          "minimap2",
+          "tidk"
+        ],
+        "summary": "quarTeT telomere-to-telomere genome assembly and characterization toolkit, including AssemblyMapper, GapFiller, TeloExplorer, CentroMiner, and the external aligner, tandem-repeat, BLAST, tidk, and R plotting dependencies used by those modules.",
+        "description": "quarTeT telomere-to-telomere genome assembly and characterization toolkit, including AssemblyMapper, GapFiller, TeloExplorer, CentroMiner, and the external aligner, tandem-repeat, BLAST, tidk, and R plotting dependencies used by those modules."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/quartet:1.2.5-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.2.5-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:eb6557c8de588eebe42d1b4aa6db75c9b2667349389feb15fd0373da66c993a8",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b19b611ac0fff88473bc28dbb0b6e02e97302820ea81f3497af6d6768d17c297",
+          "linux/arm64": "sha256:642abcee16bc344d0a97ef33bc1a6efa3e50afc83b885bcd939ebbd4b69b5bd3"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 480,
+        "exist": [
+          "quartet",
+          "quarTeT",
+          "quartet.py",
+          "quartet_assemblymapper.py",
+          "quartet_gapfiller.py",
+          "quartet_teloexplorer.py",
+          "quartet_centrominer.py",
+          "python3",
+          "minimap2",
+          "unimap",
+          "nucmer",
+          "delta-filter",
+          "show-coords",
+          "mummerplot",
+          "trf",
+          "cd-hit-est",
+          "makeblastdb",
+          "blastn",
+          "tidk",
+          "gnuplot",
+          "Rscript",
+          "file",
+          "gzip",
+          "which",
+          "bash"
+        ],
+        "test": [
+          "quartet --help | grep -F 'version 1.2.5' >/dev/null && quartet AssemblyMapper -h | grep -F 'REFERENCE_GENOME' >/dev/null && quartet GapFiller -h | grep -F 'DRAFT_GENOME' >/dev/null && quartet TeloExplorer -h | grep -F 'GENOME' >/dev/null && quartet CentroMiner -h | grep -F 'GENOME_FASTA' >/dev/null",
+          "micromamba list -p /opt/conda | grep -E 'minimap2[[:space:]]+2\\.30' >/dev/null && micromamba list -p /opt/conda | grep -E 'mummer4[[:space:]]+4\\.0\\.1' >/dev/null && micromamba list -p /opt/conda | grep -E 'blast[[:space:]]+2\\.16\\.0' >/dev/null && micromamba list -p /opt/conda | grep -E 'tidk[[:space:]]+0\\.2\\.65' >/dev/null && micromamba list -p /opt/conda | grep -E 'r-rideogram[[:space:]]+0\\.2\\.2' >/dev/null && Rscript -e 'library(RIdeogram); library(ggplot2)' >/dev/null",
+          "mkdir -p /tmp/taf-quartet-te && cd /tmp/taf-quartet-te && python3 -c 'seq=\"TTTAGGG\"*200+\"ACGT\"*3000+\"CCCTAAA\"*200; open(\"genome.fa\",\"w\").write(\">chr1\\n\"+seq+\"\\n\")' && quartet TeloExplorer -i genome.fa -c plant -m 10 -p smoke --noplot >smoke.log 2>&1 && test -s smoke.telo.info && grep -F 'chr1' smoke.telo.info >/dev/null",
+          "mkdir -p /tmp/taf-quartet-am && cd /tmp/taf-quartet-am && python3 -c 'seq=(\"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\"*20); open(\"ref.fa\",\"w\").write(\">chr1\\n\"+seq+\"\\n\"); open(\"ctg.fa\",\"w\").write(\">ctg1\\n\"+seq+\"\\n\")' && quartet AssemblyMapper -r ref.fa -q ctg.fa --nofilter -c 10 -l 50 -i 80 -p smoke -t 1 --noplot --teclade plant --teminrepeattimes 2 >smoke.log 2>&1 && test -s smoke.draftgenome.fasta && test -s smoke.draftgenome.agp && test -s smoke.contig.mapinfo && grep -F '>chr1' smoke.draftgenome.fasta >/dev/null",
+          "mkdir -p /tmp/taf-quartet-gf && cd /tmp/taf-quartet-gf && python3 -c 'import random; random.seed(7); dna=\"ACGT\"; left=\"\".join(random.choice(dna) for _ in range(1200)); fill=\"\".join(random.choice(dna) for _ in range(120)); right=\"\".join(random.choice(dna) for _ in range(1200)); open(\"draft.fa\",\"w\").write(\">chr1\\n\"+left+\"N\"*100+right+\"\\n\"); open(\"closer.fa\",\"w\").write(\">read1\\n\"+left+fill+right+\"\\n\")' && quartet GapFiller -d draft.fa -g closer.fa -f 800 -l 200 -i 80 -m 1000 -p smoke -t 1 --noplot >smoke.log 2>&1 && test -s smoke.genome.filled.fasta && test -s smoke.genome.filled.modified.agp && test -s smoke.genome.filled.detail && grep -F 'Closed' smoke.genome.filled.detail >/dev/null",
+          "mkdir -p /tmp/taf-quartet-cm && cd /tmp/taf-quartet-cm && python3 -c 'seq=\"ACGTAC\"*100; open(\"genome.fa\",\"w\").write(\">chr1\\n\"+seq+\"\\n\")' && quartet CentroMiner -i genome.fa -n 2 -m 20 -l 20 -g 20 -t 1 -p smoke --trf 2 7 7 80 10 20 --noplot >smoke.log 2>&1 && test -d TandemRepeat && test -d Candidates && test -s TandemRepeat/smoke.chr1.tr.fasta",
+          "mkdir -p /tmp/taf-quartet-mummer && cd /tmp/taf-quartet-mummer && python3 -c 'seq=(\"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\"*20); open(\"ref.fa\",\"w\").write(\">chr1\\n\"+seq+\"\\n\"); open(\"qry.fa\",\"w\").write(\">qry1\\n\"+seq+\"\\n\")' && nucmer -p smoke ref.fa qry.fa >/tmp/taf-quartet-mummer.log 2>&1 && delta-filter -m -q smoke.delta > smoke.filter.delta && show-coords -T -H smoke.filter.delta > smoke.coords && test -s smoke.coords"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T11:41:29Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T11:41:29Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/quartet",
+        "ref": "v1.2.5-r1",
+        "commit": "a80e33f877529c46666a60ba0d5510ef13eb9131",
+        "html_url": "https://github.com/taffish/quartet/tree/v1.2.5-r1"
+      },
+      "upstream": {
+        "name": "quarTeT",
+        "type": "github",
+        "homepage": "https://github.com/aaranyue/quarTeT",
+        "repository": "aaranyue/quarTeT",
+        "release_url": "https://github.com/aaranyue/quarTeT/releases/tag/v1.2.5",
+        "version": "1.2.5",
+        "license": "NOASSERTION",
+        "citation": "Lin et al. 2023, Horticulture Research",
+        "doi": "10.1093/hr/uhad127",
+        "pmid": "37560017"
+      }
+    }
+  }
+}
