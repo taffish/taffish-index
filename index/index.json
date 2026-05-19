@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T16:18:57Z",
+  "generated_at": "2026-05-19T16:27:53Z",
   "organization": "taffish",
   "counts": {
-    "packages": 68,
-    "versions": 99,
-    "commands": 68,
-    "repositories": 68,
+    "packages": 69,
+    "versions": 100,
+    "commands": 69,
+    "repositories": 69,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -345,6 +345,141 @@
             "citation": "Barnett et al. 2011",
             "doi": "10.1093/bioinformatics/btr174",
             "pmid": "21493652"
+          }
+        }
+      }
+    },
+    "bandage-ng": {
+      "name": "bandage-ng",
+      "latest": "2026.4.1-r1",
+      "repository_url": "https://github.com/taffish/bandage-ng",
+      "command": {
+        "name": "taf-bandage-ng"
+      },
+      "versions": {
+        "2026.4.1-r1": {
+          "name": "bandage-ng",
+          "kind": "tool",
+          "version": "2026.4.1",
+          "release": 1,
+          "version_id": "2026.4.1-r1",
+          "tag": "v2026.4.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bandage-ng",
+          "repository_slug": "taffish/bandage-ng",
+          "command": {
+            "name": "taf-bandage-ng"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "assembly",
+              "assembly-graph",
+              "visualization",
+              "viewer"
+            ],
+            "keywords": [
+              "bandage-ng",
+              "bandageng",
+              "bandage",
+              "gfa",
+              "fastg",
+              "assembly-graph",
+              "spades",
+              "megahit",
+              "novnc",
+              "vnc"
+            ],
+            "summary": "BandageNG 2026.4.1 for interactive de novo assembly graph visualization through a browser-accessible noVNC session, with headless graph CLI commands included.",
+            "description": "BandageNG 2026.4.1 for interactive de novo assembly graph visualization through a browser-accessible noVNC session, with headless graph CLI commands included."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bandage-ng:2026.4.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2026.4.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:a7e1d3f87bbec88108bdd701058069c00ef31c7303812b70ea0d8588c9392ff5",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:67ca3d8b61c48649720714491013c44d1208a8b18ce01c544a2aa4a7b5717a16"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "BandageNG",
+              "bandage-ng",
+              "bandage-ng-gui",
+              "Xvfb",
+              "x11vnc",
+              "websockify",
+              "openbox",
+              "makeblastdb",
+              "blastn",
+              "tblastn",
+              "minimap2",
+              "nhmmer",
+              "hmmsearch",
+              "curl",
+              "sh"
+            ],
+            "test": [
+              "BandageNG --version | grep -Fx '2026.4.1' >/dev/null && bandage-ng --version | grep -Fx 'BandageNG 2026.4.1' >/dev/null",
+              "BandageNG --help | grep -F 'BandageNG' >/dev/null && BandageNG info --help | grep -F 'Display information about a graph' >/dev/null && bandage-ng --help | grep -F 'direct launcher for BandageNG 2026.4.1' >/dev/null && bandage-ng-gui --help | grep -F 'browser-accessible noVNC session' >/dev/null",
+              "bandage-ng 2>&1 | grep -F 'no X DISPLAY is available' >/dev/null",
+              "makeblastdb -version 2>&1 | grep -F 'makeblastdb' >/dev/null && blastn -version 2>&1 | grep -F 'blastn' >/dev/null && tblastn -version 2>&1 | grep -F 'tblastn' >/dev/null && minimap2 --version >/dev/null && nhmmer -h 2>&1 | grep -F 'HMMER' >/dev/null && hmmsearch -h 2>&1 | grep -F 'HMMER' >/dev/null",
+              "mkdir -p /tmp/taf-bandage-ng-smoke && cd /tmp/taf-bandage-ng-smoke && printf 'H\\tVN:Z:1.0\\nS\\t1\\tACGTACGT\\nS\\t2\\tTTTT\\nL\\t1\\t+\\t2\\t+\\t0M\\n' > tiny.gfa && bandage-ng info tiny.gfa | grep -F 'Node count:' >/dev/null && bandage-ng image tiny.gfa tiny.svg >/tmp/taf-bandage-ng-image.log 2>&1 && test -s tiny.svg && grep -F '<svg' tiny.svg >/dev/null",
+              "bandage-ng-gui --help >/dev/null && (bandage-ng-gui --geometry 800x600 >/tmp/taf-bandage-ng-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-bandage-ng-gui.log >/dev/null && grep -F 'BandageNG GUI is starting.' /tmp/taf-bandage-ng-gui.log >/dev/null)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T16:27:53Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T16:27:53Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bandage-ng",
+            "ref": "v2026.4.1-r1",
+            "commit": "fd0279de138eae4c3cadf94bb38c275c5ee61ee8",
+            "html_url": "https://github.com/taffish/bandage-ng/tree/v2026.4.1-r1"
+          },
+          "upstream": {
+            "name": "BandageNG",
+            "type": "github",
+            "homepage": "https://github.com/asl/BandageNG/wiki",
+            "repository": "asl/BandageNG",
+            "release_url": "https://github.com/asl/BandageNG/releases/tag/v2026.4.1",
+            "version": "2026.4.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "BandageNG is a modern fork of Bandage for interactive visualization of de novo assembly graphs. BandageNG upstream currently lists citation as TBD; for the original Bandage publication see Wick et al. 2015, Bioinformatics.",
+            "doi": "10.1093/bioinformatics/btv383",
+            "pmid": "26099265"
           }
         }
       }
@@ -12854,6 +12989,10 @@
       "package": "bamtools",
       "version": "2.5.3-r1"
     },
+    "taf-bandage-ng": {
+      "package": "bandage-ng",
+      "version": "2026.4.1-r1"
+    },
     "taf-bcftools": {
       "package": "bcftools",
       "version": "1.23.1-r1"
@@ -13132,6 +13271,12 @@
       "repository": "taffish/bamtools",
       "packages": [
         "bamtools"
+      ]
+    },
+    "taffish/bandage-ng": {
+      "repository": "taffish/bandage-ng",
+      "packages": [
+        "bandage-ng"
       ]
     },
     "taffish/bcftools": {
