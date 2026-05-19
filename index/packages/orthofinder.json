@@ -1,0 +1,161 @@
+{
+  "name": "orthofinder",
+  "latest": "3.1.5-r1",
+  "repository_url": "https://github.com/taffish/orthofinder",
+  "command": {
+    "name": "taf-orthofinder"
+  },
+  "versions": {
+    "3.1.5-r1": {
+      "name": "orthofinder",
+      "kind": "tool",
+      "version": "3.1.5",
+      "release": 1,
+      "version_id": "3.1.5-r1",
+      "tag": "v3.1.5-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/orthofinder",
+      "repository_slug": "taffish/orthofinder",
+      "command": {
+        "name": "taf-orthofinder"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "orthology",
+        "categories": [
+          "orthology",
+          "comparative-genomics",
+          "phylogenomics",
+          "gene-tree",
+          "orthogroup"
+        ],
+        "keywords": [
+          "orthofinder",
+          "orthology",
+          "orthogroups",
+          "orthologues",
+          "gene-tree",
+          "species-tree",
+          "comparative-genomics",
+          "phylogenomics",
+          "diamond",
+          "famsa",
+          "muscle",
+          "fasttree",
+          "mcl"
+        ],
+        "summary": "Phylogenetic orthology inference for comparative genomics, including orthogroups, gene trees, species trees, gene duplications, orthologues, and comparative genomics statistics.",
+        "description": "Phylogenetic orthology inference for comparative genomics, including orthogroups, gene trees, species trees, gene duplications, orthologues, and comparative genomics statistics."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/orthofinder:3.1.5-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.1.5-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:b10d3daf8e5b03e92196a9194fa6946b9838b877a1585717e5da821cdf663474",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:8f6aba9b385c2336fd7b924e2ae6a497aa3ace382e4962abb7d86f3feece85ef",
+          "linux/arm64": "sha256:3ef8a79aa32dbeaa53375c4598e90eef3fc2bb6f2200c4278bacee12dadb99ad"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "orthofinder",
+          "orthofinder-utils",
+          "primary_transcript",
+          "make_ultrametric",
+          "convert_orthofinder_tree_ids",
+          "create_hog_fastas",
+          "ncbi_primary_transcript",
+          "orthogroup_gene_count",
+          "python",
+          "diamond",
+          "famsa",
+          "muscle",
+          "FastTree",
+          "mcl",
+          "fastme",
+          "astral-pro",
+          "mafft",
+          "makeblastdb",
+          "blastp",
+          "blastn",
+          "mmseqs",
+          "raxmlHPC",
+          "gzip",
+          "tar",
+          "unzip",
+          "bash",
+          "sh"
+        ],
+        "test": [
+          "orthofinder --version 2>&1 | python -c 'import re, sys; text = re.sub(chr(27) + r\"\\[[0-9;]*m\", \"\", sys.stdin.read()); assert \"OrthoFinder:v3.1.5\" in text, text'",
+          "orthofinder --help 2>&1 | grep -F 'SIMPLE USAGE:' >/dev/null && orthofinder --help 2>&1 | grep -F 'orthofinder [options] -f <dir>' >/dev/null",
+          "python -c 'import orthofinder; print(orthofinder.__version__)' | grep -Fx '3.1.5' >/dev/null",
+          "diamond version | grep -Fx 'diamond version 2.1.25' >/dev/null",
+          "famsa -help 2>&1 | grep -F 'version 2.5.2-' >/dev/null",
+          "muscle -version 2>&1 | sed -n '1p' | grep -Fx 'muscle 5.3.linux64 [v5.3-taffish-r1]' >/dev/null",
+          "fastme --version | grep -Fx 'FastME 2.1.6.3' >/dev/null",
+          "astral-pro -h 2>&1 | grep -F 'Version: v1.25.3.8' >/dev/null",
+          "FastTree 2>&1 | grep -F 'FastTree Version 2.1.11' >/dev/null && mcl -h >/dev/null && makeblastdb -help >/dev/null && mmseqs version >/dev/null",
+          "orthofinder-utils --help 2>&1 | grep -F 'OrthoFinder utility scripts' >/dev/null && primary_transcript --help 2>&1 | grep -F 'Create primary transcript FASTA files' >/dev/null",
+          "mkdir -p /tmp/taf-orthofinder-primary && cd /tmp/taf-orthofinder-primary && printf '>gene1.t1\\nMAAA\\n>gene1.t2\\nMAAAAA\\n>gene2.t1\\nMCC\\n' > transcripts.fa && primary_transcript transcripts.fa last_dot >/tmp/taf-orthofinder-primary.log 2>&1 && test -s primary_transcripts/transcripts.fa && grep -F '>gene1.t2' primary_transcripts/transcripts.fa >/dev/null && grep -F '>gene2.t1' primary_transcripts/transcripts.fa >/dev/null",
+          "mkdir -p /tmp/taf-orthofinder-diamond && cd /tmp/taf-orthofinder-diamond && printf '>a\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>b\\nGILGFVFTLTVPSERKELKQLLQK\\n' > proteins.fa && diamond makedb --in proteins.fa -d proteins >/tmp/taf-orthofinder-diamond-makedb.log 2>&1 && diamond blastp -d proteins -q proteins.fa -o hits.tsv --quiet --max-target-seqs 1 -p 1 >/tmp/taf-orthofinder-diamond-search.log 2>&1 && test -s hits.tsv && grep -F 'a' hits.tsv >/dev/null",
+          "mkdir -p /tmp/taf-orthofinder-backends && cd /tmp/taf-orthofinder-backends && printf '>a\\nMKTAYIAK\\n>b\\nMKTAYIG\\n' > aln.fa && famsa aln.fa famsa.fa -t 1 >/tmp/taf-orthofinder-famsa.log 2>&1 && test -s famsa.fa && muscle -align aln.fa -output muscle.fa >/tmp/taf-orthofinder-muscle.log 2>&1 && test -s muscle.fa && FastTree famsa.fa > tree.nwk 2>/tmp/taf-orthofinder-fasttree.log && test -s tree.nwk && printf '4\\nA 0 0.1 0.2 0.3\\nB 0.1 0 0.2 0.3\\nC 0.2 0.2 0 0.1\\nD 0.3 0.3 0.1 0\\n' > dist.phy && fastme -i dist.phy -o fastme.nwk >/tmp/taf-orthofinder-fastme.log 2>&1 && test -s fastme.nwk",
+          "mkdir -p /tmp/taf-orthofinder-run && cd /tmp/taf-orthofinder-run && cp -r /usr/local/share/doc/orthofinder/tests/data/proteome/Core proteomes && orthofinder -f proteomes -t 1 -a 1 -o results >/tmp/taf-orthofinder-run.log 2>&1 && test -s results/Results_*/Orthogroups/Orthogroups.tsv && test -s results/Results_*/Species_Tree/SpeciesTree_rooted.txt && grep -F 'BIG_A_1' results/Results_*/Orthogroups/Orthogroups.tsv >/dev/null",
+          "mkdir -p /tmp/taf-orthofinder-dendroblast && cd /tmp/taf-orthofinder-dendroblast && cp -r /usr/local/share/doc/orthofinder/tests/data/proteome/Core proteomes && orthofinder -f proteomes -M dendroblast -t 1 -a 1 -o results >/tmp/taf-orthofinder-dendroblast.log 2>&1 && test -s results/Results_*/Orthogroups/Orthogroups.tsv && test -s results/Results_*/Species_Tree/SpeciesTree_rooted.txt",
+          "mkdir -p /tmp/taf-orthofinder-muscle-run && cd /tmp/taf-orthofinder-muscle-run && cp -r /usr/local/share/doc/orthofinder/tests/data/proteome/Core proteomes && orthofinder -f proteomes -M msa -A muscle -T fasttree -t 1 -a 1 -o results >/tmp/taf-orthofinder-muscle-run.log 2>&1 && test -s results/Results_*/Orthogroups/Orthogroups.tsv && test -s results/Results_*/Species_Tree/SpeciesTree_rooted.txt"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T06:28:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T06:28:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/orthofinder",
+        "ref": "v3.1.5-r1",
+        "commit": "cd3ebd9aedf5f98251dadc4ed557f10d8e8cc351",
+        "html_url": "https://github.com/taffish/orthofinder/tree/v3.1.5-r1"
+      },
+      "upstream": {
+        "name": "OrthoFinder",
+        "type": "github",
+        "homepage": "https://orthofinder.github.io/OrthoFinder/",
+        "repository": "OrthoFinder/OrthoFinder",
+        "release_url": "https://github.com/OrthoFinder/OrthoFinder/releases/tag/v3.1.5",
+        "version": "3.1.5",
+        "license": "GPL-3.0",
+        "citation": "Emms and Kelly 2015; Emms and Kelly 2017; Emms and Kelly 2019; Emms and Kelly 2022; Emms et al. 2025",
+        "doi": "10.1186/s13059-015-0721-2; 10.1093/molbev/msx259; 10.1186/s13059-019-1832-y; 10.1186/s13059-022-02652-8; 10.1101/2025.07.15.664860"
+      }
+    }
+  }
+}
