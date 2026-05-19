@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T11:41:29Z",
+  "generated_at": "2026-05-19T12:41:11Z",
   "organization": "taffish",
   "counts": {
-    "packages": 57,
-    "versions": 87,
-    "commands": 57,
-    "repositories": 57,
+    "packages": 59,
+    "versions": 89,
+    "commands": 59,
+    "repositories": 59,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -6983,6 +6983,143 @@
         }
       }
     },
+    "igv": {
+      "name": "igv",
+      "latest": "2.19.7-r1",
+      "repository_url": "https://github.com/taffish/igv",
+      "command": {
+        "name": "taf-igv"
+      },
+      "versions": {
+        "2.19.7-r1": {
+          "name": "igv",
+          "kind": "tool",
+          "version": "2.19.7",
+          "release": 1,
+          "version_id": "2.19.7-r1",
+          "tag": "v2.19.7-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/igv",
+          "repository_slug": "taffish/igv",
+          "command": {
+            "name": "taf-igv"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "genome-browser",
+              "variant-review",
+              "visualization",
+              "viewer"
+            ],
+            "keywords": [
+              "igv",
+              "integrative-genomics-viewer",
+              "genome-browser",
+              "bam",
+              "cram",
+              "vcf",
+              "bed",
+              "gff",
+              "bigwig",
+              "novnc",
+              "vnc"
+            ],
+            "summary": "IGV Desktop 2.19.7 for interactive genome browsing and variant review through a browser-accessible noVNC session, with IGVTools utilities included.",
+            "description": "IGV Desktop 2.19.7 for interactive genome browsing and variant review through a browser-accessible noVNC session, with IGVTools utilities included."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/igv:2.19.7-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.19.7-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:70647e676db46696ab31be7778b8248f6ea4515008aa9edb80a52355bcb7f2ee",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2ab6a2da98c9fe1a48e9a3083b14a6c76fd5cb41ad3e67010d2ffafdd8878a0e",
+              "linux/arm64": "sha256:a25e790eee3ac133fe70e51c3474259b42a4c4da72cdfd48db378691e8ca66d0"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "igv",
+              "igv-gui",
+              "igvtools",
+              "igvtools_gui",
+              "igvtools_gui_hidpi",
+              "java",
+              "Xvfb",
+              "xvfb-run",
+              "x11vnc",
+              "websockify",
+              "openbox",
+              "curl",
+              "unzip",
+              "sh"
+            ],
+            "test": [
+              "igv --version | grep -Fx 'IGV 2.19.7' >/dev/null && java -version 2>&1 | grep -F '21.' >/dev/null && test -s /opt/igv/lib/igv.jar",
+              "igv --help | grep -F 'direct Java launcher for IGV 2.19.7' >/dev/null && igv-gui --help | grep -F 'browser-accessible noVNC session' >/dev/null",
+              "igv 2>&1 | grep -F 'no X DISPLAY is available' >/dev/null",
+              "igvtools version | grep -F 'IGV Version 2.19.7' >/dev/null && igvtools 2>&1 | grep -F 'Usage: igvtools' >/dev/null && igvtools help sort 2>&1 | grep -F 'igvtools  sort' >/dev/null",
+              "mkdir -p /tmp/taf-igv-smoke && cd /tmp/taf-igv-smoke && printf 'chr1\\t10\\t20\\tb\\nchr1\\t1\\t5\\ta\\n' > unsorted.bed && igvtools sort unsorted.bed sorted.bed >/tmp/taf-igvtools-sort.log 2>&1 && printf 'chr1\\t1\\t5\\ta\\nchr1\\t10\\t20\\tb\\n' > expected.bed && cmp expected.bed sorted.bed",
+              "igv-gui --help >/dev/null && (IGV_JAVA_XMX=1024m igv-gui --geometry 800x600 >/tmp/taf-igv-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-igv-gui.log >/dev/null && grep -F 'IGV GUI is starting.' /tmp/taf-igv-gui.log >/dev/null)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T12:41:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T12:41:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/igv",
+            "ref": "v2.19.7-r1",
+            "commit": "fdb00c6001865a485e27ac6151623fdc38f721dc",
+            "html_url": "https://github.com/taffish/igv/tree/v2.19.7-r1"
+          },
+          "upstream": {
+            "name": "Integrative Genomics Viewer",
+            "type": "github",
+            "homepage": "https://igv.org/doc/desktop/",
+            "repository": "igvteam/igv",
+            "release_url": "https://github.com/igvteam/igv/tree/v2.19.7",
+            "version": "2.19.7",
+            "license": "MIT",
+            "citation": "Thorvaldsdottir, Robinson, and Mesirov. 2013. Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration.",
+            "doi": "10.1093/bib/bbs017",
+            "pmid": "22517427"
+          }
+        }
+      }
+    },
     "jellyfish": {
       "name": "jellyfish",
       "latest": "2.3.1-r1",
@@ -11280,6 +11417,128 @@
           }
         }
       }
+    },
+    "trf": {
+      "name": "trf",
+      "latest": "4.09.1-r1",
+      "repository_url": "https://github.com/taffish/trf",
+      "command": {
+        "name": "taf-trf"
+      },
+      "versions": {
+        "4.09.1-r1": {
+          "name": "trf",
+          "kind": "tool",
+          "version": "4.09.1",
+          "release": 1,
+          "version_id": "4.09.1-r1",
+          "tag": "v4.09.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trf",
+          "repository_slug": "taffish/trf",
+          "command": {
+            "name": "taf-trf"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "tandem-repeat",
+            "categories": [
+              "tandem-repeat",
+              "repeat-annotation",
+              "fasta",
+              "genome-analysis"
+            ],
+            "keywords": [
+              "trf",
+              "tandem repeats finder",
+              "tandem repeat",
+              "microsatellite",
+              "minisatellite",
+              "fasta",
+              "ngs",
+              "mask",
+              "dat",
+              "html"
+            ],
+            "summary": "Tandem Repeats Finder command-line tool for detecting tandem repeats in FASTA sequences.",
+            "description": "Tandem Repeats Finder command-line tool for detecting tandem repeats in FASTA sequences."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trf:4.09.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.09.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6f95d8142b7b29a597398d5a67278e98fef1149d51c3f7c1d2f86cadd4e5c269",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a426952ee5dd6012d7de9d6853db638b9ddd4f93175b1251d0df1f0118548214",
+              "linux/arm64": "sha256:87706ed942d0efa0eb2c69f47b2afb30fa4744c4e1054496d3520466c98b05b9"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "trf",
+              "ldd",
+              "sh"
+            ],
+            "test": [
+              "trf -v 2>&1 | grep -F 'Tandem Repeats Finder, Version 4.09' >/dev/null && { trf 2>&1 || true; } | grep -F 'Please use:' >/dev/null && ldd $(command -v trf) | grep -F libc >/dev/null",
+              "mkdir -p /tmp/taf-trf-ngs && cd /tmp/taf-trf-ngs && printf '>chr1\\nACACACACACACACACACACACACACACACACACACACAC\\n>chr2\\nTTTAGGGTTTAGGGTTTAGGGTTTAGGGTTTAGGG\\n' > tiny.fa && trf tiny.fa 2 7 7 80 10 20 20 -ngs > repeats.dat && grep -F '@chr1' repeats.dat >/dev/null && grep -F '@chr2' repeats.dat >/dev/null && grep -F 'TTTAGGG' repeats.dat >/dev/null",
+              "mkdir -p /tmp/taf-trf-files && cd /tmp/taf-trf-files && printf '>chr1\\nACACACACACACACACACACACACACACACACACACACAC\\n>chr2\\nTTTAGGGTTTAGGGTTTAGGGTTTAGGGTTTAGGG\\n' > tiny.fa && { trf tiny.fa 2 7 7 80 10 20 20 -d -m -h > run.out 2>run.err || true; } && test -s tiny.fa.2.7.7.80.10.20.20.dat && test -s tiny.fa.2.7.7.80.10.20.20.mask && grep -F 'Sequence: chr1' tiny.fa.2.7.7.80.10.20.20.dat >/dev/null && grep -F 'NNNN' tiny.fa.2.7.7.80.10.20.20.mask >/dev/null",
+              "mkdir -p /tmp/taf-trf-html && cd /tmp/taf-trf-html && printf '>chr1\\nACACACACACACACACACACACACACACACACACACACAC\\n>chr2\\nTTTAGGGTTTAGGGTTTAGGGTTTAGGGTTTAGGG\\n' > tiny.fa && { trf tiny.fa 2 7 7 80 10 20 20 > run.out 2>run.err || true; } && test -s tiny.fa.2.7.7.80.10.20.20.summary.html && test -s tiny.fa.s1.2.7.7.80.10.20.20.1.html && grep -F 'Tandem Repeats Finder' tiny.fa.2.7.7.80.10.20.20.summary.html >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T12:41:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T12:41:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trf",
+            "ref": "v4.09.1-r1",
+            "commit": "6735cd59e4c10c1d978dc22b3de86e7b8e70a188",
+            "html_url": "https://github.com/taffish/trf/tree/v4.09.1-r1"
+          },
+          "upstream": {
+            "name": "Tandem Repeats Finder",
+            "type": "github",
+            "homepage": "https://tandem.bu.edu/trf/trf.html",
+            "repository": "Benson-Genomics-Lab/TRF",
+            "release_url": "https://github.com/Benson-Genomics-Lab/TRF/releases/tag/v4.09.1",
+            "version": "4.09.1",
+            "license": "AGPL-3.0-or-later",
+            "citation": "Benson 1999, Nucleic Acids Research",
+            "doi": "10.1093/nar/27.2.573",
+            "pmid": "9862982"
+          }
+        }
+      }
     }
   },
   "commands": {
@@ -11423,6 +11682,10 @@
       "package": "hmmer",
       "version": "3.4-r2"
     },
+    "taf-igv": {
+      "package": "igv",
+      "version": "2.19.7-r1"
+    },
     "taf-jellyfish": {
       "package": "jellyfish",
       "version": "2.3.1-r1"
@@ -11510,6 +11773,10 @@
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
+    },
+    "taf-trf": {
+      "package": "trf",
+      "version": "4.09.1-r1"
     }
   },
   "repositories": {
@@ -11723,6 +11990,12 @@
         "hmmer"
       ]
     },
+    "taffish/igv": {
+      "repository": "taffish/igv",
+      "packages": [
+        "igv"
+      ]
+    },
     "taffish/jellyfish": {
       "repository": "taffish/jellyfish",
       "packages": [
@@ -11853,6 +12126,12 @@
       "repository": "taffish/samtools",
       "packages": [
         "samtools"
+      ]
+    },
+    "taffish/trf": {
+      "repository": "taffish/trf",
+      "packages": [
+        "trf"
       ]
     }
   },

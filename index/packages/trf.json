@@ -1,0 +1,122 @@
+{
+  "name": "trf",
+  "latest": "4.09.1-r1",
+  "repository_url": "https://github.com/taffish/trf",
+  "command": {
+    "name": "taf-trf"
+  },
+  "versions": {
+    "4.09.1-r1": {
+      "name": "trf",
+      "kind": "tool",
+      "version": "4.09.1",
+      "release": 1,
+      "version_id": "4.09.1-r1",
+      "tag": "v4.09.1-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/trf",
+      "repository_slug": "taffish/trf",
+      "command": {
+        "name": "taf-trf"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "tandem-repeat",
+        "categories": [
+          "tandem-repeat",
+          "repeat-annotation",
+          "fasta",
+          "genome-analysis"
+        ],
+        "keywords": [
+          "trf",
+          "tandem repeats finder",
+          "tandem repeat",
+          "microsatellite",
+          "minisatellite",
+          "fasta",
+          "ngs",
+          "mask",
+          "dat",
+          "html"
+        ],
+        "summary": "Tandem Repeats Finder command-line tool for detecting tandem repeats in FASTA sequences.",
+        "description": "Tandem Repeats Finder command-line tool for detecting tandem repeats in FASTA sequences."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/trf:4.09.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.09.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6f95d8142b7b29a597398d5a67278e98fef1149d51c3f7c1d2f86cadd4e5c269",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a426952ee5dd6012d7de9d6853db638b9ddd4f93175b1251d0df1f0118548214",
+          "linux/arm64": "sha256:87706ed942d0efa0eb2c69f47b2afb30fa4744c4e1054496d3520466c98b05b9"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "trf",
+          "ldd",
+          "sh"
+        ],
+        "test": [
+          "trf -v 2>&1 | grep -F 'Tandem Repeats Finder, Version 4.09' >/dev/null && { trf 2>&1 || true; } | grep -F 'Please use:' >/dev/null && ldd $(command -v trf) | grep -F libc >/dev/null",
+          "mkdir -p /tmp/taf-trf-ngs && cd /tmp/taf-trf-ngs && printf '>chr1\\nACACACACACACACACACACACACACACACACACACACAC\\n>chr2\\nTTTAGGGTTTAGGGTTTAGGGTTTAGGGTTTAGGG\\n' > tiny.fa && trf tiny.fa 2 7 7 80 10 20 20 -ngs > repeats.dat && grep -F '@chr1' repeats.dat >/dev/null && grep -F '@chr2' repeats.dat >/dev/null && grep -F 'TTTAGGG' repeats.dat >/dev/null",
+          "mkdir -p /tmp/taf-trf-files && cd /tmp/taf-trf-files && printf '>chr1\\nACACACACACACACACACACACACACACACACACACACAC\\n>chr2\\nTTTAGGGTTTAGGGTTTAGGGTTTAGGGTTTAGGG\\n' > tiny.fa && { trf tiny.fa 2 7 7 80 10 20 20 -d -m -h > run.out 2>run.err || true; } && test -s tiny.fa.2.7.7.80.10.20.20.dat && test -s tiny.fa.2.7.7.80.10.20.20.mask && grep -F 'Sequence: chr1' tiny.fa.2.7.7.80.10.20.20.dat >/dev/null && grep -F 'NNNN' tiny.fa.2.7.7.80.10.20.20.mask >/dev/null",
+          "mkdir -p /tmp/taf-trf-html && cd /tmp/taf-trf-html && printf '>chr1\\nACACACACACACACACACACACACACACACACACACACAC\\n>chr2\\nTTTAGGGTTTAGGGTTTAGGGTTTAGGGTTTAGGG\\n' > tiny.fa && { trf tiny.fa 2 7 7 80 10 20 20 > run.out 2>run.err || true; } && test -s tiny.fa.2.7.7.80.10.20.20.summary.html && test -s tiny.fa.s1.2.7.7.80.10.20.20.1.html && grep -F 'Tandem Repeats Finder' tiny.fa.2.7.7.80.10.20.20.summary.html >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T12:41:11Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T12:41:11Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/trf",
+        "ref": "v4.09.1-r1",
+        "commit": "6735cd59e4c10c1d978dc22b3de86e7b8e70a188",
+        "html_url": "https://github.com/taffish/trf/tree/v4.09.1-r1"
+      },
+      "upstream": {
+        "name": "Tandem Repeats Finder",
+        "type": "github",
+        "homepage": "https://tandem.bu.edu/trf/trf.html",
+        "repository": "Benson-Genomics-Lab/TRF",
+        "release_url": "https://github.com/Benson-Genomics-Lab/TRF/releases/tag/v4.09.1",
+        "version": "4.09.1",
+        "license": "AGPL-3.0-or-later",
+        "citation": "Benson 1999, Nucleic Acids Research",
+        "doi": "10.1093/nar/27.2.573",
+        "pmid": "9862982"
+      }
+    }
+  }
+}

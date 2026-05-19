@@ -1,0 +1,137 @@
+{
+  "name": "igv",
+  "latest": "2.19.7-r1",
+  "repository_url": "https://github.com/taffish/igv",
+  "command": {
+    "name": "taf-igv"
+  },
+  "versions": {
+    "2.19.7-r1": {
+      "name": "igv",
+      "kind": "tool",
+      "version": "2.19.7",
+      "release": 1,
+      "version_id": "2.19.7-r1",
+      "tag": "v2.19.7-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/igv",
+      "repository_slug": "taffish/igv",
+      "command": {
+        "name": "taf-igv"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "genome-browser",
+          "variant-review",
+          "visualization",
+          "viewer"
+        ],
+        "keywords": [
+          "igv",
+          "integrative-genomics-viewer",
+          "genome-browser",
+          "bam",
+          "cram",
+          "vcf",
+          "bed",
+          "gff",
+          "bigwig",
+          "novnc",
+          "vnc"
+        ],
+        "summary": "IGV Desktop 2.19.7 for interactive genome browsing and variant review through a browser-accessible noVNC session, with IGVTools utilities included.",
+        "description": "IGV Desktop 2.19.7 for interactive genome browsing and variant review through a browser-accessible noVNC session, with IGVTools utilities included."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/igv:2.19.7-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.19.7-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:70647e676db46696ab31be7778b8248f6ea4515008aa9edb80a52355bcb7f2ee",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:2ab6a2da98c9fe1a48e9a3083b14a6c76fd5cb41ad3e67010d2ffafdd8878a0e",
+          "linux/arm64": "sha256:a25e790eee3ac133fe70e51c3474259b42a4c4da72cdfd48db378691e8ca66d0"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "igv",
+          "igv-gui",
+          "igvtools",
+          "igvtools_gui",
+          "igvtools_gui_hidpi",
+          "java",
+          "Xvfb",
+          "xvfb-run",
+          "x11vnc",
+          "websockify",
+          "openbox",
+          "curl",
+          "unzip",
+          "sh"
+        ],
+        "test": [
+          "igv --version | grep -Fx 'IGV 2.19.7' >/dev/null && java -version 2>&1 | grep -F '21.' >/dev/null && test -s /opt/igv/lib/igv.jar",
+          "igv --help | grep -F 'direct Java launcher for IGV 2.19.7' >/dev/null && igv-gui --help | grep -F 'browser-accessible noVNC session' >/dev/null",
+          "igv 2>&1 | grep -F 'no X DISPLAY is available' >/dev/null",
+          "igvtools version | grep -F 'IGV Version 2.19.7' >/dev/null && igvtools 2>&1 | grep -F 'Usage: igvtools' >/dev/null && igvtools help sort 2>&1 | grep -F 'igvtools  sort' >/dev/null",
+          "mkdir -p /tmp/taf-igv-smoke && cd /tmp/taf-igv-smoke && printf 'chr1\\t10\\t20\\tb\\nchr1\\t1\\t5\\ta\\n' > unsorted.bed && igvtools sort unsorted.bed sorted.bed >/tmp/taf-igvtools-sort.log 2>&1 && printf 'chr1\\t1\\t5\\ta\\nchr1\\t10\\t20\\tb\\n' > expected.bed && cmp expected.bed sorted.bed",
+          "igv-gui --help >/dev/null && (IGV_JAVA_XMX=1024m igv-gui --geometry 800x600 >/tmp/taf-igv-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-igv-gui.log >/dev/null && grep -F 'IGV GUI is starting.' /tmp/taf-igv-gui.log >/dev/null)"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T12:41:11Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T12:41:11Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/igv",
+        "ref": "v2.19.7-r1",
+        "commit": "fdb00c6001865a485e27ac6151623fdc38f721dc",
+        "html_url": "https://github.com/taffish/igv/tree/v2.19.7-r1"
+      },
+      "upstream": {
+        "name": "Integrative Genomics Viewer",
+        "type": "github",
+        "homepage": "https://igv.org/doc/desktop/",
+        "repository": "igvteam/igv",
+        "release_url": "https://github.com/igvteam/igv/tree/v2.19.7",
+        "version": "2.19.7",
+        "license": "MIT",
+        "citation": "Thorvaldsdottir, Robinson, and Mesirov. 2013. Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration.",
+        "doi": "10.1093/bib/bbs017",
+        "pmid": "22517427"
+      }
+    }
+  }
+}
