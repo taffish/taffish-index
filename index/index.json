@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T10:28:23Z",
+  "generated_at": "2026-05-19T11:17:28Z",
   "organization": "taffish",
   "counts": {
-    "packages": 54,
-    "versions": 84,
-    "commands": 54,
-    "repositories": 54,
+    "packages": 55,
+    "versions": 85,
+    "commands": 55,
+    "repositories": 55,
     "warnings": 0,
     "failed": 1,
     "rejected": 1
@@ -7110,6 +7110,137 @@
         }
       }
     },
+    "juicebox": {
+      "name": "juicebox",
+      "latest": "3.1.4-r1",
+      "repository_url": "https://github.com/taffish/juicebox",
+      "command": {
+        "name": "taf-juicebox"
+      },
+      "versions": {
+        "3.1.4-r1": {
+          "name": "juicebox",
+          "kind": "tool",
+          "version": "3.1.4",
+          "release": 1,
+          "version_id": "3.1.4-r1",
+          "tag": "v3.1.4-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/juicebox",
+          "repository_slug": "taffish/juicebox",
+          "command": {
+            "name": "taf-juicebox"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "hic",
+            "categories": [
+              "hic",
+              "chromatin-conformation",
+              "contact-map",
+              "3d-genome",
+              "genomics",
+              "viewer"
+            ],
+            "keywords": [
+              "juicebox",
+              "juicebox-gui",
+              "hic",
+              "contact-map",
+              "3d-genome",
+              "visualization",
+              "assembly",
+              "vnc",
+              "novnc"
+            ],
+            "summary": "Juicebox GUI 3.1.4 for interactive Hi-C contact map and genome assembly visualization through a browser-accessible noVNC session.",
+            "description": "Juicebox GUI 3.1.4 for interactive Hi-C contact map and genome assembly visualization through a browser-accessible noVNC session."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/juicebox:3.1.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.1.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:551c986fbec86d492b6f45d996268cabaf62d7b795c2341ba9e51db229840f12",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:36e63338044d5e6ceb8654b0f24be8136a20e88bf2a4f75b97cab6a982e71d13",
+              "linux/arm64": "sha256:47bc455db14f30724856b48164300d5c09ba797917f9b2c26c1fbdcdc3c0fefc"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "juicebox",
+              "juicebox-gui",
+              "java",
+              "Xvfb",
+              "xvfb-run",
+              "x11vnc",
+              "websockify",
+              "openbox",
+              "curl",
+              "unzip",
+              "sh"
+            ],
+            "test": [
+              "juicebox --version | grep -Fx 'Juicebox GUI 3.1.4' >/dev/null && unzip -p /opt/juicebox/juicebox.jar META-INF/MANIFEST.MF | grep -F 'Main-Class: juicebox.MainWindow' >/dev/null",
+              "juicebox --help | grep -F 'direct Java launcher for Juicebox GUI 3.1.4' >/dev/null && juicebox-gui --help | grep -F 'browser-accessible noVNC session' >/dev/null",
+              "juicebox 2>&1 | grep -F 'no X DISPLAY is available' >/dev/null",
+              "juicebox-gui --help >/dev/null && (JUICEBOX_JAVA_XMX=512m juicebox-gui --geometry 800x600 >/tmp/taf-juicebox-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-juicebox-gui.log >/dev/null && grep -F 'Juicebox GUI is starting.' /tmp/taf-juicebox-gui.log >/dev/null)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T11:17:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T11:17:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/juicebox",
+            "ref": "v3.1.4-r1",
+            "commit": "bf63e40b63dbd0e29c8fb2924f478aaccba20e40",
+            "html_url": "https://github.com/taffish/juicebox/tree/v3.1.4-r1"
+          },
+          "upstream": {
+            "name": "Juicebox GUI",
+            "type": "github",
+            "homepage": "https://aidenlab.org/juicebox/",
+            "repository": "aidenlab/JuiceboxGUI",
+            "release_url": "https://github.com/aidenlab/JuiceboxGUI/releases/tag/v3.1.4",
+            "version": "3.1.4",
+            "license": "MIT",
+            "citation": "Durand et al. 2016, Juicebox Provides a Visualization System for Hi-C Contact Maps with Unlimited Zoom.",
+            "doi": "10.1016/j.cels.2015.07.012",
+            "pmid": "27467250"
+          }
+        }
+      }
+    },
     "juicer": {
       "name": "juicer",
       "latest": "2.20.00-r1",
@@ -11021,6 +11152,10 @@
       "package": "jellyfish",
       "version": "2.3.1-r1"
     },
+    "taf-juicebox": {
+      "package": "juicebox",
+      "version": "3.1.4-r1"
+    },
     "taf-juicer": {
       "package": "juicer",
       "version": "2.20.00-r1"
@@ -11309,6 +11444,12 @@
       "repository": "taffish/jellyfish",
       "packages": [
         "jellyfish"
+      ]
+    },
+    "taffish/juicebox": {
+      "repository": "taffish/juicebox",
+      "packages": [
+        "juicebox"
       ]
     },
     "taffish/juicer": {
