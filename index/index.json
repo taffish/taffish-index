@@ -1,14 +1,14 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-18T18:08:02Z",
+  "generated_at": "2026-05-19T05:13:58Z",
   "organization": "taffish",
   "counts": {
-    "packages": 50,
-    "versions": 61,
-    "commands": 50,
-    "repositories": 50,
+    "packages": 52,
+    "versions": 63,
+    "commands": 52,
+    "repositories": 52,
     "warnings": 0,
-    "failed": 0,
+    "failed": 1,
     "rejected": 1
   },
   "packages": {
@@ -7798,6 +7798,253 @@
         }
       }
     },
+    "pandepth": {
+      "name": "pandepth",
+      "latest": "2.26-r1",
+      "repository_url": "https://github.com/taffish/pandepth",
+      "command": {
+        "name": "taf-pandepth"
+      },
+      "versions": {
+        "2.26-r1": {
+          "name": "pandepth",
+          "kind": "tool",
+          "version": "2.26",
+          "release": 1,
+          "version_id": "2.26-r1",
+          "tag": "v2.26-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/pandepth",
+          "repository_slug": "taffish/pandepth",
+          "command": {
+            "name": "taf-pandepth"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "coverage",
+            "categories": [
+              "coverage",
+              "depth",
+              "alignment",
+              "quality-control"
+            ],
+            "keywords": [
+              "pandepth",
+              "coverage",
+              "depth",
+              "sam",
+              "bam",
+              "cram",
+              "paf",
+              "htslib"
+            ],
+            "summary": "PanDepth ultrafast coverage and depth calculation for SAM/BAM/CRAM/PAF alignments.",
+            "description": "PanDepth ultrafast coverage and depth calculation for SAM/BAM/CRAM/PAF alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/pandepth:2.26-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.26-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f36070c7922bb34fb4ea385c25d8f75077adfaafe8fda4a31d4320b3846a7bdb",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2a08fbdfc9f2caf5d5ed7d5a4fd28dd161553d1d8622945eb39f063b167cad1c",
+              "linux/arm64": "sha256:64f9c7f200e25d7bf77fd67ab5c0bde41bb428229ae453bd3cc0dcb0a66ba54c"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "pandepth",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "pandepth -h 2>&1 | grep -F 'show this help [v2.26]' >/dev/null && pandepth 2>&1 | grep -F 'Usage: pandepth' >/dev/null && ldd $(command -v pandepth) | grep -F 'libhts.so.3' >/dev/null && ldd $(command -v pandepth) | grep -F 'libdeflate.so.0' >/dev/null",
+              "mkdir -p /tmp/taf-pandepth-chr && cd /tmp/taf-pandepth-chr && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && pandepth -i toy.sam -o toy -t 1 -a >/tmp/taf-pandepth-chr.log 2>&1 && test -s toy.chr.stat.gz && test -s toy.SiteDepth.gz && gzip -cd toy.chr.stat.gz | grep -F 'chr1' >/dev/null && gzip -cd toy.chr.stat.gz | grep -F '10.00' >/dev/null",
+              "mkdir -p /tmp/taf-pandepth-targets && cd /tmp/taf-pandepth-targets && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'chr1\\t10\\t20\\n' > toy.bed && pandepth -i toy.sam -b toy.bed -o bed -t 1 >/tmp/taf-pandepth-bed.log 2>&1 && test -s bed.bed.stat.gz && gzip -cd bed.bed.stat.gz | grep -F 'chr1_10_20' >/dev/null && pandepth -i toy.sam -w 25 -o win -t 1 >/tmp/taf-pandepth-win.log 2>&1 && test -s win.win.stat.gz && gzip -cd win.win.stat.gz | grep -F '40.00' >/dev/null",
+              "mkdir -p /tmp/taf-pandepth-gene-gc && cd /tmp/taf-pandepth-gene-gc && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'toy.sam\\n' > input.list && printf 'chr1\\tsmoke\\tCDS\\t11\\t20\\t.\\t+\\t0\\tID=cds1;Parent=gene1\\n' > toy.gff && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && pandepth -i input.list -g toy.gff -o gene -t 1 >/tmp/taf-pandepth-gene.log 2>&1 && test -s gene.gene.stat.gz && gzip -cd gene.gene.stat.gz | grep -F 'gene1' >/dev/null && pandepth -i toy.sam -o gc -t 1 -r ref.fa -c >/tmp/taf-pandepth-gc.log 2>&1 && test -s gc.chr.stat.gz && gzip -cd gc.chr.stat.gz | grep -F 'GC(%)' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T05:13:58Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T05:13:58Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/pandepth",
+            "ref": "v2.26-r1",
+            "commit": "0fd50bb1a43207a0cd207590a1b00e579cdccec0",
+            "html_url": "https://github.com/taffish/pandepth/tree/v2.26-r1"
+          },
+          "upstream": {
+            "name": "PanDepth",
+            "type": "github",
+            "homepage": "https://github.com/HuiyangYu/PanDepth",
+            "repository": "HuiyangYu/PanDepth",
+            "release_url": "https://github.com/HuiyangYu/PanDepth/releases/tag/v2.26",
+            "version": "2.26",
+            "license": "MIT",
+            "citation": "Yu et al. 2024, Briefings in Bioinformatics",
+            "doi": "10.1093/bib/bbae197",
+            "pmid": "38701418"
+          }
+        }
+      }
+    },
+    "plotsr": {
+      "name": "plotsr",
+      "latest": "1.1.1-r1",
+      "repository_url": "https://github.com/taffish/plotsr",
+      "command": {
+        "name": "taf-plotsr"
+      },
+      "versions": {
+        "1.1.1-r1": {
+          "name": "plotsr",
+          "kind": "tool",
+          "version": "1.1.1",
+          "release": 1,
+          "version_id": "1.1.1-r1",
+          "tag": "v1.1.1-r1",
+          "license": "MIT",
+          "repository_url": "https://github.com/taffish/plotsr",
+          "repository_slug": "taffish/plotsr",
+          "command": {
+            "name": "taf-plotsr"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "comparative-genomics",
+            "categories": [
+              "comparative-genomics",
+              "synteny",
+              "structural-variation",
+              "visualization"
+            ],
+            "keywords": [
+              "plotsr",
+              "synteny",
+              "structural rearrangements",
+              "structural variation",
+              "syri",
+              "bedpe",
+              "genome visualization",
+              "matplotlib"
+            ],
+            "summary": "plotsr visualizes structural similarities, synteny, and rearrangements between chromosome-level genome assemblies.",
+            "description": "plotsr visualizes structural similarities, synteny, and rearrangements between chromosome-level genome assemblies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/plotsr:1.1.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.1.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:bde825d5e69f199803a78ad7913794b876ea56874d5f009e7620d94a426f70f2",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c117b17937aa1e02d57ea6da0bb6d6d9ce307995dd7b3a2801a4bb8fbfc96bf5",
+              "linux/arm64": "sha256:66046985adf3b22c20c073eca7aaace9f6be40188a71ba5bafd45acd45a7cbd0"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "plotsr",
+              "python3",
+              "fc-list",
+              "file",
+              "gzip",
+              "sh",
+              "grep"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/plotsr/VERSION)\" = '1.1.1'",
+              "plotsr --version | grep -Fx '1.1.1' >/dev/null",
+              "plotsr -h 2>&1 | grep -F 'Plotting structural rearrangements between genomes' >/dev/null && plotsr -h 2>&1 | grep -F -- '--genomes' >/dev/null",
+              "python3 -c 'import plotsr,numpy,pandas,matplotlib; assert plotsr.__version__ == \"1.1.1\"; assert matplotlib.get_backend().lower() == \"agg\"'",
+              "test -f /usr/local/share/doc/plotsr/example/genomes.txt && test -f /usr/local/share/doc/plotsr/config/base.cfg && test -f /usr/local/share/doc/plotsr/LICENSE",
+              "mkdir -p /tmp/taf-plotsr-bedpe && cd /tmp/taf-plotsr-bedpe && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t0\\t1000\\tchr1\\t0\\t1000\\tSYN\\t-\\nchr1\\t200\\t350\\tchr1\\t220\\t370\\tINV\\tcl:red;lw:2\\n' > ab.bedpe && printf 'chr1\\t100\\t180\\nchr1\\t500\\t650\\n' > feats.bed && printf 'feats.bed\\tFeatures\\tft:bed;bw:100;ti:1;tt:l;lc:blue\\n' > tracks.txt && printf 'chr1\\t250\\t251\\tA\\tmt:o;mc:black;ms:3;tt:marker;tp:0.02;ts:6;tc:black\\n' > markers.bed && printf 'legend:F\\n' > base.cfg && plotsr --bp ab.bedpe --genomes genomes.txt --tracks tracks.txt --markers markers.bed --cfg base.cfg -o out.png -W 3 -H 2 -f 6 -d 80 --lf bedpe.log >/dev/null 2> bedpe.err && test -s out.png && file out.png | grep -F 'PNG image data' >/dev/null",
+              "mkdir -p /tmp/taf-plotsr-syri && cd /tmp/taf-plotsr-syri && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t1\\t1000\\t-\\t-\\tchr1\\t1\\t1000\\tSYN1\\t-\\tSYN\\t-\\nchr1\\t200\\t350\\t-\\t-\\tchr1\\t220\\t370\\tINV1\\t-\\tINV\\t-\\n' > ab.syri.out && plotsr --sr ab.syri.out --genomes genomes.txt --chr chr1 -o out.svg -W 3 -H 2 -f 6 -d 80 --lf syri.log >/dev/null 2> syri.err && test -s out.svg && grep -F '<svg' out.svg >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T05:13:58Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T05:13:58Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/plotsr",
+            "ref": "v1.1.1-r1",
+            "commit": "f4166609dba7f9f80720d6506f5e93580271322e",
+            "html_url": "https://github.com/taffish/plotsr/tree/v1.1.1-r1"
+          },
+          "upstream": {
+            "name": "plotsr",
+            "type": "github",
+            "homepage": "https://github.com/schneebergerlab/plotsr",
+            "repository": "schneebergerlab/plotsr",
+            "release_url": "https://github.com/schneebergerlab/plotsr/releases/tag/v1.1.1",
+            "version": "1.1.1",
+            "license": "MIT",
+            "citation": "Goel and Schneeberger 2022",
+            "doi": "10.1093/bioinformatics/btac196",
+            "pmid": "35561173"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -8126,6 +8373,14 @@
       "package": "ngenomesyn",
       "version": "1.43-r1"
     },
+    "taf-pandepth": {
+      "package": "pandepth",
+      "version": "2.26-r1"
+    },
+    "taf-plotsr": {
+      "package": "plotsr",
+      "version": "1.1.1-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -8424,6 +8679,18 @@
       "repository": "taffish/ngenomesyn",
       "packages": [
         "ngenomesyn"
+      ]
+    },
+    "taffish/pandepth": {
+      "repository": "taffish/pandepth",
+      "packages": [
+        "pandepth"
+      ]
+    },
+    "taffish/plotsr": {
+      "repository": "taffish/plotsr",
+      "packages": [
+        "plotsr"
       ]
     },
     "taffish/samtools": {

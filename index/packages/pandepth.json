@@ -1,0 +1,120 @@
+{
+  "name": "pandepth",
+  "latest": "2.26-r1",
+  "repository_url": "https://github.com/taffish/pandepth",
+  "command": {
+    "name": "taf-pandepth"
+  },
+  "versions": {
+    "2.26-r1": {
+      "name": "pandepth",
+      "kind": "tool",
+      "version": "2.26",
+      "release": 1,
+      "version_id": "2.26-r1",
+      "tag": "v2.26-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/pandepth",
+      "repository_slug": "taffish/pandepth",
+      "command": {
+        "name": "taf-pandepth"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "coverage",
+        "categories": [
+          "coverage",
+          "depth",
+          "alignment",
+          "quality-control"
+        ],
+        "keywords": [
+          "pandepth",
+          "coverage",
+          "depth",
+          "sam",
+          "bam",
+          "cram",
+          "paf",
+          "htslib"
+        ],
+        "summary": "PanDepth ultrafast coverage and depth calculation for SAM/BAM/CRAM/PAF alignments.",
+        "description": "PanDepth ultrafast coverage and depth calculation for SAM/BAM/CRAM/PAF alignments."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/pandepth:2.26-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.26-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:f36070c7922bb34fb4ea385c25d8f75077adfaafe8fda4a31d4320b3846a7bdb",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:2a08fbdfc9f2caf5d5ed7d5a4fd28dd161553d1d8622945eb39f063b167cad1c",
+          "linux/arm64": "sha256:64f9c7f200e25d7bf77fd67ab5c0bde41bb428229ae453bd3cc0dcb0a66ba54c"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "pandepth",
+          "gzip",
+          "ldd"
+        ],
+        "test": [
+          "pandepth -h 2>&1 | grep -F 'show this help [v2.26]' >/dev/null && pandepth 2>&1 | grep -F 'Usage: pandepth' >/dev/null && ldd $(command -v pandepth) | grep -F 'libhts.so.3' >/dev/null && ldd $(command -v pandepth) | grep -F 'libdeflate.so.0' >/dev/null",
+          "mkdir -p /tmp/taf-pandepth-chr && cd /tmp/taf-pandepth-chr && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && pandepth -i toy.sam -o toy -t 1 -a >/tmp/taf-pandepth-chr.log 2>&1 && test -s toy.chr.stat.gz && test -s toy.SiteDepth.gz && gzip -cd toy.chr.stat.gz | grep -F 'chr1' >/dev/null && gzip -cd toy.chr.stat.gz | grep -F '10.00' >/dev/null",
+          "mkdir -p /tmp/taf-pandepth-targets && cd /tmp/taf-pandepth-targets && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'chr1\\t10\\t20\\n' > toy.bed && pandepth -i toy.sam -b toy.bed -o bed -t 1 >/tmp/taf-pandepth-bed.log 2>&1 && test -s bed.bed.stat.gz && gzip -cd bed.bed.stat.gz | grep -F 'chr1_10_20' >/dev/null && pandepth -i toy.sam -w 25 -o win -t 1 >/tmp/taf-pandepth-win.log 2>&1 && test -s win.win.stat.gz && gzip -cd win.win.stat.gz | grep -F '40.00' >/dev/null",
+          "mkdir -p /tmp/taf-pandepth-gene-gc && cd /tmp/taf-pandepth-gene-gc && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'toy.sam\\n' > input.list && printf 'chr1\\tsmoke\\tCDS\\t11\\t20\\t.\\t+\\t0\\tID=cds1;Parent=gene1\\n' > toy.gff && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && pandepth -i input.list -g toy.gff -o gene -t 1 >/tmp/taf-pandepth-gene.log 2>&1 && test -s gene.gene.stat.gz && gzip -cd gene.gene.stat.gz | grep -F 'gene1' >/dev/null && pandepth -i toy.sam -o gc -t 1 -r ref.fa -c >/tmp/taf-pandepth-gc.log 2>&1 && test -s gc.chr.stat.gz && gzip -cd gc.chr.stat.gz | grep -F 'GC(%)' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T05:13:58Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T05:13:58Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/pandepth",
+        "ref": "v2.26-r1",
+        "commit": "0fd50bb1a43207a0cd207590a1b00e579cdccec0",
+        "html_url": "https://github.com/taffish/pandepth/tree/v2.26-r1"
+      },
+      "upstream": {
+        "name": "PanDepth",
+        "type": "github",
+        "homepage": "https://github.com/HuiyangYu/PanDepth",
+        "repository": "HuiyangYu/PanDepth",
+        "release_url": "https://github.com/HuiyangYu/PanDepth/releases/tag/v2.26",
+        "version": "2.26",
+        "license": "MIT",
+        "citation": "Yu et al. 2024, Briefings in Bioinformatics",
+        "doi": "10.1093/bib/bbae197",
+        "pmid": "38701418"
+      }
+    }
+  }
+}
