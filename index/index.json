@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T12:41:11Z",
+  "generated_at": "2026-05-19T13:03:38Z",
   "organization": "taffish",
   "counts": {
-    "packages": 59,
-    "versions": 89,
-    "commands": 59,
-    "repositories": 59,
+    "packages": 60,
+    "versions": 90,
+    "commands": 60,
+    "repositories": 60,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -11288,6 +11288,146 @@
         }
       }
     },
+    "rsem": {
+      "name": "rsem",
+      "latest": "1.3.3-r1",
+      "repository_url": "https://github.com/taffish/rsem",
+      "command": {
+        "name": "taf-rsem"
+      },
+      "versions": {
+        "1.3.3-r1": {
+          "name": "rsem",
+          "kind": "tool",
+          "version": "1.3.3",
+          "release": 1,
+          "version_id": "1.3.3-r1",
+          "tag": "v1.3.3-r1",
+          "license": "GPL-3.0-only",
+          "repository_url": "https://github.com/taffish/rsem",
+          "repository_slug": "taffish/rsem",
+          "command": {
+            "name": "taf-rsem"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "quantification",
+              "differential-expression",
+              "simulation"
+            ],
+            "keywords": [
+              "rsem",
+              "rna-seq",
+              "transcript abundance",
+              "isoform",
+              "gene expression",
+              "bowtie",
+              "bowtie2",
+              "star",
+              "hisat2",
+              "ebseq"
+            ],
+            "summary": "RSEM estimates gene and isoform expression from RNA-seq data and includes reference preparation, simulation, plotting, and EBSeq helper scripts.",
+            "description": "RSEM estimates gene and isoform expression from RNA-seq data and includes reference preparation, simulation, plotting, and EBSeq helper scripts."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rsem:1.3.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2f8cbe1e9105b5deb2ceed2e1dbdd939d95804513e37a071e7819094c77acd44",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:bf4667a2411066800b41d00a4c8357e4eba321bc2fa99b2e55f6e2b16f4fa605",
+              "linux/arm64": "sha256:554c7a1e1c5b8876a067d3f1720a2810c0f7d26ca1bd0f3056ad0d23f572f6b5"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "rsem-calculate-expression",
+              "rsem-prepare-reference",
+              "rsem-simulate-reads",
+              "rsem-generate-data-matrix",
+              "rsem-run-ebseq",
+              "rsem-control-fdr",
+              "rsem-gff3-to-gtf",
+              "rsem-refseq-extract-primary-assembly",
+              "bowtie",
+              "bowtie2",
+              "hisat2",
+              "STAR",
+              "samtools",
+              "Rscript",
+              "python3",
+              "perl",
+              "perldoc"
+            ],
+            "test": [
+              "test \"$(cat /opt/rsem/VERSION.txt)\" = '1.3.3' && rsem-calculate-expression --version 2>&1 | grep -Fx 'Current version: RSEM v1.3.1' >/dev/null",
+              "rsem-calculate-expression --help 2>&1 | grep -F 'rsem-calculate-expression' >/dev/null && rsem-prepare-reference --help 2>&1 | grep -F 'rsem-prepare-reference' >/dev/null && rsem-run-ebseq --help 2>&1 | grep -F 'rsem-run-ebseq' >/dev/null",
+              "bowtie --version 2>&1 | grep -F 'version 1.' >/dev/null && bowtie2 --version 2>&1 | grep -F 'version 2.' >/dev/null && hisat2 --version 2>&1 | grep -F 'version 2.' >/dev/null && STAR --version >/dev/null && samtools --version >/dev/null && /usr/local/bin/samtools-1.3/samtools --version 2>&1 | grep -F 'samtools 1.3' >/dev/null && Rscript -e 'library(EBSeq); cat(as.character(packageVersion(\"EBSeq\")), \"\\n\")' >/dev/null && python3 --version >/dev/null && perl -v >/dev/null && perldoc -V >/dev/null",
+              "rsem-simulate-reads 2>&1 | grep -F 'Usage:' >/dev/null && rsem-gff3-to-gtf --help 2>&1 | grep -F 'usage:' >/dev/null && rsem-refseq-extract-primary-assembly --help 2>&1 | grep -F 'Usage:' >/dev/null",
+              "rm -rf /tmp/taf-rsem-ref-smoke && mkdir -p /tmp/taf-rsem-ref-smoke && cd /tmp/taf-rsem-ref-smoke && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCA\\n' > transcripts.fa && rsem-prepare-reference --bowtie2 transcripts.fa toy >/tmp/taf-rsem-ref-smoke/prepare.log 2>&1 && test -s toy.transcripts.fa && test -s toy.grp && test -s toy.idx.fa && test -s toy.1.bt2",
+              "rm -rf /tmp/taf-rsem-expr-smoke && mkdir -p /tmp/taf-rsem-expr-smoke && cd /tmp/taf-rsem-expr-smoke && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCA\\n' > transcripts.fa && printf '@r1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n@r2\\nTGCATGCATGCATGCATGCATGCATGCATGCATGCATGCA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > reads.fq && rsem-prepare-reference --bowtie2 transcripts.fa toy >/tmp/taf-rsem-expr-smoke/prepare.log 2>&1 && rsem-calculate-expression --bowtie2 --no-bam-output --seed 123 -p 1 reads.fq toy sample >/tmp/taf-rsem-expr-smoke/run.log 2>&1 && test -s sample.isoforms.results && test -s sample.genes.results && grep -F 'TPM' sample.isoforms.results >/dev/null && grep -F 'expected_count' sample.genes.results >/dev/null",
+              "rm -rf /tmp/taf-rsem-matrix-smoke && mkdir -p /tmp/taf-rsem-matrix-smoke && cd /tmp/taf-rsem-matrix-smoke && printf 'gene_id\\ttranscript_id(s)\\tlength\\teffective_length\\texpected_count\\tTPM\\tFPKM\\nG1\\tT1\\t100\\t80\\t10\\t50\\t5\\nG2\\tT2\\t100\\t80\\t20\\t50\\t5\\n' > s1.genes.results && printf 'gene_id\\ttranscript_id(s)\\tlength\\teffective_length\\texpected_count\\tTPM\\tFPKM\\nG1\\tT1\\t100\\t80\\t12\\t50\\t5\\nG2\\tT2\\t100\\t80\\t18\\t50\\t5\\n' > s2.genes.results && rsem-generate-data-matrix s1.genes.results s2.genes.results > matrix.txt && test -s matrix.txt && grep -F 's1.genes.results' matrix.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T13:03:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T13:03:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rsem",
+            "ref": "v1.3.3-r1",
+            "commit": "18a783b04d45972a80597235f03c4fdcea1e0c39",
+            "html_url": "https://github.com/taffish/rsem/tree/v1.3.3-r1"
+          },
+          "upstream": {
+            "name": "RSEM",
+            "type": "github",
+            "homepage": "https://deweylab.github.io/RSEM/",
+            "repository": "deweylab/RSEM",
+            "release_url": "https://github.com/deweylab/RSEM/releases/tag/v1.3.3",
+            "version": "1.3.3",
+            "license": "GPL-3.0-only with bundled third-party components",
+            "citation": "Li and Dewey 2011; Leng et al. 2013 for EBSeq",
+            "doi": "10.1186/1471-2105-12-323; 10.1093/bioinformatics/btt087",
+            "pmid": "21816040; 23428641"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -11770,6 +11910,10 @@
       "package": "quast",
       "version": "5.3.0-r1"
     },
+    "taf-rsem": {
+      "package": "rsem",
+      "version": "1.3.3-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
@@ -12120,6 +12264,12 @@
       "repository": "taffish/quast",
       "packages": [
         "quast"
+      ]
+    },
+    "taffish/rsem": {
+      "repository": "taffish/rsem",
+      "packages": [
+        "rsem"
       ]
     },
     "taffish/samtools": {
