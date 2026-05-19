@@ -1,6 +1,6 @@
 {
   "name": "hifiasm",
-  "latest": "0.25.0-r1",
+  "latest": "0.25.0-r2",
   "repository_url": "https://github.com/taffish/hifiasm",
   "command": {
     "name": "taf-hifiasm"
@@ -104,6 +104,117 @@
         "ref": "v0.25.0-r1",
         "commit": "ad2762240ebda048a8148ff8ccb2668d41e87c6e",
         "html_url": "https://github.com/taffish/hifiasm/tree/v0.25.0-r1"
+      },
+      "upstream": {
+        "name": "hifiasm",
+        "type": "github",
+        "homepage": "https://hifiasm.readthedocs.io/en/latest/",
+        "repository": "chhylp123/hifiasm",
+        "release_url": "https://github.com/chhylp123/hifiasm/releases/tag/0.25.0",
+        "version": "0.25.0",
+        "license": "MIT",
+        "citation": "Cheng et al. 2021; Cheng et al. 2022; Cheng et al. 2024",
+        "doi": "10.1038/s41592-020-01056-5; 10.1038/s41587-022-01261-x; 10.1038/s41592-024-02269-8"
+      }
+    },
+    "0.25.0-r2": {
+      "name": "hifiasm",
+      "kind": "tool",
+      "version": "0.25.0",
+      "release": 2,
+      "version_id": "0.25.0-r2",
+      "tag": "v0.25.0-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/hifiasm",
+      "repository_slug": "taffish/hifiasm",
+      "command": {
+        "name": "taf-hifiasm"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-assembly",
+        "categories": [
+          "genome-assembly",
+          "long-read",
+          "haplotype-resolved",
+          "de-novo-assembly",
+          "t2t"
+        ],
+        "keywords": [
+          "hifiasm",
+          "hifi",
+          "ont",
+          "assembly",
+          "haplotype-resolved",
+          "trio-binning",
+          "hi-c",
+          "ultralong",
+          "gfa",
+          "t2t"
+        ],
+        "summary": "Fast haplotype-resolved de novo genome assembly for PacBio HiFi reads, ONT R10 reads, Hi-C phasing, trio binning, ultralong-read integration, and telomere-to-telomere assembly modes.",
+        "description": "Fast haplotype-resolved de novo genome assembly for PacBio HiFi reads, ONT R10 reads, Hi-C phasing, trio binning, ultralong-read integration, and telomere-to-telomere assembly modes."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/hifiasm:0.25.0-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.25.0-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:f7cd19e10989ac53f8b4c88c25fd3db872a42971814f36eff035311c360d6723",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:eb33c38884f3325b84c10c0a1b3c98862c5991f8261e23a45acc05d0ec577a52",
+          "linux/arm64": "sha256:6df8b4f1727a6e6de54c13ebe904b131a8b892e3cdb32026e7b77c823e37fffc"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "hifiasm",
+          "bash"
+        ],
+        "test": [
+          "hifiasm --version | grep -Fx '0.25.0-r726' >/dev/null",
+          "hifiasm 2>&1 | grep -F 'Usage: hifiasm' >/dev/null",
+          "ldd \"$(command -v hifiasm)\" | grep -F 'libz' >/dev/null",
+          "mkdir -p /tmp/taf-hifiasm-smoke && cd /tmp/taf-hifiasm-smoke && printf '@r1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTA\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n@r3\\nGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && hifiasm -o tiny -t1 -f0 reads.fq > tiny.out 2> tiny.log && test -s tiny.log && grep -F '[M::ha_analyze_count]' tiny.log >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T09:21:12Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T09:21:12Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/hifiasm",
+        "ref": "v0.25.0-r2",
+        "commit": "a528e4e9a51f104d486c9c0660118601aea7abac",
+        "html_url": "https://github.com/taffish/hifiasm/tree/v0.25.0-r2"
       },
       "upstream": {
         "name": "hifiasm",

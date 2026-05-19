@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T06:28:08Z",
+  "generated_at": "2026-05-19T09:21:12Z",
   "organization": "taffish",
   "counts": {
-    "packages": 53,
-    "versions": 64,
-    "commands": 53,
-    "repositories": 53,
+    "packages": 54,
+    "versions": 84,
+    "commands": 54,
+    "repositories": 54,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -3306,7 +3306,7 @@
     },
     "esm-fold": {
       "name": "esm-fold",
-      "latest": "2.0.0-r2",
+      "latest": "2.0.0-r3",
       "repository_url": "https://github.com/taffish/esm-fold",
       "command": {
         "name": "taf-esm-fold"
@@ -3535,12 +3535,124 @@
             "doi": "10.1126/science.ade2574",
             "pmid": "36927031"
           }
+        },
+        "2.0.0-r3": {
+          "name": "esm-fold",
+          "kind": "tool",
+          "version": "2.0.0",
+          "release": 3,
+          "version_id": "2.0.0-r3",
+          "tag": "v2.0.0-r3",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/esm-fold",
+          "repository_slug": "taffish/esm-fold",
+          "command": {
+            "name": "taf-esm-fold"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "protein-structure",
+            "categories": [
+              "protein-structure",
+              "structure-prediction",
+              "deep-learning",
+              "protein"
+            ],
+            "keywords": [
+              "esmfold",
+              "esm",
+              "protein-language-model",
+              "structure-prediction",
+              "pdb",
+              "gpu",
+              "cpu",
+              "pytorch",
+              "openfold"
+            ],
+            "summary": "TAFFISH wrapper for ESMFold structure prediction from protein FASTA sequences, with persistent model cache and automatic NVIDIA runtime flag selection.",
+            "description": "TAFFISH wrapper for ESMFold structure prediction from protein FASTA sequences, with persistent model cache and automatic NVIDIA runtime flag selection."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/esm-fold:2.0.0-r3",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.0.0-r3",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c3632dec68d90007b9a433e3b937a3bd87673cdf6f27de80951721aee41464db",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:9b66c44fe00fe379895f4f88654a2214f216fb700c41937c9fbc32028945839f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "esm-fold",
+              "python",
+              "python3",
+              "pip",
+              "nvcc"
+            ],
+            "test": [
+              "esm-fold -h | grep -F 'Path to input FASTA file' >/dev/null",
+              "python -c 'import importlib.metadata as m; assert m.version(\"fair-esm\") == \"2.0.0\"'",
+              "python -c 'import torch; assert torch.__version__.startswith(\"1.12.1\")'",
+              "python -c 'import esm, openfold, deepspeed, dllogger, tree; assert callable(esm.pretrained.esmfold_v1)'",
+              "python -c 'from pathlib import Path; assert \"model = model.float()\" in Path(\"/opt/esm/scripts/esmfold_inference.py\").read_text()'",
+              "python -c 'from pathlib import Path; from esm.data import read_fasta; p=Path(\"/tmp/taf-esm-fold-smoke.fa\"); p.write_text(\">toy\\nMKT\\n\"); assert list(read_fasta(p)) == [(\"toy\", \"MKT\")]'"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/esm-fold",
+            "ref": "v2.0.0-r3",
+            "commit": "f04d581bdd9814f4af919436b22c26367cdb4eab",
+            "html_url": "https://github.com/taffish/esm-fold/tree/v2.0.0-r3"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://github.com/facebookresearch/esm",
+            "repository": "facebookresearch/esm",
+            "release_url": "https://github.com/facebookresearch/esm/releases/tag/v2.0.0",
+            "version": "2.0.0",
+            "license": "MIT",
+            "citation": "Lin et al. 2023",
+            "doi": "10.1126/science.ade2574",
+            "pmid": "36927031"
+          }
         }
       }
     },
     "evidencemodeler": {
       "name": "evidencemodeler",
-      "latest": "2.1.0-r1",
+      "latest": "2.1.0-r2",
       "repository_url": "https://github.com/taffish/evidencemodeler",
       "command": {
         "name": "taf-evidencemodeler"
@@ -3676,12 +3788,143 @@
             "doi": "10.1186/gb-2008-9-1-r7",
             "pmid": "18190707"
           }
+        },
+        "2.1.0-r2": {
+          "name": "evidencemodeler",
+          "kind": "tool",
+          "version": "2.1.0",
+          "release": 2,
+          "version_id": "2.1.0-r2",
+          "tag": "v2.1.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/evidencemodeler",
+          "repository_slug": "taffish/evidencemodeler",
+          "command": {
+            "name": "taf-evidencemodeler"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-annotation",
+            "categories": [
+              "genome-annotation",
+              "gene-prediction",
+              "eukaryotic-genomics",
+              "evidence-integration"
+            ],
+            "keywords": [
+              "evidencemodeler",
+              "evm",
+              "gene-annotation",
+              "gene-models",
+              "gff3",
+              "pasa",
+              "parafly",
+              "ab-initio",
+              "protein-alignments",
+              "transcript-alignments"
+            ],
+            "summary": "EVidenceModeler combines ab initio predictions and protein/transcript evidence into weighted consensus eukaryotic gene structures.",
+            "description": "EVidenceModeler combines ab initio predictions and protein/transcript evidence into weighted consensus eukaryotic gene structures."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/evidencemodeler:2.1.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.1.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:868c520933923fb429da6136732c20db2bd611a5d2d457a08ccf30152aeeafe3",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f933ab07727418d4bade2a865d06d979016b0c9e242958f76e11c657b4359a8c",
+              "linux/arm64": "sha256:661babab434788799f7725e6a80367541181f797c1544c892c039db03ad75983"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "EVidenceModeler",
+              "ParaFly",
+              "partition_EVM_inputs.pl",
+              "write_EVM_commands.pl",
+              "recombine_EVM_partial_outputs.pl",
+              "convert_EVM_outputs_to_GFF3.pl",
+              "gff3_file_to_proteins.pl",
+              "gene_gff3_to_bed.pl",
+              "augustus_GFF3_to_EVM_GFF3.pl",
+              "miniprot_GFF_2_EVM_GFF3.py",
+              "BPbtab.pl",
+              "prepare_Jigsaw_formats.pl",
+              "gff3_genes_to_gff2.pl",
+              "perl",
+              "python",
+              "python3",
+              "bash",
+              "find",
+              "sort"
+            ],
+            "test": [
+              "EVidenceModeler --version 2>&1 | grep -F 'EVidenceModeler-v2.1.0' >/dev/null",
+              "EVidenceModeler --help 2>&1 | grep -F 'Evidence Modeler' >/dev/null",
+              "ParaFly 2>&1 | grep -F 'ParaFly' >/dev/null",
+              "perl -MDB_File -MURI::Escape -MBio::SearchIO -e 1",
+              "test \"$EUK_MODULES\" = '/opt/evidencemodeler/PerlLib' && prepare_Jigsaw_formats.pl -h 2>&1 | grep -F -- '--template_gff3_file' >/dev/null && gff3_genes_to_gff2.pl 2>&1 | grep -F 'usage' >/dev/null",
+              "python -c 'import sys; assert sys.version_info[0] == 3'",
+              "mkdir -p /tmp/taf-evidencemodeler-smoke && cd /tmp/taf-evidencemodeler-smoke && cp -a /opt/evidencemodeler/testing/. . && EVidenceModeler --sample_id smalltest --genome genome.fasta --weights weights.txt --gene_predictions gene_predictions.gff3 --protein_alignments protein_alignments.gff3 --transcript_alignments transcript_alignments.gff3 --segmentSize 100000 --overlapSize 10000 --CPU 1 >/tmp/taf-evidencemodeler-smoke.log 2>&1 && test -s smalltest.EVM.gff3 && test -s smalltest.EVM.pep && test -s smalltest.EVM.cds && test -s smalltest.EVM.bed && grep -F 'evm.TU' smalltest.EVM.gff3 >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/evidencemodeler",
+            "ref": "v2.1.0-r2",
+            "commit": "e4cb9b248fdae1080827f9488586b352b38a22a0",
+            "html_url": "https://github.com/taffish/evidencemodeler/tree/v2.1.0-r2"
+          },
+          "upstream": {
+            "name": "EVidenceModeler",
+            "type": "github",
+            "homepage": "https://github.com/EVidenceModeler/EVidenceModeler",
+            "repository": "EVidenceModeler/EVidenceModeler",
+            "release_url": "https://github.com/EVidenceModeler/EVidenceModeler/releases/tag/EVidenceModeler-v2.1.0",
+            "version": "2.1.0",
+            "license": "BSD-3-Clause",
+            "citation": "Haas et al. 2008",
+            "doi": "10.1186/gb-2008-9-1-r7",
+            "pmid": "18190707"
+          }
         }
       }
     },
     "fastp": {
       "name": "fastp",
-      "latest": "1.3.3-r2",
+      "latest": "1.3.3-r3",
       "repository_url": "https://github.com/taffish/fastp",
       "command": {
         "name": "taf-fastp"
@@ -3794,6 +4037,127 @@
             "ref": "v1.3.3-r2",
             "commit": "3cfaed27f69307b91d04914e23658993f2a73e51",
             "html_url": "https://github.com/taffish/fastp/tree/v1.3.3-r2"
+          },
+          "upstream": {
+            "name": "fastp",
+            "type": "github",
+            "homepage": "https://github.com/OpenGene/fastp",
+            "repository": "OpenGene/fastp",
+            "release_url": "https://github.com/OpenGene/fastp/releases/tag/v1.3.3",
+            "version": "1.3.3",
+            "license": "MIT",
+            "citation": "Chen 2025; Chen 2023; Chen et al. 2018",
+            "doi": "10.1002/imt2.70078; 10.1002/imt2.107; 10.1093/bioinformatics/bty560",
+            "pmid": "41112039; 30423086"
+          }
+        },
+        "1.3.3-r3": {
+          "name": "fastp",
+          "kind": "tool",
+          "version": "1.3.3",
+          "release": 3,
+          "version_id": "1.3.3-r3",
+          "tag": "v1.3.3-r3",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/fastp",
+          "repository_slug": "taffish/fastp",
+          "command": {
+            "name": "taf-fastp"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "quality-control",
+              "preprocessing",
+              "trimming",
+              "sequencing"
+            ],
+            "keywords": [
+              "fastp",
+              "fastq",
+              "qc",
+              "quality-control",
+              "adapter-trimming",
+              "filtering",
+              "umi",
+              "deduplication",
+              "html-report",
+              "json-report",
+              "illumina",
+              "mgi",
+              "paired-end"
+            ],
+            "summary": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports.",
+            "description": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/fastp:1.3.3-r3",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.3-r3",
+            "image_tag_matches_version": true,
+            "digest": "sha256:58c5628a2cc88dfe792a82bb13a7a1a3adb4b60100d01bfef067061860bd32f8",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a217b237f4143c4f217a25ae3f2286ee6307a0ae90f786cf62e44e6d6e2f2590",
+              "linux/arm64": "sha256:31a02f4db8aee8fd22c420b633fb0b516dba8fc9b2e6a1bb832a09add06b4d65"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "fastp",
+              "parallel.py",
+              "python",
+              "python3"
+            ],
+            "test": [
+              "fastp --version | grep -Fx 'fastp 1.3.3' >/dev/null",
+              "fastp --help 2>&1 | grep -F 'usage:' >/dev/null",
+              "parallel.py -h 2>&1 | grep -F 'A python script to use fastp' >/dev/null",
+              "ldd $(command -v fastp) | grep -F 'libisal' >/dev/null",
+              "mkdir -p /tmp/taf-fastp-smoke && cd /tmp/taf-fastp-smoke && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nACGTACGTNNNNACGTACGT\\n+\\nFFFFFFFF!!!!FFFFFFFF\\n' > reads.fq && fastp -i reads.fq -o clean.fq -h report.html -j report.json -w 1 >/tmp/taf-fastp-se.log 2>&1 && test -s clean.fq && test -s report.html && test -s report.json && grep -F '\"fastp_version\": \"' report.json >/dev/null && grep -F '@r1' clean.fq >/dev/null",
+              "mkdir -p /tmp/taf-fastp-stdin && cd /tmp/taf-fastp-stdin && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nACGTACGTNNNNACGTACGT\\n+\\nFFFFFFFF!!!!FFFFFFFF\\n' > reads.fq && fastp --stdin --stdout -w 1 < reads.fq > stdout.fq 2>/tmp/taf-fastp-stdin.log && grep -F '@r1' stdout.fq >/dev/null",
+              "mkdir -p /tmp/taf-fastp-pe && cd /tmp/taf-fastp-pe && printf '@p1/1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@p1/2\\nTGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && fastp -i r1.fq -I r2.fq -o out1.fq.gz -O out2.fq.gz -h pe.html -j pe.json -w 1 >/tmp/taf-fastp-pe.log 2>&1 && test -s out1.fq.gz && test -s out2.fq.gz && test -s pe.html && test -s pe.json",
+              "mkdir -p /tmp/taf-fastp-parallel && cd /tmp/taf-fastp-parallel && printf '@p1/1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@p1/2\\nTGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && mkdir -p batch-in batch-out batch-report && cp r1.fq batch-in/sample_R1.fq && cp r2.fq batch-in/sample_R2.fq && parallel.py -i batch-in -o batch-out -r batch-report -p 1 -a '-w 1' >/tmp/taf-fastp-parallel.log && test -s batch-out/sample_R1.clean.fastq.gz && test -s batch-out/sample_R2.clean.fastq.gz && test -s batch-report/sample_pe.fq.html && test -s batch-report/sample_pe.fq.json && test -s batch-report/overall.html"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/fastp",
+            "ref": "v1.3.3-r3",
+            "commit": "a3c5b770b129bc58be0ced7291ca010bd5e9e5c2",
+            "html_url": "https://github.com/taffish/fastp/tree/v1.3.3-r3"
           },
           "upstream": {
             "name": "fastp",
@@ -3941,7 +4305,7 @@
     },
     "foldseek": {
       "name": "foldseek",
-      "latest": "10-r1",
+      "latest": "10-r2",
       "repository_url": "https://github.com/taffish/foldseek",
       "command": {
         "name": "taf-foldseek"
@@ -4071,12 +4435,137 @@
             "citation": "van Kempen et al. 2023; Barrio-Hernandez et al. 2023; Kim et al. 2024",
             "doi": "10.1038/s41587-023-01773-0; 10.1038/s41586-023-06510-w; 10.1101/2024.04.14.589414"
           }
+        },
+        "10-r2": {
+          "name": "foldseek",
+          "kind": "tool",
+          "version": "10",
+          "release": 2,
+          "version_id": "10-r2",
+          "tag": "v10-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/foldseek",
+          "repository_slug": "taffish/foldseek",
+          "command": {
+            "name": "taf-foldseek"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structure-search",
+            "categories": [
+              "structure-search",
+              "protein-structure",
+              "clustering",
+              "multimer",
+              "structural-biology"
+            ],
+            "keywords": [
+              "foldseek",
+              "protein-structure",
+              "structure-search",
+              "pdb",
+              "mmcif",
+              "3di",
+              "tm-score",
+              "easy-search",
+              "easy-cluster",
+              "multimer"
+            ],
+            "summary": "Fast protein structure search, clustering, and multimer comparison for PDB/mmCIF structure datasets.",
+            "description": "Fast protein structure search, clustering, and multimer comparison for PDB/mmCIF structure datasets."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/foldseek:10-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "10-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:225a1ee7fea965d10b2b15c23e4ae98554a63d36493558a46d1f25581a8e41bf",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:568a81068a552b6be3589599f27684a26ece86e8de23856a4f20a7127b0b8b71",
+              "linux/arm64": "sha256:30d5a661868afc480fc65b8b734b7adbaa03e5c3d7f699ddb95cf8aa473c1869"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "foldseek",
+              "bash",
+              "gawk",
+              "grep",
+              "curl",
+              "wget",
+              "xargs",
+              "tar",
+              "gzip"
+            ],
+            "test": [
+              "foldseek version | grep -Fx '941cd33ff0771cd2e3f144e3293e22a2b87e9fda' >/dev/null",
+              "foldseek 2>&1 | grep -F 'foldseek Version: 941cd33ff0771cd2e3f144e3293e22a2b87e9fda' >/dev/null",
+              "foldseek easy-search 2>&1 | grep -F 'usage: foldseek easy-search' >/dev/null",
+              "foldseek createdb 2>&1 | grep -F 'usage: foldseek createdb' >/dev/null",
+              "foldseek databases 2>&1 | grep -F 'usage: foldseek databases' >/dev/null",
+              "for module in easy-cluster easy-rbh easy-multimersearch easy-multimercluster convertalis convert2pdb createmultimerreport createindex createclusearchdb; do foldseek \"$module\" 2>&1 | grep -F \"usage: foldseek $module\" >/dev/null || exit 1; done",
+              "bash -lc 'printf ok' | grep -Fx ok >/dev/null",
+              "mkdir -p /tmp/taf-foldseek-search/query /tmp/taf-foldseek-search/target && cd /tmp/taf-foldseek-search && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek easy-search query/q1.pdb target result.m8 tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-easy-search.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && grep -F 't1' result.m8 >/dev/null",
+              "mkdir -p /tmp/taf-foldseek-cluster/structures && cd /tmp/taf-foldseek-cluster && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb structures/s1.pdb && cp structures/s1.pdb structures/s2.pdb && foldseek easy-cluster structures cluster tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-cluster.log 2>&1 && test -s cluster_cluster.tsv && test -s cluster_rep_seq.fasta && test -s cluster_all_seqs.fasta && grep -F 's1' cluster_cluster.tsv >/dev/null",
+              "mkdir -p /tmp/taf-foldseek-rbh/query /tmp/taf-foldseek-rbh/target && cd /tmp/taf-foldseek-rbh && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek easy-rbh query/q1.pdb target rbh.m8 tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-rbh.log 2>&1 && test -s rbh.m8 && grep -F 'q1' rbh.m8 >/dev/null",
+              "mkdir -p /tmp/taf-foldseek-db/query /tmp/taf-foldseek-db/target && cd /tmp/taf-foldseek-db && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek createdb query qDB --threads 1 >/tmp/taf-foldseek-createdb-query.log 2>&1 && foldseek createdb target tDB --threads 1 >/tmp/taf-foldseek-createdb-target.log 2>&1 && foldseek search qDB tDB resDB tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-search-db.log 2>&1 && foldseek convertalis qDB tDB resDB res.m8 >/tmp/taf-foldseek-convertalis.log 2>&1 && test -s res.m8 && grep -F 'q1' res.m8 >/dev/null && foldseek convert2pdb tDB out.pdb >/tmp/taf-foldseek-convert2pdb.log 2>&1 && test -s out.pdb && grep -F 'ATOM' out.pdb >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/foldseek",
+            "ref": "v10-r2",
+            "commit": "4f7afdb98cc11780baabdc9bf2a3be41fee64daf",
+            "html_url": "https://github.com/taffish/foldseek/tree/v10-r2"
+          },
+          "upstream": {
+            "name": "Foldseek",
+            "type": "github",
+            "homepage": "https://github.com/steineggerlab/foldseek",
+            "repository": "steineggerlab/foldseek",
+            "release_url": "https://github.com/steineggerlab/foldseek/releases/tag/10-941cd33",
+            "version": "10-941cd33",
+            "license": "GPL-3.0",
+            "citation": "van Kempen et al. 2023; Barrio-Hernandez et al. 2023; Kim et al. 2024",
+            "doi": "10.1038/s41587-023-01773-0; 10.1038/s41586-023-06510-w; 10.1101/2024.04.14.589414"
+          }
         }
       }
     },
     "freebayes": {
       "name": "freebayes",
-      "latest": "1.3.10-r1",
+      "latest": "1.3.10-r2",
       "repository_url": "https://github.com/taffish/freebayes",
       "command": {
         "name": "taf-freebayes"
@@ -4201,6 +4690,138 @@
             "ref": "v1.3.10-r1",
             "commit": "3d22f01bd3d0871099dc5a3d2719922d989c85c1",
             "html_url": "https://github.com/taffish/freebayes/tree/v1.3.10-r1"
+          },
+          "upstream": {
+            "name": "freebayes",
+            "type": "github",
+            "homepage": "https://github.com/freebayes/freebayes",
+            "repository": "freebayes/freebayes",
+            "release_url": "https://github.com/freebayes/freebayes/releases/tag/v1.3.10",
+            "version": "1.3.10",
+            "license": "MIT",
+            "citation": "Garrison and Marth 2012",
+            "doi": "10.48550/arXiv.1207.3907"
+          }
+        },
+        "1.3.10-r2": {
+          "name": "freebayes",
+          "kind": "tool",
+          "version": "1.3.10",
+          "release": 2,
+          "version_id": "1.3.10-r2",
+          "tag": "v1.3.10-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/freebayes",
+          "repository_slug": "taffish/freebayes",
+          "command": {
+            "name": "taf-freebayes"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "variant-calling",
+            "categories": [
+              "variant-calling",
+              "genomics",
+              "vcf",
+              "bam",
+              "haplotype"
+            ],
+            "keywords": [
+              "freebayes",
+              "variant-calling",
+              "haplotype",
+              "snp",
+              "indel",
+              "mnp",
+              "vcf",
+              "bam",
+              "cram",
+              "population-genomics"
+            ],
+            "summary": "Haplotype-based Bayesian variant caller for SNPs, indels, MNPs, and complex small variants from BAM or CRAM alignments.",
+            "description": "Haplotype-based Bayesian variant caller for SNPs, indels, MNPs, and complex small variants from BAM or CRAM alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/freebayes:1.3.10-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.10-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6c91bf0734182cf626dbb4573f533f43c49325694936279a7bff1d41c7fc2f48",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:dc2679fadb5825ac8d5d3d58c9c60252c02b4cca53a241aafb64a067a2dc84ed",
+              "linux/arm64": "sha256:5df62dbf69c4ce6644f2829a9f08adac631bb9e7e0ba7754ca5d732b6a59ee5c"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "freebayes",
+              "bamleftalign",
+              "freebayes-parallel",
+              "fasta_generate_regions.py",
+              "coverage_to_regions.py",
+              "vcffirstheader",
+              "vcfstreamsort",
+              "vcfuniq",
+              "vcffilter",
+              "vcfallelicprimitives",
+              "parallel",
+              "samtools",
+              "bgzip",
+              "tabix",
+              "python3",
+              "perl"
+            ],
+            "test": [
+              "freebayes --version 2>&1 | grep -F 'v1.3.10' >/dev/null",
+              "freebayes --help 2>&1 | grep -F 'usage: freebayes' >/dev/null",
+              "bamleftalign --help >/dev/null 2>&1 || true",
+              "fasta_generate_regions.py --help >/dev/null",
+              "coverage_to_regions.py 2>&1 | grep -F 'usage:' >/dev/null",
+              "freebayes-parallel 2>&1 | grep -F 'usage:' >/dev/null",
+              "printf '##fileformat=VCFv4.1\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\nchr1\\t5\\t.\\tA\\tT\\t30\\t.\\tTYPE=snp\\n' | vcffirstheader | grep -F '#CHROM' >/dev/null",
+              "mkdir -p /tmp/taf-freebayes-regions && cd /tmp/taf-freebayes-regions && printf 'chr1\\t25\\t6\\t25\\t26\\n' > ref.fa.fai && fasta_generate_regions.py ref.fa.fai 10 | grep -F 'chr1:0-10' >/dev/null",
+              "mkdir -p /tmp/taf-freebayes-call && cd /tmp/taf-freebayes-call && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && freebayes -f ref.fa --min-alternate-count 1 --min-alternate-fraction 0 reads.bam > calls.vcf && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null && grep -F 'chr1' calls.vcf >/dev/null",
+              "mkdir -p /tmp/taf-freebayes-leftalign && cd /tmp/taf-freebayes-leftalign && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAC\\tFFFFFFFFFF\\n' > reads.sam && samtools view -bS reads.sam | bamleftalign -f ref.fa -c > left.bam && samtools view left.bam | grep -F 'read1' >/dev/null",
+              "mkdir -p /tmp/taf-freebayes-parallel && cd /tmp/taf-freebayes-parallel && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && printf 'chr1:0-20\\n' > regions.txt && freebayes-parallel regions.txt 1 -f ref.fa --min-alternate-count 1 --min-alternate-fraction 0 reads.bam > parallel.vcf && test -s parallel.vcf && grep -F '#CHROM' parallel.vcf >/dev/null && grep -F 'chr1' parallel.vcf >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/freebayes",
+            "ref": "v1.3.10-r2",
+            "commit": "735b484349234d20c65160b6c86b2c12d685f069",
+            "html_url": "https://github.com/taffish/freebayes/tree/v1.3.10-r2"
           },
           "upstream": {
             "name": "freebayes",
@@ -4718,7 +5339,7 @@
     },
     "gromacs": {
       "name": "gromacs",
-      "latest": "2026.2-r1",
+      "latest": "2026.2-r2",
       "repository_url": "https://github.com/taffish/gromacs",
       "command": {
         "name": "taf-gromacs"
@@ -4830,12 +5451,119 @@
             "citation": "GROMACS development team 2026; Abraham et al. 2015",
             "doi": "10.5281/zenodo.20037885; 10.1016/j.softx.2015.06.001"
           }
+        },
+        "2026.2-r2": {
+          "name": "gromacs",
+          "kind": "tool",
+          "version": "2026.2",
+          "release": 2,
+          "version_id": "2026.2-r2",
+          "tag": "v2026.2-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/gromacs",
+          "repository_slug": "taffish/gromacs",
+          "command": {
+            "name": "taf-gromacs"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "molecular-dynamics",
+            "categories": [
+              "molecular-dynamics",
+              "molecular-simulation",
+              "structural-biology",
+              "computational-chemistry"
+            ],
+            "keywords": [
+              "gromacs",
+              "gmx",
+              "molecular-dynamics",
+              "simulation",
+              "mdrun",
+              "grompp",
+              "pdb2gmx",
+              "trajectory-analysis"
+            ],
+            "summary": "CPU-only GROMACS molecular dynamics simulation and analysis suite, including the gmx command-line tool, built-in force-field data, preparation commands, mdrun, and analysis subcommands.",
+            "description": "CPU-only GROMACS molecular dynamics simulation and analysis suite, including the gmx command-line tool, built-in force-field data, preparation commands, mdrun, and analysis subcommands."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/gromacs:2026.2-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2026.2-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9a5f008977b35b7f6d984a541cc67e1ca84c32a943ba414f4a49d8e1f8c0c5c0",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:21f809a13ef46046499f4f00e24853c7cc3986f241db8e1fe3cb9a64ea1bad2c",
+              "linux/arm64": "sha256:ae8e9e38a7f41774a3e75717beedf55c4270ce5d0896bc56bf402e2e5f6004a2"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "gmx"
+            ],
+            "test": [
+              "gmx --version | grep -F 'GROMACS version:' >/dev/null && gmx --version | grep -F '2026.2' >/dev/null",
+              "gmx help commands | grep -F 'mdrun' >/dev/null && gmx help commands | grep -F 'pdb2gmx' >/dev/null && gmx mdrun -h 2>&1 | grep -F 'GROMACS' >/dev/null",
+              "mkdir -p /tmp/taf-gromacs-editconf && cd /tmp/taf-gromacs-editconf && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && gmx editconf -f water.gro -o water.pdb >/dev/null 2>&1 && grep -F 'ATOM' water.pdb >/dev/null",
+              "mkdir -p /tmp/taf-gromacs-mdrun && cd /tmp/taf-gromacs-mdrun && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && printf '#include \"oplsaa.ff/forcefield.itp\"\\n#include \"oplsaa.ff/tip3p.itp\"\\n\\n[ system ]\\nTiny water\\n\\n[ molecules ]\\nSOL 1\\n' > topol.top && printf 'integrator = md\\nnsteps = 0\\ndt = 0.001\\nnstlist = 1\\ncutoff-scheme = Verlet\\nrlist = 0.4\\nverlet-buffer-tolerance = -1\\ncoulombtype = Cut-off\\nrcoulomb = 0.4\\nrvdw = 0.4\\npbc = xyz\\nconstraints = none\\ncontinuation = yes\\n' > mini.mdp && gmx grompp -f mini.mdp -c water.gro -p topol.top -o mini.tpr >/dev/null 2>&1 && test -s mini.tpr && gmx mdrun -deffnm mini -ntmpi 1 -ntomp 1 >/dev/null 2>&1 && test -s mini.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/gromacs",
+            "ref": "v2026.2-r2",
+            "commit": "98efc21b15237d165cdf8954e45941154588933c",
+            "html_url": "https://github.com/taffish/gromacs/tree/v2026.2-r2"
+          },
+          "upstream": {
+            "name": "GROMACS",
+            "type": "gitlab",
+            "homepage": "https://www.gromacs.org/",
+            "repository": "gromacs/gromacs",
+            "release_url": "https://manual.gromacs.org/2026.2/release-notes/index.html",
+            "version": "2026.2",
+            "license": "LGPL-2.1-or-later",
+            "citation": "GROMACS development team 2026; Abraham et al. 2015",
+            "doi": "10.5281/zenodo.20037885; 10.1016/j.softx.2015.06.001"
+          }
         }
       }
     },
     "haphic": {
       "name": "haphic",
-      "latest": "1.0.7-r1",
+      "latest": "1.0.7-r2",
       "repository_url": "https://github.com/taffish/haphic",
       "command": {
         "name": "taf-haphic"
@@ -4954,12 +5682,126 @@
             "doi": "10.1038/s41477-024-01755-3",
             "pmid": "39103456"
           }
+        },
+        "1.0.7-r2": {
+          "name": "haphic",
+          "kind": "tool",
+          "version": "1.0.7",
+          "release": 2,
+          "version_id": "1.0.7-r2",
+          "tag": "v1.0.7-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/haphic",
+          "repository_slug": "taffish/haphic",
+          "command": {
+            "name": "taf-haphic"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "scaffolding",
+              "hic",
+              "haplotyping"
+            ],
+            "keywords": [
+              "haphic",
+              "hi-c",
+              "scaffolding",
+              "haplotype-resolved",
+              "chromosome-scale",
+              "assembly",
+              "allhic",
+              "juicebox"
+            ],
+            "summary": "HapHiC allele-aware Hi-C scaffolding for haplotype-resolved and collapsed genome assemblies, including the haphic command, bundled ALLHiC optimization, plotting, refsort, and core utilities.",
+            "description": "HapHiC allele-aware Hi-C scaffolding for haplotype-resolved and collapsed genome assemblies, including the haphic command, bundled ALLHiC optimization, plotting, refsort, and core utilities."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/haphic:1.0.7-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.0.7-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:ee6e65a54d1b6b39ee7e9a7f287d428cc429e4f495b0dee7e11ca7857bcf3f90",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7cf1dcc6f6be1f497aff5a134125ee4a8527208a7c11845b82e958791df11ff2"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "haphic",
+              "allhic",
+              "filter_bam",
+              "agp_to_fasta",
+              "juicer",
+              "mock_agp_file.py",
+              "python3",
+              "samtools",
+              "java"
+            ],
+            "test": [
+              "haphic --version | grep -F 'HapHiC 1.0.7' >/dev/null",
+              "haphic check | grep -F 'sparse_dot_mkl' >/dev/null && haphic pipeline --help | grep -F 'usage:' >/dev/null && haphic sort --help | grep -F 'ALLHiC' >/dev/null && haphic plot --help | grep -F 'alignments' >/dev/null && haphic refsort --help | grep -F 'PAF' >/dev/null",
+              "mkdir -p /tmp/taf-haphic-utils && cd /tmp/taf-haphic-utils && printf '>ctg1\\nACGTACGTACGTACGTACGT\\n>ctg2\\nTTTTCCCCAAAAGGGG\\n' > asm.fa && mock_agp_file.py asm.fa > asm.agp && grep -F 'ctg1' asm.agp >/dev/null",
+              "mkdir -p /tmp/taf-haphic-refsort && cd /tmp/taf-haphic-refsort && printf '>ctg1\\nACGTACGTACGTACGTACGT\\n>ctg2\\nTTTTCCCCAAAAGGGG\\n' > asm.fa && printf 'scaffold_1\\t1\\t20\\t1\\tW\\tctg1\\t1\\t20\\t+\\nscaffold_1\\t21\\t120\\t2\\tN\\t100\\tscaffold\\tyes\\tmap\\nscaffold_1\\t121\\t136\\t3\\tW\\tctg2\\t1\\t16\\t+\\n' > scaffolds.agp && printf 'ctg1\\t20\\t0\\t20\\t+\\tchr1\\t1000\\t100\\t120\\t20\\t20\\t60\\nctg2\\t16\\t0\\t16\\t+\\tchr1\\t1000\\t200\\t216\\t16\\t16\\t60\\n' > asm_to_ref.paf && haphic refsort scaffolds.agp asm_to_ref.paf --fasta asm.fa > scaffolds.refsort.agp && test -s scaffolds.refsort.agp && test -s scaffolds.refsort.fa && grep -F 'ctg1' scaffolds.refsort.agp >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/haphic",
+            "ref": "v1.0.7-r2",
+            "commit": "712597c6a9f0ea65e656a883e8c4cb103b52a0d5",
+            "html_url": "https://github.com/taffish/haphic/tree/v1.0.7-r2"
+          },
+          "upstream": {
+            "name": "HapHiC",
+            "type": "github",
+            "homepage": "https://github.com/zengxiaofei/HapHiC",
+            "repository": "zengxiaofei/HapHiC",
+            "release_url": "https://github.com/zengxiaofei/HapHiC/releases/tag/v1.0.7",
+            "version": "1.0.7",
+            "license": "BSD-3-Clause",
+            "citation": "Zeng et al. 2024",
+            "doi": "10.1038/s41477-024-01755-3",
+            "pmid": "39103456"
+          }
         }
       }
     },
     "hicexplorer": {
       "name": "hicexplorer",
-      "latest": "3.7.6-r1",
+      "latest": "3.7.6-r2",
       "repository_url": "https://github.com/taffish/hicexplorer",
       "command": {
         "name": "taf-hicexplorer"
@@ -5129,12 +5971,177 @@
             "doi": "10.1093/nar/gkaa220",
             "pmid": "32301980"
           }
+        },
+        "3.7.6-r2": {
+          "name": "hicexplorer",
+          "kind": "tool",
+          "version": "3.7.6",
+          "release": 2,
+          "version_id": "3.7.6-r2",
+          "tag": "v3.7.6-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/hicexplorer",
+          "repository_slug": "taffish/hicexplorer",
+          "command": {
+            "name": "taf-hicexplorer"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "hic",
+            "categories": [
+              "hic",
+              "chromatin",
+              "genomics",
+              "visualization",
+              "quality-control"
+            ],
+            "keywords": [
+              "hicexplorer",
+              "hi-c",
+              "capture-hi-c",
+              "micro-c",
+              "contact-matrix",
+              "cooler",
+              "hicmatrix",
+              "tad",
+              "loops",
+              "compartments",
+              "visualization"
+            ],
+            "summary": "HiCExplorer command-line suite for processing, normalizing, analyzing, converting, and visualizing Hi-C, capture Hi-C, and Micro-C contact matrices.",
+            "description": "HiCExplorer command-line suite for processing, normalizing, analyzing, converting, and visualizing Hi-C, capture Hi-C, and Micro-C contact matrices."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/hicexplorer:3.7.6-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.7.6-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c05c641688a7bde35edb40024d3b3a6a88fe1af99d086149475212aae1517069",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:64da8bae34928ce8885f53f6e278f4c83adefc2b92c90614f20a660ec0d42f9d",
+              "linux/arm64": "sha256:1c9bf8a849f209a1b28cc753efd23f911839e20e7aa250b0c75533b68ce6ef01"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "hicexplorer",
+              "hicFindRestSite",
+              "hicAggregateContacts",
+              "hicBuildMatrix",
+              "hicBuildMatrixMicroC",
+              "hicCorrectMatrix",
+              "hicCorrelate",
+              "hicFindTADs",
+              "hicMergeMatrixBins",
+              "hicPlotMatrix",
+              "hicPlotDistVsCounts",
+              "hicPlotTADs",
+              "hicSumMatrices",
+              "hicInfo",
+              "hicQC",
+              "hicCompareMatrices",
+              "hicPCA",
+              "hicTransform",
+              "hicPlotViewpoint",
+              "chicViewpointBackgroundModel",
+              "chicPlotViewpoint",
+              "chicViewpoint",
+              "chicAggregateStatistic",
+              "chicDifferentialTest",
+              "chicQualityControl",
+              "chicSignificantInteractions",
+              "hicConvertFormat",
+              "hicAdjustMatrix",
+              "hicNormalize",
+              "hicAverageRegions",
+              "hicPlotAverageRegions",
+              "hicDetectLoops",
+              "hicValidateLocations",
+              "hicMergeLoops",
+              "hicCompartmentalization",
+              "hicQuickQC",
+              "hicPlotSVL",
+              "hicCreateThresholdFile",
+              "hicHyperoptDetectLoops",
+              "hicHyperoptDetectLoopsHiCCUPS",
+              "hicMergeDomains",
+              "hicDifferentialTAD",
+              "chicExportData",
+              "hicInterIntraTAD",
+              "hicTADClassifier",
+              "hicTrainTADClassifier",
+              "python",
+              "samtools",
+              "bedtools",
+              "dot"
+            ],
+            "test": [
+              "hicexplorer --version 2>&1 | grep -F '3.7.6' >/dev/null",
+              "hicexplorer --help 2>&1 | grep -F 'hicBuildMatrix' >/dev/null && hicexplorer --help 2>&1 | grep -F 'hicPlotMatrix' >/dev/null && hicexplorer --help 2>&1 | grep -F 'chicViewpoint' >/dev/null",
+              "hicInfo --version 2>&1 | grep -F '3.7.6' >/dev/null && hicBuildMatrix --version 2>&1 | grep -F '3.7.6' >/dev/null && hicBuildMatrixMicroC --version 2>&1 | grep -F '3.7.6' >/dev/null && hicConvertFormat --version 2>&1 | grep -F '3.7.6' >/dev/null && hicPlotMatrix --version 2>&1 | grep -F '3.7.6' >/dev/null && chicViewpoint --version 2>&1 | grep -F '3.7.6' >/dev/null",
+              "hicBuildMatrix --help 2>&1 | grep -F 'usage:' >/dev/null && hicBuildMatrixMicroC --help 2>&1 | grep -F 'usage:' >/dev/null && hicCorrectMatrix --help 2>&1 | grep -F 'usage:' >/dev/null && hicPlotTADs --help 2>&1 | grep -F 'usage:' >/dev/null && hicConvertFormat --help 2>&1 | grep -F 'usage:' >/dev/null",
+              "python -c 'import hicexplorer, hicmatrix, cooler, pybedtools, pyBigWig, pysam, sklearn, matplotlib, graphviz'",
+              "samtools --version | grep -F 'samtools 1.23.1' >/dev/null && bedtools --version | grep -F 'v2.31.1' >/dev/null && dot -V 2>&1 | grep -F 'graphviz' >/dev/null",
+              "mkdir -p /tmp/taf-hicexplorer-rest && cd /tmp/taf-hicexplorer-rest && printf '>chr1\\nAAAAGATCAAAAGATCTTTT\\n' > genome.fa && hicFindRestSite --fasta genome.fa --searchPattern GATC --outFile sites.bed && test -s sites.bed && grep -F 'chr1' sites.bed >/dev/null",
+              "mkdir -p /tmp/taf-hicexplorer-cool && cd /tmp/taf-hicexplorer-cool && python -c 'import cooler, pandas as pd; bins = pd.DataFrame({\"chrom\": [\"chr1\", \"chr1\"], \"start\": [0, 1000], \"end\": [1000, 2000]}); pixels = pd.DataFrame({\"bin1_id\": [0, 0, 1], \"bin2_id\": [0, 1, 1], \"count\": [5, 2, 3]}); cooler.create_cooler(\"tiny.cool\", bins=bins, pixels=pixels, ordered=True)' && hicInfo --matrices tiny.cool | grep -F 'tiny.cool' >/dev/null && hicPlotMatrix --matrix tiny.cool --outFileName tiny.png >/dev/null && test -s tiny.png && hicConvertFormat --matrices tiny.cool --inputFormat cool --outputFormat h5 --outFileName tiny.h5 >/dev/null && test -s tiny.h5 && hicInfo --matrices tiny.h5 | grep -F 'tiny.h5' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/hicexplorer",
+            "ref": "v3.7.6-r2",
+            "commit": "33c1e2d78e16545ad2688bf2612f0c14851803bc",
+            "html_url": "https://github.com/taffish/hicexplorer/tree/v3.7.6-r2"
+          },
+          "upstream": {
+            "name": "HiCExplorer",
+            "type": "github",
+            "homepage": "https://hicexplorer.readthedocs.io/",
+            "repository": "deeptools/HiCExplorer",
+            "release_url": "https://github.com/deeptools/HiCExplorer/releases/tag/3.7.6",
+            "version": "3.7.6",
+            "license": "GPL-3.0-or-later",
+            "citation": "Wolff et al. 2020; Wolff et al. 2018; Ramirez et al. 2018",
+            "doi": "10.1093/nar/gkaa220",
+            "pmid": "32301980"
+          }
         }
       }
     },
     "hifiasm": {
       "name": "hifiasm",
-      "latest": "0.25.0-r1",
+      "latest": "0.25.0-r2",
       "repository_url": "https://github.com/taffish/hifiasm",
       "command": {
         "name": "taf-hifiasm"
@@ -5250,12 +6257,123 @@
             "citation": "Cheng et al. 2021; Cheng et al. 2022; Cheng et al. 2024",
             "doi": "10.1038/s41592-020-01056-5; 10.1038/s41587-022-01261-x; 10.1038/s41592-024-02269-8"
           }
+        },
+        "0.25.0-r2": {
+          "name": "hifiasm",
+          "kind": "tool",
+          "version": "0.25.0",
+          "release": 2,
+          "version_id": "0.25.0-r2",
+          "tag": "v0.25.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/hifiasm",
+          "repository_slug": "taffish/hifiasm",
+          "command": {
+            "name": "taf-hifiasm"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "long-read",
+              "haplotype-resolved",
+              "de-novo-assembly",
+              "t2t"
+            ],
+            "keywords": [
+              "hifiasm",
+              "hifi",
+              "ont",
+              "assembly",
+              "haplotype-resolved",
+              "trio-binning",
+              "hi-c",
+              "ultralong",
+              "gfa",
+              "t2t"
+            ],
+            "summary": "Fast haplotype-resolved de novo genome assembly for PacBio HiFi reads, ONT R10 reads, Hi-C phasing, trio binning, ultralong-read integration, and telomere-to-telomere assembly modes.",
+            "description": "Fast haplotype-resolved de novo genome assembly for PacBio HiFi reads, ONT R10 reads, Hi-C phasing, trio binning, ultralong-read integration, and telomere-to-telomere assembly modes."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/hifiasm:0.25.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.25.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f7cd19e10989ac53f8b4c88c25fd3db872a42971814f36eff035311c360d6723",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:eb33c38884f3325b84c10c0a1b3c98862c5991f8261e23a45acc05d0ec577a52",
+              "linux/arm64": "sha256:6df8b4f1727a6e6de54c13ebe904b131a8b892e3cdb32026e7b77c823e37fffc"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "hifiasm",
+              "bash"
+            ],
+            "test": [
+              "hifiasm --version | grep -Fx '0.25.0-r726' >/dev/null",
+              "hifiasm 2>&1 | grep -F 'Usage: hifiasm' >/dev/null",
+              "ldd \"$(command -v hifiasm)\" | grep -F 'libz' >/dev/null",
+              "mkdir -p /tmp/taf-hifiasm-smoke && cd /tmp/taf-hifiasm-smoke && printf '@r1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTA\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n@r3\\nGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && hifiasm -o tiny -t1 -f0 reads.fq > tiny.out 2> tiny.log && test -s tiny.log && grep -F '[M::ha_analyze_count]' tiny.log >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/hifiasm",
+            "ref": "v0.25.0-r2",
+            "commit": "a528e4e9a51f104d486c9c0660118601aea7abac",
+            "html_url": "https://github.com/taffish/hifiasm/tree/v0.25.0-r2"
+          },
+          "upstream": {
+            "name": "hifiasm",
+            "type": "github",
+            "homepage": "https://hifiasm.readthedocs.io/en/latest/",
+            "repository": "chhylp123/hifiasm",
+            "release_url": "https://github.com/chhylp123/hifiasm/releases/tag/0.25.0",
+            "version": "0.25.0",
+            "license": "MIT",
+            "citation": "Cheng et al. 2021; Cheng et al. 2022; Cheng et al. 2024",
+            "doi": "10.1038/s41592-020-01056-5; 10.1038/s41587-022-01261-x; 10.1038/s41592-024-02269-8"
+          }
         }
       }
     },
     "hisat2": {
       "name": "hisat2",
-      "latest": "2.2.2-r1",
+      "latest": "2.2.2-r2",
       "repository_url": "https://github.com/taffish/hisat2",
       "command": {
         "name": "taf-hisat2"
@@ -5397,12 +6515,149 @@
             "citation": "Kim et al. 2015; Kim et al. 2019",
             "doi": "10.1038/nmeth.3317; 10.1038/s41587-019-0201-4"
           }
+        },
+        "2.2.2-r2": {
+          "name": "hisat2",
+          "kind": "tool",
+          "version": "2.2.2",
+          "release": 2,
+          "version_id": "2.2.2-r2",
+          "tag": "v2.2.2-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/hisat2",
+          "repository_slug": "taffish/hisat2",
+          "command": {
+            "name": "taf-hisat2"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "alignment",
+              "rna-seq",
+              "short-read",
+              "spliced-alignment"
+            ],
+            "keywords": [
+              "hisat2",
+              "rna-seq",
+              "spliced-alignment",
+              "read-alignment",
+              "short-read-alignment",
+              "fastq",
+              "sam",
+              "indexing",
+              "graph-index",
+              "ngs"
+            ],
+            "summary": "Fast and sensitive graph-based aligner for DNA and RNA sequencing reads, with HISAT2 index building and inspection utilities.",
+            "description": "Fast and sensitive graph-based aligner for DNA and RNA sequencing reads, with HISAT2 index building and inspection utilities."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/hisat2:2.2.2-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.2-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:cdd2da6e06c722195cfbfb88638a11bb392ec0ddbd7e02c80a3d9d568dba9e0a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:388f8e63bdf8508f46e8308fe77add390d53a82fbc358d1f07eb5be8c85b19bf",
+              "linux/arm64": "sha256:81620f1f6c7265b26519097ae96d3b40071985f3c63eaa2c388a81810a10af89"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "hisat2",
+              "hisat2-build",
+              "hisat2-inspect",
+              "hisat2-align-s",
+              "hisat2-align-l",
+              "hisat2-build-s",
+              "hisat2-build-l",
+              "hisat2-inspect-s",
+              "hisat2-inspect-l",
+              "hisat2-repeat",
+              "hisat2_extract_splice_sites.py",
+              "hisat2_extract_exons.py",
+              "hisat2_extract_snps_haplotypes_UCSC.py",
+              "hisat2_extract_snps_haplotypes_VCF.py",
+              "hisat2_simulate_reads.py",
+              "hisat2_read_statistics.py",
+              "extract_splice_sites.py",
+              "extract_exons.py",
+              "python",
+              "python3",
+              "perl",
+              "gzip",
+              "bzip2",
+              "samtools",
+              "bash"
+            ],
+            "test": [
+              "hisat2 --version 2>&1 | grep -F 'version 2.2.2' >/dev/null",
+              "hisat2-build --version 2>&1 | grep -F 'version 2.2.2' >/dev/null && hisat2-inspect --version 2>&1 | grep -F 'version 2.2.2' >/dev/null",
+              "hisat2 --help 2>&1 | grep -F 'Usage:' >/dev/null && hisat2-build --help 2>&1 | grep -F 'Usage:' >/dev/null && hisat2-inspect --help 2>&1 | grep -F 'Usage:' >/dev/null",
+              "python --version >/dev/null && python3 --version >/dev/null && perl -v >/dev/null && gzip --version >/dev/null && bzip2 --help >/dev/null 2>&1 && samtools --version >/dev/null",
+              "hisat2_extract_splice_sites.py --help | grep -F 'Extract splice junctions' >/dev/null && hisat2_extract_exons.py --help | grep -F 'Extract exons' >/dev/null && hisat2_extract_snps_haplotypes_UCSC.py --help | grep -F 'Extract SNPs and haplotypes' >/dev/null && hisat2_extract_snps_haplotypes_VCF.py --help | grep -F 'Extract SNPs and haplotypes' >/dev/null && hisat2_simulate_reads.py --help | grep -F 'Simulate reads' >/dev/null",
+              "mkdir -p /tmp/taf-hisat2-smoke && cd /tmp/taf-hisat2-smoke && printf '>ref\\nACGTACGTTGCAAGTCGATCGTACGATCGTTAACCGGTTAACCGGTT\\n' > ref.fa && hisat2-build ref.fa ref >/dev/null && printf '@r1\\nTGCAAGTCGATCGTACGATCGTTAACCGGTTA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && bzip2 -c reads.fq > reads.fq.bz2 && hisat2 -x ref -U reads.fq.gz -S gz.sam --quiet --no-spliced-alignment && grep -v '^@' gz.sam | cut -f3 | grep -Fx ref >/dev/null && hisat2 -x ref -U reads.fq.bz2 -S bz2.sam --quiet --no-spliced-alignment && grep -v '^@' bz2.sam | cut -f3 | grep -Fx ref >/dev/null && hisat2-inspect -n ref | grep -Fx ref >/dev/null",
+              "mkdir -p /tmp/taf-hisat2-large-smoke && cd /tmp/taf-hisat2-large-smoke && printf '>ref\\nACGTACGTTGCAAGTCGATCGTACGATCGTTAACCGGTTAACCGGTT\\n' > ref.fa && hisat2-build --large-index ref.fa ref_large >/dev/null && test -s ref_large.1.ht2l && hisat2-inspect --large-index -n ref_large | grep -Fx ref >/dev/null",
+              "mkdir -p /tmp/taf-hisat2-gtf-smoke && cd /tmp/taf-hisat2-gtf-smoke && printf 'chr1\\tsrc\\texon\\t1\\t10\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\nchr1\\tsrc\\texon\\t21\\t30\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > genes.gtf && hisat2_extract_splice_sites.py genes.gtf | grep -F 'chr1' >/dev/null && hisat2_extract_exons.py genes.gtf | grep -F 'chr1' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/hisat2",
+            "ref": "v2.2.2-r2",
+            "commit": "1e07c98fe4ae229be9f7dd0b24ba0ab374e8d6c1",
+            "html_url": "https://github.com/taffish/hisat2/tree/v2.2.2-r2"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://daehwankimlab.github.io/hisat2/",
+            "repository": "DaehwanKimLab/hisat2",
+            "release_url": "https://github.com/DaehwanKimLab/hisat2/releases/tag/v2.2.2",
+            "version": "2.2.2",
+            "license": "GPL-3.0-or-later",
+            "citation": "Kim et al. 2015; Kim et al. 2019",
+            "doi": "10.1038/nmeth.3317; 10.1038/s41587-019-0201-4"
+          }
         }
       }
     },
     "hmmer": {
       "name": "hmmer",
-      "latest": "3.4-r1",
+      "latest": "3.4-r2",
       "repository_url": "https://github.com/taffish/hmmer",
       "command": {
         "name": "taf-hmmer"
@@ -5554,6 +6809,165 @@
             "ref": "v3.4-r1",
             "commit": "7cbdb793c3bc3c7223ceb9761b288b14ba29621b",
             "html_url": "https://github.com/taffish/hmmer/tree/v3.4-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "http://hmmer.org/",
+            "repository": "EddyRivasLab/hmmer",
+            "release_url": "https://github.com/EddyRivasLab/hmmer/releases/tag/hmmer-3.4",
+            "version": "3.4",
+            "license": "BSD-3-Clause",
+            "citation": "Eddy 2008; Eddy 2011",
+            "doi": "10.1371/journal.pcbi.1000069; 10.1371/journal.pcbi.1002195",
+            "pmid": "18516236; 22039361"
+          }
+        },
+        "3.4-r2": {
+          "name": "hmmer",
+          "kind": "tool",
+          "version": "3.4",
+          "release": 2,
+          "version_id": "3.4-r2",
+          "tag": "v3.4-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/hmmer",
+          "repository_slug": "taffish/hmmer",
+          "command": {
+            "name": "taf-hmmer"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-analysis",
+            "categories": [
+              "sequence-analysis",
+              "profile-hmm",
+              "homology-search",
+              "protein-family",
+              "annotation"
+            ],
+            "keywords": [
+              "hmmer",
+              "profile-hmm",
+              "hidden-markov-model",
+              "hmmsearch",
+              "hmmscan",
+              "hmmbuild",
+              "jackhmmer",
+              "phmmer",
+              "nhmmer",
+              "easel",
+              "pfam",
+              "domain-annotation"
+            ],
+            "summary": "HMMER 3.4 command suite for profile HMM construction, sequence homology search, domain annotation, and bundled Easel sequence/alignment utilities.",
+            "description": "HMMER 3.4 command suite for profile HMM construction, sequence homology search, domain annotation, and bundled Easel sequence/alignment utilities."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/hmmer:3.4-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.4-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e16d8b26c58dfb14c691fd7259e9c9424a00a4d9d7505c68db4bf6a68465ad2f",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2e5101d0bc7e84b3605f61e083c040604ee6d30560cbabc7de10bd5495cb266f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "taf-hmmer-entrypoint",
+              "alimask",
+              "hmmalign",
+              "hmmbuild",
+              "hmmconvert",
+              "hmmemit",
+              "hmmfetch",
+              "hmmlogo",
+              "hmmpgmd",
+              "hmmpgmd_shard",
+              "hmmpress",
+              "hmmscan",
+              "hmmsearch",
+              "hmmsim",
+              "hmmstat",
+              "jackhmmer",
+              "phmmer",
+              "nhmmer",
+              "nhmmscan",
+              "makehmmerdb",
+              "easel",
+              "esl-afetch",
+              "esl-alimanip",
+              "esl-alimap",
+              "esl-alimask",
+              "esl-alimerge",
+              "esl-alipid",
+              "esl-alirev",
+              "esl-alistat",
+              "esl-compalign",
+              "esl-compstruct",
+              "esl-construct",
+              "esl-histplot",
+              "esl-mask",
+              "esl-mixdchlet",
+              "esl-reformat",
+              "esl-selectn",
+              "esl-seqrange",
+              "esl-seqstat",
+              "esl-sfetch",
+              "esl-shuffle",
+              "esl-ssdraw",
+              "esl-translate",
+              "esl-weight",
+              "gzip",
+              "gunzip"
+            ],
+            "test": [
+              "hmmbuild -h 2>&1 | grep -F '# HMMER 3.4' >/dev/null && hmmsearch -h 2>&1 | grep -F '# HMMER 3.4' >/dev/null && hmmscan -h 2>&1 | grep -F '# HMMER 3.4' >/dev/null",
+              "taf-hmmer-entrypoint --help | grep -F 'HMMER 3.4 command suite' >/dev/null && taf-hmmer-entrypoint --version | grep -F '# HMMER 3.4' >/dev/null",
+              "hmmalign -h >/dev/null && hmmconvert -h >/dev/null && hmmemit -h >/dev/null && hmmfetch -h >/dev/null && hmmlogo -h >/dev/null && hmmpress -h >/dev/null && hmmstat -h >/dev/null && jackhmmer -h >/dev/null && phmmer -h >/dev/null && nhmmer -h >/dev/null && nhmmscan -h >/dev/null && makehmmerdb -h >/dev/null",
+              "hmmpgmd -h >/dev/null && hmmpgmd_shard -h >/dev/null && alimask -h >/dev/null && hmmsim -h >/dev/null && esl-reformat -h >/dev/null && esl-seqstat -h >/dev/null && easel -h >/dev/null",
+              "mkdir -p /tmp/taf-hmmer-build-search && cd /tmp/taf-hmmer-build-search && cp /opt/hmmer/share/doc/hmmer/tutorial/fn3.sto . && cp /opt/hmmer/share/doc/hmmer/tutorial/7LESS_DROME . && hmmbuild fn3.hmm fn3.sto >/dev/null && hmmstat fn3.hmm | grep -F 'fn3' >/dev/null && hmmemit -c fn3.hmm > fn3-consensus.fa && test -s fn3-consensus.fa && hmmsearch --tblout hits.tbl fn3.hmm 7LESS_DROME >/dev/null && grep -F '7LESS_DROME' hits.tbl >/dev/null",
+              "mkdir -p /tmp/taf-hmmer-scan && cd /tmp/taf-hmmer-scan && cp /opt/hmmer/share/doc/hmmer/tutorial/fn3.hmm . && cp /opt/hmmer/share/doc/hmmer/tutorial/7LESS_DROME . && hmmpress fn3.hmm >/dev/null && hmmscan --tblout scan.tbl fn3.hmm 7LESS_DROME >/dev/null && grep -F 'fn3' scan.tbl >/dev/null",
+              "mkdir -p /tmp/taf-hmmer-gzip-easel && cd /tmp/taf-hmmer-gzip-easel && cp /opt/hmmer/share/doc/hmmer/tutorial/fn3.hmm . && cp /opt/hmmer/share/doc/hmmer/tutorial/fn3.sto . && gzip -c fn3.hmm > fn3.hmm.gz && hmmstat fn3.hmm.gz | grep -F 'fn3' >/dev/null && esl-reformat fasta fn3.sto > fn3.fa && esl-seqstat fn3.fa | grep -F 'Number of sequences' >/dev/null",
+              "mkdir -p /tmp/taf-hmmer-nhmmer && cd /tmp/taf-hmmer-nhmmer && cp /opt/hmmer/share/doc/hmmer/tutorial/MADE1.hmm . && cp /opt/hmmer/share/doc/hmmer/tutorial/dna_target.fa . && nhmmer --tblout nh.tbl MADE1.hmm dna_target.fa >/dev/null && grep -F 'MADE1' nh.tbl >/dev/null && makehmmerdb dna_target.fa dna.hmmerdb >/dev/null && test -s dna.hmmerdb"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/hmmer",
+            "ref": "v3.4-r2",
+            "commit": "27cd33334aa60056880824c96e7de2faf0c5b29c",
+            "html_url": "https://github.com/taffish/hmmer/tree/v3.4-r2"
           },
           "upstream": {
             "type": "github",
@@ -6080,7 +7494,7 @@
     },
     "mafft": {
       "name": "mafft",
-      "latest": "7.525-r2",
+      "latest": "7.525-r3",
       "repository_url": "https://github.com/taffish/mafft",
       "command": {
         "name": "taf-mafft"
@@ -6347,6 +7761,144 @@
             "ref": "v7.525-r2",
             "commit": "bd209db66b9e2bcd7a05f794c9cb6f777369a82f",
             "html_url": "https://github.com/taffish/mafft/tree/v7.525-r2"
+          },
+          "upstream": {
+            "name": "MAFFT",
+            "type": "official",
+            "homepage": "https://mafft.cbrc.jp/alignment/software/",
+            "release_url": "https://mafft.cbrc.jp/alignment/software/source.html",
+            "version": "7.525",
+            "license": "BSD-3-Clause AND LicenseRef-MAFFT-extensions",
+            "citation": "Katoh and Standley 2013; Katoh et al. 2002",
+            "doi": "10.1093/molbev/mst010; 10.1093/nar/gkf436",
+            "pmid": "23329690; 12136088"
+          }
+        },
+        "7.525-r3": {
+          "name": "mafft",
+          "kind": "tool",
+          "version": "7.525",
+          "release": 3,
+          "version_id": "7.525-r3",
+          "tag": "v7.525-r3",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/mafft",
+          "repository_slug": "taffish/mafft",
+          "command": {
+            "name": "taf-mafft"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "multiple-sequence-alignment",
+            "categories": [
+              "multiple-sequence-alignment",
+              "sequence-analysis",
+              "phylogenetics",
+              "rna-structure"
+            ],
+            "keywords": [
+              "mafft",
+              "multiple-sequence-alignment",
+              "msa",
+              "linsi",
+              "ginsi",
+              "einsi",
+              "qinsi",
+              "xinsi",
+              "profile-alignment",
+              "rna-structure"
+            ],
+            "summary": "MAFFT 7.525 multiple sequence alignment suite from the official with-extensions source package, including core strategies, aliases, profile/distance helpers, and RNA structural alignment helpers.",
+            "description": "MAFFT 7.525 multiple sequence alignment suite from the official with-extensions source package, including core strategies, aliases, profile/distance helpers, and RNA structural alignment helpers."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/mafft:7.525-r3",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "7.525-r3",
+            "image_tag_matches_version": true,
+            "digest": "sha256:bcbb18c3d583a5fdaf2cd1311a2bdd059c49e8d16d3702ad9b99b9d7992f6b5e",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:62861af47ccb8f8b9cc803f6b5e0191f6f18c7136ef81f70105fbe0576ecee78",
+              "linux/arm64": "sha256:268fddd79f1bc279e44f4f8b1a96d909858d9ac7095c2e0f7191f51b314510c1"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "mafft",
+              "linsi",
+              "ginsi",
+              "einsi",
+              "fftns",
+              "fftnsi",
+              "nwns",
+              "nwnsi",
+              "mafft-linsi",
+              "mafft-ginsi",
+              "mafft-einsi",
+              "mafft-qinsi",
+              "mafft-xinsi",
+              "mafft-profile",
+              "mafft-distance",
+              "mafft-homologs.rb",
+              "mafft-sparsecore.rb",
+              "bash",
+              "perl",
+              "ruby",
+              "lynx",
+              "man",
+              "file",
+              "gzip"
+            ],
+            "test": [
+              "mafft --version 2>&1 | grep -F 'v7.525 (2024/Mar/13)' >/dev/null",
+              "mafft --help 2>&1 | grep -F 'MAFFT v7.525' >/dev/null && mafft --man 2>&1 | grep -F 'Multiple alignment program' >/dev/null",
+              "mafft-linsi --help 2>&1 | grep -F 'MAFFT v7.525' >/dev/null && mafft-ginsi --help 2>&1 | grep -F 'MAFFT v7.525' >/dev/null && mafft-einsi --help 2>&1 | grep -F 'MAFFT v7.525' >/dev/null && mafft-qinsi --help 2>&1 | grep -F 'MAFFT v7.525' >/dev/null && mafft-xinsi --help 2>&1 | grep -F 'MAFFT v7.525' >/dev/null",
+              "test -x /opt/mafft/libexec/mafft/mxscarnamod && test -x /opt/mafft/libexec/mafft/dash_client && ruby -c /opt/mafft/bin/mafft-homologs.rb >/dev/null && ruby -c /opt/mafft/bin/mafft-sparsecore.rb >/dev/null && perl -c /opt/mafft/libexec/mafft/mafftash_premafft.pl >/dev/null && perl -c /opt/mafft/libexec/mafft/seekquencer_premafft.pl >/dev/null && ldd /opt/mafft/libexec/mafft/tbfast | grep -F libc >/dev/null",
+              "mkdir -p /tmp/taf-mafft-core && cd /tmp/taf-mafft-core && printf '>seq1\\nACGTACGTACGT\\n>seq2\\nACGTCGTTACGT\\n>seq3\\nACGTTGCAACGT\\n' > dna.fa && mafft --thread 1 --quiet dna.fa > aligned.fa && test \"$(grep -c '^>' aligned.fa)\" = 3",
+              "mkdir -p /tmp/taf-mafft-accuracy && cd /tmp/taf-mafft-accuracy && printf '>seq1\\nACGTACGTACGT\\n>seq2\\nACGTCGTTACGT\\n>seq3\\nACGTTGCAACGT\\n' > dna.fa && linsi --thread 1 --quiet dna.fa > linsi.fa && ginsi --thread 1 --quiet dna.fa > ginsi.fa && einsi --thread 1 --quiet dna.fa > einsi.fa && test \"$(grep -c '^>' linsi.fa)\" = 3 && test \"$(grep -c '^>' ginsi.fa)\" = 3 && test \"$(grep -c '^>' einsi.fa)\" = 3",
+              "mkdir -p /tmp/taf-mafft-fast && cd /tmp/taf-mafft-fast && printf '>seq1\\nACGTACGTACGT\\n>seq2\\nACGTCGTTACGT\\n>seq3\\nACGTTGCAACGT\\n' > dna.fa && fftns --thread 1 --quiet dna.fa > fftns.fa && fftnsi --thread 1 --quiet dna.fa > fftnsi.fa && nwns --thread 1 --quiet dna.fa > nwns.fa && nwnsi --thread 1 --quiet dna.fa > nwnsi.fa && test \"$(grep -c '^>' fftns.fa)\" = 3 && test \"$(grep -c '^>' fftnsi.fa)\" = 3 && test \"$(grep -c '^>' nwns.fa)\" = 3 && test \"$(grep -c '^>' nwnsi.fa)\" = 3",
+              "mkdir -p /tmp/taf-mafft-profile && cd /tmp/taf-mafft-profile && printf '>p1\\nACGTACGT\\n>p2\\nACGTTCGT\\n' > profile1.fa && printf '>p3\\nACGTACGA\\n>p4\\nACGTTTGA\\n' > profile2.fa && mafft-profile profile1.fa profile2.fa > profile.fa && test \"$(grep -c '^>' profile.fa)\" = 4 && printf '>seq1\\nACGTACGTACGT\\n>seq2\\nACGTCGTTACGT\\n>seq3\\nACGTTGCAACGT\\n' > dna.fa && mafft-distance dna.fa > distance.tsv && test -s distance.tsv",
+              "mkdir -p /tmp/taf-mafft-rna && cd /tmp/taf-mafft-rna && cp /opt/mafft/share/doc/mafft/test/samplerna rna.fa && mafft-qinsi --thread 1 --quiet rna.fa > qinsi.fa && mafft-xinsi --thread 1 --quiet rna.fa > xinsi.fa && grep -q '^>' qinsi.fa && grep -q '^>' xinsi.fa",
+              "mafft-sparsecore.rb 2>&1 | grep -F 'Give input file with -i.' >/dev/null && mafft-homologs.rb --help 2>&1 | grep -F 'Usage: mafft-homologs' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/mafft",
+            "ref": "v7.525-r3",
+            "commit": "0ae57a46e652ed022b7493ce750c1258d7233832",
+            "html_url": "https://github.com/taffish/mafft/tree/v7.525-r3"
           },
           "upstream": {
             "name": "MAFFT",
@@ -6894,7 +8446,7 @@
     },
     "meryl": {
       "name": "meryl",
-      "latest": "1.4.1-r1",
+      "latest": "1.4.1-r2",
       "repository_url": "https://github.com/taffish/meryl",
       "command": {
         "name": "taf-meryl"
@@ -7006,6 +8558,126 @@
             "ref": "v1.4.1-r1",
             "commit": "51e73d456a752e2eea8282c3c0db0e0863387a32",
             "html_url": "https://github.com/taffish/meryl/tree/v1.4.1-r1"
+          },
+          "upstream": {
+            "name": "Meryl",
+            "type": "github",
+            "homepage": "https://github.com/marbl/meryl",
+            "repository": "marbl/meryl",
+            "release_url": "https://github.com/marbl/meryl/releases/tag/v1.4.1",
+            "version": "1.4.1",
+            "license": "Public Domain",
+            "citation": "Rhie et al. 2020",
+            "doi": "10.1186/s13059-020-02134-9",
+            "pmid": "32928274"
+          }
+        },
+        "1.4.1-r2": {
+          "name": "meryl",
+          "kind": "tool",
+          "version": "1.4.1",
+          "release": 2,
+          "version_id": "1.4.1-r2",
+          "tag": "v1.4.1-r2",
+          "license": "Public Domain",
+          "repository_url": "https://github.com/taffish/meryl",
+          "repository_slug": "taffish/meryl",
+          "command": {
+            "name": "taf-meryl"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "kmer",
+            "categories": [
+              "kmer",
+              "genome-assembly",
+              "quality-control",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "meryl",
+              "k-mer",
+              "kmer",
+              "histogram",
+              "counting",
+              "meryl-lookup",
+              "merqury",
+              "assembly-evaluation"
+            ],
+            "summary": "Meryl is a genomic k-mer counter and sequence utility used by Merqury and related assembly-evaluation workflows.",
+            "description": "Meryl is a genomic k-mer counter and sequence utility used by Merqury and related assembly-evaluation workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/meryl:1.4.1-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.4.1-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2170785f67162add053b92bc79283df9d610ae92b0f27357061cba614e7225ac",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:4c8fa9c591db82255ee4a20b6797dedbbb4d6d1bba6976a5d821b1ef9eda3295"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "meryl",
+              "meryl-lookup",
+              "meryl-import",
+              "meryl-analyze",
+              "meryl-simple",
+              "position-lookup",
+              "gzip",
+              "bzip2",
+              "xz",
+              "bash"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/meryl/VERSION)\" = '1.4.1'",
+              "meryl --version 2>&1 | grep -F 'meryl 1.4.1' >/dev/null",
+              "meryl -h 2>&1 | grep -F 'COMMANDS:' >/dev/null",
+              "meryl-lookup 2>&1 | grep -F 'usage:' >/dev/null",
+              "meryl-import 2>&1 | grep -F 'usage:' >/dev/null",
+              "meryl-simple 2>&1 | grep -F 'usage:' >/dev/null",
+              "meryl-analyze 2>&1 | grep -F 'usage:' >/dev/null",
+              "ldd \"$(command -v meryl)\" | grep -F 'libgomp' >/dev/null",
+              "mkdir -p /tmp/taf-meryl-smoke && cd /tmp/taf-meryl-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl k=21 memory=0.1 threads=1 count seq.fa output seq.meryl >/dev/null 2> meryl.log && test -d seq.meryl && meryl histogram seq.meryl > seq.hist && grep -E '^6[[:space:]]+2$' seq.hist >/dev/null && meryl statistics seq.meryl > seq.stats && grep -F 'distinct                    2' seq.stats >/dev/null && meryl print seq.meryl > seq.print && grep -F 'ACGTACGTACGTACGTACGTA' seq.print >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/meryl",
+            "ref": "v1.4.1-r2",
+            "commit": "f6a0f7760567a4234474291d8c3f10b21e7ef5a2",
+            "html_url": "https://github.com/taffish/meryl/tree/v1.4.1-r2"
           },
           "upstream": {
             "name": "Meryl",
@@ -7154,7 +8826,7 @@
     },
     "miniprot": {
       "name": "miniprot",
-      "latest": "0.18-r1",
+      "latest": "0.18-r2",
       "repository_url": "https://github.com/taffish/miniprot",
       "command": {
         "name": "taf-miniprot"
@@ -7275,12 +8947,128 @@
             "doi": "10.1093/bioinformatics/btad014",
             "pmid": "36648328"
           }
+        },
+        "0.18-r2": {
+          "name": "miniprot",
+          "kind": "tool",
+          "version": "0.18",
+          "release": 2,
+          "version_id": "0.18-r2",
+          "tag": "v0.18-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/miniprot",
+          "repository_slug": "taffish/miniprot",
+          "command": {
+            "name": "taf-miniprot"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "protein-to-genome-alignment",
+            "categories": [
+              "protein-to-genome-alignment",
+              "gene-annotation",
+              "spliced-alignment",
+              "comparative-genomics"
+            ],
+            "keywords": [
+              "miniprot",
+              "protein",
+              "genome",
+              "alignment",
+              "paf",
+              "gff3",
+              "gtf",
+              "splicing",
+              "frameshift",
+              "gene-annotation",
+              "minisplice"
+            ],
+            "summary": "Fast protein-to-genome aligner with splicing and frameshift-aware alignment, PAF/GFF3/GTF output, reusable genome indices, and optional splice-score input.",
+            "description": "Fast protein-to-genome aligner with splicing and frameshift-aware alignment, PAF/GFF3/GTF output, reusable genome indices, and optional splice-score input."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/miniprot:0.18-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.18-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b3630947752e0ec39798a3a8474f4311bb488fc18b09792649ed1045dc0a29c5",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:8bdb5e5e165c378eb403c40ea723a3f33f05cf3fdec08046282b7335a7f64763",
+              "linux/arm64": "sha256:d8d3f92830cb8c62a167ef21f6854e9b54a32f3d40c3485864d39580353430f7"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "miniprot",
+              "gzip",
+              "sh"
+            ],
+            "test": [
+              "miniprot --version | grep -Fx '0.18-r281' >/dev/null",
+              "miniprot 2>&1 | grep -F 'Usage: miniprot' >/dev/null && miniprot 2>&1 | grep -F -- '--gff' >/dev/null && miniprot 2>&1 | grep -F -- '--trans' >/dev/null",
+              "ldd /usr/local/bin/miniprot | grep -F 'libz' >/dev/null",
+              "mkdir -p /tmp/taf-miniprot-paf && cd /tmp/taf-miniprot-paf && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 ref.fa.gz query.faa.gz > aln.paf && grep -F 'ENSMUSP00000025851.4' aln.paf >/dev/null && grep -F 'cg:Z:' aln.paf >/dev/null",
+              "mkdir -p /tmp/taf-miniprot-gff && cd /tmp/taf-miniprot-gff && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 --gff ref.fa.gz query.faa.gz > aln.gff && grep -F '##gff-version 3' aln.gff >/dev/null && grep -F '##PAF' aln.gff >/dev/null && miniprot -t1 --gtf ref.fa.gz query.faa.gz > aln.gtf && grep -F 'transcript' aln.gtf >/dev/null",
+              "mkdir -p /tmp/taf-miniprot-index && cd /tmp/taf-miniprot-index && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 -d ref.mpi ref.fa.gz && test -s ref.mpi && miniprot -t1 ref.mpi query.faa.gz > indexed.paf && grep -F 'ENSMUSP00000025851.4' indexed.paf >/dev/null",
+              "mkdir -p /tmp/taf-miniprot-aln && cd /tmp/taf-miniprot-aln && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 --aln --trans ref.fa.gz query.faa.gz > aln.txt && grep -F '##ATA' aln.txt >/dev/null && grep -F '##STA' aln.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/miniprot",
+            "ref": "v0.18-r2",
+            "commit": "80704e14da04a4b672c51bbb7ba7cd8ef4bdd9ee",
+            "html_url": "https://github.com/taffish/miniprot/tree/v0.18-r2"
+          },
+          "upstream": {
+            "name": "miniprot",
+            "type": "github",
+            "homepage": "https://lh3.github.io/miniprot/miniprot.html",
+            "repository": "lh3/miniprot",
+            "release_url": "https://github.com/lh3/miniprot/releases/tag/v0.18",
+            "version": "0.18",
+            "license": "MIT",
+            "citation": "Li 2023",
+            "doi": "10.1093/bioinformatics/btad014",
+            "pmid": "36648328"
+          }
         }
       }
     },
     "mmseqs2": {
       "name": "mmseqs2",
-      "latest": "18-r2",
+      "latest": "18-r3",
       "repository_url": "https://github.com/taffish/mmseqs2",
       "command": {
         "name": "taf-mmseqs2"
@@ -7541,12 +9329,141 @@
             "citation": "Steinegger and Soeding 2017; Steinegger and Soeding 2018; Mirdita et al. 2019; Mirdita et al. 2021; Kallenborn et al. 2024",
             "doi": "10.1038/nbt.3988; 10.1038/s41467-018-04964-5; 10.1093/bioinformatics/bty1057; 10.1093/bioinformatics/btab184; 10.1101/2024.11.13.623350"
           }
+        },
+        "18-r3": {
+          "name": "mmseqs2",
+          "kind": "tool",
+          "version": "18",
+          "release": 3,
+          "version_id": "18-r3",
+          "tag": "v18-r3",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/mmseqs2",
+          "repository_slug": "taffish/mmseqs2",
+          "command": {
+            "name": "taf-mmseqs2"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-search",
+            "categories": [
+              "sequence-search",
+              "sequence-clustering",
+              "taxonomy",
+              "protein",
+              "nucleotide"
+            ],
+            "keywords": [
+              "mmseqs2",
+              "mmseqs",
+              "sequence-search",
+              "sequence-clustering",
+              "easy-search",
+              "easy-cluster",
+              "taxonomy",
+              "metagenomics",
+              "protein",
+              "nucleotide"
+            ],
+            "summary": "Ultra-fast sequence search, clustering, and taxonomy workflows for protein and nucleotide datasets.",
+            "description": "Ultra-fast sequence search, clustering, and taxonomy workflows for protein and nucleotide datasets."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/mmseqs2:18-r3",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "18-r3",
+            "image_tag_matches_version": true,
+            "digest": "sha256:fbf844bce3eb8200b3c0273251ad8baff12ad0f4e03ef5d3da9b56e6bf47cdd6",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:4d4a336996c0e79a9458156c6e4607d1882b0af245fa2a415435aee813549da7",
+              "linux/arm64": "sha256:278f8d3924d6a0aabf48d62a69e6d8bf67b8d2a2a6bbf753ed5787e11b561297"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "mmseqs",
+              "bash",
+              "gawk",
+              "grep",
+              "curl",
+              "wget",
+              "xargs",
+              "tar",
+              "gzip",
+              "bzip2",
+              "xz"
+            ],
+            "test": [
+              "mmseqs version | grep -Fx '8cc5ce367b5638c4306c2d7cfc652dd099a4643f' >/dev/null",
+              "if [ \"$(uname -m)\" = 'x86_64' ] || [ \"$(uname -m)\" = 'amd64' ]; then for b in /opt/mmseqs2/bin/mmseqs_sse2 /opt/mmseqs2/bin/mmseqs_sse41 /opt/mmseqs2/bin/mmseqs_avx2; do \"$b\" version | grep -Fx '8cc5ce367b5638c4306c2d7cfc652dd099a4643f' >/dev/null || exit 1; done; else /opt/mmseqs2/bin/mmseqs_arm64 version | grep -Fx '8cc5ce367b5638c4306c2d7cfc652dd099a4643f' >/dev/null; fi",
+              "mmseqs 2>&1 | grep -F 'MMseqs2 Version: 8cc5ce367b5638c4306c2d7cfc652dd099a4643f' >/dev/null",
+              "mmseqs easy-search 2>&1 | grep -F 'usage: mmseqs easy-search' >/dev/null",
+              "mmseqs createdb 2>&1 | grep -F 'usage: mmseqs createdb' >/dev/null",
+              "mmseqs databases 2>&1 | grep -F 'usage: mmseqs databases' >/dev/null",
+              "for module in easy-taxonomy fwbw pairaln taxonomyreport createdmptaxonomy; do mmseqs \"$module\" 2>&1 | grep -F \"usage: mmseqs $module\" >/dev/null || exit 1; done",
+              "bash -lc 'printf ok' | grep -Fx ok >/dev/null",
+              "mkdir -p /tmp/taf-mmseqs2-createdb && cd /tmp/taf-mmseqs2-createdb && printf '>s1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > seqs.fa && gzip -c seqs.fa > seqs.fa.gz && bzip2 -c seqs.fa > seqs.fa.bz2 && mmseqs createdb seqs.fa.gz seqdb --threads 1 >/tmp/taf-mmseqs2-createdb.log 2>&1 && test -s seqdb && test -s seqdb.index && mmseqs createdb seqs.fa.bz2 seqdb_bz --threads 1 >/tmp/taf-mmseqs2-createdb-bz.log 2>&1 && test -s seqdb_bz && test -s seqdb_bz.index",
+              "mkdir -p /tmp/taf-mmseqs2-search && cd /tmp/taf-mmseqs2-search && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > target.fa && mmseqs easy-search query.fa target.fa result.m8 tmp --threads 1 -s 1.0 >/tmp/taf-mmseqs2-easy-search.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && grep -F 't1' result.m8 >/dev/null",
+              "mkdir -p /tmp/taf-mmseqs2-cluster && cd /tmp/taf-mmseqs2-cluster && printf '>s1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>s2\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>s3\\nGILGFVFTLTVPSERKELKQLLQK\\n' > seqs.fa && mmseqs easy-cluster seqs.fa cluster tmp --threads 1 --min-seq-id 0.9 -c 0.8 >/tmp/taf-mmseqs2-cluster.log 2>&1 && test -s cluster_cluster.tsv && grep -F 's1' cluster_cluster.tsv >/dev/null && grep -F 's2' cluster_cluster.tsv >/dev/null",
+              "mkdir -p /tmp/taf-mmseqs2-lin-rbh && cd /tmp/taf-mmseqs2-lin-rbh && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>q2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n>t3\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\n' > target.fa && mmseqs easy-linclust target.fa lin tmp-lin --threads 1 --min-seq-id 0.9 -c 0.8 >/tmp/taf-mmseqs2-linclust.log 2>&1 && test -s lin_cluster.tsv && mmseqs easy-rbh query.fa target.fa rbh.m8 tmp-rbh --threads 1 -s 1.0 >/tmp/taf-mmseqs2-rbh.log 2>&1 && test -s rbh.m8 && grep -F 'q1' rbh.m8 >/dev/null",
+              "mkdir -p /tmp/taf-mmseqs2-db-workflow && cd /tmp/taf-mmseqs2-db-workflow && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>q2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n>t3\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\n' > target.fa && mmseqs createdb query.fa queryDB --threads 1 >/tmp/taf-mmseqs2-createdb-query.log 2>&1 && mmseqs createdb target.fa targetDB --threads 1 >/tmp/taf-mmseqs2-createdb-target.log 2>&1 && mmseqs search queryDB targetDB resultDB tmp-search --threads 1 -s 1.0 >/tmp/taf-mmseqs2-search-db.log 2>&1 && mmseqs convertalis queryDB targetDB resultDB result.m8 >/tmp/taf-mmseqs2-convertalis.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && mmseqs createtsv queryDB targetDB resultDB result.tsv >/tmp/taf-mmseqs2-createtsv.log 2>&1 && test -s result.tsv && mmseqs convert2fasta targetDB target.back.fa >/tmp/taf-mmseqs2-convert2fasta.log 2>&1 && test -s target.back.fa && grep -F '>t1' target.back.fa >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/mmseqs2",
+            "ref": "v18-r3",
+            "commit": "657538992961bfab58bd3e14b059b63b1d21d0fe",
+            "html_url": "https://github.com/taffish/mmseqs2/tree/v18-r3"
+          },
+          "upstream": {
+            "name": "MMseqs2",
+            "type": "github",
+            "homepage": "https://github.com/soedinglab/MMseqs2",
+            "repository": "soedinglab/MMseqs2",
+            "release_url": "https://github.com/soedinglab/MMseqs2/releases/tag/18-8cc5c",
+            "version": "18-8cc5c",
+            "license": "MIT",
+            "citation": "Steinegger and Soeding 2017; Steinegger and Soeding 2018; Mirdita et al. 2019; Mirdita et al. 2021; Kallenborn et al. 2024",
+            "doi": "10.1038/nbt.3988; 10.1038/s41467-018-04964-5; 10.1093/bioinformatics/bty1057; 10.1093/bioinformatics/btab184; 10.1101/2024.11.13.623350"
+          }
         }
       }
     },
     "muscle": {
       "name": "muscle",
-      "latest": "5.3-r1",
+      "latest": "5.3-r2",
       "repository_url": "https://github.com/taffish/muscle",
       "command": {
         "name": "taf-muscle"
@@ -7655,6 +9572,123 @@
             "ref": "v5.3-r1",
             "commit": "86dd21a30f0c55678857b0bf63b9b5f855390e7a",
             "html_url": "https://github.com/taffish/muscle/tree/v5.3-r1"
+          },
+          "upstream": {
+            "name": "MUSCLE",
+            "type": "github",
+            "homepage": "https://drive5.com/muscle5/",
+            "repository": "rcedgar/muscle",
+            "release_url": "https://github.com/rcedgar/muscle/releases/tag/v5.3",
+            "version": "5.3",
+            "license": "GPL-3.0",
+            "citation": "Edgar 2022",
+            "doi": "10.1038/s41467-022-34630-w",
+            "pmid": "36379955"
+          }
+        },
+        "5.3-r2": {
+          "name": "muscle",
+          "kind": "tool",
+          "version": "5.3",
+          "release": 2,
+          "version_id": "5.3-r2",
+          "tag": "v5.3-r2",
+          "license": "GPL-3.0",
+          "repository_url": "https://github.com/taffish/muscle",
+          "repository_slug": "taffish/muscle",
+          "command": {
+            "name": "taf-muscle"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "multiple-sequence-alignment",
+            "categories": [
+              "multiple-sequence-alignment",
+              "protein-alignment",
+              "nucleotide-alignment",
+              "structure-alignment",
+              "phylogenetics"
+            ],
+            "keywords": [
+              "muscle",
+              "muscle5",
+              "msa",
+              "multiple sequence alignment",
+              "alignment ensembles",
+              "fasta",
+              "efa",
+              "super5",
+              "muscle-3d"
+            ],
+            "summary": "MUSCLE 5 makes high-accuracy multiple sequence alignments and alignment ensembles, with structure-alignment support for Reseek mega inputs.",
+            "description": "MUSCLE 5 makes high-accuracy multiple sequence alignments and alignment ensembles, with structure-alignment support for Reseek mega inputs."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/muscle:5.3-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.3-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2bf88461273f6ee65557d0901294775d369ee6faf2efe2c63f75c8f67171c1e3",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:78b30a3c1b2110d6ad4811b53255e0daa6eb0f9c4ad3151a468bd29b21b8a1aa",
+              "linux/arm64": "sha256:62ef0bba47896e60c12fe1de3be38ca0fe39adbe29150dedf728ee4831dc4865"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "muscle",
+              "sh",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/muscle/VERSION)\" = '5.3'",
+              "muscle -version 2>&1 | sed -n '1p' | grep -Fx 'muscle 5.3.linux64 [v5.3-taffish-r2]' >/dev/null",
+              "muscle -h 2>&1 | grep -F 'Align FASTA input' >/dev/null",
+              "muscle -h 2>&1 | grep -F 'Ensemble FASTA (EFA)' >/dev/null",
+              "ldd \"$(command -v muscle)\" 2>&1 | grep -F 'not a dynamic executable' >/dev/null",
+              "mkdir -p /tmp/taf-muscle-align && cd /tmp/taf-muscle-align && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -align in.fa -output aln.afa >/dev/null 2> align.log && test -s aln.afa && grep -F '>s1' aln.afa >/dev/null && grep -F '>s2' aln.afa >/dev/null && grep -F '>s3' aln.afa >/dev/null",
+              "mkdir -p /tmp/taf-muscle-super5 && cd /tmp/taf-muscle-super5 && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -super5 in.fa -output super5.afa >/dev/null 2> super5.log && test -s super5.afa && grep -F '>s1' super5.afa >/dev/null",
+              "mkdir -p /tmp/taf-muscle-ensemble && cd /tmp/taf-muscle-ensemble && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -align in.fa -diversified -replicates 2 -output ensemble.efa >/dev/null 2> ensemble.log && test -s ensemble.efa && grep -F '<none.0' ensemble.efa >/dev/null && muscle -maxcc ensemble.efa -output maxcc.afa >/dev/null 2> maxcc.log && test -s maxcc.afa && muscle -resample ensemble.efa -replicates 1 -output resampled.efa >/dev/null 2> resample.log && test -s resampled.efa && muscle -efa_explode ensemble.efa >/dev/null 2> explode.log && test -s none.0 && test -s abc.1"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/muscle",
+            "ref": "v5.3-r2",
+            "commit": "de7b451e0a84e606d5761100b184e18ea6df0ac6",
+            "html_url": "https://github.com/taffish/muscle/tree/v5.3-r2"
           },
           "upstream": {
             "name": "MUSCLE",
@@ -7800,7 +9834,7 @@
     },
     "orthofinder": {
       "name": "orthofinder",
-      "latest": "3.1.5-r1",
+      "latest": "3.1.5-r2",
       "repository_url": "https://github.com/taffish/orthofinder",
       "command": {
         "name": "taf-orthofinder"
@@ -7956,12 +9990,163 @@
             "citation": "Emms and Kelly 2015; Emms and Kelly 2017; Emms and Kelly 2019; Emms and Kelly 2022; Emms et al. 2025",
             "doi": "10.1186/s13059-015-0721-2; 10.1093/molbev/msx259; 10.1186/s13059-019-1832-y; 10.1186/s13059-022-02652-8; 10.1101/2025.07.15.664860"
           }
+        },
+        "3.1.5-r2": {
+          "name": "orthofinder",
+          "kind": "tool",
+          "version": "3.1.5",
+          "release": 2,
+          "version_id": "3.1.5-r2",
+          "tag": "v3.1.5-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/orthofinder",
+          "repository_slug": "taffish/orthofinder",
+          "command": {
+            "name": "taf-orthofinder"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "orthology",
+            "categories": [
+              "orthology",
+              "comparative-genomics",
+              "phylogenomics",
+              "gene-tree",
+              "orthogroup"
+            ],
+            "keywords": [
+              "orthofinder",
+              "orthology",
+              "orthogroups",
+              "orthologues",
+              "gene-tree",
+              "species-tree",
+              "comparative-genomics",
+              "phylogenomics",
+              "diamond",
+              "famsa",
+              "muscle",
+              "fasttree",
+              "mcl"
+            ],
+            "summary": "Phylogenetic orthology inference for comparative genomics, including orthogroups, gene trees, species trees, gene duplications, orthologues, and comparative genomics statistics.",
+            "description": "Phylogenetic orthology inference for comparative genomics, including orthogroups, gene trees, species trees, gene duplications, orthologues, and comparative genomics statistics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/orthofinder:3.1.5-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.1.5-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b63c6396b37751fb287a13d30903065d5150db165954c5b16a6a8e63e5744fe7",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0dc5a35a71a4de68bbf9513e67be7c4cfc5be141ff2f3f18167ae3047cbd1068",
+              "linux/arm64": "sha256:61079d418b54d56eef64c279c44f2e8805f59247bb34d8f3452f18859178a193"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "orthofinder",
+              "orthofinder-utils",
+              "primary_transcript",
+              "make_ultrametric",
+              "convert_orthofinder_tree_ids",
+              "create_hog_fastas",
+              "ncbi_primary_transcript",
+              "orthogroup_gene_count",
+              "python",
+              "diamond",
+              "famsa",
+              "muscle",
+              "FastTree",
+              "mcl",
+              "fastme",
+              "astral-pro",
+              "mafft",
+              "makeblastdb",
+              "blastp",
+              "blastn",
+              "mmseqs",
+              "raxmlHPC",
+              "gzip",
+              "tar",
+              "unzip",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "orthofinder --version 2>&1 | python -c 'import re, sys; text = re.sub(chr(27) + r\"\\[[0-9;]*m\", \"\", sys.stdin.read()); assert \"OrthoFinder:v3.1.5\" in text, text'",
+              "orthofinder --help 2>&1 | grep -F 'SIMPLE USAGE:' >/dev/null && orthofinder --help 2>&1 | grep -F 'orthofinder [options] -f <dir>' >/dev/null",
+              "python -c 'import orthofinder; print(orthofinder.__version__)' | grep -Fx '3.1.5' >/dev/null",
+              "diamond version | grep -Fx 'diamond version 2.1.25' >/dev/null",
+              "famsa -help 2>&1 | grep -F 'version 2.5.2-' >/dev/null",
+              "muscle -version 2>&1 | sed -n '1p' | grep -Fx 'muscle 5.3.linux64 [v5.3-taffish-r1]' >/dev/null",
+              "fastme --version | grep -Fx 'FastME 2.1.6.3' >/dev/null",
+              "astral-pro -h 2>&1 | grep -F 'Version: v1.25.3.8' >/dev/null",
+              "FastTree 2>&1 | grep -F 'FastTree Version 2.1.11' >/dev/null && mcl -h >/dev/null && makeblastdb -help >/dev/null && mmseqs version >/dev/null",
+              "orthofinder-utils --help 2>&1 | grep -F 'OrthoFinder utility scripts' >/dev/null && primary_transcript --help 2>&1 | grep -F 'Create primary transcript FASTA files' >/dev/null",
+              "mkdir -p /tmp/taf-orthofinder-primary && cd /tmp/taf-orthofinder-primary && printf '>gene1.t1\\nMAAA\\n>gene1.t2\\nMAAAAA\\n>gene2.t1\\nMCC\\n' > transcripts.fa && primary_transcript transcripts.fa last_dot >/tmp/taf-orthofinder-primary.log 2>&1 && test -s primary_transcripts/transcripts.fa && grep -F '>gene1.t2' primary_transcripts/transcripts.fa >/dev/null && grep -F '>gene2.t1' primary_transcripts/transcripts.fa >/dev/null",
+              "mkdir -p /tmp/taf-orthofinder-diamond && cd /tmp/taf-orthofinder-diamond && printf '>a\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>b\\nGILGFVFTLTVPSERKELKQLLQK\\n' > proteins.fa && diamond makedb --in proteins.fa -d proteins >/tmp/taf-orthofinder-diamond-makedb.log 2>&1 && diamond blastp -d proteins -q proteins.fa -o hits.tsv --quiet --max-target-seqs 1 -p 1 >/tmp/taf-orthofinder-diamond-search.log 2>&1 && test -s hits.tsv && grep -F 'a' hits.tsv >/dev/null",
+              "mkdir -p /tmp/taf-orthofinder-backends && cd /tmp/taf-orthofinder-backends && printf '>a\\nMKTAYIAK\\n>b\\nMKTAYIG\\n' > aln.fa && famsa aln.fa famsa.fa -t 1 >/tmp/taf-orthofinder-famsa.log 2>&1 && test -s famsa.fa && muscle -align aln.fa -output muscle.fa >/tmp/taf-orthofinder-muscle.log 2>&1 && test -s muscle.fa && FastTree famsa.fa > tree.nwk 2>/tmp/taf-orthofinder-fasttree.log && test -s tree.nwk && printf '4\\nA 0 0.1 0.2 0.3\\nB 0.1 0 0.2 0.3\\nC 0.2 0.2 0 0.1\\nD 0.3 0.3 0.1 0\\n' > dist.phy && fastme -i dist.phy -o fastme.nwk >/tmp/taf-orthofinder-fastme.log 2>&1 && test -s fastme.nwk",
+              "mkdir -p /tmp/taf-orthofinder-run && cd /tmp/taf-orthofinder-run && cp -r /usr/local/share/doc/orthofinder/tests/data/proteome/Core proteomes && orthofinder -f proteomes -t 1 -a 1 -o results >/tmp/taf-orthofinder-run.log 2>&1 && test -s results/Results_*/Orthogroups/Orthogroups.tsv && test -s results/Results_*/Species_Tree/SpeciesTree_rooted.txt && grep -F 'BIG_A_1' results/Results_*/Orthogroups/Orthogroups.tsv >/dev/null",
+              "mkdir -p /tmp/taf-orthofinder-dendroblast && cd /tmp/taf-orthofinder-dendroblast && cp -r /usr/local/share/doc/orthofinder/tests/data/proteome/Core proteomes && orthofinder -f proteomes -M dendroblast -t 1 -a 1 -o results >/tmp/taf-orthofinder-dendroblast.log 2>&1 && test -s results/Results_*/Orthogroups/Orthogroups.tsv && test -s results/Results_*/Species_Tree/SpeciesTree_rooted.txt",
+              "mkdir -p /tmp/taf-orthofinder-muscle-run && cd /tmp/taf-orthofinder-muscle-run && cp -r /usr/local/share/doc/orthofinder/tests/data/proteome/Core proteomes && orthofinder -f proteomes -M msa -A muscle -T fasttree -t 1 -a 1 -o results >/tmp/taf-orthofinder-muscle-run.log 2>&1 && test -s results/Results_*/Orthogroups/Orthogroups.tsv && test -s results/Results_*/Species_Tree/SpeciesTree_rooted.txt"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/orthofinder",
+            "ref": "v3.1.5-r2",
+            "commit": "a916996ee75c7184ca766342af38548da616ee07",
+            "html_url": "https://github.com/taffish/orthofinder/tree/v3.1.5-r2"
+          },
+          "upstream": {
+            "name": "OrthoFinder",
+            "type": "github",
+            "homepage": "https://orthofinder.github.io/OrthoFinder/",
+            "repository": "OrthoFinder/OrthoFinder",
+            "release_url": "https://github.com/OrthoFinder/OrthoFinder/releases/tag/v3.1.5",
+            "version": "3.1.5",
+            "license": "GPL-3.0",
+            "citation": "Emms and Kelly 2015; Emms and Kelly 2017; Emms and Kelly 2019; Emms and Kelly 2022; Emms et al. 2025",
+            "doi": "10.1186/s13059-015-0721-2; 10.1093/molbev/msx259; 10.1186/s13059-019-1832-y; 10.1186/s13059-022-02652-8; 10.1101/2025.07.15.664860"
+          }
         }
       }
     },
     "pandepth": {
       "name": "pandepth",
-      "latest": "2.26-r1",
+      "latest": "2.26-r2",
       "repository_url": "https://github.com/taffish/pandepth",
       "command": {
         "name": "taf-pandepth"
@@ -8076,12 +10261,122 @@
             "doi": "10.1093/bib/bbae197",
             "pmid": "38701418"
           }
+        },
+        "2.26-r2": {
+          "name": "pandepth",
+          "kind": "tool",
+          "version": "2.26",
+          "release": 2,
+          "version_id": "2.26-r2",
+          "tag": "v2.26-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/pandepth",
+          "repository_slug": "taffish/pandepth",
+          "command": {
+            "name": "taf-pandepth"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "coverage",
+            "categories": [
+              "coverage",
+              "depth",
+              "alignment",
+              "quality-control"
+            ],
+            "keywords": [
+              "pandepth",
+              "coverage",
+              "depth",
+              "sam",
+              "bam",
+              "cram",
+              "paf",
+              "htslib"
+            ],
+            "summary": "PanDepth ultrafast coverage and depth calculation for SAM/BAM/CRAM/PAF alignments.",
+            "description": "PanDepth ultrafast coverage and depth calculation for SAM/BAM/CRAM/PAF alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/pandepth:2.26-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.26-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:85bb632278817383606781f54d012a3e58bab270562a548271151f35452761d8",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:029fee9d6f7929a0cc69cb59491377091f2ddfe1df8f009fae5ef0f809685267",
+              "linux/arm64": "sha256:998d8f1f376ac4d273b2b951cc8c10046aaf90626f53ab5370aa5b6ee5a3fa47"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "pandepth",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "pandepth -h 2>&1 | grep -F 'show this help [v2.26]' >/dev/null && pandepth 2>&1 | grep -F 'Usage: pandepth' >/dev/null && ldd $(command -v pandepth) | grep -F 'libhts.so.3' >/dev/null && ldd $(command -v pandepth) | grep -F 'libdeflate.so.0' >/dev/null",
+              "mkdir -p /tmp/taf-pandepth-chr && cd /tmp/taf-pandepth-chr && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && pandepth -i toy.sam -o toy -t 1 -a >/tmp/taf-pandepth-chr.log 2>&1 && test -s toy.chr.stat.gz && test -s toy.SiteDepth.gz && gzip -cd toy.chr.stat.gz | grep -F 'chr1' >/dev/null && gzip -cd toy.chr.stat.gz | grep -F '10.00' >/dev/null",
+              "mkdir -p /tmp/taf-pandepth-targets && cd /tmp/taf-pandepth-targets && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'chr1\\t10\\t20\\n' > toy.bed && pandepth -i toy.sam -b toy.bed -o bed -t 1 >/tmp/taf-pandepth-bed.log 2>&1 && test -s bed.bed.stat.gz && gzip -cd bed.bed.stat.gz | grep -F 'chr1_10_20' >/dev/null && pandepth -i toy.sam -w 25 -o win -t 1 >/tmp/taf-pandepth-win.log 2>&1 && test -s win.win.stat.gz && gzip -cd win.win.stat.gz | grep -F '40.00' >/dev/null",
+              "mkdir -p /tmp/taf-pandepth-gene-gc && cd /tmp/taf-pandepth-gene-gc && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'toy.sam\\n' > input.list && printf 'chr1\\tsmoke\\tCDS\\t11\\t20\\t.\\t+\\t0\\tID=cds1;Parent=gene1\\n' > toy.gff && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && pandepth -i input.list -g toy.gff -o gene -t 1 >/tmp/taf-pandepth-gene.log 2>&1 && test -s gene.gene.stat.gz && gzip -cd gene.gene.stat.gz | grep -F 'gene1' >/dev/null && pandepth -i toy.sam -o gc -t 1 -r ref.fa -c >/tmp/taf-pandepth-gc.log 2>&1 && test -s gc.chr.stat.gz && gzip -cd gc.chr.stat.gz | grep -F 'GC(%)' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/pandepth",
+            "ref": "v2.26-r2",
+            "commit": "eaf71320984dbdab5635f457c822d364b15198b0",
+            "html_url": "https://github.com/taffish/pandepth/tree/v2.26-r2"
+          },
+          "upstream": {
+            "name": "PanDepth",
+            "type": "github",
+            "homepage": "https://github.com/HuiyangYu/PanDepth",
+            "repository": "HuiyangYu/PanDepth",
+            "release_url": "https://github.com/HuiyangYu/PanDepth/releases/tag/v2.26",
+            "version": "2.26",
+            "license": "MIT",
+            "citation": "Yu et al. 2024, Briefings in Bioinformatics",
+            "doi": "10.1093/bib/bbae197",
+            "pmid": "38701418"
+          }
         }
       }
     },
     "plotsr": {
       "name": "plotsr",
-      "latest": "1.1.1-r1",
+      "latest": "1.1.1-r2",
       "repository_url": "https://github.com/taffish/plotsr",
       "command": {
         "name": "taf-plotsr"
@@ -8202,6 +10497,250 @@
             "citation": "Goel and Schneeberger 2022",
             "doi": "10.1093/bioinformatics/btac196",
             "pmid": "35561173"
+          }
+        },
+        "1.1.1-r2": {
+          "name": "plotsr",
+          "kind": "tool",
+          "version": "1.1.1",
+          "release": 2,
+          "version_id": "1.1.1-r2",
+          "tag": "v1.1.1-r2",
+          "license": "MIT",
+          "repository_url": "https://github.com/taffish/plotsr",
+          "repository_slug": "taffish/plotsr",
+          "command": {
+            "name": "taf-plotsr"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "comparative-genomics",
+            "categories": [
+              "comparative-genomics",
+              "synteny",
+              "structural-variation",
+              "visualization"
+            ],
+            "keywords": [
+              "plotsr",
+              "synteny",
+              "structural rearrangements",
+              "structural variation",
+              "syri",
+              "bedpe",
+              "genome visualization",
+              "matplotlib"
+            ],
+            "summary": "plotsr visualizes structural similarities, synteny, and rearrangements between chromosome-level genome assemblies.",
+            "description": "plotsr visualizes structural similarities, synteny, and rearrangements between chromosome-level genome assemblies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/plotsr:1.1.1-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.1.1-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:3ae1f4c4da59fd1e74861974b9422878c2654540eb9d45d1d918841aac597db2",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:fbc0537f220bb9bc534bccebba1fbc6afcc7efe8f4950cb80b596f13c5c6acc8",
+              "linux/arm64": "sha256:429b993edf283b707b1ada7241614615f2eceb042a7b3eb81341f12aea5637c4"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "plotsr",
+              "python3",
+              "fc-list",
+              "file",
+              "gzip",
+              "sh",
+              "grep"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/plotsr/VERSION)\" = '1.1.1'",
+              "plotsr --version | grep -Fx '1.1.1' >/dev/null",
+              "plotsr -h 2>&1 | grep -F 'Plotting structural rearrangements between genomes' >/dev/null && plotsr -h 2>&1 | grep -F -- '--genomes' >/dev/null",
+              "python3 -c 'import plotsr,numpy,pandas,matplotlib; assert plotsr.__version__ == \"1.1.1\"; assert matplotlib.get_backend().lower() == \"agg\"'",
+              "test -f /usr/local/share/doc/plotsr/example/genomes.txt && test -f /usr/local/share/doc/plotsr/config/base.cfg && test -f /usr/local/share/doc/plotsr/LICENSE",
+              "mkdir -p /tmp/taf-plotsr-bedpe && cd /tmp/taf-plotsr-bedpe && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t0\\t1000\\tchr1\\t0\\t1000\\tSYN\\t-\\nchr1\\t200\\t350\\tchr1\\t220\\t370\\tINV\\tcl:red;lw:2\\n' > ab.bedpe && printf 'chr1\\t100\\t180\\nchr1\\t500\\t650\\n' > feats.bed && printf 'feats.bed\\tFeatures\\tft:bed;bw:100;ti:1;tt:l;lc:blue\\n' > tracks.txt && printf 'chr1\\t250\\t251\\tA\\tmt:o;mc:black;ms:3;tt:marker;tp:0.02;ts:6;tc:black\\n' > markers.bed && printf 'legend:F\\n' > base.cfg && plotsr --bp ab.bedpe --genomes genomes.txt --tracks tracks.txt --markers markers.bed --cfg base.cfg -o out.png -W 3 -H 2 -f 6 -d 80 --lf bedpe.log >/dev/null 2> bedpe.err && test -s out.png && file out.png | grep -F 'PNG image data' >/dev/null",
+              "mkdir -p /tmp/taf-plotsr-syri && cd /tmp/taf-plotsr-syri && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t1\\t1000\\t-\\t-\\tchr1\\t1\\t1000\\tSYN1\\t-\\tSYN\\t-\\nchr1\\t200\\t350\\t-\\t-\\tchr1\\t220\\t370\\tINV1\\t-\\tINV\\t-\\n' > ab.syri.out && plotsr --sr ab.syri.out --genomes genomes.txt --chr chr1 -o out.svg -W 3 -H 2 -f 6 -d 80 --lf syri.log >/dev/null 2> syri.err && test -s out.svg && grep -F '<svg' out.svg >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/plotsr",
+            "ref": "v1.1.1-r2",
+            "commit": "2689b32cfe4f41335cf6ea9ce364b2985e934b8e",
+            "html_url": "https://github.com/taffish/plotsr/tree/v1.1.1-r2"
+          },
+          "upstream": {
+            "name": "plotsr",
+            "type": "github",
+            "homepage": "https://github.com/schneebergerlab/plotsr",
+            "repository": "schneebergerlab/plotsr",
+            "release_url": "https://github.com/schneebergerlab/plotsr/releases/tag/v1.1.1",
+            "version": "1.1.1",
+            "license": "MIT",
+            "citation": "Goel and Schneeberger 2022",
+            "doi": "10.1093/bioinformatics/btac196",
+            "pmid": "35561173"
+          }
+        }
+      }
+    },
+    "pymol": {
+      "name": "pymol",
+      "latest": "3.1.0-r1",
+      "repository_url": "https://github.com/taffish/pymol",
+      "command": {
+        "name": "taf-pymol"
+      },
+      "versions": {
+        "3.1.0-r1": {
+          "name": "pymol",
+          "kind": "tool",
+          "version": "3.1.0",
+          "release": 1,
+          "version_id": "3.1.0-r1",
+          "tag": "v3.1.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/pymol",
+          "repository_slug": "taffish/pymol",
+          "command": {
+            "name": "taf-pymol"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-biology",
+            "categories": [
+              "structural-biology",
+              "molecular-visualization",
+              "protein-structure",
+              "viewer"
+            ],
+            "keywords": [
+              "pymol",
+              "open-source-pymol",
+              "molecular-visualization",
+              "protein-structure",
+              "pdb",
+              "xvfb",
+              "vnc",
+              "novnc"
+            ],
+            "summary": "Open-Source PyMOL molecular visualization with command-line/headless use and optional browser-accessible GUI through Xvfb, x11vnc, and noVNC.",
+            "description": "Open-Source PyMOL molecular visualization with command-line/headless use and optional browser-accessible GUI through Xvfb, x11vnc, and noVNC."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/pymol:3.1.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.1.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:3ae81df6c985e3de547f7745eb9aa4ff742838b1e8f41c25a6c64cd68374ac07",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ec4144d9aefc9c5ce4ed40ec1790e28dedbfbeb2466daf78896a70824e753ee6",
+              "linux/arm64": "sha256:5bcdc61dd97b35cc2f0c17b3777d3614ce8839be5c41ccc92d707b099651d7eb"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "pymol",
+              "pymol-gui",
+              "python",
+              "python3",
+              "ffmpeg",
+              "Xvfb",
+              "xvfb-run",
+              "x11vnc",
+              "websockify",
+              "openbox",
+              "curl"
+            ],
+            "test": [
+              "printf 'from pymol import cmd\\nprint(\"PYMOL_VERSION=\" + cmd.get_version()[0])\\nquit\\n' > /tmp/taf-pymol-version.py && pymol -c -r /tmp/taf-pymol-version.py 2>&1 | grep -F 'PYMOL_VERSION=3.1.0' >/dev/null",
+              "pymol -c -h 2>&1 | grep -F 'Version 3.1.0' >/dev/null && pymol-gui --help | grep -F 'browser-accessible noVNC session' >/dev/null && ffmpeg -version | grep -F 'ffmpeg version' >/dev/null && python3 -c 'from pymol import movie; assert movie.find_exe(\"ffmpeg\")'",
+              "python3 -c 'import pymol, pymol.cmd, Pmw, PyQt5, mmtf'",
+              "mkdir -p /tmp/taf-pymol-render && cd /tmp/taf-pymol-render && printf 'ATOM      1  N   GLY A   1       0.000   0.000   0.000  1.00 20.00           N\\nATOM      2  CA  GLY A   1       1.450   0.000   0.000  1.00 20.00           C\\nATOM      3  C   GLY A   1       2.000   1.400   0.000  1.00 20.00           C\\nATOM      4  O   GLY A   1       1.300   2.350   0.000  1.00 20.00           O\\nEND\\n' > tiny.pdb && printf 'load tiny.pdb\\nshow sticks\\norient\\npng tiny.png, width=320, height=240, ray=0\\nquit\\n' > render.pml && pymol -cq render.pml >/tmp/taf-pymol-render.log 2>&1 && test -s tiny.png",
+              "pymol-gui --help >/dev/null && (pymol-gui --geometry 800x600 >/tmp/taf-pymol-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 30 ]; do if curl -fsS http://127.0.0.1:5801/vnc.html >/dev/null; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-pymol-gui.log >/dev/null)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T09:21:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/pymol",
+            "ref": "v3.1.0-r1",
+            "commit": "a464d65bb51ac8b9fce33954bc7b29e6474e8b8e",
+            "html_url": "https://github.com/taffish/pymol/tree/v3.1.0-r1"
+          },
+          "upstream": {
+            "name": "Open-Source PyMOL",
+            "type": "github",
+            "homepage": "https://pymol.org/#opensource",
+            "repository": "schrodinger/pymol-open-source",
+            "release_url": "https://github.com/schrodinger/pymol-open-source/tree/v3.1.0",
+            "version": "3.1.0",
+            "license": "BSD-like",
+            "citation": "The PyMOL Molecular Graphics System, Version 3.1.0, Schrodinger, LLC."
           }
         }
       }
@@ -8420,15 +10959,15 @@
     },
     "taf-esm-fold": {
       "package": "esm-fold",
-      "version": "2.0.0-r2"
+      "version": "2.0.0-r3"
     },
     "taf-evidencemodeler": {
       "package": "evidencemodeler",
-      "version": "2.1.0-r1"
+      "version": "2.1.0-r2"
     },
     "taf-fastp": {
       "package": "fastp",
-      "version": "1.3.3-r2"
+      "version": "1.3.3-r3"
     },
     "taf-fastqc": {
       "package": "fastqc",
@@ -8436,11 +10975,11 @@
     },
     "taf-foldseek": {
       "package": "foldseek",
-      "version": "10-r1"
+      "version": "10-r2"
     },
     "taf-freebayes": {
       "package": "freebayes",
-      "version": "1.3.10-r1"
+      "version": "1.3.10-r2"
     },
     "taf-gatk": {
       "package": "gatk",
@@ -8456,27 +10995,27 @@
     },
     "taf-gromacs": {
       "package": "gromacs",
-      "version": "2026.2-r1"
+      "version": "2026.2-r2"
     },
     "taf-haphic": {
       "package": "haphic",
-      "version": "1.0.7-r1"
+      "version": "1.0.7-r2"
     },
     "taf-hicexplorer": {
       "package": "hicexplorer",
-      "version": "3.7.6-r1"
+      "version": "3.7.6-r2"
     },
     "taf-hifiasm": {
       "package": "hifiasm",
-      "version": "0.25.0-r1"
+      "version": "0.25.0-r2"
     },
     "taf-hisat2": {
       "package": "hisat2",
-      "version": "2.2.2-r1"
+      "version": "2.2.2-r2"
     },
     "taf-hmmer": {
       "package": "hmmer",
-      "version": "3.4-r1"
+      "version": "3.4-r2"
     },
     "taf-jellyfish": {
       "package": "jellyfish",
@@ -8496,7 +11035,7 @@
     },
     "taf-mafft": {
       "package": "mafft",
-      "version": "7.525-r2"
+      "version": "7.525-r3"
     },
     "taf-mcscanx": {
       "package": "mcscanx",
@@ -8512,7 +11051,7 @@
     },
     "taf-meryl": {
       "package": "meryl",
-      "version": "1.4.1-r1"
+      "version": "1.4.1-r2"
     },
     "taf-minimap2": {
       "package": "minimap2",
@@ -8520,15 +11059,15 @@
     },
     "taf-miniprot": {
       "package": "miniprot",
-      "version": "0.18-r1"
+      "version": "0.18-r2"
     },
     "taf-mmseqs2": {
       "package": "mmseqs2",
-      "version": "18-r2"
+      "version": "18-r3"
     },
     "taf-muscle": {
       "package": "muscle",
-      "version": "5.3-r1"
+      "version": "5.3-r2"
     },
     "taf-ngenomesyn": {
       "package": "ngenomesyn",
@@ -8536,15 +11075,19 @@
     },
     "taf-orthofinder": {
       "package": "orthofinder",
-      "version": "3.1.5-r1"
+      "version": "3.1.5-r2"
     },
     "taf-pandepth": {
       "package": "pandepth",
-      "version": "2.26-r1"
+      "version": "2.26-r2"
     },
     "taf-plotsr": {
       "package": "plotsr",
-      "version": "1.1.1-r1"
+      "version": "1.1.1-r2"
+    },
+    "taf-pymol": {
+      "package": "pymol",
+      "version": "3.1.0-r1"
     },
     "taf-samtools": {
       "package": "samtools",
@@ -8862,6 +11405,12 @@
       "repository": "taffish/plotsr",
       "packages": [
         "plotsr"
+      ]
+    },
+    "taffish/pymol": {
+      "repository": "taffish/pymol",
+      "packages": [
+        "pymol"
       ]
     },
     "taffish/samtools": {

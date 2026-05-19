@@ -1,6 +1,6 @@
 {
   "name": "haphic",
-  "latest": "1.0.7-r1",
+  "latest": "1.0.7-r2",
   "repository_url": "https://github.com/taffish/haphic",
   "command": {
     "name": "taf-haphic"
@@ -106,6 +106,120 @@
         "ref": "v1.0.7-r1",
         "commit": "0eb9165b24bcce5762a9649c3ac31476dbdafb0f",
         "html_url": "https://github.com/taffish/haphic/tree/v1.0.7-r1"
+      },
+      "upstream": {
+        "name": "HapHiC",
+        "type": "github",
+        "homepage": "https://github.com/zengxiaofei/HapHiC",
+        "repository": "zengxiaofei/HapHiC",
+        "release_url": "https://github.com/zengxiaofei/HapHiC/releases/tag/v1.0.7",
+        "version": "1.0.7",
+        "license": "BSD-3-Clause",
+        "citation": "Zeng et al. 2024",
+        "doi": "10.1038/s41477-024-01755-3",
+        "pmid": "39103456"
+      }
+    },
+    "1.0.7-r2": {
+      "name": "haphic",
+      "kind": "tool",
+      "version": "1.0.7",
+      "release": 2,
+      "version_id": "1.0.7-r2",
+      "tag": "v1.0.7-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/haphic",
+      "repository_slug": "taffish/haphic",
+      "command": {
+        "name": "taf-haphic"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-assembly",
+        "categories": [
+          "genome-assembly",
+          "scaffolding",
+          "hic",
+          "haplotyping"
+        ],
+        "keywords": [
+          "haphic",
+          "hi-c",
+          "scaffolding",
+          "haplotype-resolved",
+          "chromosome-scale",
+          "assembly",
+          "allhic",
+          "juicebox"
+        ],
+        "summary": "HapHiC allele-aware Hi-C scaffolding for haplotype-resolved and collapsed genome assemblies, including the haphic command, bundled ALLHiC optimization, plotting, refsort, and core utilities.",
+        "description": "HapHiC allele-aware Hi-C scaffolding for haplotype-resolved and collapsed genome assemblies, including the haphic command, bundled ALLHiC optimization, plotting, refsort, and core utilities."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/haphic:1.0.7-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.0.7-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:ee6e65a54d1b6b39ee7e9a7f287d428cc429e4f495b0dee7e11ca7857bcf3f90",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:7cf1dcc6f6be1f497aff5a134125ee4a8527208a7c11845b82e958791df11ff2"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "haphic",
+          "allhic",
+          "filter_bam",
+          "agp_to_fasta",
+          "juicer",
+          "mock_agp_file.py",
+          "python3",
+          "samtools",
+          "java"
+        ],
+        "test": [
+          "haphic --version | grep -F 'HapHiC 1.0.7' >/dev/null",
+          "haphic check | grep -F 'sparse_dot_mkl' >/dev/null && haphic pipeline --help | grep -F 'usage:' >/dev/null && haphic sort --help | grep -F 'ALLHiC' >/dev/null && haphic plot --help | grep -F 'alignments' >/dev/null && haphic refsort --help | grep -F 'PAF' >/dev/null",
+          "mkdir -p /tmp/taf-haphic-utils && cd /tmp/taf-haphic-utils && printf '>ctg1\\nACGTACGTACGTACGTACGT\\n>ctg2\\nTTTTCCCCAAAAGGGG\\n' > asm.fa && mock_agp_file.py asm.fa > asm.agp && grep -F 'ctg1' asm.agp >/dev/null",
+          "mkdir -p /tmp/taf-haphic-refsort && cd /tmp/taf-haphic-refsort && printf '>ctg1\\nACGTACGTACGTACGTACGT\\n>ctg2\\nTTTTCCCCAAAAGGGG\\n' > asm.fa && printf 'scaffold_1\\t1\\t20\\t1\\tW\\tctg1\\t1\\t20\\t+\\nscaffold_1\\t21\\t120\\t2\\tN\\t100\\tscaffold\\tyes\\tmap\\nscaffold_1\\t121\\t136\\t3\\tW\\tctg2\\t1\\t16\\t+\\n' > scaffolds.agp && printf 'ctg1\\t20\\t0\\t20\\t+\\tchr1\\t1000\\t100\\t120\\t20\\t20\\t60\\nctg2\\t16\\t0\\t16\\t+\\tchr1\\t1000\\t200\\t216\\t16\\t16\\t60\\n' > asm_to_ref.paf && haphic refsort scaffolds.agp asm_to_ref.paf --fasta asm.fa > scaffolds.refsort.agp && test -s scaffolds.refsort.agp && test -s scaffolds.refsort.fa && grep -F 'ctg1' scaffolds.refsort.agp >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T09:21:12Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T09:21:12Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/haphic",
+        "ref": "v1.0.7-r2",
+        "commit": "712597c6a9f0ea65e656a883e8c4cb103b52a0d5",
+        "html_url": "https://github.com/taffish/haphic/tree/v1.0.7-r2"
       },
       "upstream": {
         "name": "HapHiC",

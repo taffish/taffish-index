@@ -1,6 +1,6 @@
 {
   "name": "evidencemodeler",
-  "latest": "2.1.0-r1",
+  "latest": "2.1.0-r2",
   "repository_url": "https://github.com/taffish/evidencemodeler",
   "command": {
     "name": "taf-evidencemodeler"
@@ -123,6 +123,137 @@
         "ref": "v2.1.0-r1",
         "commit": "c457d115d6d4e13ee4c495f603f30eac64974a2c",
         "html_url": "https://github.com/taffish/evidencemodeler/tree/v2.1.0-r1"
+      },
+      "upstream": {
+        "name": "EVidenceModeler",
+        "type": "github",
+        "homepage": "https://github.com/EVidenceModeler/EVidenceModeler",
+        "repository": "EVidenceModeler/EVidenceModeler",
+        "release_url": "https://github.com/EVidenceModeler/EVidenceModeler/releases/tag/EVidenceModeler-v2.1.0",
+        "version": "2.1.0",
+        "license": "BSD-3-Clause",
+        "citation": "Haas et al. 2008",
+        "doi": "10.1186/gb-2008-9-1-r7",
+        "pmid": "18190707"
+      }
+    },
+    "2.1.0-r2": {
+      "name": "evidencemodeler",
+      "kind": "tool",
+      "version": "2.1.0",
+      "release": 2,
+      "version_id": "2.1.0-r2",
+      "tag": "v2.1.0-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/evidencemodeler",
+      "repository_slug": "taffish/evidencemodeler",
+      "command": {
+        "name": "taf-evidencemodeler"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-annotation",
+        "categories": [
+          "genome-annotation",
+          "gene-prediction",
+          "eukaryotic-genomics",
+          "evidence-integration"
+        ],
+        "keywords": [
+          "evidencemodeler",
+          "evm",
+          "gene-annotation",
+          "gene-models",
+          "gff3",
+          "pasa",
+          "parafly",
+          "ab-initio",
+          "protein-alignments",
+          "transcript-alignments"
+        ],
+        "summary": "EVidenceModeler combines ab initio predictions and protein/transcript evidence into weighted consensus eukaryotic gene structures.",
+        "description": "EVidenceModeler combines ab initio predictions and protein/transcript evidence into weighted consensus eukaryotic gene structures."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/evidencemodeler:2.1.0-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.1.0-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:868c520933923fb429da6136732c20db2bd611a5d2d457a08ccf30152aeeafe3",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:f933ab07727418d4bade2a865d06d979016b0c9e242958f76e11c657b4359a8c",
+          "linux/arm64": "sha256:661babab434788799f7725e6a80367541181f797c1544c892c039db03ad75983"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "EVidenceModeler",
+          "ParaFly",
+          "partition_EVM_inputs.pl",
+          "write_EVM_commands.pl",
+          "recombine_EVM_partial_outputs.pl",
+          "convert_EVM_outputs_to_GFF3.pl",
+          "gff3_file_to_proteins.pl",
+          "gene_gff3_to_bed.pl",
+          "augustus_GFF3_to_EVM_GFF3.pl",
+          "miniprot_GFF_2_EVM_GFF3.py",
+          "BPbtab.pl",
+          "prepare_Jigsaw_formats.pl",
+          "gff3_genes_to_gff2.pl",
+          "perl",
+          "python",
+          "python3",
+          "bash",
+          "find",
+          "sort"
+        ],
+        "test": [
+          "EVidenceModeler --version 2>&1 | grep -F 'EVidenceModeler-v2.1.0' >/dev/null",
+          "EVidenceModeler --help 2>&1 | grep -F 'Evidence Modeler' >/dev/null",
+          "ParaFly 2>&1 | grep -F 'ParaFly' >/dev/null",
+          "perl -MDB_File -MURI::Escape -MBio::SearchIO -e 1",
+          "test \"$EUK_MODULES\" = '/opt/evidencemodeler/PerlLib' && prepare_Jigsaw_formats.pl -h 2>&1 | grep -F -- '--template_gff3_file' >/dev/null && gff3_genes_to_gff2.pl 2>&1 | grep -F 'usage' >/dev/null",
+          "python -c 'import sys; assert sys.version_info[0] == 3'",
+          "mkdir -p /tmp/taf-evidencemodeler-smoke && cd /tmp/taf-evidencemodeler-smoke && cp -a /opt/evidencemodeler/testing/. . && EVidenceModeler --sample_id smalltest --genome genome.fasta --weights weights.txt --gene_predictions gene_predictions.gff3 --protein_alignments protein_alignments.gff3 --transcript_alignments transcript_alignments.gff3 --segmentSize 100000 --overlapSize 10000 --CPU 1 >/tmp/taf-evidencemodeler-smoke.log 2>&1 && test -s smalltest.EVM.gff3 && test -s smalltest.EVM.pep && test -s smalltest.EVM.cds && test -s smalltest.EVM.bed && grep -F 'evm.TU' smalltest.EVM.gff3 >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T09:21:12Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T09:21:12Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/evidencemodeler",
+        "ref": "v2.1.0-r2",
+        "commit": "e4cb9b248fdae1080827f9488586b352b38a22a0",
+        "html_url": "https://github.com/taffish/evidencemodeler/tree/v2.1.0-r2"
       },
       "upstream": {
         "name": "EVidenceModeler",
