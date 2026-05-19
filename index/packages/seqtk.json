@@ -1,0 +1,122 @@
+{
+  "name": "seqtk",
+  "latest": "1.5-r1",
+  "repository_url": "https://github.com/taffish/seqtk",
+  "command": {
+    "name": "taf-seqtk"
+  },
+  "versions": {
+    "1.5-r1": {
+      "name": "seqtk",
+      "kind": "tool",
+      "version": "1.5",
+      "release": 1,
+      "version_id": "1.5-r1",
+      "tag": "v1.5-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/seqtk",
+      "repository_slug": "taffish/seqtk",
+      "command": {
+        "name": "taf-seqtk"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "fasta",
+        "categories": [
+          "fasta",
+          "fastq",
+          "sequence-processing",
+          "quality-control"
+        ],
+        "keywords": [
+          "seqtk",
+          "fasta",
+          "fastq",
+          "gzip",
+          "subseq",
+          "sample",
+          "trimfq",
+          "fqchk",
+          "telomere",
+          "sequence transformation"
+        ],
+        "summary": "Seqtk fast lightweight toolkit for processing FASTA and FASTQ sequences.",
+        "description": "Seqtk fast lightweight toolkit for processing FASTA and FASTQ sequences."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/seqtk:1.5-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.5-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:8fb34b3a5f874d8d973b4bb20e4f810798e665d595b05f34071b8a8f3793100d",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0d3463b5dbdd0ace9efe4b3ba8a4acdc3fb2291fe12801175347e727cd27714b",
+          "linux/arm64": "sha256:c07a2427ea0239aa0a7b36876dc53089dab010877ab1a4e1ce0c0ba1774cfacc"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "seqtk",
+          "gzip",
+          "ldd",
+          "sh"
+        ],
+        "test": [
+          "{ seqtk 2>&1 || true; } | grep -F 'Version: 1.5-r133' >/dev/null && { seqtk sample 2>&1 || true; } | grep -F 'Usage:   seqtk sample' >/dev/null && ldd $(command -v seqtk) | grep -F 'libz.so' >/dev/null",
+          "mkdir -p /tmp/taf-seqtk-fastx && cd /tmp/taf-seqtk-fastx && printf '@r1\\nACGTNN\\n+\\nFFFFFF\\n@r2\\nTTAGGGTTAGGG\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && seqtk seq -a reads.fq.gz > reads.fa && grep -F '>r1' reads.fa >/dev/null && grep -F 'TTAGGGTTAGGG' reads.fa >/dev/null && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && seqtk seq -R ref.fa > both.fa && grep -F '>chr1+' both.fa >/dev/null && grep -F '>chr1-' both.fa >/dev/null && seqtk size ref.fa > size.txt && grep -F \"$(printf '2\\t34')\" size.txt >/dev/null && seqtk comp ref.fa > comp.txt && grep -F \"$(printf 'chr1\\t16')\" comp.txt >/dev/null",
+          "mkdir -p /tmp/taf-seqtk-subseq && cd /tmp/taf-seqtk-subseq && printf '@r1\\nACGTNN\\n+\\nFFFFFF\\n@r2\\nTTAGGGTTAGGG\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && printf 'r1\\n' > names.txt && printf 'chr1\\t4\\t12\\n' > regions.bed && seqtk subseq reads.fq names.txt > r1.fq && grep -F '@r1' r1.fq >/dev/null && ! grep -F '@r2' r1.fq >/dev/null && seqtk subseq ref.fa regions.bed > sub.fa && grep -F '>chr1:5-12' sub.fa >/dev/null && seqtk seq -M regions.bed ref.fa > masked.fa && grep -F 'ACGTacgtnnnnACGT' masked.fa >/dev/null",
+          "mkdir -p /tmp/taf-seqtk-qc && cd /tmp/taf-seqtk-qc && printf '@r1\\nACGTNN\\n+\\nFFFFFF\\n@r2\\nTTAGGGTTAGGG\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && seqtk trimfq -b 1 -e 1 reads.fq > trim.fq && grep -F 'CGTN' trim.fq >/dev/null && grep -F 'TAGGGTTAGG' trim.fq >/dev/null && seqtk fqchk reads.fq > fqchk.txt && grep -F 'avg_len: 9.00' fqchk.txt >/dev/null && seqtk sample -s7 reads.fq 1 > sample.fq && grep -F '@r1' sample.fq >/dev/null",
+          "mkdir -p /tmp/taf-seqtk-extra && cd /tmp/taf-seqtk-extra && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && seqtk hpc ref.fa > hpc.fa && grep -F 'ACGTACGTNACGT' hpc.fa >/dev/null && seqtk gap -l 2 ref.fa > gap.bed && grep -F \"$(printf 'chr1\\t8\\t12')\" gap.bed >/dev/null && seqtk split -n 2 chunk ref.fa && test -s chunk.00001.fa && test -s chunk.00002.fa && seqtk telo -P ref.fa > telo.bed 2> telo.count && grep -F \"$(printf '0\\t34')\" telo.count >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T14:06:06Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T14:06:06Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/seqtk",
+        "ref": "v1.5-r1",
+        "commit": "2ab73cc3d225770374522c8f31d5500ab0d72bf0",
+        "html_url": "https://github.com/taffish/seqtk/tree/v1.5-r1"
+      },
+      "upstream": {
+        "name": "seqtk",
+        "type": "github",
+        "homepage": "https://github.com/lh3/seqtk",
+        "repository": "lh3/seqtk",
+        "release_url": "https://github.com/lh3/seqtk/releases/tag/v1.5",
+        "version": "1.5",
+        "license": "MIT",
+        "citation": "Heng Li, seqtk GitHub repository"
+      }
+    }
+  }
+}

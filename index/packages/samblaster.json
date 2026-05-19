@@ -1,0 +1,122 @@
+{
+  "name": "samblaster",
+  "latest": "0.1.26-r1",
+  "repository_url": "https://github.com/taffish/samblaster",
+  "command": {
+    "name": "taf-samblaster"
+  },
+  "versions": {
+    "0.1.26-r1": {
+      "name": "samblaster",
+      "kind": "tool",
+      "version": "0.1.26",
+      "release": 1,
+      "version_id": "0.1.26-r1",
+      "tag": "v0.1.26-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/samblaster",
+      "repository_slug": "taffish/samblaster",
+      "command": {
+        "name": "taf-samblaster"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "alignment",
+        "categories": [
+          "alignment",
+          "sam",
+          "duplicate-marking",
+          "structural-variation"
+        ],
+        "keywords": [
+          "samblaster",
+          "sam",
+          "duplicate marking",
+          "read-id grouped",
+          "discordant reads",
+          "split reads",
+          "unmapped reads",
+          "clipped reads",
+          "structural variants"
+        ],
+        "summary": "samblaster fast duplicate marking and structural-variant read extraction for read-id grouped SAM streams.",
+        "description": "samblaster fast duplicate marking and structural-variant read extraction for read-id grouped SAM streams."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/samblaster:0.1.26-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.1.26-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:c3c1a0b616b9ab1bddf45ce9bd57b5118fae1a0f79b8051e336bda78db229cc1",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:afbaafaca8a6cb78cd9d4d4f871c7cf7e462c3ea2b97e9e72ee5b20c5f77baf0",
+          "linux/arm64": "sha256:bba9832670ca44f0e804b56568d74f874d6b9489a70ea0d1d48a15fb23ba9f42"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "samblaster",
+          "ldd",
+          "sh"
+        ],
+        "test": [
+          "samblaster --version 2>&1 | grep -F 'samblaster: Version 0.1.26' >/dev/null && samblaster --help 2>&1 | grep -F 'Tool to mark duplicates' >/dev/null && ldd $(command -v samblaster) | grep -F 'libstdc++' >/dev/null",
+          "mkdir -p /tmp/taf-samblaster-mark && cd /tmp/taf-samblaster-mark && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\nr1\\t99\\tchr1\\t100\\t60\\t10M\\t=\\t200\\t110\\tACGTACGTAA\\tFFFFFFFFFF\\nr1\\t147\\tchr1\\t200\\t60\\t10M\\t=\\t100\\t-110\\tTTACGTACGT\\tFFFFFFFFFF\\nr2\\t99\\tchr1\\t100\\t60\\t10M\\t=\\t200\\t110\\tACGTACGTAA\\tFFFFFFFFFF\\nr2\\t147\\tchr1\\t200\\t60\\t10M\\t=\\t100\\t-110\\tTTACGTACGT\\tFFFFFFFFFF\\n' > dup.sam && samblaster -i dup.sam -o marked.sam -q > run.out 2> run.err && grep -F \"$(printf '@PG\\tID:SAMBLASTER\\tVN:0.1.26')\" marked.sam >/dev/null && grep -F \"$(printf 'r2\\t1123\\tchr1')\" marked.sam >/dev/null && grep -F \"$(printf 'r2\\t1171\\tchr1')\" marked.sam >/dev/null && grep -F '50.000%' run.err >/dev/null",
+          "mkdir -p /tmp/taf-samblaster-remove && cd /tmp/taf-samblaster-remove && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\nr1\\t99\\tchr1\\t100\\t60\\t10M\\t=\\t200\\t110\\tACGTACGTAA\\tFFFFFFFFFF\\nr1\\t147\\tchr1\\t200\\t60\\t10M\\t=\\t100\\t-110\\tTTACGTACGT\\tFFFFFFFFFF\\nr2\\t99\\tchr1\\t100\\t60\\t10M\\t=\\t200\\t110\\tACGTACGTAA\\tFFFFFFFFFF\\nr2\\t147\\tchr1\\t200\\t60\\t10M\\t=\\t100\\t-110\\tTTACGTACGT\\tFFFFFFFFFF\\n' > dup.sam && samblaster -i dup.sam -o nodup.sam --removeDups -q > run.out 2> run.err && grep -F 'Removed' run.err >/dev/null && ! grep -F \"$(printf 'r2\\t')\" nodup.sam >/dev/null",
+          "mkdir -p /tmp/taf-samblaster-sv && cd /tmp/taf-samblaster-sv && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\n@SQ\\tSN:chr2\\tLN:1000\\ndisc\\t65\\tchr1\\t100\\t60\\t10M\\tchr2\\t300\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\ndisc\\t129\\tchr2\\t300\\t60\\t10M\\tchr1\\t100\\t0\\tTTACGTACGT\\tFFFFFFFFFF\\n' > disc.sam && samblaster -i disc.sam -o marked.sam -d discordant.sam -q > disc.out 2> disc.err && grep -F \"$(printf 'disc\\t65\\tchr1')\" discordant.sam >/dev/null && grep -F \"$(printf 'disc\\t129\\tchr2')\" discordant.sam >/dev/null && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\n@SQ\\tSN:chr2\\tLN:1000\\nsplit\\t0\\tchr1\\t100\\t60\\t50M50S\\t*\\t0\\t0\\tAAAAAAAAAACCCCCCCCCCGGGGGGGGGGTTTTTTTTTTAAAAAAAAAACCCCCCCCCCGGGGGGGGGGTTTTTTTTTTAAAAAAAAAACCCCCCCCCC\\tFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\nsplit\\t2048\\tchr2\\t200\\t60\\t50S50M\\t*\\t0\\t0\\tAAAAAAAAAACCCCCCCCCCGGGGGGGGGGTTTTTTTTTTAAAAAAAAAACCCCCCCCCCGGGGGGGGGGTTTTTTTTTTAAAAAAAAAACCCCCCCCCC\\tFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > split.sam && samblaster -i split.sam -o split-marked.sam -s splitters.sam --ignoreUnmated -q > split.out 2> split.err && grep -F \"$(printf 'split\\t0\\tchr1')\" splitters.sam >/dev/null && grep -F \"$(printf 'split\\t2048\\tchr2')\" splitters.sam >/dev/null",
+          "mkdir -p /tmp/taf-samblaster-unmapped && cd /tmp/taf-samblaster-unmapped && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\nunmap\\t4\\t*\\t0\\t0\\t*\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\nclip\\t0\\tchr1\\t100\\t60\\t5S5M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > unmapped.sam && samblaster -i unmapped.sam -o marked.sam -u unmapped.fq --ignoreUnmated --minClipSize 5 -q > run.out 2> run.err && grep -F '@unmap' unmapped.fq >/dev/null && grep -F '@clip' unmapped.fq >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T14:06:06Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T14:06:06Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/samblaster",
+        "ref": "v0.1.26-r1",
+        "commit": "fa755b58057d9221df816d9f4a5fc1ef8f9d9476",
+        "html_url": "https://github.com/taffish/samblaster/tree/v0.1.26-r1"
+      },
+      "upstream": {
+        "name": "samblaster",
+        "type": "github",
+        "homepage": "https://github.com/GregoryFaust/samblaster",
+        "repository": "GregoryFaust/samblaster",
+        "release_url": "https://github.com/GregoryFaust/samblaster/releases/tag/v.0.1.26",
+        "version": "0.1.26",
+        "license": "MIT",
+        "citation": "Faust and Hall 2014, Bioinformatics",
+        "doi": "10.1093/bioinformatics/btu314",
+        "pmid": "24812344"
+      }
+    }
+  }
+}

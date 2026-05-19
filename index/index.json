@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T13:03:38Z",
+  "generated_at": "2026-05-19T14:06:06Z",
   "organization": "taffish",
   "counts": {
-    "packages": 60,
-    "versions": 90,
-    "commands": 60,
-    "repositories": 60,
+    "packages": 63,
+    "versions": 93,
+    "commands": 63,
+    "repositories": 63,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -11288,6 +11288,153 @@
         }
       }
     },
+    "rmblast": {
+      "name": "rmblast",
+      "latest": "2.17.1-r1",
+      "repository_url": "https://github.com/taffish/rmblast",
+      "command": {
+        "name": "taf-rmblast"
+      },
+      "versions": {
+        "2.17.1-r1": {
+          "name": "rmblast",
+          "kind": "tool",
+          "version": "2.17.1",
+          "release": 1,
+          "version_id": "2.17.1-r1",
+          "tag": "v2.17.1-r1",
+          "license": "OSL-2.1",
+          "repository_url": "https://github.com/taffish/rmblast",
+          "repository_slug": "taffish/rmblast",
+          "command": {
+            "name": "taf-rmblast"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-search",
+            "categories": [
+              "sequence-search",
+              "repeat-annotation",
+              "genomics",
+              "repeatmasker",
+              "repeatmodeler"
+            ],
+            "keywords": [
+              "rmblast",
+              "rmblastn",
+              "repeatmasker",
+              "repeatmodeler",
+              "blast+",
+              "blastn",
+              "makeblastdb",
+              "masklevel",
+              "complexity-adjusted scoring"
+            ],
+            "summary": "RepeatMasker-compatible BLAST+ distribution with rmblastn and RepeatMasker/RepeatModeler-specific nucleotide search options.",
+            "description": "RepeatMasker-compatible BLAST+ distribution with rmblastn and RepeatMasker/RepeatModeler-specific nucleotide search options."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rmblast:2.17.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.17.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f89eb74d9e6263ef283d1d8e0a169ae2890751a3a938517cb6d674c64a194162",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:3f39ff327be4108bc35611f6c620208d4155bf6058650e94f18478f353d0b4c1"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "rmblastn",
+              "blastn",
+              "blastp",
+              "blastx",
+              "tblastn",
+              "tblastx",
+              "makeblastdb",
+              "blastdbcmd",
+              "blast_formatter",
+              "dustmasker",
+              "segmasker",
+              "windowmasker",
+              "psiblast",
+              "rpsblast",
+              "rpstblastn",
+              "deltablast",
+              "makeprofiledb",
+              "makembindex",
+              "convert2blastmask",
+              "blastdb_aliastool",
+              "blastdbcheck",
+              "legacy_blast.pl",
+              "update_blastdb.pl",
+              "get_species_taxids.sh",
+              "perl",
+              "curl",
+              "ldd"
+            ],
+            "test": [
+              "rmblastn -version 2>&1 | grep -F 'rmblastn: 2.17.1+' >/dev/null && blastn -version 2>&1 | grep -F 'blastn: 2.17.1+' >/dev/null && test \"${BLAST_USAGE_REPORT}\" = 'false'",
+              "rmblastn -help 2>&1 | grep -F 'Nucleotide-Nucleotide BLAST with RepeatMasker Extensions 2.17.1+' >/dev/null && rmblastn -help 2>&1 | grep -F -- '-complexity_adjust' >/dev/null && rmblastn -help 2>&1 | grep -F -- '-mask_level' >/dev/null && rmblastn -help 2>&1 | grep -F -- '-mask_level_algo' >/dev/null",
+              "ldd \"$(command -v rmblastn)\" | grep -F 'libsqlite3' >/dev/null && ldd \"$(command -v rmblastn)\" | grep -F 'libgomp' >/dev/null && ! ldd \"$(command -v rmblastn)\" | grep -F 'not found' >/dev/null && perl -v >/dev/null && curl --version >/dev/null",
+              "makeblastdb -help 2>&1 | grep -F 'USAGE' >/dev/null && blastdbcmd -help 2>&1 | grep -F 'USAGE' >/dev/null && blast_formatter -help 2>&1 | grep -F 'USAGE' >/dev/null && dustmasker -help 2>&1 | grep -F 'USAGE' >/dev/null && segmasker -help 2>&1 | grep -F 'USAGE' >/dev/null",
+              "mkdir -p /tmp/taf-rmblast-rmblastn && cd /tmp/taf-rmblast-rmblastn && printf '>s\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > db.fa && makeblastdb -in db.fa -dbtype nucl -out db >/dev/null && printf '>q\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > q.fa && rmblastn -query q.fa -db db -task megablast -dust no -outfmt '6 qseqid sseqid pident length' | awk '$1==\"q\" && $2==\"s\" && $3==\"100.000\" && $4>=48 {found=1} END {exit !found}'",
+              "mkdir -p /tmp/taf-rmblast-blastn && cd /tmp/taf-rmblast-blastn && printf '>s\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > db.fa && makeblastdb -in db.fa -dbtype nucl -out db >/dev/null && printf '>q\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > q.fa && blastn -query q.fa -db db -task megablast -dust no -outfmt '6 qseqid sseqid pident length' | awk '$1==\"q\" && $2==\"s\" && $3==\"100.000\" && $4>=48 {found=1} END {exit !found}'",
+              "legacy_blast.pl --help 2>&1 | grep -F 'legacy_blast.pl' >/dev/null && update_blastdb.pl --help 2>&1 | grep -F 'update_blastdb.pl' >/dev/null && command -v get_species_taxids.sh >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T14:06:06Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T14:06:06Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rmblast",
+            "ref": "v2.17.1-r1",
+            "commit": "db9bb618efe06e7c7f81022a70d0861d2b9f416b",
+            "html_url": "https://github.com/taffish/rmblast/tree/v2.17.1-r1"
+          },
+          "upstream": {
+            "name": "RMBlast",
+            "type": "official",
+            "url": "https://www.repeatmasker.org/rmblast/",
+            "homepage": "https://www.repeatmasker.org/rmblast/",
+            "release_url": "https://www.repeatmasker.org/rmblast/",
+            "version": "2.17.1",
+            "license": "OSL-2.1 with bundled NCBI public-domain BLAST+ components",
+            "citation": "Camacho et al. 2009 for BLAST+; RMBlast authors: Smit, Hubley, Rosen",
+            "doi": "10.1186/1471-2105-10-421",
+            "pmid": "20003500"
+          }
+        }
+      }
+    },
     "rsem": {
       "name": "rsem",
       "latest": "1.3.3-r1",
@@ -11428,6 +11575,128 @@
         }
       }
     },
+    "samblaster": {
+      "name": "samblaster",
+      "latest": "0.1.26-r1",
+      "repository_url": "https://github.com/taffish/samblaster",
+      "command": {
+        "name": "taf-samblaster"
+      },
+      "versions": {
+        "0.1.26-r1": {
+          "name": "samblaster",
+          "kind": "tool",
+          "version": "0.1.26",
+          "release": 1,
+          "version_id": "0.1.26-r1",
+          "tag": "v0.1.26-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/samblaster",
+          "repository_slug": "taffish/samblaster",
+          "command": {
+            "name": "taf-samblaster"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "alignment",
+            "categories": [
+              "alignment",
+              "sam",
+              "duplicate-marking",
+              "structural-variation"
+            ],
+            "keywords": [
+              "samblaster",
+              "sam",
+              "duplicate marking",
+              "read-id grouped",
+              "discordant reads",
+              "split reads",
+              "unmapped reads",
+              "clipped reads",
+              "structural variants"
+            ],
+            "summary": "samblaster fast duplicate marking and structural-variant read extraction for read-id grouped SAM streams.",
+            "description": "samblaster fast duplicate marking and structural-variant read extraction for read-id grouped SAM streams."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/samblaster:0.1.26-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.1.26-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c3c1a0b616b9ab1bddf45ce9bd57b5118fae1a0f79b8051e336bda78db229cc1",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:afbaafaca8a6cb78cd9d4d4f871c7cf7e462c3ea2b97e9e72ee5b20c5f77baf0",
+              "linux/arm64": "sha256:bba9832670ca44f0e804b56568d74f874d6b9489a70ea0d1d48a15fb23ba9f42"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "samblaster",
+              "ldd",
+              "sh"
+            ],
+            "test": [
+              "samblaster --version 2>&1 | grep -F 'samblaster: Version 0.1.26' >/dev/null && samblaster --help 2>&1 | grep -F 'Tool to mark duplicates' >/dev/null && ldd $(command -v samblaster) | grep -F 'libstdc++' >/dev/null",
+              "mkdir -p /tmp/taf-samblaster-mark && cd /tmp/taf-samblaster-mark && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\nr1\\t99\\tchr1\\t100\\t60\\t10M\\t=\\t200\\t110\\tACGTACGTAA\\tFFFFFFFFFF\\nr1\\t147\\tchr1\\t200\\t60\\t10M\\t=\\t100\\t-110\\tTTACGTACGT\\tFFFFFFFFFF\\nr2\\t99\\tchr1\\t100\\t60\\t10M\\t=\\t200\\t110\\tACGTACGTAA\\tFFFFFFFFFF\\nr2\\t147\\tchr1\\t200\\t60\\t10M\\t=\\t100\\t-110\\tTTACGTACGT\\tFFFFFFFFFF\\n' > dup.sam && samblaster -i dup.sam -o marked.sam -q > run.out 2> run.err && grep -F \"$(printf '@PG\\tID:SAMBLASTER\\tVN:0.1.26')\" marked.sam >/dev/null && grep -F \"$(printf 'r2\\t1123\\tchr1')\" marked.sam >/dev/null && grep -F \"$(printf 'r2\\t1171\\tchr1')\" marked.sam >/dev/null && grep -F '50.000%' run.err >/dev/null",
+              "mkdir -p /tmp/taf-samblaster-remove && cd /tmp/taf-samblaster-remove && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\nr1\\t99\\tchr1\\t100\\t60\\t10M\\t=\\t200\\t110\\tACGTACGTAA\\tFFFFFFFFFF\\nr1\\t147\\tchr1\\t200\\t60\\t10M\\t=\\t100\\t-110\\tTTACGTACGT\\tFFFFFFFFFF\\nr2\\t99\\tchr1\\t100\\t60\\t10M\\t=\\t200\\t110\\tACGTACGTAA\\tFFFFFFFFFF\\nr2\\t147\\tchr1\\t200\\t60\\t10M\\t=\\t100\\t-110\\tTTACGTACGT\\tFFFFFFFFFF\\n' > dup.sam && samblaster -i dup.sam -o nodup.sam --removeDups -q > run.out 2> run.err && grep -F 'Removed' run.err >/dev/null && ! grep -F \"$(printf 'r2\\t')\" nodup.sam >/dev/null",
+              "mkdir -p /tmp/taf-samblaster-sv && cd /tmp/taf-samblaster-sv && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\n@SQ\\tSN:chr2\\tLN:1000\\ndisc\\t65\\tchr1\\t100\\t60\\t10M\\tchr2\\t300\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\ndisc\\t129\\tchr2\\t300\\t60\\t10M\\tchr1\\t100\\t0\\tTTACGTACGT\\tFFFFFFFFFF\\n' > disc.sam && samblaster -i disc.sam -o marked.sam -d discordant.sam -q > disc.out 2> disc.err && grep -F \"$(printf 'disc\\t65\\tchr1')\" discordant.sam >/dev/null && grep -F \"$(printf 'disc\\t129\\tchr2')\" discordant.sam >/dev/null && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\n@SQ\\tSN:chr2\\tLN:1000\\nsplit\\t0\\tchr1\\t100\\t60\\t50M50S\\t*\\t0\\t0\\tAAAAAAAAAACCCCCCCCCCGGGGGGGGGGTTTTTTTTTTAAAAAAAAAACCCCCCCCCCGGGGGGGGGGTTTTTTTTTTAAAAAAAAAACCCCCCCCCC\\tFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\nsplit\\t2048\\tchr2\\t200\\t60\\t50S50M\\t*\\t0\\t0\\tAAAAAAAAAACCCCCCCCCCGGGGGGGGGGTTTTTTTTTTAAAAAAAAAACCCCCCCCCCGGGGGGGGGGTTTTTTTTTTAAAAAAAAAACCCCCCCCCC\\tFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > split.sam && samblaster -i split.sam -o split-marked.sam -s splitters.sam --ignoreUnmated -q > split.out 2> split.err && grep -F \"$(printf 'split\\t0\\tchr1')\" splitters.sam >/dev/null && grep -F \"$(printf 'split\\t2048\\tchr2')\" splitters.sam >/dev/null",
+              "mkdir -p /tmp/taf-samblaster-unmapped && cd /tmp/taf-samblaster-unmapped && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\nunmap\\t4\\t*\\t0\\t0\\t*\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\nclip\\t0\\tchr1\\t100\\t60\\t5S5M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > unmapped.sam && samblaster -i unmapped.sam -o marked.sam -u unmapped.fq --ignoreUnmated --minClipSize 5 -q > run.out 2> run.err && grep -F '@unmap' unmapped.fq >/dev/null && grep -F '@clip' unmapped.fq >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T14:06:06Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T14:06:06Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/samblaster",
+            "ref": "v0.1.26-r1",
+            "commit": "fa755b58057d9221df816d9f4a5fc1ef8f9d9476",
+            "html_url": "https://github.com/taffish/samblaster/tree/v0.1.26-r1"
+          },
+          "upstream": {
+            "name": "samblaster",
+            "type": "github",
+            "homepage": "https://github.com/GregoryFaust/samblaster",
+            "repository": "GregoryFaust/samblaster",
+            "release_url": "https://github.com/GregoryFaust/samblaster/releases/tag/v.0.1.26",
+            "version": "0.1.26",
+            "license": "MIT",
+            "citation": "Faust and Hall 2014, Bioinformatics",
+            "doi": "10.1093/bioinformatics/btu314",
+            "pmid": "24812344"
+          }
+        }
+      }
+    },
     "samtools": {
       "name": "samtools",
       "latest": "1.23.1-r1",
@@ -11554,6 +11823,128 @@
             "citation": "Danecek et al. 2021",
             "doi": "10.1093/gigascience/giab008",
             "pmid": "33590861"
+          }
+        }
+      }
+    },
+    "seqtk": {
+      "name": "seqtk",
+      "latest": "1.5-r1",
+      "repository_url": "https://github.com/taffish/seqtk",
+      "command": {
+        "name": "taf-seqtk"
+      },
+      "versions": {
+        "1.5-r1": {
+          "name": "seqtk",
+          "kind": "tool",
+          "version": "1.5",
+          "release": 1,
+          "version_id": "1.5-r1",
+          "tag": "v1.5-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/seqtk",
+          "repository_slug": "taffish/seqtk",
+          "command": {
+            "name": "taf-seqtk"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fasta",
+            "categories": [
+              "fasta",
+              "fastq",
+              "sequence-processing",
+              "quality-control"
+            ],
+            "keywords": [
+              "seqtk",
+              "fasta",
+              "fastq",
+              "gzip",
+              "subseq",
+              "sample",
+              "trimfq",
+              "fqchk",
+              "telomere",
+              "sequence transformation"
+            ],
+            "summary": "Seqtk fast lightweight toolkit for processing FASTA and FASTQ sequences.",
+            "description": "Seqtk fast lightweight toolkit for processing FASTA and FASTQ sequences."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/seqtk:1.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:8fb34b3a5f874d8d973b4bb20e4f810798e665d595b05f34071b8a8f3793100d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0d3463b5dbdd0ace9efe4b3ba8a4acdc3fb2291fe12801175347e727cd27714b",
+              "linux/arm64": "sha256:c07a2427ea0239aa0a7b36876dc53089dab010877ab1a4e1ce0c0ba1774cfacc"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "seqtk",
+              "gzip",
+              "ldd",
+              "sh"
+            ],
+            "test": [
+              "{ seqtk 2>&1 || true; } | grep -F 'Version: 1.5-r133' >/dev/null && { seqtk sample 2>&1 || true; } | grep -F 'Usage:   seqtk sample' >/dev/null && ldd $(command -v seqtk) | grep -F 'libz.so' >/dev/null",
+              "mkdir -p /tmp/taf-seqtk-fastx && cd /tmp/taf-seqtk-fastx && printf '@r1\\nACGTNN\\n+\\nFFFFFF\\n@r2\\nTTAGGGTTAGGG\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && seqtk seq -a reads.fq.gz > reads.fa && grep -F '>r1' reads.fa >/dev/null && grep -F 'TTAGGGTTAGGG' reads.fa >/dev/null && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && seqtk seq -R ref.fa > both.fa && grep -F '>chr1+' both.fa >/dev/null && grep -F '>chr1-' both.fa >/dev/null && seqtk size ref.fa > size.txt && grep -F \"$(printf '2\\t34')\" size.txt >/dev/null && seqtk comp ref.fa > comp.txt && grep -F \"$(printf 'chr1\\t16')\" comp.txt >/dev/null",
+              "mkdir -p /tmp/taf-seqtk-subseq && cd /tmp/taf-seqtk-subseq && printf '@r1\\nACGTNN\\n+\\nFFFFFF\\n@r2\\nTTAGGGTTAGGG\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && printf 'r1\\n' > names.txt && printf 'chr1\\t4\\t12\\n' > regions.bed && seqtk subseq reads.fq names.txt > r1.fq && grep -F '@r1' r1.fq >/dev/null && ! grep -F '@r2' r1.fq >/dev/null && seqtk subseq ref.fa regions.bed > sub.fa && grep -F '>chr1:5-12' sub.fa >/dev/null && seqtk seq -M regions.bed ref.fa > masked.fa && grep -F 'ACGTacgtnnnnACGT' masked.fa >/dev/null",
+              "mkdir -p /tmp/taf-seqtk-qc && cd /tmp/taf-seqtk-qc && printf '@r1\\nACGTNN\\n+\\nFFFFFF\\n@r2\\nTTAGGGTTAGGG\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && seqtk trimfq -b 1 -e 1 reads.fq > trim.fq && grep -F 'CGTN' trim.fq >/dev/null && grep -F 'TAGGGTTAGG' trim.fq >/dev/null && seqtk fqchk reads.fq > fqchk.txt && grep -F 'avg_len: 9.00' fqchk.txt >/dev/null && seqtk sample -s7 reads.fq 1 > sample.fq && grep -F '@r1' sample.fq >/dev/null",
+              "mkdir -p /tmp/taf-seqtk-extra && cd /tmp/taf-seqtk-extra && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && seqtk hpc ref.fa > hpc.fa && grep -F 'ACGTACGTNACGT' hpc.fa >/dev/null && seqtk gap -l 2 ref.fa > gap.bed && grep -F \"$(printf 'chr1\\t8\\t12')\" gap.bed >/dev/null && seqtk split -n 2 chunk ref.fa && test -s chunk.00001.fa && test -s chunk.00002.fa && seqtk telo -P ref.fa > telo.bed 2> telo.count && grep -F \"$(printf '0\\t34')\" telo.count >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-19T14:06:06Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-19T14:06:06Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/seqtk",
+            "ref": "v1.5-r1",
+            "commit": "2ab73cc3d225770374522c8f31d5500ab0d72bf0",
+            "html_url": "https://github.com/taffish/seqtk/tree/v1.5-r1"
+          },
+          "upstream": {
+            "name": "seqtk",
+            "type": "github",
+            "homepage": "https://github.com/lh3/seqtk",
+            "repository": "lh3/seqtk",
+            "release_url": "https://github.com/lh3/seqtk/releases/tag/v1.5",
+            "version": "1.5",
+            "license": "MIT",
+            "citation": "Heng Li, seqtk GitHub repository"
           }
         }
       }
@@ -11910,13 +12301,25 @@
       "package": "quast",
       "version": "5.3.0-r1"
     },
+    "taf-rmblast": {
+      "package": "rmblast",
+      "version": "2.17.1-r1"
+    },
     "taf-rsem": {
       "package": "rsem",
       "version": "1.3.3-r1"
     },
+    "taf-samblaster": {
+      "package": "samblaster",
+      "version": "0.1.26-r1"
+    },
     "taf-samtools": {
       "package": "samtools",
       "version": "1.23.1-r1"
+    },
+    "taf-seqtk": {
+      "package": "seqtk",
+      "version": "1.5-r1"
     },
     "taf-trf": {
       "package": "trf",
@@ -12266,16 +12669,34 @@
         "quast"
       ]
     },
+    "taffish/rmblast": {
+      "repository": "taffish/rmblast",
+      "packages": [
+        "rmblast"
+      ]
+    },
     "taffish/rsem": {
       "repository": "taffish/rsem",
       "packages": [
         "rsem"
       ]
     },
+    "taffish/samblaster": {
+      "repository": "taffish/samblaster",
+      "packages": [
+        "samblaster"
+      ]
+    },
     "taffish/samtools": {
       "repository": "taffish/samtools",
       "packages": [
         "samtools"
+      ]
+    },
+    "taffish/seqtk": {
+      "repository": "taffish/seqtk",
+      "packages": [
+        "seqtk"
       ]
     },
     "taffish/trf": {

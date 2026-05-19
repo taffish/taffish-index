@@ -1,0 +1,147 @@
+{
+  "name": "rmblast",
+  "latest": "2.17.1-r1",
+  "repository_url": "https://github.com/taffish/rmblast",
+  "command": {
+    "name": "taf-rmblast"
+  },
+  "versions": {
+    "2.17.1-r1": {
+      "name": "rmblast",
+      "kind": "tool",
+      "version": "2.17.1",
+      "release": 1,
+      "version_id": "2.17.1-r1",
+      "tag": "v2.17.1-r1",
+      "license": "OSL-2.1",
+      "repository_url": "https://github.com/taffish/rmblast",
+      "repository_slug": "taffish/rmblast",
+      "command": {
+        "name": "taf-rmblast"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "sequence-search",
+        "categories": [
+          "sequence-search",
+          "repeat-annotation",
+          "genomics",
+          "repeatmasker",
+          "repeatmodeler"
+        ],
+        "keywords": [
+          "rmblast",
+          "rmblastn",
+          "repeatmasker",
+          "repeatmodeler",
+          "blast+",
+          "blastn",
+          "makeblastdb",
+          "masklevel",
+          "complexity-adjusted scoring"
+        ],
+        "summary": "RepeatMasker-compatible BLAST+ distribution with rmblastn and RepeatMasker/RepeatModeler-specific nucleotide search options.",
+        "description": "RepeatMasker-compatible BLAST+ distribution with rmblastn and RepeatMasker/RepeatModeler-specific nucleotide search options."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/rmblast:2.17.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.17.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:f89eb74d9e6263ef283d1d8e0a169ae2890751a3a938517cb6d674c64a194162",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3f39ff327be4108bc35611f6c620208d4155bf6058650e94f18478f353d0b4c1"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "rmblastn",
+          "blastn",
+          "blastp",
+          "blastx",
+          "tblastn",
+          "tblastx",
+          "makeblastdb",
+          "blastdbcmd",
+          "blast_formatter",
+          "dustmasker",
+          "segmasker",
+          "windowmasker",
+          "psiblast",
+          "rpsblast",
+          "rpstblastn",
+          "deltablast",
+          "makeprofiledb",
+          "makembindex",
+          "convert2blastmask",
+          "blastdb_aliastool",
+          "blastdbcheck",
+          "legacy_blast.pl",
+          "update_blastdb.pl",
+          "get_species_taxids.sh",
+          "perl",
+          "curl",
+          "ldd"
+        ],
+        "test": [
+          "rmblastn -version 2>&1 | grep -F 'rmblastn: 2.17.1+' >/dev/null && blastn -version 2>&1 | grep -F 'blastn: 2.17.1+' >/dev/null && test \"${BLAST_USAGE_REPORT}\" = 'false'",
+          "rmblastn -help 2>&1 | grep -F 'Nucleotide-Nucleotide BLAST with RepeatMasker Extensions 2.17.1+' >/dev/null && rmblastn -help 2>&1 | grep -F -- '-complexity_adjust' >/dev/null && rmblastn -help 2>&1 | grep -F -- '-mask_level' >/dev/null && rmblastn -help 2>&1 | grep -F -- '-mask_level_algo' >/dev/null",
+          "ldd \"$(command -v rmblastn)\" | grep -F 'libsqlite3' >/dev/null && ldd \"$(command -v rmblastn)\" | grep -F 'libgomp' >/dev/null && ! ldd \"$(command -v rmblastn)\" | grep -F 'not found' >/dev/null && perl -v >/dev/null && curl --version >/dev/null",
+          "makeblastdb -help 2>&1 | grep -F 'USAGE' >/dev/null && blastdbcmd -help 2>&1 | grep -F 'USAGE' >/dev/null && blast_formatter -help 2>&1 | grep -F 'USAGE' >/dev/null && dustmasker -help 2>&1 | grep -F 'USAGE' >/dev/null && segmasker -help 2>&1 | grep -F 'USAGE' >/dev/null",
+          "mkdir -p /tmp/taf-rmblast-rmblastn && cd /tmp/taf-rmblast-rmblastn && printf '>s\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > db.fa && makeblastdb -in db.fa -dbtype nucl -out db >/dev/null && printf '>q\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > q.fa && rmblastn -query q.fa -db db -task megablast -dust no -outfmt '6 qseqid sseqid pident length' | awk '$1==\"q\" && $2==\"s\" && $3==\"100.000\" && $4>=48 {found=1} END {exit !found}'",
+          "mkdir -p /tmp/taf-rmblast-blastn && cd /tmp/taf-rmblast-blastn && printf '>s\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > db.fa && makeblastdb -in db.fa -dbtype nucl -out db >/dev/null && printf '>q\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > q.fa && blastn -query q.fa -db db -task megablast -dust no -outfmt '6 qseqid sseqid pident length' | awk '$1==\"q\" && $2==\"s\" && $3==\"100.000\" && $4>=48 {found=1} END {exit !found}'",
+          "legacy_blast.pl --help 2>&1 | grep -F 'legacy_blast.pl' >/dev/null && update_blastdb.pl --help 2>&1 | grep -F 'update_blastdb.pl' >/dev/null && command -v get_species_taxids.sh >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-19T14:06:06Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-19T14:06:06Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rmblast",
+        "ref": "v2.17.1-r1",
+        "commit": "db9bb618efe06e7c7f81022a70d0861d2b9f416b",
+        "html_url": "https://github.com/taffish/rmblast/tree/v2.17.1-r1"
+      },
+      "upstream": {
+        "name": "RMBlast",
+        "type": "official",
+        "url": "https://www.repeatmasker.org/rmblast/",
+        "homepage": "https://www.repeatmasker.org/rmblast/",
+        "release_url": "https://www.repeatmasker.org/rmblast/",
+        "version": "2.17.1",
+        "license": "OSL-2.1 with bundled NCBI public-domain BLAST+ components",
+        "citation": "Camacho et al. 2009 for BLAST+; RMBlast authors: Smit, Hubley, Rosen",
+        "doi": "10.1186/1471-2105-10-421",
+        "pmid": "20003500"
+      }
+    }
+  }
+}
