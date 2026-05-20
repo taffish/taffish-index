@@ -1,0 +1,127 @@
+{
+  "name": "trimgalore",
+  "latest": "2.2.0-r1",
+  "repository_url": "https://github.com/taffish/trimgalore",
+  "command": {
+    "name": "taf-trimgalore"
+  },
+  "versions": {
+    "2.2.0-r1": {
+      "name": "trimgalore",
+      "kind": "tool",
+      "version": "2.2.0",
+      "release": 1,
+      "version_id": "2.2.0-r1",
+      "tag": "v2.2.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/trimgalore",
+      "repository_slug": "taffish/trimgalore",
+      "command": {
+        "name": "taf-trimgalore"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "fastq",
+        "categories": [
+          "fastq",
+          "adapter-trimming",
+          "quality-control",
+          "sequencing",
+          "rrbs"
+        ],
+        "keywords": [
+          "trim-galore",
+          "trimgalore",
+          "trim_galore",
+          "fastq",
+          "adapter trimming",
+          "quality trimming",
+          "rrbs",
+          "fastqc",
+          "multiqc",
+          "poly-g",
+          "poly-a",
+          "clumpify"
+        ],
+        "summary": "Consistent quality and adapter trimming for next-generation sequencing FASTQ data, with RRBS handling and built-in FastQC-compatible reports.",
+        "description": "Consistent quality and adapter trimming for next-generation sequencing FASTQ data, with RRBS handling and built-in FastQC-compatible reports."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/trimgalore:2.2.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.2.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:2d4cca2387c17a6e0f36a153dbc0569d092014143ad9cf09781be0f952a6a9e4",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:71a3e8ddae807eb8750a5e7c802b9b8f5d846cab45c4f6a5ed424590a50c768a",
+          "linux/arm64": "sha256:2aae1baa1461b2d3bf733ec940f8e0fd98ffd93a529cde9e5f65fd949ce2e49e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "trim_galore",
+          "bash",
+          "gzip",
+          "unzip",
+          "ldd"
+        ],
+        "test": [
+          "trim_galore --version 2>&1 | grep -F 'trim_galore 2.2.0 (Oxidized Edition)' >/dev/null && trim_galore --version 2>&1 | grep -F '5846564' >/dev/null && trim_galore -h 2>&1 | grep -F 'Fast adapter and quality trimming for NGS data' >/dev/null && trim_galore --help 2>&1 | grep -F 'built in via the bundled fastqc-rust library' >/dev/null && ldd /opt/trimgalore/bin/trim_galore | grep -F 'libz.so' >/dev/null && ! ldd /opt/trimgalore/bin/trim_galore | grep -F 'not found' >/dev/null",
+          "mkdir -p /tmp/taf-trimgalore-single && cd /tmp/taf-trimgalore-single && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --dont_gzip --length 5 -o out reads.fq >/tmp/taf-trimgalore-single.log 2>&1 && test -s out/reads_trimmed.fq && grep -F 'ACGTACGT' out/reads_trimmed.fq >/dev/null && grep -F 'Reads with adapters:' out/reads.fq_trimming_report.txt >/dev/null && grep -F '\"total_reads\": 1' out/reads.fq_trimming_report.json >/dev/null",
+          "mkdir -p /tmp/taf-trimgalore-paired && cd /tmp/taf-trimgalore-paired && printf '@r1/1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@r1/2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && trim_galore --paired --dont_gzip --length 5 -o out r1.fq r2.fq >/tmp/taf-trimgalore-paired.log 2>&1 && test -s out/r1_val_1.fq && test -s out/r2_val_2.fq && grep -F 'ACGTACGT' out/r1_val_1.fq >/dev/null && grep -F 'TGCATGCA' out/r2_val_2.fq >/dev/null && grep -F 'Pairs analyzed:' /tmp/taf-trimgalore-paired.log >/dev/null",
+          "mkdir -p /tmp/taf-trimgalore-fastqc && cd /tmp/taf-trimgalore-fastqc && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --fastqc --dont_gzip --length 5 -o out reads.fq >/tmp/taf-trimgalore-fastqc.log 2>&1 && test -s out/reads_trimmed_fastqc.html && test -s out/reads_trimmed_fastqc.zip && unzip -p out/reads_trimmed_fastqc.zip reads_trimmed_fastqc/summary.txt | grep -F 'Basic Statistics' >/dev/null",
+          "mkdir -p /tmp/taf-trimgalore-rrbs && cd /tmp/taf-trimgalore-rrbs && printf '@r1\\nCGGACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --rrbs --dont_gzip --length 3 -o out reads.fq >/tmp/taf-trimgalore-rrbs.log 2>&1 && test -s out/reads_trimmed.fq && grep -F 'CGGAC' out/reads_trimmed.fq >/dev/null && grep -F 'RRBS trimmed' /tmp/taf-trimgalore-rrbs.log >/dev/null && grep -F '\"rrbs\": true' out/reads.fq_trimming_report.json >/dev/null",
+          "mkdir -p /tmp/taf-trimgalore-clumpify && cd /tmp/taf-trimgalore-clumpify && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && trim_galore --clumpify --cores 2 --length 5 -o out reads.fq.gz >/tmp/taf-trimgalore-clumpify.log 2>&1 && test -s out/reads_trimmed.fq.gz && gzip -cd out/reads_trimmed.fq.gz | grep -F 'ACGTACGT' >/dev/null && grep -F 'clumpify:' /tmp/taf-trimgalore-clumpify.log >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-20T03:48:23Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-20T03:48:23Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/trimgalore",
+        "ref": "v2.2.0-r1",
+        "commit": "d02f6082a0f148757e6e1581b8bf6821fd060439",
+        "html_url": "https://github.com/taffish/trimgalore/tree/v2.2.0-r1"
+      },
+      "upstream": {
+        "name": "Trim Galore",
+        "type": "github",
+        "homepage": "https://www.trimgalore.com/",
+        "repository": "FelixKrueger/TrimGalore",
+        "release_url": "https://github.com/FelixKrueger/TrimGalore/releases/tag/v2.2.0",
+        "version": "2.2.0",
+        "license": "GPL-3.0-only",
+        "citation": "Krueger F. Trim Galore: consistent quality and adapter trimming for next-generation sequencing data. Babraham Institute."
+      }
+    }
+  }
+}

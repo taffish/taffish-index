@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-20T01:38:55Z",
+  "generated_at": "2026-05-20T03:48:23Z",
   "organization": "taffish",
   "counts": {
-    "packages": 73,
-    "versions": 105,
-    "commands": 73,
-    "repositories": 73,
+    "packages": 77,
+    "versions": 109,
+    "commands": 77,
+    "repositories": 77,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -13467,6 +13467,410 @@
         }
       }
     },
+    "subread": {
+      "name": "subread",
+      "latest": "2.1.1-r1",
+      "repository_url": "https://github.com/taffish/subread",
+      "command": {
+        "name": "taf-subread"
+      },
+      "versions": {
+        "2.1.1-r1": {
+          "name": "subread",
+          "kind": "tool",
+          "version": "2.1.1",
+          "release": 1,
+          "version_id": "2.1.1-r1",
+          "tag": "v2.1.1-r1",
+          "license": "GPL-3.0-or-later",
+          "repository_url": "https://github.com/taffish/subread",
+          "repository_slug": "taffish/subread",
+          "command": {
+            "name": "taf-subread"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "read-alignment",
+              "read-counting",
+              "genomics",
+              "snp-calling"
+            ],
+            "keywords": [
+              "subread",
+              "featurecounts",
+              "subjunc",
+              "sublong",
+              "exactsnp",
+              "rna-seq",
+              "read counting",
+              "read alignment",
+              "bam",
+              "sam",
+              "gtf",
+              "saf"
+            ],
+            "summary": "Subread command-line suite for read alignment, featureCounts read summarization, junction-aware alignment, long-read alignment, and ExactSNP.",
+            "description": "Subread command-line suite for read alignment, featureCounts read summarization, junction-aware alignment, long-read alignment, and ExactSNP."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/subread:2.1.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.1.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9dcb4f87dbc6e9ed60a400470514238d92614a6b11e665fcc5dcfa52f426e02d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:fa8567938c271cf4296438c806f24854722db16b019c45e0d75ce600416508b7",
+              "linux/arm64": "sha256:0a8fa0200c20467f4f81f30718b157f42bfdc05debe5b743c2b3c1897d4b63ff"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "subread-align",
+              "subread-buildindex",
+              "subjunc",
+              "sublong",
+              "featureCounts",
+              "exactSNP",
+              "subindel",
+              "detectionCall",
+              "genRandomReads",
+              "repair",
+              "propmapped",
+              "qualityScores",
+              "removeDup",
+              "subread-fullscan",
+              "txUnique",
+              "flattenGTF",
+              "bash",
+              "grep",
+              "awk",
+              "ldd"
+            ],
+            "test": [
+              "subread-align -v 2>&1 | grep -F 'Subread-align v2.1.1' >/dev/null && featureCounts -v 2>&1 | grep -F 'featureCounts v2.1.1' >/dev/null && subjunc -v 2>&1 | grep -F 'Subjunc v2.1.1' >/dev/null",
+              "subread-align -h 2>&1 | grep -F 'subread-align' >/dev/null && subread-buildindex -h 2>&1 | grep -F 'subread-buildindex' >/dev/null && featureCounts -h 2>&1 | grep -F 'featureCounts' >/dev/null && exactSNP -h 2>&1 | grep -F 'exactSNP' >/dev/null",
+              "ldd \"$(command -v subread-align)\" | grep -F 'libz' >/dev/null && ldd \"$(command -v featureCounts)\" | grep -F 'libz' >/dev/null && ! ldd \"$(command -v subread-align)\" | grep -F 'not found' >/dev/null",
+              "mkdir -p /tmp/taf-subread-featurecounts && cd /tmp/taf-subread-featurecounts && featureCounts -p -a /opt/subread/test/featureCounts/data/test-minimum.GTF -o counts.txt /opt/subread/test/featureCounts/data/test-minimum.sam >/tmp/taf-subread-featurecounts/run.log 2>&1 && test -s counts.txt && test -s counts.txt.summary && grep -F 'Geneid' counts.txt >/dev/null && grep -F 'Assigned' counts.txt.summary >/dev/null",
+              "mkdir -p /tmp/taf-subread-align && cd /tmp/taf-subread-align && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-align/index.log 2>&1 && test -s small.00.b.array && subread-align --SAMoutput -t0 -P6 -i small -r /opt/subread/test/subread-align/data/test-noerror-r1.fq -o aln.sam -H -J >/tmp/taf-subread-align/align.log 2>&1 && test -s aln.sam && grep -F '@PG' aln.sam >/dev/null && grep -F 'subread-align' aln.sam >/dev/null",
+              "mkdir -p /tmp/taf-subread-subjunc && cd /tmp/taf-subread-subjunc && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-subjunc/index.log 2>&1 && subjunc --SAMoutput -i small -o junctions.sam -r /opt/subread/test/subjunc/data/junction-reads-A.fq -R /opt/subread/test/subjunc/data/junction-reads-B.fq >/tmp/taf-subread-subjunc/subjunc.log 2>&1 && test -s junctions.sam && grep -F '@PG' junctions.sam >/dev/null",
+              "mkdir -p /tmp/taf-subread-exactsnp && cd /tmp/taf-subread-exactsnp && exactSNP -g /opt/subread/test/chr901.fa -o out.vcf -i /opt/subread/test/exactSNP/data/test-in.BAM -b >/tmp/taf-subread-exactsnp/exactsnp.log 2>&1 && test -s out.vcf && grep -F '#CHROM' out.vcf >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T03:48:23Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T03:48:23Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/subread",
+            "ref": "v2.1.1-r1",
+            "commit": "e9aa267552083333c4fa61adc7fcdb8c67c3e014",
+            "html_url": "https://github.com/taffish/subread/tree/v2.1.1-r1"
+          },
+          "upstream": {
+            "name": "Subread",
+            "type": "official",
+            "homepage": "https://subread.sourceforge.net/",
+            "repository": "ShiLab-Bioinformatics/subread",
+            "release_url": "https://sourceforge.net/projects/subread/files/subread-2.1.1/",
+            "version": "2.1.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "Liao, Smyth and Shi 2013 for Subread/Subjunc; Liao, Smyth and Shi 2014 for featureCounts; Liao, Smyth and Shi 2019 for Rsubread/Subread RNA-seq workflows",
+            "doi": "10.1093/nar/gkt214; 10.1093/bioinformatics/btt656; 10.1093/nar/gkz114",
+            "pmid": "23558742; 24227677; 30783653"
+          }
+        }
+      }
+    },
+    "syri": {
+      "name": "syri",
+      "latest": "1.7.1-r1",
+      "repository_url": "https://github.com/taffish/syri",
+      "command": {
+        "name": "taf-syri"
+      },
+      "versions": {
+        "1.7.1-r1": {
+          "name": "syri",
+          "kind": "tool",
+          "version": "1.7.1",
+          "release": 1,
+          "version_id": "1.7.1-r1",
+          "tag": "v1.7.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/syri",
+          "repository_slug": "taffish/syri",
+          "command": {
+            "name": "taf-syri"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "comparative-genomics",
+              "structural-variation",
+              "synteny",
+              "whole-genome-alignment"
+            ],
+            "keywords": [
+              "syri",
+              "synteny",
+              "rearrangement",
+              "structural-variation",
+              "whole-genome-alignment",
+              "chroder",
+              "show-snps",
+              "mummer",
+              "minimap2",
+              "samtools"
+            ],
+            "summary": "SyRI identifies synteny, structural rearrangements, local variants, and unaligned regions from whole-genome assembly alignments.",
+            "description": "SyRI identifies synteny, structural rearrangements, local variants, and unaligned regions from whole-genome assembly alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/syri:1.7.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.7.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9a286bfcf33f3d32ffc7d5192e7d0e441293f6b4e3af3929d6037d602a496c92",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:84e28134cddcb0c2da25400217e8cc56abf41d1e12ff59c2059b5e044a27f34c",
+              "linux/arm64": "sha256:8dbe1fb9593f18efa7f7c7e833f175cef3407ab2819881381179ab637a569798"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "syri",
+              "chroder",
+              "show-snps",
+              "nucmer",
+              "minimap2",
+              "samtools",
+              "python3"
+            ],
+            "test": [
+              "syri --version | grep -Fx '1.7.1' >/dev/null",
+              "chroder --version | grep -Fx '1.7.1' >/dev/null",
+              "syri -h 2>&1 | grep -F 'Input Files' >/dev/null && chroder -h 2>&1 | grep -F 'coords' >/dev/null",
+              "python3 -c 'import syri, numpy, pandas, scipy, psutil, igraph, pysam, pulp, longestrunsubsequence; assert syri.__version__ == \"1.7.1\"'",
+              "command -v show-snps >/dev/null && command -v nucmer >/dev/null && minimap2 --version >/dev/null && samtools --version >/dev/null",
+              "rm -rf /tmp/taf-syri-smoke /tmp/taf-syri-smoke.log && mkdir -p /tmp/taf-syri-smoke && cd /tmp/taf-syri-smoke && printf '1\\t240\\t1\\t240\\t240\\t240\\t99.9\\t1\\t1\\tChrA\\tChrA\\n' > coords.tsv && syri -c coords.tsv -F T --nosv --nosnp --novcf -k --prefix smoke. >/tmp/taf-syri-smoke.log 2>&1 && test -s smoke.synOut.txt && python3 -c 'from pathlib import Path; lines = Path(\"smoke.synOut.txt\").read_text().splitlines(); assert lines[0].startswith(\"#\\tChrA\\t1\\t240\\t\"); assert lines[1] == \"1\\t240\\t1\\t240\"' && rm -rf /tmp/taf-syri-smoke /tmp/taf-syri-smoke.log",
+              "rm -rf /tmp/taf-chroder-smoke && mkdir -p /tmp/taf-chroder-smoke && cd /tmp/taf-chroder-smoke && printf '1\\t240\\t1\\t240\\t240\\t240\\t99.9\\t1\\t1\\tChrA\\tChrA\\n' > coords.tsv && python3 -c 'print(\">ChrA\"); print(\"ACGT\" * 60)' > ref.fa && cp ref.fa qry.fa && chroder coords.tsv ref.fa qry.fa -F T -o smoke_chroder >/tmp/taf-chroder-smoke.log 2>&1 && test -s smoke_chroder.qry.fasta && test -s smoke_chroder.anno && rm -rf /tmp/taf-chroder-smoke /tmp/taf-chroder-smoke.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T03:48:23Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T03:48:23Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/syri",
+            "ref": "v1.7.1-r1",
+            "commit": "b7f9ed703c14abeb87cbad1ad3085f3e2275f358",
+            "html_url": "https://github.com/taffish/syri/tree/v1.7.1-r1"
+          },
+          "upstream": {
+            "name": "SyRI",
+            "type": "github",
+            "homepage": "https://schneebergerlab.github.io/syri/",
+            "repository": "schneebergerlab/syri",
+            "release_url": "https://github.com/schneebergerlab/syri/releases/tag/v1.7.1",
+            "version": "1.7.1",
+            "license": "MIT",
+            "citation": "Goel et al. 2019, SyRI: finding genomic rearrangements and local sequence differences from whole-genome assemblies",
+            "doi": "10.1186/s13059-019-1911-0"
+          }
+        }
+      }
+    },
+    "tgsgapcloser": {
+      "name": "tgsgapcloser",
+      "latest": "1.2.1-r1",
+      "repository_url": "https://github.com/taffish/tgsgapcloser",
+      "command": {
+        "name": "taf-tgsgapcloser"
+      },
+      "versions": {
+        "1.2.1-r1": {
+          "name": "tgsgapcloser",
+          "kind": "tool",
+          "version": "1.2.1",
+          "release": 1,
+          "version_id": "1.2.1-r1",
+          "tag": "v1.2.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/tgsgapcloser",
+          "repository_slug": "taffish/tgsgapcloser",
+          "command": {
+            "name": "taf-tgsgapcloser"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "assembly",
+            "categories": [
+              "assembly",
+              "genomics",
+              "gap-closing",
+              "long-reads"
+            ],
+            "keywords": [
+              "tgs-gapcloser",
+              "tgsgapcloser",
+              "gap closing",
+              "genome assembly",
+              "pacbio",
+              "oxford nanopore",
+              "minimap2",
+              "racon",
+              "pilon"
+            ],
+            "summary": "TGS-GapCloser gap closing for draft genome assemblies using PacBio, Oxford Nanopore, or preassembled long-read sequences.",
+            "description": "TGS-GapCloser gap closing for draft genome assemblies using PacBio, Oxford Nanopore, or preassembled long-read sequences."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/tgsgapcloser:1.2.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.2.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:840cc814794aa8e2572376dd53ae5f3f616bb2803fa8fc108d67f4c862ceda48",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:00da2cbff7b3b266e146e594d8a2a6db3673ce13c1a22251fee5e62be0348298",
+              "linux/arm64": "sha256:77e37e7ed7bf781ed39e1296f063fc7e70d495744f0b3223525169941cd3b85d"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "tgsgapcloser",
+              "minimap2",
+              "tgsgapcandidate",
+              "tgsseqsplit",
+              "tgsseqgen",
+              "racon",
+              "samtools",
+              "java",
+              "bash",
+              "awk",
+              "gzip",
+              "getopt",
+              "ldd"
+            ],
+            "test": [
+              "tgsgapcloser --help 2>&1 | grep -F 'Version : 1.2.1' >/dev/null && tgsgapcloser --help 2>&1 | grep -F 'Usage:' >/dev/null && minimap2 --version | grep -Fx '2.17-r943-dirty' >/dev/null && racon --version 2>&1 | grep -F '1.5.0' >/dev/null && samtools --version | grep -F 'samtools 1.16.1' >/dev/null && test -s /opt/tgsgapcloser/share/java/pilon.jar && java -jar /opt/tgsgapcloser/share/java/pilon.jar --version 2>&1 | grep -F 'Pilon version 1.23' >/dev/null && ldd /opt/tgsgapcloser/bin/tgsgapcloserbin/tgsgapcloser | grep -F 'libz.so' >/dev/null && ! ldd /opt/tgsgapcloser/bin/tgsgapcloserbin/tgsgapcloser | grep -F 'not found' >/dev/null",
+              "mkdir -p /tmp/taf-tgsgapcloser-split && cd /tmp/taf-tgsgapcloser-split && printf '>s1\\nACGTACGTNNNNACGTACGT\\n' > scaff.fa && tgsseqsplit --input_scaff scaff.fa --prefix split 2> split.err && test -s split.contig && test -s split.orignial_scaff_infos && grep -F '>1 length 8' split.contig >/dev/null && grep -F '>2 length 8' split.contig >/dev/null",
+              "mkdir -p /tmp/taf-tgsgapcloser-ne && cd /tmp/taf-tgsgapcloser-ne && cp /opt/tgsgapcloser/share/examples/tgsgapcloser/input.scaff.fasta scaff.fa && cp /opt/tgsgapcloser/share/examples/tgsgapcloser/ont.reads.fasta reads.fa && tgsgapcloser --scaff scaff.fa --reads reads.fa --output smoke --ne --thread 1 --chunk 1 > run.log 2> run.err && test -s smoke.scaff_seqs && test -s smoke.gap_fill_detail && grep -F '>scaffold_1' smoke.scaff_seqs >/dev/null && grep -F 'ALL DONE' run.log >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T03:48:23Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T03:48:23Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/tgsgapcloser",
+            "ref": "v1.2.1-r1",
+            "commit": "261513af1b475bf00ec1d54dbff5a35b9266f521",
+            "html_url": "https://github.com/taffish/tgsgapcloser/tree/v1.2.1-r1"
+          },
+          "upstream": {
+            "name": "TGS-GapCloser",
+            "type": "github",
+            "homepage": "https://github.com/BGI-Qingdao/TGS-GapCloser",
+            "repository": "BGI-Qingdao/TGS-GapCloser",
+            "release_url": "https://github.com/BGI-Qingdao/TGS-GapCloser/releases/tag/v1.2.1",
+            "version": "1.2.1",
+            "license": "GPL-3.0-only with bundled/packaged third-party components",
+            "citation": "Xu et al. 2020, GigaScience",
+            "doi": "10.1093/gigascience/giaa094",
+            "pmid": "32893860"
+          }
+        }
+      }
+    },
     "trf": {
       "name": "trf",
       "latest": "4.09.1-r1",
@@ -13585,6 +13989,133 @@
             "citation": "Benson 1999, Nucleic Acids Research",
             "doi": "10.1093/nar/27.2.573",
             "pmid": "9862982"
+          }
+        }
+      }
+    },
+    "trimgalore": {
+      "name": "trimgalore",
+      "latest": "2.2.0-r1",
+      "repository_url": "https://github.com/taffish/trimgalore",
+      "command": {
+        "name": "taf-trimgalore"
+      },
+      "versions": {
+        "2.2.0-r1": {
+          "name": "trimgalore",
+          "kind": "tool",
+          "version": "2.2.0",
+          "release": 1,
+          "version_id": "2.2.0-r1",
+          "tag": "v2.2.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trimgalore",
+          "repository_slug": "taffish/trimgalore",
+          "command": {
+            "name": "taf-trimgalore"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "adapter-trimming",
+              "quality-control",
+              "sequencing",
+              "rrbs"
+            ],
+            "keywords": [
+              "trim-galore",
+              "trimgalore",
+              "trim_galore",
+              "fastq",
+              "adapter trimming",
+              "quality trimming",
+              "rrbs",
+              "fastqc",
+              "multiqc",
+              "poly-g",
+              "poly-a",
+              "clumpify"
+            ],
+            "summary": "Consistent quality and adapter trimming for next-generation sequencing FASTQ data, with RRBS handling and built-in FastQC-compatible reports.",
+            "description": "Consistent quality and adapter trimming for next-generation sequencing FASTQ data, with RRBS handling and built-in FastQC-compatible reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trimgalore:2.2.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2d4cca2387c17a6e0f36a153dbc0569d092014143ad9cf09781be0f952a6a9e4",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:71a3e8ddae807eb8750a5e7c802b9b8f5d846cab45c4f6a5ed424590a50c768a",
+              "linux/arm64": "sha256:2aae1baa1461b2d3bf733ec940f8e0fd98ffd93a529cde9e5f65fd949ce2e49e"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "trim_galore",
+              "bash",
+              "gzip",
+              "unzip",
+              "ldd"
+            ],
+            "test": [
+              "trim_galore --version 2>&1 | grep -F 'trim_galore 2.2.0 (Oxidized Edition)' >/dev/null && trim_galore --version 2>&1 | grep -F '5846564' >/dev/null && trim_galore -h 2>&1 | grep -F 'Fast adapter and quality trimming for NGS data' >/dev/null && trim_galore --help 2>&1 | grep -F 'built in via the bundled fastqc-rust library' >/dev/null && ldd /opt/trimgalore/bin/trim_galore | grep -F 'libz.so' >/dev/null && ! ldd /opt/trimgalore/bin/trim_galore | grep -F 'not found' >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-single && cd /tmp/taf-trimgalore-single && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --dont_gzip --length 5 -o out reads.fq >/tmp/taf-trimgalore-single.log 2>&1 && test -s out/reads_trimmed.fq && grep -F 'ACGTACGT' out/reads_trimmed.fq >/dev/null && grep -F 'Reads with adapters:' out/reads.fq_trimming_report.txt >/dev/null && grep -F '\"total_reads\": 1' out/reads.fq_trimming_report.json >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-paired && cd /tmp/taf-trimgalore-paired && printf '@r1/1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@r1/2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && trim_galore --paired --dont_gzip --length 5 -o out r1.fq r2.fq >/tmp/taf-trimgalore-paired.log 2>&1 && test -s out/r1_val_1.fq && test -s out/r2_val_2.fq && grep -F 'ACGTACGT' out/r1_val_1.fq >/dev/null && grep -F 'TGCATGCA' out/r2_val_2.fq >/dev/null && grep -F 'Pairs analyzed:' /tmp/taf-trimgalore-paired.log >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-fastqc && cd /tmp/taf-trimgalore-fastqc && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --fastqc --dont_gzip --length 5 -o out reads.fq >/tmp/taf-trimgalore-fastqc.log 2>&1 && test -s out/reads_trimmed_fastqc.html && test -s out/reads_trimmed_fastqc.zip && unzip -p out/reads_trimmed_fastqc.zip reads_trimmed_fastqc/summary.txt | grep -F 'Basic Statistics' >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-rrbs && cd /tmp/taf-trimgalore-rrbs && printf '@r1\\nCGGACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --rrbs --dont_gzip --length 3 -o out reads.fq >/tmp/taf-trimgalore-rrbs.log 2>&1 && test -s out/reads_trimmed.fq && grep -F 'CGGAC' out/reads_trimmed.fq >/dev/null && grep -F 'RRBS trimmed' /tmp/taf-trimgalore-rrbs.log >/dev/null && grep -F '\"rrbs\": true' out/reads.fq_trimming_report.json >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-clumpify && cd /tmp/taf-trimgalore-clumpify && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && trim_galore --clumpify --cores 2 --length 5 -o out reads.fq.gz >/tmp/taf-trimgalore-clumpify.log 2>&1 && test -s out/reads_trimmed.fq.gz && gzip -cd out/reads_trimmed.fq.gz | grep -F 'ACGTACGT' >/dev/null && grep -F 'clumpify:' /tmp/taf-trimgalore-clumpify.log >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T03:48:23Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T03:48:23Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trimgalore",
+            "ref": "v2.2.0-r1",
+            "commit": "d02f6082a0f148757e6e1581b8bf6821fd060439",
+            "html_url": "https://github.com/taffish/trimgalore/tree/v2.2.0-r1"
+          },
+          "upstream": {
+            "name": "Trim Galore",
+            "type": "github",
+            "homepage": "https://www.trimgalore.com/",
+            "repository": "FelixKrueger/TrimGalore",
+            "release_url": "https://github.com/FelixKrueger/TrimGalore/releases/tag/v2.2.0",
+            "version": "2.2.0",
+            "license": "GPL-3.0-only",
+            "citation": "Krueger F. Trim Galore: consistent quality and adapter trimming for next-generation sequencing data. Babraham Institute."
           }
         }
       }
@@ -13879,9 +14410,25 @@
       "package": "stringtie",
       "version": "3.0.3-r1"
     },
+    "taf-subread": {
+      "package": "subread",
+      "version": "2.1.1-r1"
+    },
+    "taf-syri": {
+      "package": "syri",
+      "version": "1.7.1-r1"
+    },
+    "taf-tgsgapcloser": {
+      "package": "tgsgapcloser",
+      "version": "1.2.1-r1"
+    },
     "taf-trf": {
       "package": "trf",
       "version": "4.09.1-r1"
+    },
+    "taf-trimgalore": {
+      "package": "trimgalore",
+      "version": "2.2.0-r1"
     }
   },
   "repositories": {
@@ -14317,10 +14864,34 @@
         "stringtie"
       ]
     },
+    "taffish/subread": {
+      "repository": "taffish/subread",
+      "packages": [
+        "subread"
+      ]
+    },
+    "taffish/syri": {
+      "repository": "taffish/syri",
+      "packages": [
+        "syri"
+      ]
+    },
+    "taffish/tgsgapcloser": {
+      "repository": "taffish/tgsgapcloser",
+      "packages": [
+        "tgsgapcloser"
+      ]
+    },
     "taffish/trf": {
       "repository": "taffish/trf",
       "packages": [
         "trf"
+      ]
+    },
+    "taffish/trimgalore": {
+      "repository": "taffish/trimgalore",
+      "packages": [
+        "trimgalore"
       ]
     }
   },

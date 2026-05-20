@@ -1,0 +1,130 @@
+{
+  "name": "tgsgapcloser",
+  "latest": "1.2.1-r1",
+  "repository_url": "https://github.com/taffish/tgsgapcloser",
+  "command": {
+    "name": "taf-tgsgapcloser"
+  },
+  "versions": {
+    "1.2.1-r1": {
+      "name": "tgsgapcloser",
+      "kind": "tool",
+      "version": "1.2.1",
+      "release": 1,
+      "version_id": "1.2.1-r1",
+      "tag": "v1.2.1-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/tgsgapcloser",
+      "repository_slug": "taffish/tgsgapcloser",
+      "command": {
+        "name": "taf-tgsgapcloser"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "assembly",
+        "categories": [
+          "assembly",
+          "genomics",
+          "gap-closing",
+          "long-reads"
+        ],
+        "keywords": [
+          "tgs-gapcloser",
+          "tgsgapcloser",
+          "gap closing",
+          "genome assembly",
+          "pacbio",
+          "oxford nanopore",
+          "minimap2",
+          "racon",
+          "pilon"
+        ],
+        "summary": "TGS-GapCloser gap closing for draft genome assemblies using PacBio, Oxford Nanopore, or preassembled long-read sequences.",
+        "description": "TGS-GapCloser gap closing for draft genome assemblies using PacBio, Oxford Nanopore, or preassembled long-read sequences."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/tgsgapcloser:1.2.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.2.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:840cc814794aa8e2572376dd53ae5f3f616bb2803fa8fc108d67f4c862ceda48",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:00da2cbff7b3b266e146e594d8a2a6db3673ce13c1a22251fee5e62be0348298",
+          "linux/arm64": "sha256:77e37e7ed7bf781ed39e1296f063fc7e70d495744f0b3223525169941cd3b85d"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "tgsgapcloser",
+          "minimap2",
+          "tgsgapcandidate",
+          "tgsseqsplit",
+          "tgsseqgen",
+          "racon",
+          "samtools",
+          "java",
+          "bash",
+          "awk",
+          "gzip",
+          "getopt",
+          "ldd"
+        ],
+        "test": [
+          "tgsgapcloser --help 2>&1 | grep -F 'Version : 1.2.1' >/dev/null && tgsgapcloser --help 2>&1 | grep -F 'Usage:' >/dev/null && minimap2 --version | grep -Fx '2.17-r943-dirty' >/dev/null && racon --version 2>&1 | grep -F '1.5.0' >/dev/null && samtools --version | grep -F 'samtools 1.16.1' >/dev/null && test -s /opt/tgsgapcloser/share/java/pilon.jar && java -jar /opt/tgsgapcloser/share/java/pilon.jar --version 2>&1 | grep -F 'Pilon version 1.23' >/dev/null && ldd /opt/tgsgapcloser/bin/tgsgapcloserbin/tgsgapcloser | grep -F 'libz.so' >/dev/null && ! ldd /opt/tgsgapcloser/bin/tgsgapcloserbin/tgsgapcloser | grep -F 'not found' >/dev/null",
+          "mkdir -p /tmp/taf-tgsgapcloser-split && cd /tmp/taf-tgsgapcloser-split && printf '>s1\\nACGTACGTNNNNACGTACGT\\n' > scaff.fa && tgsseqsplit --input_scaff scaff.fa --prefix split 2> split.err && test -s split.contig && test -s split.orignial_scaff_infos && grep -F '>1 length 8' split.contig >/dev/null && grep -F '>2 length 8' split.contig >/dev/null",
+          "mkdir -p /tmp/taf-tgsgapcloser-ne && cd /tmp/taf-tgsgapcloser-ne && cp /opt/tgsgapcloser/share/examples/tgsgapcloser/input.scaff.fasta scaff.fa && cp /opt/tgsgapcloser/share/examples/tgsgapcloser/ont.reads.fasta reads.fa && tgsgapcloser --scaff scaff.fa --reads reads.fa --output smoke --ne --thread 1 --chunk 1 > run.log 2> run.err && test -s smoke.scaff_seqs && test -s smoke.gap_fill_detail && grep -F '>scaffold_1' smoke.scaff_seqs >/dev/null && grep -F 'ALL DONE' run.log >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-20T03:48:23Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-20T03:48:23Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/tgsgapcloser",
+        "ref": "v1.2.1-r1",
+        "commit": "261513af1b475bf00ec1d54dbff5a35b9266f521",
+        "html_url": "https://github.com/taffish/tgsgapcloser/tree/v1.2.1-r1"
+      },
+      "upstream": {
+        "name": "TGS-GapCloser",
+        "type": "github",
+        "homepage": "https://github.com/BGI-Qingdao/TGS-GapCloser",
+        "repository": "BGI-Qingdao/TGS-GapCloser",
+        "release_url": "https://github.com/BGI-Qingdao/TGS-GapCloser/releases/tag/v1.2.1",
+        "version": "1.2.1",
+        "license": "GPL-3.0-only with bundled/packaged third-party components",
+        "citation": "Xu et al. 2020, GigaScience",
+        "doi": "10.1093/gigascience/giaa094",
+        "pmid": "32893860"
+      }
+    }
+  }
+}

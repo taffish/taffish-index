@@ -1,0 +1,145 @@
+{
+  "name": "subread",
+  "latest": "2.1.1-r1",
+  "repository_url": "https://github.com/taffish/subread",
+  "command": {
+    "name": "taf-subread"
+  },
+  "versions": {
+    "2.1.1-r1": {
+      "name": "subread",
+      "kind": "tool",
+      "version": "2.1.1",
+      "release": 1,
+      "version_id": "2.1.1-r1",
+      "tag": "v2.1.1-r1",
+      "license": "GPL-3.0-or-later",
+      "repository_url": "https://github.com/taffish/subread",
+      "repository_slug": "taffish/subread",
+      "command": {
+        "name": "taf-subread"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "read-alignment",
+          "read-counting",
+          "genomics",
+          "snp-calling"
+        ],
+        "keywords": [
+          "subread",
+          "featurecounts",
+          "subjunc",
+          "sublong",
+          "exactsnp",
+          "rna-seq",
+          "read counting",
+          "read alignment",
+          "bam",
+          "sam",
+          "gtf",
+          "saf"
+        ],
+        "summary": "Subread command-line suite for read alignment, featureCounts read summarization, junction-aware alignment, long-read alignment, and ExactSNP.",
+        "description": "Subread command-line suite for read alignment, featureCounts read summarization, junction-aware alignment, long-read alignment, and ExactSNP."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/subread:2.1.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.1.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:9dcb4f87dbc6e9ed60a400470514238d92614a6b11e665fcc5dcfa52f426e02d",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:fa8567938c271cf4296438c806f24854722db16b019c45e0d75ce600416508b7",
+          "linux/arm64": "sha256:0a8fa0200c20467f4f81f30718b157f42bfdc05debe5b743c2b3c1897d4b63ff"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "subread-align",
+          "subread-buildindex",
+          "subjunc",
+          "sublong",
+          "featureCounts",
+          "exactSNP",
+          "subindel",
+          "detectionCall",
+          "genRandomReads",
+          "repair",
+          "propmapped",
+          "qualityScores",
+          "removeDup",
+          "subread-fullscan",
+          "txUnique",
+          "flattenGTF",
+          "bash",
+          "grep",
+          "awk",
+          "ldd"
+        ],
+        "test": [
+          "subread-align -v 2>&1 | grep -F 'Subread-align v2.1.1' >/dev/null && featureCounts -v 2>&1 | grep -F 'featureCounts v2.1.1' >/dev/null && subjunc -v 2>&1 | grep -F 'Subjunc v2.1.1' >/dev/null",
+          "subread-align -h 2>&1 | grep -F 'subread-align' >/dev/null && subread-buildindex -h 2>&1 | grep -F 'subread-buildindex' >/dev/null && featureCounts -h 2>&1 | grep -F 'featureCounts' >/dev/null && exactSNP -h 2>&1 | grep -F 'exactSNP' >/dev/null",
+          "ldd \"$(command -v subread-align)\" | grep -F 'libz' >/dev/null && ldd \"$(command -v featureCounts)\" | grep -F 'libz' >/dev/null && ! ldd \"$(command -v subread-align)\" | grep -F 'not found' >/dev/null",
+          "mkdir -p /tmp/taf-subread-featurecounts && cd /tmp/taf-subread-featurecounts && featureCounts -p -a /opt/subread/test/featureCounts/data/test-minimum.GTF -o counts.txt /opt/subread/test/featureCounts/data/test-minimum.sam >/tmp/taf-subread-featurecounts/run.log 2>&1 && test -s counts.txt && test -s counts.txt.summary && grep -F 'Geneid' counts.txt >/dev/null && grep -F 'Assigned' counts.txt.summary >/dev/null",
+          "mkdir -p /tmp/taf-subread-align && cd /tmp/taf-subread-align && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-align/index.log 2>&1 && test -s small.00.b.array && subread-align --SAMoutput -t0 -P6 -i small -r /opt/subread/test/subread-align/data/test-noerror-r1.fq -o aln.sam -H -J >/tmp/taf-subread-align/align.log 2>&1 && test -s aln.sam && grep -F '@PG' aln.sam >/dev/null && grep -F 'subread-align' aln.sam >/dev/null",
+          "mkdir -p /tmp/taf-subread-subjunc && cd /tmp/taf-subread-subjunc && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-subjunc/index.log 2>&1 && subjunc --SAMoutput -i small -o junctions.sam -r /opt/subread/test/subjunc/data/junction-reads-A.fq -R /opt/subread/test/subjunc/data/junction-reads-B.fq >/tmp/taf-subread-subjunc/subjunc.log 2>&1 && test -s junctions.sam && grep -F '@PG' junctions.sam >/dev/null",
+          "mkdir -p /tmp/taf-subread-exactsnp && cd /tmp/taf-subread-exactsnp && exactSNP -g /opt/subread/test/chr901.fa -o out.vcf -i /opt/subread/test/exactSNP/data/test-in.BAM -b >/tmp/taf-subread-exactsnp/exactsnp.log 2>&1 && test -s out.vcf && grep -F '#CHROM' out.vcf >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-20T03:48:23Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-20T03:48:23Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/subread",
+        "ref": "v2.1.1-r1",
+        "commit": "e9aa267552083333c4fa61adc7fcdb8c67c3e014",
+        "html_url": "https://github.com/taffish/subread/tree/v2.1.1-r1"
+      },
+      "upstream": {
+        "name": "Subread",
+        "type": "official",
+        "homepage": "https://subread.sourceforge.net/",
+        "repository": "ShiLab-Bioinformatics/subread",
+        "release_url": "https://sourceforge.net/projects/subread/files/subread-2.1.1/",
+        "version": "2.1.1",
+        "license": "GPL-3.0-or-later",
+        "citation": "Liao, Smyth and Shi 2013 for Subread/Subjunc; Liao, Smyth and Shi 2014 for featureCounts; Liao, Smyth and Shi 2019 for Rsubread/Subread RNA-seq workflows",
+        "doi": "10.1093/nar/gkt214; 10.1093/bioinformatics/btt656; 10.1093/nar/gkz114",
+        "pmid": "23558742; 24227677; 30783653"
+      }
+    }
+  }
+}
