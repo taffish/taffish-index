@@ -1,0 +1,132 @@
+{
+  "name": "star",
+  "latest": "2.7.11b-r1",
+  "repository_url": "https://github.com/taffish/star",
+  "command": {
+    "name": "taf-star"
+  },
+  "versions": {
+    "2.7.11b-r1": {
+      "name": "star",
+      "kind": "tool",
+      "version": "2.7.11b",
+      "release": 1,
+      "version_id": "2.7.11b-r1",
+      "tag": "v2.7.11b-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/star",
+      "repository_slug": "taffish/star",
+      "command": {
+        "name": "taf-star"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "transcriptomics",
+          "rna-seq",
+          "spliced-alignment",
+          "single-cell"
+        ],
+        "keywords": [
+          "star",
+          "rna-seq",
+          "spliced-alignment",
+          "read-alignment",
+          "short-read",
+          "fastq",
+          "sam",
+          "bam",
+          "genome-index",
+          "starsolo",
+          "starlong"
+        ],
+        "summary": "STAR RNA-seq aligner for genome indexing, splice-aware read alignment, long-read alignment mode, chimeric junction discovery, and STARsolo single-cell quantification.",
+        "description": "STAR RNA-seq aligner for genome indexing, splice-aware read alignment, long-read alignment mode, chimeric junction discovery, and STARsolo single-cell quantification."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/star:2.7.11b-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.7.11b-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:3941348818a2d0e3fb21ef1c9a2b38d294f3d973475c16eb6edfe9067b7c4501",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:00b7ded1b958f21ae37b9b7440747f0097d7f32dbe91efcedf2153faf4b33690",
+          "linux/arm64": "sha256:8f5a160a7f520536b2b53e77b5c1b9198ae61ca3ae3a4f0a6e607bb9e8c71f63"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "STAR",
+          "STARlong",
+          "extractSJfromGTF.sh",
+          "bash",
+          "gzip",
+          "zcat",
+          "bzip2",
+          "awk",
+          "samtools"
+        ],
+        "test": [
+          "STAR --version | grep -Fx '2.7.11b' >/dev/null",
+          "STARlong --version | grep -Fx '2.7.11b' >/dev/null",
+          "STAR --help 2>&1 | grep -F 'STAR version=2.7.11b' >/dev/null && STARlong --help 2>&1 | grep -F 'STAR version=2.7.11b' >/dev/null",
+          "bash --version >/dev/null && gzip --version >/dev/null && zcat --version >/dev/null && bzip2 --help >/dev/null 2>&1 && awk 'BEGIN { print \"awk-ok\" }' | grep -Fx 'awk-ok' >/dev/null && samtools --version >/dev/null",
+          "rm -rf /tmp/taf-star-smoke /tmp/taf-star-index.log /tmp/taf-star-align.log && mkdir -p /tmp/taf-star-smoke/genome /tmp/taf-star-smoke/out && cd /tmp/taf-star-smoke && printf '>chr1\\nTTGACCAAGTTGACTGACCTGACGATCGTACGTTAGCACCGATGCTAGTCAACCGGTACCGTTAAGCTTAGGCTAAGTCCGATCGATGACCTTGA\\n' > genome.fa && STAR --runThreadN 1 --runMode genomeGenerate --genomeDir genome --genomeFastaFiles genome.fa --genomeSAindexNbases 3 --genomeChrBinNbits 5 >/tmp/taf-star-index.log 2>&1 && printf '@r1\\nGATCGTACGTTAGCACCGATGCTAGTCA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && STAR --runThreadN 1 --genomeDir genome --readFilesIn reads.fq.gz --readFilesCommand zcat --outFileNamePrefix out/ --outSAMtype SAM >/tmp/taf-star-align.log 2>&1 && test -s out/Aligned.out.sam && grep -v '^@' out/Aligned.out.sam | cut -f3 | grep -Fx chr1 >/dev/null && grep -F 'Uniquely mapped reads %' out/Log.final.out >/dev/null && rm -rf /tmp/taf-star-smoke /tmp/taf-star-index.log /tmp/taf-star-align.log",
+          "rm -rf /tmp/taf-star-helper-smoke && mkdir -p /tmp/taf-star-helper-smoke && cd /tmp/taf-star-helper-smoke && printf 'chr1\\tsrc\\texon\\t1\\t10\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\nchr1\\tsrc\\texon\\t21\\t30\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > genes.gtf && extractSJfromGTF.sh genes.gtf | grep -Fx 'chr1\t11\t20\t+' >/dev/null && rm -rf /tmp/taf-star-helper-smoke"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-20T01:38:55Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-20T01:38:55Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/star",
+        "ref": "v2.7.11b-r1",
+        "commit": "0e1e5f240bb86f7733c0fd5adaf8d6d219b8906d",
+        "html_url": "https://github.com/taffish/star/tree/v2.7.11b-r1"
+      },
+      "upstream": {
+        "name": "STAR",
+        "type": "github",
+        "homepage": "https://github.com/alexdobin/STAR",
+        "repository": "alexdobin/STAR",
+        "release_url": "https://github.com/alexdobin/STAR/releases/tag/2.7.11b",
+        "version": "2.7.11b",
+        "license": "MIT",
+        "citation": "Dobin et al. 2013, STAR: ultrafast universal RNA-seq aligner",
+        "doi": "10.1093/bioinformatics/bts635",
+        "pmid": "23104886"
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "name": "higlass",
+  "latest": "0.10.4-r1",
+  "repository_url": "https://github.com/taffish/higlass",
+  "command": {
+    "name": "taf-higlass"
+  },
+  "versions": {
+    "0.10.4-r1": {
+      "name": "higlass",
+      "kind": "tool",
+      "version": "0.10.4",
+      "release": 1,
+      "version_id": "0.10.4-r1",
+      "tag": "v0.10.4-r1",
+      "license": "MIT",
+      "repository_url": "https://github.com/taffish/higlass",
+      "repository_slug": "taffish/higlass",
+      "command": {
+        "name": "taf-higlass"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "visualization",
+          "browser",
+          "hic",
+          "server"
+        ],
+        "keywords": [
+          "higlass",
+          "hi-c",
+          "genome-browser",
+          "contact-map",
+          "tileset",
+          "cooler",
+          "bigwig",
+          "web-service"
+        ],
+        "summary": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks.",
+        "description": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/higlass:0.10.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.10.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:05a7663f9a5a53520c655860e5cd20c305741caa10832aef181f8c7908c9541c",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:2e90ab66792fab490e34e293af459f1eebdb4f1f1815e52a71ea942fc3bdabfd"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "higlass",
+          "higlass-manage",
+          "supervisord",
+          "nginx",
+          "uwsgi",
+          "python",
+          "curl"
+        ],
+        "test": [
+          "higlass --version | grep -F 'higlass-docker 0.10.4' && higlass -- --version | grep -F 'higlass-docker 0.10.4' && higlass --version | grep -F 'SERVER_VERSION: 1.14.8' && higlass --version | grep -F 'LIBRARY_VERSION: 1.11.4'",
+          "higlass --help | grep -F 'Usage: higlass'",
+          "higlass-manage help | grep -F 'Available subcommands'",
+          "tmp=\"$(mktemp -d /tmp/taf-higlass-smoke.XXXXXX)\" && (higlass --host-port 8888 > \"$tmp/higlass.log\" 2>&1 & pid=\"$!\"; ok=0; for i in $(seq 1 45); do if curl -fsS http://127.0.0.1/api/v1/tilesets/ | grep -F '\"count\"' >/dev/null; then ok=1; break; fi; sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; grep -F 'http://127.0.0.1:8888/' \"$tmp/higlass.log\" >/dev/null; test \"$ok\" -eq 1)"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-20T01:38:55Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-20T01:38:55Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/higlass",
+        "ref": "v0.10.4-r1",
+        "commit": "4d8ee0ae62f3c52fbb9f08bba4f56c547bfeac85",
+        "html_url": "https://github.com/taffish/higlass/tree/v0.10.4-r1"
+      },
+      "upstream": {
+        "name": "HiGlass Docker",
+        "type": "github",
+        "homepage": "https://higlass.io/",
+        "repository": "higlass/higlass-docker",
+        "release_url": "https://github.com/higlass/higlass-docker/tree/v0.10.4",
+        "version": "0.10.4",
+        "license": "MIT",
+        "citation": "Kerpedjiev et al. 2018. HiGlass: web-based visual exploration and analysis of genome interaction maps.",
+        "doi": "10.1186/s13059-018-1486-1",
+        "pmid": "30143029"
+      }
+    }
+  }
+}

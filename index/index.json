@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-19T17:23:49Z",
+  "generated_at": "2026-05-20T01:38:55Z",
   "organization": "taffish",
   "counts": {
-    "packages": 70,
-    "versions": 102,
-    "commands": 70,
-    "repositories": 70,
+    "packages": 73,
+    "versions": 105,
+    "commands": 73,
+    "repositories": 73,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -6502,6 +6502,129 @@
             "license": "MIT",
             "citation": "Cheng et al. 2021; Cheng et al. 2022; Cheng et al. 2024",
             "doi": "10.1038/s41592-020-01056-5; 10.1038/s41587-022-01261-x; 10.1038/s41592-024-02269-8"
+          }
+        }
+      }
+    },
+    "higlass": {
+      "name": "higlass",
+      "latest": "0.10.4-r1",
+      "repository_url": "https://github.com/taffish/higlass",
+      "command": {
+        "name": "taf-higlass"
+      },
+      "versions": {
+        "0.10.4-r1": {
+          "name": "higlass",
+          "kind": "tool",
+          "version": "0.10.4",
+          "release": 1,
+          "version_id": "0.10.4-r1",
+          "tag": "v0.10.4-r1",
+          "license": "MIT",
+          "repository_url": "https://github.com/taffish/higlass",
+          "repository_slug": "taffish/higlass",
+          "command": {
+            "name": "taf-higlass"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "visualization",
+              "browser",
+              "hic",
+              "server"
+            ],
+            "keywords": [
+              "higlass",
+              "hi-c",
+              "genome-browser",
+              "contact-map",
+              "tileset",
+              "cooler",
+              "bigwig",
+              "web-service"
+            ],
+            "summary": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks.",
+            "description": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/higlass:0.10.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.10.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:05a7663f9a5a53520c655860e5cd20c305741caa10832aef181f8c7908c9541c",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2e90ab66792fab490e34e293af459f1eebdb4f1f1815e52a71ea942fc3bdabfd"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "higlass",
+              "higlass-manage",
+              "supervisord",
+              "nginx",
+              "uwsgi",
+              "python",
+              "curl"
+            ],
+            "test": [
+              "higlass --version | grep -F 'higlass-docker 0.10.4' && higlass -- --version | grep -F 'higlass-docker 0.10.4' && higlass --version | grep -F 'SERVER_VERSION: 1.14.8' && higlass --version | grep -F 'LIBRARY_VERSION: 1.11.4'",
+              "higlass --help | grep -F 'Usage: higlass'",
+              "higlass-manage help | grep -F 'Available subcommands'",
+              "tmp=\"$(mktemp -d /tmp/taf-higlass-smoke.XXXXXX)\" && (higlass --host-port 8888 > \"$tmp/higlass.log\" 2>&1 & pid=\"$!\"; ok=0; for i in $(seq 1 45); do if curl -fsS http://127.0.0.1/api/v1/tilesets/ | grep -F '\"count\"' >/dev/null; then ok=1; break; fi; sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; grep -F 'http://127.0.0.1:8888/' \"$tmp/higlass.log\" >/dev/null; test \"$ok\" -eq 1)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T01:38:55Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T01:38:55Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/higlass",
+            "ref": "v0.10.4-r1",
+            "commit": "4d8ee0ae62f3c52fbb9f08bba4f56c547bfeac85",
+            "html_url": "https://github.com/taffish/higlass/tree/v0.10.4-r1"
+          },
+          "upstream": {
+            "name": "HiGlass Docker",
+            "type": "github",
+            "homepage": "https://higlass.io/",
+            "repository": "higlass/higlass-docker",
+            "release_url": "https://github.com/higlass/higlass-docker/tree/v0.10.4",
+            "version": "0.10.4",
+            "license": "MIT",
+            "citation": "Kerpedjiev et al. 2018. HiGlass: web-based visual exploration and analysis of genome interaction maps.",
+            "doi": "10.1186/s13059-018-1486-1",
+            "pmid": "30143029"
           }
         }
       }
@@ -13083,6 +13206,267 @@
         }
       }
     },
+    "star": {
+      "name": "star",
+      "latest": "2.7.11b-r1",
+      "repository_url": "https://github.com/taffish/star",
+      "command": {
+        "name": "taf-star"
+      },
+      "versions": {
+        "2.7.11b-r1": {
+          "name": "star",
+          "kind": "tool",
+          "version": "2.7.11b",
+          "release": 1,
+          "version_id": "2.7.11b-r1",
+          "tag": "v2.7.11b-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/star",
+          "repository_slug": "taffish/star",
+          "command": {
+            "name": "taf-star"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "transcriptomics",
+              "rna-seq",
+              "spliced-alignment",
+              "single-cell"
+            ],
+            "keywords": [
+              "star",
+              "rna-seq",
+              "spliced-alignment",
+              "read-alignment",
+              "short-read",
+              "fastq",
+              "sam",
+              "bam",
+              "genome-index",
+              "starsolo",
+              "starlong"
+            ],
+            "summary": "STAR RNA-seq aligner for genome indexing, splice-aware read alignment, long-read alignment mode, chimeric junction discovery, and STARsolo single-cell quantification.",
+            "description": "STAR RNA-seq aligner for genome indexing, splice-aware read alignment, long-read alignment mode, chimeric junction discovery, and STARsolo single-cell quantification."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/star:2.7.11b-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.7.11b-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:3941348818a2d0e3fb21ef1c9a2b38d294f3d973475c16eb6edfe9067b7c4501",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:00b7ded1b958f21ae37b9b7440747f0097d7f32dbe91efcedf2153faf4b33690",
+              "linux/arm64": "sha256:8f5a160a7f520536b2b53e77b5c1b9198ae61ca3ae3a4f0a6e607bb9e8c71f63"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "STAR",
+              "STARlong",
+              "extractSJfromGTF.sh",
+              "bash",
+              "gzip",
+              "zcat",
+              "bzip2",
+              "awk",
+              "samtools"
+            ],
+            "test": [
+              "STAR --version | grep -Fx '2.7.11b' >/dev/null",
+              "STARlong --version | grep -Fx '2.7.11b' >/dev/null",
+              "STAR --help 2>&1 | grep -F 'STAR version=2.7.11b' >/dev/null && STARlong --help 2>&1 | grep -F 'STAR version=2.7.11b' >/dev/null",
+              "bash --version >/dev/null && gzip --version >/dev/null && zcat --version >/dev/null && bzip2 --help >/dev/null 2>&1 && awk 'BEGIN { print \"awk-ok\" }' | grep -Fx 'awk-ok' >/dev/null && samtools --version >/dev/null",
+              "rm -rf /tmp/taf-star-smoke /tmp/taf-star-index.log /tmp/taf-star-align.log && mkdir -p /tmp/taf-star-smoke/genome /tmp/taf-star-smoke/out && cd /tmp/taf-star-smoke && printf '>chr1\\nTTGACCAAGTTGACTGACCTGACGATCGTACGTTAGCACCGATGCTAGTCAACCGGTACCGTTAAGCTTAGGCTAAGTCCGATCGATGACCTTGA\\n' > genome.fa && STAR --runThreadN 1 --runMode genomeGenerate --genomeDir genome --genomeFastaFiles genome.fa --genomeSAindexNbases 3 --genomeChrBinNbits 5 >/tmp/taf-star-index.log 2>&1 && printf '@r1\\nGATCGTACGTTAGCACCGATGCTAGTCA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && STAR --runThreadN 1 --genomeDir genome --readFilesIn reads.fq.gz --readFilesCommand zcat --outFileNamePrefix out/ --outSAMtype SAM >/tmp/taf-star-align.log 2>&1 && test -s out/Aligned.out.sam && grep -v '^@' out/Aligned.out.sam | cut -f3 | grep -Fx chr1 >/dev/null && grep -F 'Uniquely mapped reads %' out/Log.final.out >/dev/null && rm -rf /tmp/taf-star-smoke /tmp/taf-star-index.log /tmp/taf-star-align.log",
+              "rm -rf /tmp/taf-star-helper-smoke && mkdir -p /tmp/taf-star-helper-smoke && cd /tmp/taf-star-helper-smoke && printf 'chr1\\tsrc\\texon\\t1\\t10\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\nchr1\\tsrc\\texon\\t21\\t30\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > genes.gtf && extractSJfromGTF.sh genes.gtf | grep -Fx 'chr1\t11\t20\t+' >/dev/null && rm -rf /tmp/taf-star-helper-smoke"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T01:38:55Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T01:38:55Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/star",
+            "ref": "v2.7.11b-r1",
+            "commit": "0e1e5f240bb86f7733c0fd5adaf8d6d219b8906d",
+            "html_url": "https://github.com/taffish/star/tree/v2.7.11b-r1"
+          },
+          "upstream": {
+            "name": "STAR",
+            "type": "github",
+            "homepage": "https://github.com/alexdobin/STAR",
+            "repository": "alexdobin/STAR",
+            "release_url": "https://github.com/alexdobin/STAR/releases/tag/2.7.11b",
+            "version": "2.7.11b",
+            "license": "MIT",
+            "citation": "Dobin et al. 2013, STAR: ultrafast universal RNA-seq aligner",
+            "doi": "10.1093/bioinformatics/bts635",
+            "pmid": "23104886"
+          }
+        }
+      }
+    },
+    "stringtie": {
+      "name": "stringtie",
+      "latest": "3.0.3-r1",
+      "repository_url": "https://github.com/taffish/stringtie",
+      "command": {
+        "name": "taf-stringtie"
+      },
+      "versions": {
+        "3.0.3-r1": {
+          "name": "stringtie",
+          "kind": "tool",
+          "version": "3.0.3",
+          "release": 1,
+          "version_id": "3.0.3-r1",
+          "tag": "v3.0.3-r1",
+          "license": "MIT",
+          "repository_url": "https://github.com/taffish/stringtie",
+          "repository_slug": "taffish/stringtie",
+          "command": {
+            "name": "taf-stringtie"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "transcript-assembly",
+              "quantification",
+              "gtf"
+            ],
+            "keywords": [
+              "stringtie",
+              "rna-seq",
+              "transcript assembly",
+              "gtf",
+              "bam",
+              "cram",
+              "sam",
+              "long reads",
+              "nascent rna",
+              "ballgown",
+              "prepde"
+            ],
+            "summary": "StringTie assembles and quantifies RNA-seq transcripts from coordinate-sorted SAM/BAM/CRAM alignments.",
+            "description": "StringTie assembles and quantifies RNA-seq transcripts from coordinate-sorted SAM/BAM/CRAM alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/stringtie:3.0.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.0.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d2747f8c8d8c2888fb54a38cb33bb6d178c4513ed4979e3b2ad80eb8d06a2353",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:4892e8a50cb42dafa576328b8720f3bca05164564c774c465995d1dcb6fd4b70"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "stringtie",
+              "prepDE.py3",
+              "prepDE.py",
+              "python3",
+              "bash",
+              "diff"
+            ],
+            "test": [
+              "test \"$(cat /opt/stringtie/VERSION)\" = '3.0.3' && stringtie --version | grep -Fx '3.0.3' >/dev/null && ldd \"$(command -v stringtie)\" | grep -F 'libz' >/dev/null",
+              "stringtie -h 2>&1 | grep -F 'Assemble RNA-Seq alignments into potential transcripts.' >/dev/null && stringtie -h 2>&1 | grep -F -- '--merge' >/dev/null && stringtie -h 2>&1 | grep -F -- '--mix' >/dev/null && stringtie -h 2>&1 | grep -F -- '--nasc' >/dev/null",
+              "prepDE.py3 -h 2>&1 | grep -F 'Generates two CSV files' >/dev/null && prepDE.py -h 2>&1 | grep -F 'Generates two CSV files' >/dev/null && python3 -c 'import csv, glob, itertools, optparse, re, warnings'",
+              "mkdir -p /tmp/taf-stringtie-short && cd /tmp/taf-stringtie-short && stringtie -o short.gtf /opt/stringtie/tests/short_reads.bam >/tmp/taf-stringtie-short/run.log 2>&1 && test -s short.gtf && grep -F 'transcript' short.gtf >/dev/null && grep -F 'FPKM' short.gtf >/dev/null",
+              "mkdir -p /tmp/taf-stringtie-long && cd /tmp/taf-stringtie-long && stringtie -L -G /opt/stringtie/tests/human-chr19_P.gff -o long_guided.gtf /opt/stringtie/tests/long_reads.bam >/tmp/taf-stringtie-long/run.log 2>&1 && test -s long_guided.gtf && grep -F 'reference_id' long_guided.gtf >/dev/null",
+              "mkdir -p /tmp/taf-stringtie-mix && cd /tmp/taf-stringtie-mix && stringtie --mix -G /opt/stringtie/tests/mix_guides.gff -o mix_guided.gtf /opt/stringtie/tests/mix_short.bam /opt/stringtie/tests/mix_long.bam >/tmp/taf-stringtie-mix/mix.log 2>&1 && test -s mix_guided.gtf && grep -F 'transcript' mix_guided.gtf >/dev/null && stringtie -N -G /opt/stringtie/tests/mix_guides.gff -o nascent.gtf /opt/stringtie/tests/mix_short.bam >/tmp/taf-stringtie-mix/nascent.log 2>&1 && test -s nascent.gtf && stringtie --nasc -G /opt/stringtie/tests/mix_guides.gff -o nasc.gtf /opt/stringtie/tests/mix_short.bam >/tmp/taf-stringtie-mix/nasc.log 2>&1 && grep -F 'nascentRNA' nasc.gtf >/dev/null",
+              "mkdir -p /tmp/taf-stringtie-merge && cd /tmp/taf-stringtie-merge && printf '%s\\n' /opt/stringtie/tests/short_reads.out_expected.gtf /opt/stringtie/tests/long_reads.out_expected.gtf > gtf.list && stringtie --merge -o merged.gtf gtf.list >/tmp/taf-stringtie-merge/merge.log 2>&1 && test -s merged.gtf && grep -F 'transcript' merged.gtf >/dev/null",
+              "mkdir -p /tmp/taf-stringtie-expression/sample1 && cd /tmp/taf-stringtie-expression && printf 'sample1\\t/tmp/taf-stringtie-expression/sample1/sample.gtf\\n' > samples.txt && stringtie -e -B -G /opt/stringtie/tests/human-chr19_P.gff -o sample1/sample.gtf /opt/stringtie/tests/long_reads.bam >/tmp/taf-stringtie-expression/run.log 2>&1 && test -s sample1/sample.gtf && test -s sample1/t_data.ctab && grep -F 'TPM' sample1/sample.gtf >/dev/null && prepDE.py3 -i samples.txt -g gene_count_matrix.csv -t transcript_count_matrix.csv >/tmp/taf-stringtie-expression/prepde.log 2>&1 && test -s gene_count_matrix.csv && test -s transcript_count_matrix.csv && grep -F 'gene_id' gene_count_matrix.csv >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T01:38:55Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T01:38:55Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/stringtie",
+            "ref": "v3.0.3-r1",
+            "commit": "21fd5e227a80c7c8eb1b2afb2735e5c31bd93ec4",
+            "html_url": "https://github.com/taffish/stringtie/tree/v3.0.3-r1"
+          },
+          "upstream": {
+            "name": "StringTie",
+            "type": "github",
+            "homepage": "https://ccb.jhu.edu/software/stringtie/",
+            "repository": "gpertea/stringtie",
+            "release_url": "https://github.com/gpertea/stringtie/releases/tag/v3.0.3",
+            "version": "3.0.3",
+            "license": "MIT with bundled third-party source components in the offline package",
+            "citation": "Pertea et al. 2015; Pertea et al. 2016; Kovaka et al. 2019; Shumate et al. 2022; Shinder et al. 2025 preprint for StringTie 3",
+            "doi": "10.1038/nbt.3122; 10.1038/nprot.2016.095; 10.1186/s13059-019-1910-1; 10.1371/journal.pcbi.1009730; 10.1101/2025.05.21.655404",
+            "pmid": "25690850; 27560171; 31842956; 35793599"
+          }
+        }
+      }
+    },
     "trf": {
       "name": "trf",
       "latest": "4.09.1-r1",
@@ -13343,6 +13727,10 @@
       "package": "hifiasm",
       "version": "0.25.0-r2"
     },
+    "taf-higlass": {
+      "package": "higlass",
+      "version": "0.10.4-r1"
+    },
     "taf-hisat2": {
       "package": "hisat2",
       "version": "2.2.2-r2"
@@ -13482,6 +13870,14 @@
     "taf-srf": {
       "package": "srf",
       "version": "20240109-r2"
+    },
+    "taf-star": {
+      "package": "star",
+      "version": "2.7.11b-r1"
+    },
+    "taf-stringtie": {
+      "package": "stringtie",
+      "version": "3.0.3-r1"
     },
     "taf-trf": {
       "package": "trf",
@@ -13693,6 +14089,12 @@
         "hifiasm"
       ]
     },
+    "taffish/higlass": {
+      "repository": "taffish/higlass",
+      "packages": [
+        "higlass"
+      ]
+    },
     "taffish/hisat2": {
       "repository": "taffish/hisat2",
       "packages": [
@@ -13901,6 +14303,18 @@
       "repository": "taffish/srf",
       "packages": [
         "srf"
+      ]
+    },
+    "taffish/star": {
+      "repository": "taffish/star",
+      "packages": [
+        "star"
+      ]
+    },
+    "taffish/stringtie": {
+      "repository": "taffish/stringtie",
+      "packages": [
+        "stringtie"
       ]
     },
     "taffish/trf": {
