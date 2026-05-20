@@ -1,13 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-05-20T03:48:23Z",
+  "generated_at": "2026-05-20T05:16:28Z",
   "organization": "taffish",
   "counts": {
-    "failed": 0,
+    "failed": 1,
     "rejected": 1,
     "warnings": 0
   },
-  "failed": [],
+  "failed": [
+    {
+      "repository": "taffish/ucsc-kent",
+      "ref": "v492-r1",
+      "version_id": "492-r1",
+      "stage": "digest",
+      "message": "failed to inspect image ghcr.io/taffish/ucsc-kent:492-r1: ERROR: ghcr.io/taffish/ucsc-kent:492-r1: not found\n (exit 1)",
+      "image": "ghcr.io/taffish/ucsc-kent:492-r1"
+    }
+  ],
   "rejected": [
     {
       "repository": "taffish/fastp",

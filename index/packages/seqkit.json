@@ -1,0 +1,128 @@
+{
+  "name": "seqkit",
+  "latest": "2.13.0-r1",
+  "repository_url": "https://github.com/taffish/seqkit",
+  "command": {
+    "name": "taf-seqkit"
+  },
+  "versions": {
+    "2.13.0-r1": {
+      "name": "seqkit",
+      "kind": "tool",
+      "version": "2.13.0",
+      "release": 1,
+      "version_id": "2.13.0-r1",
+      "tag": "v2.13.0-r1",
+      "license": "MIT",
+      "repository_url": "https://github.com/taffish/seqkit",
+      "repository_slug": "taffish/seqkit",
+      "command": {
+        "name": "taf-seqkit"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "fasta",
+        "categories": [
+          "fasta",
+          "fastq",
+          "sequence-processing",
+          "quality-control",
+          "alignment-processing"
+        ],
+        "keywords": [
+          "seqkit",
+          "fasta",
+          "fastq",
+          "bam",
+          "gzip",
+          "xz",
+          "zstd",
+          "bzip2",
+          "lz4",
+          "statistics",
+          "subsequence",
+          "sampling",
+          "format-conversion"
+        ],
+        "summary": "SeqKit ultrafast toolkit for FASTA/Q sequence manipulation and lightweight BAM monitoring.",
+        "description": "SeqKit ultrafast toolkit for FASTA/Q sequence manipulation and lightweight BAM monitoring."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/seqkit:2.13.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.13.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:7f20428667c788627af69ca739c6564f04f0f97b1d6f2b65c661dde432b81b02",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:f4b8f13f18fa5ce09d94de7b9feae90b504e113abef6e8216b9e798135a0227d",
+          "linux/arm64": "sha256:20e411e5e80d7911a1cef199948fd0329bf41107c06bf08ac2b94f0c86f8d561"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "seqkit",
+          "sh",
+          "grep",
+          "ldd"
+        ],
+        "test": [
+          "seqkit version | grep -Fx 'seqkit v2.13.0' >/dev/null && seqkit --help 2>&1 | grep -F 'SeqKit -- a cross-platform and ultrafast toolkit' >/dev/null && seqkit sample2 --help 2>&1 | grep -F 'sample sequences' >/dev/null && seqkit bam --help 2>&1 | grep -F 'BAM' >/dev/null && { ldd $(command -v seqkit) 2>&1 || true; } | grep -E '(not a dynamic executable|statically linked)' >/dev/null",
+          "mkdir -p /tmp/taf-seqkit-basic && cd /tmp/taf-seqkit-basic && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && printf '@r1\\nACGTNN\\n+\\nFFFFFF\\n@r2\\nTTAGGGTTAGGG\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && seqkit stats -T ref.fa reads.fq > stats.tsv && grep -F 'ref.fa' stats.tsv >/dev/null && grep -F 'reads.fq' stats.tsv >/dev/null && seqkit fq2fa reads.fq > reads.fa && grep -F '>r1' reads.fa >/dev/null && seqkit seq -m 12 ref.fa > filtered.fa && grep -F '>chr2' filtered.fa >/dev/null",
+          "mkdir -p /tmp/taf-seqkit-search && cd /tmp/taf-seqkit-search && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && printf 'chr2\\n' > ids.txt && seqkit grep -f ids.txt ref.fa > chr2.fa && grep -F '>chr2' chr2.fa >/dev/null && seqkit locate -p ACGT ref.fa > locate.tsv && grep -F 'chr1' locate.tsv >/dev/null && seqkit faidx ref.fa chr1:2-5 > slice.fa && grep -F 'CGTA' slice.fa >/dev/null",
+          "mkdir -p /tmp/taf-seqkit-convert && cd /tmp/taf-seqkit-convert && printf '>seq1\\nATGAAATAG\\n>seq2\\nACGTTT\\n' > seqs.fa && seqkit translate -w 0 seqs.fa > prot.fa && grep -F 'MK*' prot.fa >/dev/null && seqkit seq -r -p seqs.fa > rc.fa && grep -F 'AAACGT' rc.fa >/dev/null && seqkit fx2tab seqs.fa > seqs.tsv && seqkit tab2fx seqs.tsv > round.fa && grep -F '>seq1' round.fa >/dev/null",
+          "mkdir -p /tmp/taf-seqkit-compress && cd /tmp/taf-seqkit-compress && printf '>seq1\\nACGTACGT\\n>seq2\\nTTAGGGTTAGGG\\n>seq3\\nCCCCAAAAGGGG\\n' > seqs.fa && seqkit sample2 -n 2 -s 7 seqs.fa > sample.fa && grep -F '>seq' sample.fa >/dev/null && seqkit seq -o seqs.fa.lz4 seqs.fa && test -s seqs.fa.lz4 && seqkit stats seqs.fa.lz4 > lz4.stats && grep -F 'seqs.fa.lz4' lz4.stats >/dev/null && seqkit sum seqs.fa > sum.txt && grep -F 'seqkit.v0.1_DLS_k0_' sum.txt >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-20T05:16:28Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-20T05:16:28Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/seqkit",
+        "ref": "v2.13.0-r1",
+        "commit": "276c41d483787ebcf626bc10d2ddcf4b0fc10cc7",
+        "html_url": "https://github.com/taffish/seqkit/tree/v2.13.0-r1"
+      },
+      "upstream": {
+        "name": "SeqKit",
+        "type": "github",
+        "homepage": "https://bioinf.shenwei.me/seqkit/",
+        "repository": "shenwei356/seqkit",
+        "release_url": "https://github.com/shenwei356/seqkit/releases/tag/v2.13.0",
+        "version": "2.13.0",
+        "license": "MIT",
+        "citation": "Shen, Sipos and Zhao 2024; Shen et al. 2016",
+        "doi": "10.1002/imt2.191; 10.1371/journal.pone.0163962",
+        "pmid": "27706213"
+      }
+    }
+  }
+}

@@ -1,14 +1,14 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-20T03:48:23Z",
+  "generated_at": "2026-05-20T05:16:28Z",
   "organization": "taffish",
   "counts": {
-    "packages": 77,
-    "versions": 109,
-    "commands": 77,
-    "repositories": 77,
+    "packages": 81,
+    "versions": 113,
+    "commands": 81,
+    "repositories": 81,
     "warnings": 0,
-    "failed": 0,
+    "failed": 1,
     "rejected": 1
   },
   "packages": {
@@ -12583,6 +12583,134 @@
         }
       }
     },
+    "seqkit": {
+      "name": "seqkit",
+      "latest": "2.13.0-r1",
+      "repository_url": "https://github.com/taffish/seqkit",
+      "command": {
+        "name": "taf-seqkit"
+      },
+      "versions": {
+        "2.13.0-r1": {
+          "name": "seqkit",
+          "kind": "tool",
+          "version": "2.13.0",
+          "release": 1,
+          "version_id": "2.13.0-r1",
+          "tag": "v2.13.0-r1",
+          "license": "MIT",
+          "repository_url": "https://github.com/taffish/seqkit",
+          "repository_slug": "taffish/seqkit",
+          "command": {
+            "name": "taf-seqkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fasta",
+            "categories": [
+              "fasta",
+              "fastq",
+              "sequence-processing",
+              "quality-control",
+              "alignment-processing"
+            ],
+            "keywords": [
+              "seqkit",
+              "fasta",
+              "fastq",
+              "bam",
+              "gzip",
+              "xz",
+              "zstd",
+              "bzip2",
+              "lz4",
+              "statistics",
+              "subsequence",
+              "sampling",
+              "format-conversion"
+            ],
+            "summary": "SeqKit ultrafast toolkit for FASTA/Q sequence manipulation and lightweight BAM monitoring.",
+            "description": "SeqKit ultrafast toolkit for FASTA/Q sequence manipulation and lightweight BAM monitoring."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/seqkit:2.13.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.13.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:7f20428667c788627af69ca739c6564f04f0f97b1d6f2b65c661dde432b81b02",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f4b8f13f18fa5ce09d94de7b9feae90b504e113abef6e8216b9e798135a0227d",
+              "linux/arm64": "sha256:20e411e5e80d7911a1cef199948fd0329bf41107c06bf08ac2b94f0c86f8d561"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "seqkit",
+              "sh",
+              "grep",
+              "ldd"
+            ],
+            "test": [
+              "seqkit version | grep -Fx 'seqkit v2.13.0' >/dev/null && seqkit --help 2>&1 | grep -F 'SeqKit -- a cross-platform and ultrafast toolkit' >/dev/null && seqkit sample2 --help 2>&1 | grep -F 'sample sequences' >/dev/null && seqkit bam --help 2>&1 | grep -F 'BAM' >/dev/null && { ldd $(command -v seqkit) 2>&1 || true; } | grep -E '(not a dynamic executable|statically linked)' >/dev/null",
+              "mkdir -p /tmp/taf-seqkit-basic && cd /tmp/taf-seqkit-basic && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && printf '@r1\\nACGTNN\\n+\\nFFFFFF\\n@r2\\nTTAGGGTTAGGG\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && seqkit stats -T ref.fa reads.fq > stats.tsv && grep -F 'ref.fa' stats.tsv >/dev/null && grep -F 'reads.fq' stats.tsv >/dev/null && seqkit fq2fa reads.fq > reads.fa && grep -F '>r1' reads.fa >/dev/null && seqkit seq -m 12 ref.fa > filtered.fa && grep -F '>chr2' filtered.fa >/dev/null",
+              "mkdir -p /tmp/taf-seqkit-search && cd /tmp/taf-seqkit-search && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && printf 'chr2\\n' > ids.txt && seqkit grep -f ids.txt ref.fa > chr2.fa && grep -F '>chr2' chr2.fa >/dev/null && seqkit locate -p ACGT ref.fa > locate.tsv && grep -F 'chr1' locate.tsv >/dev/null && seqkit faidx ref.fa chr1:2-5 > slice.fa && grep -F 'CGTA' slice.fa >/dev/null",
+              "mkdir -p /tmp/taf-seqkit-convert && cd /tmp/taf-seqkit-convert && printf '>seq1\\nATGAAATAG\\n>seq2\\nACGTTT\\n' > seqs.fa && seqkit translate -w 0 seqs.fa > prot.fa && grep -F 'MK*' prot.fa >/dev/null && seqkit seq -r -p seqs.fa > rc.fa && grep -F 'AAACGT' rc.fa >/dev/null && seqkit fx2tab seqs.fa > seqs.tsv && seqkit tab2fx seqs.tsv > round.fa && grep -F '>seq1' round.fa >/dev/null",
+              "mkdir -p /tmp/taf-seqkit-compress && cd /tmp/taf-seqkit-compress && printf '>seq1\\nACGTACGT\\n>seq2\\nTTAGGGTTAGGG\\n>seq3\\nCCCCAAAAGGGG\\n' > seqs.fa && seqkit sample2 -n 2 -s 7 seqs.fa > sample.fa && grep -F '>seq' sample.fa >/dev/null && seqkit seq -o seqs.fa.lz4 seqs.fa && test -s seqs.fa.lz4 && seqkit stats seqs.fa.lz4 > lz4.stats && grep -F 'seqs.fa.lz4' lz4.stats >/dev/null && seqkit sum seqs.fa > sum.txt && grep -F 'seqkit.v0.1_DLS_k0_' sum.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T05:16:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T05:16:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/seqkit",
+            "ref": "v2.13.0-r1",
+            "commit": "276c41d483787ebcf626bc10d2ddcf4b0fc10cc7",
+            "html_url": "https://github.com/taffish/seqkit/tree/v2.13.0-r1"
+          },
+          "upstream": {
+            "name": "SeqKit",
+            "type": "github",
+            "homepage": "https://bioinf.shenwei.me/seqkit/",
+            "repository": "shenwei356/seqkit",
+            "release_url": "https://github.com/shenwei356/seqkit/releases/tag/v2.13.0",
+            "version": "2.13.0",
+            "license": "MIT",
+            "citation": "Shen, Sipos and Zhao 2024; Shen et al. 2016",
+            "doi": "10.1002/imt2.191; 10.1371/journal.pone.0163962",
+            "pmid": "27706213"
+          }
+        }
+      }
+    },
     "seqtk": {
       "name": "seqtk",
       "latest": "1.5-r1",
@@ -14119,6 +14247,414 @@
           }
         }
       }
+    },
+    "trinity": {
+      "name": "trinity",
+      "latest": "2.15.2-r1",
+      "repository_url": "https://github.com/taffish/trinity",
+      "command": {
+        "name": "taf-trinity"
+      },
+      "versions": {
+        "2.15.2-r1": {
+          "name": "trinity",
+          "kind": "tool",
+          "version": "2.15.2",
+          "release": 1,
+          "version_id": "2.15.2-r1",
+          "tag": "v2.15.2-r1",
+          "license": "BSD-3-Clause",
+          "repository_url": "https://github.com/taffish/trinity",
+          "repository_slug": "taffish/trinity",
+          "command": {
+            "name": "taf-trinity"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "de-novo-assembly",
+              "transcript-assembly",
+              "short-read"
+            ],
+            "keywords": [
+              "trinity",
+              "rna-seq",
+              "transcriptome assembly",
+              "inchworm",
+              "chrysalis",
+              "butterfly",
+              "insilico normalization",
+              "salmon",
+              "jellyfish",
+              "bowtie2"
+            ],
+            "summary": "Trinity de novo RNA-seq transcriptome assembly with the core Trinity components and required runtime tools.",
+            "description": "Trinity de novo RNA-seq transcriptome assembly with the core Trinity components and required runtime tools."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trinity:2.15.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.15.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:a36842a882f82f201a23db4ec2e85bc56c54a61d1491363828fb55b76e621603",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c81e89168d540ed646329ee8eb08fa19b26d062136d7708cae2dd08a5d3849aa",
+              "linux/arm64": "sha256:fb4220ee4526e7c989f2ce2b3ef4b3fce5fd787af624f54399c5dc25800a23a1"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "Trinity",
+              "TrinityStats.pl",
+              "align_and_estimate_abundance.pl",
+              "insilico_read_normalization.pl",
+              "ParaFly",
+              "seqtk-trinity",
+              "inchworm",
+              "Chrysalis",
+              "QuantifyGraph",
+              "GraphFromFasta",
+              "ReadsToTranscripts",
+              "bamsifter",
+              "slclust",
+              "collectl",
+              "bowtie2",
+              "bowtie2-build",
+              "jellyfish",
+              "samtools",
+              "salmon",
+              "blastn",
+              "makeblastdb",
+              "java",
+              "perl",
+              "python3",
+              "bash",
+              "gzip",
+              "bzip2",
+              "xz",
+              "grep",
+              "ldd"
+            ],
+            "test": [
+              "Trinity --version 2>&1 | grep -F 'Trinity version: Trinity-v2.15.2' >/dev/null && grep -F 'my $VERSION = \"Trinity-v2.15.2\";' /opt/trinity/Trinity >/dev/null",
+              "(Trinity --help 2>&1 || true) | grep -F 'Trinity --seqType' >/dev/null && (Trinity --help 2>&1 || true) | grep -F -- '--max_memory' >/dev/null && (Trinity --show_full_usage_info 2>&1 || true) | grep -F -- '--no_normalize_reads' >/dev/null && (Trinity --show_full_usage_info 2>&1 || true) | grep -F -- '--genome_guided_bam' >/dev/null",
+              "samtools --version 2>&1 | grep -F 'samtools 1.' >/dev/null && jellyfish --version 2>&1 | grep -F 'jellyfish 2.' >/dev/null && bowtie2 --version 2>&1 | grep -F 'version 2.' >/dev/null && salmon --version 2>&1 | grep -F 'salmon' >/dev/null && blastn -version 2>&1 | grep -F 'blastn:' >/dev/null && java -version 2>&1 | grep -E '(openjdk|java)' >/dev/null && perl -MDB_File -MURI::Escape -e1 && python3 -c 'import numpy'",
+              "for x in /opt/trinity/Inchworm/bin/inchworm /opt/trinity/Chrysalis/bin/Chrysalis /opt/trinity/Chrysalis/bin/QuantifyGraph /opt/trinity/Chrysalis/bin/GraphFromFasta /opt/trinity/Chrysalis/bin/ReadsToTranscripts /opt/trinity/trinity-plugins/BIN/ParaFly /opt/trinity/trinity-plugins/BIN/seqtk-trinity /opt/trinity/trinity-plugins/bamsifter/bamsifter /opt/trinity/trinity-plugins/bamsifter/_sift_bam_max_cov /opt/trinity/trinity-plugins/slclust/bin/slclust /opt/trinity/trinity-plugins/COLLECTL/collectl/collectl; do test -x $x; done && ! ldd /opt/trinity/Inchworm/bin/inchworm 2>&1 | grep -F 'not found' >/dev/null && ! ldd /opt/trinity/Chrysalis/bin/Chrysalis 2>&1 | grep -F 'not found' >/dev/null && ! ldd /opt/trinity/trinity-plugins/BIN/ParaFly 2>&1 | grep -F 'not found' >/dev/null && ! ldd /opt/trinity/trinity-plugins/bamsifter/_sift_bam_max_cov 2>&1 | grep -F 'not found' >/dev/null",
+              "mkdir -p /tmp/taf-trinity-stats && cd /tmp/taf-trinity-stats && printf '>TRINITY_DN0_c0_g1_i1\\nACGTACGTACGTACGTACGTACGTACGT\\n>TRINITY_DN0_c0_g2_i1\\nACGTACGTACGT\\n' > transcripts.fa && TrinityStats.pl transcripts.fa > stats.txt && grep -F 'Total trinity transcripts:' stats.txt >/dev/null && grep -F 'Contig N50:' stats.txt >/dev/null",
+              "mkdir -p /tmp/taf-trinity-normalize && cd /tmp/taf-trinity-normalize && insilico_read_normalization.pl --seqType fq --JM 1G --max_cov 50 --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --pairs_together --CPU 1 --output norm >/tmp/taf-trinity-normalize/norm.log 2>&1 && test -s norm/left.norm.fq && test -s norm/right.norm.fq",
+              "mkdir -p /tmp/taf-trinity-assembly && cd /tmp/taf-trinity-assembly && Trinity --seqType fq --max_memory 2G --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --SS_lib_type RF --CPU 1 --no_normalize_reads --no_salmon --output trinity_smoke_out >/tmp/taf-trinity-assembly/run.log 2>&1 && test -s trinity_smoke_out.Trinity.fasta && grep -F 'TRINITY_' trinity_smoke_out.Trinity.fasta >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T05:16:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T05:16:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trinity",
+            "ref": "v2.15.2-r1",
+            "commit": "2a09b3867831c238feff183bce2b44badf21e1db",
+            "html_url": "https://github.com/taffish/trinity/tree/v2.15.2-r1"
+          },
+          "upstream": {
+            "name": "Trinity",
+            "type": "github",
+            "homepage": "https://github.com/trinityrnaseq/trinityrnaseq/wiki",
+            "repository": "trinityrnaseq/trinityrnaseq",
+            "release_url": "https://github.com/trinityrnaseq/trinityrnaseq/releases/tag/Trinity-v2.15.2",
+            "version": "2.15.2",
+            "license": "BSD-3-Clause with bundled third-party components including ParaFly, seqtk-trinity, Trimmomatic, collectl, bamsifter/htslib, and Ubuntu-packaged runtime tools",
+            "citation": "Grabherr et al. 2011; Haas et al. 2013",
+            "doi": "10.1038/nbt.1883; 10.1038/nprot.2013.084",
+            "pmid": "21572440; 23845962"
+          }
+        }
+      }
+    },
+    "trnascan-se": {
+      "name": "trnascan-se",
+      "latest": "2.0.12-r1",
+      "repository_url": "https://github.com/taffish/trnascan-se",
+      "command": {
+        "name": "taf-trnascan-se"
+      },
+      "versions": {
+        "2.0.12-r1": {
+          "name": "trnascan-se",
+          "kind": "tool",
+          "version": "2.0.12",
+          "release": 1,
+          "version_id": "2.0.12-r1",
+          "tag": "v2.0.12-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trnascan-se",
+          "repository_slug": "taffish/trnascan-se",
+          "command": {
+            "name": "taf-trnascan-se"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "annotation",
+              "rna",
+              "noncoding-rna",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "trnascan-se",
+              "trna",
+              "transfer-rna",
+              "annotation",
+              "infernal",
+              "covariance-model",
+              "eufindtrna",
+              "cove"
+            ],
+            "summary": "tRNAscan-SE detects and functionally classifies transfer RNA genes in genomic or transcript FASTA sequences.",
+            "description": "tRNAscan-SE detects and functionally classifies transfer RNA genes in genomic or transcript FASTA sequences."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trnascan-se:2.0.12-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.0.12-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:1ec358d2926e1bbd2f79d477fe8230a7e455950724cca1571e0163cc84501439",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:fe27675195e1899146b4187d8152091f8f402d40a6bee44d6323ef3f0b82f43d",
+              "linux/arm64": "sha256:167625b6af4d9994b9d3b0f5a274b26cd8f2aee586fd7452b43cd5253dce8481"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "tRNAscan-SE",
+              "EukHighConfidenceFilter",
+              "MitoHighConfidenceFilter",
+              "fasta2gsi",
+              "sstofa",
+              "eufindtRNA",
+              "trnascan-1.4",
+              "covels-SE",
+              "coves-SE",
+              "cmsearch",
+              "cmscan",
+              "cmalign",
+              "perl",
+              "hostname",
+              "ps"
+            ],
+            "test": [
+              "tRNAscan-SE -h 2>&1 | grep -F 'tRNAscan-SE 2.0.12' >/dev/null",
+              "cmsearch -h 2>&1 | grep -F 'INFERNAL 1.1.5' >/dev/null && cmscan -h 2>&1 | grep -F 'INFERNAL 1.1.5' >/dev/null && cmalign -h 2>&1 | grep -F 'INFERNAL 1.1.5' >/dev/null",
+              "EukHighConfidenceFilter -h 2>&1 | grep -F 'Usage: EukHighConfidenceFilter' >/dev/null && MitoHighConfidenceFilter -h 2>&1 | grep -F 'Usage: MitoHighConfidenceFilter' >/dev/null",
+              "command -v fasta2gsi >/dev/null && command -v sstofa >/dev/null && command -v eufindtRNA >/dev/null && command -v trnascan-1.4 >/dev/null && command -v covels-SE >/dev/null && command -v coves-SE >/dev/null",
+              "rm -rf /tmp/taf-trnascan-se-smoke && mkdir -p /tmp/taf-trnascan-se-smoke && cd /tmp/taf-trnascan-se-smoke && cp /opt/trnascan-se/share/doc/tRNAscan-SE/Demo/Example1.fa . && tRNAscan-SE -q -Q --thread 1 --detail -H -o result.out -f result.ss -s result.iso -m result.stats -b result.bed -j result.gff -a result.fa Example1.fa >/tmp/taf-trnascan-se-smoke.log 2>&1 && test -s result.out && test -s result.ss && test -s result.iso && test -s result.stats && test -s result.bed && test -s result.gff && test -s result.fa && grep -F 'Sequence' result.out >/dev/null && grep -F 'Inf' result.out >/dev/null && grep -F 'Seq:' result.ss >/dev/null && grep -F 'Str:' result.ss >/dev/null && grep -F 'ID=CELF22B7.trna' result.gff >/dev/null && rm -rf /tmp/taf-trnascan-se-smoke /tmp/taf-trnascan-se-smoke.log",
+              "rm -rf /tmp/taf-trnascan-se-filter && mkdir -p /tmp/taf-trnascan-se-filter && cd /tmp/taf-trnascan-se-filter && cp /opt/trnascan-se/share/doc/tRNAscan-SE/Demo/Example1.fa . && tRNAscan-SE -q -Q --thread 1 --detail -H -o result.out -f result.ss Example1.fa >/tmp/taf-trnascan-se-filter-scan.log 2>&1 && EukHighConfidenceFilter -i result.out -s result.ss -o euk-filter -p euk >/tmp/taf-trnascan-se-filter.log 2>&1 && test -s euk-filter/euk.out && test -s euk-filter/euk.ss && test -s euk-filter/euk.log && rm -rf /tmp/taf-trnascan-se-filter /tmp/taf-trnascan-se-filter-scan.log /tmp/taf-trnascan-se-filter.log",
+              "rm -rf /tmp/taf-trnascan-se-legacy && mkdir -p /tmp/taf-trnascan-se-legacy && cd /tmp/taf-trnascan-se-legacy && cp /opt/trnascan-se/share/doc/tRNAscan-SE/Demo/Example1.fa . && tRNAscan-SE -q -Q -L -o legacy.out Example1.fa >/tmp/taf-trnascan-se-legacy.log 2>&1 && test -s legacy.out && grep -F 'Sequence' legacy.out >/dev/null && rm -rf /tmp/taf-trnascan-se-legacy /tmp/taf-trnascan-se-legacy.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T05:16:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T05:16:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trnascan-se",
+            "ref": "v2.0.12-r1",
+            "commit": "cd0a482777a4df5ea9e22d6e6fa61049b94a6f6d",
+            "html_url": "https://github.com/taffish/trnascan-se/tree/v2.0.12-r1"
+          },
+          "upstream": {
+            "name": "tRNAscan-SE",
+            "type": "github",
+            "homepage": "http://trna.ucsc.edu/tRNAscan-SE/",
+            "repository": "UCSC-LoweLab/tRNAscan-SE",
+            "release_url": "https://github.com/UCSC-LoweLab/tRNAscan-SE/releases/tag/v2.0.12",
+            "version": "2.0.12",
+            "license": "GPL-3.0-or-later",
+            "citation": "Chan et al. 2021, tRNAscan-SE 2.0: improved detection and functional classification of transfer RNA genes",
+            "doi": "10.1093/nar/gkab688",
+            "pmid": "34417604"
+          }
+        }
+      }
+    },
+    "uniprot-idmapping": {
+      "name": "uniprot-idmapping",
+      "latest": "0.1.0-r1",
+      "repository_url": "https://github.com/taffish/uniprot-idmapping",
+      "command": {
+        "name": "taf-uniprot-idmapping"
+      },
+      "versions": {
+        "0.1.0-r1": {
+          "name": "uniprot-idmapping",
+          "kind": "tool",
+          "version": "0.1.0",
+          "release": 1,
+          "version_id": "0.1.0-r1",
+          "tag": "v0.1.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/uniprot-idmapping",
+          "repository_slug": "taffish/uniprot-idmapping",
+          "command": {
+            "name": "taf-uniprot-idmapping"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "annotation",
+            "categories": [
+              "annotation",
+              "id-mapping",
+              "database-client",
+              "protein"
+            ],
+            "keywords": [
+              "uniprot",
+              "idmapping",
+              "annotation",
+              "protein",
+              "rest-api",
+              "csv",
+              "taffish-first-party"
+            ],
+            "summary": "TAFFISH first-party command-line client for UniProt ID Mapping REST API jobs.",
+            "description": "TAFFISH first-party command-line client for UniProt ID Mapping REST API jobs."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/uniprot-idmapping:0.1.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.1.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:35cdddedaf29fdcff1d18654c86b59316d39f1c33f3e9b0fc3b57a6be944e71d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:540f5a4e43bfcbb216cac727fa2d02960b7c516d058ea618b548711d97fa3c35",
+              "linux/arm64": "sha256:b098e75536f8ba710234306a815663345119c944431a08155137fb62fff8b97d"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 90,
+            "exist": [
+              "uniprot-idmapping",
+              "python3"
+            ],
+            "test": [
+              "uniprot-idmapping --version | grep -Fx 'uniprot-idmapping 0.1.0' >/dev/null",
+              "uniprot-idmapping --help | grep -F 'UniProt ID Mapping REST API' >/dev/null && uniprot-idmapping --help | grep -F -- '--input' >/dev/null && uniprot-idmapping --help | grep -F -- '--fields' >/dev/null",
+              "uniprot-idmapping --info fields | grep -F 'accession' >/dev/null && uniprot-idmapping --info fields | grep -F 'organism_name' >/dev/null && uniprot-idmapping --info databases | grep -Fx 'UniProtKB_AC-ID' >/dev/null && uniprot-idmapping --info databases | grep -Fx 'UniParc' >/dev/null",
+              "python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py",
+              "tmp=/tmp/taf-uniprot-idmapping-smoke-$$; portfile=${tmp}.port; rm -rf \"$tmp\" \"$portfile\"; mkdir -p \"$tmp\"; python3 /opt/uniprot-idmapping/tests/mock_uniprot_server.py \"$portfile\" & pid=$!; trap 'kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; rm -rf \"$tmp\" \"$portfile\"' EXIT; i=0; while [ ! -s \"$portfile\" ]; do i=$((i + 1)); if [ \"$i\" -gt 50 ]; then exit 1; fi; sleep 0.1; done; cd \"$tmp\" && printf 'P00720\\n' > ids.txt && uniprot-idmapping --base-url \"http://127.0.0.1:$(cat \"$portfile\")\" --input ids.txt --output out.csv --task query --from UniProtKB_AC-ID --to UniProtKB --fields accession,id,gene_names --stream True --metadata-output metadata.json && test -s out.csv && test -s metadata.json && grep -F 'P00720' out.csv >/dev/null && grep -F 'TAF_MOCK' metadata.json >/dev/null",
+              "tmp=/tmp/taf-uniprot-idmapping-page-smoke-$$; portfile=${tmp}.port; rm -rf \"$tmp\" \"$portfile\"; mkdir -p \"$tmp\"; python3 /opt/uniprot-idmapping/tests/mock_uniprot_server.py \"$portfile\" & pid=$!; trap 'kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; rm -rf \"$tmp\" \"$portfile\"' EXIT; i=0; while [ ! -s \"$portfile\" ]; do i=$((i + 1)); if [ \"$i\" -gt 50 ]; then exit 1; fi; sleep 0.1; done; cd \"$tmp\" && printf 'P00720\\n' > ids.txt && uniprot-idmapping --base-url \"http://127.0.0.1:$(cat \"$portfile\")\" -i ids.txt -o out.csv --task mapping --from UniProtKB_AC-ID --to UniProtKB --stream False --size 1 && test -s out.csv && grep -F 'LYSC_CHICK' out.csv >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T05:16:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T05:16:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/uniprot-idmapping",
+            "ref": "v0.1.0-r1",
+            "commit": "bf944e9ee80164347d5261388d926e2972de78f5",
+            "html_url": "https://github.com/taffish/uniprot-idmapping/tree/v0.1.0-r1"
+          },
+          "upstream": {
+            "name": "TAFFISH UniProt ID Mapping client",
+            "type": "first-party",
+            "homepage": "https://github.com/taffish/uniprot-idmapping",
+            "repository": "taffish/uniprot-idmapping",
+            "version": "0.1.0",
+            "license": "Apache-2.0",
+            "citation": "The UniProt Consortium 2025; UniProt website API 2025",
+            "doi": "10.1093/nar/gkaf394",
+            "pmid": "40331428"
+          }
+        }
+      }
     }
   },
   "commands": {
@@ -14386,6 +14922,10 @@
       "package": "samtools",
       "version": "1.23.1-r1"
     },
+    "taf-seqkit": {
+      "package": "seqkit",
+      "version": "2.13.0-r1"
+    },
     "taf-seqtk": {
       "package": "seqtk",
       "version": "1.5-r1"
@@ -14429,6 +14969,18 @@
     "taf-trimgalore": {
       "package": "trimgalore",
       "version": "2.2.0-r1"
+    },
+    "taf-trinity": {
+      "package": "trinity",
+      "version": "2.15.2-r1"
+    },
+    "taf-trnascan-se": {
+      "package": "trnascan-se",
+      "version": "2.0.12-r1"
+    },
+    "taf-uniprot-idmapping": {
+      "package": "uniprot-idmapping",
+      "version": "0.1.0-r1"
     }
   },
   "repositories": {
@@ -14828,6 +15380,12 @@
         "samtools"
       ]
     },
+    "taffish/seqkit": {
+      "repository": "taffish/seqkit",
+      "packages": [
+        "seqkit"
+      ]
+    },
     "taffish/seqtk": {
       "repository": "taffish/seqtk",
       "packages": [
@@ -14892,6 +15450,24 @@
       "repository": "taffish/trimgalore",
       "packages": [
         "trimgalore"
+      ]
+    },
+    "taffish/trinity": {
+      "repository": "taffish/trinity",
+      "packages": [
+        "trinity"
+      ]
+    },
+    "taffish/trnascan-se": {
+      "repository": "taffish/trnascan-se",
+      "packages": [
+        "trnascan-se"
+      ]
+    },
+    "taffish/uniprot-idmapping": {
+      "repository": "taffish/uniprot-idmapping",
+      "packages": [
+        "uniprot-idmapping"
       ]
     }
   },

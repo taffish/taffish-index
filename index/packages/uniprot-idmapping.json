@@ -1,0 +1,119 @@
+{
+  "name": "uniprot-idmapping",
+  "latest": "0.1.0-r1",
+  "repository_url": "https://github.com/taffish/uniprot-idmapping",
+  "command": {
+    "name": "taf-uniprot-idmapping"
+  },
+  "versions": {
+    "0.1.0-r1": {
+      "name": "uniprot-idmapping",
+      "kind": "tool",
+      "version": "0.1.0",
+      "release": 1,
+      "version_id": "0.1.0-r1",
+      "tag": "v0.1.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/uniprot-idmapping",
+      "repository_slug": "taffish/uniprot-idmapping",
+      "command": {
+        "name": "taf-uniprot-idmapping"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "annotation",
+        "categories": [
+          "annotation",
+          "id-mapping",
+          "database-client",
+          "protein"
+        ],
+        "keywords": [
+          "uniprot",
+          "idmapping",
+          "annotation",
+          "protein",
+          "rest-api",
+          "csv",
+          "taffish-first-party"
+        ],
+        "summary": "TAFFISH first-party command-line client for UniProt ID Mapping REST API jobs.",
+        "description": "TAFFISH first-party command-line client for UniProt ID Mapping REST API jobs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/uniprot-idmapping:0.1.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.1.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:35cdddedaf29fdcff1d18654c86b59316d39f1c33f3e9b0fc3b57a6be944e71d",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:540f5a4e43bfcbb216cac727fa2d02960b7c516d058ea618b548711d97fa3c35",
+          "linux/arm64": "sha256:b098e75536f8ba710234306a815663345119c944431a08155137fb62fff8b97d"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 90,
+        "exist": [
+          "uniprot-idmapping",
+          "python3"
+        ],
+        "test": [
+          "uniprot-idmapping --version | grep -Fx 'uniprot-idmapping 0.1.0' >/dev/null",
+          "uniprot-idmapping --help | grep -F 'UniProt ID Mapping REST API' >/dev/null && uniprot-idmapping --help | grep -F -- '--input' >/dev/null && uniprot-idmapping --help | grep -F -- '--fields' >/dev/null",
+          "uniprot-idmapping --info fields | grep -F 'accession' >/dev/null && uniprot-idmapping --info fields | grep -F 'organism_name' >/dev/null && uniprot-idmapping --info databases | grep -Fx 'UniProtKB_AC-ID' >/dev/null && uniprot-idmapping --info databases | grep -Fx 'UniParc' >/dev/null",
+          "python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py",
+          "tmp=/tmp/taf-uniprot-idmapping-smoke-$$; portfile=${tmp}.port; rm -rf \"$tmp\" \"$portfile\"; mkdir -p \"$tmp\"; python3 /opt/uniprot-idmapping/tests/mock_uniprot_server.py \"$portfile\" & pid=$!; trap 'kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; rm -rf \"$tmp\" \"$portfile\"' EXIT; i=0; while [ ! -s \"$portfile\" ]; do i=$((i + 1)); if [ \"$i\" -gt 50 ]; then exit 1; fi; sleep 0.1; done; cd \"$tmp\" && printf 'P00720\\n' > ids.txt && uniprot-idmapping --base-url \"http://127.0.0.1:$(cat \"$portfile\")\" --input ids.txt --output out.csv --task query --from UniProtKB_AC-ID --to UniProtKB --fields accession,id,gene_names --stream True --metadata-output metadata.json && test -s out.csv && test -s metadata.json && grep -F 'P00720' out.csv >/dev/null && grep -F 'TAF_MOCK' metadata.json >/dev/null",
+          "tmp=/tmp/taf-uniprot-idmapping-page-smoke-$$; portfile=${tmp}.port; rm -rf \"$tmp\" \"$portfile\"; mkdir -p \"$tmp\"; python3 /opt/uniprot-idmapping/tests/mock_uniprot_server.py \"$portfile\" & pid=$!; trap 'kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; rm -rf \"$tmp\" \"$portfile\"' EXIT; i=0; while [ ! -s \"$portfile\" ]; do i=$((i + 1)); if [ \"$i\" -gt 50 ]; then exit 1; fi; sleep 0.1; done; cd \"$tmp\" && printf 'P00720\\n' > ids.txt && uniprot-idmapping --base-url \"http://127.0.0.1:$(cat \"$portfile\")\" -i ids.txt -o out.csv --task mapping --from UniProtKB_AC-ID --to UniProtKB --stream False --size 1 && test -s out.csv && grep -F 'LYSC_CHICK' out.csv >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-20T05:16:28Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-20T05:16:28Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/uniprot-idmapping",
+        "ref": "v0.1.0-r1",
+        "commit": "bf944e9ee80164347d5261388d926e2972de78f5",
+        "html_url": "https://github.com/taffish/uniprot-idmapping/tree/v0.1.0-r1"
+      },
+      "upstream": {
+        "name": "TAFFISH UniProt ID Mapping client",
+        "type": "first-party",
+        "homepage": "https://github.com/taffish/uniprot-idmapping",
+        "repository": "taffish/uniprot-idmapping",
+        "version": "0.1.0",
+        "license": "Apache-2.0",
+        "citation": "The UniProt Consortium 2025; UniProt website API 2025",
+        "doi": "10.1093/nar/gkaf394",
+        "pmid": "40331428"
+      }
+    }
+  }
+}
