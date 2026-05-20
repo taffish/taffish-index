@@ -1,0 +1,147 @@
+{
+  "name": "ucsc-kent",
+  "latest": "492-r1",
+  "repository_url": "https://github.com/taffish/ucsc-kent",
+  "command": {
+    "name": "taf-ucsc-kent"
+  },
+  "versions": {
+    "492-r1": {
+      "name": "ucsc-kent",
+      "kind": "tool",
+      "version": "492",
+      "release": 1,
+      "version_id": "492-r1",
+      "tag": "v492-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/ucsc-kent",
+      "repository_slug": "taffish/ucsc-kent",
+      "command": {
+        "name": "taf-ucsc-kent"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-browser",
+        "categories": [
+          "genome-browser",
+          "genome-annotation",
+          "bigbed",
+          "bigwig",
+          "format-conversion",
+          "alignment"
+        ],
+        "keywords": [
+          "ucsc",
+          "kent utilities",
+          "kent-core",
+          "bigbed",
+          "bigwig",
+          "twobit",
+          "psl",
+          "bed",
+          "wiggle"
+        ],
+        "summary": "UCSC Genome Browser kent-core command-line utilities for bigBed, bigWig, twoBit, PSL, BED, and related genome-browser formats.",
+        "description": "UCSC Genome Browser kent-core command-line utilities for bigBed, bigWig, twoBit, PSL, BED, and related genome-browser formats."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/ucsc-kent:492-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "492-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:2644469af28b6299df2203209aa22c1a6557924c5002f73983e986ab4dafa987",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:1e49d1f7c8abc9f74f1030a109061ddaae1d5b129f2d0f07469b7cca9d5f3ce3",
+          "linux/arm64": "sha256:d529d21e7479ce618c85a0619061d928fc67a3064e104a4d10d16073a0186f14"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "ucsc-kent",
+          "bedToBigBed",
+          "bigBedToBed",
+          "bigBedInfo",
+          "bedGraphToBigWig",
+          "wigToBigWig",
+          "bigWigToWig",
+          "bigWigInfo",
+          "bigWigSummary",
+          "bigWigAverageOverBed",
+          "faToTwoBit",
+          "twoBitToFa",
+          "twoBitInfo",
+          "faSize",
+          "faCount",
+          "pslSort",
+          "pslPretty",
+          "bedJoinTabOffset.py",
+          "ucscApiClient",
+          "vai.pl",
+          "bash",
+          "perl",
+          "python3",
+          "python",
+          "gawk",
+          "gzip",
+          "wget",
+          "ldd"
+        ],
+        "test": [
+          "ucsc-kent --version | grep -F 'ucsc-kent 492' >/dev/null && ucsc-kent --list | grep -F 'bedToBigBed' >/dev/null && ucsc-kent --list | grep -F 'bigWigInfo' >/dev/null && grep -F 'commit b6df349dcf619123c01e8a5993c6ac6d4001a716' /opt/ucsc-kent/share/doc/ucsc-kent/source.txt >/dev/null && { bedToBigBed 2>&1 || true; } | grep -F 'bedToBigBed' >/dev/null && { bigWigInfo 2>&1 || true; } | grep -F 'bigWigInfo' >/dev/null && ldd $(command -v bedToBigBed) | grep -F libc >/dev/null && ! ldd $(command -v bedToBigBed) | grep -F 'not found' >/dev/null",
+          "mkdir -p /tmp/taf-ucsc-kent-twobit && cd /tmp/taf-ucsc-kent-twobit && printf '>chr1\\nACGTACGTNN\\n>chr2\\nTTAGGG\\n' > ref.fa && faToTwoBit ref.fa ref.2bit && twoBitInfo ref.2bit stdout > sizes.txt && grep -F \"$(printf 'chr1\\t10')\" sizes.txt >/dev/null && twoBitToFa ref.2bit stdout > roundtrip.fa && grep -F '>chr2' roundtrip.fa >/dev/null && faSize ref.fa > faSize.txt && grep -F '2 sequences' faSize.txt >/dev/null && faCount ref.fa > faCount.txt && grep -F \"$(printf 'chr1\\t10')\" faCount.txt >/dev/null",
+          "mkdir -p /tmp/taf-ucsc-kent-bigbed && cd /tmp/taf-ucsc-kent-bigbed && printf 'chr1\\t1000\\n' > chrom.sizes && printf 'chr1\\t10\\t20\\tfeature1\\t0\\t+\\n' > in.bed && bedToBigBed -type=bed6 in.bed chrom.sizes out.bb && bigBedInfo out.bb > info.txt && grep -F 'itemCount: 1' info.txt >/dev/null && bigBedToBed out.bb out.bed && grep -F \"$(printf 'chr1\\t10\\t20\\tfeature1')\" out.bed >/dev/null",
+          "mkdir -p /tmp/taf-ucsc-kent-bigwig && cd /tmp/taf-ucsc-kent-bigwig && printf 'chr1\\t1000\\n' > chrom.sizes && printf 'fixedStep chrom=chr1 start=1 step=1\\n1\\n2\\n3\\n' > in.wig && wigToBigWig in.wig chrom.sizes out.bw && bigWigInfo out.bw > info.txt && grep -F 'basesCovered: 3' info.txt >/dev/null && bigWigToWig out.bw out.wig && grep -F 'fixedStep chrom=chr1' out.wig >/dev/null && printf 'chr1\\t0\\t10\\t1.5\\nchr1\\t10\\t20\\t2.5\\n' > graph.bedGraph && bedGraphToBigWig graph.bedGraph chrom.sizes graph.bw && bigWigSummary graph.bw chr1 0 20 2 > summary.txt && grep -F '1.5' summary.txt >/dev/null",
+          "mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-20T05:39:23Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-20T05:39:23Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/ucsc-kent",
+        "ref": "v492-r1",
+        "commit": "2392c639b97ec9dd2efc0fb8e10f52ead9271304",
+        "html_url": "https://github.com/taffish/ucsc-kent/tree/v492-r1"
+      },
+      "upstream": {
+        "name": "kent-core",
+        "type": "github",
+        "homepage": "https://github.com/ucscGenomeBrowser/kent-core",
+        "repository": "ucscGenomeBrowser/kent-core",
+        "release_url": "https://github.com/ucscGenomeBrowser/kent-core/tree/v492",
+        "version": "492",
+        "license": "MIT",
+        "citation": "UCSC Genome Browser kent-core command-line utilities, UC Santa Cruz Genomics Institute"
+      }
+    }
+  }
+}
