@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-20T10:28:36Z",
+  "generated_at": "2026-05-20T11:34:31Z",
   "organization": "taffish",
   "counts": {
-    "packages": 87,
-    "versions": 121,
-    "commands": 87,
-    "repositories": 87,
+    "packages": 88,
+    "versions": 122,
+    "commands": 88,
+    "repositories": 88,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -236,6 +236,96 @@
             "citation": "Eberhardt et al. 2021",
             "doi": "10.1021/acs.jcim.1c00203",
             "pmid": "34278794"
+          }
+        }
+      }
+    },
+    "bam-qc-flow": {
+      "name": "bam-qc-flow",
+      "latest": "0.1.0-r1",
+      "repository_url": "https://github.com/taffish/bam-qc-flow",
+      "command": {
+        "name": "taf-bam-qc-flow"
+      },
+      "versions": {
+        "0.1.0-r1": {
+          "name": "bam-qc-flow",
+          "kind": "flow",
+          "version": "0.1.0",
+          "release": 1,
+          "version_id": "0.1.0-r1",
+          "tag": "v0.1.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bam-qc-flow",
+          "repository_slug": "taffish/bam-qc-flow",
+          "command": {
+            "name": "taf-bam-qc-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-mosdepth": "0.3.14-r1",
+            "taf-multiqc": "1.35-r2",
+            "taf-samtools": "1.23.1-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "bam",
+            "categories": [
+              "bam",
+              "alignment",
+              "quality-control",
+              "coverage",
+              "workflow"
+            ],
+            "keywords": [
+              "bam-qc-flow",
+              "bam",
+              "samtools",
+              "mosdepth",
+              "multiqc",
+              "coverage",
+              "flagstat",
+              "idxstats",
+              "alignment-qc"
+            ],
+            "summary": "Foundation TAFFISH flow for QC of pre-sorted, indexed BAM files with Samtools, mosdepth, and MultiQC.",
+            "description": "Foundation TAFFISH flow for QC of pre-sorted, indexed BAM files with Samtools, mosdepth, and MultiQC."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-05-20T11:34:31Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bam-qc-flow",
+            "ref": "v0.1.0-r1",
+            "commit": "f6020a8027a26279fde6689af537e7f0a3968d63",
+            "html_url": "https://github.com/taffish/bam-qc-flow/tree/v0.1.0-r1"
+          },
+          "upstream": {
+            "name": "bam-qc-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/bam-qc-flow",
+            "version": "0.1.0",
+            "license": "Apache-2.0"
           }
         }
       }
@@ -15609,6 +15699,10 @@
       "package": "autodock-vina",
       "version": "1.2.7-r1"
     },
+    "taf-bam-qc-flow": {
+      "package": "bam-qc-flow",
+      "version": "0.1.0-r1"
+    },
     "taf-bamtools": {
       "package": "bamtools",
       "version": "2.5.3-r1"
@@ -15961,6 +16055,12 @@
       "repository": "taffish/autodock-vina",
       "packages": [
         "autodock-vina"
+      ]
+    },
+    "taffish/bam-qc-flow": {
+      "repository": "taffish/bam-qc-flow",
+      "packages": [
+        "bam-qc-flow"
       ]
     },
     "taffish/bamtools": {
