@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-20T05:39:23Z",
+  "generated_at": "2026-05-20T06:00:26Z",
   "organization": "taffish",
   "counts": {
-    "packages": 82,
-    "versions": 114,
-    "commands": 82,
-    "repositories": 82,
+    "packages": 83,
+    "versions": 115,
+    "commands": 83,
+    "repositories": 83,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -2135,6 +2135,130 @@
             "citation": "Li and Godzik 2006",
             "doi": "10.1093/bioinformatics/btl158",
             "pmid": "16731699"
+          }
+        }
+      }
+    },
+    "cellxgene": {
+      "name": "cellxgene",
+      "latest": "1.3.0-r1",
+      "repository_url": "https://github.com/taffish/cellxgene",
+      "command": {
+        "name": "taf-cellxgene"
+      },
+      "versions": {
+        "1.3.0-r1": {
+          "name": "cellxgene",
+          "kind": "tool",
+          "version": "1.3.0",
+          "release": 1,
+          "version_id": "1.3.0-r1",
+          "tag": "v1.3.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/cellxgene",
+          "repository_slug": "taffish/cellxgene",
+          "command": {
+            "name": "taf-cellxgene"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "visualization",
+              "browser",
+              "transcriptomics",
+              "server"
+            ],
+            "keywords": [
+              "cellxgene",
+              "single-cell",
+              "scrna-seq",
+              "h5ad",
+              "anndata",
+              "scanpy",
+              "umap",
+              "browser",
+              "web-service"
+            ],
+            "summary": "Browser-based CELLxGENE server for interactive exploration and annotation of single-cell AnnData h5ad datasets.",
+            "description": "Browser-based CELLxGENE server for interactive exploration and annotation of single-cell AnnData h5ad datasets."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/cellxgene:1.3.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5feaf273fb81d74b8843ff709236b5ade90df7cd90d55079ff6b5c3510d8df20",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7b7ab3844d5e7bab376f24d98ec9a026f04f08ea4b12522e6b69fc93c883bceb",
+              "linux/arm64": "sha256:53870cebcd378e295ffc5d82ea0f6da1fff4578388616d767df41e85b32a42ad"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "cellxgene",
+              "cellxgene-service",
+              "python",
+              "curl",
+              "bash"
+            ],
+            "test": [
+              "cellxgene --version 2>&1 | grep -F '1.3.0' >/dev/null && cellxgene-service --version 2>&1 | grep -F 'cellxgene-service 1.3.0' >/dev/null",
+              "cellxgene --help 2>&1 | grep -F 'launch' >/dev/null && cellxgene launch --help 2>&1 | grep -F 'Launch the cellxgene data viewer' >/dev/null && cellxgene prepare --help 2>&1 | grep -F 'Preprocess data for use with cellxgene' >/dev/null && cellxgene-service --help | grep -F 'Usage: cellxgene-service' >/dev/null",
+              "python -c 'import anndata, gcsfs, louvain, numpy, pandas, pkg_resources, scanpy, scipy, s3fs, umap; print(\"ok\")' | grep -Fx ok >/dev/null",
+              "mkdir -p /tmp/taf-cellxgene-prepare && cd /tmp/taf-cellxgene-prepare && python -c 'import anndata as ad, numpy as np, pandas as pd; X=np.random.default_rng(1).poisson(1, (40, 80)).astype(\"float32\"); adata=ad.AnnData(X=X, obs=pd.DataFrame(index=[f\"cell{i}\" for i in range(40)]), var=pd.DataFrame(index=[f\"gene{i}\" for i in range(80)])); adata.write_h5ad(\"tiny.h5ad\")' && cellxgene prepare --embedding umap --sparse --skip-qc -o tiny.prepared.h5ad tiny.h5ad >/tmp/taf-cellxgene-prepare.log 2>&1 && python -c 'import anndata as ad; a=ad.read_h5ad(\"tiny.prepared.h5ad\", backed=\"r\"); assert \"X_umap\" in a.obsm; print(\"ok\")' | grep -Fx ok >/dev/null",
+              "mkdir -p /tmp/taf-cellxgene-smoke && cd /tmp/taf-cellxgene-smoke && python -c 'import anndata as ad, numpy as np, pandas as pd; X=np.array([[1,0,2],[0,1,3],[2,1,0]], dtype=\"float32\"); obs=pd.DataFrame({\"cell_type\": pd.Categorical([\"a\", \"b\", \"a\"])}, index=[\"cell1\", \"cell2\", \"cell3\"]); var=pd.DataFrame(index=[\"GeneA\", \"GeneB\", \"GeneC\"]); adata=ad.AnnData(X=X, obs=obs, var=var); adata.obsm[\"X_umap\"]=np.array([[0,0],[1,0],[0,1]], dtype=\"float32\"); adata.write_h5ad(\"tiny.h5ad\")' && (cellxgene-service --dataset tiny.h5ad > /tmp/taf-cellxgene-service.log 2>&1 & pid=\"$!\"; ok=0; i=0; while [ \"$i\" -lt 60 ]; do if curl -fs http://127.0.0.1:5005/ >/dev/null 2>&1 && curl -fs -H 'Accept: application/octet-stream' 'http://127.0.0.1:5005/api/v0.2/layout/obs?layout-name=umap' >/dev/null 2>&1 && curl -fs -H 'Accept: application/octet-stream' 'http://127.0.0.1:5005/api/v0.2/annotations/obs?annotation-name=cell_type' >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" >/dev/null 2>&1 || true; grep -F 'http://127.0.0.1:5005/' /tmp/taf-cellxgene-service.log >/dev/null; test \"$ok\" -eq 1)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T06:00:26Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T06:00:26Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/cellxgene",
+            "ref": "v1.3.0-r1",
+            "commit": "027ec7b26aed30ffe54f995e9d40806a29e0414c",
+            "html_url": "https://github.com/taffish/cellxgene/tree/v1.3.0-r1"
+          },
+          "upstream": {
+            "name": "CELLxGENE",
+            "type": "github",
+            "homepage": "https://cellxgene.cziscience.com/",
+            "repository": "chanzuckerberg/cellxgene",
+            "release_url": "https://github.com/chanzuckerberg/cellxgene/releases/tag/v1.3.0",
+            "version": "1.3.0",
+            "license": "MIT",
+            "citation": "Megill et al. 2021. cellxgene: a performant, scalable exploration platform for high dimensional sparse matrices.",
+            "doi": "10.1101/2021.04.05.438318"
           }
         }
       }
@@ -14861,6 +14985,10 @@
       "package": "cdhit",
       "version": "4.8.1-r1"
     },
+    "taf-cellxgene": {
+      "package": "cellxgene",
+      "version": "1.3.0-r1"
+    },
     "taf-circos": {
       "package": "circos",
       "version": "0.69-10-r1"
@@ -15217,6 +15345,12 @@
       "repository": "taffish/cdhit",
       "packages": [
         "cdhit"
+      ]
+    },
+    "taffish/cellxgene": {
+      "repository": "taffish/cellxgene",
+      "packages": [
+        "cellxgene"
       ]
     },
     "taffish/circos": {
