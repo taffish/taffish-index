@@ -1,0 +1,127 @@
+{
+  "name": "picard",
+  "latest": "3.4.0-r1",
+  "repository_url": "https://github.com/taffish/picard",
+  "command": {
+    "name": "taf-picard"
+  },
+  "versions": {
+    "3.4.0-r1": {
+      "name": "picard",
+      "kind": "tool",
+      "version": "3.4.0",
+      "release": 1,
+      "version_id": "3.4.0-r1",
+      "tag": "v3.4.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/picard",
+      "repository_slug": "taffish/picard",
+      "command": {
+        "name": "taf-picard"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "hts",
+          "sam",
+          "bam",
+          "cram",
+          "vcf",
+          "metrics",
+          "quality-control"
+        ],
+        "keywords": [
+          "picard",
+          "htsjdk",
+          "sam",
+          "bam",
+          "cram",
+          "vcf",
+          "fastq",
+          "markduplicates",
+          "metrics",
+          "java"
+        ],
+        "summary": "Picard 3.4.0 Java command-line tools for manipulating high-throughput sequencing data and formats.",
+        "description": "Picard 3.4.0 Java command-line tools for manipulating high-throughput sequencing data and formats."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/picard:3.4.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.4.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:25aa66b0c2f3068cca5faae2ab320c30596fc889db47e94ac76d0bde6df5fd06",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:66598e9f892c7b70d8406a63337d9a6eebad70f0ebc5b801ed2fc39962af1c82",
+          "linux/arm64": "sha256:6c4ba6454bd741f9b2952e5a9bf84cdc9eeabe027c604bb5d57c2063c89b8a09"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "picard",
+          "java",
+          "Rscript",
+          "sh"
+        ],
+        "test": [
+          "picard FastqToSam --version 2>&1 | grep -Fx 'Version:3.4.0' >/dev/null && picard CreateSequenceDictionary --version 2>&1 | grep -Fx 'Version:3.4.0' >/dev/null",
+          "picard -h 2>&1 | grep -F 'Available Programs:' >/dev/null && picard -h 2>&1 | grep -F 'FastqToSam' >/dev/null && picard -h 2>&1 | grep -F 'MarkDuplicates' >/dev/null && picard -h 2>&1 | grep -F 'MergeVcfs' >/dev/null",
+          "picard FastqToSam --help 2>&1 | grep -F 'USAGE: FastqToSam' >/dev/null && picard SamToFastq --help 2>&1 | grep -F 'USAGE: SamToFastq' >/dev/null && picard CreateSequenceDictionary --help 2>&1 | grep -F 'USAGE: CreateSequenceDictionary' >/dev/null && picard ValidateSamFile --help 2>&1 | grep -F 'USAGE: ValidateSamFile' >/dev/null",
+          "picard MarkDuplicates --help 2>&1 | grep -F 'USAGE: MarkDuplicates' >/dev/null && picard MergeSamFiles --help 2>&1 | grep -F 'USAGE: MergeSamFiles' >/dev/null && picard CollectAlignmentSummaryMetrics --help 2>&1 | grep -F 'USAGE: CollectAlignmentSummaryMetrics' >/dev/null && picard CollectInsertSizeMetrics --help 2>&1 | grep -F 'USAGE: CollectInsertSizeMetrics' >/dev/null && picard BedToIntervalList --help 2>&1 | grep -F 'USAGE: BedToIntervalList' >/dev/null && picard MergeVcfs --help 2>&1 | grep -F 'USAGE: MergeVcfs' >/dev/null",
+          "tmp=/tmp/taf-picard-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nACGTACGTACGTACGT\\n' > ref.fa; PICARD_JAVA_XMX=512m picard CreateSequenceDictionary R=ref.fa O=ref.dict QUIET=true >/tmp/taf-picard-dict.log 2>&1; test -s ref.dict && grep -F 'SN:chr1' ref.dict >/dev/null && grep -F 'LN:16' ref.dict >/dev/null; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n' > reads.fq; PICARD_JAVA_XMX=512m picard FastqToSam F1=reads.fq O=reads.bam SM=sample RG=rg1 QUALITY_FORMAT=Standard QUIET=true >/tmp/taf-picard-fastqtosam.log 2>&1; test -s reads.bam; PICARD_JAVA_XMX=512m picard SamToFastq I=reads.bam FASTQ=roundtrip.fq QUIET=true >/tmp/taf-picard-samtofastq.log 2>&1; test -s roundtrip.fq && grep -F '@r1' roundtrip.fq >/dev/null && grep -F 'ACGTACGT' roundtrip.fq >/dev/null; rm -rf \"$tmp\" /tmp/taf-picard-dict.log /tmp/taf-picard-fastqtosam.log /tmp/taf-picard-samtofastq.log",
+          "tmp=/tmp/taf-picard-r-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; Rscript --version >/tmp/taf-picard-rscript.log 2>&1; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n' > reads.fq; PICARD_JAVA_XMX=512m picard FastqToSam F1=reads.fq O=reads.bam SM=sample RG=rg1 QUALITY_FORMAT=Standard QUIET=true >/tmp/taf-picard-r-fastqtosam.log 2>&1; PICARD_JAVA_XMX=512m picard MeanQualityByCycle I=reads.bam O=mean_quality.txt CHART_OUTPUT=mean_quality.pdf QUIET=true >/tmp/taf-picard-mean-quality.log 2>&1; test -s mean_quality.txt && test -s mean_quality.pdf && grep -F 'MEAN_QUALITY' mean_quality.txt >/dev/null; rm -rf \"$tmp\" /tmp/taf-picard-rscript.log /tmp/taf-picard-r-fastqtosam.log /tmp/taf-picard-mean-quality.log"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-20T08:09:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-20T08:09:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/picard",
+        "ref": "v3.4.0-r1",
+        "commit": "7280d8ab08b5291663189c66cf8d1d83e97ceec0",
+        "html_url": "https://github.com/taffish/picard/tree/v3.4.0-r1"
+      },
+      "upstream": {
+        "name": "Picard",
+        "type": "github",
+        "homepage": "https://broadinstitute.github.io/picard/",
+        "repository": "broadinstitute/picard",
+        "release_url": "https://github.com/broadinstitute/picard/releases/tag/3.4.0",
+        "version": "3.4.0",
+        "license": "MIT",
+        "citation": "Picard Toolkit. 2019. Broad Institute, GitHub Repository; RRID:SCR_006525; biotools:picard_tools"
+      }
+    }
+  }
+}

@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-20T06:00:26Z",
+  "generated_at": "2026-05-20T08:09:08Z",
   "organization": "taffish",
   "counts": {
-    "packages": 83,
-    "versions": 115,
-    "commands": 83,
-    "repositories": 83,
+    "packages": 86,
+    "versions": 118,
+    "commands": 86,
+    "repositories": 86,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -3273,6 +3273,137 @@
             "citation": "Trapnell et al. 2010",
             "doi": "10.1038/nbt.1621",
             "pmid": "20436464"
+          }
+        }
+      }
+    },
+    "cutadapt": {
+      "name": "cutadapt",
+      "latest": "5.2-r1",
+      "repository_url": "https://github.com/taffish/cutadapt",
+      "command": {
+        "name": "taf-cutadapt"
+      },
+      "versions": {
+        "5.2-r1": {
+          "name": "cutadapt",
+          "kind": "tool",
+          "version": "5.2",
+          "release": 1,
+          "version_id": "5.2-r1",
+          "tag": "v5.2-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/cutadapt",
+          "repository_slug": "taffish/cutadapt",
+          "command": {
+            "name": "taf-cutadapt"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "adapter-trimming",
+              "quality-control",
+              "sequencing",
+              "preprocessing",
+              "demultiplexing"
+            ],
+            "keywords": [
+              "cutadapt",
+              "fastq",
+              "fasta",
+              "adapter trimming",
+              "primer trimming",
+              "quality trimming",
+              "poly-a",
+              "demultiplexing",
+              "paired-end"
+            ],
+            "summary": "Adapter, primer, quality, poly-A trimming and demultiplexing for high-throughput sequencing reads.",
+            "description": "Adapter, primer, quality, poly-A trimming and demultiplexing for high-throughput sequencing reads."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/cutadapt:5.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:cd71599da8d7ddaeb0b2b79a9f2e1ae44044514378ac46a9da1d1b27b29449d6",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b67f6980300d815919e0f57a40fbb83c74c32c4a1dfc172ad0aa2cc45d76b6b9",
+              "linux/arm64": "sha256:ab847c264ba5695799fe33b888a8400bd1b22bd8c8790d89ab6ddba441b32a3f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "cutadapt",
+              "python",
+              "python3",
+              "bash",
+              "gzip",
+              "pigz",
+              "bzip2",
+              "pbzip2",
+              "xz",
+              "zstd",
+              "ldd"
+            ],
+            "test": [
+              "test \"$(cutadapt --version)\" = '5.2' && python -m cutadapt --version | grep -Fx '5.2' >/dev/null && cutadapt --help 2>&1 | grep -F 'Cutadapt removes adapter sequences' >/dev/null && python -c 'import cutadapt, dnaio, xopen, isal, zlib_ng, zstandard; assert cutadapt.__version__ == \"5.2\"' && grep -F 'commit=ef852629f667637439f28761499bb56126e390a1' /opt/cutadapt/share/doc/cutadapt/source.txt >/dev/null && find /opt/cutadapt/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > /tmp/taf-cutadapt-ldd.txt && grep -F 'libc.so' /tmp/taf-cutadapt-ldd.txt >/dev/null && ! grep -F 'not found' /tmp/taf-cutadapt-ldd.txt >/dev/null",
+              "mkdir -p /tmp/taf-cutadapt-single && cd /tmp/taf-cutadapt-single && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && cutadapt -a AGATCGGAAGAGC -m 5 -o trimmed.fq --json report.cutadapt.json reads.fq > run.log 2>&1 && test -s trimmed.fq && grep -F 'ACGTACGT' trimmed.fq >/dev/null && ! grep -F 'AGATCGGA' trimmed.fq >/dev/null && grep -F 'Total reads processed:' run.log >/dev/null && grep -F 'read_counts' report.cutadapt.json >/dev/null",
+              "mkdir -p /tmp/taf-cutadapt-paired && cd /tmp/taf-cutadapt-paired && printf '@r1/1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@r1/2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && cutadapt --cores=2 -a AGATCGGAAGAGC -A AGATCGGAAGAGC -m 5 -o out.1.fq -p out.2.fq r1.fq r2.fq > run.log 2>&1 && test -s out.1.fq && test -s out.2.fq && grep -F 'ACGTACGT' out.1.fq >/dev/null && grep -F 'TGCATGCA' out.2.fq >/dev/null && grep -F 'Total read pairs processed:' run.log >/dev/null",
+              "mkdir -p /tmp/taf-cutadapt-compress && cd /tmp/taf-cutadapt-compress && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && cutadapt -a AGATCGGAAGAGC -o out.fq.gz reads.fq.gz > gz.log 2>&1 && gzip -cd out.fq.gz | grep -F 'ACGTACGT' >/dev/null && bzip2 -c reads.fq > reads.fq.bz2 && cutadapt -a AGATCGGAAGAGC -o out.fq.bz2 reads.fq.bz2 > bz2.log 2>&1 && bzip2 -cd out.fq.bz2 | grep -F 'ACGTACGT' >/dev/null && xz -c reads.fq > reads.fq.xz && cutadapt -a AGATCGGAAGAGC -o out.fq.xz reads.fq.xz > xz.log 2>&1 && xz -cd out.fq.xz | grep -F 'ACGTACGT' >/dev/null && zstd -q -c reads.fq > reads.fq.zst && cutadapt --cores=2 -a AGATCGGAAGAGC -o out.fq.zst reads.fq.zst > zst.log 2>&1 && zstd -q -dc out.fq.zst | grep -F 'ACGTACGT' >/dev/null",
+              "mkdir -p /tmp/taf-cutadapt-demux && cd /tmp/taf-cutadapt-demux && printf '@r1\\nAAATTTT\\n+\\nFFFFFFF\\n@r2\\nCCCGGGG\\n+\\nFFFFFFF\\n@r3\\nGGGGGGG\\n+\\nFFFFFFF\\n' > reads.fq && cutadapt -g sampleA=^AAA -g sampleC=^CCC --action=none -o 'demux-{name}.fq' --untrimmed-output demux-unknown.fq reads.fq > run.log 2>&1 && test -s demux-sampleA.fq && test -s demux-sampleC.fq && test -s demux-unknown.fq && grep -F '@r1' demux-sampleA.fq >/dev/null && grep -F '@r2' demux-sampleC.fq >/dev/null && grep -F '@r3' demux-unknown.fq >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T08:09:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T08:09:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/cutadapt",
+            "ref": "v5.2-r1",
+            "commit": "6bd13ec36062bf40c1ff2e438dd166ed9ff102b0",
+            "html_url": "https://github.com/taffish/cutadapt/tree/v5.2-r1"
+          },
+          "upstream": {
+            "name": "Cutadapt",
+            "type": "github",
+            "homepage": "https://cutadapt.readthedocs.io/",
+            "repository": "marcelm/cutadapt",
+            "release_url": "https://github.com/marcelm/cutadapt/tree/v5.2",
+            "version": "5.2",
+            "license": "MIT",
+            "citation": "Martin 2011, Cutadapt removes adapter sequences from high-throughput sequencing reads",
+            "doi": "10.14806/ej.17.1.200"
           }
         }
       }
@@ -10111,6 +10242,135 @@
         }
       }
     },
+    "mosdepth": {
+      "name": "mosdepth",
+      "latest": "0.3.14-r1",
+      "repository_url": "https://github.com/taffish/mosdepth",
+      "command": {
+        "name": "taf-mosdepth"
+      },
+      "versions": {
+        "0.3.14-r1": {
+          "name": "mosdepth",
+          "kind": "tool",
+          "version": "0.3.14",
+          "release": 1,
+          "version_id": "0.3.14-r1",
+          "tag": "v0.3.14-r1",
+          "license": "MIT",
+          "repository_url": "https://github.com/taffish/mosdepth",
+          "repository_slug": "taffish/mosdepth",
+          "command": {
+            "name": "taf-mosdepth"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "coverage",
+            "categories": [
+              "coverage",
+              "depth",
+              "alignment",
+              "quality-control",
+              "bam",
+              "cram"
+            ],
+            "keywords": [
+              "mosdepth",
+              "coverage",
+              "depth",
+              "bam",
+              "cram",
+              "bed",
+              "d4",
+              "per-base",
+              "per-region",
+              "quantize",
+              "thresholds",
+              "fragment-mode"
+            ],
+            "summary": "Fast BAM/CRAM depth and coverage calculation for WGS, exome, and targeted sequencing.",
+            "description": "Fast BAM/CRAM depth and coverage calculation for WGS, exome, and targeted sequencing."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/mosdepth:0.3.14-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.3.14-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:93e54e74263b5dfd1e0147b56342aa14cf521097b968a7dd68a7ddc324aa0645",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:26b7da599f8cd23c1f49d1e1334a327e3d0ac343fb467e70e4f9c66878a6ef01"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "mosdepth",
+              "mosdepth_d4",
+              "sh",
+              "grep",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "mosdepth --version | grep -Fx 'mosdepth 0.3.14' >/dev/null && mosdepth --help 2>&1 | grep -F 'Usage: mosdepth [options]' >/dev/null && mosdepth_d4 --help 2>&1 | grep -F -- '--d4' >/dev/null && { ldd $(command -v mosdepth) 2>&1 || true; } | grep -E '(not a dynamic executable|statically linked)' >/dev/null",
+              "mkdir -p /tmp/taf-mosdepth-summary && cd /tmp/taf-mosdepth-summary && mosdepth -n out /opt/mosdepth/share/testdata/ovl.bam && test -s out.mosdepth.summary.txt && test -s out.mosdepth.global.dist.txt && grep -F 'MT\t16569\t80\t0.00\t0\t1' out.mosdepth.summary.txt >/dev/null && test ! -e out.per-base.bed.gz",
+              "mkdir -p /tmp/taf-mosdepth-perbase && cd /tmp/taf-mosdepth-perbase && mosdepth --fast-mode out /opt/mosdepth/share/testdata/ovl.bam && test -s out.per-base.bed.gz && gzip -cd out.per-base.bed.gz | grep -F 'MT\t6\t42\t2' >/dev/null && grep -F 'total\t16569\t116\t0.01\t0\t2' out.mosdepth.summary.txt >/dev/null",
+              "mkdir -p /tmp/taf-mosdepth-regions && cd /tmp/taf-mosdepth-regions && mosdepth -n --by /opt/mosdepth/share/testdata/track.bed --thresholds 0,1,2 out /opt/mosdepth/share/testdata/ovl.bam && test -s out.regions.bed.gz && test -s out.thresholds.bed.gz && gzip -cd out.regions.bed.gz | grep -F 'MT\t2\t80\taregion\t1.00' >/dev/null && gzip -cd out.thresholds.bed.gz | grep -F 'MT\t2\t80\taregion\t78\t78\t0' >/dev/null",
+              "mkdir -p /tmp/taf-mosdepth-quant && cd /tmp/taf-mosdepth-quant && MOSDEPTH_Q0=NO_COVERAGE MOSDEPTH_Q1=COVERED mosdepth -n --quantize 0:1:1000 out /opt/mosdepth/share/testdata/ovl.bam && test -s out.quantized.bed.gz && gzip -cd out.quantized.bed.gz | grep -F 'MT\t0\t80\tCOVERED' >/dev/null && gzip -cd out.quantized.bed.gz | grep -F 'MT\t80\t16569\tNO_COVERAGE' >/dev/null",
+              "mkdir -p /tmp/taf-mosdepth-chrom-end && cd /tmp/taf-mosdepth-chrom-end && mosdepth -n --by /opt/mosdepth/share/testdata/chrom-end/region-not-ok.bed out /opt/mosdepth/share/testdata/chrom-end/minimal.bam && test -s out.mosdepth.summary.txt && test -s out.regions.bed.gz"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T08:09:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T08:09:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/mosdepth",
+            "ref": "v0.3.14-r1",
+            "commit": "26d0c62fbd4fef0f5a8e5524d12d648a0be872ed",
+            "html_url": "https://github.com/taffish/mosdepth/tree/v0.3.14-r1"
+          },
+          "upstream": {
+            "name": "mosdepth",
+            "type": "github",
+            "homepage": "https://github.com/brentp/mosdepth",
+            "repository": "brentp/mosdepth",
+            "release_url": "https://github.com/brentp/mosdepth/releases/tag/v0.3.14",
+            "version": "0.3.14",
+            "license": "MIT",
+            "citation": "Pedersen and Quinlan 2018, mosdepth: quick coverage calculation for genomes and exomes",
+            "doi": "10.1093/bioinformatics/btx699",
+            "pmid": "29096012"
+          }
+        }
+      }
+    },
     "multiqc": {
       "name": "multiqc",
       "latest": "1.35-r2",
@@ -11252,6 +11512,133 @@
             "citation": "Yu et al. 2024, Briefings in Bioinformatics",
             "doi": "10.1093/bib/bbae197",
             "pmid": "38701418"
+          }
+        }
+      }
+    },
+    "picard": {
+      "name": "picard",
+      "latest": "3.4.0-r1",
+      "repository_url": "https://github.com/taffish/picard",
+      "command": {
+        "name": "taf-picard"
+      },
+      "versions": {
+        "3.4.0-r1": {
+          "name": "picard",
+          "kind": "tool",
+          "version": "3.4.0",
+          "release": 1,
+          "version_id": "3.4.0-r1",
+          "tag": "v3.4.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/picard",
+          "repository_slug": "taffish/picard",
+          "command": {
+            "name": "taf-picard"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "hts",
+              "sam",
+              "bam",
+              "cram",
+              "vcf",
+              "metrics",
+              "quality-control"
+            ],
+            "keywords": [
+              "picard",
+              "htsjdk",
+              "sam",
+              "bam",
+              "cram",
+              "vcf",
+              "fastq",
+              "markduplicates",
+              "metrics",
+              "java"
+            ],
+            "summary": "Picard 3.4.0 Java command-line tools for manipulating high-throughput sequencing data and formats.",
+            "description": "Picard 3.4.0 Java command-line tools for manipulating high-throughput sequencing data and formats."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/picard:3.4.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.4.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:25aa66b0c2f3068cca5faae2ab320c30596fc889db47e94ac76d0bde6df5fd06",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:66598e9f892c7b70d8406a63337d9a6eebad70f0ebc5b801ed2fc39962af1c82",
+              "linux/arm64": "sha256:6c4ba6454bd741f9b2952e5a9bf84cdc9eeabe027c604bb5d57c2063c89b8a09"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "picard",
+              "java",
+              "Rscript",
+              "sh"
+            ],
+            "test": [
+              "picard FastqToSam --version 2>&1 | grep -Fx 'Version:3.4.0' >/dev/null && picard CreateSequenceDictionary --version 2>&1 | grep -Fx 'Version:3.4.0' >/dev/null",
+              "picard -h 2>&1 | grep -F 'Available Programs:' >/dev/null && picard -h 2>&1 | grep -F 'FastqToSam' >/dev/null && picard -h 2>&1 | grep -F 'MarkDuplicates' >/dev/null && picard -h 2>&1 | grep -F 'MergeVcfs' >/dev/null",
+              "picard FastqToSam --help 2>&1 | grep -F 'USAGE: FastqToSam' >/dev/null && picard SamToFastq --help 2>&1 | grep -F 'USAGE: SamToFastq' >/dev/null && picard CreateSequenceDictionary --help 2>&1 | grep -F 'USAGE: CreateSequenceDictionary' >/dev/null && picard ValidateSamFile --help 2>&1 | grep -F 'USAGE: ValidateSamFile' >/dev/null",
+              "picard MarkDuplicates --help 2>&1 | grep -F 'USAGE: MarkDuplicates' >/dev/null && picard MergeSamFiles --help 2>&1 | grep -F 'USAGE: MergeSamFiles' >/dev/null && picard CollectAlignmentSummaryMetrics --help 2>&1 | grep -F 'USAGE: CollectAlignmentSummaryMetrics' >/dev/null && picard CollectInsertSizeMetrics --help 2>&1 | grep -F 'USAGE: CollectInsertSizeMetrics' >/dev/null && picard BedToIntervalList --help 2>&1 | grep -F 'USAGE: BedToIntervalList' >/dev/null && picard MergeVcfs --help 2>&1 | grep -F 'USAGE: MergeVcfs' >/dev/null",
+              "tmp=/tmp/taf-picard-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nACGTACGTACGTACGT\\n' > ref.fa; PICARD_JAVA_XMX=512m picard CreateSequenceDictionary R=ref.fa O=ref.dict QUIET=true >/tmp/taf-picard-dict.log 2>&1; test -s ref.dict && grep -F 'SN:chr1' ref.dict >/dev/null && grep -F 'LN:16' ref.dict >/dev/null; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n' > reads.fq; PICARD_JAVA_XMX=512m picard FastqToSam F1=reads.fq O=reads.bam SM=sample RG=rg1 QUALITY_FORMAT=Standard QUIET=true >/tmp/taf-picard-fastqtosam.log 2>&1; test -s reads.bam; PICARD_JAVA_XMX=512m picard SamToFastq I=reads.bam FASTQ=roundtrip.fq QUIET=true >/tmp/taf-picard-samtofastq.log 2>&1; test -s roundtrip.fq && grep -F '@r1' roundtrip.fq >/dev/null && grep -F 'ACGTACGT' roundtrip.fq >/dev/null; rm -rf \"$tmp\" /tmp/taf-picard-dict.log /tmp/taf-picard-fastqtosam.log /tmp/taf-picard-samtofastq.log",
+              "tmp=/tmp/taf-picard-r-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; Rscript --version >/tmp/taf-picard-rscript.log 2>&1; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n' > reads.fq; PICARD_JAVA_XMX=512m picard FastqToSam F1=reads.fq O=reads.bam SM=sample RG=rg1 QUALITY_FORMAT=Standard QUIET=true >/tmp/taf-picard-r-fastqtosam.log 2>&1; PICARD_JAVA_XMX=512m picard MeanQualityByCycle I=reads.bam O=mean_quality.txt CHART_OUTPUT=mean_quality.pdf QUIET=true >/tmp/taf-picard-mean-quality.log 2>&1; test -s mean_quality.txt && test -s mean_quality.pdf && grep -F 'MEAN_QUALITY' mean_quality.txt >/dev/null; rm -rf \"$tmp\" /tmp/taf-picard-rscript.log /tmp/taf-picard-r-fastqtosam.log /tmp/taf-picard-mean-quality.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-20T08:09:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-20T08:09:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/picard",
+            "ref": "v3.4.0-r1",
+            "commit": "7280d8ab08b5291663189c66cf8d1d83e97ceec0",
+            "html_url": "https://github.com/taffish/picard/tree/v3.4.0-r1"
+          },
+          "upstream": {
+            "name": "Picard",
+            "type": "github",
+            "homepage": "https://broadinstitute.github.io/picard/",
+            "repository": "broadinstitute/picard",
+            "release_url": "https://github.com/broadinstitute/picard/releases/tag/3.4.0",
+            "version": "3.4.0",
+            "license": "MIT",
+            "citation": "Picard Toolkit. 2019. Broad Institute, GitHub Repository; RRID:SCR_006525; biotools:picard_tools"
           }
         }
       }
@@ -15013,6 +15400,10 @@
       "package": "cufflinks",
       "version": "2.2.1-r2"
     },
+    "taf-cutadapt": {
+      "package": "cutadapt",
+      "version": "5.2-r1"
+    },
     "taf-edta": {
       "package": "edta",
       "version": "2.3.0-r2"
@@ -15137,6 +15528,10 @@
       "package": "mmseqs2",
       "version": "18-r3"
     },
+    "taf-mosdepth": {
+      "package": "mosdepth",
+      "version": "0.3.14-r1"
+    },
     "taf-multiqc": {
       "package": "multiqc",
       "version": "1.35-r2"
@@ -15156,6 +15551,10 @@
     "taf-pandepth": {
       "package": "pandepth",
       "version": "2.26-r2"
+    },
+    "taf-picard": {
+      "package": "picard",
+      "version": "3.4.0-r1"
     },
     "taf-plotsr": {
       "package": "plotsr",
@@ -15389,6 +15788,12 @@
         "cufflinks"
       ]
     },
+    "taffish/cutadapt": {
+      "repository": "taffish/cutadapt",
+      "packages": [
+        "cutadapt"
+      ]
+    },
     "taffish/edta": {
       "repository": "taffish/edta",
       "packages": [
@@ -15575,6 +15980,12 @@
         "mmseqs2"
       ]
     },
+    "taffish/mosdepth": {
+      "repository": "taffish/mosdepth",
+      "packages": [
+        "mosdepth"
+      ]
+    },
     "taffish/multiqc": {
       "repository": "taffish/multiqc",
       "packages": [
@@ -15603,6 +16014,12 @@
       "repository": "taffish/pandepth",
       "packages": [
         "pandepth"
+      ]
+    },
+    "taffish/picard": {
+      "repository": "taffish/picard",
+      "packages": [
+        "picard"
       ]
     },
     "taffish/plotsr": {
