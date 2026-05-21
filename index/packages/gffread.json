@@ -1,0 +1,124 @@
+{
+  "name": "gffread",
+  "latest": "0.12.9-r1",
+  "repository_url": "https://github.com/taffish/gffread",
+  "command": {
+    "name": "taf-gffread"
+  },
+  "versions": {
+    "0.12.9-r1": {
+      "name": "gffread",
+      "kind": "tool",
+      "version": "0.12.9",
+      "release": 1,
+      "version_id": "0.12.9-r1",
+      "tag": "v0.12.9-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/gffread",
+      "repository_slug": "taffish/gffread",
+      "command": {
+        "name": "taf-gffread"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-annotation",
+        "categories": [
+          "genome-annotation",
+          "gff",
+          "gtf",
+          "fasta",
+          "format-conversion"
+        ],
+        "keywords": [
+          "gffread",
+          "gff3",
+          "gtf",
+          "bed",
+          "tlf",
+          "fasta",
+          "cds",
+          "protein",
+          "transcript extraction",
+          "annotation filtering"
+        ],
+        "summary": "GffRead converts, filters, validates, and extracts sequences from GFF/GTF transcript annotations.",
+        "description": "GffRead converts, filters, validates, and extracts sequences from GFF/GTF transcript annotations."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/gffread:0.12.9-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.12.9-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:016c2d07ac3936eef484f5cdb5c2e2be608a2021d57c6f10e6a0043b82024286",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:379abed96fedccba303ca6b8062d1b6201330e02459f9b779da889c44e278f49",
+          "linux/arm64": "sha256:faf6d1b32eb970e661423ad3863e7b4ef223c451d946c40aff6a1054e9127b90"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "gffread",
+          "bash",
+          "grep",
+          "ldd"
+        ],
+        "test": [
+          "gffread --version | grep -Fx '0.12.9' >/dev/null && ldd \"$(command -v gffread)\" | grep -F 'libstdc++' >/dev/null",
+          "gffread -h 2>&1 | grep -F 'gffread v0.12.9. Usage:' >/dev/null && gffread -h 2>&1 | grep -F -- '--gtf' >/dev/null && gffread -h 2>&1 | grep -F -- '-w <exons.fa>' >/dev/null && gffread -h 2>&1 | grep -F -- '--table' >/dev/null",
+          "mkdir -p /tmp/taf-gffread-convert && cd /tmp/taf-gffread-convert && printf '%b\\n' '##gff-version 3' 'chr1\\tsmoke\\tgene\\t1\\t39\\t.\\t+\\t.\\tID=gene1;Name=gene1' 'chr1\\tsmoke\\tmRNA\\t1\\t39\\t.\\t+\\t.\\tID=tx1;Parent=gene1' 'chr1\\tsmoke\\texon\\t1\\t39\\t.\\t+\\t.\\tParent=tx1' 'chr1\\tsmoke\\tCDS\\t1\\t39\\t.\\t+\\t0\\tParent=tx1' > ann.gff3 && gffread ann.gff3 -T -o ann.gtf && test -s ann.gtf && grep -F 'transcript_id \"tx1\"' ann.gtf >/dev/null && gffread ann.gff3 --bed -o ann.bed && test -s ann.bed && grep -F 'tx1' ann.bed >/dev/null",
+          "mkdir -p /tmp/taf-gffread-fasta && cd /tmp/taf-gffread-fasta && printf '%b\\n' '##gff-version 3' 'chr1\\tsmoke\\tgene\\t1\\t39\\t.\\t+\\t.\\tID=gene1;Name=gene1' 'chr1\\tsmoke\\tmRNA\\t1\\t39\\t.\\t+\\t.\\tID=tx1;Parent=gene1' 'chr1\\tsmoke\\texon\\t1\\t39\\t.\\t+\\t.\\tParent=tx1' 'chr1\\tsmoke\\tCDS\\t1\\t39\\t.\\t+\\t0\\tParent=tx1' > ann.gff3 && printf '%s\\n' '>chr1' 'ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG' > genome.fa && gffread ann.gff3 -g genome.fa -w transcripts.fa -x cds.fa -y protein.fa && test -s transcripts.fa && test -s cds.fa && test -s protein.fa && grep -F '>tx1' transcripts.fa >/dev/null && grep -F '>tx1' cds.fa >/dev/null && grep -F '>tx1' protein.fa >/dev/null",
+          "mkdir -p /tmp/taf-gffread-merge && cd /tmp/taf-gffread-merge && printf '%b\\n' '##gff-version 3' 'chr1\\tsmoke\\tgene\\t1\\t39\\t.\\t+\\t.\\tID=gene1;Name=gene1' 'chr1\\tsmoke\\tmRNA\\t1\\t39\\t.\\t+\\t.\\tID=tx1;Parent=gene1' 'chr1\\tsmoke\\texon\\t1\\t39\\t.\\t+\\t.\\tParent=tx1' 'chr1\\tsmoke\\tCDS\\t1\\t39\\t.\\t+\\t0\\tParent=tx1' > ann.gff3 && gffread --merge ann.gff3 -o merged.gff3 && test -s merged.gff3 && grep -F '##gff-version 3' merged.gff3 >/dev/null && grep -F 'tx1' merged.gff3 >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-21T05:37:26Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-21T05:37:26Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/gffread",
+        "ref": "v0.12.9-r1",
+        "commit": "fc64d8696df5870ddd60dffa22d3f1ef6155c045",
+        "html_url": "https://github.com/taffish/gffread/tree/v0.12.9-r1"
+      },
+      "upstream": {
+        "name": "GffRead",
+        "type": "github",
+        "homepage": "http://ccb.jhu.edu/software/stringtie/gff.shtml#gffread",
+        "repository": "gpertea/gffread",
+        "release_url": "https://github.com/gpertea/gffread/releases/tag/v0.12.9",
+        "version": "0.12.9",
+        "license": "MIT",
+        "citation": "Pertea and Pertea 2020",
+        "doi": "10.12688/f1000research.23297.1"
+      }
+    }
+  }
+}
