@@ -1,0 +1,161 @@
+{
+  "name": "rseqc",
+  "latest": "5.0.4-r1",
+  "repository_url": "https://github.com/taffish/rseqc",
+  "command": {
+    "name": "taf-rseqc"
+  },
+  "versions": {
+    "5.0.4-r1": {
+      "name": "rseqc",
+      "kind": "tool",
+      "version": "5.0.4",
+      "release": 1,
+      "version_id": "5.0.4-r1",
+      "tag": "v5.0.4-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rseqc",
+      "repository_slug": "taffish/rseqc",
+      "command": {
+        "name": "taf-rseqc"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "quality-control",
+          "bam",
+          "sam",
+          "transcriptomics",
+          "single-cell"
+        ],
+        "keywords": [
+          "rseqc",
+          "rna-seq",
+          "qc",
+          "bam",
+          "sam",
+          "bed",
+          "gene body coverage",
+          "strandness",
+          "tin",
+          "single-cell rna-seq"
+        ],
+        "summary": "Python command suite for RNA-seq quality-control metrics from SAM/BAM alignments and BED/GTF annotations.",
+        "description": "Python command suite for RNA-seq quality-control metrics from SAM/BAM alignments and BED/GTF annotations."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/rseqc:5.0.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "5.0.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:301fff2dee3a4a14e98469b49cf0434e927143432942761afa8775efefabc478",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:11de0926aabc8f4f850747d664bb988743a7037112a5263cf52d01c164ef1b9f",
+          "linux/arm64": "sha256:c490f7e6491cf9c3fdf7949b59925e285be2cb2760f97929ad40ba352e491e80"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "bam_stat.py",
+          "infer_experiment.py",
+          "read_distribution.py",
+          "geneBody_coverage.py",
+          "geneBody_coverage2.py",
+          "tin.py",
+          "read_GC.py",
+          "read_NVC.py",
+          "read_quality.py",
+          "read_duplication.py",
+          "read_hexamer.py",
+          "FPKM_count.py",
+          "FPKM-UQ.py",
+          "RPKM_saturation.py",
+          "RNA_fragment_size.py",
+          "junction_annotation.py",
+          "junction_saturation.py",
+          "inner_distance.py",
+          "clipping_profile.py",
+          "deletion_profile.py",
+          "insertion_profile.py",
+          "mismatch_profile.py",
+          "bam2fq.py",
+          "bam2wig.py",
+          "divide_bam.py",
+          "split_bam.py",
+          "split_paired_bam.py",
+          "normalize_bigwig.py",
+          "overlay_bigwig.py",
+          "sc_bamStat.py",
+          "sc_editMatrix.py",
+          "sc_seqLogo.py",
+          "sc_seqQual.py",
+          "python",
+          "python3",
+          "Rscript",
+          "htseq-count",
+          "awk",
+          "gzip",
+          "bash",
+          "ldd"
+        ],
+        "test": [
+          "test \"$(python -c 'import importlib.metadata; print(importlib.metadata.version(\"RSeQC\"))')\" = '5.0.4' && bam_stat.py --version 2>&1 | grep -Fx 'bam_stat.py 5.0.4' >/dev/null && bam_stat.py --help 2>&1 | grep -F 'Summarizing mapping statistics' >/dev/null && infer_experiment.py --help 2>&1 | grep -F 'Input alignment file in SAM or BAM format' >/dev/null && geneBody_coverage.py --help 2>&1 | grep -F 'Reference gene model in bed format' >/dev/null && sc_seqLogo.py --help 2>&1 | grep -F 'DNA sequence logo' >/dev/null && htseq-count --help 2>&1 | grep -F 'htseq-count' >/dev/null && Rscript --version 2>&1 | grep -F 'Rscript' >/dev/null && awk --version 2>&1 | grep -F 'GNU Awk' >/dev/null && python -c 'import qcmodule, pysam, bx, numpy, pyBigWig, logomaker, matplotlib' && grep -F 'source_sha256=b7f3996f3de0b0b0a09eec949281a8f3e665a20827fcb3cbbd7546b94574a088' /opt/rseqc/share/doc/rseqc/source.txt >/dev/null && export LD_LIBRARY_PATH='/opt/rseqc/venv/lib/python3.11/site-packages/numpy.libs:/opt/rseqc/venv/lib/python3.11/site-packages/pillow.libs' && find /opt/rseqc/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > /tmp/taf-rseqc-ldd.txt && grep -F 'libc.so' /tmp/taf-rseqc-ldd.txt >/dev/null && if grep -F 'not found' /tmp/taf-rseqc-ldd.txt; then exit 1; fi",
+          "tmp=/tmp/taf-rseqc-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python -c 'import pysam; header={\"HD\":{\"VN\":\"1.6\",\"SO\":\"coordinate\"},\"SQ\":[{\"SN\":\"chr1\",\"LN\":1000}]}; out=pysam.AlignmentFile(\"tiny.bam\",\"wb\",header=header); a=pysam.AlignedSegment(); a.query_name=\"r1\"; a.query_sequence=\"ACGT\"*12+\"AC\"; a.flag=0; a.reference_id=0; a.reference_start=100; a.mapping_quality=60; a.cigar=[(0,50)]; a.query_qualities=pysam.qualitystring_to_array(\"I\"*50); out.write(a); out.close(); pysam.index(\"tiny.bam\")' && printf 'chr1\\t90\\t220\\tgene1\\t0\\t+\\t90\\t220\\t0\\t1\\t130\\t0\\n' > genes.bed && bam_stat.py -i tiny.bam > bam_stat.out && grep -F 'Total records:' bam_stat.out >/dev/null && grep -F 'mapq >= mapq_cut (unique):' bam_stat.out >/dev/null && infer_experiment.py -i tiny.bam -r genes.bed -s 10 > infer.out 2>&1 && grep -E 'This is SingleEnd Data|Unknown Data type' infer.out >/dev/null && read_distribution.py -i tiny.bam -r genes.bed > distribution.out && grep -F 'Total Reads' distribution.out >/dev/null",
+          "tmp=/tmp/taf-rseqc-plot-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python -c 'import pysam; header={\"HD\":{\"VN\":\"1.6\",\"SO\":\"coordinate\"},\"SQ\":[{\"SN\":\"chr1\",\"LN\":1000}]}; out=pysam.AlignmentFile(\"tiny.bam\",\"wb\",header=header); a=pysam.AlignedSegment(); a.query_name=\"r1\"; a.query_sequence=\"ACGT\"*12+\"AC\"; a.flag=0; a.reference_id=0; a.reference_start=100; a.mapping_quality=60; a.cigar=[(0,50)]; a.query_qualities=pysam.qualitystring_to_array(\"I\"*50); out.write(a); out.close(); pysam.index(\"tiny.bam\")' && read_GC.py -i tiny.bam -o gc > gc.out 2>&1 && test -s gc.GC.xls && test -s gc.GC_plot.r && test -s gc.GC_plot.pdf && grep -F 'pdf(' gc.GC_plot.r >/dev/null",
+          "tmp=/tmp/taf-rseqc-logo-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n@r2\\nACGTTCGT\\n+\\nIIIIIIII\\n' > reads.fq && sc_seqLogo.py -i reads.fq --iformat fq --oformat png --font-name 'DejaVu Sans' -n 2 -o logo > logo.out 2>&1 && test -s logo.count_matrix.csv && test -s logo.logo.png && test -s logo.logo.mean_centered.png"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-21T12:52:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-21T12:52:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rseqc",
+        "ref": "v5.0.4-r1",
+        "commit": "03d46519a6b677d37c557df9fba4847c5f58b5fa",
+        "html_url": "https://github.com/taffish/rseqc/tree/v5.0.4-r1"
+      },
+      "upstream": {
+        "name": "RSeQC",
+        "type": "pypi",
+        "homepage": "https://rseqc.sourceforge.net/",
+        "release_url": "https://pypi.org/project/RSeQC/5.0.4/",
+        "version": "5.0.4",
+        "license": "GPL-3.0-or-later",
+        "citation": "Wang, Wang and Li 2012; Wang et al. 2016",
+        "doi": "10.1093/bioinformatics/bts356; 10.1186/s12859-016-0922-z",
+        "pmid": "22743226"
+      }
+    }
+  }
+}
