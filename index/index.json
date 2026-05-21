@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-21T12:52:08Z",
+  "generated_at": "2026-05-21T13:40:11Z",
   "organization": "taffish",
   "counts": {
-    "packages": 91,
-    "versions": 125,
-    "commands": 91,
-    "repositories": 91,
+    "packages": 92,
+    "versions": 127,
+    "commands": 92,
+    "repositories": 92,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -12639,6 +12639,138 @@
         }
       }
     },
+    "qualimap": {
+      "name": "qualimap",
+      "latest": "2.3-r1",
+      "repository_url": "https://github.com/taffish/qualimap",
+      "command": {
+        "name": "taf-qualimap"
+      },
+      "versions": {
+        "2.3-r1": {
+          "name": "qualimap",
+          "kind": "tool",
+          "version": "2.3",
+          "release": 1,
+          "version_id": "2.3-r1",
+          "tag": "v2.3-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/qualimap",
+          "repository_slug": "taffish/qualimap",
+          "command": {
+            "name": "taf-qualimap"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "quality-control",
+            "categories": [
+              "quality-control",
+              "alignment-qc",
+              "rnaseq-qc",
+              "ngs",
+              "visualization"
+            ],
+            "keywords": [
+              "qualimap",
+              "bamqc",
+              "rnaseq",
+              "counts-qc",
+              "multi-bamqc",
+              "alignment",
+              "quality-control",
+              "novnc"
+            ],
+            "summary": "Qualimap 2.3 for sequencing alignment quality control, including BAM QC, RNA-seq QC, Counts QC, multi-sample BAM QC, and an optional browser-accessible GUI session.",
+            "description": "Qualimap 2.3 for sequencing alignment quality control, including BAM QC, RNA-seq QC, Counts QC, multi-sample BAM QC, and an optional browser-accessible GUI session."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/qualimap:2.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:ee5ad65f180c0c2cd81f4ec97eff96405f7e88c0b79f9d9d1820d90cb2eb1aa9",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1a9c50a5fc233c3519837a45fbc1acd91aac871f80e6bdc1721064c7e47506fa",
+              "linux/arm64": "sha256:3c5e19f37cab73580a0027e8978306af64fcd1e4993cc0f71e37b6d09c5ff7d1"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "qualimap",
+              "qualimap-gui",
+              "java",
+              "Rscript",
+              "Xvfb",
+              "xvfb-run",
+              "x11vnc",
+              "websockify",
+              "openbox",
+              "curl",
+              "sh"
+            ],
+            "test": [
+              "qualimap --help 2>&1 | grep -F 'QualiMap v.2.3' >/dev/null && qualimap --help 2>&1 | grep -F 'Available tools:' >/dev/null",
+              "{ qualimap bamqc --help 2>&1 || true; } | grep -F 'usage: qualimap bamqc' >/dev/null && { qualimap rnaseq --help 2>&1 || true; } | grep -F 'usage: qualimap rnaseq' >/dev/null && { qualimap multi-bamqc --help 2>&1 || true; } | grep -F 'usage: qualimap multi-bamqc' >/dev/null && { qualimap counts --help 2>&1 || true; } | grep -F 'usage: qualimap counts' >/dev/null && { qualimap clustering --help 2>&1 || true; } | grep -F 'usage: qualimap clustering' >/dev/null && { qualimap comp-counts --help 2>&1 || true; } | grep -F 'usage: qualimap comp-counts' >/dev/null",
+              "Rscript -e 'library(optparse); library(NOISeq); library(XML); library(Rsamtools); library(GenomicFeatures); library(rtracklayer); library(MASS); library(gsmoothr); library(Repitools)'",
+              "mkdir -p /tmp/taf-qualimap-bamqc && cd /tmp/taf-qualimap-bamqc && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:100\\nr001\\t0\\tchr1\\t1\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > tiny.sam && qualimap bamqc -bam tiny.sam -outdir out --java-mem-size=512M >/tmp/taf-qualimap-bamqc.log 2>&1 && test -s out/qualimapReport.html && grep -F 'number of reads = 1' out/genome_results.txt >/dev/null && cp -a out out2 && printf 'sample1\\tout\\nsample2\\tout2\\n' > multi-bamqc.tsv && qualimap multi-bamqc -d multi-bamqc.tsv -outdir multi --java-mem-size=512M >/tmp/taf-qualimap-multi-bamqc.log 2>&1 && find multi -type f -name '*.html' -print -quit | grep -q .",
+              "mkdir -p /tmp/taf-qualimap-counts && cd /tmp/taf-qualimap-counts && printf 'gene1\\t10\\ngene2\\t20\\ngene3\\t5\\ngene4\\t1\\n' > counts1.tsv && printf 'gene1\\t12\\ngene2\\t25\\ngene3\\t4\\ngene4\\t2\\n' > counts2.tsv && printf 'sample1\\tcontrol\\tcounts1.tsv\\t2\\nsample2\\ttreated\\tcounts2.tsv\\t2\\n' > design.tsv && qualimap counts -d design.tsv -outdir out --java-mem-size=512M >/tmp/taf-qualimap-counts.log 2>&1 && find out -type f -name '*.html' -print -quit | grep -q .",
+              "qualimap-gui --help >/dev/null && (qualimap-gui --geometry 800x600 >/tmp/taf-qualimap-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-qualimap-gui.log >/dev/null && grep -F 'Qualimap GUI is starting.' /tmp/taf-qualimap-gui.log >/dev/null)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-21T13:40:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-21T13:40:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/qualimap",
+            "ref": "v2.3-r1",
+            "commit": "40a9411c04d454ba9bb72dba4b793c549b0c0d53",
+            "html_url": "https://github.com/taffish/qualimap/tree/v2.3-r1"
+          },
+          "upstream": {
+            "name": "Qualimap",
+            "type": "official",
+            "url": "http://qualimap.conesalab.org/",
+            "homepage": "http://qualimap.conesalab.org/",
+            "repository": "https://bitbucket.org/kokonech/qualimap",
+            "release_url": "http://qualimap.conesalab.org/archive.html",
+            "version": "2.3",
+            "license": "GPL-2.0-only",
+            "citation": "Okonechnikov et al. 2016; García-Alcalde et al. 2012",
+            "doi": "10.1093/bioinformatics/btv566; 10.1093/bioinformatics/bts503",
+            "pmid": "26428292; 22914218"
+          }
+        }
+      }
+    },
     "quartet": {
       "name": "quartet",
       "latest": "1.2.5-r1",
@@ -13346,7 +13478,7 @@
     },
     "rseqc": {
       "name": "rseqc",
-      "latest": "5.0.4-r1",
+      "latest": "5.0.4-r2",
       "repository_url": "https://github.com/taffish/rseqc",
       "command": {
         "name": "taf-rseqc"
@@ -13490,6 +13622,157 @@
             "ref": "v5.0.4-r1",
             "commit": "03d46519a6b677d37c557df9fba4847c5f58b5fa",
             "html_url": "https://github.com/taffish/rseqc/tree/v5.0.4-r1"
+          },
+          "upstream": {
+            "name": "RSeQC",
+            "type": "pypi",
+            "homepage": "https://rseqc.sourceforge.net/",
+            "release_url": "https://pypi.org/project/RSeQC/5.0.4/",
+            "version": "5.0.4",
+            "license": "GPL-3.0-or-later",
+            "citation": "Wang, Wang and Li 2012; Wang et al. 2016",
+            "doi": "10.1093/bioinformatics/bts356; 10.1186/s12859-016-0922-z",
+            "pmid": "22743226"
+          }
+        },
+        "5.0.4-r2": {
+          "name": "rseqc",
+          "kind": "tool",
+          "version": "5.0.4",
+          "release": 2,
+          "version_id": "5.0.4-r2",
+          "tag": "v5.0.4-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rseqc",
+          "repository_slug": "taffish/rseqc",
+          "command": {
+            "name": "taf-rseqc"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "quality-control",
+              "bam",
+              "sam",
+              "transcriptomics",
+              "single-cell"
+            ],
+            "keywords": [
+              "rseqc",
+              "rna-seq",
+              "qc",
+              "bam",
+              "sam",
+              "bed",
+              "gene body coverage",
+              "strandness",
+              "tin",
+              "single-cell rna-seq"
+            ],
+            "summary": "Python command suite for RNA-seq quality-control metrics from SAM/BAM alignments and BED/GTF annotations.",
+            "description": "Python command suite for RNA-seq quality-control metrics from SAM/BAM alignments and BED/GTF annotations."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rseqc:5.0.4-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.0.4-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:33757ff881da654f3addd34d67bd4bd01f5f691834d3db26306b53cfe267a348",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6ddde6ad8fb035c35c8c7b51a40f6cf7d81e7cd04dd702c3d32111051258a8b4",
+              "linux/arm64": "sha256:c25a8ac1b940e58b9dcff2d238b0b2fca6a38cc9d0a021380bef9884d63d373f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "bam_stat.py",
+              "infer_experiment.py",
+              "read_distribution.py",
+              "geneBody_coverage.py",
+              "geneBody_coverage2.py",
+              "tin.py",
+              "read_GC.py",
+              "read_NVC.py",
+              "read_quality.py",
+              "read_duplication.py",
+              "read_hexamer.py",
+              "FPKM_count.py",
+              "FPKM-UQ.py",
+              "RPKM_saturation.py",
+              "RNA_fragment_size.py",
+              "junction_annotation.py",
+              "junction_saturation.py",
+              "inner_distance.py",
+              "clipping_profile.py",
+              "deletion_profile.py",
+              "insertion_profile.py",
+              "mismatch_profile.py",
+              "bam2fq.py",
+              "bam2wig.py",
+              "divide_bam.py",
+              "split_bam.py",
+              "split_paired_bam.py",
+              "normalize_bigwig.py",
+              "overlay_bigwig.py",
+              "sc_bamStat.py",
+              "sc_editMatrix.py",
+              "sc_seqLogo.py",
+              "sc_seqQual.py",
+              "python",
+              "python3",
+              "Rscript",
+              "htseq-count",
+              "awk",
+              "gzip",
+              "bash",
+              "ldd"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata; print(importlib.metadata.version(\"RSeQC\"))')\" = '5.0.4' && bam_stat.py --version 2>&1 | grep -Fx 'bam_stat.py 5.0.4' >/dev/null && bam_stat.py --help 2>&1 | grep -F 'Summarizing mapping statistics' >/dev/null && infer_experiment.py --help 2>&1 | grep -F 'Input alignment file in SAM or BAM format' >/dev/null && geneBody_coverage.py --help 2>&1 | grep -F 'Reference gene model in bed format' >/dev/null && sc_seqLogo.py --help 2>&1 | grep -F 'DNA sequence logo' >/dev/null && htseq-count --help 2>&1 | grep -F 'htseq-count' >/dev/null && Rscript --version 2>&1 | grep -F 'Rscript' >/dev/null && awk --version 2>&1 | grep -F 'GNU Awk' >/dev/null && python -c 'import qcmodule, pysam, bx, numpy, pyBigWig, logomaker, matplotlib' && grep -F 'source_sha256=b7f3996f3de0b0b0a09eec949281a8f3e665a20827fcb3cbbd7546b94574a088' /opt/rseqc/share/doc/rseqc/source.txt >/dev/null && test -z \"$(find /opt/rseqc -xdev -uid +65535 -print -quit)\" && test -z \"$(find /opt/rseqc -xdev -gid +65535 -print -quit)\" && export LD_LIBRARY_PATH='/opt/rseqc/venv/lib/python3.11/site-packages/numpy.libs:/opt/rseqc/venv/lib/python3.11/site-packages/pillow.libs' && find /opt/rseqc/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > /tmp/taf-rseqc-ldd.txt && grep -F 'libc.so' /tmp/taf-rseqc-ldd.txt >/dev/null && if grep -F 'not found' /tmp/taf-rseqc-ldd.txt; then exit 1; fi",
+              "tmp=/tmp/taf-rseqc-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python -c 'import pysam; header={\"HD\":{\"VN\":\"1.6\",\"SO\":\"coordinate\"},\"SQ\":[{\"SN\":\"chr1\",\"LN\":1000}]}; out=pysam.AlignmentFile(\"tiny.bam\",\"wb\",header=header); a=pysam.AlignedSegment(); a.query_name=\"r1\"; a.query_sequence=\"ACGT\"*12+\"AC\"; a.flag=0; a.reference_id=0; a.reference_start=100; a.mapping_quality=60; a.cigar=[(0,50)]; a.query_qualities=pysam.qualitystring_to_array(\"I\"*50); out.write(a); out.close(); pysam.index(\"tiny.bam\")' && printf 'chr1\\t90\\t220\\tgene1\\t0\\t+\\t90\\t220\\t0\\t1\\t130\\t0\\n' > genes.bed && bam_stat.py -i tiny.bam > bam_stat.out && grep -F 'Total records:' bam_stat.out >/dev/null && grep -F 'mapq >= mapq_cut (unique):' bam_stat.out >/dev/null && infer_experiment.py -i tiny.bam -r genes.bed -s 10 > infer.out 2>&1 && grep -E 'This is SingleEnd Data|Unknown Data type' infer.out >/dev/null && read_distribution.py -i tiny.bam -r genes.bed > distribution.out && grep -F 'Total Reads' distribution.out >/dev/null",
+              "tmp=/tmp/taf-rseqc-plot-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python -c 'import pysam; header={\"HD\":{\"VN\":\"1.6\",\"SO\":\"coordinate\"},\"SQ\":[{\"SN\":\"chr1\",\"LN\":1000}]}; out=pysam.AlignmentFile(\"tiny.bam\",\"wb\",header=header); a=pysam.AlignedSegment(); a.query_name=\"r1\"; a.query_sequence=\"ACGT\"*12+\"AC\"; a.flag=0; a.reference_id=0; a.reference_start=100; a.mapping_quality=60; a.cigar=[(0,50)]; a.query_qualities=pysam.qualitystring_to_array(\"I\"*50); out.write(a); out.close(); pysam.index(\"tiny.bam\")' && read_GC.py -i tiny.bam -o gc > gc.out 2>&1 && test -s gc.GC.xls && test -s gc.GC_plot.r && test -s gc.GC_plot.pdf && grep -F 'pdf(' gc.GC_plot.r >/dev/null",
+              "tmp=/tmp/taf-rseqc-logo-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n@r2\\nACGTTCGT\\n+\\nIIIIIIII\\n' > reads.fq && sc_seqLogo.py -i reads.fq --iformat fq --oformat png --font-name 'DejaVu Sans' -n 2 -o logo > logo.out 2>&1 && test -s logo.count_matrix.csv && test -s logo.logo.png && test -s logo.logo.mean_centered.png"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-21T13:40:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-21T13:40:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rseqc",
+            "ref": "v5.0.4-r2",
+            "commit": "ec51867c8785b461daab09445ca56021b2bce391",
+            "html_url": "https://github.com/taffish/rseqc/tree/v5.0.4-r2"
           },
           "upstream": {
             "name": "RSeQC",
@@ -16366,6 +16649,10 @@
       "package": "pymol",
       "version": "3.1.0-r1"
     },
+    "taf-qualimap": {
+      "package": "qualimap",
+      "version": "2.3-r1"
+    },
     "taf-quartet": {
       "package": "quartet",
       "version": "1.2.5-r1"
@@ -16388,7 +16675,7 @@
     },
     "taf-rseqc": {
       "package": "rseqc",
-      "version": "5.0.4-r1"
+      "version": "5.0.4-r2"
     },
     "taf-salmon": {
       "package": "salmon",
@@ -16862,6 +17149,12 @@
       "repository": "taffish/pymol",
       "packages": [
         "pymol"
+      ]
+    },
+    "taffish/qualimap": {
+      "repository": "taffish/qualimap",
+      "packages": [
+        "qualimap"
       ]
     },
     "taffish/quartet": {
