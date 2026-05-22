@@ -98,12 +98,12 @@
           "mkdir -p /tmp/taf-minimap2-index && cd /tmp/taf-minimap2-index && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -k9 -w5 -d ref.mmi ref.fa && gzip -c reads.fa > reads.fa.gz && minimap2 ref.mmi reads.fa.gz > indexed.paf && grep -F 'read1' indexed.paf >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-18T16:18:16Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-18T16:18:16Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -219,12 +219,12 @@
           "mkdir -p /tmp/taf-minimap2-index && cd /tmp/taf-minimap2-index && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -k9 -w5 -d ref.mmi ref.fa && gzip -c reads.fa > reads.fa.gz && minimap2 ref.mmi reads.fa.gz > indexed.paf && grep -F 'read1' indexed.paf >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-20T09:33:18Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-20T09:33:18Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

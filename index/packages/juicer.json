@@ -95,12 +95,12 @@
           "mkdir -p /tmp/taf-juicer-pre && cd /tmp/taf-juicer-pre && printf 'chr1\\t10000\\n' > chrom.sizes && printf '0 chr1 100 0 0 chr1 500 1\\n0 chr1 1000 0 0 chr1 1500 1\\n0 chr1 2000 0 0 chr1 2500 1\\n0 chr1 3000 0 0 chr1 3500 1\\n' > contacts.txt && JUICER_TOOLS_JAVA_XMX=512m juicer_tools pre -n -r 1000 contacts.txt tiny.hic chrom.sizes >/dev/null && test -s tiny.hic && JUICER_TOOLS_JAVA_XMX=512m juicer_tools validate tiny.hic 2>&1 | grep -F 'Validation successful' >/dev/null && JUICER_TOOLS_JAVA_XMX=512m juicer_tools dump observed NONE tiny.hic chr1 chr1 BP 1000 dump.txt >/dev/null && grep -F '0\t0\t1.0' dump.txt >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-18T13:21:47Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-18T13:21:47Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

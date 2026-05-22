@@ -104,12 +104,12 @@
           "mkdir -p /tmp/taf-foldseek-db/query /tmp/taf-foldseek-db/target && cd /tmp/taf-foldseek-db && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek createdb query qDB --threads 1 >/tmp/taf-foldseek-createdb-query.log 2>&1 && foldseek createdb target tDB --threads 1 >/tmp/taf-foldseek-createdb-target.log 2>&1 && foldseek search qDB tDB resDB tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-search-db.log 2>&1 && foldseek convertalis qDB tDB resDB res.m8 >/tmp/taf-foldseek-convertalis.log 2>&1 && test -s res.m8 && grep -F 'q1' res.m8 >/dev/null && foldseek convert2pdb tDB out.pdb >/tmp/taf-foldseek-convert2pdb.log 2>&1 && test -s out.pdb && grep -F 'ATOM' out.pdb >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-17T09:16:35Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-17T09:16:35Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -229,12 +229,12 @@
           "mkdir -p /tmp/taf-foldseek-db/query /tmp/taf-foldseek-db/target && cd /tmp/taf-foldseek-db && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek createdb query qDB --threads 1 >/tmp/taf-foldseek-createdb-query.log 2>&1 && foldseek createdb target tDB --threads 1 >/tmp/taf-foldseek-createdb-target.log 2>&1 && foldseek search qDB tDB resDB tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-search-db.log 2>&1 && foldseek convertalis qDB tDB resDB res.m8 >/tmp/taf-foldseek-convertalis.log 2>&1 && test -s res.m8 && grep -F 'q1' res.m8 >/dev/null && foldseek convert2pdb tDB out.pdb >/tmp/taf-foldseek-convert2pdb.log 2>&1 && test -s out.pdb && grep -F 'ATOM' out.pdb >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-19T09:21:12Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-19T09:21:12Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

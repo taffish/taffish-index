@@ -95,12 +95,12 @@
           "rm -rf /tmp/taf-quast-smoke && mkdir -p /tmp/taf-quast-smoke && quast.py --no-html --no-plots --no-icarus -t 1 -r /opt/quast/test_data/reference.fasta.gz -o /tmp/taf-quast-smoke/out /opt/quast/test_data/contigs_1.fasta >/tmp/taf-quast-smoke.log 2>&1 && test -s /tmp/taf-quast-smoke/out/report.txt && test -s /tmp/taf-quast-smoke/out/report.tsv && grep -F '# contigs' /tmp/taf-quast-smoke/out/report.tsv >/dev/null && grep -F 'Genome fraction (%)' /tmp/taf-quast-smoke/out/report.tsv >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-19T11:22:35Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-19T11:22:35Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

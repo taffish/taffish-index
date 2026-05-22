@@ -94,12 +94,12 @@
           "mkdir -p /tmp/taf-kallisto-bus && cd /tmp/taf-kallisto-bus && printf '>tx1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGGTTACGATGCTAGTACCGATCGTACGATGGCATCGTACGAA\\n>tx2\\nTTCAGGCTACGATGCTAGGATCGATACCGTTAGCTGACTGACCTAGGCTTACGATCCGTAGCTAACGATGCTGATCGTACCTGAGCTAGCTT\\n' > transcripts.fa && kallisto index -i transcripts.idx transcripts.fa && printf '@r1\\nAAAAAAAAAAAAAAAACCCCCCCCCC\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@r1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGG\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && kallisto bus -i transcripts.idx -o bus -x 10xv2 -t 1 r1.fq r2.fq && test -s bus/output.bus && test -s bus/matrix.ec && test -s bus/transcripts.txt && grep -F '\"n_targets\": 2' bus/run_info.json >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-18T14:02:03Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-18T14:02:03Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

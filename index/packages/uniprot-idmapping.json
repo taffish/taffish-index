@@ -88,12 +88,12 @@
           "tmp=/tmp/taf-uniprot-idmapping-page-smoke-$$; portfile=${tmp}.port; rm -rf \"$tmp\" \"$portfile\"; mkdir -p \"$tmp\"; python3 /opt/uniprot-idmapping/tests/mock_uniprot_server.py \"$portfile\" & pid=$!; trap 'kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; rm -rf \"$tmp\" \"$portfile\"' EXIT; i=0; while [ ! -s \"$portfile\" ]; do i=$((i + 1)); if [ \"$i\" -gt 50 ]; then exit 1; fi; sleep 0.1; done; cd \"$tmp\" && printf 'P00720\\n' > ids.txt && uniprot-idmapping --base-url \"http://127.0.0.1:$(cat \"$portfile\")\" -i ids.txt -o out.csv --task mapping --from UniProtKB_AC-ID --to UniProtKB --stream False --size 1 && test -s out.csv && grep -F 'LYSC_CHICK' out.csv >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-20T05:16:28Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-20T05:16:28Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

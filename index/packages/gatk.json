@@ -100,12 +100,12 @@
           "mkdir -p /tmp/taf-gatk-hc && cd /tmp/taf-gatk-hc && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-hc-dict.log 2>&1 && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:40\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread3\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread4\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk HaplotypeCaller -R ref.fa -I reads.bam -O calls.vcf >/tmp/taf-gatk-hc.log 2>&1 && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-17T15:14:53Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-17T15:14:53Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -222,12 +222,12 @@
           "mkdir -p /tmp/taf-gatk-hc && cd /tmp/taf-gatk-hc && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-hc-dict.log 2>&1 && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:40\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread3\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread4\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk HaplotypeCaller -R ref.fa -I reads.bam -O calls.vcf >/tmp/taf-gatk-hc.log 2>&1 && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-18T06:26:52Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-18T06:26:52Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

@@ -97,12 +97,12 @@
           "tmp=/tmp/taf-picard-r-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; Rscript --version >/tmp/taf-picard-rscript.log 2>&1; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n' > reads.fq; PICARD_JAVA_XMX=512m picard FastqToSam F1=reads.fq O=reads.bam SM=sample RG=rg1 QUALITY_FORMAT=Standard QUIET=true >/tmp/taf-picard-r-fastqtosam.log 2>&1; PICARD_JAVA_XMX=512m picard MeanQualityByCycle I=reads.bam O=mean_quality.txt CHART_OUTPUT=mean_quality.pdf QUIET=true >/tmp/taf-picard-mean-quality.log 2>&1; test -s mean_quality.txt && test -s mean_quality.pdf && grep -F 'MEAN_QUALITY' mean_quality.txt >/dev/null; rm -rf \"$tmp\" /tmp/taf-picard-rscript.log /tmp/taf-picard-r-fastqtosam.log /tmp/taf-picard-mean-quality.log"
         ],
         "status": "passed",
-        "checked_at": "2026-05-20T08:09:08Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-20T08:09:08Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

@@ -110,12 +110,12 @@
           "printf '>ref\\nACGTACGTTGCAAGTCGATCGTACGATCGTTAACCGGTTAACCGGTT\\n' >/tmp/taf-bowtie2-ref.fa && bowtie2-build /tmp/taf-bowtie2-ref.fa /tmp/taf-bowtie2-ref >/dev/null && printf '@read1\\nTGCAAGTCGATCGTACGATCGTTAACCGGTTA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' >/tmp/taf-bowtie2-read.fq && gzip -c /tmp/taf-bowtie2-read.fq >/tmp/taf-bowtie2-read.fq.gz && bzip2 -c /tmp/taf-bowtie2-read.fq >/tmp/taf-bowtie2-read.fq.bz2 && bowtie2 -x /tmp/taf-bowtie2-ref -U /tmp/taf-bowtie2-read.fq.gz -S /tmp/taf-bowtie2-gz.sam --quiet && grep -v '^@' /tmp/taf-bowtie2-gz.sam | awk '$3!=\"*\"{found=1} END{exit !found}' && bowtie2 -x /tmp/taf-bowtie2-ref -U /tmp/taf-bowtie2-read.fq.bz2 -S /tmp/taf-bowtie2-bz2.sam --quiet && grep -v '^@' /tmp/taf-bowtie2-bz2.sam | awk '$3!=\"*\"{found=1} END{exit !found}' && bowtie2-inspect -n /tmp/taf-bowtie2-ref | grep -Fx ref >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-14T16:28:28Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-14T16:28:28Z",
+        "checked_at": "2026-05-22T01:26:55Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
