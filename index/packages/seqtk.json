@@ -92,12 +92,12 @@
           "mkdir -p /tmp/taf-seqtk-extra && cd /tmp/taf-seqtk-extra && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && seqtk hpc ref.fa > hpc.fa && grep -F 'ACGTACGTNACGT' hpc.fa >/dev/null && seqtk gap -l 2 ref.fa > gap.bed && grep -F \"$(printf 'chr1\\t8\\t12')\" gap.bed >/dev/null && seqtk split -n 2 chunk ref.fa && test -s chunk.00001.fa && test -s chunk.00002.fa && seqtk telo -P ref.fa > telo.bed 2> telo.count && grep -F \"$(printf '0\\t34')\" telo.count >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

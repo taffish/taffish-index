@@ -93,12 +93,12 @@
           "mkdir -p /tmp/taf-cellxgene-smoke && cd /tmp/taf-cellxgene-smoke && python -c 'import anndata as ad, numpy as np, pandas as pd; X=np.array([[1,0,2],[0,1,3],[2,1,0]], dtype=\"float32\"); obs=pd.DataFrame({\"cell_type\": pd.Categorical([\"a\", \"b\", \"a\"])}, index=[\"cell1\", \"cell2\", \"cell3\"]); var=pd.DataFrame(index=[\"GeneA\", \"GeneB\", \"GeneC\"]); adata=ad.AnnData(X=X, obs=obs, var=var); adata.obsm[\"X_umap\"]=np.array([[0,0],[1,0],[0,1]], dtype=\"float32\"); adata.write_h5ad(\"tiny.h5ad\")' && (cellxgene-service --dataset tiny.h5ad > /tmp/taf-cellxgene-service.log 2>&1 & pid=\"$!\"; ok=0; i=0; while [ \"$i\" -lt 60 ]; do if curl -fs http://127.0.0.1:5005/ >/dev/null 2>&1 && curl -fs -H 'Accept: application/octet-stream' 'http://127.0.0.1:5005/api/v0.2/layout/obs?layout-name=umap' >/dev/null 2>&1 && curl -fs -H 'Accept: application/octet-stream' 'http://127.0.0.1:5005/api/v0.2/annotations/obs?annotation-name=cell_type' >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" >/dev/null 2>&1 || true; grep -F 'http://127.0.0.1:5005/' /tmp/taf-cellxgene-service.log >/dev/null; test \"$ok\" -eq 1)"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

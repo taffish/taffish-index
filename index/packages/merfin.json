@@ -94,12 +94,12 @@
           "mkdir -p /tmp/taf-merfin-smoke && cd /tmp/taf-merfin-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl count memory=0.1 threads=1 k=21 seq.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && meryl histogram read.meryl > read.hist && test -s read.hist && merfin -hist -sequence seq.fa -readmers read.meryl -peak 1 -output merfin.hist -threads 1 > merfin.out 2> merfin.log && test -s merfin.hist && grep -F 'Merfin QV*' merfin.log >/dev/null && grep -F 'Bye!' merfin.log >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -212,12 +212,12 @@
           "mkdir -p /tmp/taf-merfin-smoke && cd /tmp/taf-merfin-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl count memory=0.1 threads=1 k=21 seq.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && meryl histogram read.meryl > read.hist && test -s read.hist && merfin -hist -sequence seq.fa -readmers read.meryl -peak 1 -output merfin.hist -threads 1 > merfin.out 2> merfin.log && test -s merfin.hist && grep -F 'Merfin QV*' merfin.log >/dev/null && grep -F 'Bye!' merfin.log >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

@@ -88,12 +88,12 @@
           "mkdir -p /tmp/taf-pandepth-gene-gc && cd /tmp/taf-pandepth-gene-gc && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'toy.sam\\n' > input.list && printf 'chr1\\tsmoke\\tCDS\\t11\\t20\\t.\\t+\\t0\\tID=cds1;Parent=gene1\\n' > toy.gff && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && pandepth -i input.list -g toy.gff -o gene -t 1 >/tmp/taf-pandepth-gene.log 2>&1 && test -s gene.gene.stat.gz && gzip -cd gene.gene.stat.gz | grep -F 'gene1' >/dev/null && pandepth -i toy.sam -o gc -t 1 -r ref.fa -c >/tmp/taf-pandepth-gc.log 2>&1 && test -s gc.chr.stat.gz && gzip -cd gc.chr.stat.gz | grep -F 'GC(%)' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -198,12 +198,12 @@
           "mkdir -p /tmp/taf-pandepth-gene-gc && cd /tmp/taf-pandepth-gene-gc && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'toy.sam\\n' > input.list && printf 'chr1\\tsmoke\\tCDS\\t11\\t20\\t.\\t+\\t0\\tID=cds1;Parent=gene1\\n' > toy.gff && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && pandepth -i input.list -g toy.gff -o gene -t 1 >/tmp/taf-pandepth-gene.log 2>&1 && test -s gene.gene.stat.gz && gzip -cd gene.gene.stat.gz | grep -F 'gene1' >/dev/null && pandepth -i toy.sam -o gc -t 1 -r ref.fa -c >/tmp/taf-pandepth-gc.log 2>&1 && test -s gc.chr.stat.gz && gzip -cd gc.chr.stat.gz | grep -F 'GC(%)' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

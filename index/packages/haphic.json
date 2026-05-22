@@ -92,12 +92,12 @@
           "mkdir -p /tmp/taf-haphic-refsort && cd /tmp/taf-haphic-refsort && printf '>ctg1\\nACGTACGTACGTACGTACGT\\n>ctg2\\nTTTTCCCCAAAAGGGG\\n' > asm.fa && printf 'scaffold_1\\t1\\t20\\t1\\tW\\tctg1\\t1\\t20\\t+\\nscaffold_1\\t21\\t120\\t2\\tN\\t100\\tscaffold\\tyes\\tmap\\nscaffold_1\\t121\\t136\\t3\\tW\\tctg2\\t1\\t16\\t+\\n' > scaffolds.agp && printf 'ctg1\\t20\\t0\\t20\\t+\\tchr1\\t1000\\t100\\t120\\t20\\t20\\t60\\nctg2\\t16\\t0\\t16\\t+\\tchr1\\t1000\\t200\\t216\\t16\\t16\\t60\\n' > asm_to_ref.paf && haphic refsort scaffolds.agp asm_to_ref.paf --fasta asm.fa > scaffolds.refsort.agp && test -s scaffolds.refsort.agp && test -s scaffolds.refsort.fa && grep -F 'ctg1' scaffolds.refsort.agp >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -206,12 +206,12 @@
           "mkdir -p /tmp/taf-haphic-refsort && cd /tmp/taf-haphic-refsort && printf '>ctg1\\nACGTACGTACGTACGTACGT\\n>ctg2\\nTTTTCCCCAAAAGGGG\\n' > asm.fa && printf 'scaffold_1\\t1\\t20\\t1\\tW\\tctg1\\t1\\t20\\t+\\nscaffold_1\\t21\\t120\\t2\\tN\\t100\\tscaffold\\tyes\\tmap\\nscaffold_1\\t121\\t136\\t3\\tW\\tctg2\\t1\\t16\\t+\\n' > scaffolds.agp && printf 'ctg1\\t20\\t0\\t20\\t+\\tchr1\\t1000\\t100\\t120\\t20\\t20\\t60\\nctg2\\t16\\t0\\t16\\t+\\tchr1\\t1000\\t200\\t216\\t16\\t16\\t60\\n' > asm_to_ref.paf && haphic refsort scaffolds.agp asm_to_ref.paf --fasta asm.fa > scaffolds.refsort.agp && test -s scaffolds.refsort.agp && test -s scaffolds.refsort.fa && grep -F 'ctg1' scaffolds.refsort.agp >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

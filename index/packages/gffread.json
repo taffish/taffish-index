@@ -93,12 +93,12 @@
           "mkdir -p /tmp/taf-gffread-merge && cd /tmp/taf-gffread-merge && printf '%b\\n' '##gff-version 3' 'chr1\\tsmoke\\tgene\\t1\\t39\\t.\\t+\\t.\\tID=gene1;Name=gene1' 'chr1\\tsmoke\\tmRNA\\t1\\t39\\t.\\t+\\t.\\tID=tx1;Parent=gene1' 'chr1\\tsmoke\\texon\\t1\\t39\\t.\\t+\\t.\\tParent=tx1' 'chr1\\tsmoke\\tCDS\\t1\\t39\\t.\\t+\\t0\\tParent=tx1' > ann.gff3 && gffread --merge ann.gff3 -o merged.gff3 && test -s merged.gff3 && grep -F '##gff-version 3' merged.gff3 >/dev/null && grep -F 'tx1' merged.gff3 >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

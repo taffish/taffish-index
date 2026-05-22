@@ -91,12 +91,12 @@
           "tmp=/tmp/taf-enrichment-r-combined-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf 'gene_id\\nA\\nB\\nC\\n' > gene_list.tsv && printf 'gene_id\\tscore\\nA\\t3\\nB\\t2\\nC\\t1\\nD\\t-1\\nE\\t-2\\nF\\t-3\\nG\\t-4\\nH\\t-5\\n' > ranked_genes.tsv && printf 'gene_id\\nA\\nB\\nC\\nD\\nE\\nF\\nG\\nH\\nI\\nJ\\n' > background.tsv && printf 'set_alpha\\tAlpha pathway\\tA\\tB\\tC\\tD\\nset_beta\\tBeta pathway\\tE\\tF\\tG\\tH\\nset_gamma\\tGamma pathway\\tA\\tE\\tI\\tJ\\n' > gene_sets.gmt && enrichment-r-run --gene-list gene_list.tsv --ranked-genes ranked_genes.tsv --gene-sets gene_sets.gmt --background background.tsv --outdir out --min-size 1 --max-size 20 --top-n 5 && test -s out/ora_results.tsv && test -s out/gsea_results.tsv && test -s out/enrichment_summary.tsv && test -s out/run.manifest.json && grep -F 'set_alpha' out/ora_results.tsv >/dev/null && grep -F 'set_beta' out/gsea_results.tsv >/dev/null && grep -F 'background_source' out/enrichment_summary.tsv >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

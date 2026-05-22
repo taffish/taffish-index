@@ -100,12 +100,12 @@
           "mkdir -p /tmp/taf-cutadapt-demux && cd /tmp/taf-cutadapt-demux && printf '@r1\\nAAATTTT\\n+\\nFFFFFFF\\n@r2\\nCCCGGGG\\n+\\nFFFFFFF\\n@r3\\nGGGGGGG\\n+\\nFFFFFFF\\n' > reads.fq && cutadapt -g sampleA=^AAA -g sampleC=^CCC --action=none -o 'demux-{name}.fq' --untrimmed-output demux-unknown.fq reads.fq > run.log 2>&1 && test -s demux-sampleA.fq && test -s demux-sampleC.fq && test -s demux-unknown.fq && grep -F '@r1' demux-sampleA.fq >/dev/null && grep -F '@r2' demux-sampleC.fq >/dev/null && grep -F '@r3' demux-unknown.fq >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

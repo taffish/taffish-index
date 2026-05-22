@@ -92,12 +92,12 @@
           "mkdir -p /tmp/taf-cpc2-orf-test && cd /tmp/taf-cpc2-orf-test && printf '>coding\\nATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG\\n' > input.fa && CPC2.py -i input.fa -o cpc2-orf --ORF >/dev/null && test -s cpc2-orf.txt && head -n 1 cpc2-orf.txt | grep -F 'ORF_Start' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

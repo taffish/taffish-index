@@ -108,12 +108,12 @@
           "rm -rf /tmp/taf-rsem-matrix-smoke && mkdir -p /tmp/taf-rsem-matrix-smoke && cd /tmp/taf-rsem-matrix-smoke && printf 'gene_id\\ttranscript_id(s)\\tlength\\teffective_length\\texpected_count\\tTPM\\tFPKM\\nG1\\tT1\\t100\\t80\\t10\\t50\\t5\\nG2\\tT2\\t100\\t80\\t20\\t50\\t5\\n' > s1.genes.results && printf 'gene_id\\ttranscript_id(s)\\tlength\\teffective_length\\texpected_count\\tTPM\\tFPKM\\nG1\\tT1\\t100\\t80\\t12\\t50\\t5\\nG2\\tT2\\t100\\t80\\t18\\t50\\t5\\n' > s2.genes.results && rsem-generate-data-matrix s1.genes.results s2.genes.results > matrix.txt && test -s matrix.txt && grep -F 's1.genes.results' matrix.txt >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

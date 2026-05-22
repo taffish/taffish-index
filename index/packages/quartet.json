@@ -117,12 +117,12 @@
           "mkdir -p /tmp/taf-quartet-mummer && cd /tmp/taf-quartet-mummer && python3 -c 'seq=(\"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\"*20); open(\"ref.fa\",\"w\").write(\">chr1\\n\"+seq+\"\\n\"); open(\"qry.fa\",\"w\").write(\">qry1\\n\"+seq+\"\\n\")' && nucmer -p smoke ref.fa qry.fa >/tmp/taf-quartet-mummer.log 2>&1 && delta-filter -m -q smoke.delta > smoke.filter.delta && show-coords -T -H smoke.filter.delta > smoke.coords && test -s smoke.coords"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

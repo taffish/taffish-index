@@ -116,12 +116,12 @@
           "mkdir -p /tmp/taf-mcscanx-group && cd /tmp/taf-mcscanx-group && printf '0\\taa1g1\\tbb1g1\\n' > collinear.txt && group_collinear_genes.pl -i collinear.txt -o groups.txt && grep -F 'aa1g1' groups.txt >/dev/null && printf 'fam1\\taa1g1\\tbb1g1\\n' > families.txt && detect_collinearity_within_gene_families.pl -i families.txt -d collinear.txt -o family-collinear.txt && grep -F 'aa1g1:bb1g1' family-collinear.txt >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

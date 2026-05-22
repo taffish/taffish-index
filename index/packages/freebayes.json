@@ -111,12 +111,12 @@
           "mkdir -p /tmp/taf-freebayes-parallel && cd /tmp/taf-freebayes-parallel && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && printf 'chr1:0-20\\n' > regions.txt && freebayes-parallel regions.txt 1 -f ref.fa --min-alternate-count 1 --min-alternate-fraction 0 reads.bam > parallel.vcf && test -s parallel.vcf && grep -F '#CHROM' parallel.vcf >/dev/null && grep -F 'chr1' parallel.vcf >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -243,12 +243,12 @@
           "mkdir -p /tmp/taf-freebayes-parallel && cd /tmp/taf-freebayes-parallel && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && printf 'chr1:0-20\\n' > regions.txt && freebayes-parallel regions.txt 1 -f ref.fa --min-alternate-count 1 --min-alternate-fraction 0 reads.bam > parallel.vcf && test -s parallel.vcf && grep -F '#CHROM' parallel.vcf >/dev/null && grep -F 'chr1' parallel.vcf >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

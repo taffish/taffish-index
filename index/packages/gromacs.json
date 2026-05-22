@@ -86,12 +86,12 @@
           "mkdir -p /tmp/taf-gromacs-mdrun && cd /tmp/taf-gromacs-mdrun && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && printf '#include \"oplsaa.ff/forcefield.itp\"\\n#include \"oplsaa.ff/tip3p.itp\"\\n\\n[ system ]\\nTiny water\\n\\n[ molecules ]\\nSOL 1\\n' > topol.top && printf 'integrator = md\\nnsteps = 0\\ndt = 0.001\\nnstlist = 1\\ncutoff-scheme = Verlet\\nrlist = 0.4\\nverlet-buffer-tolerance = -1\\ncoulombtype = Cut-off\\nrcoulomb = 0.4\\nrvdw = 0.4\\npbc = xyz\\nconstraints = none\\ncontinuation = yes\\n' > mini.mdp && gmx grompp -f mini.mdp -c water.gro -p topol.top -o mini.tpr >/dev/null 2>&1 && test -s mini.tpr && gmx mdrun -deffnm mini -ntmpi 1 -ntomp 1 >/dev/null 2>&1 && test -s mini.log"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -193,12 +193,12 @@
           "mkdir -p /tmp/taf-gromacs-mdrun && cd /tmp/taf-gromacs-mdrun && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && printf '#include \"oplsaa.ff/forcefield.itp\"\\n#include \"oplsaa.ff/tip3p.itp\"\\n\\n[ system ]\\nTiny water\\n\\n[ molecules ]\\nSOL 1\\n' > topol.top && printf 'integrator = md\\nnsteps = 0\\ndt = 0.001\\nnstlist = 1\\ncutoff-scheme = Verlet\\nrlist = 0.4\\nverlet-buffer-tolerance = -1\\ncoulombtype = Cut-off\\nrcoulomb = 0.4\\nrvdw = 0.4\\npbc = xyz\\nconstraints = none\\ncontinuation = yes\\n' > mini.mdp && gmx grompp -f mini.mdp -c water.gro -p topol.top -o mini.tpr >/dev/null 2>&1 && test -s mini.tpr && gmx mdrun -deffnm mini -ntmpi 1 -ntomp 1 >/dev/null 2>&1 && test -s mini.log"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

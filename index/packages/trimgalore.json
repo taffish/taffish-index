@@ -97,12 +97,12 @@
           "mkdir -p /tmp/taf-trimgalore-clumpify && cd /tmp/taf-trimgalore-clumpify && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && trim_galore --clumpify --cores 2 --length 5 -o out reads.fq.gz >/tmp/taf-trimgalore-clumpify.log 2>&1 && test -s out/reads_trimmed.fq.gz && gzip -cd out/reads_trimmed.fq.gz | grep -F 'ACGTACGT' >/dev/null && grep -F 'clumpify:' /tmp/taf-trimgalore-clumpify.log >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

@@ -90,12 +90,12 @@
           "mkdir -p /tmp/taf-trf-html && cd /tmp/taf-trf-html && printf '>chr1\\nACACACACACACACACACACACACACACACACACACACAC\\n>chr2\\nTTTAGGGTTTAGGGTTTAGGGTTTAGGGTTTAGGG\\n' > tiny.fa && { trf tiny.fa 2 7 7 80 10 20 20 > run.out 2>run.err || true; } && test -s tiny.fa.2.7.7.80.10.20.20.summary.html && test -s tiny.fa.s1.2.7.7.80.10.20.20.1.html && grep -F 'Tandem Repeats Finder' tiny.fa.2.7.7.80.10.20.20.summary.html >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

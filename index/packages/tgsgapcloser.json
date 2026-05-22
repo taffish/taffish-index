@@ -98,12 +98,12 @@
           "mkdir -p /tmp/taf-tgsgapcloser-ne && cd /tmp/taf-tgsgapcloser-ne && cp /opt/tgsgapcloser/share/examples/tgsgapcloser/input.scaff.fasta scaff.fa && cp /opt/tgsgapcloser/share/examples/tgsgapcloser/ont.reads.fasta reads.fa && tgsgapcloser --scaff scaff.fa --reads reads.fa --output smoke --ne --thread 1 --chunk 1 > run.log 2> run.err && test -s smoke.scaff_seqs && test -s smoke.gap_fill_detail && grep -F '>scaffold_1' smoke.scaff_seqs >/dev/null && grep -F 'ALL DONE' run.log >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T01:26:55Z",
+        "checked_at": "2026-05-22T04:56:50Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

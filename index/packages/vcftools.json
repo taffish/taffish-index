@@ -1,0 +1,154 @@
+{
+  "name": "vcftools",
+  "latest": "0.1.17-r1",
+  "repository_url": "https://github.com/taffish/vcftools",
+  "command": {
+    "name": "taf-vcftools"
+  },
+  "versions": {
+    "0.1.17-r1": {
+      "name": "vcftools",
+      "kind": "tool",
+      "version": "0.1.17",
+      "release": 1,
+      "version_id": "0.1.17-r1",
+      "tag": "v0.1.17-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/vcftools",
+      "repository_slug": "taffish/vcftools",
+      "command": {
+        "name": "taf-vcftools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "variant",
+          "vcf",
+          "population-genetics",
+          "quality-control"
+        ],
+        "keywords": [
+          "vcftools",
+          "vcf",
+          "bcf",
+          "variant filtering",
+          "allele frequency",
+          "pca",
+          "population genetics",
+          "tabix"
+        ],
+        "summary": "Utilities for filtering, summarizing, validating, comparing, and converting VCF/BCF variant files.",
+        "description": "Utilities for filtering, summarizing, validating, comparing, and converting VCF/BCF variant files."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/vcftools:0.1.17-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.1.17-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:fc504602abbffe3634656d8c0fa09720dfdd4c7571481faecef476018d50b92b",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a87c48a3412844b138e70d37656ed9cb7ae5da18051810c17eeccc90095d6dd8",
+          "linux/arm64": "sha256:2e791bcb95388a9962991e252f74a4203eae18285f371c489f2b9b62624ade12"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "vcftools",
+          "fill-aa",
+          "fill-an-ac",
+          "fill-fs",
+          "fill-ref-md5",
+          "vcf-annotate",
+          "vcf-compare",
+          "vcf-concat",
+          "vcf-consensus",
+          "vcf-contrast",
+          "vcf-convert",
+          "vcf-fix-newlines",
+          "vcf-fix-ploidy",
+          "vcf-indel-stats",
+          "vcf-isec",
+          "vcf-merge",
+          "vcf-phased-join",
+          "vcf-query",
+          "vcf-shuffle-cols",
+          "vcf-sort",
+          "vcf-stats",
+          "vcf-subset",
+          "vcf-to-tab",
+          "vcf-tstv",
+          "vcf-validator",
+          "perl",
+          "gzip",
+          "gunzip",
+          "bgzip",
+          "tabix",
+          "samtools",
+          "gnuplot",
+          "sort",
+          "md5sum",
+          "ldd",
+          "bash"
+        ],
+        "test": [
+          "vcftools --version 2>&1 | grep -Fx 'VCFtools (0.1.17)' >/dev/null && vcftools --help 2>&1 | grep -F 'Process Variant Call Format files' >/dev/null && vcf-validator --help 2>&1 | grep -F 'Usage: vcf-validator' >/dev/null && vcf-query --help 2>&1 | grep -F 'Please use' >/dev/null && perl -MVcf -MVcfStats -MFaSlice -e 1 && grep -F 'source_sha256=00b54fc7349179c2efbdab0e4dcb65a69e7b0ab0d0d29b59cc823140d0b40bff' /opt/vcftools/share/doc/vcftools/source.txt >/dev/null && ldd \"$(command -v vcftools)\" > /tmp/taf-vcftools-ldd.txt && grep -F 'libz.so' /tmp/taf-vcftools-ldd.txt >/dev/null && grep -F 'liblapack.so' /tmp/taf-vcftools-ldd.txt >/dev/null && grep -F 'libc.so' /tmp/taf-vcftools-ldd.txt >/dev/null && if grep -F 'not found' /tmp/taf-vcftools-ldd.txt; then exit 1; fi",
+          "tmp=/tmp/taf-vcftools-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\\n' '##fileformat=VCFv4.2' '##contig=<ID=chr1,length=1000>' '##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Depth\">' '##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">' '##FORMAT=<ID=DP,Number=1,Type=Integer,Description=\"Read Depth\">' '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ts1\ts2\ts3' 'chr1\t10\trs1\tA\tG\t50\tPASS\tDP=10\tGT:DP\t0/0:4\t0/1:3\t1/1:3' 'chr1\t20\trs2\tC\tT\t60\tPASS\tDP=12\tGT:DP\t0/1:5\t0/0:4\t0/1:3' 'chr1\t30\trs3\tG\tA\t70\tPASS\tDP=15\tGT:DP\t1/1:5\t0/1:5\t0/0:5' 'chr1\t40\trs4\tT\tC\t80\tPASS\tDP=16\tGT:DP\t0/0:6\t0/1:5\t1/1:5' 'chr1\t50\trs5\tA\tC\t90\tPASS\tDP=18\tGT:DP\t0/1:6\t0/0:6\t0/1:6' > tiny.vcf && vcftools --vcf tiny.vcf --freq --out freq > freq.log 2>&1 && test -s freq.frq && grep -F 'CHROM' freq.frq >/dev/null && vcftools --vcf tiny.vcf --counts --out counts > counts.log 2>&1 && test -s counts.frq.count && grep -F 'CHROM' counts.frq.count >/dev/null && vcftools --vcf tiny.vcf --recode --recode-INFO-all --out recoded > recode.log 2>&1 && test -s recoded.recode.vcf && grep -F 'rs1' recoded.recode.vcf >/dev/null && vcftools --vcf tiny.vcf --site-mean-depth --out depth > depth.log 2>&1 && test -s depth.ldepth.mean && vcftools --vcf tiny.vcf --012 --out matrix > matrix.log 2>&1 && test -s matrix.012 && vcftools --vcf tiny.vcf --pca --out pca > pca.log 2>&1 && test -s pca.pca",
+          "tmp=/tmp/taf-vcftools-perl-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\\n' '##fileformat=VCFv4.2' '##contig=<ID=chr1,length=1000>' '##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Depth\">' '##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">' '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ts1\ts2' 'chr1\t30\trs3\tG\tA\t70\tPASS\tDP=15\tGT\t1/1\t0/0' 'chr1\t10\trs1\tA\tG\t50\tPASS\tDP=10\tGT\t0/0\t0/1' 'chr1\t20\trs2\tC\tT\t60\tPASS\tDP=12\tGT\t0/1\t0/0' > unsorted.vcf && vcf-validator unsorted.vcf > validator.log 2>&1 && vcf-stats unsorted.vcf > stats.txt && grep -F 'samples' stats.txt >/dev/null && fill-an-ac unsorted.vcf > filled.vcf && grep -F 'AN=' filled.vcf >/dev/null && vcf-query -f '%CHROM\\t%POS\\t%REF\\t%ALT\\n' unsorted.vcf > query.tsv && grep -F \"$(printf 'chr1\\t30\\tG\\tA')\" query.tsv >/dev/null && vcf-sort unsorted.vcf > sorted.vcf && grep -F \"$(printf 'chr1\\t10')\" sorted.vcf >/dev/null && gzip -c sorted.vcf > sorted.vcf.gz && gunzip -c sorted.vcf.gz | grep -F 'rs1' >/dev/null",
+          "tmp=/tmp/taf-vcftools-index-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\\n' '##fileformat=VCFv4.2' '##contig=<ID=chr1,length=1000>' '##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Depth\">' '##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">' '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ts1\ts2' 'chr1\t10\trs1\tA\tG\t50\tPASS\tDP=10\tGT\t0/0\t0/1' 'chr1\t20\trs2\tC\tT\t60\tPASS\tDP=12\tGT\t0/1\t0/0' > tiny.vcf && bgzip -c tiny.vcf > tiny.vcf.gz && tabix -p vcf tiny.vcf.gz && vcf-isec -n +1 tiny.vcf.gz > isec.vcf && grep -F 'rs1' isec.vcf >/dev/null && vcf-compare tiny.vcf.gz tiny.vcf.gz > compare.txt && grep -F 'Number of REF matches' compare.txt >/dev/null && perl -e 'print \">chr1\\n\", \"A\"x19, \"C\", \"A\"x30, \"\\n\"' > ref.fa && samtools faidx ref.fa && samtools faidx ref.fa chr1:1-20 | vcf-consensus tiny.vcf.gz > consensus.fa && grep -F '>chr1:1-20' consensus.fa >/dev/null && gnuplot --version | grep -F 'gnuplot' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-22T04:56:50Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-22T04:56:50Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/vcftools",
+        "ref": "v0.1.17-r1",
+        "commit": "cf79aa073f41783a19a205291650f4318a5b84d3",
+        "html_url": "https://github.com/taffish/vcftools/tree/v0.1.17-r1"
+      },
+      "upstream": {
+        "name": "VCFtools",
+        "type": "github",
+        "homepage": "https://vcftools.github.io/",
+        "repository": "vcftools/vcftools",
+        "release_url": "https://github.com/vcftools/vcftools/releases/tag/v0.1.17",
+        "version": "0.1.17",
+        "license": "LGPL-3.0-only",
+        "citation": "Danecek et al. 2011, The variant call format and VCFtools",
+        "doi": "10.1093/bioinformatics/btr330",
+        "pmid": "21653522"
+      }
+    }
+  }
+}

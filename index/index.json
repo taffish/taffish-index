@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-22T01:26:55Z",
+  "generated_at": "2026-05-22T04:56:50Z",
   "organization": "taffish",
   "counts": {
-    "packages": 94,
-    "versions": 129,
-    "commands": 94,
-    "repositories": 94,
+    "packages": 95,
+    "versions": 130,
+    "commands": 95,
+    "repositories": 95,
     "warnings": 0,
     "failed": 0,
     "rejected": 1
@@ -109,12 +109,12 @@
               "mkdir -p /tmp/taf-agat-statistics && cd /tmp/taf-agat-statistics && printf '##gff-version 3\\nchr1\\tProdigal\\tCDS\\t1\\t9\\t.\\t+\\t0\\tID=cds1;locus_tag=gene1;product=hypothetical protein\\n' > input.gff3 && agat_convert_sp_gxf2gxf.pl --gff input.gff3 -o fixed.gff3 >/tmp/taf-agat-statistics-gxf.log 2>&1 && agat_sp_statistics.pl --gff fixed.gff3 -o statistics.txt >/tmp/taf-agat-statistics.log 2>&1 && test -s statistics.txt && grep -F 'Number of gene' statistics.txt >/dev/null && samtools --version 2>&1 | grep -F 'samtools' >/dev/null && Rscript --version 2>&1 | grep -F 'Rscript' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -220,12 +220,12 @@
               "augustus --version 2>&1 | grep -F 'AUGUSTUS (3.5.0)' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -340,12 +340,12 @@
               "python -c \"import vina, rdkit, meeko, gemmi, prody\""
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -436,7 +436,7 @@
           "smoke": null,
           "trust": {
             "status": "not_applicable",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -539,12 +539,12 @@
               "bamtools --version 2>&1 | grep -F 'bamtools 2.5.3' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -670,12 +670,12 @@
               "bandage-ng-gui --help >/dev/null && (bandage-ng-gui --geometry 800x600 >/tmp/taf-bandage-ng-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-bandage-ng-gui.log >/dev/null && grep -F 'BandageNG GUI is starting.' /tmp/taf-bandage-ng-gui.log >/dev/null)"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -797,12 +797,12 @@
               "tabix --help >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -917,12 +917,12 @@
               "printf 'chr1\\t0\\t10\\nchr1\\t20\\t30\\n' >/tmp/taf-bedtools-a.bed && printf 'chr1\\t5\\t12\\n' >/tmp/taf-bedtools-b.bed && printf 'chr1\\t5\\t10\\n' >/tmp/taf-bedtools-expected.bed && bedtools intersect -a /tmp/taf-bedtools-a.bed -b /tmp/taf-bedtools-b.bed | cmp - /tmp/taf-bedtools-expected.bed"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -1048,12 +1048,12 @@
               "mkdir -p /tmp/taf-bioc-deseq2 && cd /tmp/taf-bioc-deseq2 && Rscript -e 'set.seed(23); genes <- paste0(\"gene\", sprintf(\"%02d\", 1:40)); base <- rep(c(8,12,20,35,60,100,160,240), 5); effect <- rep(c(1,1,1.2,0.8,2.5,0.4,1.8,0.6), 5); cmat <- sapply(1:3, function(i) rnbinom(length(base), mu=base, size=8)); tmat <- sapply(1:3, function(i) rnbinom(length(base), mu=base*effect, size=8)); out <- data.frame(gene_id=genes, cmat, tmat, check.names=FALSE); names(out) <- c(\"gene_id\", \"c1\",\"c2\",\"c3\",\"t1\",\"t2\",\"t3\"); write.table(out, \"counts.tsv\", sep=\"\\t\", row.names=FALSE, quote=FALSE); samples <- data.frame(sample=c(\"c1\",\"c2\",\"c3\",\"t1\",\"t2\",\"t3\"), condition=rep(c(\"control\",\"treated\"), each=3)); write.table(samples, \"samples.tsv\", sep=\"\\t\", row.names=FALSE, quote=FALSE)' && rnaseq-deseq2 --counts counts.tsv --metadata samples.tsv --design '~ condition' --contrast condition:treated:control --fit-type local --outdir out && test -s out/results.tsv && test -s out/normalized_counts.tsv && test -s out/pca_plot.pdf && grep -F 'gene01' out/results.tsv >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -1162,12 +1162,12 @@
               "printf '>chr1\\nACGTACGT\\n' >/tmp/taf-biser.fa && samtools faidx /tmp/taf-biser.fa && test -s /tmp/taf-biser.fa.fai"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -1265,12 +1265,12 @@
               "printf '>chr1\\nACGTACGT\\n' >/tmp/taf-biser.fa && samtools faidx /tmp/taf-biser.fa && test -s /tmp/taf-biser.fa.fai"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -1419,12 +1419,12 @@
               "printf '>subject1\\nACGTACGTACGTACGTACGT\\n' >/tmp/taf-blast-db.fa && makeblastdb -in /tmp/taf-blast-db.fa -dbtype nucl -out /tmp/taf-blast-db >/dev/null && printf '>query1\\nACGTACGT\\n' >/tmp/taf-blast-query.fa && blastn -task blastn-short -query /tmp/taf-blast-query.fa -db /tmp/taf-blast-db -outfmt '6 qseqid sseqid pident length' | awk '$1==\"query1\" && $2==\"subject1\" {found=1} END {exit !found}'"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -1520,7 +1520,7 @@
           "smoke": null,
           "trust": {
             "status": "not_applicable",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -1593,7 +1593,7 @@
           "smoke": null,
           "trust": {
             "status": "not_applicable",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -1718,12 +1718,12 @@
               "printf '>ref\\nACGTACGTTGCAAGTCGATCGTACGATCGTTAACCGGTTAACCGGTT\\n' >/tmp/taf-bowtie2-ref.fa && bowtie2-build /tmp/taf-bowtie2-ref.fa /tmp/taf-bowtie2-ref >/dev/null && printf '@read1\\nTGCAAGTCGATCGTACGATCGTTAACCGGTTA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' >/tmp/taf-bowtie2-read.fq && gzip -c /tmp/taf-bowtie2-read.fq >/tmp/taf-bowtie2-read.fq.gz && bzip2 -c /tmp/taf-bowtie2-read.fq >/tmp/taf-bowtie2-read.fq.bz2 && bowtie2 -x /tmp/taf-bowtie2-ref -U /tmp/taf-bowtie2-read.fq.gz -S /tmp/taf-bowtie2-gz.sam --quiet && grep -v '^@' /tmp/taf-bowtie2-gz.sam | awk '$3!=\"*\"{found=1} END{exit !found}' && bowtie2 -x /tmp/taf-bowtie2-ref -U /tmp/taf-bowtie2-read.fq.bz2 -S /tmp/taf-bowtie2-bz2.sam --quiet && grep -v '^@' /tmp/taf-bowtie2-bz2.sam | awk '$3!=\"*\"{found=1} END{exit !found}' && bowtie2-inspect -n /tmp/taf-bowtie2-ref | grep -Fx ref >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -1860,12 +1860,12 @@
               "run_sepp.py --help 2>&1 | grep -F 'run_sepp.py' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -1995,12 +1995,12 @@
               "run_sepp.py --help 2>&1 | grep -F 'run_sepp.py' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -2136,12 +2136,12 @@
               "mkdir -p /tmp/taf-bustools-test && cd /tmp/taf-bustools-test && printf 'AAAAAAAAAAAAAAAA\\tCCCCCCCCCCCC\\t0\\t1\\n' > input.txt && bustools fromtext -o input.bus input.txt && bustools text -p input.bus | grep -F 'AAAAAAAAAAAAAAAA' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -2261,12 +2261,12 @@
               "mkdir -p /tmp/taf-bustools-test && cd /tmp/taf-bustools-test && printf 'AAAAAAAAAAAAAAAA\\tCCCCCCCCCCCC\\t0\\t1\\n' > input.txt && bustools fromtext -o input.bus input.txt && bustools text -p input.bus | grep -F 'AAAAAAAAAAAAAAAA' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -2390,12 +2390,12 @@
               "mkdir -p /tmp/taf-bwa-helper-test && cd /tmp/taf-bwa-helper-test && printf '>r1\\nACGT\\n' > reads.fa && printf '>r1\\n40 40 40 40\\n' > reads.qual && qualfa2fq.pl reads.fa reads.qual | grep -F '@r1' >/dev/null && printf 'r1\\t0\\tchr1\\t1\\t60\\t4M\\t=\\t1\\t0\\tACGT\\tFFFF\\tXA:Z:chr2,+2,4M,0;\\n' | xa2multi.pl | grep -F 'NM:i:0' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -2531,12 +2531,12 @@
               "mkdir -p /tmp/taf-cdhit-gz-test && cd /tmp/taf-cdhit-gz-test && printf '>p1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>p2\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > proteins.fa && gzip -c proteins.fa > proteins.fa.gz && cd-hit -i proteins.fa.gz -o proteins.gz.nr -c 1.0 -n 5 -M 0 -T 1 >/dev/null && test -s proteins.gz.nr"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -2655,12 +2655,12 @@
               "mkdir -p /tmp/taf-cellxgene-smoke && cd /tmp/taf-cellxgene-smoke && python -c 'import anndata as ad, numpy as np, pandas as pd; X=np.array([[1,0,2],[0,1,3],[2,1,0]], dtype=\"float32\"); obs=pd.DataFrame({\"cell_type\": pd.Categorical([\"a\", \"b\", \"a\"])}, index=[\"cell1\", \"cell2\", \"cell3\"]); var=pd.DataFrame(index=[\"GeneA\", \"GeneB\", \"GeneC\"]); adata=ad.AnnData(X=X, obs=obs, var=var); adata.obsm[\"X_umap\"]=np.array([[0,0],[1,0],[0,1]], dtype=\"float32\"); adata.write_h5ad(\"tiny.h5ad\")' && (cellxgene-service --dataset tiny.h5ad > /tmp/taf-cellxgene-service.log 2>&1 & pid=\"$!\"; ok=0; i=0; while [ \"$i\" -lt 60 ]; do if curl -fs http://127.0.0.1:5005/ >/dev/null 2>&1 && curl -fs -H 'Accept: application/octet-stream' 'http://127.0.0.1:5005/api/v0.2/layout/obs?layout-name=umap' >/dev/null 2>&1 && curl -fs -H 'Accept: application/octet-stream' 'http://127.0.0.1:5005/api/v0.2/annotations/obs?annotation-name=cell_type' >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" >/dev/null 2>&1 || true; grep -F 'http://127.0.0.1:5005/' /tmp/taf-cellxgene-service.log >/dev/null; test \"$ok\" -eq 1)"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -2789,12 +2789,12 @@
               "taf-circos-smoke | grep -F 'circos.png' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -2909,12 +2909,12 @@
               "printf '>seq1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>seq2\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANL\\n>seq3\\nGKTAYIAKQRQISFVKSHFSRQLDERVGLIEVQANN\\n' >/tmp/taf-clustalo.fa && clustalo -i /tmp/taf-clustalo.fa -o /tmp/taf-clustalo.clu --outfmt=clu --force --threads=1 >/dev/null && grep -F 'CLUSTAL O(1.2.4)' /tmp/taf-clustalo.clu >/dev/null && clustalo -i /tmp/taf-clustalo.fa -o /tmp/taf-clustalo.sto --outfmt=st --guidetree-out=/tmp/taf-clustalo.dnd --distmat-out=/tmp/taf-clustalo.dist --full --force --threads=1 >/dev/null && grep -F '# STOCKHOLM' /tmp/taf-clustalo.sto >/dev/null && test -s /tmp/taf-clustalo.dnd && test -s /tmp/taf-clustalo.dist"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -3040,12 +3040,12 @@
               "mkdir -p /tmp/taf-compleasm-test && cd /tmp/taf-compleasm-test && printf '>chr1\\nATGAAAACCGCTTACATTGCTAAACAACGTCAAATTTCTTTTGTTAAATCTCATTTTTCTCGTCAACTGGAAGAACGTCTGGGTCTGATTGAAGTTCAAGCTAATAAT\\n' > genome.fa && printf '>prot1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > proteins.faa && compleasm miniprot -a genome.fa -p proteins.faa -o miniprot-out -t 1 >/dev/null && test -s miniprot-out/miniprot_output.gff && test -e miniprot-out/miniprot.done"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -3160,12 +3160,12 @@
               "mkdir -p /tmp/taf-compleasm-test && cd /tmp/taf-compleasm-test && printf '>chr1\\nATGAAAACCGCTTACATTGCTAAACAACGTCAAATTTCTTTTGTTAAATCTCATTTTTCTCGTCAACTGGAAGAACGTCTGGGTCTGATTGAAGTTCAAGCTAATAAT\\n' > genome.fa && printf '>prot1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > proteins.faa && compleasm miniprot -a genome.fa -p proteins.faa -o miniprot-out -t 1 >/dev/null && test -s miniprot-out/miniprot_output.gff && test -e miniprot-out/miniprot.done"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -3283,12 +3283,12 @@
               "mkdir -p /tmp/taf-cpc2-orf-test && cd /tmp/taf-cpc2-orf-test && printf '>coding\\nATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG\\n' > input.fa && CPC2.py -i input.fa -o cpc2-orf --ORF >/dev/null && test -s cpc2-orf.txt && head -n 1 cpc2-orf.txt | grep -F 'ORF_Start' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -3410,12 +3410,12 @@
               "mkdir -p /tmp/taf-craq-smoke && cd /tmp/taf-craq-smoke && cp /opt/craq/Example/Genome.fa . && cp /opt/craq/Example/SMS_sort.bam* . && cp /opt/craq/Example/NGS_sort.bam* . && craq -g Genome.fa -sms SMS_sort.bam -ngs NGS_sort.bam -rw 1500 -pl T -D Output >/tmp/taf-craq-smoke.log 2>&1 && test -s Output/runAQI_out/out_final.Report && test -s Output/runAQI_out/out_regional.Report && test -s Output/runAQI_out/out_circos.pdf"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -3544,12 +3544,12 @@
               "mkdir -p /tmp/taf-cufflinks-test && cd /tmp/taf-cufflinks-test && printf 'chr1\\tTAF\\texon\\t1\\t100\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > tiny.gtf && gffread tiny.gtf -o tiny.out.gff && test -s tiny.out.gff && cuffcompare tiny.gtf >/tmp/taf-cufflinks-cuffcompare.log 2>&1 && test -s cuffcmp.combined.gtf && grep -F 'transcript_id' cuffcmp.combined.gtf >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -3669,12 +3669,12 @@
               "mkdir -p /tmp/taf-cufflinks-test && cd /tmp/taf-cufflinks-test && printf 'chr1\\tTAF\\texon\\t1\\t100\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > tiny.gtf && gffread tiny.gtf -o tiny.out.gff && test -s tiny.out.gff && cuffcompare tiny.gtf >/tmp/taf-cufflinks-cuffcompare.log 2>&1 && test -s cuffcmp.combined.gtf && grep -F 'transcript_id' cuffcmp.combined.gtf >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -3800,12 +3800,12 @@
               "mkdir -p /tmp/taf-cutadapt-demux && cd /tmp/taf-cutadapt-demux && printf '@r1\\nAAATTTT\\n+\\nFFFFFFF\\n@r2\\nCCCGGGG\\n+\\nFFFFFFF\\n@r3\\nGGGGGGG\\n+\\nFFFFFFF\\n' > reads.fq && cutadapt -g sampleA=^AAA -g sampleC=^CCC --action=none -o 'demux-{name}.fq' --untrimmed-output demux-unknown.fq reads.fq > run.log 2>&1 && test -s demux-sampleA.fq && test -s demux-sampleC.fq && test -s demux-unknown.fq && grep -F '@r1' demux-sampleA.fq >/dev/null && grep -F '@r2' demux-sampleC.fq >/dev/null && grep -F '@r3' demux-unknown.fq >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -3948,12 +3948,12 @@
               "panEDTA.sh 2>&1 | grep -i 'Pan-genome' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -4086,12 +4086,12 @@
               "panEDTA.sh 2>&1 | grep -i 'Pan-genome' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -4208,12 +4208,12 @@
               "tmp=/tmp/taf-enrichment-r-combined-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf 'gene_id\\nA\\nB\\nC\\n' > gene_list.tsv && printf 'gene_id\\tscore\\nA\\t3\\nB\\t2\\nC\\t1\\nD\\t-1\\nE\\t-2\\nF\\t-3\\nG\\t-4\\nH\\t-5\\n' > ranked_genes.tsv && printf 'gene_id\\nA\\nB\\nC\\nD\\nE\\nF\\nG\\nH\\nI\\nJ\\n' > background.tsv && printf 'set_alpha\\tAlpha pathway\\tA\\tB\\tC\\tD\\nset_beta\\tBeta pathway\\tE\\tF\\tG\\tH\\nset_gamma\\tGamma pathway\\tA\\tE\\tI\\tJ\\n' > gene_sets.gmt && enrichment-r-run --gene-list gene_list.tsv --ranked-genes ranked_genes.tsv --gene-sets gene_sets.gmt --background background.tsv --outdir out --min-size 1 --max-size 20 --top-n 5 && test -s out/ora_results.tsv && test -s out/gsea_results.tsv && test -s out/enrichment_summary.tsv && test -s out/run.manifest.json && grep -F 'set_alpha' out/ora_results.tsv >/dev/null && grep -F 'set_beta' out/gsea_results.tsv >/dev/null && grep -F 'background_source' out/enrichment_summary.tsv >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -4329,12 +4329,12 @@
               "python -c 'from pathlib import Path; from esm.data import read_fasta; p=Path(\"/tmp/taf-esm-fold-smoke.fa\"); p.write_text(\">toy\\nMKT\\n\"); assert list(read_fasta(p)) == [(\"toy\", \"MKT\")]'"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -4441,12 +4441,12 @@
               "python -c 'from pathlib import Path; from esm.data import read_fasta; p=Path(\"/tmp/taf-esm-fold-smoke.fa\"); p.write_text(\">toy\\nMKT\\n\"); assert list(read_fasta(p)) == [(\"toy\", \"MKT\")]'"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -4553,12 +4553,12 @@
               "python -c 'from pathlib import Path; from esm.data import read_fasta; p=Path(\"/tmp/taf-esm-fold-smoke.fa\"); p.write_text(\">toy\\nMKT\\n\"); assert list(read_fasta(p)) == [(\"toy\", \"MKT\")]'"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -4693,12 +4693,12 @@
               "mkdir -p /tmp/taf-evidencemodeler-smoke && cd /tmp/taf-evidencemodeler-smoke && cp -a /opt/evidencemodeler/testing/. . && EVidenceModeler --sample_id smalltest --genome genome.fasta --weights weights.txt --gene_predictions gene_predictions.gff3 --protein_alignments protein_alignments.gff3 --transcript_alignments transcript_alignments.gff3 --segmentSize 100000 --overlapSize 10000 --CPU 1 >/tmp/taf-evidencemodeler-smoke.log 2>&1 && test -s smalltest.EVM.gff3 && test -s smalltest.EVM.pep && test -s smalltest.EVM.cds && test -s smalltest.EVM.bed && grep -F 'evm.TU' smalltest.EVM.gff3 >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -4824,12 +4824,12 @@
               "mkdir -p /tmp/taf-evidencemodeler-smoke && cd /tmp/taf-evidencemodeler-smoke && cp -a /opt/evidencemodeler/testing/. . && EVidenceModeler --sample_id smalltest --genome genome.fasta --weights weights.txt --gene_predictions gene_predictions.gff3 --protein_alignments protein_alignments.gff3 --transcript_alignments transcript_alignments.gff3 --segmentSize 100000 --overlapSize 10000 --CPU 1 >/tmp/taf-evidencemodeler-smoke.log 2>&1 && test -s smalltest.EVM.gff3 && test -s smalltest.EVM.pep && test -s smalltest.EVM.cds && test -s smalltest.EVM.bed && grep -F 'evm.TU' smalltest.EVM.gff3 >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -4955,12 +4955,12 @@
               "mkdir -p /tmp/taf-fastp-parallel && cd /tmp/taf-fastp-parallel && printf '@p1/1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@p1/2\\nTGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && mkdir -p batch-in batch-out batch-report && cp r1.fq batch-in/sample_R1.fq && cp r2.fq batch-in/sample_R2.fq && parallel.py -i batch-in -o batch-out -r batch-report -p 1 -a '-w 1' >/tmp/taf-fastp-parallel.log && test -s batch-out/sample_R1.clean.fastq.gz && test -s batch-out/sample_R2.clean.fastq.gz && test -s batch-report/sample_pe.fq.html && test -s batch-report/sample_pe.fq.json && test -s batch-report/overall.html"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -5076,12 +5076,12 @@
               "mkdir -p /tmp/taf-fastp-parallel && cd /tmp/taf-fastp-parallel && printf '@p1/1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@p1/2\\nTGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && mkdir -p batch-in batch-out batch-report && cp r1.fq batch-in/sample_R1.fq && cp r2.fq batch-in/sample_R2.fq && parallel.py -i batch-in -o batch-out -r batch-report -p 1 -a '-w 1' >/tmp/taf-fastp-parallel.log && test -s batch-out/sample_R1.clean.fastq.gz && test -s batch-out/sample_R2.clean.fastq.gz && test -s batch-report/sample_pe.fq.html && test -s batch-report/sample_pe.fq.json && test -s batch-report/overall.html"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -5207,12 +5207,12 @@
               "mkdir -p /tmp/taf-fastqc-extract && cd /tmp/taf-fastqc-extract && printf '@r1\\nACGTACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && mkdir -p extractout && fastqc --quiet --extract --outdir extractout reads.fq && test -d extractout/reads_fastqc && test -s extractout/reads_fastqc/fastqc_data.txt"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -5341,12 +5341,12 @@
               "mkdir -p /tmp/taf-foldseek-db/query /tmp/taf-foldseek-db/target && cd /tmp/taf-foldseek-db && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek createdb query qDB --threads 1 >/tmp/taf-foldseek-createdb-query.log 2>&1 && foldseek createdb target tDB --threads 1 >/tmp/taf-foldseek-createdb-target.log 2>&1 && foldseek search qDB tDB resDB tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-search-db.log 2>&1 && foldseek convertalis qDB tDB resDB res.m8 >/tmp/taf-foldseek-convertalis.log 2>&1 && test -s res.m8 && grep -F 'q1' res.m8 >/dev/null && foldseek convert2pdb tDB out.pdb >/tmp/taf-foldseek-convert2pdb.log 2>&1 && test -s out.pdb && grep -F 'ATOM' out.pdb >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -5466,12 +5466,12 @@
               "mkdir -p /tmp/taf-foldseek-db/query /tmp/taf-foldseek-db/target && cd /tmp/taf-foldseek-db && make_pdb() { out=\"$1\"; gawk 'BEGIN { atom=1; for (i=1; i<=20; i++) { x=i*3.8; printf \"ATOM  %5d  N   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           N\\n\", atom++, i, x, 0, 0; printf \"ATOM  %5d  CA  ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+1.5, 0, 0; printf \"ATOM  %5d  C   ALA A%4d    %8.3f%8.3f%8.3f  1.00 20.00           C\\n\", atom++, i, x+2.5, 1, 0; } print \"TER\"; print \"END\" }' > \"$out\"; }; make_pdb query/q1.pdb && cp query/q1.pdb target/t1.pdb && foldseek createdb query qDB --threads 1 >/tmp/taf-foldseek-createdb-query.log 2>&1 && foldseek createdb target tDB --threads 1 >/tmp/taf-foldseek-createdb-target.log 2>&1 && foldseek search qDB tDB resDB tmp --threads 1 -s 1.0 >/tmp/taf-foldseek-search-db.log 2>&1 && foldseek convertalis qDB tDB resDB res.m8 >/tmp/taf-foldseek-convertalis.log 2>&1 && test -s res.m8 && grep -F 'q1' res.m8 >/dev/null && foldseek convert2pdb tDB out.pdb >/tmp/taf-foldseek-convert2pdb.log 2>&1 && test -s out.pdb && grep -F 'ATOM' out.pdb >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -5608,12 +5608,12 @@
               "mkdir -p /tmp/taf-freebayes-parallel && cd /tmp/taf-freebayes-parallel && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && printf 'chr1:0-20\\n' > regions.txt && freebayes-parallel regions.txt 1 -f ref.fa --min-alternate-count 1 --min-alternate-fraction 0 reads.bam > parallel.vcf && test -s parallel.vcf && grep -F '#CHROM' parallel.vcf >/dev/null && grep -F 'chr1' parallel.vcf >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -5740,12 +5740,12 @@
               "mkdir -p /tmp/taf-freebayes-parallel && cd /tmp/taf-freebayes-parallel && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTTCGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && printf 'chr1:0-20\\n' > regions.txt && freebayes-parallel regions.txt 1 -f ref.fa --min-alternate-count 1 --min-alternate-fraction 0 reads.bam > parallel.vcf && test -s parallel.vcf && grep -F '#CHROM' parallel.vcf >/dev/null && grep -F 'chr1' parallel.vcf >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -5871,12 +5871,12 @@
               "mkdir -p /tmp/taf-gatk-hc && cd /tmp/taf-gatk-hc && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-hc-dict.log 2>&1 && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:40\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread3\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread4\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk HaplotypeCaller -R ref.fa -I reads.bam -O calls.vcf >/tmp/taf-gatk-hc.log 2>&1 && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -5993,12 +5993,12 @@
               "mkdir -p /tmp/taf-gatk-hc && cd /tmp/taf-gatk-hc && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-hc-dict.log 2>&1 && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:40\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread3\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread4\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk HaplotypeCaller -R ref.fa -I reads.bam -O calls.vcf >/tmp/taf-gatk-hc.log 2>&1 && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -6116,12 +6116,12 @@
               "mkdir -p /tmp/taf-genomescope-smoke && cd /tmp/taf-genomescope-smoke && genomescope.R -i /opt/genomescope/tests/inputk21.hist -o output -k 21 --json_report >/tmp/taf-genomescope-smoke.log 2>&1 && test -s output/summary.txt && test -s output/linear_plot.png && test -s output/log_plot.png && test -s output/report.json && grep -F 'Genome Haploid Length' output/summary.txt >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -6240,12 +6240,12 @@
               "mkdir -p /tmp/taf-gfatools-paf2gfa && cd /tmp/taf-gfatools-paf2gfa && printf 'r1\\t10\\t5\\t10\\t+\\tr2\\t10\\t0\\t5\\t5\\t5\\t60\\n' > tiny.paf && paf2gfa -o 1 tiny.paf > graph.gfa && test -s graph.gfa && grep -F 'L' graph.gfa >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -6364,12 +6364,12 @@
               "mkdir -p /tmp/taf-gffread-merge && cd /tmp/taf-gffread-merge && printf '%b\\n' '##gff-version 3' 'chr1\\tsmoke\\tgene\\t1\\t39\\t.\\t+\\t.\\tID=gene1;Name=gene1' 'chr1\\tsmoke\\tmRNA\\t1\\t39\\t.\\t+\\t.\\tID=tx1;Parent=gene1' 'chr1\\tsmoke\\texon\\t1\\t39\\t.\\t+\\t.\\tParent=tx1' 'chr1\\tsmoke\\tCDS\\t1\\t39\\t.\\t+\\t0\\tParent=tx1' > ann.gff3 && gffread --merge ann.gff3 -o merged.gff3 && test -s merged.gff3 && grep -F '##gff-version 3' merged.gff3 >/dev/null && grep -F 'tx1' merged.gff3 >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -6481,12 +6481,12 @@
               "mkdir -p /tmp/taf-gromacs-mdrun && cd /tmp/taf-gromacs-mdrun && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && printf '#include \"oplsaa.ff/forcefield.itp\"\\n#include \"oplsaa.ff/tip3p.itp\"\\n\\n[ system ]\\nTiny water\\n\\n[ molecules ]\\nSOL 1\\n' > topol.top && printf 'integrator = md\\nnsteps = 0\\ndt = 0.001\\nnstlist = 1\\ncutoff-scheme = Verlet\\nrlist = 0.4\\nverlet-buffer-tolerance = -1\\ncoulombtype = Cut-off\\nrcoulomb = 0.4\\nrvdw = 0.4\\npbc = xyz\\nconstraints = none\\ncontinuation = yes\\n' > mini.mdp && gmx grompp -f mini.mdp -c water.gro -p topol.top -o mini.tpr >/dev/null 2>&1 && test -s mini.tpr && gmx mdrun -deffnm mini -ntmpi 1 -ntomp 1 >/dev/null 2>&1 && test -s mini.log"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -6588,12 +6588,12 @@
               "mkdir -p /tmp/taf-gromacs-mdrun && cd /tmp/taf-gromacs-mdrun && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && printf '#include \"oplsaa.ff/forcefield.itp\"\\n#include \"oplsaa.ff/tip3p.itp\"\\n\\n[ system ]\\nTiny water\\n\\n[ molecules ]\\nSOL 1\\n' > topol.top && printf 'integrator = md\\nnsteps = 0\\ndt = 0.001\\nnstlist = 1\\ncutoff-scheme = Verlet\\nrlist = 0.4\\nverlet-buffer-tolerance = -1\\ncoulombtype = Cut-off\\nrcoulomb = 0.4\\nrvdw = 0.4\\npbc = xyz\\nconstraints = none\\ncontinuation = yes\\n' > mini.mdp && gmx grompp -f mini.mdp -c water.gro -p topol.top -o mini.tpr >/dev/null 2>&1 && test -s mini.tpr && gmx mdrun -deffnm mini -ntmpi 1 -ntomp 1 >/dev/null 2>&1 && test -s mini.log"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -6711,12 +6711,12 @@
               "mkdir -p /tmp/taf-haphic-refsort && cd /tmp/taf-haphic-refsort && printf '>ctg1\\nACGTACGTACGTACGTACGT\\n>ctg2\\nTTTTCCCCAAAAGGGG\\n' > asm.fa && printf 'scaffold_1\\t1\\t20\\t1\\tW\\tctg1\\t1\\t20\\t+\\nscaffold_1\\t21\\t120\\t2\\tN\\t100\\tscaffold\\tyes\\tmap\\nscaffold_1\\t121\\t136\\t3\\tW\\tctg2\\t1\\t16\\t+\\n' > scaffolds.agp && printf 'ctg1\\t20\\t0\\t20\\t+\\tchr1\\t1000\\t100\\t120\\t20\\t20\\t60\\nctg2\\t16\\t0\\t16\\t+\\tchr1\\t1000\\t200\\t216\\t16\\t16\\t60\\n' > asm_to_ref.paf && haphic refsort scaffolds.agp asm_to_ref.paf --fasta asm.fa > scaffolds.refsort.agp && test -s scaffolds.refsort.agp && test -s scaffolds.refsort.fa && grep -F 'ctg1' scaffolds.refsort.agp >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -6825,12 +6825,12 @@
               "mkdir -p /tmp/taf-haphic-refsort && cd /tmp/taf-haphic-refsort && printf '>ctg1\\nACGTACGTACGTACGTACGT\\n>ctg2\\nTTTTCCCCAAAAGGGG\\n' > asm.fa && printf 'scaffold_1\\t1\\t20\\t1\\tW\\tctg1\\t1\\t20\\t+\\nscaffold_1\\t21\\t120\\t2\\tN\\t100\\tscaffold\\tyes\\tmap\\nscaffold_1\\t121\\t136\\t3\\tW\\tctg2\\t1\\t16\\t+\\n' > scaffolds.agp && printf 'ctg1\\t20\\t0\\t20\\t+\\tchr1\\t1000\\t100\\t120\\t20\\t20\\t60\\nctg2\\t16\\t0\\t16\\t+\\tchr1\\t1000\\t200\\t216\\t16\\t16\\t60\\n' > asm_to_ref.paf && haphic refsort scaffolds.agp asm_to_ref.paf --fasta asm.fa > scaffolds.refsort.agp && test -s scaffolds.refsort.agp && test -s scaffolds.refsort.fa && grep -F 'ctg1' scaffolds.refsort.agp >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -7000,12 +7000,12 @@
               "mkdir -p /tmp/taf-hicexplorer-cool && cd /tmp/taf-hicexplorer-cool && python -c 'import cooler, pandas as pd; bins = pd.DataFrame({\"chrom\": [\"chr1\", \"chr1\"], \"start\": [0, 1000], \"end\": [1000, 2000]}); pixels = pd.DataFrame({\"bin1_id\": [0, 0, 1], \"bin2_id\": [0, 1, 1], \"count\": [5, 2, 3]}); cooler.create_cooler(\"tiny.cool\", bins=bins, pixels=pixels, ordered=True)' && hicInfo --matrices tiny.cool | grep -F 'tiny.cool' >/dev/null && hicPlotMatrix --matrix tiny.cool --outFileName tiny.png >/dev/null && test -s tiny.png && hicConvertFormat --matrices tiny.cool --inputFormat cool --outputFormat h5 --outFileName tiny.h5 >/dev/null && test -s tiny.h5 && hicInfo --matrices tiny.h5 | grep -F 'tiny.h5' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -7165,12 +7165,12 @@
               "mkdir -p /tmp/taf-hicexplorer-cool && cd /tmp/taf-hicexplorer-cool && python -c 'import cooler, pandas as pd; bins = pd.DataFrame({\"chrom\": [\"chr1\", \"chr1\"], \"start\": [0, 1000], \"end\": [1000, 2000]}); pixels = pd.DataFrame({\"bin1_id\": [0, 0, 1], \"bin2_id\": [0, 1, 1], \"count\": [5, 2, 3]}); cooler.create_cooler(\"tiny.cool\", bins=bins, pixels=pixels, ordered=True)' && hicInfo --matrices tiny.cool | grep -F 'tiny.cool' >/dev/null && hicPlotMatrix --matrix tiny.cool --outFileName tiny.png >/dev/null && test -s tiny.png && hicConvertFormat --matrices tiny.cool --inputFormat cool --outputFormat h5 --outFileName tiny.h5 >/dev/null && test -s tiny.h5 && hicInfo --matrices tiny.h5 | grep -F 'tiny.h5' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -7287,12 +7287,12 @@
               "mkdir -p /tmp/taf-hifiasm-smoke && cd /tmp/taf-hifiasm-smoke && printf '@r1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTA\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n@r3\\nGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && hifiasm -o tiny -t1 -f0 reads.fq > tiny.out 2> tiny.log && test -s tiny.log && grep -F '[M::ha_analyze_count]' tiny.log >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -7398,12 +7398,12 @@
               "mkdir -p /tmp/taf-hifiasm-smoke && cd /tmp/taf-hifiasm-smoke && printf '@r1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nCGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTA\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n@r3\\nGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTAC\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && hifiasm -o tiny -t1 -f0 reads.fq > tiny.out 2> tiny.log && test -s tiny.log && grep -F '[M::ha_analyze_count]' tiny.log >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -7520,12 +7520,12 @@
               "tmp=\"$(mktemp -d /tmp/taf-higlass-smoke.XXXXXX)\" && (higlass --host-port 8888 > \"$tmp/higlass.log\" 2>&1 & pid=\"$!\"; ok=0; for i in $(seq 1 45); do if curl -fsS http://127.0.0.1/api/v1/tilesets/ | grep -F '\"count\"' >/dev/null; then ok=1; break; fi; sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; grep -F 'http://127.0.0.1:8888/' \"$tmp/higlass.log\" >/dev/null; test \"$ok\" -eq 1)"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -7669,12 +7669,12 @@
               "mkdir -p /tmp/taf-hisat2-gtf-smoke && cd /tmp/taf-hisat2-gtf-smoke && printf 'chr1\\tsrc\\texon\\t1\\t10\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\nchr1\\tsrc\\texon\\t21\\t30\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > genes.gtf && hisat2_extract_splice_sites.py genes.gtf | grep -F 'chr1' >/dev/null && hisat2_extract_exons.py genes.gtf | grep -F 'chr1' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -7806,12 +7806,12 @@
               "mkdir -p /tmp/taf-hisat2-gtf-smoke && cd /tmp/taf-hisat2-gtf-smoke && printf 'chr1\\tsrc\\texon\\t1\\t10\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\nchr1\\tsrc\\texon\\t21\\t30\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > genes.gtf && hisat2_extract_splice_sites.py genes.gtf | grep -F 'chr1' >/dev/null && hisat2_extract_exons.py genes.gtf | grep -F 'chr1' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -7974,12 +7974,12 @@
               "mkdir -p /tmp/taf-hmmer-nhmmer && cd /tmp/taf-hmmer-nhmmer && cp /opt/hmmer/share/doc/hmmer/tutorial/MADE1.hmm . && cp /opt/hmmer/share/doc/hmmer/tutorial/dna_target.fa . && nhmmer --tblout nh.tbl MADE1.hmm dna_target.fa >/dev/null && grep -F 'MADE1' nh.tbl >/dev/null && makehmmerdb dna_target.fa dna.hmmerdb >/dev/null && test -s dna.hmmerdb"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -8133,12 +8133,12 @@
               "mkdir -p /tmp/taf-hmmer-nhmmer && cd /tmp/taf-hmmer-nhmmer && cp /opt/hmmer/share/doc/hmmer/tutorial/MADE1.hmm . && cp /opt/hmmer/share/doc/hmmer/tutorial/dna_target.fa . && nhmmer --tblout nh.tbl MADE1.hmm dna_target.fa >/dev/null && grep -F 'MADE1' nh.tbl >/dev/null && makehmmerdb dna_target.fa dna.hmmerdb >/dev/null && test -s dna.hmmerdb"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -8269,12 +8269,12 @@
               "igv-gui --help >/dev/null && (IGV_JAVA_XMX=1024m igv-gui --geometry 800x600 >/tmp/taf-igv-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-igv-gui.log >/dev/null && grep -F 'IGV GUI is starting.' /tmp/taf-igv-gui.log >/dev/null)"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -8396,12 +8396,12 @@
               "mkdir -p /tmp/taf-jellyfish-sam && cd /tmp/taf-jellyfish-sam && printf '@SQ\\tSN:chr1\\tLN:12\\nr1\\t0\\tchr1\\t1\\t60\\t12M\\t*\\t0\\t0\\tACGTACGTACGT\\tFFFFFFFFFFFF\\n' > reads.sam && jellyfish count -m 4 -s 100 -t 1 -C -o sam.jf reads.sam && test -s sam.jf && jellyfish query sam.jf ACGT | grep -F 'ACGT 3' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -8527,12 +8527,12 @@
               "juicebox-gui --help >/dev/null && (JUICEBOX_JAVA_XMX=512m juicebox-gui --geometry 800x600 >/tmp/taf-juicebox-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-juicebox-gui.log >/dev/null && grep -F 'Juicebox GUI is starting.' /tmp/taf-juicebox-gui.log >/dev/null)"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -8654,12 +8654,12 @@
               "mkdir -p /tmp/taf-juicer-pre && cd /tmp/taf-juicer-pre && printf 'chr1\\t10000\\n' > chrom.sizes && printf '0 chr1 100 0 0 chr1 500 1\\n0 chr1 1000 0 0 chr1 1500 1\\n0 chr1 2000 0 0 chr1 2500 1\\n0 chr1 3000 0 0 chr1 3500 1\\n' > contacts.txt && JUICER_TOOLS_JAVA_XMX=512m juicer_tools pre -n -r 1000 contacts.txt tiny.hic chrom.sizes >/dev/null && test -s tiny.hic && JUICER_TOOLS_JAVA_XMX=512m juicer_tools validate tiny.hic 2>&1 | grep -F 'Validation successful' >/dev/null && JUICER_TOOLS_JAVA_XMX=512m juicer_tools dump observed NONE tiny.hic chr1 chr1 BP 1000 dump.txt >/dev/null && grep -F '0\t0\t1.0' dump.txt >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -8779,12 +8779,12 @@
               "mkdir -p /tmp/taf-kallisto-bus && cd /tmp/taf-kallisto-bus && printf '>tx1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGGTTACGATGCTAGTACCGATCGTACGATGGCATCGTACGAA\\n>tx2\\nTTCAGGCTACGATGCTAGGATCGATACCGTTAGCTGACTGACCTAGGCTTACGATCCGTAGCTAACGATGCTGATCGTACCTGAGCTAGCTT\\n' > transcripts.fa && kallisto index -i transcripts.idx transcripts.fa && printf '@r1\\nAAAAAAAAAAAAAAAACCCCCCCCCC\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@r1\\nACGTTGCATGTCAGTACGATCGTAGCTAGTCCGATGACCTGACTGATCGG\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && kallisto bus -i transcripts.idx -o bus -x 10xv2 -t 1 r1.fq r2.fq && test -s bus/output.bus && test -s bus/matrix.ec && test -s bus/transcripts.txt && grep -F '\"n_targets\": 2' bus/run_info.json >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -8909,12 +8909,12 @@
               "mkdir -p /tmp/taf-kmc-filter/tmp && cd /tmp/taf-kmc-filter && printf '@a\\nACGTACGT\\n+\\nFFFFFFFF\\n@b\\nTTTTTTTT\\n+\\nFFFFFFFF\\n' > reads.fq && kmc -k3 -m2 -ci1 -t1 reads.fq db tmp >/tmp/taf-kmc-filter-count.log 2>&1 && kmc_tools filter db reads.fq -ci1 filtered.fq >/tmp/taf-kmc-filter.log 2>&1 && test -s filtered.fq && grep -F '@a' filtered.fq >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -9056,12 +9056,12 @@
               "mafft-sparsecore.rb 2>&1 | grep -F 'Give input file with -i.' >/dev/null && mafft-homologs.rb --help 2>&1 | grep -F 'Usage: mafft-homologs' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -9194,12 +9194,12 @@
               "mafft-sparsecore.rb 2>&1 | grep -F 'Give input file with -i.' >/dev/null && mafft-homologs.rb --help 2>&1 | grep -F 'Usage: mafft-homologs' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -9332,12 +9332,12 @@
               "mafft-sparsecore.rb 2>&1 | grep -F 'Give input file with -i.' >/dev/null && mafft-homologs.rb --help 2>&1 | grep -F 'Usage: mafft-homologs' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -9479,12 +9479,12 @@
               "mkdir -p /tmp/taf-mcscanx-group && cd /tmp/taf-mcscanx-group && printf '0\\taa1g1\\tbb1g1\\n' > collinear.txt && group_collinear_genes.pl -i collinear.txt -o groups.txt && grep -F 'aa1g1' groups.txt >/dev/null && printf 'fam1\\taa1g1\\tbb1g1\\n' > families.txt && detect_collinearity_within_gene_families.pl -i families.txt -d collinear.txt -o family-collinear.txt && grep -F 'aa1g1:bb1g1' family-collinear.txt >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -9605,12 +9605,12 @@
               "mkdir -p /tmp/taf-merfin-smoke && cd /tmp/taf-merfin-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl count memory=0.1 threads=1 k=21 seq.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && meryl histogram read.meryl > read.hist && test -s read.hist && merfin -hist -sequence seq.fa -readmers read.meryl -peak 1 -output merfin.hist -threads 1 > merfin.out 2> merfin.log && test -s merfin.hist && grep -F 'Merfin QV*' merfin.log >/dev/null && grep -F 'Bye!' merfin.log >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -9723,12 +9723,12 @@
               "mkdir -p /tmp/taf-merfin-smoke && cd /tmp/taf-merfin-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl count memory=0.1 threads=1 k=21 seq.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && meryl histogram read.meryl > read.hist && test -s read.hist && merfin -hist -sequence seq.fa -readmers read.meryl -peak 1 -output merfin.hist -threads 1 > merfin.out 2> merfin.log && test -s merfin.hist && grep -F 'Merfin QV*' merfin.log >/dev/null && grep -F 'Bye!' merfin.log >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -9861,12 +9861,12 @@
               "mkdir -p /tmp/taf-merqury-smoke && cd /tmp/taf-merqury-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > asm.fa && meryl k=21 memory=0.1 count asm.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && merqury.sh read.meryl asm.fa out > run.out 2> run.err && test -s out.qv && test -s out.completeness.stats && test -s out.asm.spectra-cn.ln.png && test -s out.spectra-asm.ln.png && test -e asm_only.wig && grep -F 'asm_only.wig generated.' logs/out.spectra-cn.log >/dev/null && grep -F 'Done!' logs/out.spectra-cn.log >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -9991,12 +9991,12 @@
               "mkdir -p /tmp/taf-meryl-smoke && cd /tmp/taf-meryl-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl k=21 memory=0.1 threads=1 count seq.fa output seq.meryl >/dev/null 2> meryl.log && test -d seq.meryl && meryl histogram seq.meryl > seq.hist && grep -E '^6[[:space:]]+2$' seq.hist >/dev/null && meryl statistics seq.meryl > seq.stats && grep -F 'distinct                    2' seq.stats >/dev/null && meryl print seq.meryl > seq.print && grep -F 'ACGTACGTACGTACGTACGTA' seq.print >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -10111,12 +10111,12 @@
               "mkdir -p /tmp/taf-meryl-smoke && cd /tmp/taf-meryl-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl k=21 memory=0.1 threads=1 count seq.fa output seq.meryl >/dev/null 2> meryl.log && test -d seq.meryl && meryl histogram seq.meryl > seq.hist && grep -E '^6[[:space:]]+2$' seq.hist >/dev/null && meryl statistics seq.meryl > seq.stats && grep -F 'distinct                    2' seq.stats >/dev/null && meryl print seq.meryl > seq.print && grep -F 'ACGTACGTACGTACGTACGTA' seq.print >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -10241,12 +10241,12 @@
               "mkdir -p /tmp/taf-minimap2-index && cd /tmp/taf-minimap2-index && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -k9 -w5 -d ref.mmi ref.fa && gzip -c reads.fa > reads.fa.gz && minimap2 ref.mmi reads.fa.gz > indexed.paf && grep -F 'read1' indexed.paf >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -10362,12 +10362,12 @@
               "mkdir -p /tmp/taf-minimap2-index && cd /tmp/taf-minimap2-index && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -k9 -w5 -d ref.mmi ref.fa && gzip -c reads.fa > reads.fa.gz && minimap2 ref.mmi reads.fa.gz > indexed.paf && grep -F 'read1' indexed.paf >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -10488,12 +10488,12 @@
               "mkdir -p /tmp/taf-miniprot-aln && cd /tmp/taf-miniprot-aln && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 --aln --trans ref.fa.gz query.faa.gz > aln.txt && grep -F '##ATA' aln.txt >/dev/null && grep -F '##STA' aln.txt >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -10604,12 +10604,12 @@
               "mkdir -p /tmp/taf-miniprot-aln && cd /tmp/taf-miniprot-aln && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 --aln --trans ref.fa.gz query.faa.gz > aln.txt && grep -F '##ATA' aln.txt >/dev/null && grep -F '##STA' aln.txt >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -10742,12 +10742,12 @@
               "mkdir -p /tmp/taf-mmseqs2-db-workflow && cd /tmp/taf-mmseqs2-db-workflow && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>q2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n>t3\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\n' > target.fa && mmseqs createdb query.fa queryDB --threads 1 >/tmp/taf-mmseqs2-createdb-query.log 2>&1 && mmseqs createdb target.fa targetDB --threads 1 >/tmp/taf-mmseqs2-createdb-target.log 2>&1 && mmseqs search queryDB targetDB resultDB tmp-search --threads 1 -s 1.0 >/tmp/taf-mmseqs2-search-db.log 2>&1 && mmseqs convertalis queryDB targetDB resultDB result.m8 >/tmp/taf-mmseqs2-convertalis.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && mmseqs createtsv queryDB targetDB resultDB result.tsv >/tmp/taf-mmseqs2-createtsv.log 2>&1 && test -s result.tsv && mmseqs convert2fasta targetDB target.back.fa >/tmp/taf-mmseqs2-convert2fasta.log 2>&1 && test -s target.back.fa && grep -F '>t1' target.back.fa >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -10871,12 +10871,12 @@
               "mkdir -p /tmp/taf-mmseqs2-db-workflow && cd /tmp/taf-mmseqs2-db-workflow && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>q2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n>t3\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\n' > target.fa && mmseqs createdb query.fa queryDB --threads 1 >/tmp/taf-mmseqs2-createdb-query.log 2>&1 && mmseqs createdb target.fa targetDB --threads 1 >/tmp/taf-mmseqs2-createdb-target.log 2>&1 && mmseqs search queryDB targetDB resultDB tmp-search --threads 1 -s 1.0 >/tmp/taf-mmseqs2-search-db.log 2>&1 && mmseqs convertalis queryDB targetDB resultDB result.m8 >/tmp/taf-mmseqs2-convertalis.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && mmseqs createtsv queryDB targetDB resultDB result.tsv >/tmp/taf-mmseqs2-createtsv.log 2>&1 && test -s result.tsv && mmseqs convert2fasta targetDB target.back.fa >/tmp/taf-mmseqs2-convert2fasta.log 2>&1 && test -s target.back.fa && grep -F '>t1' target.back.fa >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -11000,12 +11000,12 @@
               "mkdir -p /tmp/taf-mmseqs2-db-workflow && cd /tmp/taf-mmseqs2-db-workflow && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>q2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n>t3\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\n' > target.fa && mmseqs createdb query.fa queryDB --threads 1 >/tmp/taf-mmseqs2-createdb-query.log 2>&1 && mmseqs createdb target.fa targetDB --threads 1 >/tmp/taf-mmseqs2-createdb-target.log 2>&1 && mmseqs search queryDB targetDB resultDB tmp-search --threads 1 -s 1.0 >/tmp/taf-mmseqs2-search-db.log 2>&1 && mmseqs convertalis queryDB targetDB resultDB result.m8 >/tmp/taf-mmseqs2-convertalis.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && mmseqs createtsv queryDB targetDB resultDB result.tsv >/tmp/taf-mmseqs2-createtsv.log 2>&1 && test -s result.tsv && mmseqs convert2fasta targetDB target.back.fa >/tmp/taf-mmseqs2-convert2fasta.log 2>&1 && test -s target.back.fa && grep -F '>t1' target.back.fa >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -11128,12 +11128,12 @@
               "mkdir -p /tmp/taf-mosdepth-chrom-end && cd /tmp/taf-mosdepth-chrom-end && mosdepth -n --by /opt/mosdepth/share/testdata/chrom-end/region-not-ok.bed out /opt/mosdepth/share/testdata/chrom-end/minimal.bam && test -s out.mosdepth.summary.txt && test -s out.regions.bed.gz"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -11248,12 +11248,12 @@
               "python -c 'import os, plotly.graph_objects as go; fig = go.Figure(data=[go.Bar(x=[\"sample\"], y=[1])]); fig.write_image(\"/tmp/taf-multiqc-kaleido.png\"); assert os.path.getsize(\"/tmp/taf-multiqc-kaleido.png\") > 0'"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -11360,12 +11360,12 @@
               "python -c 'import os, plotly.graph_objects as go; fig = go.Figure(data=[go.Bar(x=[\"sample\"], y=[1])]); fig.write_image(\"/tmp/taf-multiqc-kaleido.png\"); assert os.path.getsize(\"/tmp/taf-multiqc-kaleido.png\") > 0'"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -11487,12 +11487,12 @@
               "mkdir -p /tmp/taf-muscle-ensemble && cd /tmp/taf-muscle-ensemble && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -align in.fa -diversified -replicates 2 -output ensemble.efa >/dev/null 2> ensemble.log && test -s ensemble.efa && grep -F '<none.0' ensemble.efa >/dev/null && muscle -maxcc ensemble.efa -output maxcc.afa >/dev/null 2> maxcc.log && test -s maxcc.afa && muscle -resample ensemble.efa -replicates 1 -output resampled.efa >/dev/null 2> resample.log && test -s resampled.efa && muscle -efa_explode ensemble.efa >/dev/null 2> explode.log && test -s none.0 && test -s abc.1"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -11604,12 +11604,12 @@
               "mkdir -p /tmp/taf-muscle-ensemble && cd /tmp/taf-muscle-ensemble && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -align in.fa -diversified -replicates 2 -output ensemble.efa >/dev/null 2> ensemble.log && test -s ensemble.efa && grep -F '<none.0' ensemble.efa >/dev/null && muscle -maxcc ensemble.efa -output maxcc.afa >/dev/null 2> maxcc.log && test -s maxcc.afa && muscle -resample ensemble.efa -replicates 1 -output resampled.efa >/dev/null 2> resample.log && test -s resampled.efa && muscle -efa_explode ensemble.efa >/dev/null 2> explode.log && test -s none.0 && test -s abc.1"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -11731,12 +11731,12 @@
               "convert -version | grep -F 'ImageMagick' >/dev/null && rsvg-convert --version >/dev/null && minimap2 --version >/dev/null && case \"$(nucmer -V)\" in 4.*) true;; *) exit 1;; esac && command -v delta-filter >/dev/null && command -v show-coords >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -11832,7 +11832,7 @@
           "smoke": null,
           "trust": {
             "status": "not_applicable",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -11984,12 +11984,12 @@
               "mkdir -p /tmp/taf-orthofinder-muscle-run && cd /tmp/taf-orthofinder-muscle-run && cp -r /usr/local/share/doc/orthofinder/tests/data/proteome/Core proteomes && orthofinder -f proteomes -M msa -A muscle -T fasttree -t 1 -a 1 -o results >/tmp/taf-orthofinder-muscle-run.log 2>&1 && test -s results/Results_*/Orthogroups/Orthogroups.tsv && test -s results/Results_*/Species_Tree/SpeciesTree_rooted.txt"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -12135,12 +12135,12 @@
               "mkdir -p /tmp/taf-orthofinder-muscle-run && cd /tmp/taf-orthofinder-muscle-run && cp -r /usr/local/share/doc/orthofinder/tests/data/proteome/Core proteomes && orthofinder -f proteomes -M msa -A muscle -T fasttree -t 1 -a 1 -o results >/tmp/taf-orthofinder-muscle-run.log 2>&1 && test -s results/Results_*/Orthogroups/Orthogroups.tsv && test -s results/Results_*/Species_Tree/SpeciesTree_rooted.txt"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -12254,12 +12254,12 @@
               "mkdir -p /tmp/taf-pandepth-gene-gc && cd /tmp/taf-pandepth-gene-gc && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'toy.sam\\n' > input.list && printf 'chr1\\tsmoke\\tCDS\\t11\\t20\\t.\\t+\\t0\\tID=cds1;Parent=gene1\\n' > toy.gff && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && pandepth -i input.list -g toy.gff -o gene -t 1 >/tmp/taf-pandepth-gene.log 2>&1 && test -s gene.gene.stat.gz && gzip -cd gene.gene.stat.gz | grep -F 'gene1' >/dev/null && pandepth -i toy.sam -o gc -t 1 -r ref.fa -c >/tmp/taf-pandepth-gc.log 2>&1 && test -s gc.chr.stat.gz && gzip -cd gc.chr.stat.gz | grep -F 'GC(%)' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -12364,12 +12364,12 @@
               "mkdir -p /tmp/taf-pandepth-gene-gc && cd /tmp/taf-pandepth-gene-gc && printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t11\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > toy.sam && printf 'toy.sam\\n' > input.list && printf 'chr1\\tsmoke\\tCDS\\t11\\t20\\t.\\t+\\t0\\tID=cds1;Parent=gene1\\n' > toy.gff && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && pandepth -i input.list -g toy.gff -o gene -t 1 >/tmp/taf-pandepth-gene.log 2>&1 && test -s gene.gene.stat.gz && gzip -cd gene.gene.stat.gz | grep -F 'gene1' >/dev/null && pandepth -i toy.sam -o gc -t 1 -r ref.fa -c >/tmp/taf-pandepth-gc.log 2>&1 && test -s gc.chr.stat.gz && gzip -cd gc.chr.stat.gz | grep -F 'GC(%)' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -12493,12 +12493,12 @@
               "tmp=/tmp/taf-picard-r-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; Rscript --version >/tmp/taf-picard-rscript.log 2>&1; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n' > reads.fq; PICARD_JAVA_XMX=512m picard FastqToSam F1=reads.fq O=reads.bam SM=sample RG=rg1 QUALITY_FORMAT=Standard QUIET=true >/tmp/taf-picard-r-fastqtosam.log 2>&1; PICARD_JAVA_XMX=512m picard MeanQualityByCycle I=reads.bam O=mean_quality.txt CHART_OUTPUT=mean_quality.pdf QUIET=true >/tmp/taf-picard-mean-quality.log 2>&1; test -s mean_quality.txt && test -s mean_quality.pdf && grep -F 'MEAN_QUALITY' mean_quality.txt >/dev/null; rm -rf \"$tmp\" /tmp/taf-picard-rscript.log /tmp/taf-picard-r-fastqtosam.log /tmp/taf-picard-mean-quality.log"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -12618,12 +12618,12 @@
               "mkdir -p /tmp/taf-plotsr-syri && cd /tmp/taf-plotsr-syri && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t1\\t1000\\t-\\t-\\tchr1\\t1\\t1000\\tSYN1\\t-\\tSYN\\t-\\nchr1\\t200\\t350\\t-\\t-\\tchr1\\t220\\t370\\tINV1\\t-\\tINV\\t-\\n' > ab.syri.out && plotsr --sr ab.syri.out --genomes genomes.txt --chr chr1 -o out.svg -W 3 -H 2 -f 6 -d 80 --lf syri.log >/dev/null 2> syri.err && test -s out.svg && grep -F '<svg' out.svg >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -12735,12 +12735,12 @@
               "mkdir -p /tmp/taf-plotsr-syri && cd /tmp/taf-plotsr-syri && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t1\\t1000\\t-\\t-\\tchr1\\t1\\t1000\\tSYN1\\t-\\tSYN\\t-\\nchr1\\t200\\t350\\t-\\t-\\tchr1\\t220\\t370\\tINV1\\t-\\tINV\\t-\\n' > ab.syri.out && plotsr --sr ab.syri.out --genomes genomes.txt --chr chr1 -o out.svg -W 3 -H 2 -f 6 -d 80 --lf syri.log >/dev/null 2> syri.err && test -s out.svg && grep -F '<svg' out.svg >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -12864,12 +12864,12 @@
               "pymol-gui --help >/dev/null && (pymol-gui --geometry 800x600 >/tmp/taf-pymol-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 30 ]; do if curl -fsS http://127.0.0.1:5801/vnc.html >/dev/null; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-pymol-gui.log >/dev/null)"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -12993,12 +12993,12 @@
               "qualimap-gui --help >/dev/null && (qualimap-gui --geometry 800x600 >/tmp/taf-qualimap-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-qualimap-gui.log >/dev/null && grep -F 'Qualimap GUI is starting.' /tmp/taf-qualimap-gui.log >/dev/null)"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -13143,12 +13143,12 @@
               "mkdir -p /tmp/taf-quartet-mummer && cd /tmp/taf-quartet-mummer && python3 -c 'seq=(\"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\"*20); open(\"ref.fa\",\"w\").write(\">chr1\\n\"+seq+\"\\n\"); open(\"qry.fa\",\"w\").write(\">qry1\\n\"+seq+\"\\n\")' && nucmer -p smoke ref.fa qry.fa >/tmp/taf-quartet-mummer.log 2>&1 && delta-filter -m -q smoke.delta > smoke.filter.delta && show-coords -T -H smoke.filter.delta > smoke.coords && test -s smoke.coords"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -13270,12 +13270,12 @@
               "rm -rf /tmp/taf-quast-smoke && mkdir -p /tmp/taf-quast-smoke && quast.py --no-html --no-plots --no-icarus -t 1 -r /opt/quast/test_data/reference.fasta.gz -o /tmp/taf-quast-smoke/out /opt/quast/test_data/contigs_1.fasta >/tmp/taf-quast-smoke.log 2>&1 && test -s /tmp/taf-quast-smoke/out/report.txt && test -s /tmp/taf-quast-smoke/out/report.tsv && grep -F '# contigs' /tmp/taf-quast-smoke/out/report.tsv >/dev/null && grep -F 'Genome fraction (%)' /tmp/taf-quast-smoke/out/report.tsv >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -13412,12 +13412,12 @@
               "mkdir -p /tmp/taf-repeatmasker-utils-smoke/out && cd /tmp/taf-repeatmasker-utils-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && RepeatMasker -pa 1 -engine rmblast -lib repeats.fa -dir out input.fa >/tmp/taf-repeatmasker-utils-smoke/run.log 2>&1 && rmOutToGFF3.pl out/input.fa.out > out/input.fa.util.gff && test -s out/input.fa.util.gff && grep -F 'ToyRepeat' out/input.fa.util.gff >/dev/null && buildSummary.pl out/input.fa.out > out/input.fa.summary && test -s out/input.fa.summary && grep -F 'ToyRepeat' out/input.fa.summary >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -13559,12 +13559,12 @@
               "legacy_blast.pl --help 2>&1 | grep -F 'legacy_blast.pl' >/dev/null && update_blastdb.pl --help 2>&1 | grep -F 'update_blastdb.pl' >/dev/null && command -v get_species_taxids.sh >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -13699,12 +13699,12 @@
               "rm -rf /tmp/taf-rsem-matrix-smoke && mkdir -p /tmp/taf-rsem-matrix-smoke && cd /tmp/taf-rsem-matrix-smoke && printf 'gene_id\\ttranscript_id(s)\\tlength\\teffective_length\\texpected_count\\tTPM\\tFPKM\\nG1\\tT1\\t100\\t80\\t10\\t50\\t5\\nG2\\tT2\\t100\\t80\\t20\\t50\\t5\\n' > s1.genes.results && printf 'gene_id\\ttranscript_id(s)\\tlength\\teffective_length\\texpected_count\\tTPM\\tFPKM\\nG1\\tT1\\t100\\t80\\t12\\t50\\t5\\nG2\\tT2\\t100\\t80\\t18\\t50\\t5\\n' > s2.genes.results && rsem-generate-data-matrix s1.genes.results s2.genes.results > matrix.txt && test -s matrix.txt && grep -F 's1.genes.results' matrix.txt >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -13861,12 +13861,12 @@
               "tmp=/tmp/taf-rseqc-logo-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n@r2\\nACGTTCGT\\n+\\nIIIIIIII\\n' > reads.fq && sc_seqLogo.py -i reads.fq --iformat fq --oformat png --font-name 'DejaVu Sans' -n 2 -o logo > logo.out 2>&1 && test -s logo.count_matrix.csv && test -s logo.logo.png && test -s logo.logo.mean_centered.png"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -14012,12 +14012,12 @@
               "tmp=/tmp/taf-rseqc-logo-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n@r2\\nACGTTCGT\\n+\\nIIIIIIII\\n' > reads.fq && sc_seqLogo.py -i reads.fq --iformat fq --oformat png --font-name 'DejaVu Sans' -n 2 -o logo > logo.out 2>&1 && test -s logo.count_matrix.csv && test -s logo.logo.png && test -s logo.logo.mean_centered.png"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -14134,12 +14134,12 @@
               "{ salmon --no-version-check alevin > /tmp/taf-salmon-alevin.out 2>&1 && exit 1 || true; } && grep -F 'alevin-fry' /tmp/taf-salmon-alevin.out >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -14256,12 +14256,12 @@
               "mkdir -p /tmp/taf-samblaster-unmapped && cd /tmp/taf-samblaster-unmapped && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\nunmap\\t4\\t*\\t0\\t0\\t*\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\nclip\\t0\\tchr1\\t100\\t60\\t5S5M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > unmapped.sam && samblaster -i unmapped.sam -o marked.sam -u unmapped.fq --ignoreUnmated --minClipSize 5 -q > run.out 2> run.err && grep -F '@unmap' unmapped.fq >/dev/null && grep -F '@clip' unmapped.fq >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -14390,12 +14390,12 @@
               "perl -MURI::Escape -e 'print uri_escape(qq(ok))' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -14514,12 +14514,12 @@
               "mkdir -p /tmp/taf-seqkit-compress && cd /tmp/taf-seqkit-compress && printf '>seq1\\nACGTACGT\\n>seq2\\nTTAGGGTTAGGG\\n>seq3\\nCCCCAAAAGGGG\\n' > seqs.fa && seqkit sample2 -n 2 -s 7 seqs.fa > sample.fa && grep -F '>seq' sample.fa >/dev/null && seqkit seq -o seqs.fa.lz4 seqs.fa && test -s seqs.fa.lz4 && seqkit stats seqs.fa.lz4 > lz4.stats && grep -F 'seqs.fa.lz4' lz4.stats >/dev/null && seqkit sum seqs.fa > sum.txt && grep -F 'seqkit.v0.1_DLS_k0_' sum.txt >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -14638,12 +14638,12 @@
               "mkdir -p /tmp/taf-seqtk-extra && cd /tmp/taf-seqtk-extra && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && seqtk hpc ref.fa > hpc.fa && grep -F 'ACGTACGTNACGT' hpc.fa >/dev/null && seqtk gap -l 2 ref.fa > gap.bed && grep -F \"$(printf 'chr1\\t8\\t12')\" gap.bed >/dev/null && seqtk split -n 2 chunk ref.fa && test -s chunk.00001.fa && test -s chunk.00002.fa && seqtk telo -P ref.fa > telo.bed 2> telo.count && grep -F \"$(printf '0\\t34')\" telo.count >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -14764,12 +14764,12 @@
               "Rscript /opt/soapnuke/Rscripts/Q20Q30.R 2>&1 | grep -F 'Usage:' >/dev/null && Rscript /opt/soapnuke/Rscripts/base.R 2>&1 | grep -F 'Usage:' >/dev/null && Rscript /opt/soapnuke/Rscripts/quality.R 2>&1 | grep -F 'Usage:' >/dev/null && test -s /opt/soapnuke/share/doc/Readme.md && grep -F 'SOAPnuke is released under' /opt/soapnuke/share/doc/Readme.md >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -14907,12 +14907,12 @@
               "mkdir -p /tmp/taf-sra-test && HOME=/tmp/taf-sra-test test-sra +s+c -X text 2>&1 | grep -F 'NCBI SRA Toolkit release version: 3.4.1.' >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -15029,12 +15029,12 @@
               "mkdir -p /tmp/taf-srf-utils && cd /tmp/taf-srf-utils && printf '>circ1-4\\nACGT\\n' > circ.fa && srfutils.js enlong -l 10 circ.fa > enlong.fa && grep -F 'ACGTACGTACGT' enlong.fa >/dev/null && printf '>a\\nACGT\\n>b\\nACGT\\n' > merge.fa && srfutils.js merge merged merge.fa > merged.fa && grep -F '>merged*0001 a' merged.fa >/dev/null && test \"$(grep -c '^>' merged.fa)\" -eq 1 && printf 'chr1\\t0\\t20\\tcirc1-4\\t2.5\\t100\\t4\\t1\\n' > hit.bed && srfutils.js bed2abun hit.bed > abun.txt && grep -F 'circ1-4' abun.txt >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -15139,12 +15139,12 @@
               "mkdir -p /tmp/taf-srf-utils && cd /tmp/taf-srf-utils && printf '>circ1-4\\nACGT\\n' > circ.fa && srfutils.js enlong -l 10 circ.fa > enlong.fa && grep -F 'ACGTACGTACGT' enlong.fa >/dev/null && printf '>a\\nACGT\\n>b\\nACGT\\n' > merge.fa && srfutils.js merge merged merge.fa > merged.fa && grep -F '>merged*0001 a' merged.fa >/dev/null && test \"$(grep -c '^>' merged.fa)\" -eq 1 && printf 'chr1\\t0\\t20\\tcirc1-4\\t2.5\\t100\\t4\\t1\\n' > hit.bed && srfutils.js bed2abun hit.bed > abun.txt && grep -F 'circ1-4' abun.txt >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -15269,12 +15269,12 @@
               "rm -rf /tmp/taf-star-helper-smoke && mkdir -p /tmp/taf-star-helper-smoke && cd /tmp/taf-star-helper-smoke && printf 'chr1\\tsrc\\texon\\t1\\t10\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\nchr1\\tsrc\\texon\\t21\\t30\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > genes.gtf && extractSJfromGTF.sh genes.gtf | grep -Fx 'chr1\t11\t20\t+' >/dev/null && rm -rf /tmp/taf-star-helper-smoke"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -15398,12 +15398,12 @@
               "mkdir -p /tmp/taf-stringtie-expression/sample1 && cd /tmp/taf-stringtie-expression && printf 'sample1\\t/tmp/taf-stringtie-expression/sample1/sample.gtf\\n' > samples.txt && stringtie -e -B -G /opt/stringtie/tests/human-chr19_P.gff -o sample1/sample.gtf /opt/stringtie/tests/long_reads.bam >/tmp/taf-stringtie-expression/run.log 2>&1 && test -s sample1/sample.gtf && test -s sample1/t_data.ctab && grep -F 'TPM' sample1/sample.gtf >/dev/null && prepDE.py3 -i samples.txt -g gene_count_matrix.csv -t transcript_count_matrix.csv >/tmp/taf-stringtie-expression/prepde.log 2>&1 && test -s gene_count_matrix.csv && test -s transcript_count_matrix.csv && grep -F 'gene_id' gene_count_matrix.csv >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -15543,12 +15543,12 @@
               "mkdir -p /tmp/taf-subread-exactsnp && cd /tmp/taf-subread-exactsnp && exactSNP -g /opt/subread/test/chr901.fa -o out.vcf -i /opt/subread/test/exactSNP/data/test-in.BAM -b >/tmp/taf-subread-exactsnp/exactsnp.log 2>&1 && test -s out.vcf && grep -F '#CHROM' out.vcf >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -15673,12 +15673,12 @@
               "rm -rf /tmp/taf-chroder-smoke && mkdir -p /tmp/taf-chroder-smoke && cd /tmp/taf-chroder-smoke && printf '1\\t240\\t1\\t240\\t240\\t240\\t99.9\\t1\\t1\\tChrA\\tChrA\\n' > coords.tsv && python3 -c 'print(\">ChrA\"); print(\"ACGT\" * 60)' > ref.fa && cp ref.fa qry.fa && chroder coords.tsv ref.fa qry.fa -F T -o smoke_chroder >/tmp/taf-chroder-smoke.log 2>&1 && test -s smoke_chroder.qry.fasta && test -s smoke_chroder.anno && rm -rf /tmp/taf-chroder-smoke /tmp/taf-chroder-smoke.log"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -15802,12 +15802,12 @@
               "mkdir -p /tmp/taf-tgsgapcloser-ne && cd /tmp/taf-tgsgapcloser-ne && cp /opt/tgsgapcloser/share/examples/tgsgapcloser/input.scaff.fasta scaff.fa && cp /opt/tgsgapcloser/share/examples/tgsgapcloser/ont.reads.fasta reads.fa && tgsgapcloser --scaff scaff.fa --reads reads.fa --output smoke --ne --thread 1 --chunk 1 > run.log 2> run.err && test -s smoke.scaff_seqs && test -s smoke.gap_fill_detail && grep -F '>scaffold_1' smoke.scaff_seqs >/dev/null && grep -F 'ALL DONE' run.log >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -15924,12 +15924,12 @@
               "mkdir -p /tmp/taf-trf-html && cd /tmp/taf-trf-html && printf '>chr1\\nACACACACACACACACACACACACACACACACACACACAC\\n>chr2\\nTTTAGGGTTTAGGGTTTAGGGTTTAGGGTTTAGGG\\n' > tiny.fa && { trf tiny.fa 2 7 7 80 10 20 20 > run.out 2>run.err || true; } && test -s tiny.fa.2.7.7.80.10.20.20.summary.html && test -s tiny.fa.s1.2.7.7.80.10.20.20.1.html && grep -F 'Tandem Repeats Finder' tiny.fa.2.7.7.80.10.20.20.summary.html >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -16053,12 +16053,12 @@
               "mkdir -p /tmp/taf-trimgalore-clumpify && cd /tmp/taf-trimgalore-clumpify && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && trim_galore --clumpify --cores 2 --length 5 -o out reads.fq.gz >/tmp/taf-trimgalore-clumpify.log 2>&1 && test -s out/reads_trimmed.fq.gz && gzip -cd out/reads_trimmed.fq.gz | grep -F 'ACGTACGT' >/dev/null && grep -F 'clumpify:' /tmp/taf-trimgalore-clumpify.log >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -16204,12 +16204,12 @@
               "mkdir -p /tmp/taf-trinity-assembly && cd /tmp/taf-trinity-assembly && Trinity --seqType fq --max_memory 2G --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --SS_lib_type RF --CPU 1 --no_normalize_reads --no_salmon --output trinity_smoke_out >/tmp/taf-trinity-assembly/run.log 2>&1 && test -s trinity_smoke_out.Trinity.fasta && grep -F 'TRINITY_' trinity_smoke_out.Trinity.fasta >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -16340,12 +16340,12 @@
               "rm -rf /tmp/taf-trnascan-se-legacy && mkdir -p /tmp/taf-trnascan-se-legacy && cd /tmp/taf-trnascan-se-legacy && cp /opt/trnascan-se/share/doc/tRNAscan-SE/Demo/Example1.fa . && tRNAscan-SE -q -Q -L -o legacy.out Example1.fa >/tmp/taf-trnascan-se-legacy.log 2>&1 && test -s legacy.out && grep -F 'Sequence' legacy.out >/dev/null && rm -rf /tmp/taf-trnascan-se-legacy /tmp/taf-trnascan-se-legacy.log"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -16489,12 +16489,12 @@
               "mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -16607,12 +16607,12 @@
               "tmp=/tmp/taf-uniprot-idmapping-page-smoke-$$; portfile=${tmp}.port; rm -rf \"$tmp\" \"$portfile\"; mkdir -p \"$tmp\"; python3 /opt/uniprot-idmapping/tests/mock_uniprot_server.py \"$portfile\" & pid=$!; trap 'kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; rm -rf \"$tmp\" \"$portfile\"' EXIT; i=0; while [ ! -s \"$portfile\" ]; do i=$((i + 1)); if [ \"$i\" -gt 50 ]; then exit 1; fi; sleep 0.1; done; cd \"$tmp\" && printf 'P00720\\n' > ids.txt && uniprot-idmapping --base-url \"http://127.0.0.1:$(cat \"$portfile\")\" -i ids.txt -o out.csv --task mapping --from UniProtKB_AC-ID --to UniProtKB --stream False --size 1 && test -s out.csv && grep -F 'LYSC_CHICK' out.csv >/dev/null"
             ],
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "backend_used": "docker"
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-05-22T01:26:55Z",
+            "checked_at": "2026-05-22T04:56:50Z",
             "policy": "taffish.index/trust-v1",
             "source": "taffish-index"
           },
@@ -16632,6 +16632,160 @@
             "citation": "The UniProt Consortium 2025; UniProt website API 2025",
             "doi": "10.1093/nar/gkaf394",
             "pmid": "40331428"
+          }
+        }
+      }
+    },
+    "vcftools": {
+      "name": "vcftools",
+      "latest": "0.1.17-r1",
+      "repository_url": "https://github.com/taffish/vcftools",
+      "command": {
+        "name": "taf-vcftools"
+      },
+      "versions": {
+        "0.1.17-r1": {
+          "name": "vcftools",
+          "kind": "tool",
+          "version": "0.1.17",
+          "release": 1,
+          "version_id": "0.1.17-r1",
+          "tag": "v0.1.17-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/vcftools",
+          "repository_slug": "taffish/vcftools",
+          "command": {
+            "name": "taf-vcftools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "variant",
+              "vcf",
+              "population-genetics",
+              "quality-control"
+            ],
+            "keywords": [
+              "vcftools",
+              "vcf",
+              "bcf",
+              "variant filtering",
+              "allele frequency",
+              "pca",
+              "population genetics",
+              "tabix"
+            ],
+            "summary": "Utilities for filtering, summarizing, validating, comparing, and converting VCF/BCF variant files.",
+            "description": "Utilities for filtering, summarizing, validating, comparing, and converting VCF/BCF variant files."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/vcftools:0.1.17-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.1.17-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:fc504602abbffe3634656d8c0fa09720dfdd4c7571481faecef476018d50b92b",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a87c48a3412844b138e70d37656ed9cb7ae5da18051810c17eeccc90095d6dd8",
+              "linux/arm64": "sha256:2e791bcb95388a9962991e252f74a4203eae18285f371c489f2b9b62624ade12"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "vcftools",
+              "fill-aa",
+              "fill-an-ac",
+              "fill-fs",
+              "fill-ref-md5",
+              "vcf-annotate",
+              "vcf-compare",
+              "vcf-concat",
+              "vcf-consensus",
+              "vcf-contrast",
+              "vcf-convert",
+              "vcf-fix-newlines",
+              "vcf-fix-ploidy",
+              "vcf-indel-stats",
+              "vcf-isec",
+              "vcf-merge",
+              "vcf-phased-join",
+              "vcf-query",
+              "vcf-shuffle-cols",
+              "vcf-sort",
+              "vcf-stats",
+              "vcf-subset",
+              "vcf-to-tab",
+              "vcf-tstv",
+              "vcf-validator",
+              "perl",
+              "gzip",
+              "gunzip",
+              "bgzip",
+              "tabix",
+              "samtools",
+              "gnuplot",
+              "sort",
+              "md5sum",
+              "ldd",
+              "bash"
+            ],
+            "test": [
+              "vcftools --version 2>&1 | grep -Fx 'VCFtools (0.1.17)' >/dev/null && vcftools --help 2>&1 | grep -F 'Process Variant Call Format files' >/dev/null && vcf-validator --help 2>&1 | grep -F 'Usage: vcf-validator' >/dev/null && vcf-query --help 2>&1 | grep -F 'Please use' >/dev/null && perl -MVcf -MVcfStats -MFaSlice -e 1 && grep -F 'source_sha256=00b54fc7349179c2efbdab0e4dcb65a69e7b0ab0d0d29b59cc823140d0b40bff' /opt/vcftools/share/doc/vcftools/source.txt >/dev/null && ldd \"$(command -v vcftools)\" > /tmp/taf-vcftools-ldd.txt && grep -F 'libz.so' /tmp/taf-vcftools-ldd.txt >/dev/null && grep -F 'liblapack.so' /tmp/taf-vcftools-ldd.txt >/dev/null && grep -F 'libc.so' /tmp/taf-vcftools-ldd.txt >/dev/null && if grep -F 'not found' /tmp/taf-vcftools-ldd.txt; then exit 1; fi",
+              "tmp=/tmp/taf-vcftools-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\\n' '##fileformat=VCFv4.2' '##contig=<ID=chr1,length=1000>' '##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Depth\">' '##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">' '##FORMAT=<ID=DP,Number=1,Type=Integer,Description=\"Read Depth\">' '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ts1\ts2\ts3' 'chr1\t10\trs1\tA\tG\t50\tPASS\tDP=10\tGT:DP\t0/0:4\t0/1:3\t1/1:3' 'chr1\t20\trs2\tC\tT\t60\tPASS\tDP=12\tGT:DP\t0/1:5\t0/0:4\t0/1:3' 'chr1\t30\trs3\tG\tA\t70\tPASS\tDP=15\tGT:DP\t1/1:5\t0/1:5\t0/0:5' 'chr1\t40\trs4\tT\tC\t80\tPASS\tDP=16\tGT:DP\t0/0:6\t0/1:5\t1/1:5' 'chr1\t50\trs5\tA\tC\t90\tPASS\tDP=18\tGT:DP\t0/1:6\t0/0:6\t0/1:6' > tiny.vcf && vcftools --vcf tiny.vcf --freq --out freq > freq.log 2>&1 && test -s freq.frq && grep -F 'CHROM' freq.frq >/dev/null && vcftools --vcf tiny.vcf --counts --out counts > counts.log 2>&1 && test -s counts.frq.count && grep -F 'CHROM' counts.frq.count >/dev/null && vcftools --vcf tiny.vcf --recode --recode-INFO-all --out recoded > recode.log 2>&1 && test -s recoded.recode.vcf && grep -F 'rs1' recoded.recode.vcf >/dev/null && vcftools --vcf tiny.vcf --site-mean-depth --out depth > depth.log 2>&1 && test -s depth.ldepth.mean && vcftools --vcf tiny.vcf --012 --out matrix > matrix.log 2>&1 && test -s matrix.012 && vcftools --vcf tiny.vcf --pca --out pca > pca.log 2>&1 && test -s pca.pca",
+              "tmp=/tmp/taf-vcftools-perl-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\\n' '##fileformat=VCFv4.2' '##contig=<ID=chr1,length=1000>' '##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Depth\">' '##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">' '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ts1\ts2' 'chr1\t30\trs3\tG\tA\t70\tPASS\tDP=15\tGT\t1/1\t0/0' 'chr1\t10\trs1\tA\tG\t50\tPASS\tDP=10\tGT\t0/0\t0/1' 'chr1\t20\trs2\tC\tT\t60\tPASS\tDP=12\tGT\t0/1\t0/0' > unsorted.vcf && vcf-validator unsorted.vcf > validator.log 2>&1 && vcf-stats unsorted.vcf > stats.txt && grep -F 'samples' stats.txt >/dev/null && fill-an-ac unsorted.vcf > filled.vcf && grep -F 'AN=' filled.vcf >/dev/null && vcf-query -f '%CHROM\\t%POS\\t%REF\\t%ALT\\n' unsorted.vcf > query.tsv && grep -F \"$(printf 'chr1\\t30\\tG\\tA')\" query.tsv >/dev/null && vcf-sort unsorted.vcf > sorted.vcf && grep -F \"$(printf 'chr1\\t10')\" sorted.vcf >/dev/null && gzip -c sorted.vcf > sorted.vcf.gz && gunzip -c sorted.vcf.gz | grep -F 'rs1' >/dev/null",
+              "tmp=/tmp/taf-vcftools-index-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\\n' '##fileformat=VCFv4.2' '##contig=<ID=chr1,length=1000>' '##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Depth\">' '##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">' '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ts1\ts2' 'chr1\t10\trs1\tA\tG\t50\tPASS\tDP=10\tGT\t0/0\t0/1' 'chr1\t20\trs2\tC\tT\t60\tPASS\tDP=12\tGT\t0/1\t0/0' > tiny.vcf && bgzip -c tiny.vcf > tiny.vcf.gz && tabix -p vcf tiny.vcf.gz && vcf-isec -n +1 tiny.vcf.gz > isec.vcf && grep -F 'rs1' isec.vcf >/dev/null && vcf-compare tiny.vcf.gz tiny.vcf.gz > compare.txt && grep -F 'Number of REF matches' compare.txt >/dev/null && perl -e 'print \">chr1\\n\", \"A\"x19, \"C\", \"A\"x30, \"\\n\"' > ref.fa && samtools faidx ref.fa && samtools faidx ref.fa chr1:1-20 | vcf-consensus tiny.vcf.gz > consensus.fa && grep -F '>chr1:1-20' consensus.fa >/dev/null && gnuplot --version | grep -F 'gnuplot' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-22T04:56:50Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-22T04:56:50Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/vcftools",
+            "ref": "v0.1.17-r1",
+            "commit": "cf79aa073f41783a19a205291650f4318a5b84d3",
+            "html_url": "https://github.com/taffish/vcftools/tree/v0.1.17-r1"
+          },
+          "upstream": {
+            "name": "VCFtools",
+            "type": "github",
+            "homepage": "https://vcftools.github.io/",
+            "repository": "vcftools/vcftools",
+            "release_url": "https://github.com/vcftools/vcftools/releases/tag/v0.1.17",
+            "version": "0.1.17",
+            "license": "LGPL-3.0-only",
+            "citation": "Danecek et al. 2011, The variant call format and VCFtools",
+            "doi": "10.1093/bioinformatics/btr330",
+            "pmid": "21653522"
           }
         }
       }
@@ -17013,6 +17167,10 @@
     "taf-uniprot-idmapping": {
       "package": "uniprot-idmapping",
       "version": "0.1.0-r1"
+    },
+    "taf-vcftools": {
+      "package": "vcftools",
+      "version": "0.1.17-r1"
     }
   },
   "repositories": {
@@ -17578,6 +17736,12 @@
       "repository": "taffish/uniprot-idmapping",
       "packages": [
         "uniprot-idmapping"
+      ]
+    },
+    "taffish/vcftools": {
+      "repository": "taffish/vcftools",
+      "packages": [
+        "vcftools"
       ]
     }
   },
