@@ -6,6 +6,79 @@
     "name": "taf-blast-flow"
   },
   "versions": {
+    "0.1.0-r2": {
+      "name": "blast-flow",
+      "kind": "flow",
+      "version": "0.1.0",
+      "release": 2,
+      "version_id": "0.1.0-r2",
+      "tag": "v0.1.0-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/blast-flow",
+      "repository_slug": "taffish/blast-flow",
+      "command": {
+        "name": "taf-blast-flow"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": false
+      },
+      "dependencies": {
+        "taf-blast": "2.17.0-r1"
+      },
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "sequence-search",
+        "categories": [
+          "sequence-search",
+          "alignment",
+          "workflow",
+          "genomics",
+          "proteomics"
+        ],
+        "keywords": [
+          "blast-flow",
+          "blast",
+          "blast+",
+          "makeblastdb",
+          "blastn",
+          "blastp",
+          "blastx",
+          "tblastn",
+          "tblastx",
+          "local-database",
+          "sequence-alignment"
+        ],
+        "summary": "Focused TAFFISH flow that builds a local BLAST+ database from FASTA with makeblastdb, then runs one BLAST+ search command against it.",
+        "description": "Focused TAFFISH flow that builds a local BLAST+ database from FASTA with makeblastdb, then runs one BLAST+ search command against it."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": null
+      },
+      "container": null,
+      "smoke": null,
+      "trust": {
+        "status": "not_applicable",
+        "checked_at": "2026-05-23T05:22:32Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/blast-flow",
+        "ref": "v0.1.0-r2",
+        "commit": "f0f296461274a139e066de4948f8d7a3d2e76d8f",
+        "html_url": "https://github.com/taffish/blast-flow/tree/v0.1.0-r2"
+      }
+    },
     "0.2.0-r1": {
       "name": "blast-flow",
       "kind": "flow",

@@ -6,6 +6,165 @@
     "name": "taf-hmmer"
   },
   "versions": {
+    "3.4-r1": {
+      "name": "hmmer",
+      "kind": "tool",
+      "version": "3.4",
+      "release": 1,
+      "version_id": "3.4-r1",
+      "tag": "v3.4-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/hmmer",
+      "repository_slug": "taffish/hmmer",
+      "command": {
+        "name": "taf-hmmer"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "sequence-analysis",
+        "categories": [
+          "sequence-analysis",
+          "profile-hmm",
+          "homology-search",
+          "protein-family",
+          "annotation"
+        ],
+        "keywords": [
+          "hmmer",
+          "profile-hmm",
+          "hidden-markov-model",
+          "hmmsearch",
+          "hmmscan",
+          "hmmbuild",
+          "jackhmmer",
+          "phmmer",
+          "nhmmer",
+          "easel",
+          "pfam",
+          "domain-annotation"
+        ],
+        "summary": "HMMER 3.4 command suite for profile HMM construction, sequence homology search, domain annotation, and bundled Easel sequence/alignment utilities.",
+        "description": "HMMER 3.4 command suite for profile HMM construction, sequence homology search, domain annotation, and bundled Easel sequence/alignment utilities."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/hmmer:3.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:023e8be4a4396a727a23d9b34b3693650e2683e73e0b072931d11c263f3f310c",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:909bbdab54822a2a953e811d32ec3c9ea7cbdd1c6cd9a18fd4c1fbd996aac7f6"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "taf-hmmer-entrypoint",
+          "alimask",
+          "hmmalign",
+          "hmmbuild",
+          "hmmconvert",
+          "hmmemit",
+          "hmmfetch",
+          "hmmlogo",
+          "hmmpgmd",
+          "hmmpgmd_shard",
+          "hmmpress",
+          "hmmscan",
+          "hmmsearch",
+          "hmmsim",
+          "hmmstat",
+          "jackhmmer",
+          "phmmer",
+          "nhmmer",
+          "nhmmscan",
+          "makehmmerdb",
+          "easel",
+          "esl-afetch",
+          "esl-alimanip",
+          "esl-alimap",
+          "esl-alimask",
+          "esl-alimerge",
+          "esl-alipid",
+          "esl-alirev",
+          "esl-alistat",
+          "esl-compalign",
+          "esl-compstruct",
+          "esl-construct",
+          "esl-histplot",
+          "esl-mask",
+          "esl-mixdchlet",
+          "esl-reformat",
+          "esl-selectn",
+          "esl-seqrange",
+          "esl-seqstat",
+          "esl-sfetch",
+          "esl-shuffle",
+          "esl-ssdraw",
+          "esl-translate",
+          "esl-weight",
+          "gzip",
+          "gunzip"
+        ],
+        "test": [
+          "hmmbuild -h 2>&1 | grep -F '# HMMER 3.4' >/dev/null && hmmsearch -h 2>&1 | grep -F '# HMMER 3.4' >/dev/null && hmmscan -h 2>&1 | grep -F '# HMMER 3.4' >/dev/null",
+          "taf-hmmer-entrypoint --help | grep -F 'HMMER 3.4 command suite' >/dev/null && taf-hmmer-entrypoint --version | grep -F '# HMMER 3.4' >/dev/null",
+          "hmmalign -h >/dev/null && hmmconvert -h >/dev/null && hmmemit -h >/dev/null && hmmfetch -h >/dev/null && hmmlogo -h >/dev/null && hmmpress -h >/dev/null && hmmstat -h >/dev/null && jackhmmer -h >/dev/null && phmmer -h >/dev/null && nhmmer -h >/dev/null && nhmmscan -h >/dev/null && makehmmerdb -h >/dev/null",
+          "hmmpgmd -h >/dev/null && hmmpgmd_shard -h >/dev/null && alimask -h >/dev/null && hmmsim -h >/dev/null && esl-reformat -h >/dev/null && esl-seqstat -h >/dev/null && easel -h >/dev/null",
+          "mkdir -p /tmp/taf-hmmer-build-search && cd /tmp/taf-hmmer-build-search && cp /opt/hmmer/share/doc/hmmer/tutorial/fn3.sto . && cp /opt/hmmer/share/doc/hmmer/tutorial/7LESS_DROME . && hmmbuild fn3.hmm fn3.sto >/dev/null && hmmstat fn3.hmm | grep -F 'fn3' >/dev/null && hmmemit -c fn3.hmm > fn3-consensus.fa && test -s fn3-consensus.fa && hmmsearch --tblout hits.tbl fn3.hmm 7LESS_DROME >/dev/null && grep -F '7LESS_DROME' hits.tbl >/dev/null",
+          "mkdir -p /tmp/taf-hmmer-scan && cd /tmp/taf-hmmer-scan && cp /opt/hmmer/share/doc/hmmer/tutorial/fn3.hmm . && cp /opt/hmmer/share/doc/hmmer/tutorial/7LESS_DROME . && hmmpress fn3.hmm >/dev/null && hmmscan --tblout scan.tbl fn3.hmm 7LESS_DROME >/dev/null && grep -F 'fn3' scan.tbl >/dev/null",
+          "mkdir -p /tmp/taf-hmmer-gzip-easel && cd /tmp/taf-hmmer-gzip-easel && cp /opt/hmmer/share/doc/hmmer/tutorial/fn3.hmm . && cp /opt/hmmer/share/doc/hmmer/tutorial/fn3.sto . && gzip -c fn3.hmm > fn3.hmm.gz && hmmstat fn3.hmm.gz | grep -F 'fn3' >/dev/null && esl-reformat fasta fn3.sto > fn3.fa && esl-seqstat fn3.fa | grep -F 'Number of sequences' >/dev/null",
+          "mkdir -p /tmp/taf-hmmer-nhmmer && cd /tmp/taf-hmmer-nhmmer && cp /opt/hmmer/share/doc/hmmer/tutorial/MADE1.hmm . && cp /opt/hmmer/share/doc/hmmer/tutorial/dna_target.fa . && nhmmer --tblout nh.tbl MADE1.hmm dna_target.fa >/dev/null && grep -F 'MADE1' nh.tbl >/dev/null && makehmmerdb dna_target.fa dna.hmmerdb >/dev/null && test -s dna.hmmerdb"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-23T05:22:32Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-23T05:22:32Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/hmmer",
+        "ref": "v3.4-r1",
+        "commit": "7cbdb793c3bc3c7223ceb9761b288b14ba29621b",
+        "html_url": "https://github.com/taffish/hmmer/tree/v3.4-r1"
+      },
+      "upstream": {
+        "type": "github",
+        "homepage": "http://hmmer.org/",
+        "repository": "EddyRivasLab/hmmer",
+        "release_url": "https://github.com/EddyRivasLab/hmmer/releases/tag/hmmer-3.4",
+        "version": "3.4",
+        "license": "BSD-3-Clause",
+        "citation": "Eddy 2008; Eddy 2011",
+        "doi": "10.1371/journal.pcbi.1000069; 10.1371/journal.pcbi.1002195",
+        "pmid": "18516236; 22039361"
+      }
+    },
     "3.4-r2": {
       "name": "hmmer",
       "kind": "tool",

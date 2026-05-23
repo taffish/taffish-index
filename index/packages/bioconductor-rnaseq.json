@@ -1,0 +1,132 @@
+{
+  "name": "bioconductor-rnaseq",
+  "latest": "3.23-r1",
+  "repository_url": "https://github.com/taffish/bioconductor-rnaseq",
+  "command": {
+    "name": "taf-bioconductor-rnaseq"
+  },
+  "versions": {
+    "3.23-r1": {
+      "name": "bioconductor-rnaseq",
+      "kind": "tool",
+      "version": "3.23",
+      "release": 1,
+      "version_id": "3.23-r1",
+      "tag": "v3.23-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bioconductor-rnaseq",
+      "repository_slug": "taffish/bioconductor-rnaseq",
+      "command": {
+        "name": "taf-bioconductor-rnaseq"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "bioconductor",
+          "differential-expression",
+          "transcriptomics",
+          "statistics"
+        ],
+        "keywords": [
+          "bioconductor",
+          "r",
+          "rscript",
+          "rna-seq",
+          "deseq2",
+          "edger",
+          "limma",
+          "tximport",
+          "tximeta",
+          "apeglm",
+          "ashr",
+          "sva",
+          "ruvseq",
+          "pca",
+          "complexheatmap"
+        ],
+        "summary": "A TAFFISH-maintained R/Bioconductor 3.23 RNA-seq statistics runtime with stable helper CLIs for downstream flows.",
+        "description": "A TAFFISH-maintained R/Bioconductor 3.23 RNA-seq statistics runtime with stable helper CLIs for downstream flows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bioconductor-rnaseq:3.23-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.23-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:7354c58a32780c0fddd0ffa2fe65d1959eafb5ee79d5cc5e319e5a0d22ba94cc",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:475179bd0743b22783008f058e0fe65a8afa37e0ac50c0fd26cf95524c10fef3",
+          "linux/arm64": "sha256:a5de503d3ab68765b6a2b72b7a13acb0237c8ac8aaea7863ff2aa186b64a75e5"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "R",
+          "Rscript",
+          "rnaseq-runtime-info",
+          "rnaseq-deseq2",
+          "rnaseq-tximport",
+          "rnaseq-pca",
+          "bash",
+          "pandoc"
+        ],
+        "test": [
+          "Rscript --version 2>&1 | grep -F 'Rscript (R) version 4.6.0' >/dev/null && Rscript -e 'stopifnot(as.character(BiocManager::version()) == \"3.23\")' && rnaseq-runtime-info | grep -F 'Bioconductor\t3.23' >/dev/null",
+          "Rscript -e 'pkgs <- c(\"DESeq2\",\"edgeR\",\"limma\",\"tximport\",\"tximeta\",\"apeglm\",\"ashr\",\"sva\",\"RUVSeq\",\"ggplot2\",\"pheatmap\",\"ComplexHeatmap\",\"matrixStats\",\"readr\",\"data.table\",\"jsonlite\",\"rmarkdown\",\"optparse\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly=TRUE)]; if (length(missing)) stop(paste(\"missing\", paste(missing, collapse=\",\")))'",
+          "rnaseq-deseq2 --help 2>&1 | grep -F 'DESeq2 differential expression helper' >/dev/null && rnaseq-tximport --help 2>&1 | grep -F 'tximport helper' >/dev/null && rnaseq-pca --help 2>&1 | grep -F 'PCA helper' >/dev/null",
+          "mkdir -p /tmp/taf-bioc-pca && cd /tmp/taf-bioc-pca && printf '%b\\n' 'gene_id\\ts1\\ts2\\ts3\\ts4' 'geneA\\t10\\t11\\t40\\t42' 'geneB\\t50\\t48\\t12\\t13' 'geneC\\t4\\t5\\t6\\t7' 'geneD\\t100\\t98\\t105\\t110' > matrix.tsv && printf '%b\\n' 'sample\\tcondition' 's1\\tcontrol' 's2\\tcontrol' 's3\\ttreated' 's4\\ttreated' > samples.tsv && rnaseq-pca --matrix matrix.tsv --metadata samples.tsv --group-column condition --top-var 4 --log2 --outdir out && test -s out/pca_scores.tsv && test -s out/pca_plot.pdf && grep -F 'PC1' out/pca_scores.tsv >/dev/null",
+          "mkdir -p /tmp/taf-bioc-tximport/s1 /tmp/taf-bioc-tximport/s2 && cd /tmp/taf-bioc-tximport && printf '%b\\n' 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads' 'tx1\\t1000\\t900\\t20\\t40' 'tx2\\t900\\t800\\t10\\t20' 'tx3\\t800\\t700\\t5\\t10' > s1/quant.sf && printf '%b\\n' 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads' 'tx1\\t1000\\t900\\t30\\t60' 'tx2\\t900\\t800\\t15\\t30' 'tx3\\t800\\t700\\t2\\t4' > s2/quant.sf && printf '%b\\n' 'sample\\tfile' 's1\\ts1/quant.sf' 's2\\ts2/quant.sf' > samples.tsv && printf '%b\\n' 'tx_id\\tgene_id' 'tx1\\tgeneA' 'tx2\\tgeneA' 'tx3\\tgeneB' > tx2gene.tsv && rnaseq-tximport --samples samples.tsv --tx2gene tx2gene.tsv --type salmon --outdir out && test -s out/counts.tsv && test -s out/abundance.tsv && test -s out/tximport.rds && grep -F 'geneA' out/counts.tsv >/dev/null",
+          "mkdir -p /tmp/taf-bioc-deseq2 && cd /tmp/taf-bioc-deseq2 && Rscript -e 'set.seed(23); genes <- paste0(\"gene\", sprintf(\"%02d\", 1:40)); base <- rep(c(8,12,20,35,60,100,160,240), 5); effect <- rep(c(1,1,1.2,0.8,2.5,0.4,1.8,0.6), 5); cmat <- sapply(1:3, function(i) rnbinom(length(base), mu=base, size=8)); tmat <- sapply(1:3, function(i) rnbinom(length(base), mu=base*effect, size=8)); out <- data.frame(gene_id=genes, cmat, tmat, check.names=FALSE); names(out) <- c(\"gene_id\", \"c1\",\"c2\",\"c3\",\"t1\",\"t2\",\"t3\"); write.table(out, \"counts.tsv\", sep=\"\\t\", row.names=FALSE, quote=FALSE); samples <- data.frame(sample=c(\"c1\",\"c2\",\"c3\",\"t1\",\"t2\",\"t3\"), condition=rep(c(\"control\",\"treated\"), each=3)); write.table(samples, \"samples.tsv\", sep=\"\\t\", row.names=FALSE, quote=FALSE)' && rnaseq-deseq2 --counts counts.tsv --metadata samples.tsv --design '~ condition' --contrast condition:treated:control --fit-type local --outdir out && test -s out/results.tsv && test -s out/normalized_counts.tsv && test -s out/pca_plot.pdf && grep -F 'gene01' out/results.tsv >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-23T05:22:32Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-23T05:22:32Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bioconductor-rnaseq",
+        "ref": "v3.23-r1",
+        "commit": "cb26b858867006d8646b15b5452e45ad75763b59",
+        "html_url": "https://github.com/taffish/bioconductor-rnaseq/tree/v3.23-r1"
+      },
+      "upstream": {
+        "name": "Bioconductor RNA-seq analysis runtime",
+        "type": "official",
+        "homepage": "https://bioconductor.org/",
+        "release_url": "https://www.bioconductor.org/news/bioc_3_23_release/",
+        "version": "3.23",
+        "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
+        "citation": "Bioconductor project; package-specific citations are available from citation(package)"
+      }
+    }
+  }
+}

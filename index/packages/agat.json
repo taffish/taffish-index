@@ -1,0 +1,126 @@
+{
+  "name": "agat",
+  "latest": "1.7.0-r1",
+  "repository_url": "https://github.com/taffish/agat",
+  "command": {
+    "name": "taf-agat"
+  },
+  "versions": {
+    "1.7.0-r1": {
+      "name": "agat",
+      "kind": "tool",
+      "version": "1.7.0",
+      "release": 1,
+      "version_id": "1.7.0-r1",
+      "tag": "v1.7.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/agat",
+      "repository_slug": "taffish/agat",
+      "command": {
+        "name": "taf-agat"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "annotation",
+        "categories": [
+          "annotation",
+          "gff",
+          "gtf",
+          "genome-annotation",
+          "format-conversion"
+        ],
+        "keywords": [
+          "agat",
+          "gff",
+          "gtf",
+          "gff3",
+          "annotation",
+          "bioperl",
+          "feature statistics",
+          "format conversion"
+        ],
+        "summary": "Another GTF/GFF Analysis Toolkit for sanitizing, converting, filtering, editing, and summarizing genome annotation files.",
+        "description": "Another GTF/GFF Analysis Toolkit for sanitizing, converting, filtering, editing, and summarizing genome annotation files."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/agat:1.7.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.7.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:f3a8fdd713d899a1be9083eb5bdb40301701fd0649f2989c6f1f2286d38471bc",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:600356273dd63df3da2cc2c4be2b2a435a24aabdad1b16039da1c5c81a47cb3f",
+          "linux/arm64": "sha256:e1fcfb7e98ff7b91636286538bbbac431d279a3fdc011b7ed6db946b982a1ef2"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "agat",
+          "agat_convert_sp_gxf2gxf.pl",
+          "agat_convert_sp_gff2gtf.pl",
+          "agat_convert_sp_gff2bed.pl",
+          "agat_sp_statistics.pl",
+          "agat_sp_extract_sequences.pl",
+          "perl",
+          "Rscript",
+          "samtools"
+        ],
+        "test": [
+          "agat --version 2>&1 | grep -F '1.7.0' >/dev/null && (agat --help 2>&1 || true) | grep -Ei 'usage|agat' >/dev/null && (agat --tools 2>&1 || true) | grep -F 'agat_convert_sp_gxf2gxf.pl' >/dev/null && (agat_convert_sp_gxf2gxf.pl --help 2>&1 || true) | grep -Ei 'standardi[sz]es|GTF/GFF|gxf' >/dev/null && perl -MAGAT::AGAT -MBio::SeqIO -MYAML -MParallel::ForkManager -e 'print \"$AGAT::AGAT::VERSION\\n\"' | grep -F '1.7.0' >/dev/null",
+          "mkdir -p /tmp/taf-agat-standardize && cd /tmp/taf-agat-standardize && printf '##gff-version 3\\nchr1\\tProdigal\\tCDS\\t1\\t9\\t.\\t+\\t0\\tID=cds1;locus_tag=gene1;product=hypothetical protein\\n' > input.gff3 && agat_convert_sp_gxf2gxf.pl --gff input.gff3 -o fixed.gff3 >/tmp/taf-agat-standardize.log 2>&1 && test -s fixed.gff3 && grep -F 'gene' fixed.gff3 >/dev/null && grep -F 'mRNA' fixed.gff3 >/dev/null && grep -F 'ID=cds1' fixed.gff3 >/dev/null",
+          "mkdir -p /tmp/taf-agat-convert && cd /tmp/taf-agat-convert && printf '##gff-version 3\\nchr1\\tProdigal\\tCDS\\t1\\t9\\t.\\t+\\t0\\tID=cds1;locus_tag=gene1;product=hypothetical protein\\n' > input.gff3 && agat_convert_sp_gxf2gxf.pl --gff input.gff3 -o fixed.gff3 >/tmp/taf-agat-convert-gxf.log 2>&1 && agat_convert_sp_gff2gtf.pl --gff fixed.gff3 -o converted.gtf >/tmp/taf-agat-convert-gtf.log 2>&1 && test -s converted.gtf && grep -F 'transcript_id' converted.gtf >/dev/null && agat_convert_sp_gff2bed.pl --gff fixed.gff3 -o converted.bed >/tmp/taf-agat-convert-bed.log 2>&1 && test -s converted.bed && grep -F 'chr1' converted.bed >/dev/null",
+          "mkdir -p /tmp/taf-agat-statistics && cd /tmp/taf-agat-statistics && printf '##gff-version 3\\nchr1\\tProdigal\\tCDS\\t1\\t9\\t.\\t+\\t0\\tID=cds1;locus_tag=gene1;product=hypothetical protein\\n' > input.gff3 && agat_convert_sp_gxf2gxf.pl --gff input.gff3 -o fixed.gff3 >/tmp/taf-agat-statistics-gxf.log 2>&1 && agat_sp_statistics.pl --gff fixed.gff3 -o statistics.txt >/tmp/taf-agat-statistics.log 2>&1 && test -s statistics.txt && grep -F 'Number of gene' statistics.txt >/dev/null && samtools --version 2>&1 | grep -F 'samtools' >/dev/null && Rscript --version 2>&1 | grep -F 'Rscript' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-23T05:22:32Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-23T05:22:32Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/agat",
+        "ref": "v1.7.0-r1",
+        "commit": "df1cddbd3a79b2ca80512f98673f5c69ec2f5b75",
+        "html_url": "https://github.com/taffish/agat/tree/v1.7.0-r1"
+      },
+      "upstream": {
+        "name": "AGAT",
+        "type": "github",
+        "homepage": "https://nbisweden.github.io/AGAT/",
+        "repository": "NBISweden/AGAT",
+        "release_url": "https://github.com/NBISweden/AGAT/releases/tag/v1.7.0",
+        "version": "1.7.0",
+        "license": "GPL-3.0",
+        "citation": "Dainat J. 2022. Another Gtf/Gff Analysis Toolkit (AGAT): Resolve interoperability issues and accomplish more with your annotations. Plant and Animal Genome XXIX Conference. https://github.com/NBISweden/AGAT.",
+        "doi": "10.5281/zenodo.3552717"
+      }
+    }
+  }
+}
