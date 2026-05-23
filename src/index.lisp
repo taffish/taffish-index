@@ -894,18 +894,33 @@
    (cons "rejected" (cons :array rejected))
    (cons "warnings" (cons :array (mapcar #'warning-report-json warnings)))))
 
+(defun record-progress-label (record)
+  (format nil "~A ~A"
+          (or (plist-ref record :name) "?")
+          (or (plist-ref record :version-id) "?")))
+
+(defun log-record-progress (index total action record)
+  (format t "[taffish-index] [~D/~D] ~A ~A~%"
+          index total action (record-progress-label record))
+  (finish-output))
+
 (defun process-records (records previous-map &key rejected-map force-recheck checked-at)
   (let ((accepted nil)
         (failures nil)
-        (rejected nil))
+        (rejected nil)
+        (total (length records))
+        (index 0))
     (dolist (record records)
+      (incf index)
       (let ((previous (and (not force-recheck)
                            (gethash (record-cache-key record) previous-map)))
             (rejection (rejected-release-for-record record rejected-map)))
         (cond
           (rejection
+           (log-record-progress index total "reject" record)
            (push (rejected-record record rejection) rejected))
           ((changed-source-commit-p previous record)
+           (log-record-progress index total "changed-source" record)
            (push (failure-record
                   record
                   "source"
@@ -916,17 +931,21 @@
           ((and previous
                 (not force-recheck)
                 (same-source-commit-p previous record))
+           (log-record-progress index total "reuse" record)
            (push (cached-accepted-record record previous)
                  accepted))
           (t
+           (log-record-progress index total "gate" record)
            (handler-case
                (push (enrich-record record checked-at) accepted)
              (index-gate-error (c)
+               (log-record-progress index total "gate-failed" record)
                (push (failure-record record
                                      (gate-error-stage c)
                                      (gate-error-message c))
                      failures))
              (error (c)
+               (log-record-progress index total "gate-error" record)
                (push (failure-record record "gate" (format nil "~A" c))
                      failures)))))))
     (values (nreverse accepted) (nreverse failures) (nreverse rejected))))

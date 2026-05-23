@@ -73,8 +73,10 @@
 (defun read-string-file (path)
   (with-open-file (in path :direction :input)
     (let ((string (make-string (file-length in))))
-      (read-sequence string in)
-      string)))
+      (let ((count (read-sequence string in)))
+        (if (= count (length string))
+            string
+            (subseq string 0 count))))))
 
 (defun file-exists-p (path)
   (let ((probe (probe-file path)))
