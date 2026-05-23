@@ -99,12 +99,12 @@
           "mkdir -p /tmp/taf-fastqc-extract && cd /tmp/taf-fastqc-extract && printf '@r1\\nACGTACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && mkdir -p extractout && fastqc --quiet --extract --outdir extractout reads.fq && test -d extractout/reads_fastqc && test -s extractout/reads_fastqc/fastqc_data.txt"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

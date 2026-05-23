@@ -100,12 +100,12 @@
           "rm -rf /tmp/taf-star-helper-smoke && mkdir -p /tmp/taf-star-helper-smoke && cd /tmp/taf-star-helper-smoke && printf 'chr1\\tsrc\\texon\\t1\\t10\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\nchr1\\tsrc\\texon\\t21\\t30\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > genes.gtf && extractSJfromGTF.sh genes.gtf | grep -Fx 'chr1\t11\t20\t+' >/dev/null && rm -rf /tmp/taf-star-helper-smoke"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

@@ -88,12 +88,12 @@
           "printf '>seq1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>seq2\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANL\\n>seq3\\nGKTAYIAKQRQISFVKSHFSRQLDERVGLIEVQANN\\n' >/tmp/taf-clustalo.fa && clustalo -i /tmp/taf-clustalo.fa -o /tmp/taf-clustalo.clu --outfmt=clu --force --threads=1 >/dev/null && grep -F 'CLUSTAL O(1.2.4)' /tmp/taf-clustalo.clu >/dev/null && clustalo -i /tmp/taf-clustalo.fa -o /tmp/taf-clustalo.sto --outfmt=st --guidetree-out=/tmp/taf-clustalo.dnd --distmat-out=/tmp/taf-clustalo.dist --full --force --threads=1 >/dev/null && grep -F '# STOCKHOLM' /tmp/taf-clustalo.sto >/dev/null && test -s /tmp/taf-clustalo.dnd && test -s /tmp/taf-clustalo.dist"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

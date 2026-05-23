@@ -90,12 +90,12 @@
           "mkdir -p /tmp/taf-samblaster-unmapped && cd /tmp/taf-samblaster-unmapped && printf '@HD\\tVN:1.6\\tSO:unknown\\n@SQ\\tSN:chr1\\tLN:1000\\nunmap\\t4\\t*\\t0\\t0\\t*\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\nclip\\t0\\tchr1\\t100\\t60\\t5S5M\\t*\\t0\\t0\\tACGTACGTAA\\tFFFFFFFFFF\\n' > unmapped.sam && samblaster -i unmapped.sam -o marked.sam -u unmapped.fq --ignoreUnmated --minClipSize 5 -q > run.out 2> run.err && grep -F '@unmap' unmapped.fq >/dev/null && grep -F '@clip' unmapped.fq >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

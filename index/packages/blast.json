@@ -126,12 +126,12 @@
           "printf '>subject1\\nACGTACGTACGTACGTACGT\\n' >/tmp/taf-blast-db.fa && makeblastdb -in /tmp/taf-blast-db.fa -dbtype nucl -out /tmp/taf-blast-db >/dev/null && printf '>query1\\nACGTACGT\\n' >/tmp/taf-blast-query.fa && blastn -task blastn-short -query /tmp/taf-blast-query.fa -db /tmp/taf-blast-db -outfmt '6 qseqid sseqid pident length' | awk '$1==\"query1\" && $2==\"subject1\" {found=1} END {exit !found}'"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

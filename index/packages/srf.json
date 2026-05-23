@@ -90,12 +90,12 @@
           "mkdir -p /tmp/taf-srf-utils && cd /tmp/taf-srf-utils && printf '>circ1-4\\nACGT\\n' > circ.fa && srfutils.js enlong -l 10 circ.fa > enlong.fa && grep -F 'ACGTACGTACGT' enlong.fa >/dev/null && printf '>a\\nACGT\\n>b\\nACGT\\n' > merge.fa && srfutils.js merge merged merge.fa > merged.fa && grep -F '>merged*0001 a' merged.fa >/dev/null && test \"$(grep -c '^>' merged.fa)\" -eq 1 && printf 'chr1\\t0\\t20\\tcirc1-4\\t2.5\\t100\\t4\\t1\\n' > hit.bed && srfutils.js bed2abun hit.bed > abun.txt && grep -F 'circ1-4' abun.txt >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -200,12 +200,12 @@
           "mkdir -p /tmp/taf-srf-utils && cd /tmp/taf-srf-utils && printf '>circ1-4\\nACGT\\n' > circ.fa && srfutils.js enlong -l 10 circ.fa > enlong.fa && grep -F 'ACGTACGTACGT' enlong.fa >/dev/null && printf '>a\\nACGT\\n>b\\nACGT\\n' > merge.fa && srfutils.js merge merged merge.fa > merged.fa && grep -F '>merged*0001 a' merged.fa >/dev/null && test \"$(grep -c '^>' merged.fa)\" -eq 1 && printf 'chr1\\t0\\t20\\tcirc1-4\\t2.5\\t100\\t4\\t1\\n' > hit.bed && srfutils.js bed2abun hit.bed > abun.txt && grep -F 'circ1-4' abun.txt >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

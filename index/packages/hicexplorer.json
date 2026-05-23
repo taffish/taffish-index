@@ -143,12 +143,12 @@
           "mkdir -p /tmp/taf-hicexplorer-cool && cd /tmp/taf-hicexplorer-cool && python -c 'import cooler, pandas as pd; bins = pd.DataFrame({\"chrom\": [\"chr1\", \"chr1\"], \"start\": [0, 1000], \"end\": [1000, 2000]}); pixels = pd.DataFrame({\"bin1_id\": [0, 0, 1], \"bin2_id\": [0, 1, 1], \"count\": [5, 2, 3]}); cooler.create_cooler(\"tiny.cool\", bins=bins, pixels=pixels, ordered=True)' && hicInfo --matrices tiny.cool | grep -F 'tiny.cool' >/dev/null && hicPlotMatrix --matrix tiny.cool --outFileName tiny.png >/dev/null && test -s tiny.png && hicConvertFormat --matrices tiny.cool --inputFormat cool --outputFormat h5 --outFileName tiny.h5 >/dev/null && test -s tiny.h5 && hicInfo --matrices tiny.h5 | grep -F 'tiny.h5' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
@@ -308,12 +308,12 @@
           "mkdir -p /tmp/taf-hicexplorer-cool && cd /tmp/taf-hicexplorer-cool && python -c 'import cooler, pandas as pd; bins = pd.DataFrame({\"chrom\": [\"chr1\", \"chr1\"], \"start\": [0, 1000], \"end\": [1000, 2000]}); pixels = pd.DataFrame({\"bin1_id\": [0, 0, 1], \"bin2_id\": [0, 1, 1], \"count\": [5, 2, 3]}); cooler.create_cooler(\"tiny.cool\", bins=bins, pixels=pixels, ordered=True)' && hicInfo --matrices tiny.cool | grep -F 'tiny.cool' >/dev/null && hicPlotMatrix --matrix tiny.cool --outFileName tiny.png >/dev/null && test -s tiny.png && hicConvertFormat --matrices tiny.cool --inputFormat cool --outputFormat h5 --outFileName tiny.h5 >/dev/null && test -s tiny.h5 && hicInfo --matrices tiny.h5 | grep -F 'tiny.h5' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

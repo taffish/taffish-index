@@ -95,12 +95,12 @@
           "mkdir -p /tmp/taf-jellyfish-sam && cd /tmp/taf-jellyfish-sam && printf '@SQ\\tSN:chr1\\tLN:12\\nr1\\t0\\tchr1\\t1\\t60\\t12M\\t*\\t0\\t0\\tACGTACGTACGT\\tFFFFFFFFFFFF\\n' > reads.sam && jellyfish count -m 4 -s 100 -t 1 -C -o sam.jf reads.sam && test -s sam.jf && jellyfish query sam.jf ACGT | grep -F 'ACGT 3' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

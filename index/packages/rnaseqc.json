@@ -1,0 +1,123 @@
+{
+  "name": "rnaseqc",
+  "latest": "2.4.2-r1",
+  "repository_url": "https://github.com/taffish/rnaseqc",
+  "command": {
+    "name": "taf-rnaseqc"
+  },
+  "versions": {
+    "2.4.2-r1": {
+      "name": "rnaseqc",
+      "kind": "tool",
+      "version": "2.4.2",
+      "release": 1,
+      "version_id": "2.4.2-r1",
+      "tag": "v2.4.2-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rnaseqc",
+      "repository_slug": "taffish/rnaseqc",
+      "command": {
+        "name": "taf-rnaseqc"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "quality-control",
+          "bam",
+          "sam",
+          "transcriptomics",
+          "quantification"
+        ],
+        "keywords": [
+          "rna-seqc",
+          "rnaseqc",
+          "rna-seq",
+          "qc",
+          "bam",
+          "sam",
+          "cram",
+          "gtf",
+          "tpm",
+          "rpkm",
+          "coverage"
+        ],
+        "summary": "RNA-SeQC 2 command-line tool for RNA-seq read-count, coverage, expression, and quality-control metrics.",
+        "description": "RNA-SeQC 2 command-line tool for RNA-seq read-count, coverage, expression, and quality-control metrics."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/rnaseqc:2.4.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.4.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:78d50a3f7824582bba34ac6b611805e598a00f35fc13f336fcf248ee86245f2f",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:203062ed8d49e358f3511b0a9f3e7c8e0fb01408e0209b6a60fef45b1139f7d4"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "rnaseqc",
+          "bash",
+          "file",
+          "grep"
+        ],
+        "test": [
+          "rnaseqc --version 2>&1 | grep -Fx 'RNASeQC 2.4.2' >/dev/null && rnaseqc --help 2>&1 | grep -F 'rnaseqc [gtf] [bam] [output]' >/dev/null && rnaseqc --help 2>&1 | grep -F -- '--fasta=[fasta]' >/dev/null && file \"$(command -v rnaseqc)\" | grep -F 'x86-64' >/dev/null && file \"$(command -v rnaseqc)\" | grep -F 'statically linked' >/dev/null && grep -F 'binary_sha256=5505022cec1c99fcd9d36e3b3ca22ebd2d0f547658ce52e4fa90d82dd1430926' /opt/rnaseqc/share/doc/rnaseqc/source.txt >/dev/null",
+          "tmp=/tmp/taf-rnaseqc-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; rnaseqc -u -s tiny --coverage-mask 0 --gene-length 50 /opt/rnaseqc/share/testdata/smoke/genes.gtf /opt/rnaseqc/share/testdata/smoke/reads.sam out > run.log 2>&1 && test -s out/tiny.metrics.tsv && test -s out/tiny.gene_reads.gct && test -s out/tiny.exon_reads.gct && test -s out/tiny.gene_tpm.gct && grep -F 'Sample\ttiny' out/tiny.metrics.tsv >/dev/null && grep -F 'Mapping Rate' out/tiny.metrics.tsv >/dev/null && grep -F 'gene1' out/tiny.gene_reads.gct >/dev/null",
+          "tmp=/tmp/taf-rnaseqc-coverage-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; rnaseqc -u -s tiny --coverage --coverage-mask 0 --gene-length 50 --rpkm /opt/rnaseqc/share/testdata/smoke/genes.gtf /opt/rnaseqc/share/testdata/smoke/reads.sam out > run.log 2>&1 && test -s out/tiny.coverage.tsv && test -s out/tiny.gene_rpkm.gct && grep -F 'coverage_mean' out/tiny.coverage.tsv >/dev/null && grep -F 'gene1' out/tiny.gene_rpkm.gct >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-23T05:22:32Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-23T05:22:32Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rnaseqc",
+        "ref": "v2.4.2-r1",
+        "commit": "f7cb96bb1203907d503416bb50fee4123575c03b",
+        "html_url": "https://github.com/taffish/rnaseqc/tree/v2.4.2-r1"
+      },
+      "upstream": {
+        "name": "RNA-SeQC",
+        "type": "github",
+        "homepage": "https://github.com/getzlab/rnaseqc",
+        "repository": "getzlab/rnaseqc",
+        "release_url": "https://github.com/getzlab/rnaseqc/releases/tag/v2.4.2",
+        "version": "2.4.2",
+        "license": "BSD-3-Clause",
+        "citation": "Graubert et al. 2021, RNA-SeQC 2: efficient RNA-seq quality control and quantification for large cohorts",
+        "doi": "10.1093/bioinformatics/btab135",
+        "pmid": "33677499"
+      }
+    }
+  }
+}

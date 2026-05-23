@@ -103,12 +103,12 @@
           "mkdir -p /tmp/taf-bioc-deseq2 && cd /tmp/taf-bioc-deseq2 && Rscript -e 'set.seed(23); genes <- paste0(\"gene\", sprintf(\"%02d\", 1:40)); base <- rep(c(8,12,20,35,60,100,160,240), 5); effect <- rep(c(1,1,1.2,0.8,2.5,0.4,1.8,0.6), 5); cmat <- sapply(1:3, function(i) rnbinom(length(base), mu=base, size=8)); tmat <- sapply(1:3, function(i) rnbinom(length(base), mu=base*effect, size=8)); out <- data.frame(gene_id=genes, cmat, tmat, check.names=FALSE); names(out) <- c(\"gene_id\", \"c1\",\"c2\",\"c3\",\"t1\",\"t2\",\"t3\"); write.table(out, \"counts.tsv\", sep=\"\\t\", row.names=FALSE, quote=FALSE); samples <- data.frame(sample=c(\"c1\",\"c2\",\"c3\",\"t1\",\"t2\",\"t3\"), condition=rep(c(\"control\",\"treated\"), each=3)); write.table(samples, \"samples.tsv\", sep=\"\\t\", row.names=FALSE, quote=FALSE)' && rnaseq-deseq2 --counts counts.tsv --metadata samples.tsv --design '~ condition' --contrast condition:treated:control --fit-type local --outdir out && test -s out/results.tsv && test -s out/normalized_counts.tsv && test -s out/pca_plot.pdf && grep -F 'gene01' out/results.tsv >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

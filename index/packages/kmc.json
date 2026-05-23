@@ -98,12 +98,12 @@
           "mkdir -p /tmp/taf-kmc-filter/tmp && cd /tmp/taf-kmc-filter && printf '@a\\nACGTACGT\\n+\\nFFFFFFFF\\n@b\\nTTTTTTTT\\n+\\nFFFFFFFF\\n' > reads.fq && kmc -k3 -m2 -ci1 -t1 reads.fq db tmp >/tmp/taf-kmc-filter-count.log 2>&1 && kmc_tools filter db reads.fq -ci1 filtered.fq >/tmp/taf-kmc-filter.log 2>&1 && test -s filtered.fq && grep -F '@a' filtered.fq >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },

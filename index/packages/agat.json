@@ -95,12 +95,12 @@
           "mkdir -p /tmp/taf-agat-statistics && cd /tmp/taf-agat-statistics && printf '##gff-version 3\\nchr1\\tProdigal\\tCDS\\t1\\t9\\t.\\t+\\t0\\tID=cds1;locus_tag=gene1;product=hypothetical protein\\n' > input.gff3 && agat_convert_sp_gxf2gxf.pl --gff input.gff3 -o fixed.gff3 >/tmp/taf-agat-statistics-gxf.log 2>&1 && agat_sp_statistics.pl --gff fixed.gff3 -o statistics.txt >/tmp/taf-agat-statistics.log 2>&1 && test -s statistics.txt && grep -F 'Number of gene' statistics.txt >/dev/null && samtools --version 2>&1 | grep -F 'samtools' >/dev/null && Rscript --version 2>&1 | grep -F 'Rscript' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-22T04:56:50Z",
+        "checked_at": "2026-05-23T05:22:32Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
