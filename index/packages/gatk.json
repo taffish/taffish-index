@@ -1,6 +1,6 @@
 {
   "name": "gatk",
-  "latest": "4.6.2.0-r2",
+  "latest": "4.6.2.0-r1",
   "repository_url": "https://github.com/taffish/gatk",
   "command": {
     "name": "taf-gatk"
@@ -114,128 +114,6 @@
         "ref": "v4.6.2.0-r1",
         "commit": "1d210d3238057e9b7ea081b4dcd9f9e66245630e",
         "html_url": "https://github.com/taffish/gatk/tree/v4.6.2.0-r1"
-      },
-      "upstream": {
-        "name": "GATK",
-        "type": "github",
-        "homepage": "https://gatk.broadinstitute.org/",
-        "repository": "broadinstitute/gatk",
-        "release_url": "https://github.com/broadinstitute/gatk/releases/tag/4.6.2.0",
-        "version": "4.6.2.0",
-        "license": "Apache-2.0",
-        "citation": "McKenna et al. 2010",
-        "doi": "10.1101/gr.107524.110",
-        "pmid": "20644199"
-      }
-    },
-    "4.6.2.0-r2": {
-      "name": "gatk",
-      "kind": "tool",
-      "version": "4.6.2.0",
-      "release": 2,
-      "version_id": "4.6.2.0-r2",
-      "tag": "v4.6.2.0-r2",
-      "license": "Apache-2.0",
-      "repository_url": "https://github.com/taffish/gatk",
-      "repository_slug": "taffish/gatk",
-      "command": {
-        "name": "taf-gatk"
-      },
-      "runtime": {
-        "pipe": true,
-        "command_mode": true
-      },
-      "dependencies": {},
-      "platform": {
-        "os": [],
-        "arch": [],
-        "container": "optional",
-        "min_cpus": null,
-        "min_memory_mb": null
-      },
-      "meta": {
-        "domain": "bio",
-        "category": "variant-calling",
-        "categories": [
-          "variant-calling",
-          "genomics",
-          "germline",
-          "somatic",
-          "spark"
-        ],
-        "keywords": [
-          "gatk",
-          "gatk4",
-          "variant-calling",
-          "haplotypecaller",
-          "mutect2",
-          "genotypegvcfs",
-          "bqsr",
-          "vcf",
-          "bam",
-          "cram",
-          "spark"
-        ],
-        "summary": "Genome Analysis Toolkit 4 for germline and somatic variant discovery, genotyping, filtering, and related genomics workflows.",
-        "description": "Genome Analysis Toolkit 4 for germline and somatic variant discovery, genotyping, filtering, and related genomics workflows."
-      },
-      "paths": {
-        "main": "src/main.taf",
-        "help": "docs/help.md",
-        "dockerfile": "docker/Dockerfile"
-      },
-      "container": {
-        "image": "ghcr.io/taffish/gatk:4.6.2.0-r2",
-        "dockerfile": "docker/Dockerfile",
-        "image_tag": "4.6.2.0-r2",
-        "image_tag_matches_version": true,
-        "digest": "sha256:b87efc3b139be1e6cb62ef69e424c6debcfdcbf59ac203a07ecabc3090be7922",
-        "platforms": [
-          "linux/amd64"
-        ],
-        "platform_digests": {
-          "linux/amd64": "sha256:b6efcec27c6f2d321e2ba21dd8d59d38f281130383237e0b1ef4fe7fcf4ced27"
-        }
-      },
-      "smoke": {
-        "backend": "docker",
-        "timeout": 300,
-        "exist": [
-          "gatk",
-          "java",
-          "python",
-          "python3",
-          "R",
-          "Rscript",
-          "samtools",
-          "bcftools",
-          "bedtools",
-          "tabix"
-        ],
-        "test": [
-          "gatk --version 2>&1 | grep -F '4.6.2.0' >/dev/null",
-          "gatk --list 2>&1 | grep -F 'HaplotypeCaller' >/dev/null && gatk --list 2>&1 | grep -F 'Mutect2' >/dev/null",
-          "gatk HaplotypeCaller --help 2>&1 | grep -F 'USAGE: HaplotypeCaller' >/dev/null",
-          "mkdir -p /tmp/taf-gatk-dict && cd /tmp/taf-gatk-dict && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-dict.log 2>&1 && test -s ref.dict && grep -F '@SQ' ref.dict >/dev/null",
-          "mkdir -p /tmp/taf-gatk-vcf && cd /tmp/taf-gatk-vcf && printf '##fileformat=VCFv4.2\\n##contig=<ID=chr1,length=20>\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\nchr1\\t5\\t.\\tA\\tT\\t30\\tPASS\\t.\\n' > tiny.vcf && gatk IndexFeatureFile -I tiny.vcf >/tmp/taf-gatk-vcf.log 2>&1 && test -s tiny.vcf.idx",
-          "mkdir -p /tmp/taf-gatk-printreads && cd /tmp/taf-gatk-printreads && printf '>chr1\\nACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-printreads-dict.log 2>&1 && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:20\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAC\\tFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk PrintReads -R ref.fa -I reads.bam -O out.bam >/tmp/taf-gatk-printreads.log 2>&1 && test -s out.bam && samtools view out.bam | grep -F 'read1' >/dev/null",
-          "mkdir -p /tmp/taf-gatk-hc && cd /tmp/taf-gatk-hc && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-hc-dict.log 2>&1 && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:40\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread3\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread4\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk HaplotypeCaller -R ref.fa -I reads.bam -O calls.vcf >/tmp/taf-gatk-hc.log 2>&1 && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null"
-        ],
-        "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
-      },
-      "trust": {
-        "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
-        "source": "taffish-index"
-      },
-      "source": {
-        "repository": "taffish/gatk",
-        "ref": "v4.6.2.0-r2",
-        "commit": "7d9deb9d44d85fa4c8cd580571fcfdcdbdd4bd82",
-        "html_url": "https://github.com/taffish/gatk/tree/v4.6.2.0-r2"
       },
       "upstream": {
         "name": "GATK",
