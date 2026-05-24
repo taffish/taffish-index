@@ -1,6 +1,6 @@
 {
   "name": "plotsr",
-  "latest": "1.1.1-r2",
+  "latest": "1.1.1-r3",
   "repository_url": "https://github.com/taffish/plotsr",
   "command": {
     "name": "taf-plotsr"
@@ -226,6 +226,123 @@
         "ref": "v1.1.1-r2",
         "commit": "2689b32cfe4f41335cf6ea9ce364b2985e934b8e",
         "html_url": "https://github.com/taffish/plotsr/tree/v1.1.1-r2"
+      },
+      "upstream": {
+        "name": "plotsr",
+        "type": "github",
+        "homepage": "https://github.com/schneebergerlab/plotsr",
+        "repository": "schneebergerlab/plotsr",
+        "release_url": "https://github.com/schneebergerlab/plotsr/releases/tag/v1.1.1",
+        "version": "1.1.1",
+        "license": "MIT",
+        "citation": "Goel and Schneeberger 2022",
+        "doi": "10.1093/bioinformatics/btac196",
+        "pmid": "35561173"
+      }
+    },
+    "1.1.1-r3": {
+      "name": "plotsr",
+      "kind": "tool",
+      "version": "1.1.1",
+      "release": 3,
+      "version_id": "1.1.1-r3",
+      "tag": "v1.1.1-r3",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/plotsr",
+      "repository_slug": "taffish/plotsr",
+      "command": {
+        "name": "taf-plotsr"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "comparative-genomics",
+        "categories": [
+          "comparative-genomics",
+          "synteny",
+          "structural-variation",
+          "visualization"
+        ],
+        "keywords": [
+          "plotsr",
+          "synteny",
+          "structural rearrangements",
+          "structural variation",
+          "syri",
+          "bedpe",
+          "genome visualization",
+          "matplotlib"
+        ],
+        "summary": "plotsr visualizes structural similarities, synteny, and rearrangements between chromosome-level genome assemblies.",
+        "description": "plotsr visualizes structural similarities, synteny, and rearrangements between chromosome-level genome assemblies."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/plotsr:1.1.1-r3",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.1.1-r3",
+        "image_tag_matches_version": true,
+        "digest": "sha256:3f1137f98c907d3d5a87fee9ac3bd593b754adb6a98405d2cb9e5282188d96b9",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:1e46a4bad65ce9576cc31f4f071f8729f8b553530d3241291690777d033c228f",
+          "linux/arm64": "sha256:bb941e8ae4f8ebdbbef718a88f704be7f0353b6bd7b07ff9d3326394fe32a1bc"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "plotsr",
+          "python3",
+          "fc-list",
+          "file",
+          "gzip",
+          "sh",
+          "grep"
+        ],
+        "test": [
+          "test \"$(cat /usr/local/share/doc/plotsr/VERSION)\" = '1.1.1'",
+          "plotsr --version | grep -Fx '1.1.1' >/dev/null",
+          "plotsr -h 2>&1 | grep -F 'Plotting structural rearrangements between genomes' >/dev/null && plotsr -h 2>&1 | grep -F -- '--genomes' >/dev/null",
+          "python3 -c 'import plotsr,numpy,pandas,matplotlib; assert plotsr.__version__ == \"1.1.1\"; assert matplotlib.get_backend().lower() == \"agg\"'",
+          "test -f /usr/local/share/doc/plotsr/example/genomes.txt && test -f /usr/local/share/doc/plotsr/config/base.cfg && test -f /usr/local/share/doc/plotsr/LICENSE",
+          "mkdir -p /tmp/taf-plotsr-bedpe && cd /tmp/taf-plotsr-bedpe && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t0\\t1000\\tchr1\\t0\\t1000\\tSYN\\t-\\nchr1\\t200\\t350\\tchr1\\t220\\t370\\tINV\\tcl:red;lw:2\\n' > ab.bedpe && printf 'chr1\\t100\\t180\\nchr1\\t500\\t650\\n' > feats.bed && printf 'feats.bed\\tFeatures\\tft:bed;bw:100;ti:1;tt:l;lc:blue\\n' > tracks.txt && printf 'chr1\\t250\\t251\\tA\\tmt:o;mc:black;ms:3;tt:marker;tp:0.02;ts:6;tc:black\\n' > markers.bed && printf 'legend:F\\n' > base.cfg && plotsr --bp ab.bedpe --genomes genomes.txt --tracks tracks.txt --markers markers.bed --cfg base.cfg -o out.png -W 3 -H 2 -f 6 -d 80 --lf bedpe.log >/dev/null 2> bedpe.err && test -s out.png && file out.png | grep -F 'PNG image data' >/dev/null",
+          "mkdir -p /tmp/taf-plotsr-syri && cd /tmp/taf-plotsr-syri && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t1\\t1000\\t-\\t-\\tchr1\\t1\\t1000\\tSYN1\\t-\\tSYN\\t-\\nchr1\\t200\\t350\\t-\\t-\\tchr1\\t220\\t370\\tINV1\\t-\\tINV\\t-\\n' > ab.syri.out && plotsr --sr ab.syri.out --genomes genomes.txt --chr chr1 -o out.svg -W 3 -H 2 -f 6 -d 80 --lf syri.log >/dev/null 2> syri.err && test -s out.svg && grep -F '<svg' out.svg >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/plotsr",
+        "ref": "v1.1.1-r3",
+        "commit": "0c734792e3782bf764a65c21109c92130361bbb3",
+        "html_url": "https://github.com/taffish/plotsr/tree/v1.1.1-r3"
       },
       "upstream": {
         "name": "plotsr",

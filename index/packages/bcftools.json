@@ -1,6 +1,6 @@
 {
   "name": "bcftools",
-  "latest": "1.23.1-r1",
+  "latest": "1.23.1-r2",
   "repository_url": "https://github.com/taffish/bcftools",
   "command": {
     "name": "taf-bcftools"
@@ -113,6 +113,123 @@
       "upstream": {
         "type": "github",
         "repository": "samtools/bcftools",
+        "license": "MIT/Expat or GPL",
+        "citation": "Danecek et al. 2021",
+        "doi": "10.1093/gigascience/giab008",
+        "pmid": "33590861"
+      }
+    },
+    "1.23.1-r2": {
+      "name": "bcftools",
+      "kind": "tool",
+      "version": "1.23.1",
+      "release": 2,
+      "version_id": "1.23.1-r2",
+      "tag": "v1.23.1-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bcftools",
+      "repository_slug": "taffish/bcftools",
+      "command": {
+        "name": "taf-bcftools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "variant-calling",
+          "vcf-bcf"
+        ],
+        "keywords": [
+          "vcf",
+          "bcf",
+          "variant",
+          "genotype",
+          "annotation",
+          "htslib",
+          "bgzip",
+          "tabix"
+        ],
+        "summary": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files.",
+        "description": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bcftools:1.23.1-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.23.1-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:7038c0217f912e33ea260f0d4583ddbd936acbfcbaeae028ef99142d8eba0c91",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:73efe28db856073f97c7ef9bf42e24477c8b09d91b2692257f0fa90944f052b2",
+          "linux/arm64": "sha256:7ba85f9bd06c436aecf0c2b1a3bb53a4a74f2f11448e159343d5f9472be32c9b"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 60,
+        "exist": [
+          "bcftools",
+          "bgzip",
+          "tabix",
+          "plot-vcfstats",
+          "python",
+          "perl"
+        ],
+        "test": [
+          "bcftools --help",
+          "bcftools --version 2>&1 | grep -F 'bcftools 1.23.1' >/dev/null",
+          "bcftools polysomy -h 2>&1 | grep -F 'bcftools polysomy' >/dev/null",
+          "bcftools cnv -h 2>&1 | grep -F 'bcftools cnv' >/dev/null",
+          "bcftools plugin -l >/dev/null",
+          "plot-vcfstats -h >/dev/null",
+          "python -c 'import gffutils, matplotlib, numpy'",
+          "bgzip --help >/dev/null",
+          "tabix --help >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bcftools",
+        "ref": "v1.23.1-r2",
+        "commit": "2ce77c0748719e77fe1c2aec0f87815d5b900779",
+        "html_url": "https://github.com/taffish/bcftools/tree/v1.23.1-r2"
+      },
+      "upstream": {
+        "name": "BCFtools",
+        "type": "github",
+        "homepage": "https://www.htslib.org/",
+        "repository": "samtools/bcftools",
+        "release_url": "https://github.com/samtools/bcftools/releases/tag/1.23.1",
+        "version": "1.23.1",
         "license": "MIT/Expat or GPL",
         "citation": "Danecek et al. 2021",
         "doi": "10.1093/gigascience/giab008",

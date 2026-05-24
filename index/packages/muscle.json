@@ -1,6 +1,6 @@
 {
   "name": "muscle",
-  "latest": "5.3-r2",
+  "latest": "5.3-r4",
   "repository_url": "https://github.com/taffish/muscle",
   "command": {
     "name": "taf-muscle"
@@ -226,6 +226,123 @@
         "ref": "v5.3-r2",
         "commit": "de7b451e0a84e606d5761100b184e18ea6df0ac6",
         "html_url": "https://github.com/taffish/muscle/tree/v5.3-r2"
+      },
+      "upstream": {
+        "name": "MUSCLE",
+        "type": "github",
+        "homepage": "https://drive5.com/muscle5/",
+        "repository": "rcedgar/muscle",
+        "release_url": "https://github.com/rcedgar/muscle/releases/tag/v5.3",
+        "version": "5.3",
+        "license": "GPL-3.0",
+        "citation": "Edgar 2022",
+        "doi": "10.1038/s41467-022-34630-w",
+        "pmid": "36379955"
+      }
+    },
+    "5.3-r4": {
+      "name": "muscle",
+      "kind": "tool",
+      "version": "5.3",
+      "release": 4,
+      "version_id": "5.3-r4",
+      "tag": "v5.3-r4",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/muscle",
+      "repository_slug": "taffish/muscle",
+      "command": {
+        "name": "taf-muscle"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "multiple-sequence-alignment",
+        "categories": [
+          "multiple-sequence-alignment",
+          "protein-alignment",
+          "nucleotide-alignment",
+          "structure-alignment",
+          "phylogenetics"
+        ],
+        "keywords": [
+          "muscle",
+          "muscle5",
+          "msa",
+          "multiple sequence alignment",
+          "alignment ensembles",
+          "fasta",
+          "efa",
+          "super5",
+          "muscle-3d"
+        ],
+        "summary": "MUSCLE 5 makes high-accuracy multiple sequence alignments and alignment ensembles, with structure-alignment support for Reseek mega inputs.",
+        "description": "MUSCLE 5 makes high-accuracy multiple sequence alignments and alignment ensembles, with structure-alignment support for Reseek mega inputs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/muscle:5.3-r4",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "5.3-r4",
+        "image_tag_matches_version": true,
+        "digest": "sha256:74430e7a06f042020ce3fe95cb43d8849d2467dedca09e274e24144bd68728fc",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:c0639fe2ca8281c22cfb8f12d8b2739aba7a0d19f37978297e78a197ed389096",
+          "linux/arm64": "sha256:94579c0e43930df45258de57c59ff09158a671491aebd95c916618444afcdccb"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "muscle",
+          "sh",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "test \"$(cat /usr/local/share/doc/muscle/VERSION)\" = '5.3'",
+          "muscle -version 2>&1 | sed -n '1p' | grep -Fx 'muscle 5.3.linux64 [v5.3-taffish-r2]' >/dev/null",
+          "muscle -h 2>&1 | grep -F 'Align FASTA input' >/dev/null",
+          "muscle -h 2>&1 | grep -F 'Ensemble FASTA (EFA)' >/dev/null",
+          "ldd \"$(command -v muscle)\" 2>&1 | grep -F 'not a dynamic executable' >/dev/null",
+          "mkdir -p /tmp/taf-muscle-align && cd /tmp/taf-muscle-align && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -align in.fa -output aln.afa >/dev/null 2> align.log && test -s aln.afa && grep -F '>s1' aln.afa >/dev/null && grep -F '>s2' aln.afa >/dev/null && grep -F '>s3' aln.afa >/dev/null",
+          "mkdir -p /tmp/taf-muscle-super5 && cd /tmp/taf-muscle-super5 && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -super5 in.fa -output super5.afa >/dev/null 2> super5.log && test -s super5.afa && grep -F '>s1' super5.afa >/dev/null",
+          "mkdir -p /tmp/taf-muscle-ensemble && cd /tmp/taf-muscle-ensemble && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -align in.fa -diversified -replicates 2 -output ensemble.efa >/dev/null 2> ensemble.log && test -s ensemble.efa && grep -F '<none.0' ensemble.efa >/dev/null && muscle -maxcc ensemble.efa -output maxcc.afa >/dev/null 2> maxcc.log && test -s maxcc.afa && muscle -resample ensemble.efa -replicates 1 -output resampled.efa >/dev/null 2> resample.log && test -s resampled.efa && muscle -efa_explode ensemble.efa >/dev/null 2> explode.log && test -s none.0 && test -s abc.1"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/muscle",
+        "ref": "v5.3-r4",
+        "commit": "c7c199bbbf51a68c749753c8c9166fe526f14b40",
+        "html_url": "https://github.com/taffish/muscle/tree/v5.3-r4"
       },
       "upstream": {
         "name": "MUSCLE",

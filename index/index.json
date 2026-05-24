@@ -1,15 +1,15 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-24T00:36:51Z",
+  "generated_at": "2026-05-24T02:00:08Z",
   "organization": "taffish",
   "counts": {
     "packages": 97,
-    "versions": 133,
+    "versions": 148,
     "commands": 97,
     "repositories": 97,
     "warnings": 0,
     "failed": 0,
-    "rejected": 1
+    "rejected": 2
   },
   "packages": {
     "agat": {
@@ -702,7 +702,7 @@
     },
     "bcftools": {
       "name": "bcftools",
-      "latest": "1.23.1-r1",
+      "latest": "1.23.1-r2",
       "repository_url": "https://github.com/taffish/bcftools",
       "command": {
         "name": "taf-bcftools"
@@ -815,6 +815,123 @@
           "upstream": {
             "type": "github",
             "repository": "samtools/bcftools",
+            "license": "MIT/Expat or GPL",
+            "citation": "Danecek et al. 2021",
+            "doi": "10.1093/gigascience/giab008",
+            "pmid": "33590861"
+          }
+        },
+        "1.23.1-r2": {
+          "name": "bcftools",
+          "kind": "tool",
+          "version": "1.23.1",
+          "release": 2,
+          "version_id": "1.23.1-r2",
+          "tag": "v1.23.1-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bcftools",
+          "repository_slug": "taffish/bcftools",
+          "command": {
+            "name": "taf-bcftools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "variant-calling",
+              "vcf-bcf"
+            ],
+            "keywords": [
+              "vcf",
+              "bcf",
+              "variant",
+              "genotype",
+              "annotation",
+              "htslib",
+              "bgzip",
+              "tabix"
+            ],
+            "summary": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files.",
+            "description": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bcftools:1.23.1-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.23.1-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:7038c0217f912e33ea260f0d4583ddbd936acbfcbaeae028ef99142d8eba0c91",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:73efe28db856073f97c7ef9bf42e24477c8b09d91b2692257f0fa90944f052b2",
+              "linux/arm64": "sha256:7ba85f9bd06c436aecf0c2b1a3bb53a4a74f2f11448e159343d5f9472be32c9b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 60,
+            "exist": [
+              "bcftools",
+              "bgzip",
+              "tabix",
+              "plot-vcfstats",
+              "python",
+              "perl"
+            ],
+            "test": [
+              "bcftools --help",
+              "bcftools --version 2>&1 | grep -F 'bcftools 1.23.1' >/dev/null",
+              "bcftools polysomy -h 2>&1 | grep -F 'bcftools polysomy' >/dev/null",
+              "bcftools cnv -h 2>&1 | grep -F 'bcftools cnv' >/dev/null",
+              "bcftools plugin -l >/dev/null",
+              "plot-vcfstats -h >/dev/null",
+              "python -c 'import gffutils, matplotlib, numpy'",
+              "bgzip --help >/dev/null",
+              "tabix --help >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bcftools",
+            "ref": "v1.23.1-r2",
+            "commit": "2ce77c0748719e77fe1c2aec0f87815d5b900779",
+            "html_url": "https://github.com/taffish/bcftools/tree/v1.23.1-r2"
+          },
+          "upstream": {
+            "name": "BCFtools",
+            "type": "github",
+            "homepage": "https://www.htslib.org/",
+            "repository": "samtools/bcftools",
+            "release_url": "https://github.com/samtools/bcftools/releases/tag/1.23.1",
+            "version": "1.23.1",
             "license": "MIT/Expat or GPL",
             "citation": "Danecek et al. 2021",
             "doi": "10.1093/gigascience/giab008",
@@ -7429,7 +7546,7 @@
     },
     "higlass": {
       "name": "higlass",
-      "latest": "0.10.4-r1",
+      "latest": "0.10.4-r2",
       "repository_url": "https://github.com/taffish/higlass",
       "command": {
         "name": "taf-higlass"
@@ -7534,6 +7651,119 @@
             "ref": "v0.10.4-r1",
             "commit": "4d8ee0ae62f3c52fbb9f08bba4f56c547bfeac85",
             "html_url": "https://github.com/taffish/higlass/tree/v0.10.4-r1"
+          },
+          "upstream": {
+            "name": "HiGlass Docker",
+            "type": "github",
+            "homepage": "https://higlass.io/",
+            "repository": "higlass/higlass-docker",
+            "release_url": "https://github.com/higlass/higlass-docker/tree/v0.10.4",
+            "version": "0.10.4",
+            "license": "MIT",
+            "citation": "Kerpedjiev et al. 2018. HiGlass: web-based visual exploration and analysis of genome interaction maps.",
+            "doi": "10.1186/s13059-018-1486-1",
+            "pmid": "30143029"
+          }
+        },
+        "0.10.4-r2": {
+          "name": "higlass",
+          "kind": "tool",
+          "version": "0.10.4",
+          "release": 2,
+          "version_id": "0.10.4-r2",
+          "tag": "v0.10.4-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/higlass",
+          "repository_slug": "taffish/higlass",
+          "command": {
+            "name": "taf-higlass"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "visualization",
+              "browser",
+              "hic",
+              "server"
+            ],
+            "keywords": [
+              "higlass",
+              "hi-c",
+              "genome-browser",
+              "contact-map",
+              "tileset",
+              "cooler",
+              "bigwig",
+              "web-service"
+            ],
+            "summary": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks.",
+            "description": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/higlass:0.10.4-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.10.4-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d60eaf125e0234fdd389ea4aa59f7feaed2b38f2130e4bb0d2f91746ca6d2a43",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:879c6ee0ad5002b478bfcda7d31ab167ca32a78f850399fbd2642f1434392cf3"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "higlass",
+              "higlass-manage",
+              "supervisord",
+              "nginx",
+              "uwsgi",
+              "python",
+              "curl"
+            ],
+            "test": [
+              "higlass --version | grep -F 'higlass-docker 0.10.4' && higlass -- --version | grep -F 'higlass-docker 0.10.4' && higlass --version | grep -F 'SERVER_VERSION: 1.14.8' && higlass --version | grep -F 'LIBRARY_VERSION: 1.11.4'",
+              "higlass --help | grep -F 'Usage: higlass'",
+              "higlass-manage help | grep -F 'Available subcommands'",
+              "tmp=\"$(mktemp -d /tmp/taf-higlass-smoke.XXXXXX)\" && (higlass --host-port 8888 > \"$tmp/higlass.log\" 2>&1 & pid=\"$!\"; ok=0; for i in $(seq 1 45); do if curl -fsS http://127.0.0.1/api/v1/tilesets/ | grep -F '\"count\"' >/dev/null; then ok=1; break; fi; sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; grep -F 'http://127.0.0.1:8888/' \"$tmp/higlass.log\" >/dev/null; test \"$ok\" -eq 1)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/higlass",
+            "ref": "v0.10.4-r2",
+            "commit": "6c338aecc114e2ea7a4343736ef1dc594fc17d99",
+            "html_url": "https://github.com/taffish/higlass/tree/v0.10.4-r2"
           },
           "upstream": {
             "name": "HiGlass Docker",
@@ -9755,7 +9985,7 @@
     },
     "merqury": {
       "name": "merqury",
-      "latest": "1.3-r1",
+      "latest": "1.3-r2",
       "repository_url": "https://github.com/taffish/merqury",
       "command": {
         "name": "taf-merqury"
@@ -9888,12 +10118,140 @@
             "doi": "10.1186/s13059-020-02134-9",
             "pmid": "32928274"
           }
+        },
+        "1.3-r2": {
+          "name": "merqury",
+          "kind": "tool",
+          "version": "1.3",
+          "release": 2,
+          "version_id": "1.3-r2",
+          "tag": "v1.3-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/merqury",
+          "repository_slug": "taffish/merqury",
+          "command": {
+            "name": "taf-merqury"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "quality-control",
+              "phasing",
+              "kmer",
+              "visualization"
+            ],
+            "keywords": [
+              "merqury",
+              "meryl",
+              "k-mer",
+              "assembly-evaluation",
+              "qv",
+              "completeness",
+              "hap-mer",
+              "phasing",
+              "spectra-cn"
+            ],
+            "summary": "Merqury evaluates genome assemblies with k-mer spectra, QV, completeness, and phasing statistics.",
+            "description": "Merqury evaluates genome assemblies with k-mer spectra, QV, completeness, and phasing statistics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/merqury:1.3-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5cd83757d08d51405d5ea3f7bf76b5bbd9b4b189dd2ad7516fc815ce3b1665d3",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:abfe1cd107b129ea62e5d68cfe34707355da4a944fb7136305352aa7267956dc"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "merqury.sh",
+              "merqury",
+              "best_k.sh",
+              "qv.sh",
+              "spectra-cn.sh",
+              "plot_spectra_cn.R",
+              "meryl",
+              "meryl-lookup",
+              "Rscript",
+              "java",
+              "bedtools",
+              "samtools",
+              "pigz",
+              "bash"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/merqury/VERSION)\" = '1.3'",
+              "test \"$(cat /usr/local/share/doc/merqury/MERYL_VERSION)\" = '1.4.1'",
+              "test \"$MERQURY\" = '/opt/merqury' && test -x \"$MERQURY/merqury.sh\"",
+              "merqury.sh 2>&1 | grep -F 'Usage: merqury.sh' >/dev/null",
+              "best_k.sh 1000000 2>&1 | grep -E '^14\\.' >/dev/null",
+              "meryl -h 2>&1 | grep -F 'COMMANDS:' >/dev/null",
+              "meryl-lookup 2>&1 | grep -F 'usage:' >/dev/null",
+              "Rscript -e 'library(argparse); library(ggplot2); library(scales)'",
+              "plot_spectra_cn.R --help 2>&1 | grep -F 'spectra-cn plots' >/dev/null",
+              "java -version >/dev/null 2>&1 && bedtools --version >/dev/null && samtools --version >/dev/null && pigz --version >/dev/null",
+              "mkdir -p /tmp/taf-merqury-smoke && cd /tmp/taf-merqury-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > asm.fa && meryl k=21 memory=0.1 count asm.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && merqury.sh read.meryl asm.fa out > run.out 2> run.err && test -s out.qv && test -s out.completeness.stats && test -s out.asm.spectra-cn.ln.png && test -s out.spectra-asm.ln.png && test -e asm_only.wig && grep -F 'asm_only.wig generated.' logs/out.spectra-cn.log >/dev/null && grep -F 'Done!' logs/out.spectra-cn.log >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/merqury",
+            "ref": "v1.3-r2",
+            "commit": "87591b8d7bae1d7f451cded13d429cd4e45e57e2",
+            "html_url": "https://github.com/taffish/merqury/tree/v1.3-r2"
+          },
+          "upstream": {
+            "name": "Merqury",
+            "type": "github",
+            "homepage": "https://github.com/marbl/merqury",
+            "repository": "marbl/merqury",
+            "release_url": "https://github.com/marbl/merqury/releases/tag/v1.3",
+            "version": "1.3",
+            "license": "Public Domain",
+            "citation": "Rhie et al. 2020",
+            "doi": "10.1186/s13059-020-02134-9",
+            "pmid": "32928274"
+          }
         }
       }
     },
     "meryl": {
       "name": "meryl",
-      "latest": "1.4.1-r2",
+      "latest": "1.4.1-r3",
       "repository_url": "https://github.com/taffish/meryl",
       "command": {
         "name": "taf-meryl"
@@ -10125,6 +10483,126 @@
             "ref": "v1.4.1-r2",
             "commit": "f6a0f7760567a4234474291d8c3f10b21e7ef5a2",
             "html_url": "https://github.com/taffish/meryl/tree/v1.4.1-r2"
+          },
+          "upstream": {
+            "name": "Meryl",
+            "type": "github",
+            "homepage": "https://github.com/marbl/meryl",
+            "repository": "marbl/meryl",
+            "release_url": "https://github.com/marbl/meryl/releases/tag/v1.4.1",
+            "version": "1.4.1",
+            "license": "Public Domain",
+            "citation": "Rhie et al. 2020",
+            "doi": "10.1186/s13059-020-02134-9",
+            "pmid": "32928274"
+          }
+        },
+        "1.4.1-r3": {
+          "name": "meryl",
+          "kind": "tool",
+          "version": "1.4.1",
+          "release": 3,
+          "version_id": "1.4.1-r3",
+          "tag": "v1.4.1-r3",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/meryl",
+          "repository_slug": "taffish/meryl",
+          "command": {
+            "name": "taf-meryl"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "kmer",
+            "categories": [
+              "kmer",
+              "genome-assembly",
+              "quality-control",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "meryl",
+              "k-mer",
+              "kmer",
+              "histogram",
+              "counting",
+              "meryl-lookup",
+              "merqury",
+              "assembly-evaluation"
+            ],
+            "summary": "Meryl is a genomic k-mer counter and sequence utility used by Merqury and related assembly-evaluation workflows.",
+            "description": "Meryl is a genomic k-mer counter and sequence utility used by Merqury and related assembly-evaluation workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/meryl:1.4.1-r3",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.4.1-r3",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5392f26446b491322d08263b7776479d57e73afa1dd1906102c2a5b451969f5e",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:455344f48dd875637438b4bf7086ec8095a5e86cb71041e34a7d8eb92cb10241"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "meryl",
+              "meryl-lookup",
+              "meryl-import",
+              "meryl-analyze",
+              "meryl-simple",
+              "position-lookup",
+              "gzip",
+              "bzip2",
+              "xz",
+              "bash"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/meryl/VERSION)\" = '1.4.1'",
+              "meryl --version 2>&1 | grep -F 'meryl 1.4.1' >/dev/null",
+              "meryl -h 2>&1 | grep -F 'COMMANDS:' >/dev/null",
+              "meryl-lookup 2>&1 | grep -F 'usage:' >/dev/null",
+              "meryl-import 2>&1 | grep -F 'usage:' >/dev/null",
+              "meryl-simple 2>&1 | grep -F 'usage:' >/dev/null",
+              "meryl-analyze 2>&1 | grep -F 'usage:' >/dev/null",
+              "ldd \"$(command -v meryl)\" | grep -F 'libgomp' >/dev/null",
+              "mkdir -p /tmp/taf-meryl-smoke && cd /tmp/taf-meryl-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl k=21 memory=0.1 threads=1 count seq.fa output seq.meryl >/dev/null 2> meryl.log && test -d seq.meryl && meryl histogram seq.meryl > seq.hist && grep -E '^6[[:space:]]+2$' seq.hist >/dev/null && meryl statistics seq.meryl > seq.stats && grep -F 'distinct                    2' seq.stats >/dev/null && meryl print seq.meryl > seq.print && grep -F 'ACGTACGTACGTACGTACGTA' seq.print >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/meryl",
+            "ref": "v1.4.1-r3",
+            "commit": "32d7c0d9d565978fedcbcdeeac913cdeb71eb378",
+            "html_url": "https://github.com/taffish/meryl/tree/v1.4.1-r3"
           },
           "upstream": {
             "name": "Meryl",
@@ -11031,7 +11509,7 @@
     },
     "mosdepth": {
       "name": "mosdepth",
-      "latest": "0.3.14-r1",
+      "latest": "0.3.14-r2",
       "repository_url": "https://github.com/taffish/mosdepth",
       "command": {
         "name": "taf-mosdepth"
@@ -11142,6 +11620,125 @@
             "ref": "v0.3.14-r1",
             "commit": "26d0c62fbd4fef0f5a8e5524d12d648a0be872ed",
             "html_url": "https://github.com/taffish/mosdepth/tree/v0.3.14-r1"
+          },
+          "upstream": {
+            "name": "mosdepth",
+            "type": "github",
+            "homepage": "https://github.com/brentp/mosdepth",
+            "repository": "brentp/mosdepth",
+            "release_url": "https://github.com/brentp/mosdepth/releases/tag/v0.3.14",
+            "version": "0.3.14",
+            "license": "MIT",
+            "citation": "Pedersen and Quinlan 2018, mosdepth: quick coverage calculation for genomes and exomes",
+            "doi": "10.1093/bioinformatics/btx699",
+            "pmid": "29096012"
+          }
+        },
+        "0.3.14-r2": {
+          "name": "mosdepth",
+          "kind": "tool",
+          "version": "0.3.14",
+          "release": 2,
+          "version_id": "0.3.14-r2",
+          "tag": "v0.3.14-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/mosdepth",
+          "repository_slug": "taffish/mosdepth",
+          "command": {
+            "name": "taf-mosdepth"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "coverage",
+            "categories": [
+              "coverage",
+              "depth",
+              "alignment",
+              "quality-control",
+              "bam",
+              "cram"
+            ],
+            "keywords": [
+              "mosdepth",
+              "coverage",
+              "depth",
+              "bam",
+              "cram",
+              "bed",
+              "d4",
+              "per-base",
+              "per-region",
+              "quantize",
+              "thresholds",
+              "fragment-mode"
+            ],
+            "summary": "Fast BAM/CRAM depth and coverage calculation for WGS, exome, and targeted sequencing.",
+            "description": "Fast BAM/CRAM depth and coverage calculation for WGS, exome, and targeted sequencing."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/mosdepth:0.3.14-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.3.14-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:45d4b29a9d2cb75787fbd871553f9bdfb567709fd8b83d7aa36cb8e3a6421a36",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:971941d32c1c0bcfb655bc41040c4448d82ee0a1ec33ca373ac710d1a1541b45"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "mosdepth",
+              "mosdepth_d4",
+              "sh",
+              "grep",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "mosdepth --version | grep -Fx 'mosdepth 0.3.14' >/dev/null && mosdepth --help 2>&1 | grep -F 'Usage: mosdepth [options]' >/dev/null && mosdepth_d4 --help 2>&1 | grep -F -- '--d4' >/dev/null && { ldd $(command -v mosdepth) 2>&1 || true; } | grep -E '(not a dynamic executable|statically linked)' >/dev/null",
+              "mkdir -p /tmp/taf-mosdepth-summary && cd /tmp/taf-mosdepth-summary && mosdepth -n out /opt/mosdepth/share/testdata/ovl.bam && test -s out.mosdepth.summary.txt && test -s out.mosdepth.global.dist.txt && grep -F 'MT\t16569\t80\t0.00\t0\t1' out.mosdepth.summary.txt >/dev/null && test ! -e out.per-base.bed.gz",
+              "mkdir -p /tmp/taf-mosdepth-perbase && cd /tmp/taf-mosdepth-perbase && mosdepth --fast-mode out /opt/mosdepth/share/testdata/ovl.bam && test -s out.per-base.bed.gz && gzip -cd out.per-base.bed.gz | grep -F 'MT\t6\t42\t2' >/dev/null && grep -F 'total\t16569\t116\t0.01\t0\t2' out.mosdepth.summary.txt >/dev/null",
+              "mkdir -p /tmp/taf-mosdepth-regions && cd /tmp/taf-mosdepth-regions && mosdepth -n --by /opt/mosdepth/share/testdata/track.bed --thresholds 0,1,2 out /opt/mosdepth/share/testdata/ovl.bam && test -s out.regions.bed.gz && test -s out.thresholds.bed.gz && gzip -cd out.regions.bed.gz | grep -F 'MT\t2\t80\taregion\t1.00' >/dev/null && gzip -cd out.thresholds.bed.gz | grep -F 'MT\t2\t80\taregion\t78\t78\t0' >/dev/null",
+              "mkdir -p /tmp/taf-mosdepth-quant && cd /tmp/taf-mosdepth-quant && MOSDEPTH_Q0=NO_COVERAGE MOSDEPTH_Q1=COVERED mosdepth -n --quantize 0:1:1000 out /opt/mosdepth/share/testdata/ovl.bam && test -s out.quantized.bed.gz && gzip -cd out.quantized.bed.gz | grep -F 'MT\t0\t80\tCOVERED' >/dev/null && gzip -cd out.quantized.bed.gz | grep -F 'MT\t80\t16569\tNO_COVERAGE' >/dev/null",
+              "mkdir -p /tmp/taf-mosdepth-chrom-end && cd /tmp/taf-mosdepth-chrom-end && mosdepth -n --by /opt/mosdepth/share/testdata/chrom-end/region-not-ok.bed out /opt/mosdepth/share/testdata/chrom-end/minimal.bam && test -s out.mosdepth.summary.txt && test -s out.regions.bed.gz"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/mosdepth",
+            "ref": "v0.3.14-r2",
+            "commit": "78c2d0702913542cb6f81d5a5ba8a8f51221782c",
+            "html_url": "https://github.com/taffish/mosdepth/tree/v0.3.14-r2"
           },
           "upstream": {
             "name": "mosdepth",
@@ -11392,7 +11989,7 @@
     },
     "muscle": {
       "name": "muscle",
-      "latest": "5.3-r2",
+      "latest": "5.3-r4",
       "repository_url": "https://github.com/taffish/muscle",
       "command": {
         "name": "taf-muscle"
@@ -11618,6 +12215,123 @@
             "ref": "v5.3-r2",
             "commit": "de7b451e0a84e606d5761100b184e18ea6df0ac6",
             "html_url": "https://github.com/taffish/muscle/tree/v5.3-r2"
+          },
+          "upstream": {
+            "name": "MUSCLE",
+            "type": "github",
+            "homepage": "https://drive5.com/muscle5/",
+            "repository": "rcedgar/muscle",
+            "release_url": "https://github.com/rcedgar/muscle/releases/tag/v5.3",
+            "version": "5.3",
+            "license": "GPL-3.0",
+            "citation": "Edgar 2022",
+            "doi": "10.1038/s41467-022-34630-w",
+            "pmid": "36379955"
+          }
+        },
+        "5.3-r4": {
+          "name": "muscle",
+          "kind": "tool",
+          "version": "5.3",
+          "release": 4,
+          "version_id": "5.3-r4",
+          "tag": "v5.3-r4",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/muscle",
+          "repository_slug": "taffish/muscle",
+          "command": {
+            "name": "taf-muscle"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "multiple-sequence-alignment",
+            "categories": [
+              "multiple-sequence-alignment",
+              "protein-alignment",
+              "nucleotide-alignment",
+              "structure-alignment",
+              "phylogenetics"
+            ],
+            "keywords": [
+              "muscle",
+              "muscle5",
+              "msa",
+              "multiple sequence alignment",
+              "alignment ensembles",
+              "fasta",
+              "efa",
+              "super5",
+              "muscle-3d"
+            ],
+            "summary": "MUSCLE 5 makes high-accuracy multiple sequence alignments and alignment ensembles, with structure-alignment support for Reseek mega inputs.",
+            "description": "MUSCLE 5 makes high-accuracy multiple sequence alignments and alignment ensembles, with structure-alignment support for Reseek mega inputs."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/muscle:5.3-r4",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.3-r4",
+            "image_tag_matches_version": true,
+            "digest": "sha256:74430e7a06f042020ce3fe95cb43d8849d2467dedca09e274e24144bd68728fc",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c0639fe2ca8281c22cfb8f12d8b2739aba7a0d19f37978297e78a197ed389096",
+              "linux/arm64": "sha256:94579c0e43930df45258de57c59ff09158a671491aebd95c916618444afcdccb"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "muscle",
+              "sh",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/muscle/VERSION)\" = '5.3'",
+              "muscle -version 2>&1 | sed -n '1p' | grep -Fx 'muscle 5.3.linux64 [v5.3-taffish-r2]' >/dev/null",
+              "muscle -h 2>&1 | grep -F 'Align FASTA input' >/dev/null",
+              "muscle -h 2>&1 | grep -F 'Ensemble FASTA (EFA)' >/dev/null",
+              "ldd \"$(command -v muscle)\" 2>&1 | grep -F 'not a dynamic executable' >/dev/null",
+              "mkdir -p /tmp/taf-muscle-align && cd /tmp/taf-muscle-align && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -align in.fa -output aln.afa >/dev/null 2> align.log && test -s aln.afa && grep -F '>s1' aln.afa >/dev/null && grep -F '>s2' aln.afa >/dev/null && grep -F '>s3' aln.afa >/dev/null",
+              "mkdir -p /tmp/taf-muscle-super5 && cd /tmp/taf-muscle-super5 && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -super5 in.fa -output super5.afa >/dev/null 2> super5.log && test -s super5.afa && grep -F '>s1' super5.afa >/dev/null",
+              "mkdir -p /tmp/taf-muscle-ensemble && cd /tmp/taf-muscle-ensemble && printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTCGTACGT\\n>s3\\nACGTACGACGT\\n' > in.fa && muscle -align in.fa -diversified -replicates 2 -output ensemble.efa >/dev/null 2> ensemble.log && test -s ensemble.efa && grep -F '<none.0' ensemble.efa >/dev/null && muscle -maxcc ensemble.efa -output maxcc.afa >/dev/null 2> maxcc.log && test -s maxcc.afa && muscle -resample ensemble.efa -replicates 1 -output resampled.efa >/dev/null 2> resample.log && test -s resampled.efa && muscle -efa_explode ensemble.efa >/dev/null 2> explode.log && test -s none.0 && test -s abc.1"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/muscle",
+            "ref": "v5.3-r4",
+            "commit": "c7c199bbbf51a68c749753c8c9166fe526f14b40",
+            "html_url": "https://github.com/taffish/muscle/tree/v5.3-r4"
           },
           "upstream": {
             "name": "MUSCLE",
@@ -12523,7 +13237,7 @@
     },
     "plotsr": {
       "name": "plotsr",
-      "latest": "1.1.1-r2",
+      "latest": "1.1.1-r3",
       "repository_url": "https://github.com/taffish/plotsr",
       "command": {
         "name": "taf-plotsr"
@@ -12749,6 +13463,123 @@
             "ref": "v1.1.1-r2",
             "commit": "2689b32cfe4f41335cf6ea9ce364b2985e934b8e",
             "html_url": "https://github.com/taffish/plotsr/tree/v1.1.1-r2"
+          },
+          "upstream": {
+            "name": "plotsr",
+            "type": "github",
+            "homepage": "https://github.com/schneebergerlab/plotsr",
+            "repository": "schneebergerlab/plotsr",
+            "release_url": "https://github.com/schneebergerlab/plotsr/releases/tag/v1.1.1",
+            "version": "1.1.1",
+            "license": "MIT",
+            "citation": "Goel and Schneeberger 2022",
+            "doi": "10.1093/bioinformatics/btac196",
+            "pmid": "35561173"
+          }
+        },
+        "1.1.1-r3": {
+          "name": "plotsr",
+          "kind": "tool",
+          "version": "1.1.1",
+          "release": 3,
+          "version_id": "1.1.1-r3",
+          "tag": "v1.1.1-r3",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/plotsr",
+          "repository_slug": "taffish/plotsr",
+          "command": {
+            "name": "taf-plotsr"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "comparative-genomics",
+            "categories": [
+              "comparative-genomics",
+              "synteny",
+              "structural-variation",
+              "visualization"
+            ],
+            "keywords": [
+              "plotsr",
+              "synteny",
+              "structural rearrangements",
+              "structural variation",
+              "syri",
+              "bedpe",
+              "genome visualization",
+              "matplotlib"
+            ],
+            "summary": "plotsr visualizes structural similarities, synteny, and rearrangements between chromosome-level genome assemblies.",
+            "description": "plotsr visualizes structural similarities, synteny, and rearrangements between chromosome-level genome assemblies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/plotsr:1.1.1-r3",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.1.1-r3",
+            "image_tag_matches_version": true,
+            "digest": "sha256:3f1137f98c907d3d5a87fee9ac3bd593b754adb6a98405d2cb9e5282188d96b9",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1e46a4bad65ce9576cc31f4f071f8729f8b553530d3241291690777d033c228f",
+              "linux/arm64": "sha256:bb941e8ae4f8ebdbbef718a88f704be7f0353b6bd7b07ff9d3326394fe32a1bc"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "plotsr",
+              "python3",
+              "fc-list",
+              "file",
+              "gzip",
+              "sh",
+              "grep"
+            ],
+            "test": [
+              "test \"$(cat /usr/local/share/doc/plotsr/VERSION)\" = '1.1.1'",
+              "plotsr --version | grep -Fx '1.1.1' >/dev/null",
+              "plotsr -h 2>&1 | grep -F 'Plotting structural rearrangements between genomes' >/dev/null && plotsr -h 2>&1 | grep -F -- '--genomes' >/dev/null",
+              "python3 -c 'import plotsr,numpy,pandas,matplotlib; assert plotsr.__version__ == \"1.1.1\"; assert matplotlib.get_backend().lower() == \"agg\"'",
+              "test -f /usr/local/share/doc/plotsr/example/genomes.txt && test -f /usr/local/share/doc/plotsr/config/base.cfg && test -f /usr/local/share/doc/plotsr/LICENSE",
+              "mkdir -p /tmp/taf-plotsr-bedpe && cd /tmp/taf-plotsr-bedpe && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t0\\t1000\\tchr1\\t0\\t1000\\tSYN\\t-\\nchr1\\t200\\t350\\tchr1\\t220\\t370\\tINV\\tcl:red;lw:2\\n' > ab.bedpe && printf 'chr1\\t100\\t180\\nchr1\\t500\\t650\\n' > feats.bed && printf 'feats.bed\\tFeatures\\tft:bed;bw:100;ti:1;tt:l;lc:blue\\n' > tracks.txt && printf 'chr1\\t250\\t251\\tA\\tmt:o;mc:black;ms:3;tt:marker;tp:0.02;ts:6;tc:black\\n' > markers.bed && printf 'legend:F\\n' > base.cfg && plotsr --bp ab.bedpe --genomes genomes.txt --tracks tracks.txt --markers markers.bed --cfg base.cfg -o out.png -W 3 -H 2 -f 6 -d 80 --lf bedpe.log >/dev/null 2> bedpe.err && test -s out.png && file out.png | grep -F 'PNG image data' >/dev/null",
+              "mkdir -p /tmp/taf-plotsr-syri && cd /tmp/taf-plotsr-syri && printf 'chr1\\t1000\\n' > A.chrlen && printf 'chr1\\t1000\\n' > B.chrlen && printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt && printf 'chr1\\t1\\t1000\\t-\\t-\\tchr1\\t1\\t1000\\tSYN1\\t-\\tSYN\\t-\\nchr1\\t200\\t350\\t-\\t-\\tchr1\\t220\\t370\\tINV1\\t-\\tINV\\t-\\n' > ab.syri.out && plotsr --sr ab.syri.out --genomes genomes.txt --chr chr1 -o out.svg -W 3 -H 2 -f 6 -d 80 --lf syri.log >/dev/null 2> syri.err && test -s out.svg && grep -F '<svg' out.svg >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/plotsr",
+            "ref": "v1.1.1-r3",
+            "commit": "0c734792e3782bf764a65c21109c92130361bbb3",
+            "html_url": "https://github.com/taffish/plotsr/tree/v1.1.1-r3"
           },
           "upstream": {
             "name": "plotsr",
@@ -13175,7 +14006,7 @@
     },
     "quast": {
       "name": "quast",
-      "latest": "5.3.0-r1",
+      "latest": "5.3.0-r2",
       "repository_url": "https://github.com/taffish/quast",
       "command": {
         "name": "taf-quast"
@@ -13296,12 +14127,128 @@
             "citation": "Gurevich et al. 2013; Mikheenko et al. 2018; Mikheenko et al. 2023",
             "doi": "10.1093/bioinformatics/btt086; 10.1093/bioinformatics/bty266; 10.1093/nar/gkad406"
           }
+        },
+        "5.3.0-r2": {
+          "name": "quast",
+          "kind": "tool",
+          "version": "5.3.0",
+          "release": 2,
+          "version_id": "5.3.0-r2",
+          "tag": "v5.3.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/quast",
+          "repository_slug": "taffish/quast",
+          "command": {
+            "name": "taf-quast"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "quality-control",
+              "metagenomics",
+              "visualization",
+              "assembly-evaluation"
+            ],
+            "keywords": [
+              "quast",
+              "metaquast",
+              "quast-lg",
+              "icarus",
+              "assembly evaluation",
+              "genome assembly",
+              "metagenome assembly",
+              "n50",
+              "misassembly",
+              "minimap2"
+            ],
+            "summary": "QUAST evaluates genome and metagenome assemblies with reference-aware metrics, no-reference summaries, MetaQUAST, QUAST-LG, and Icarus reports.",
+            "description": "QUAST evaluates genome and metagenome assemblies with reference-aware metrics, no-reference summaries, MetaQUAST, QUAST-LG, and Icarus reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/quast:5.3.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.3.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:0e24470670012f7922c17e6e75debbc55a5e95be990276ea028fec97b3b71eed",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:bb4c765a09f31afecf4bfe7fcc413b2ec154e0513f794922f1d676564f4c1fbd"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "quast.py",
+              "metaquast.py",
+              "quast-lg.py",
+              "icarus.py",
+              "python3",
+              "perl",
+              "gzip",
+              "sort"
+            ],
+            "test": [
+              "test \"$(cat /opt/quast/VERSION.txt)\" = '5.3.0' && quast.py --version 2>&1 | grep -F 'QUAST v5.3.0, c3eb988a' >/dev/null",
+              "metaquast.py --version 2>&1 | grep -F 'QUAST v5.3.0, c3eb988a (MetaQUAST mode)' >/dev/null && quast-lg.py --version 2>&1 | grep -F 'QUAST v5.3.0, c3eb988a (QUAST-LG mode)' >/dev/null && icarus.py --version 2>&1 | grep -F 'QUAST v5.3.0, c3eb988a' >/dev/null",
+              "quast.py --help 2>&1 | grep -F 'Quality Assessment Tool for Genome Assemblies' >/dev/null && metaquast.py --help 2>&1 | grep -F 'Quality Assessment Tool for Metagenome Assemblies' >/dev/null && quast-lg.py --help 2>&1 | grep -F 'Quality Assessment Tool for Large Genome Assemblies' >/dev/null",
+              "test -x /opt/quast/quast_libs/minimap2/minimap2 && /opt/quast/quast_libs/minimap2/minimap2 --version 2>&1 | grep -Fx '2.28-r1209' >/dev/null && /opt/quast/quast_libs/bwa/bwa 2>&1 | grep -F 'Program: bwa' >/dev/null && /opt/quast/quast_libs/bedtools/bin/bedtools --version 2>&1 | grep -F 'bedtools' >/dev/null && test -x /opt/quast/quast_libs/glimmer/glimmerhmm && test -x /opt/quast/quast_libs/barrnap/bin/barrnap && test -x /opt/quast/quast_libs/sambamba/sambamba_linux",
+              "rm -rf /tmp/taf-quast-smoke && mkdir -p /tmp/taf-quast-smoke && quast.py --no-html --no-plots --no-icarus -t 1 -r /opt/quast/test_data/reference.fasta.gz -o /tmp/taf-quast-smoke/out /opt/quast/test_data/contigs_1.fasta >/tmp/taf-quast-smoke.log 2>&1 && test -s /tmp/taf-quast-smoke/out/report.txt && test -s /tmp/taf-quast-smoke/out/report.tsv && grep -F '# contigs' /tmp/taf-quast-smoke/out/report.tsv >/dev/null && grep -F 'Genome fraction (%)' /tmp/taf-quast-smoke/out/report.tsv >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/quast",
+            "ref": "v5.3.0-r2",
+            "commit": "441cbd7277a0862e2ea1326a27a02ef62d98a651",
+            "html_url": "https://github.com/taffish/quast/tree/v5.3.0-r2"
+          },
+          "upstream": {
+            "name": "QUAST",
+            "type": "github",
+            "homepage": "https://github.com/ablab/quast",
+            "repository": "ablab/quast",
+            "release_url": "https://github.com/ablab/quast/releases/tag/quast_5.3.0",
+            "version": "5.3.0",
+            "license": "GPL-2.0-only with bundled third-party components",
+            "citation": "Gurevich et al. 2013; Mikheenko et al. 2018; Mikheenko et al. 2023",
+            "doi": "10.1093/bioinformatics/btt086; 10.1093/bioinformatics/bty266; 10.1093/nar/gkad406"
+          }
         }
       }
     },
     "repeatmasker": {
       "name": "repeatmasker",
-      "latest": "4.2.3-r2",
+      "latest": "4.2.3-r3",
       "repository_url": "https://github.com/taffish/repeatmasker",
       "command": {
         "name": "taf-repeatmasker"
@@ -13572,12 +14519,145 @@
             "doi": "10.1186/1471-2105-10-421",
             "pmid": "20003500"
           }
+        },
+        "4.2.3-r3": {
+          "name": "repeatmasker",
+          "kind": "tool",
+          "version": "4.2.3",
+          "release": 3,
+          "version_id": "4.2.3-r3",
+          "tag": "v4.2.3-r3",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/repeatmasker",
+          "repository_slug": "taffish/repeatmasker",
+          "command": {
+            "name": "taf-repeatmasker"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "repeat-annotation",
+            "categories": [
+              "repeat-annotation",
+              "genome-masking",
+              "genomics",
+              "transposable-elements",
+              "fasta"
+            ],
+            "keywords": [
+              "repeatmasker",
+              "interspersed repeats",
+              "low complexity dna",
+              "dfam",
+              "famdb",
+              "repbase",
+              "rmblast",
+              "trf",
+              "hmmer",
+              "softmask"
+            ],
+            "summary": "RepeatMasker screens DNA sequences for interspersed repeats and low-complexity DNA, producing repeat annotations and masked FASTA output.",
+            "description": "RepeatMasker screens DNA sequences for interspersed repeats and low-complexity DNA, producing repeat annotations and masked FASTA output."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/repeatmasker:4.2.3-r3",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.2.3-r3",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c081de7772711291acd6e913775f1d5121aeefecc4c6c8e9ddad74b0389d2306",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b82c1e98db8710c1ad03e9061b4aa98fd2fac842dbd663c1f1dfad98d8e67b84"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "RepeatMasker",
+              "ProcessRepeats",
+              "RepeatProteinMask",
+              "famdb.py",
+              "RM2Bed.py",
+              "rmOutToGFF3.pl",
+              "buildSummary.pl",
+              "calcDivergenceFromAlign.pl",
+              "createRepeatLandscape.pl",
+              "rmToTrackHub.pl",
+              "rmblastn",
+              "makeblastdb",
+              "trf",
+              "nhmmer",
+              "hmmsearch",
+              "twoBitInfo",
+              "bedToBigBed",
+              "whereis",
+              "python3",
+              "perl",
+              "curl",
+              "gzip"
+            ],
+            "test": [
+              "RepeatMasker -v 2>&1 | grep -F 'RepeatMasker version 4.2.3' >/dev/null && rmblastn -version 2>&1 | grep -F 'rmblastn: 2.17.1+' >/dev/null && trf -v 2>&1 | grep -F 'Tandem Repeats Finder, Version 4.09' >/dev/null && nhmmer -h 2>&1 | grep -F 'HMMER' >/dev/null && twoBitInfo 2>&1 | grep -F 'twoBitInfo' >/dev/null && bedToBigBed 2>&1 | grep -F 'bedToBigBed' >/dev/null && test \"${BLAST_USAGE_REPORT}\" = 'false' && test \"${PAGER}\" = 'cat'",
+              "RepeatMasker --help >/tmp/repeatmasker.help 2>&1 && grep -F 'RepeatMasker is a program that screens DNA sequences' /tmp/repeatmasker.help >/dev/null && grep -F -- '-lib' /tmp/repeatmasker.help >/dev/null && ProcessRepeats -help 2>&1 | grep -F 'ProcessRepeats' >/dev/null",
+              "famdb.py -i /opt/RepeatMasker/Libraries/famdb info 2>&1 | grep -F 'Database: Dfam' >/dev/null && famdb.py -i /opt/RepeatMasker/Libraries/famdb info 2>&1 | grep -F 'Version : 3.9' >/dev/null && famdb.py -i /opt/RepeatMasker/Libraries/famdb info 2>&1 | grep -F '1 Partitions Present' >/dev/null",
+              "grep -F \"'DEFAULT_SEARCH_ENGINE'\" /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F \"rmblast\" /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F '/opt/rmblast/bin' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F '/usr/bin/trf' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F '/usr/bin' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null",
+              "mkdir -p /tmp/taf-repeatmasker-smoke/out && cd /tmp/taf-repeatmasker-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && RepeatMasker -pa 1 -engine rmblast -lib repeats.fa -dir out input.fa >/tmp/taf-repeatmasker-smoke/run.log 2>&1 && test -s out/input.fa.out && test -s out/input.fa.masked && grep -F 'ToyRepeat' out/input.fa.out >/dev/null && grep -F 'seq1' out/input.fa.masked >/dev/null && grep -F 'NNNNN' out/input.fa.masked >/dev/null",
+              "mkdir -p /tmp/taf-repeatmasker-gff-smoke/out && cd /tmp/taf-repeatmasker-gff-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && RepeatMasker -pa 1 -engine rmblast -lib repeats.fa -gff -dir out input.fa >/tmp/taf-repeatmasker-gff-smoke/run.log 2>&1 && test -s out/input.fa.out && test -s out/input.fa.out.gff && grep -F 'Target \"Motif:ToyRepeat\"' out/input.fa.out.gff >/dev/null",
+              "mkdir -p /tmp/taf-repeatmasker-utils-smoke/out && cd /tmp/taf-repeatmasker-utils-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && RepeatMasker -pa 1 -engine rmblast -lib repeats.fa -dir out input.fa >/tmp/taf-repeatmasker-utils-smoke/run.log 2>&1 && rmOutToGFF3.pl out/input.fa.out > out/input.fa.util.gff && test -s out/input.fa.util.gff && grep -F 'ToyRepeat' out/input.fa.util.gff >/dev/null && buildSummary.pl out/input.fa.out > out/input.fa.summary && test -s out/input.fa.summary && grep -F 'ToyRepeat' out/input.fa.summary >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/repeatmasker",
+            "ref": "v4.2.3-r3",
+            "commit": "0e95b04c19bc98f455eb5816e5d9440c4c372292",
+            "html_url": "https://github.com/taffish/repeatmasker/tree/v4.2.3-r3"
+          },
+          "upstream": {
+            "name": "RepeatMasker",
+            "type": "official",
+            "url": "https://www.repeatmasker.org/",
+            "homepage": "https://www.repeatmasker.org/",
+            "release_url": "https://www.repeatmasker.org/RepeatMasker/",
+            "version": "4.2.3",
+            "license": "OSL-2.1 with bundled Dfam/FamDB CC0 code/data notices, RMBlast/NCBI components, and UCSC command-line utilities",
+            "citation": "Smit, Hubley, and Green; Dfam Consortium; Camacho et al. 2009 for BLAST+",
+            "doi": "10.1186/1471-2105-10-421",
+            "pmid": "20003500"
+          }
         }
       }
     },
     "rmblast": {
       "name": "rmblast",
-      "latest": "2.17.1-r1",
+      "latest": "2.17.1-r2",
       "repository_url": "https://github.com/taffish/rmblast",
       "command": {
         "name": "taf-rmblast"
@@ -13719,6 +14799,143 @@
             "doi": "10.1186/1471-2105-10-421",
             "pmid": "20003500"
           }
+        },
+        "2.17.1-r2": {
+          "name": "rmblast",
+          "kind": "tool",
+          "version": "2.17.1",
+          "release": 2,
+          "version_id": "2.17.1-r2",
+          "tag": "v2.17.1-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rmblast",
+          "repository_slug": "taffish/rmblast",
+          "command": {
+            "name": "taf-rmblast"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-search",
+            "categories": [
+              "sequence-search",
+              "repeat-annotation",
+              "genomics",
+              "repeatmasker",
+              "repeatmodeler"
+            ],
+            "keywords": [
+              "rmblast",
+              "rmblastn",
+              "repeatmasker",
+              "repeatmodeler",
+              "blast+",
+              "blastn",
+              "makeblastdb",
+              "masklevel",
+              "complexity-adjusted scoring"
+            ],
+            "summary": "RepeatMasker-compatible BLAST+ distribution with rmblastn and RepeatMasker/RepeatModeler-specific nucleotide search options.",
+            "description": "RepeatMasker-compatible BLAST+ distribution with rmblastn and RepeatMasker/RepeatModeler-specific nucleotide search options."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rmblast:2.17.1-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.17.1-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c49a4b42e7ad4cef95c466ad592e7149ae0be57d32eb88e9b928ec524b03f82d",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a88d39a65570a7c4ed68b14d100c1d5ee3ec6273ad55dbde8fd219dd53c4696a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "rmblastn",
+              "blastn",
+              "blastp",
+              "blastx",
+              "tblastn",
+              "tblastx",
+              "makeblastdb",
+              "blastdbcmd",
+              "blast_formatter",
+              "dustmasker",
+              "segmasker",
+              "windowmasker",
+              "psiblast",
+              "rpsblast",
+              "rpstblastn",
+              "deltablast",
+              "makeprofiledb",
+              "makembindex",
+              "convert2blastmask",
+              "blastdb_aliastool",
+              "blastdbcheck",
+              "legacy_blast.pl",
+              "update_blastdb.pl",
+              "get_species_taxids.sh",
+              "perl",
+              "curl",
+              "ldd"
+            ],
+            "test": [
+              "rmblastn -version 2>&1 | grep -F 'rmblastn: 2.17.1+' >/dev/null && blastn -version 2>&1 | grep -F 'blastn: 2.17.1+' >/dev/null && test \"${BLAST_USAGE_REPORT}\" = 'false'",
+              "rmblastn -help 2>&1 | grep -F 'Nucleotide-Nucleotide BLAST with RepeatMasker Extensions 2.17.1+' >/dev/null && rmblastn -help 2>&1 | grep -F -- '-complexity_adjust' >/dev/null && rmblastn -help 2>&1 | grep -F -- '-mask_level' >/dev/null && rmblastn -help 2>&1 | grep -F -- '-mask_level_algo' >/dev/null",
+              "ldd \"$(command -v rmblastn)\" | grep -F 'libsqlite3' >/dev/null && ldd \"$(command -v rmblastn)\" | grep -F 'libgomp' >/dev/null && ! ldd \"$(command -v rmblastn)\" | grep -F 'not found' >/dev/null && perl -v >/dev/null && curl --version >/dev/null",
+              "makeblastdb -help 2>&1 | grep -F 'USAGE' >/dev/null && blastdbcmd -help 2>&1 | grep -F 'USAGE' >/dev/null && blast_formatter -help 2>&1 | grep -F 'USAGE' >/dev/null && dustmasker -help 2>&1 | grep -F 'USAGE' >/dev/null && segmasker -help 2>&1 | grep -F 'USAGE' >/dev/null",
+              "mkdir -p /tmp/taf-rmblast-rmblastn && cd /tmp/taf-rmblast-rmblastn && printf '>s\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > db.fa && makeblastdb -in db.fa -dbtype nucl -out db >/dev/null && printf '>q\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > q.fa && rmblastn -query q.fa -db db -task megablast -dust no -outfmt '6 qseqid sseqid pident length' | awk '$1==\"q\" && $2==\"s\" && $3==\"100.000\" && $4>=48 {found=1} END {exit !found}'",
+              "mkdir -p /tmp/taf-rmblast-blastn && cd /tmp/taf-rmblast-blastn && printf '>s\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > db.fa && makeblastdb -in db.fa -dbtype nucl -out db >/dev/null && printf '>q\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > q.fa && blastn -query q.fa -db db -task megablast -dust no -outfmt '6 qseqid sseqid pident length' | awk '$1==\"q\" && $2==\"s\" && $3==\"100.000\" && $4>=48 {found=1} END {exit !found}'",
+              "legacy_blast.pl --help 2>&1 | grep -F 'legacy_blast.pl' >/dev/null && update_blastdb.pl --help 2>&1 | grep -F 'update_blastdb.pl' >/dev/null && command -v get_species_taxids.sh >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rmblast",
+            "ref": "v2.17.1-r2",
+            "commit": "0609b8d0d6738fba6646d18248909d79eae40ed1",
+            "html_url": "https://github.com/taffish/rmblast/tree/v2.17.1-r2"
+          },
+          "upstream": {
+            "name": "RMBlast",
+            "type": "official",
+            "url": "https://www.repeatmasker.org/rmblast/",
+            "homepage": "https://www.repeatmasker.org/rmblast/",
+            "release_url": "https://www.repeatmasker.org/rmblast/",
+            "version": "2.17.1",
+            "license": "OSL-2.1 with bundled NCBI public-domain BLAST+ components",
+            "citation": "Camacho et al. 2009 for BLAST+; RMBlast authors: Smit, Hubley, Rosen",
+            "doi": "10.1186/1471-2105-10-421",
+            "pmid": "20003500"
+          }
         }
       }
     },
@@ -13847,7 +15064,7 @@
     },
     "rsem": {
       "name": "rsem",
-      "latest": "1.3.3-r1",
+      "latest": "1.3.3-r2",
       "repository_url": "https://github.com/taffish/rsem",
       "command": {
         "name": "taf-rsem"
@@ -13969,6 +15186,136 @@
             "ref": "v1.3.3-r1",
             "commit": "18a783b04d45972a80597235f03c4fdcea1e0c39",
             "html_url": "https://github.com/taffish/rsem/tree/v1.3.3-r1"
+          },
+          "upstream": {
+            "name": "RSEM",
+            "type": "github",
+            "homepage": "https://deweylab.github.io/RSEM/",
+            "repository": "deweylab/RSEM",
+            "release_url": "https://github.com/deweylab/RSEM/releases/tag/v1.3.3",
+            "version": "1.3.3",
+            "license": "GPL-3.0-only with bundled third-party components",
+            "citation": "Li and Dewey 2011; Leng et al. 2013 for EBSeq",
+            "doi": "10.1186/1471-2105-12-323; 10.1093/bioinformatics/btt087",
+            "pmid": "21816040; 23428641"
+          }
+        },
+        "1.3.3-r2": {
+          "name": "rsem",
+          "kind": "tool",
+          "version": "1.3.3",
+          "release": 2,
+          "version_id": "1.3.3-r2",
+          "tag": "v1.3.3-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rsem",
+          "repository_slug": "taffish/rsem",
+          "command": {
+            "name": "taf-rsem"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "quantification",
+              "differential-expression",
+              "simulation"
+            ],
+            "keywords": [
+              "rsem",
+              "rna-seq",
+              "transcript abundance",
+              "isoform",
+              "gene expression",
+              "bowtie",
+              "bowtie2",
+              "star",
+              "hisat2",
+              "ebseq"
+            ],
+            "summary": "RSEM estimates gene and isoform expression from RNA-seq data and includes reference preparation, simulation, plotting, and EBSeq helper scripts.",
+            "description": "RSEM estimates gene and isoform expression from RNA-seq data and includes reference preparation, simulation, plotting, and EBSeq helper scripts."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rsem:1.3.3-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.3-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c710254e56d78622f03f7aec89c161e5ae92c38a7172c66a109da6cc2911ceb6",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ce5fc09dad0118f40fd14460ed67bc413ae01986d46e167bb57276aa08ea03da",
+              "linux/arm64": "sha256:82ba22c27a9a9827bcc1209feb2b8eb5e5bf7191e77ce1811e11138556f62737"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "rsem-calculate-expression",
+              "rsem-prepare-reference",
+              "rsem-simulate-reads",
+              "rsem-generate-data-matrix",
+              "rsem-run-ebseq",
+              "rsem-control-fdr",
+              "rsem-gff3-to-gtf",
+              "rsem-refseq-extract-primary-assembly",
+              "bowtie",
+              "bowtie2",
+              "hisat2",
+              "STAR",
+              "samtools",
+              "Rscript",
+              "python3",
+              "perl",
+              "perldoc"
+            ],
+            "test": [
+              "test \"$(cat /opt/rsem/VERSION.txt)\" = '1.3.3' && rsem-calculate-expression --version 2>&1 | grep -Fx 'Current version: RSEM v1.3.1' >/dev/null",
+              "rsem-calculate-expression --help 2>&1 | grep -F 'rsem-calculate-expression' >/dev/null && rsem-prepare-reference --help 2>&1 | grep -F 'rsem-prepare-reference' >/dev/null && rsem-run-ebseq --help 2>&1 | grep -F 'rsem-run-ebseq' >/dev/null",
+              "bowtie --version 2>&1 | grep -F 'version 1.' >/dev/null && bowtie2 --version 2>&1 | grep -F 'version 2.' >/dev/null && hisat2 --version 2>&1 | grep -F 'version 2.' >/dev/null && STAR --version >/dev/null && samtools --version >/dev/null && /usr/local/bin/samtools-1.3/samtools --version 2>&1 | grep -F 'samtools 1.3' >/dev/null && Rscript -e 'library(EBSeq); cat(as.character(packageVersion(\"EBSeq\")), \"\\n\")' >/dev/null && python3 --version >/dev/null && perl -v >/dev/null && perldoc -V >/dev/null",
+              "rsem-simulate-reads 2>&1 | grep -F 'Usage:' >/dev/null && rsem-gff3-to-gtf --help 2>&1 | grep -F 'usage:' >/dev/null && rsem-refseq-extract-primary-assembly --help 2>&1 | grep -F 'Usage:' >/dev/null",
+              "rm -rf /tmp/taf-rsem-ref-smoke && mkdir -p /tmp/taf-rsem-ref-smoke && cd /tmp/taf-rsem-ref-smoke && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCA\\n' > transcripts.fa && rsem-prepare-reference --bowtie2 transcripts.fa toy >/tmp/taf-rsem-ref-smoke/prepare.log 2>&1 && test -s toy.transcripts.fa && test -s toy.grp && test -s toy.idx.fa && test -s toy.1.bt2",
+              "rm -rf /tmp/taf-rsem-expr-smoke && mkdir -p /tmp/taf-rsem-expr-smoke && cd /tmp/taf-rsem-expr-smoke && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCA\\n' > transcripts.fa && printf '@r1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n@r2\\nTGCATGCATGCATGCATGCATGCATGCATGCATGCATGCA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > reads.fq && rsem-prepare-reference --bowtie2 transcripts.fa toy >/tmp/taf-rsem-expr-smoke/prepare.log 2>&1 && rsem-calculate-expression --bowtie2 --no-bam-output --seed 123 -p 1 reads.fq toy sample >/tmp/taf-rsem-expr-smoke/run.log 2>&1 && test -s sample.isoforms.results && test -s sample.genes.results && grep -F 'TPM' sample.isoforms.results >/dev/null && grep -F 'expected_count' sample.genes.results >/dev/null",
+              "rm -rf /tmp/taf-rsem-matrix-smoke && mkdir -p /tmp/taf-rsem-matrix-smoke && cd /tmp/taf-rsem-matrix-smoke && printf 'gene_id\\ttranscript_id(s)\\tlength\\teffective_length\\texpected_count\\tTPM\\tFPKM\\nG1\\tT1\\t100\\t80\\t10\\t50\\t5\\nG2\\tT2\\t100\\t80\\t20\\t50\\t5\\n' > s1.genes.results && printf 'gene_id\\ttranscript_id(s)\\tlength\\teffective_length\\texpected_count\\tTPM\\tFPKM\\nG1\\tT1\\t100\\t80\\t12\\t50\\t5\\nG2\\tT2\\t100\\t80\\t18\\t50\\t5\\n' > s2.genes.results && rsem-generate-data-matrix s1.genes.results s2.genes.results > matrix.txt && test -s matrix.txt && grep -F 's1.genes.results' matrix.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rsem",
+            "ref": "v1.3.3-r2",
+            "commit": "1c4a709d0e7309f934b573417a25cf7259a00e4f",
+            "html_url": "https://github.com/taffish/rsem/tree/v1.3.3-r2"
           },
           "upstream": {
             "name": "RSEM",
@@ -14674,7 +16021,7 @@
     },
     "seqkit": {
       "name": "seqkit",
-      "latest": "2.13.0-r1",
+      "latest": "2.13.0-r2",
       "repository_url": "https://github.com/taffish/seqkit",
       "command": {
         "name": "taf-seqkit"
@@ -14784,6 +16131,124 @@
             "ref": "v2.13.0-r1",
             "commit": "276c41d483787ebcf626bc10d2ddcf4b0fc10cc7",
             "html_url": "https://github.com/taffish/seqkit/tree/v2.13.0-r1"
+          },
+          "upstream": {
+            "name": "SeqKit",
+            "type": "github",
+            "homepage": "https://bioinf.shenwei.me/seqkit/",
+            "repository": "shenwei356/seqkit",
+            "release_url": "https://github.com/shenwei356/seqkit/releases/tag/v2.13.0",
+            "version": "2.13.0",
+            "license": "MIT",
+            "citation": "Shen, Sipos and Zhao 2024; Shen et al. 2016",
+            "doi": "10.1002/imt2.191; 10.1371/journal.pone.0163962",
+            "pmid": "27706213"
+          }
+        },
+        "2.13.0-r2": {
+          "name": "seqkit",
+          "kind": "tool",
+          "version": "2.13.0",
+          "release": 2,
+          "version_id": "2.13.0-r2",
+          "tag": "v2.13.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/seqkit",
+          "repository_slug": "taffish/seqkit",
+          "command": {
+            "name": "taf-seqkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fasta",
+            "categories": [
+              "fasta",
+              "fastq",
+              "sequence-processing",
+              "quality-control",
+              "alignment-processing"
+            ],
+            "keywords": [
+              "seqkit",
+              "fasta",
+              "fastq",
+              "bam",
+              "gzip",
+              "xz",
+              "zstd",
+              "bzip2",
+              "lz4",
+              "statistics",
+              "subsequence",
+              "sampling",
+              "format-conversion"
+            ],
+            "summary": "SeqKit ultrafast toolkit for FASTA/Q sequence manipulation and lightweight BAM monitoring.",
+            "description": "SeqKit ultrafast toolkit for FASTA/Q sequence manipulation and lightweight BAM monitoring."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/seqkit:2.13.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.13.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:0e387d64b8406bc05b130917c848e2abb2ed6dbb0bba25eeb152d004013405df",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b0ecf0b54f96b3a532594dc771ca58035a28af81c833960252ba6ebeefea96c3",
+              "linux/arm64": "sha256:61b95fa195338faf39237efe103bf5ca775e70f99d3143758a4d26ef0105c122"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "seqkit",
+              "sh",
+              "grep",
+              "ldd"
+            ],
+            "test": [
+              "seqkit version | grep -Fx 'seqkit v2.13.0' >/dev/null && seqkit --help 2>&1 | grep -F 'SeqKit -- a cross-platform and ultrafast toolkit' >/dev/null && seqkit sample2 --help 2>&1 | grep -F 'sample sequences' >/dev/null && seqkit bam --help 2>&1 | grep -F 'BAM' >/dev/null && { ldd $(command -v seqkit) 2>&1 || true; } | grep -E '(not a dynamic executable|statically linked)' >/dev/null",
+              "mkdir -p /tmp/taf-seqkit-basic && cd /tmp/taf-seqkit-basic && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && printf '@r1\\nACGTNN\\n+\\nFFFFFF\\n@r2\\nTTAGGGTTAGGG\\n+\\nFFFFFFFFFFFF\\n' > reads.fq && seqkit stats -T ref.fa reads.fq > stats.tsv && grep -F 'ref.fa' stats.tsv >/dev/null && grep -F 'reads.fq' stats.tsv >/dev/null && seqkit fq2fa reads.fq > reads.fa && grep -F '>r1' reads.fa >/dev/null && seqkit seq -m 12 ref.fa > filtered.fa && grep -F '>chr2' filtered.fa >/dev/null",
+              "mkdir -p /tmp/taf-seqkit-search && cd /tmp/taf-seqkit-search && printf '>chr1\\nACGTACGTNNNNACGT\\n>chr2\\nTTAGGGTTAGGGCCCTAA\\n' > ref.fa && printf 'chr2\\n' > ids.txt && seqkit grep -f ids.txt ref.fa > chr2.fa && grep -F '>chr2' chr2.fa >/dev/null && seqkit locate -p ACGT ref.fa > locate.tsv && grep -F 'chr1' locate.tsv >/dev/null && seqkit faidx ref.fa chr1:2-5 > slice.fa && grep -F 'CGTA' slice.fa >/dev/null",
+              "mkdir -p /tmp/taf-seqkit-convert && cd /tmp/taf-seqkit-convert && printf '>seq1\\nATGAAATAG\\n>seq2\\nACGTTT\\n' > seqs.fa && seqkit translate -w 0 seqs.fa > prot.fa && grep -F 'MK*' prot.fa >/dev/null && seqkit seq -r -p seqs.fa > rc.fa && grep -F 'AAACGT' rc.fa >/dev/null && seqkit fx2tab seqs.fa > seqs.tsv && seqkit tab2fx seqs.tsv > round.fa && grep -F '>seq1' round.fa >/dev/null",
+              "mkdir -p /tmp/taf-seqkit-compress && cd /tmp/taf-seqkit-compress && printf '>seq1\\nACGTACGT\\n>seq2\\nTTAGGGTTAGGG\\n>seq3\\nCCCCAAAAGGGG\\n' > seqs.fa && seqkit sample2 -n 2 -s 7 seqs.fa > sample.fa && grep -F '>seq' sample.fa >/dev/null && seqkit seq -o seqs.fa.lz4 seqs.fa && test -s seqs.fa.lz4 && seqkit stats seqs.fa.lz4 > lz4.stats && grep -F 'seqs.fa.lz4' lz4.stats >/dev/null && seqkit sum seqs.fa > sum.txt && grep -F 'seqkit.v0.1_DLS_k0_' sum.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/seqkit",
+            "ref": "v2.13.0-r2",
+            "commit": "9a10e56e8e14497bd0deac98376ad5f28285fae3",
+            "html_url": "https://github.com/taffish/seqkit/tree/v2.13.0-r2"
           },
           "upstream": {
             "name": "SeqKit",
@@ -15687,7 +17152,7 @@
     },
     "stringtie": {
       "name": "stringtie",
-      "latest": "3.0.3-r1",
+      "latest": "3.0.3-r2",
       "repository_url": "https://github.com/taffish/stringtie",
       "command": {
         "name": "taf-stringtie"
@@ -15811,12 +17276,131 @@
             "doi": "10.1038/nbt.3122; 10.1038/nprot.2016.095; 10.1186/s13059-019-1910-1; 10.1371/journal.pcbi.1009730; 10.1101/2025.05.21.655404",
             "pmid": "25690850; 27560171; 31842956; 35793599"
           }
+        },
+        "3.0.3-r2": {
+          "name": "stringtie",
+          "kind": "tool",
+          "version": "3.0.3",
+          "release": 2,
+          "version_id": "3.0.3-r2",
+          "tag": "v3.0.3-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/stringtie",
+          "repository_slug": "taffish/stringtie",
+          "command": {
+            "name": "taf-stringtie"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "transcript-assembly",
+              "quantification",
+              "gtf"
+            ],
+            "keywords": [
+              "stringtie",
+              "rna-seq",
+              "transcript assembly",
+              "gtf",
+              "bam",
+              "cram",
+              "sam",
+              "long reads",
+              "nascent rna",
+              "ballgown",
+              "prepde"
+            ],
+            "summary": "StringTie assembles and quantifies RNA-seq transcripts from coordinate-sorted SAM/BAM/CRAM alignments.",
+            "description": "StringTie assembles and quantifies RNA-seq transcripts from coordinate-sorted SAM/BAM/CRAM alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/stringtie:3.0.3-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.0.3-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:0d532974419f488b3bc864525b6c854dbcf94c01ad05ae40eb8ff9e20512a2ae",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:60b97923ec874110d5124adc619bf4dfe403f9ac8bab223f22406d70e7b7d4fb"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "stringtie",
+              "prepDE.py3",
+              "prepDE.py",
+              "python3",
+              "bash",
+              "diff"
+            ],
+            "test": [
+              "test \"$(cat /opt/stringtie/VERSION)\" = '3.0.3' && stringtie --version | grep -Fx '3.0.3' >/dev/null && ldd \"$(command -v stringtie)\" | grep -F 'libz' >/dev/null",
+              "stringtie -h 2>&1 | grep -F 'Assemble RNA-Seq alignments into potential transcripts.' >/dev/null && stringtie -h 2>&1 | grep -F -- '--merge' >/dev/null && stringtie -h 2>&1 | grep -F -- '--mix' >/dev/null && stringtie -h 2>&1 | grep -F -- '--nasc' >/dev/null",
+              "prepDE.py3 -h 2>&1 | grep -F 'Generates two CSV files' >/dev/null && prepDE.py -h 2>&1 | grep -F 'Generates two CSV files' >/dev/null && python3 -c 'import csv, glob, itertools, optparse, re, warnings'",
+              "mkdir -p /tmp/taf-stringtie-short && cd /tmp/taf-stringtie-short && stringtie -o short.gtf /opt/stringtie/tests/short_reads.bam >/tmp/taf-stringtie-short/run.log 2>&1 && test -s short.gtf && grep -F 'transcript' short.gtf >/dev/null && grep -F 'FPKM' short.gtf >/dev/null",
+              "mkdir -p /tmp/taf-stringtie-long && cd /tmp/taf-stringtie-long && stringtie -L -G /opt/stringtie/tests/human-chr19_P.gff -o long_guided.gtf /opt/stringtie/tests/long_reads.bam >/tmp/taf-stringtie-long/run.log 2>&1 && test -s long_guided.gtf && grep -F 'reference_id' long_guided.gtf >/dev/null",
+              "mkdir -p /tmp/taf-stringtie-mix && cd /tmp/taf-stringtie-mix && stringtie --mix -G /opt/stringtie/tests/mix_guides.gff -o mix_guided.gtf /opt/stringtie/tests/mix_short.bam /opt/stringtie/tests/mix_long.bam >/tmp/taf-stringtie-mix/mix.log 2>&1 && test -s mix_guided.gtf && grep -F 'transcript' mix_guided.gtf >/dev/null && stringtie -N -G /opt/stringtie/tests/mix_guides.gff -o nascent.gtf /opt/stringtie/tests/mix_short.bam >/tmp/taf-stringtie-mix/nascent.log 2>&1 && test -s nascent.gtf && stringtie --nasc -G /opt/stringtie/tests/mix_guides.gff -o nasc.gtf /opt/stringtie/tests/mix_short.bam >/tmp/taf-stringtie-mix/nasc.log 2>&1 && grep -F 'nascentRNA' nasc.gtf >/dev/null",
+              "mkdir -p /tmp/taf-stringtie-merge && cd /tmp/taf-stringtie-merge && printf '%s\\n' /opt/stringtie/tests/short_reads.out_expected.gtf /opt/stringtie/tests/long_reads.out_expected.gtf > gtf.list && stringtie --merge -o merged.gtf gtf.list >/tmp/taf-stringtie-merge/merge.log 2>&1 && test -s merged.gtf && grep -F 'transcript' merged.gtf >/dev/null",
+              "mkdir -p /tmp/taf-stringtie-expression/sample1 && cd /tmp/taf-stringtie-expression && printf 'sample1\\t/tmp/taf-stringtie-expression/sample1/sample.gtf\\n' > samples.txt && stringtie -e -B -G /opt/stringtie/tests/human-chr19_P.gff -o sample1/sample.gtf /opt/stringtie/tests/long_reads.bam >/tmp/taf-stringtie-expression/run.log 2>&1 && test -s sample1/sample.gtf && test -s sample1/t_data.ctab && grep -F 'TPM' sample1/sample.gtf >/dev/null && prepDE.py3 -i samples.txt -g gene_count_matrix.csv -t transcript_count_matrix.csv >/tmp/taf-stringtie-expression/prepde.log 2>&1 && test -s gene_count_matrix.csv && test -s transcript_count_matrix.csv && grep -F 'gene_id' gene_count_matrix.csv >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/stringtie",
+            "ref": "v3.0.3-r2",
+            "commit": "4d5f430ca8581d7cc2c44a2cdcf250a4afa31dcf",
+            "html_url": "https://github.com/taffish/stringtie/tree/v3.0.3-r2"
+          },
+          "upstream": {
+            "name": "StringTie",
+            "type": "github",
+            "homepage": "https://ccb.jhu.edu/software/stringtie/",
+            "repository": "gpertea/stringtie",
+            "release_url": "https://github.com/gpertea/stringtie/releases/tag/v3.0.3",
+            "version": "3.0.3",
+            "license": "MIT with bundled third-party source components in the offline package",
+            "citation": "Pertea et al. 2015; Pertea et al. 2016; Kovaka et al. 2019; Shumate et al. 2022; Shinder et al. 2025 preprint for StringTie 3",
+            "doi": "10.1038/nbt.3122; 10.1038/nprot.2016.095; 10.1186/s13059-019-1910-1; 10.1371/journal.pcbi.1009730; 10.1101/2025.05.21.655404",
+            "pmid": "25690850; 27560171; 31842956; 35793599"
+          }
         }
       }
     },
     "subread": {
       "name": "subread",
-      "latest": "2.1.1-r1",
+      "latest": "2.1.1-r2",
       "repository_url": "https://github.com/taffish/subread",
       "command": {
         "name": "taf-subread"
@@ -15943,6 +17527,141 @@
             "ref": "v2.1.1-r1",
             "commit": "e9aa267552083333c4fa61adc7fcdb8c67c3e014",
             "html_url": "https://github.com/taffish/subread/tree/v2.1.1-r1"
+          },
+          "upstream": {
+            "name": "Subread",
+            "type": "official",
+            "homepage": "https://subread.sourceforge.net/",
+            "repository": "ShiLab-Bioinformatics/subread",
+            "release_url": "https://sourceforge.net/projects/subread/files/subread-2.1.1/",
+            "version": "2.1.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "Liao, Smyth and Shi 2013 for Subread/Subjunc; Liao, Smyth and Shi 2014 for featureCounts; Liao, Smyth and Shi 2019 for Rsubread/Subread RNA-seq workflows",
+            "doi": "10.1093/nar/gkt214; 10.1093/bioinformatics/btt656; 10.1093/nar/gkz114",
+            "pmid": "23558742; 24227677; 30783653"
+          }
+        },
+        "2.1.1-r2": {
+          "name": "subread",
+          "kind": "tool",
+          "version": "2.1.1",
+          "release": 2,
+          "version_id": "2.1.1-r2",
+          "tag": "v2.1.1-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/subread",
+          "repository_slug": "taffish/subread",
+          "command": {
+            "name": "taf-subread"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "read-alignment",
+              "read-counting",
+              "genomics",
+              "snp-calling"
+            ],
+            "keywords": [
+              "subread",
+              "featurecounts",
+              "subjunc",
+              "sublong",
+              "exactsnp",
+              "rna-seq",
+              "read counting",
+              "read alignment",
+              "bam",
+              "sam",
+              "gtf",
+              "saf"
+            ],
+            "summary": "Subread command-line suite for read alignment, featureCounts read summarization, junction-aware alignment, long-read alignment, and ExactSNP.",
+            "description": "Subread command-line suite for read alignment, featureCounts read summarization, junction-aware alignment, long-read alignment, and ExactSNP."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/subread:2.1.1-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.1.1-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4dafdb6c85e90874bccd5a86c574fad6dc3f18dd7d5082a2f3e8a5351e4a247c",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:df5fb0196c04c980cfedf8040bf0a04490d3109b6e6b27f3bf5f1d0db87aaa2b",
+              "linux/arm64": "sha256:33800969868a9f3a9efda63f10779d598576dc443272abc70509850cda649015"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "subread-align",
+              "subread-buildindex",
+              "subjunc",
+              "sublong",
+              "featureCounts",
+              "exactSNP",
+              "subindel",
+              "detectionCall",
+              "genRandomReads",
+              "repair",
+              "propmapped",
+              "qualityScores",
+              "removeDup",
+              "subread-fullscan",
+              "txUnique",
+              "flattenGTF",
+              "bash",
+              "grep",
+              "awk",
+              "ldd"
+            ],
+            "test": [
+              "subread-align -v 2>&1 | grep -F 'Subread-align v2.1.1' >/dev/null && featureCounts -v 2>&1 | grep -F 'featureCounts v2.1.1' >/dev/null && subjunc -v 2>&1 | grep -F 'Subjunc v2.1.1' >/dev/null",
+              "subread-align -h 2>&1 | grep -F 'subread-align' >/dev/null && subread-buildindex -h 2>&1 | grep -F 'subread-buildindex' >/dev/null && featureCounts -h 2>&1 | grep -F 'featureCounts' >/dev/null && exactSNP -h 2>&1 | grep -F 'exactSNP' >/dev/null",
+              "ldd \"$(command -v subread-align)\" | grep -F 'libz' >/dev/null && ldd \"$(command -v featureCounts)\" | grep -F 'libz' >/dev/null && ! ldd \"$(command -v subread-align)\" | grep -F 'not found' >/dev/null",
+              "mkdir -p /tmp/taf-subread-featurecounts && cd /tmp/taf-subread-featurecounts && featureCounts -p -a /opt/subread/test/featureCounts/data/test-minimum.GTF -o counts.txt /opt/subread/test/featureCounts/data/test-minimum.sam >/tmp/taf-subread-featurecounts/run.log 2>&1 && test -s counts.txt && test -s counts.txt.summary && grep -F 'Geneid' counts.txt >/dev/null && grep -F 'Assigned' counts.txt.summary >/dev/null",
+              "mkdir -p /tmp/taf-subread-align && cd /tmp/taf-subread-align && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-align/index.log 2>&1 && test -s small.00.b.array && subread-align --SAMoutput -t0 -P6 -i small -r /opt/subread/test/subread-align/data/test-noerror-r1.fq -o aln.sam -H -J >/tmp/taf-subread-align/align.log 2>&1 && test -s aln.sam && grep -F '@PG' aln.sam >/dev/null && grep -F 'subread-align' aln.sam >/dev/null",
+              "mkdir -p /tmp/taf-subread-subjunc && cd /tmp/taf-subread-subjunc && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-subjunc/index.log 2>&1 && subjunc --SAMoutput -i small -o junctions.sam -r /opt/subread/test/subjunc/data/junction-reads-A.fq -R /opt/subread/test/subjunc/data/junction-reads-B.fq >/tmp/taf-subread-subjunc/subjunc.log 2>&1 && test -s junctions.sam && grep -F '@PG' junctions.sam >/dev/null",
+              "mkdir -p /tmp/taf-subread-exactsnp && cd /tmp/taf-subread-exactsnp && exactSNP -g /opt/subread/test/chr901.fa -o out.vcf -i /opt/subread/test/exactSNP/data/test-in.BAM -b >/tmp/taf-subread-exactsnp/exactsnp.log 2>&1 && test -s out.vcf && grep -F '#CHROM' out.vcf >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/subread",
+            "ref": "v2.1.1-r2",
+            "commit": "41ab11d299ee5b97a75fb9fb07dc54a1da345056",
+            "html_url": "https://github.com/taffish/subread/tree/v2.1.1-r2"
           },
           "upstream": {
             "name": "Subread",
@@ -16469,7 +18188,7 @@
     },
     "trinity": {
       "name": "trinity",
-      "latest": "2.15.2-r1",
+      "latest": "2.15.2-r2",
       "repository_url": "https://github.com/taffish/trinity",
       "command": {
         "name": "taf-trinity"
@@ -16604,6 +18323,149 @@
             "ref": "v2.15.2-r1",
             "commit": "2a09b3867831c238feff183bce2b44badf21e1db",
             "html_url": "https://github.com/taffish/trinity/tree/v2.15.2-r1"
+          },
+          "upstream": {
+            "name": "Trinity",
+            "type": "github",
+            "homepage": "https://github.com/trinityrnaseq/trinityrnaseq/wiki",
+            "repository": "trinityrnaseq/trinityrnaseq",
+            "release_url": "https://github.com/trinityrnaseq/trinityrnaseq/releases/tag/Trinity-v2.15.2",
+            "version": "2.15.2",
+            "license": "BSD-3-Clause with bundled third-party components including ParaFly, seqtk-trinity, Trimmomatic, collectl, bamsifter/htslib, and Ubuntu-packaged runtime tools",
+            "citation": "Grabherr et al. 2011; Haas et al. 2013",
+            "doi": "10.1038/nbt.1883; 10.1038/nprot.2013.084",
+            "pmid": "21572440; 23845962"
+          }
+        },
+        "2.15.2-r2": {
+          "name": "trinity",
+          "kind": "tool",
+          "version": "2.15.2",
+          "release": 2,
+          "version_id": "2.15.2-r2",
+          "tag": "v2.15.2-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trinity",
+          "repository_slug": "taffish/trinity",
+          "command": {
+            "name": "taf-trinity"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "de-novo-assembly",
+              "transcript-assembly",
+              "short-read"
+            ],
+            "keywords": [
+              "trinity",
+              "rna-seq",
+              "transcriptome assembly",
+              "inchworm",
+              "chrysalis",
+              "butterfly",
+              "insilico normalization",
+              "salmon",
+              "jellyfish",
+              "bowtie2"
+            ],
+            "summary": "Trinity de novo RNA-seq transcriptome assembly with the core Trinity components and required runtime tools.",
+            "description": "Trinity de novo RNA-seq transcriptome assembly with the core Trinity components and required runtime tools."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trinity:2.15.2-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.15.2-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e1ab43839616b1c39ac7d5b23c0719c4ae78e665815bbbc91a33ee8c505d9f91",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e0e751fcc1d2272f920b2e3c07c55ba92e19809278b028f57818fe9ef7221433",
+              "linux/arm64": "sha256:fd3643de1b10b4388f3bf023942afba800be369a6a2dac7aab31454eb3b532b5"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "Trinity",
+              "TrinityStats.pl",
+              "align_and_estimate_abundance.pl",
+              "insilico_read_normalization.pl",
+              "ParaFly",
+              "seqtk-trinity",
+              "inchworm",
+              "Chrysalis",
+              "QuantifyGraph",
+              "GraphFromFasta",
+              "ReadsToTranscripts",
+              "bamsifter",
+              "slclust",
+              "collectl",
+              "bowtie2",
+              "bowtie2-build",
+              "jellyfish",
+              "samtools",
+              "salmon",
+              "blastn",
+              "makeblastdb",
+              "java",
+              "perl",
+              "python3",
+              "bash",
+              "gzip",
+              "bzip2",
+              "xz",
+              "grep",
+              "ldd"
+            ],
+            "test": [
+              "Trinity --version 2>&1 | grep -F 'Trinity version: Trinity-v2.15.2' >/dev/null && grep -F 'my $VERSION = \"Trinity-v2.15.2\";' /opt/trinity/Trinity >/dev/null",
+              "(Trinity --help 2>&1 || true) | grep -F 'Trinity --seqType' >/dev/null && (Trinity --help 2>&1 || true) | grep -F -- '--max_memory' >/dev/null && (Trinity --show_full_usage_info 2>&1 || true) | grep -F -- '--no_normalize_reads' >/dev/null && (Trinity --show_full_usage_info 2>&1 || true) | grep -F -- '--genome_guided_bam' >/dev/null",
+              "samtools --version 2>&1 | grep -F 'samtools 1.' >/dev/null && jellyfish --version 2>&1 | grep -F 'jellyfish 2.' >/dev/null && bowtie2 --version 2>&1 | grep -F 'version 2.' >/dev/null && salmon --version 2>&1 | grep -F 'salmon' >/dev/null && blastn -version 2>&1 | grep -F 'blastn:' >/dev/null && java -version 2>&1 | grep -E '(openjdk|java)' >/dev/null && perl -MDB_File -MURI::Escape -e1 && python3 -c 'import numpy'",
+              "for x in /opt/trinity/Inchworm/bin/inchworm /opt/trinity/Chrysalis/bin/Chrysalis /opt/trinity/Chrysalis/bin/QuantifyGraph /opt/trinity/Chrysalis/bin/GraphFromFasta /opt/trinity/Chrysalis/bin/ReadsToTranscripts /opt/trinity/trinity-plugins/BIN/ParaFly /opt/trinity/trinity-plugins/BIN/seqtk-trinity /opt/trinity/trinity-plugins/bamsifter/bamsifter /opt/trinity/trinity-plugins/bamsifter/_sift_bam_max_cov /opt/trinity/trinity-plugins/slclust/bin/slclust /opt/trinity/trinity-plugins/COLLECTL/collectl/collectl; do test -x $x; done && ! ldd /opt/trinity/Inchworm/bin/inchworm 2>&1 | grep -F 'not found' >/dev/null && ! ldd /opt/trinity/Chrysalis/bin/Chrysalis 2>&1 | grep -F 'not found' >/dev/null && ! ldd /opt/trinity/trinity-plugins/BIN/ParaFly 2>&1 | grep -F 'not found' >/dev/null && ! ldd /opt/trinity/trinity-plugins/bamsifter/_sift_bam_max_cov 2>&1 | grep -F 'not found' >/dev/null",
+              "mkdir -p /tmp/taf-trinity-stats && cd /tmp/taf-trinity-stats && printf '>TRINITY_DN0_c0_g1_i1\\nACGTACGTACGTACGTACGTACGTACGT\\n>TRINITY_DN0_c0_g2_i1\\nACGTACGTACGT\\n' > transcripts.fa && TrinityStats.pl transcripts.fa > stats.txt && grep -F 'Total trinity transcripts:' stats.txt >/dev/null && grep -F 'Contig N50:' stats.txt >/dev/null",
+              "mkdir -p /tmp/taf-trinity-normalize && cd /tmp/taf-trinity-normalize && insilico_read_normalization.pl --seqType fq --JM 1G --max_cov 50 --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --pairs_together --CPU 1 --output norm >/tmp/taf-trinity-normalize/norm.log 2>&1 && test -s norm/left.norm.fq && test -s norm/right.norm.fq",
+              "mkdir -p /tmp/taf-trinity-assembly && cd /tmp/taf-trinity-assembly && Trinity --seqType fq --max_memory 2G --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --SS_lib_type RF --CPU 1 --no_normalize_reads --no_salmon --output trinity_smoke_out >/tmp/taf-trinity-assembly/run.log 2>&1 && test -s trinity_smoke_out.Trinity.fasta && grep -F 'TRINITY_' trinity_smoke_out.Trinity.fasta >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T02:00:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trinity",
+            "ref": "v2.15.2-r2",
+            "commit": "aedc66365c4a3a147465f4dbcceff1f49a92cf92",
+            "html_url": "https://github.com/taffish/trinity/tree/v2.15.2-r2"
           },
           "upstream": {
             "name": "Trinity",
@@ -17204,7 +19066,7 @@
     },
     "taf-bcftools": {
       "package": "bcftools",
-      "version": "1.23.1-r1"
+      "version": "1.23.1-r2"
     },
     "taf-bedtools": {
       "package": "bedtools",
@@ -17344,7 +19206,7 @@
     },
     "taf-higlass": {
       "package": "higlass",
-      "version": "0.10.4-r1"
+      "version": "0.10.4-r2"
     },
     "taf-hisat2": {
       "package": "hisat2",
@@ -17392,11 +19254,11 @@
     },
     "taf-merqury": {
       "package": "merqury",
-      "version": "1.3-r1"
+      "version": "1.3-r2"
     },
     "taf-meryl": {
       "package": "meryl",
-      "version": "1.4.1-r2"
+      "version": "1.4.1-r3"
     },
     "taf-minimap2": {
       "package": "minimap2",
@@ -17412,7 +19274,7 @@
     },
     "taf-mosdepth": {
       "package": "mosdepth",
-      "version": "0.3.14-r1"
+      "version": "0.3.14-r2"
     },
     "taf-multiqc": {
       "package": "multiqc",
@@ -17420,7 +19282,7 @@
     },
     "taf-muscle": {
       "package": "muscle",
-      "version": "5.3-r2"
+      "version": "5.3-r4"
     },
     "taf-ngenomesyn": {
       "package": "ngenomesyn",
@@ -17444,7 +19306,7 @@
     },
     "taf-plotsr": {
       "package": "plotsr",
-      "version": "1.1.1-r2"
+      "version": "1.1.1-r3"
     },
     "taf-pymol": {
       "package": "pymol",
@@ -17460,15 +19322,15 @@
     },
     "taf-quast": {
       "package": "quast",
-      "version": "5.3.0-r1"
+      "version": "5.3.0-r2"
     },
     "taf-repeatmasker": {
       "package": "repeatmasker",
-      "version": "4.2.3-r2"
+      "version": "4.2.3-r3"
     },
     "taf-rmblast": {
       "package": "rmblast",
-      "version": "2.17.1-r1"
+      "version": "2.17.1-r2"
     },
     "taf-rnaseqc": {
       "package": "rnaseqc",
@@ -17476,7 +19338,7 @@
     },
     "taf-rsem": {
       "package": "rsem",
-      "version": "1.3.3-r1"
+      "version": "1.3.3-r2"
     },
     "taf-rseqc": {
       "package": "rseqc",
@@ -17496,7 +19358,7 @@
     },
     "taf-seqkit": {
       "package": "seqkit",
-      "version": "2.13.0-r1"
+      "version": "2.13.0-r2"
     },
     "taf-seqtk": {
       "package": "seqtk",
@@ -17524,11 +19386,11 @@
     },
     "taf-stringtie": {
       "package": "stringtie",
-      "version": "3.0.3-r1"
+      "version": "3.0.3-r2"
     },
     "taf-subread": {
       "package": "subread",
-      "version": "2.1.1-r1"
+      "version": "2.1.1-r2"
     },
     "taf-syri": {
       "package": "syri",
@@ -17548,7 +19410,7 @@
     },
     "taf-trinity": {
       "package": "trinity",
-      "version": "2.15.2-r1"
+      "version": "2.15.2-r2"
     },
     "taf-trnascan-se": {
       "package": "trnascan-se",

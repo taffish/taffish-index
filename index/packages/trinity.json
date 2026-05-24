@@ -1,6 +1,6 @@
 {
   "name": "trinity",
-  "latest": "2.15.2-r1",
+  "latest": "2.15.2-r2",
   "repository_url": "https://github.com/taffish/trinity",
   "command": {
     "name": "taf-trinity"
@@ -135,6 +135,149 @@
         "ref": "v2.15.2-r1",
         "commit": "2a09b3867831c238feff183bce2b44badf21e1db",
         "html_url": "https://github.com/taffish/trinity/tree/v2.15.2-r1"
+      },
+      "upstream": {
+        "name": "Trinity",
+        "type": "github",
+        "homepage": "https://github.com/trinityrnaseq/trinityrnaseq/wiki",
+        "repository": "trinityrnaseq/trinityrnaseq",
+        "release_url": "https://github.com/trinityrnaseq/trinityrnaseq/releases/tag/Trinity-v2.15.2",
+        "version": "2.15.2",
+        "license": "BSD-3-Clause with bundled third-party components including ParaFly, seqtk-trinity, Trimmomatic, collectl, bamsifter/htslib, and Ubuntu-packaged runtime tools",
+        "citation": "Grabherr et al. 2011; Haas et al. 2013",
+        "doi": "10.1038/nbt.1883; 10.1038/nprot.2013.084",
+        "pmid": "21572440; 23845962"
+      }
+    },
+    "2.15.2-r2": {
+      "name": "trinity",
+      "kind": "tool",
+      "version": "2.15.2",
+      "release": 2,
+      "version_id": "2.15.2-r2",
+      "tag": "v2.15.2-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/trinity",
+      "repository_slug": "taffish/trinity",
+      "command": {
+        "name": "taf-trinity"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "transcriptomics",
+          "de-novo-assembly",
+          "transcript-assembly",
+          "short-read"
+        ],
+        "keywords": [
+          "trinity",
+          "rna-seq",
+          "transcriptome assembly",
+          "inchworm",
+          "chrysalis",
+          "butterfly",
+          "insilico normalization",
+          "salmon",
+          "jellyfish",
+          "bowtie2"
+        ],
+        "summary": "Trinity de novo RNA-seq transcriptome assembly with the core Trinity components and required runtime tools.",
+        "description": "Trinity de novo RNA-seq transcriptome assembly with the core Trinity components and required runtime tools."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/trinity:2.15.2-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.15.2-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:e1ab43839616b1c39ac7d5b23c0719c4ae78e665815bbbc91a33ee8c505d9f91",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:e0e751fcc1d2272f920b2e3c07c55ba92e19809278b028f57818fe9ef7221433",
+          "linux/arm64": "sha256:fd3643de1b10b4388f3bf023942afba800be369a6a2dac7aab31454eb3b532b5"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "Trinity",
+          "TrinityStats.pl",
+          "align_and_estimate_abundance.pl",
+          "insilico_read_normalization.pl",
+          "ParaFly",
+          "seqtk-trinity",
+          "inchworm",
+          "Chrysalis",
+          "QuantifyGraph",
+          "GraphFromFasta",
+          "ReadsToTranscripts",
+          "bamsifter",
+          "slclust",
+          "collectl",
+          "bowtie2",
+          "bowtie2-build",
+          "jellyfish",
+          "samtools",
+          "salmon",
+          "blastn",
+          "makeblastdb",
+          "java",
+          "perl",
+          "python3",
+          "bash",
+          "gzip",
+          "bzip2",
+          "xz",
+          "grep",
+          "ldd"
+        ],
+        "test": [
+          "Trinity --version 2>&1 | grep -F 'Trinity version: Trinity-v2.15.2' >/dev/null && grep -F 'my $VERSION = \"Trinity-v2.15.2\";' /opt/trinity/Trinity >/dev/null",
+          "(Trinity --help 2>&1 || true) | grep -F 'Trinity --seqType' >/dev/null && (Trinity --help 2>&1 || true) | grep -F -- '--max_memory' >/dev/null && (Trinity --show_full_usage_info 2>&1 || true) | grep -F -- '--no_normalize_reads' >/dev/null && (Trinity --show_full_usage_info 2>&1 || true) | grep -F -- '--genome_guided_bam' >/dev/null",
+          "samtools --version 2>&1 | grep -F 'samtools 1.' >/dev/null && jellyfish --version 2>&1 | grep -F 'jellyfish 2.' >/dev/null && bowtie2 --version 2>&1 | grep -F 'version 2.' >/dev/null && salmon --version 2>&1 | grep -F 'salmon' >/dev/null && blastn -version 2>&1 | grep -F 'blastn:' >/dev/null && java -version 2>&1 | grep -E '(openjdk|java)' >/dev/null && perl -MDB_File -MURI::Escape -e1 && python3 -c 'import numpy'",
+          "for x in /opt/trinity/Inchworm/bin/inchworm /opt/trinity/Chrysalis/bin/Chrysalis /opt/trinity/Chrysalis/bin/QuantifyGraph /opt/trinity/Chrysalis/bin/GraphFromFasta /opt/trinity/Chrysalis/bin/ReadsToTranscripts /opt/trinity/trinity-plugins/BIN/ParaFly /opt/trinity/trinity-plugins/BIN/seqtk-trinity /opt/trinity/trinity-plugins/bamsifter/bamsifter /opt/trinity/trinity-plugins/bamsifter/_sift_bam_max_cov /opt/trinity/trinity-plugins/slclust/bin/slclust /opt/trinity/trinity-plugins/COLLECTL/collectl/collectl; do test -x $x; done && ! ldd /opt/trinity/Inchworm/bin/inchworm 2>&1 | grep -F 'not found' >/dev/null && ! ldd /opt/trinity/Chrysalis/bin/Chrysalis 2>&1 | grep -F 'not found' >/dev/null && ! ldd /opt/trinity/trinity-plugins/BIN/ParaFly 2>&1 | grep -F 'not found' >/dev/null && ! ldd /opt/trinity/trinity-plugins/bamsifter/_sift_bam_max_cov 2>&1 | grep -F 'not found' >/dev/null",
+          "mkdir -p /tmp/taf-trinity-stats && cd /tmp/taf-trinity-stats && printf '>TRINITY_DN0_c0_g1_i1\\nACGTACGTACGTACGTACGTACGTACGT\\n>TRINITY_DN0_c0_g2_i1\\nACGTACGTACGT\\n' > transcripts.fa && TrinityStats.pl transcripts.fa > stats.txt && grep -F 'Total trinity transcripts:' stats.txt >/dev/null && grep -F 'Contig N50:' stats.txt >/dev/null",
+          "mkdir -p /tmp/taf-trinity-normalize && cd /tmp/taf-trinity-normalize && insilico_read_normalization.pl --seqType fq --JM 1G --max_cov 50 --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --pairs_together --CPU 1 --output norm >/tmp/taf-trinity-normalize/norm.log 2>&1 && test -s norm/left.norm.fq && test -s norm/right.norm.fq",
+          "mkdir -p /tmp/taf-trinity-assembly && cd /tmp/taf-trinity-assembly && Trinity --seqType fq --max_memory 2G --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --SS_lib_type RF --CPU 1 --no_normalize_reads --no_salmon --output trinity_smoke_out >/tmp/taf-trinity-assembly/run.log 2>&1 && test -s trinity_smoke_out.Trinity.fasta && grep -F 'TRINITY_' trinity_smoke_out.Trinity.fasta >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/trinity",
+        "ref": "v2.15.2-r2",
+        "commit": "aedc66365c4a3a147465f4dbcceff1f49a92cf92",
+        "html_url": "https://github.com/taffish/trinity/tree/v2.15.2-r2"
       },
       "upstream": {
         "name": "Trinity",

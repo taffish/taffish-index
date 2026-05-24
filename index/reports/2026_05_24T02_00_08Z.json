@@ -1,14 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-05-24T00:36:51Z",
+  "generated_at": "2026-05-24T02:00:08Z",
   "organization": "taffish",
   "counts": {
     "failed": 0,
-    "rejected": 1,
+    "rejected": 2,
     "warnings": 0
   },
   "failed": [],
   "rejected": [
+    {
+      "repository": "taffish/muscle",
+      "ref": "v5.3-r3",
+      "version_id": "5.3-r3",
+      "reason": "Immutable release has a Docker image build failure and should not be added to the main index.",
+      "replacement": "5.3-r4",
+      "image": "ghcr.io/taffish/muscle:5.3-r3"
+    },
     {
       "repository": "taffish/fastp",
       "ref": "v1.3.3-r1",

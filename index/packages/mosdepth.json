@@ -1,6 +1,6 @@
 {
   "name": "mosdepth",
-  "latest": "0.3.14-r1",
+  "latest": "0.3.14-r2",
   "repository_url": "https://github.com/taffish/mosdepth",
   "command": {
     "name": "taf-mosdepth"
@@ -111,6 +111,125 @@
         "ref": "v0.3.14-r1",
         "commit": "26d0c62fbd4fef0f5a8e5524d12d648a0be872ed",
         "html_url": "https://github.com/taffish/mosdepth/tree/v0.3.14-r1"
+      },
+      "upstream": {
+        "name": "mosdepth",
+        "type": "github",
+        "homepage": "https://github.com/brentp/mosdepth",
+        "repository": "brentp/mosdepth",
+        "release_url": "https://github.com/brentp/mosdepth/releases/tag/v0.3.14",
+        "version": "0.3.14",
+        "license": "MIT",
+        "citation": "Pedersen and Quinlan 2018, mosdepth: quick coverage calculation for genomes and exomes",
+        "doi": "10.1093/bioinformatics/btx699",
+        "pmid": "29096012"
+      }
+    },
+    "0.3.14-r2": {
+      "name": "mosdepth",
+      "kind": "tool",
+      "version": "0.3.14",
+      "release": 2,
+      "version_id": "0.3.14-r2",
+      "tag": "v0.3.14-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/mosdepth",
+      "repository_slug": "taffish/mosdepth",
+      "command": {
+        "name": "taf-mosdepth"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "coverage",
+        "categories": [
+          "coverage",
+          "depth",
+          "alignment",
+          "quality-control",
+          "bam",
+          "cram"
+        ],
+        "keywords": [
+          "mosdepth",
+          "coverage",
+          "depth",
+          "bam",
+          "cram",
+          "bed",
+          "d4",
+          "per-base",
+          "per-region",
+          "quantize",
+          "thresholds",
+          "fragment-mode"
+        ],
+        "summary": "Fast BAM/CRAM depth and coverage calculation for WGS, exome, and targeted sequencing.",
+        "description": "Fast BAM/CRAM depth and coverage calculation for WGS, exome, and targeted sequencing."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/mosdepth:0.3.14-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.3.14-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:45d4b29a9d2cb75787fbd871553f9bdfb567709fd8b83d7aa36cb8e3a6421a36",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:971941d32c1c0bcfb655bc41040c4448d82ee0a1ec33ca373ac710d1a1541b45"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "mosdepth",
+          "mosdepth_d4",
+          "sh",
+          "grep",
+          "gzip",
+          "ldd"
+        ],
+        "test": [
+          "mosdepth --version | grep -Fx 'mosdepth 0.3.14' >/dev/null && mosdepth --help 2>&1 | grep -F 'Usage: mosdepth [options]' >/dev/null && mosdepth_d4 --help 2>&1 | grep -F -- '--d4' >/dev/null && { ldd $(command -v mosdepth) 2>&1 || true; } | grep -E '(not a dynamic executable|statically linked)' >/dev/null",
+          "mkdir -p /tmp/taf-mosdepth-summary && cd /tmp/taf-mosdepth-summary && mosdepth -n out /opt/mosdepth/share/testdata/ovl.bam && test -s out.mosdepth.summary.txt && test -s out.mosdepth.global.dist.txt && grep -F 'MT\t16569\t80\t0.00\t0\t1' out.mosdepth.summary.txt >/dev/null && test ! -e out.per-base.bed.gz",
+          "mkdir -p /tmp/taf-mosdepth-perbase && cd /tmp/taf-mosdepth-perbase && mosdepth --fast-mode out /opt/mosdepth/share/testdata/ovl.bam && test -s out.per-base.bed.gz && gzip -cd out.per-base.bed.gz | grep -F 'MT\t6\t42\t2' >/dev/null && grep -F 'total\t16569\t116\t0.01\t0\t2' out.mosdepth.summary.txt >/dev/null",
+          "mkdir -p /tmp/taf-mosdepth-regions && cd /tmp/taf-mosdepth-regions && mosdepth -n --by /opt/mosdepth/share/testdata/track.bed --thresholds 0,1,2 out /opt/mosdepth/share/testdata/ovl.bam && test -s out.regions.bed.gz && test -s out.thresholds.bed.gz && gzip -cd out.regions.bed.gz | grep -F 'MT\t2\t80\taregion\t1.00' >/dev/null && gzip -cd out.thresholds.bed.gz | grep -F 'MT\t2\t80\taregion\t78\t78\t0' >/dev/null",
+          "mkdir -p /tmp/taf-mosdepth-quant && cd /tmp/taf-mosdepth-quant && MOSDEPTH_Q0=NO_COVERAGE MOSDEPTH_Q1=COVERED mosdepth -n --quantize 0:1:1000 out /opt/mosdepth/share/testdata/ovl.bam && test -s out.quantized.bed.gz && gzip -cd out.quantized.bed.gz | grep -F 'MT\t0\t80\tCOVERED' >/dev/null && gzip -cd out.quantized.bed.gz | grep -F 'MT\t80\t16569\tNO_COVERAGE' >/dev/null",
+          "mkdir -p /tmp/taf-mosdepth-chrom-end && cd /tmp/taf-mosdepth-chrom-end && mosdepth -n --by /opt/mosdepth/share/testdata/chrom-end/region-not-ok.bed out /opt/mosdepth/share/testdata/chrom-end/minimal.bam && test -s out.mosdepth.summary.txt && test -s out.regions.bed.gz"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-24T02:00:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/mosdepth",
+        "ref": "v0.3.14-r2",
+        "commit": "78c2d0702913542cb6f81d5a5ba8a8f51221782c",
+        "html_url": "https://github.com/taffish/mosdepth/tree/v0.3.14-r2"
       },
       "upstream": {
         "name": "mosdepth",
