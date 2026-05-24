@@ -1,15 +1,15 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-24T13:19:37Z",
+  "generated_at": "2026-05-24T14:30:57Z",
   "organization": "taffish",
   "counts": {
-    "packages": 98,
-    "versions": 150,
-    "commands": 98,
-    "repositories": 98,
+    "packages": 99,
+    "versions": 151,
+    "commands": 99,
+    "repositories": 99,
     "warnings": 0,
-    "failed": 1,
-    "rejected": 2
+    "failed": 0,
+    "rejected": 3
   },
   "packages": {
     "agat": {
@@ -3942,6 +3942,150 @@
             "license": "MIT",
             "citation": "Martin 2011, Cutadapt removes adapter sequences from high-throughput sequencing reads",
             "doi": "10.14806/ej.17.1.200"
+          }
+        }
+      }
+    },
+    "deepvariant": {
+      "name": "deepvariant",
+      "latest": "1.10.0-r2",
+      "repository_url": "https://github.com/taffish/deepvariant",
+      "command": {
+        "name": "taf-deepvariant"
+      },
+      "versions": {
+        "1.10.0-r2": {
+          "name": "deepvariant",
+          "kind": "tool",
+          "version": "1.10.0",
+          "release": 2,
+          "version_id": "1.10.0-r2",
+          "tag": "v1.10.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/deepvariant",
+          "repository_slug": "taffish/deepvariant",
+          "command": {
+            "name": "taf-deepvariant"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "variant-calling",
+            "categories": [
+              "variant-calling",
+              "genomics",
+              "deep-learning",
+              "vcf",
+              "bam",
+              "cram"
+            ],
+            "keywords": [
+              "deepvariant",
+              "variant calling",
+              "germline",
+              "deep learning",
+              "tensorflow",
+              "wgs",
+              "wes",
+              "pacbio",
+              "ont",
+              "rna-seq",
+              "bam",
+              "cram",
+              "vcf",
+              "gvcf"
+            ],
+            "summary": "DeepVariant 1.10.0 CPU runtime for germline variant calling from aligned BAM/CRAM reads to VCF or gVCF outputs.",
+            "description": "DeepVariant 1.10.0 CPU runtime for germline variant calling from aligned BAM/CRAM reads to VCF or gVCF outputs."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/deepvariant:1.10.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.10.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5b3333f502f2606bd24bfe53685fc5ea48436651a38605b5ef32932a609b84f4",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ed5ceaf5c040abd51a6b201c8f1597d7d793033ada43566e37c3f60eebab71ba"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "run_deepvariant",
+              "make_examples",
+              "call_variants",
+              "postprocess_variants",
+              "vcf_stats_report",
+              "show_examples",
+              "runtime_by_region_vis",
+              "multisample_make_examples",
+              "make_examples_somatic",
+              "labeled_examples_to_vcf",
+              "convert_to_saved_model",
+              "run_oracle_inference",
+              "train",
+              "fast_pipeline",
+              "samtools",
+              "bcftools",
+              "python3",
+              "bash",
+              "parallel"
+            ],
+            "test": [
+              "run_deepvariant --version 2>&1 | grep -Fx 'DeepVariant version 1.10.0' >/dev/null",
+              "run_deepvariant --helpshort 2>&1 | grep -F -- '--model_type' >/dev/null && run_deepvariant --helpshort 2>&1 | grep -F -- '--output_vcf' >/dev/null && run_deepvariant --helpshort 2>&1 | grep -F -- '--[no]dry_run' >/dev/null",
+              "make_examples --helpfull 2>&1 | grep -F -- '--reads' >/dev/null && call_variants --helpfull 2>&1 | grep -F -- '--outfile' >/dev/null && postprocess_variants --helpfull 2>&1 | grep -F -- '--outfile' >/dev/null",
+              "test -s /opt/models/wgs/saved_model.pb && test -s /opt/models/wes/saved_model.pb && test -s /opt/models/pacbio/saved_model.pb && test -s /opt/models/ont_r104/saved_model.pb && test -s /opt/models/hybrid_pacbio_illumina/saved_model.pb && test -s /opt/models/masseq/saved_model.pb && test -s /opt/models/rnaseq/saved_model.pb",
+              "samtools --version 2>&1 | grep -F 'samtools 1.15' >/dev/null && bcftools --version 2>&1 | grep -F 'bcftools 1.15' >/dev/null",
+              "tmp=/tmp/taf-deepvariant-dryrun-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; run_deepvariant --model_type=WGS --ref=/tmp/missing-ref.fa --reads=/tmp/missing-reads.bam --output_vcf=\"$tmp/out.vcf.gz\" --output_gvcf=\"$tmp/out.g.vcf.gz\" --intermediate_results_dir=\"$tmp/intermediate\" --num_shards=1 --dry_run=true 2>&1 | grep -F '/opt/deepvariant/bin/make_examples' >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T14:30:57Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T14:30:57Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/deepvariant",
+            "ref": "v1.10.0-r2",
+            "commit": "2c9f13004a3150ad5a901866456c3c306cd7a6a3",
+            "html_url": "https://github.com/taffish/deepvariant/tree/v1.10.0-r2"
+          },
+          "upstream": {
+            "name": "DeepVariant",
+            "type": "github",
+            "homepage": "https://github.com/google/deepvariant",
+            "repository": "google/deepvariant",
+            "release_url": "https://github.com/google/deepvariant/releases/tag/v1.10.0",
+            "version": "1.10.0",
+            "license": "BSD-3-Clause",
+            "citation": "Poplin et al. 2018",
+            "doi": "10.1038/nbt.4235",
+            "pmid": "30247488"
           }
         }
       }
@@ -19341,6 +19485,10 @@
       "package": "cutadapt",
       "version": "5.2-r1"
     },
+    "taf-deepvariant": {
+      "package": "deepvariant",
+      "version": "1.10.0-r2"
+    },
     "taf-edta": {
       "package": "edta",
       "version": "2.3.0-r2"
@@ -19783,6 +19931,12 @@
       "repository": "taffish/cutadapt",
       "packages": [
         "cutadapt"
+      ]
+    },
+    "taffish/deepvariant": {
+      "repository": "taffish/deepvariant",
+      "packages": [
+        "deepvariant"
       ]
     },
     "taffish/edta": {
