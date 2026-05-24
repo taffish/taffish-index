@@ -1,13 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-05-24T11:08:56Z",
+  "generated_at": "2026-05-24T13:19:37Z",
   "organization": "taffish",
   "counts": {
-    "failed": 0,
+    "failed": 1,
     "rejected": 2,
     "warnings": 0
   },
-  "failed": [],
+  "failed": [
+    {
+      "repository": "taffish/deepvariant",
+      "ref": "v1.10.0-r1",
+      "version_id": "1.10.0-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (docker, exit 1): run_deepvariant --helpshort 2>&1 | grep -F -- '--model_type' >/dev/null && run_deepvariant --helpshort 2>&1 | grep -F -- '--output_vcf' >/dev/null && run_deepvariant --helpshort 2>&1 | grep -F -- '--dry_run' >/dev/null\nstdout: \nstderr: ",
+      "image": "ghcr.io/taffish/deepvariant:1.10.0-r1"
+    }
+  ],
   "rejected": [
     {
       "repository": "taffish/muscle",

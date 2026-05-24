@@ -1,14 +1,14 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-24T11:08:56Z",
+  "generated_at": "2026-05-24T13:19:37Z",
   "organization": "taffish",
   "counts": {
-    "packages": 97,
-    "versions": 149,
-    "commands": 97,
-    "repositories": 97,
+    "packages": 98,
+    "versions": 150,
+    "commands": 98,
+    "repositories": 98,
     "warnings": 0,
-    "failed": 0,
+    "failed": 1,
     "rejected": 2
   },
   "packages": {
@@ -19118,6 +19118,126 @@
           }
         }
       }
+    },
+    "whatshap": {
+      "name": "whatshap",
+      "latest": "2.8-r1",
+      "repository_url": "https://github.com/taffish/whatshap",
+      "command": {
+        "name": "taf-whatshap"
+      },
+      "versions": {
+        "2.8-r1": {
+          "name": "whatshap",
+          "kind": "tool",
+          "version": "2.8",
+          "release": 1,
+          "version_id": "2.8-r1",
+          "tag": "v2.8-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/whatshap",
+          "repository_slug": "taffish/whatshap",
+          "command": {
+            "name": "taf-whatshap"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "variant-phasing",
+              "haplotyping",
+              "vcf-bam",
+              "long-read"
+            ],
+            "keywords": [
+              "whatshap",
+              "phasing",
+              "haplotagging",
+              "haplotype",
+              "vcf",
+              "bam",
+              "long-read"
+            ],
+            "summary": "WhatsHap 2.8 for read-based variant phasing, polyploid phasing, haplotagging, and phasing statistics.",
+            "description": "WhatsHap 2.8 for read-based variant phasing, polyploid phasing, haplotagging, and phasing statistics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/whatshap:2.8-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.8-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e97dab4b29f9f630305df238dc59f06d54f70c6d709dddfba672a45878b398ff",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:5664f75d2ae04ca568e89e7ea3612c0223cc4252665404bb05b179ff4b08732e",
+              "linux/arm64": "sha256:0418a58eab842b744585e88167d81953bb3b2c8e12515fb171b2d897e05c24a7"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "whatshap",
+              "samtools",
+              "bcftools",
+              "bgzip",
+              "tabix",
+              "python"
+            ],
+            "test": [
+              "whatshap --version 2>&1 | grep -F '2.8' >/dev/null && (whatshap --help 2>&1 || true) | grep -F 'usage:' >/dev/null && (whatshap --help 2>&1 || true) | grep -F 'phase' >/dev/null && (whatshap --help 2>&1 || true) | grep -F 'haplotag' >/dev/null && whatshap phase --help 2>&1 | grep -F 'usage:' >/dev/null && whatshap haplotag --help 2>&1 | grep -F 'usage:' >/dev/null && whatshap stats --help 2>&1 | grep -F 'usage:' >/dev/null && python -c 'import whatshap, pysam, pyfaidx' && samtools --version 2>&1 | grep -F 'samtools 1.23.1' >/dev/null && bcftools --version 2>&1 | grep -F 'bcftools 1.23.1' >/dev/null && bgzip --help >/dev/null && tabix --help >/dev/null",
+              "tmp=/tmp/taf-whatshap-phase-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\n' > ref.fa && samtools faidx ref.fa && printf '##fileformat=VCFv4.2\\n##contig=<ID=chr1,length=100>\\n##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\tFORMAT\\tsample\\nchr1\\t10\\t.\\tA\\tG\\t.\\tPASS\\t.\\tGT\\t0/1\\nchr1\\t20\\t.\\tA\\tT\\t.\\tPASS\\t.\\tGT\\t0/1\\n' > variants.vcf && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:100\\n@RG\\tID:rg1\\tSM:sample\\nread_ref\\t0\\tchr1\\t1\\t60\\t30M\\t*\\t0\\t0\\tAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\tFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread_alt\\t0\\tchr1\\t1\\t60\\t30M\\t*\\t0\\t0\\tAAAAAAAAAGAAAAAAAAATAAAAAAAAAA\\tFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.unsorted.bam && samtools sort -o reads.bam reads.unsorted.bam && samtools index reads.bam && whatshap phase --reference ref.fa -o phased.vcf variants.vcf reads.bam > whatshap.phase.log 2>&1 && test -s phased.vcf && grep -F 'PS' phased.vcf >/dev/null && { grep -F '0|1' phased.vcf >/dev/null || grep -F '1|0' phased.vcf >/dev/null; } && bcftools view -Oz -o phased.vcf.gz phased.vcf && tabix -p vcf phased.vcf.gz && test -s phased.vcf.gz.tbi && cd / && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-24T13:19:37Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-24T13:19:37Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/whatshap",
+            "ref": "v2.8-r1",
+            "commit": "5c1f0450cc247e8ba7060d939674a17dfa5f16e1",
+            "html_url": "https://github.com/taffish/whatshap/tree/v2.8-r1"
+          },
+          "upstream": {
+            "name": "WhatsHap",
+            "type": "github",
+            "homepage": "https://whatshap.readthedocs.io/",
+            "repository": "https://github.com/whatshap/whatshap",
+            "release_url": "https://github.com/whatshap/whatshap/releases/tag/v2.8",
+            "version": "2.8",
+            "license": "MIT",
+            "citation": "Martin et al. 2016. WhatsHap: fast and accurate read-based phasing.",
+            "doi": "10.1101/085050"
+          }
+        }
+      }
     }
   },
   "commands": {
@@ -19508,6 +19628,10 @@
     "taf-vcftools": {
       "package": "vcftools",
       "version": "0.1.17-r1"
+    },
+    "taf-whatshap": {
+      "package": "whatshap",
+      "version": "2.8-r1"
     }
   },
   "repositories": {
@@ -20091,6 +20215,12 @@
       "repository": "taffish/vcftools",
       "packages": [
         "vcftools"
+      ]
+    },
+    "taffish/whatshap": {
+      "repository": "taffish/whatshap",
+      "packages": [
+        "whatshap"
       ]
     }
   },
