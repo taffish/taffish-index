@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-24T14:30:57Z",
+  "generated_at": "2026-05-25T05:18:55Z",
   "organization": "taffish",
   "counts": {
-    "packages": 99,
-    "versions": 151,
-    "commands": 99,
-    "repositories": 99,
+    "packages": 100,
+    "versions": 152,
+    "commands": 100,
+    "repositories": 100,
     "warnings": 0,
     "failed": 0,
     "rejected": 3
@@ -19263,6 +19263,135 @@
         }
       }
     },
+    "verkko": {
+      "name": "verkko",
+      "latest": "2.3.2-r1",
+      "repository_url": "https://github.com/taffish/verkko",
+      "command": {
+        "name": "taf-verkko"
+      },
+      "versions": {
+        "2.3.2-r1": {
+          "name": "verkko",
+          "kind": "tool",
+          "version": "2.3.2",
+          "release": 1,
+          "version_id": "2.3.2-r1",
+          "tag": "v2.3.2-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/verkko",
+          "repository_slug": "taffish/verkko",
+          "command": {
+            "name": "taf-verkko"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "long-read",
+              "t2t",
+              "haplotype-resolved",
+              "workflow"
+            ],
+            "keywords": [
+              "verkko",
+              "assembly",
+              "t2t",
+              "hifi",
+              "ont",
+              "ultralong",
+              "hi-c",
+              "pore-c",
+              "snakemake"
+            ],
+            "summary": "Verkko 2.3.2 hybrid long-read genome assembly pipeline for telomere-to-telomere and haplotype-aware assemblies.",
+            "description": "Verkko 2.3.2 hybrid long-read genome assembly pipeline for telomere-to-telomere and haplotype-aware assemblies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/verkko:2.3.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:75ad619eb33cc557225f45affbe5cad40426740e81349730d5e01d6292ae5ab6",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e49c315b81c55961e63165e63de42523b73e5d4032668b91d1b4727356810a0f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "verkko",
+              "taf-verkko-run",
+              "snakemake",
+              "python",
+              "GraphAligner",
+              "mashmap",
+              "winnowmap",
+              "minimap2",
+              "samtools",
+              "bwa",
+              "seqtk",
+              "meryl",
+              "k8",
+              "bash",
+              "bc"
+            ],
+            "test": [
+              "verkko --version 2>&1 | grep -F '2.3.2' >/dev/null && taf-verkko-run --version 2>&1 | grep -F '2.3.2' >/dev/null && verkko --help 2>&1 | grep -F -- '--hifi' >/dev/null && verkko --help 2>&1 | grep -F -- '--snakeopts' >/dev/null && python -c 'import snakemake, networkx, pysam, yaml' && snakemake --version | grep -Fx '7.32.4' >/dev/null && GraphAligner --version >/dev/null && mashmap --version >/dev/null && winnowmap --version 2>&1 | grep -F '2.03' >/dev/null && minimap2 --version | grep -F '2.31' >/dev/null && samtools --version 2>&1 | grep -F 'samtools 1.23.1' >/dev/null && { bwa 2>&1 || true; } | grep -F 'Program: bwa' >/dev/null && { seqtk 2>&1 || true; } | grep -F 'Usage:   seqtk' >/dev/null && { meryl --version 2>&1 || true; } | grep -E 'Meryl|meryl' >/dev/null && { k8 --version 2>&1 || true; } | grep -E 'k8|version' >/dev/null && bc --version | grep -F 'bc' >/dev/null",
+              "tmp=/tmp/taf-verkko-dryrun-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@hifi1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n@hifi2\\nTGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > hifi.fq && taf-verkko-run -d asm --hifi hifi.fq --snakeopts --dry-run --cores 1 > dryrun.log 2>&1 && test -s asm/verkko.yml && grep -F 'hifi.fq' asm/verkko.yml >/dev/null && grep -E 'Building DAG|Job stats|rule' dryrun.log >/dev/null && cd / && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-25T05:18:55Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-25T05:18:55Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/verkko",
+            "ref": "v2.3.2-r1",
+            "commit": "e4fd59ff7b4fb0f1d65668bd662e7c3f1b73e2dc",
+            "html_url": "https://github.com/taffish/verkko/tree/v2.3.2-r1"
+          },
+          "upstream": {
+            "name": "Verkko",
+            "type": "github",
+            "homepage": "https://github.com/marbl/verkko",
+            "repository": "marbl/verkko",
+            "release_url": "https://github.com/marbl/verkko/releases/tag/v2.3.2",
+            "version": "2.3.2",
+            "license": "Public domain notice / United States Government Work; bundled third-party dependencies have their own licenses",
+            "citation": "Rautiainen et al. 2023; Antipov et al. 2025",
+            "doi": "10.1038/s41587-023-01662-6; 10.1101/gr.280383.124"
+          }
+        }
+      }
+    },
     "whatshap": {
       "name": "whatshap",
       "latest": "2.8-r1",
@@ -19776,6 +19905,10 @@
     "taf-vcftools": {
       "package": "vcftools",
       "version": "0.1.17-r1"
+    },
+    "taf-verkko": {
+      "package": "verkko",
+      "version": "2.3.2-r1"
     },
     "taf-whatshap": {
       "package": "whatshap",
@@ -20369,6 +20502,12 @@
       "repository": "taffish/vcftools",
       "packages": [
         "vcftools"
+      ]
+    },
+    "taffish/verkko": {
+      "repository": "taffish/verkko",
+      "packages": [
+        "verkko"
       ]
     },
     "taffish/whatshap": {
