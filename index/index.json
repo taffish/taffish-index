@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-25T05:50:34Z",
+  "generated_at": "2026-05-25T15:12:21Z",
   "organization": "taffish",
   "counts": {
-    "packages": 100,
-    "versions": 152,
-    "commands": 100,
-    "repositories": 100,
+    "packages": 101,
+    "versions": 153,
+    "commands": 101,
+    "repositories": 101,
     "warnings": 0,
     "failed": 0,
     "rejected": 3
@@ -18284,6 +18284,130 @@
         }
       }
     },
+    "trimal": {
+      "name": "trimal",
+      "latest": "1.5.1-r1",
+      "repository_url": "https://github.com/taffish/trimal",
+      "command": {
+        "name": "taf-trimal"
+      },
+      "versions": {
+        "1.5.1-r1": {
+          "name": "trimal",
+          "kind": "tool",
+          "version": "1.5.1",
+          "release": 1,
+          "version_id": "1.5.1-r1",
+          "tag": "v1.5.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trimal",
+          "repository_slug": "taffish/trimal",
+          "command": {
+            "name": "taf-trimal"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "multiple-sequence-alignment",
+            "categories": [
+              "multiple-sequence-alignment",
+              "alignment-trimming",
+              "phylogenetics",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "trimal",
+              "readal",
+              "statal",
+              "msa",
+              "alignment trimming",
+              "gappyout",
+              "automated1",
+              "backtranslation"
+            ],
+            "summary": "trimAl 1.5.1 alignment trimming suite, including trimal, readal, and statal.",
+            "description": "trimAl 1.5.1 alignment trimming suite, including trimal, readal, and statal."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trimal:1.5.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.5.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2dcf1344cb057ed47b208401c721c522cfd2d03c98fb1b75ca2c10727c9dabc5",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:84803244412a247a431baab51738c65327bd6c7703e4e3e1df272d476125f773",
+              "linux/arm64": "sha256:a39ee3b5fe6f05b306aa209eb7ff75cfddbb2540324c099d4069c567da2dccf5"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "trimal",
+              "readal",
+              "statal",
+              "bash",
+              "sh",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "trimal --version 2>&1 | grep -F 'trimAl v1.5.rev1 build[2025-11-25]' >/dev/null && readal --version 2>&1 | grep -F 'readAl v1.5.rev1 build[2025-11-25]' >/dev/null && statal --version 2>&1 | grep -F 'statAl v1.5.rev1 build[2025-11-25]' >/dev/null",
+              "trimal -h 2>&1 | grep -F 'Basic usage' >/dev/null && trimal -h 2>&1 | grep -F -- '-automated1' >/dev/null && readal -h 2>&1 | grep -F 'readal -in <inputfile>' >/dev/null && statal -h 2>&1 | grep -F 'statal -in <inputfile>' >/dev/null",
+              "tmp=/tmp/taf-trimal-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/trimal/share/doc/trimal/dataset/example.004.AA.fasta \"$tmp/in.fa\" && trimal -in \"$tmp/in.fa\" -out \"$tmp/auto.fa\" -automated1 -htmlout \"$tmp/report.html\" && test -s \"$tmp/auto.fa\" && test -s \"$tmp/report.html\" && trimal -in \"$tmp/in.fa\" -out \"$tmp/nogaps.fa\" -nogaps && test -s \"$tmp/nogaps.fa\" && readal -in \"$tmp/in.fa\" -out \"$tmp/converted.phy\" -phylip && test -s \"$tmp/converted.phy\" && statal -in \"$tmp/in.fa\" -sgt > \"$tmp/gap.tsv\" && test -s \"$tmp/gap.tsv\" && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-trimal-backtrans-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/trimal/share/doc/trimal/dataset/example.091.AA.strNOG.ENOG411BWBU.fasta \"$tmp/aa.fa\" && cp /opt/trimal/share/doc/trimal/dataset/example.091.AA.strNOG.ENOG411BWBU.codon.fa \"$tmp/codon.fa\" && trimal -in \"$tmp/aa.fa\" -backtrans \"$tmp/codon.fa\" -out \"$tmp/backtrans.fa\" -automated1 && test -s \"$tmp/backtrans.fa\" && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-25T15:12:21Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-25T15:12:21Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trimal",
+            "ref": "v1.5.1-r1",
+            "commit": "f557c5cf48301d692689088c350a5b02d7260a5f",
+            "html_url": "https://github.com/taffish/trimal/tree/v1.5.1-r1"
+          },
+          "upstream": {
+            "name": "trimAl",
+            "type": "github",
+            "homepage": "https://trimal.readthedocs.io",
+            "repository": "inab/trimal",
+            "release_url": "https://github.com/inab/trimal/releases/tag/v1.5.1",
+            "version": "1.5.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "Capella-Gutierrez, Silla-Martinez, and Gabaldon 2009",
+            "doi": "10.1093/bioinformatics/btp348",
+            "pmid": "19505945"
+          }
+        }
+      }
+    },
     "trimgalore": {
       "name": "trimgalore",
       "latest": "2.2.0-r1",
@@ -19882,6 +20006,10 @@
       "package": "trf",
       "version": "4.09.1-r1"
     },
+    "taf-trimal": {
+      "package": "trimal",
+      "version": "1.5.1-r1"
+    },
     "taf-trimgalore": {
       "package": "trimgalore",
       "version": "2.2.0-r1"
@@ -20466,6 +20594,12 @@
       "repository": "taffish/trf",
       "packages": [
         "trf"
+      ]
+    },
+    "taffish/trimal": {
+      "repository": "taffish/trimal",
+      "packages": [
+        "trimal"
       ]
     },
     "taffish/trimgalore": {
