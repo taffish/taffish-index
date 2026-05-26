@@ -1,0 +1,88 @@
+{
+  "name": "rnaseq-de-flow",
+  "latest": "0.1.0-r1",
+  "repository_url": "https://github.com/taffish/rnaseq-de-flow",
+  "command": {
+    "name": "taf-rnaseq-de-flow"
+  },
+  "versions": {
+    "0.1.0-r1": {
+      "name": "rnaseq-de-flow",
+      "kind": "flow",
+      "version": "0.1.0",
+      "release": 1,
+      "version_id": "0.1.0-r1",
+      "tag": "v0.1.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rnaseq-de-flow",
+      "repository_slug": "taffish/rnaseq-de-flow",
+      "command": {
+        "name": "taf-rnaseq-de-flow"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": false
+      },
+      "dependencies": {
+        "taf-bioconductor-rnaseq": "3.23-r1"
+      },
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "differential-expression",
+          "workflow",
+          "transcriptomics",
+          "statistics"
+        ],
+        "keywords": [
+          "rnaseq-de-flow",
+          "rna-seq",
+          "deseq2",
+          "differential-expression",
+          "gene-counts",
+          "volcano",
+          "pca",
+          "heatmap",
+          "transcriptomics"
+        ],
+        "summary": "TAFFISH RNA-seq differential expression flow for count matrix validation, DESeq2 analysis, normalized matrices, plots, gene lists, and provenance.",
+        "description": "TAFFISH RNA-seq differential expression flow for count matrix validation, DESeq2 analysis, normalized matrices, plots, gene lists, and provenance."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": null
+      },
+      "container": null,
+      "smoke": null,
+      "trust": {
+        "status": "not_applicable",
+        "checked_at": "2026-05-26T05:31:31Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rnaseq-de-flow",
+        "ref": "v0.1.0-r1",
+        "commit": "89397fe4724a1abf7a7a5cf2167d8df4ae5830b7",
+        "html_url": "https://github.com/taffish/rnaseq-de-flow/tree/v0.1.0-r1"
+      },
+      "upstream": {
+        "name": "rnaseq-de-flow",
+        "type": "taffish-flow",
+        "homepage": "https://github.com/taffish/rnaseq-de-flow",
+        "version": "0.1.0",
+        "license": "Apache-2.0"
+      }
+    }
+  }
+}

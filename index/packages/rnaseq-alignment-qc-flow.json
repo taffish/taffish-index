@@ -1,0 +1,91 @@
+{
+  "name": "rnaseq-alignment-qc-flow",
+  "latest": "0.1.0-r1",
+  "repository_url": "https://github.com/taffish/rnaseq-alignment-qc-flow",
+  "command": {
+    "name": "taf-rnaseq-alignment-qc-flow"
+  },
+  "versions": {
+    "0.1.0-r1": {
+      "name": "rnaseq-alignment-qc-flow",
+      "kind": "flow",
+      "version": "0.1.0",
+      "release": 1,
+      "version_id": "0.1.0-r1",
+      "tag": "v0.1.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rnaseq-alignment-qc-flow",
+      "repository_slug": "taffish/rnaseq-alignment-qc-flow",
+      "command": {
+        "name": "taf-rnaseq-alignment-qc-flow"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": false
+      },
+      "dependencies": {
+        "taf-gffread": "0.12.9-r1",
+        "taf-multiqc": "1.35-r2",
+        "taf-qualimap": "2.3-r1",
+        "taf-rseqc": "5.0.4-r2",
+        "taf-samtools": "1.23.1-r1"
+      },
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "alignment-qc",
+          "quality-control",
+          "workflow",
+          "transcriptomics"
+        ],
+        "keywords": [
+          "rnaseq-alignment-qc-flow",
+          "rna-seq",
+          "bam",
+          "rseqc",
+          "qualimap",
+          "samtools",
+          "multiqc",
+          "alignment qc"
+        ],
+        "summary": "TAFFISH RNA-seq alignment QC flow for evaluating coordinate-sorted BAM files with RSeQC, Qualimap, SAMtools, and MultiQC.",
+        "description": "TAFFISH RNA-seq alignment QC flow for evaluating coordinate-sorted BAM files with RSeQC, Qualimap, SAMtools, and MultiQC."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": null
+      },
+      "container": null,
+      "smoke": null,
+      "trust": {
+        "status": "not_applicable",
+        "checked_at": "2026-05-26T05:31:31Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rnaseq-alignment-qc-flow",
+        "ref": "v0.1.0-r1",
+        "commit": "8bfb188e83def0659d40e43712bce120f002f55c",
+        "html_url": "https://github.com/taffish/rnaseq-alignment-qc-flow/tree/v0.1.0-r1"
+      },
+      "upstream": {
+        "name": "rnaseq-alignment-qc-flow",
+        "type": "taffish-flow",
+        "homepage": "https://github.com/taffish/rnaseq-alignment-qc-flow",
+        "version": "0.1.0",
+        "license": "Apache-2.0"
+      }
+    }
+  }
+}
