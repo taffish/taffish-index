@@ -1,0 +1,146 @@
+{
+  "name": "deeptools",
+  "latest": "3.5.6-r1",
+  "repository_url": "https://github.com/taffish/deeptools",
+  "command": {
+    "name": "taf-deeptools"
+  },
+  "versions": {
+    "3.5.6-r1": {
+      "name": "deeptools",
+      "kind": "tool",
+      "version": "3.5.6",
+      "release": 1,
+      "version_id": "3.5.6-r1",
+      "tag": "v3.5.6-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/deeptools",
+      "repository_slug": "taffish/deeptools",
+      "command": {
+        "name": "taf-deeptools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "ngs",
+        "categories": [
+          "ngs",
+          "coverage",
+          "bigwig",
+          "visualization",
+          "quality-control",
+          "epigenomics"
+        ],
+        "keywords": [
+          "deeptools",
+          "bamcoverage",
+          "bamcompare",
+          "bigwig",
+          "computematrix",
+          "plotheatmap",
+          "plotprofile",
+          "chip-seq",
+          "rna-seq"
+        ],
+        "summary": "deepTools 3.5.6 command suite for BAM/bigWig processing, quality control, matrix generation, and sequencing-data visualization.",
+        "description": "deepTools 3.5.6 command suite for BAM/bigWig processing, quality control, matrix generation, and sequencing-data visualization."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/deeptools:3.5.6-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.5.6-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:0cc2a014ac8cf250e9a90b4994883b52e18165ec448131ead38a14fc84d13bf1",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:85c92a064201d3735d8c2abd142d055737f09b13d515d897fcd45389d4023bc2",
+          "linux/arm64": "sha256:de2390cd8aa1678ead22a07615db837a8db98681d053ea7f26e5b797c8ac9c3e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "deeptools",
+          "bamCoverage",
+          "bamCompare",
+          "bigwigAverage",
+          "bigwigCompare",
+          "multiBamSummary",
+          "multiBigwigSummary",
+          "computeMatrix",
+          "computeMatrixOperations",
+          "plotHeatmap",
+          "plotProfile",
+          "plotCorrelation",
+          "plotPCA",
+          "plotCoverage",
+          "plotFingerprint",
+          "plotEnrichment",
+          "bamPEFragmentSize",
+          "computeGCBias",
+          "correctGCBias",
+          "alignmentSieve",
+          "estimateReadFiltering",
+          "estimateScaleFactor",
+          "python",
+          "python3",
+          "bash",
+          "sh"
+        ],
+        "test": [
+          "test \"$(python -c 'import importlib.metadata as md; print(md.version(\"deepTools\"))')\" = '3.5.6' && test \"$(python -c 'import importlib.metadata as md; print(md.version(\"deeptoolsintervals\"))')\" = '0.1.9' && deeptools --version | grep -Fx 'deeptools 3.5.6' >/dev/null && python -c 'import deeptools, deeptoolsintervals, matplotlib, numpy, plotly, py2bit, pyBigWig, pysam, scipy'",
+          "deeptools --help 2>&1 | grep -F 'Tools for BAM and bigWig file processing' >/dev/null && deeptools --help 2>&1 | grep -F 'plotHeatmap' >/dev/null && for cmd in alignmentSieve bamCompare bamCoverage bamPEFragmentSize bigwigAverage bigwigCompare computeGCBias computeMatrix computeMatrixOperations correctGCBias estimateReadFiltering estimateScaleFactor multiBamSummary multiBigwigSummary plotCorrelation plotCoverage plotEnrichment plotFingerprint plotHeatmap plotPCA plotProfile; do \"$cmd\" --help 2>&1 | grep -E 'usage:|Usage:' >/dev/null; done",
+          "tmp=/tmp/taf-deeptools-bam-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; data=/opt/deeptools/share/testdata; bamCoverage -b \"$data/sample1.bam\" -o sample1.bw --binSize 10 --numberOfProcessors 1 && test -s sample1.bw && multiBamSummary bins --bamfiles \"$data/sample1.bam\" \"$data/sample2.bam\" -out bam_summary.npz --binSize 100 --numberOfProcessors 1 && test -s bam_summary.npz && plotCorrelation -in bam_summary.npz --corMethod pearson --whatToPlot heatmap -o correlation.png && test -s correlation.png && alignmentSieve -b \"$data/sample1.bam\" -o filtered.bam --minMappingQuality 10 --numberOfProcessors 1 && test -s filtered.bam && estimateReadFiltering -b \"$data/sample1.bam\" --minMappingQuality 10 > filtering.tsv && test -s filtering.tsv && cd / && rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-deeptools-bigwig-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; data=/opt/deeptools/share/testdata; bamCoverage -b \"$data/sample1.bam\" -o sample1.bw --binSize 10 --numberOfProcessors 1 && bamCoverage -b \"$data/sample2.bam\" -o sample2.bw --binSize 10 --numberOfProcessors 1 && test -s sample1.bw && test -s sample2.bw && multiBigwigSummary bins -b sample1.bw sample2.bw -out bigwig_summary.npz --binSize 100 --numberOfProcessors 1 && test -s bigwig_summary.npz && computeMatrix scale-regions -S sample1.bw sample2.bw -R \"$data/regions.bed\" -o matrix.gz --regionBodyLength 100 --beforeRegionStartLength 0 --afterRegionStartLength 0 --numberOfProcessors 1 && test -s matrix.gz && plotHeatmap -m matrix.gz -out heatmap.png && plotProfile -m matrix.gz -out profile.png && test -s heatmap.png && test -s profile.png && bigwigAverage -b sample1.bw sample2.bw -o average.bw && bigwigCompare -b1 sample1.bw -b2 sample2.bw -o compare.bw && test -s average.bw && test -s compare.bw && cd / && rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-26T07:07:53Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-26T07:07:53Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/deeptools",
+        "ref": "v3.5.6-r1",
+        "commit": "3c0703dd30c1920a5012928e94c0522c86526e26",
+        "html_url": "https://github.com/taffish/deeptools/tree/v3.5.6-r1"
+      },
+      "upstream": {
+        "name": "deepTools",
+        "type": "github",
+        "homepage": "https://deeptools.readthedocs.io/",
+        "repository": "deeptools/deepTools",
+        "release_url": "https://github.com/deeptools/deepTools/releases/tag/3.5.6",
+        "version": "3.5.6",
+        "license": "MIT; deeptools/cm.py is BSD-licensed",
+        "citation": "Ramirez et al. 2016, deepTools2: a next generation web server for deep-sequencing data analysis",
+        "doi": "10.1093/nar/gkw257",
+        "pmid": "27079975"
+      }
+    }
+  }
+}

@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-26T05:31:31Z",
+  "generated_at": "2026-05-26T07:07:53Z",
   "organization": "taffish",
   "counts": {
-    "packages": 110,
-    "versions": 162,
-    "commands": 110,
-    "repositories": 110,
+    "packages": 112,
+    "versions": 164,
+    "commands": 112,
+    "repositories": 112,
     "warnings": 0,
     "failed": 0,
     "rejected": 3
@@ -2936,6 +2936,130 @@
         }
       }
     },
+    "clipkit": {
+      "name": "clipkit",
+      "latest": "2.12.0-r1",
+      "repository_url": "https://github.com/taffish/clipkit",
+      "command": {
+        "name": "taf-clipkit"
+      },
+      "versions": {
+        "2.12.0-r1": {
+          "name": "clipkit",
+          "kind": "tool",
+          "version": "2.12.0",
+          "release": 1,
+          "version_id": "2.12.0-r1",
+          "tag": "v2.12.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/clipkit",
+          "repository_slug": "taffish/clipkit",
+          "command": {
+            "name": "taf-clipkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "multiple-sequence-alignment",
+            "categories": [
+              "multiple-sequence-alignment",
+              "alignment-trimming",
+              "phylogenetics",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "clipkit",
+              "msa",
+              "alignment trimming",
+              "smart-gap",
+              "gappy",
+              "kpic",
+              "phylogenomics",
+              "ecomp"
+            ],
+            "summary": "ClipKIT 2.12.0 alignment trimming software for phylogenetics and phylogenomics.",
+            "description": "ClipKIT 2.12.0 alignment trimming software for phylogenetics and phylogenomics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/clipkit:2.12.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.12.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:522276ff910b25fdda0303799211470e7a3a2b85f3535549ce0360bc15f202f5",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:8e8df237a455fb3d0bd4d2331d619029233853011cdf6c737ac180196006cebf",
+              "linux/arm64": "sha256:3ede1c2acd2fae8b8e9c903627bf9028f47148faf41b62e528199e1c57a3f04c"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "clipkit",
+              "python",
+              "python3",
+              "bash",
+              "grep",
+              "sed",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "clipkit --version | grep -Fx 'clipkit 2.12.0' >/dev/null && clipkit --help 2>&1 | grep -F 'Usage: clipkit <input>' >/dev/null && clipkit --help 2>&1 | grep -F 'smart-gap' >/dev/null && python -c 'import Bio, clipkit, numpy, zstandard; from clipkit.version import __version__; assert __version__ == \"2.12.0\"' && grep -F 'source_sha256=e6fa1aa08bff0bf3962c38622ac3193dc9fd7c7adb4341058b34288e97c9ce80' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'ecomp_sha256=f9f9b2a1084757586a797708a5198156347164516393462a04a5cd624d568065' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && find /opt/clipkit/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > /tmp/taf-clipkit-ldd.txt && ! grep -F 'not found' /tmp/taf-clipkit-ldd.txt >/dev/null",
+              "tmp=/tmp/taf-clipkit-trim-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>s1\\nACGTACGT\\n>s2\\nACGTA-GT\\n>s3\\nACGTA-GT\\n>s4\\nACGTA-GT\\n' > in.fa && clipkit in.fa -m gappy -g 0.5 -o out.fa -of fasta -l -c --report_json report.json --plot_trim_report report.html > run.log 2>&1 && test -s out.fa && test -s out.fa.log && test -s out.fa.complement && test -s report.json && test -s report.html && grep -F '>s1' out.fa >/dev/null && grep -F 'Trimmed alignment: out.fa' run.log >/dev/null && python -c 'import json; data=json.load(open(\"report.json\")); assert data[\"status\"] == \"completed\"; assert data[\"mode\"] == \"gappy\"' && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-clipkit-validate-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>s1\\nACGTACGTACGT\\n>s2\\nACGTACGTACGT\\n>s3\\nACGTA-GTACGT\\n' > in.fa && clipkit in.fa --validate_only --report_json validate.json > validate.log 2>&1 && test -s validate.json && grep -F 'Validation successful' validate.log >/dev/null && python -c 'import json; data=json.load(open(\"validate.json\")); assert data[\"status\"] == \"validated\"; assert data[\"validate_only\"] is True' && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-clipkit-ecomp-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; cp /opt/clipkit/share/doc/clipkit/test.ecomp in.ecomp && clipkit in.ecomp -o out.fa -of fasta --report_json ecomp.json -q && test -s out.fa && test -s ecomp.json && python -c 'import json; data=json.load(open(\"ecomp.json\")); assert data[\"status\"] == \"completed\"; assert data[\"output_file_format\"] == \"fasta\"' && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-26T07:07:53Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-26T07:07:53Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/clipkit",
+            "ref": "v2.12.0-r1",
+            "commit": "51d7f6a58ddd87cbd176fa19c805472457ac7e0c",
+            "html_url": "https://github.com/taffish/clipkit/tree/v2.12.0-r1"
+          },
+          "upstream": {
+            "name": "ClipKIT",
+            "type": "github",
+            "homepage": "https://jlsteenwyk.com/ClipKIT/",
+            "repository": "JLSteenwyk/ClipKIT",
+            "release_url": "https://github.com/JLSteenwyk/ClipKIT/releases/tag/v2.12.0",
+            "version": "2.12.0",
+            "license": "MIT",
+            "citation": "Steenwyk et al. 2020, ClipKIT: a multiple sequence alignment trimming software for accurate phylogenomic inference",
+            "doi": "10.1371/journal.pbio.3001007"
+          }
+        }
+      }
+    },
     "clustal-omega": {
       "name": "clustal-omega",
       "latest": "1.2.4-r1",
@@ -3942,6 +4066,152 @@
             "license": "MIT",
             "citation": "Martin 2011, Cutadapt removes adapter sequences from high-throughput sequencing reads",
             "doi": "10.14806/ej.17.1.200"
+          }
+        }
+      }
+    },
+    "deeptools": {
+      "name": "deeptools",
+      "latest": "3.5.6-r1",
+      "repository_url": "https://github.com/taffish/deeptools",
+      "command": {
+        "name": "taf-deeptools"
+      },
+      "versions": {
+        "3.5.6-r1": {
+          "name": "deeptools",
+          "kind": "tool",
+          "version": "3.5.6",
+          "release": 1,
+          "version_id": "3.5.6-r1",
+          "tag": "v3.5.6-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/deeptools",
+          "repository_slug": "taffish/deeptools",
+          "command": {
+            "name": "taf-deeptools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "ngs",
+            "categories": [
+              "ngs",
+              "coverage",
+              "bigwig",
+              "visualization",
+              "quality-control",
+              "epigenomics"
+            ],
+            "keywords": [
+              "deeptools",
+              "bamcoverage",
+              "bamcompare",
+              "bigwig",
+              "computematrix",
+              "plotheatmap",
+              "plotprofile",
+              "chip-seq",
+              "rna-seq"
+            ],
+            "summary": "deepTools 3.5.6 command suite for BAM/bigWig processing, quality control, matrix generation, and sequencing-data visualization.",
+            "description": "deepTools 3.5.6 command suite for BAM/bigWig processing, quality control, matrix generation, and sequencing-data visualization."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/deeptools:3.5.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.5.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:0cc2a014ac8cf250e9a90b4994883b52e18165ec448131ead38a14fc84d13bf1",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:85c92a064201d3735d8c2abd142d055737f09b13d515d897fcd45389d4023bc2",
+              "linux/arm64": "sha256:de2390cd8aa1678ead22a07615db837a8db98681d053ea7f26e5b797c8ac9c3e"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "deeptools",
+              "bamCoverage",
+              "bamCompare",
+              "bigwigAverage",
+              "bigwigCompare",
+              "multiBamSummary",
+              "multiBigwigSummary",
+              "computeMatrix",
+              "computeMatrixOperations",
+              "plotHeatmap",
+              "plotProfile",
+              "plotCorrelation",
+              "plotPCA",
+              "plotCoverage",
+              "plotFingerprint",
+              "plotEnrichment",
+              "bamPEFragmentSize",
+              "computeGCBias",
+              "correctGCBias",
+              "alignmentSieve",
+              "estimateReadFiltering",
+              "estimateScaleFactor",
+              "python",
+              "python3",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata as md; print(md.version(\"deepTools\"))')\" = '3.5.6' && test \"$(python -c 'import importlib.metadata as md; print(md.version(\"deeptoolsintervals\"))')\" = '0.1.9' && deeptools --version | grep -Fx 'deeptools 3.5.6' >/dev/null && python -c 'import deeptools, deeptoolsintervals, matplotlib, numpy, plotly, py2bit, pyBigWig, pysam, scipy'",
+              "deeptools --help 2>&1 | grep -F 'Tools for BAM and bigWig file processing' >/dev/null && deeptools --help 2>&1 | grep -F 'plotHeatmap' >/dev/null && for cmd in alignmentSieve bamCompare bamCoverage bamPEFragmentSize bigwigAverage bigwigCompare computeGCBias computeMatrix computeMatrixOperations correctGCBias estimateReadFiltering estimateScaleFactor multiBamSummary multiBigwigSummary plotCorrelation plotCoverage plotEnrichment plotFingerprint plotHeatmap plotPCA plotProfile; do \"$cmd\" --help 2>&1 | grep -E 'usage:|Usage:' >/dev/null; done",
+              "tmp=/tmp/taf-deeptools-bam-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; data=/opt/deeptools/share/testdata; bamCoverage -b \"$data/sample1.bam\" -o sample1.bw --binSize 10 --numberOfProcessors 1 && test -s sample1.bw && multiBamSummary bins --bamfiles \"$data/sample1.bam\" \"$data/sample2.bam\" -out bam_summary.npz --binSize 100 --numberOfProcessors 1 && test -s bam_summary.npz && plotCorrelation -in bam_summary.npz --corMethod pearson --whatToPlot heatmap -o correlation.png && test -s correlation.png && alignmentSieve -b \"$data/sample1.bam\" -o filtered.bam --minMappingQuality 10 --numberOfProcessors 1 && test -s filtered.bam && estimateReadFiltering -b \"$data/sample1.bam\" --minMappingQuality 10 > filtering.tsv && test -s filtering.tsv && cd / && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-deeptools-bigwig-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; data=/opt/deeptools/share/testdata; bamCoverage -b \"$data/sample1.bam\" -o sample1.bw --binSize 10 --numberOfProcessors 1 && bamCoverage -b \"$data/sample2.bam\" -o sample2.bw --binSize 10 --numberOfProcessors 1 && test -s sample1.bw && test -s sample2.bw && multiBigwigSummary bins -b sample1.bw sample2.bw -out bigwig_summary.npz --binSize 100 --numberOfProcessors 1 && test -s bigwig_summary.npz && computeMatrix scale-regions -S sample1.bw sample2.bw -R \"$data/regions.bed\" -o matrix.gz --regionBodyLength 100 --beforeRegionStartLength 0 --afterRegionStartLength 0 --numberOfProcessors 1 && test -s matrix.gz && plotHeatmap -m matrix.gz -out heatmap.png && plotProfile -m matrix.gz -out profile.png && test -s heatmap.png && test -s profile.png && bigwigAverage -b sample1.bw sample2.bw -o average.bw && bigwigCompare -b1 sample1.bw -b2 sample2.bw -o compare.bw && test -s average.bw && test -s compare.bw && cd / && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-26T07:07:53Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-26T07:07:53Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/deeptools",
+            "ref": "v3.5.6-r1",
+            "commit": "3c0703dd30c1920a5012928e94c0522c86526e26",
+            "html_url": "https://github.com/taffish/deeptools/tree/v3.5.6-r1"
+          },
+          "upstream": {
+            "name": "deepTools",
+            "type": "github",
+            "homepage": "https://deeptools.readthedocs.io/",
+            "repository": "deeptools/deepTools",
+            "release_url": "https://github.com/deeptools/deepTools/releases/tag/3.5.6",
+            "version": "3.5.6",
+            "license": "MIT; deeptools/cm.py is BSD-licensed",
+            "citation": "Ramirez et al. 2016, deepTools2: a next generation web server for deep-sequencing data analysis",
+            "doi": "10.1093/nar/gkw257",
+            "pmid": "27079975"
           }
         }
       }
@@ -20523,6 +20793,10 @@
       "package": "circos",
       "version": "0.69-10-r1"
     },
+    "taf-clipkit": {
+      "package": "clipkit",
+      "version": "2.12.0-r1"
+    },
     "taf-clustal-omega": {
       "package": "clustal-omega",
       "version": "1.2.4-r1"
@@ -20546,6 +20820,10 @@
     "taf-cutadapt": {
       "package": "cutadapt",
       "version": "5.2-r1"
+    },
+    "taf-deeptools": {
+      "package": "deeptools",
+      "version": "3.5.6-r1"
     },
     "taf-deepvariant": {
       "package": "deepvariant",
@@ -21003,6 +21281,12 @@
         "circos"
       ]
     },
+    "taffish/clipkit": {
+      "repository": "taffish/clipkit",
+      "packages": [
+        "clipkit"
+      ]
+    },
     "taffish/clustal-omega": {
       "repository": "taffish/clustal-omega",
       "packages": [
@@ -21037,6 +21321,12 @@
       "repository": "taffish/cutadapt",
       "packages": [
         "cutadapt"
+      ]
+    },
+    "taffish/deeptools": {
+      "repository": "taffish/deeptools",
+      "packages": [
+        "deeptools"
       ]
     },
     "taffish/deepvariant": {
