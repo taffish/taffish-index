@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-26T14:20:27Z",
+  "generated_at": "2026-05-26T18:46:18Z",
   "organization": "taffish",
   "counts": {
     "packages": 113,
-    "versions": 167,
+    "versions": 168,
     "commands": 113,
     "repositories": 113,
     "warnings": 0,
@@ -16224,7 +16224,7 @@
     },
     "rnaseq-report-flow": {
       "name": "rnaseq-report-flow",
-      "latest": "0.1.0-r1",
+      "latest": "0.1.0-r2",
       "repository_url": "https://github.com/taffish/rnaseq-report-flow",
       "command": {
         "name": "taf-rnaseq-report-flow"
@@ -16295,6 +16295,80 @@
             "ref": "v0.1.0-r1",
             "commit": "e48f84e8b568d4ab38b13383ebc99b9897d266d3",
             "html_url": "https://github.com/taffish/rnaseq-report-flow/tree/v0.1.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-report-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-report-flow",
+            "version": "0.1.0",
+            "license": "Apache-2.0"
+          }
+        },
+        "0.1.0-r2": {
+          "name": "rnaseq-report-flow",
+          "kind": "flow",
+          "version": "0.1.0",
+          "release": 2,
+          "version_id": "0.1.0-r2",
+          "tag": "v0.1.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-report-flow",
+          "repository_slug": "taffish/rnaseq-report-flow",
+          "command": {
+            "name": "taf-rnaseq-report-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "report",
+              "workflow",
+              "transcriptomics",
+              "provenance"
+            ],
+            "keywords": [
+              "rnaseq-report-flow",
+              "rna-seq",
+              "report",
+              "summary",
+              "provenance",
+              "html",
+              "transcriptomics"
+            ],
+            "summary": "TAFFISH RNA-seq report flow that collects upstream RNA-seq flow outputs into a bilingual branded static HTML project report with workflow sections, summaries, plots, QC report links, tool links, methods, versions, commands, and provenance.",
+            "description": "TAFFISH RNA-seq report flow that collects upstream RNA-seq flow outputs into a bilingual branded static HTML project report with workflow sections, summaries, plots, QC report links, tool links, methods, versions, commands, and provenance."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-05-26T18:46:18Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-report-flow",
+            "ref": "v0.1.0-r2",
+            "commit": "5375eb1853fcf281f7359a3d591ed09f935f0814",
+            "html_url": "https://github.com/taffish/rnaseq-report-flow/tree/v0.1.0-r2"
           },
           "upstream": {
             "name": "rnaseq-report-flow",
@@ -21333,7 +21407,7 @@
     },
     "taf-rnaseq-report-flow": {
       "package": "rnaseq-report-flow",
-      "version": "0.1.0-r1"
+      "version": "0.1.0-r2"
     },
     "taf-rnaseq-yeast-get-data": {
       "package": "rnaseq-yeast-get-data",
