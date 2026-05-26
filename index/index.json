@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-26T07:07:53Z",
+  "generated_at": "2026-05-26T08:17:00Z",
   "organization": "taffish",
   "counts": {
-    "packages": 112,
-    "versions": 164,
-    "commands": 112,
-    "repositories": 112,
+    "packages": 113,
+    "versions": 165,
+    "commands": 113,
+    "repositories": 113,
     "warnings": 0,
     "failed": 0,
     "rejected": 3
@@ -20714,6 +20714,132 @@
           }
         }
       }
+    },
+    "yak": {
+      "name": "yak",
+      "latest": "0.1-r1",
+      "repository_url": "https://github.com/taffish/yak",
+      "command": {
+        "name": "taf-yak"
+      },
+      "versions": {
+        "0.1-r1": {
+          "name": "yak",
+          "kind": "tool",
+          "version": "0.1",
+          "release": 1,
+          "version_id": "0.1-r1",
+          "tag": "v0.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/yak",
+          "repository_slug": "taffish/yak",
+          "command": {
+            "name": "taf-yak"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "k-mer",
+            "categories": [
+              "k-mer",
+              "genome-assembly",
+              "assembly-qc",
+              "trio-binning",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "yak",
+              "k-mer",
+              "kmer",
+              "qv",
+              "base accuracy",
+              "ccs",
+              "hifi",
+              "triobin",
+              "trioeval",
+              "assembly"
+            ],
+            "summary": "yak 0.1-r56, a k-mer analyzer for assembly/read QV estimation and trio-aware k-mer analyses.",
+            "description": "yak 0.1-r56, a k-mer analyzer for assembly/read QV estimation and trio-aware k-mer analyses."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/yak:0.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:505b745b5c60d77010fe649efbc7bf8c764005fbcb1fd72bdc906437e363a839",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b34d4784a69222151b3c538760a1759180f9ad3c8ee853e58c36417bb8003e91",
+              "linux/arm64": "sha256:0024108d4994951bc7032804a2e93fdd85739cba322d8432b396685b41d67b43"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "yak",
+              "bash",
+              "sh",
+              "awk",
+              "grep",
+              "sed",
+              "gzip",
+              "zcat"
+            ],
+            "test": [
+              "yak version | grep -F '0.1-r56' >/dev/null",
+              "yak 2>&1 | grep -F 'Usage: yak <command> <argument>' >/dev/null && yak count 2>&1 | grep -F 'Usage: yak count' >/dev/null && yak qv 2>&1 | grep -F 'Usage: yak qv' >/dev/null && yak triobin 2>&1 | grep -F 'Usage: yak triobin' >/dev/null && yak trioeval 2>&1 | grep -F 'Usage: yak trioeval' >/dev/null && yak inspect 2>&1 | grep -F 'Usage: yak inspect' >/dev/null",
+              "set -eu; tmp=/tmp/taf-yak-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; awk -v asm=\"$tmp/asm.fa\" -v reads=\"$tmp/reads.fq\" 'BEGIN{srand(1); nts=\"ACGT\"; printf \">asm\\n\" > asm; for(i=1;i<=2000;i++){b=substr(nts,int(rand()*4)+1,1); seq=seq b; printf b > asm} printf \"\\n\" > asm; for(r=1;r<=20;r++){start=1+int(rand()*1800); read=substr(seq,start,100); printf \"@r%d\\n%s\\n+\\n\", r, read > reads; for(j=1;j<=100;j++) printf \"I\" > reads; printf \"\\n\" > reads}}'; yak count -k21 -p10 -K100k -t1 -o \"$tmp/reads.yak\" \"$tmp/reads.fq\"; test -s \"$tmp/reads.yak\"; yak inspect \"$tmp/reads.yak\" > \"$tmp/hist.tsv\"; grep -F 'HS' \"$tmp/hist.tsv\" >/dev/null; yak qv -t1 \"$tmp/reads.yak\" \"$tmp/asm.fa\" > \"$tmp/qv.tsv\"; grep -F 'QV' \"$tmp/qv.tsv\" >/dev/null; rm -rf \"$tmp\"",
+              "set -eu; tmp=/tmp/taf-yak-trio-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; awk -v pat=\"$tmp/pat.fa\" -v mat=\"$tmp/mat.fa\" -v asm=\"$tmp/asm.fa\" 'BEGIN{srand(7); nts=\"ACGT\"; printf \">pat\\n\" > pat; for(i=1;i<=500;i++){b=substr(nts,int(rand()*4)+1,1); pseq=pseq b; printf b > pat} printf \"\\n\" > pat; printf \">mat\\n\" > mat; for(i=1;i<=500;i++){b=substr(nts,int(rand()*4)+1,1); mseq=mseq b; printf b > mat} printf \"\\n\" > mat; printf \">pat_ctg\\n%s\\n>mat_ctg\\n%s\\n\", pseq, mseq > asm}'; yak count -k21 -p10 -K100k -t1 -o \"$tmp/pat.yak\" \"$tmp/pat.fa\"; yak count -k21 -p10 -K100k -t1 -o \"$tmp/mat.yak\" \"$tmp/mat.fa\"; yak triobin -c1 -d1 -t1 \"$tmp/pat.yak\" \"$tmp/mat.yak\" \"$tmp/asm.fa\" > \"$tmp/triobin.tsv\"; grep -F 'pat_ctg' \"$tmp/triobin.tsv\" >/dev/null; grep -F 'mat_ctg' \"$tmp/triobin.tsv\" >/dev/null; yak trioeval -c1 -d1 -n1 -t1 \"$tmp/pat.yak\" \"$tmp/mat.yak\" \"$tmp/asm.fa\" > \"$tmp/trioeval.tsv\"; grep -F 'S' \"$tmp/trioeval.tsv\" >/dev/null; grep -F 'W' \"$tmp/trioeval.tsv\" >/dev/null; grep -F 'H' \"$tmp/trioeval.tsv\" >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-26T08:17:00Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-26T08:17:00Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/yak",
+            "ref": "v0.1-r1",
+            "commit": "fa255fa67af234842e4ce5684970249d8a13f8aa",
+            "html_url": "https://github.com/taffish/yak/tree/v0.1-r1"
+          },
+          "upstream": {
+            "name": "yak",
+            "type": "github",
+            "homepage": "https://github.com/lh3/yak",
+            "repository": "lh3/yak",
+            "release_url": "https://github.com/lh3/yak/releases/tag/v0.1",
+            "version": "0.1",
+            "license": "MIT",
+            "citation": "Heng Li, yak: Yet another k-mer analyzer"
+          }
+        }
+      }
     }
   },
   "commands": {
@@ -21164,6 +21290,10 @@
     "taf-whatshap": {
       "package": "whatshap",
       "version": "2.8-r1"
+    },
+    "taf-yak": {
+      "package": "yak",
+      "version": "0.1-r1"
     }
   },
   "repositories": {
@@ -21837,6 +21967,12 @@
       "repository": "taffish/whatshap",
       "packages": [
         "whatshap"
+      ]
+    },
+    "taffish/yak": {
+      "repository": "taffish/yak",
+      "packages": [
+        "yak"
       ]
     }
   },
