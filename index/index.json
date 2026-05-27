@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-27T06:35:14Z",
+  "generated_at": "2026-05-27T09:42:05Z",
   "organization": "taffish",
   "counts": {
     "packages": 114,
-    "versions": 171,
+    "versions": 172,
     "commands": 114,
     "repositories": 114,
     "warnings": 0,
@@ -16629,7 +16629,7 @@
     },
     "rnaseq-yeast-get-data": {
       "name": "rnaseq-yeast-get-data",
-      "latest": "0.1.0-r1",
+      "latest": "0.1.0-r2",
       "repository_url": "https://github.com/taffish/rnaseq-yeast-get-data",
       "command": {
         "name": "taf-rnaseq-yeast-get-data"
@@ -16709,6 +16709,88 @@
             "ref": "v0.1.0-r1",
             "commit": "1f7bdbc18375792e1684c9a578a8b019d46d0b85",
             "html_url": "https://github.com/taffish/rnaseq-yeast-get-data/tree/v0.1.0-r1"
+          },
+          "upstream": {
+            "name": "Highly replicated yeast RNA-seq SNF2 dataset and SGD S288C reference",
+            "type": "public-dataset",
+            "homepage": "https://www.ebi.ac.uk/ena/browser/view/PRJEB5348",
+            "version": "PRJEB5348-profDGE48-375dc0d-SGD-R64.4.1",
+            "license": "public-data"
+          }
+        },
+        "0.1.0-r2": {
+          "name": "rnaseq-yeast-get-data",
+          "kind": "flow",
+          "version": "0.1.0",
+          "release": 2,
+          "version_id": "0.1.0-r2",
+          "tag": "v0.1.0-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-yeast-get-data",
+          "repository_slug": "taffish/rnaseq-yeast-get-data",
+          "command": {
+            "name": "taf-rnaseq-yeast-get-data"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-seqkit": "2.13.0-r2"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "test-data",
+              "yeast",
+              "data-preparation",
+              "workflow"
+            ],
+            "keywords": [
+              "rna-seq",
+              "yeast",
+              "snf2",
+              "prjeb5348",
+              "ena",
+              "fastq",
+              "counts",
+              "sgd",
+              "reference",
+              "annotation",
+              "go",
+              "gmt",
+              "test-data"
+            ],
+            "summary": "TAFFISH-maintained data preparation flow for the yeast SNF2 RNA-seq formal test dataset, including FASTQ, counts, SGD reference resources and GO-derived gene sets.",
+            "description": "TAFFISH-maintained data preparation flow for the yeast SNF2 RNA-seq formal test dataset, including FASTQ, counts, SGD reference resources and GO-derived gene sets."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-05-27T09:42:05Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-yeast-get-data",
+            "ref": "v0.1.0-r2",
+            "commit": "554d2e15e21d45a6971ef8e7a5737c4f3f9cc47d",
+            "html_url": "https://github.com/taffish/rnaseq-yeast-get-data/tree/v0.1.0-r2"
           },
           "upstream": {
             "name": "Highly replicated yeast RNA-seq SNF2 dataset and SGD S288C reference",
@@ -21662,7 +21744,7 @@
     },
     "taf-rnaseq-yeast-get-data": {
       "package": "rnaseq-yeast-get-data",
-      "version": "0.1.0-r1"
+      "version": "0.1.0-r2"
     },
     "taf-rnaseqc": {
       "package": "rnaseqc",
