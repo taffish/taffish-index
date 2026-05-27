@@ -1,6 +1,6 @@
 {
   "name": "rnaseq-enrichment-flow",
-  "latest": "0.1.0-r2",
+  "latest": "0.1.0-r3",
   "repository_url": "https://github.com/taffish/rnaseq-enrichment-flow",
   "command": {
     "name": "taf-rnaseq-enrichment-flow"
@@ -153,6 +153,84 @@
         "ref": "v0.1.0-r2",
         "commit": "7e0d71d8a0e7e66b8bb106cffdfac786b4c19e9d",
         "html_url": "https://github.com/taffish/rnaseq-enrichment-flow/tree/v0.1.0-r2"
+      },
+      "upstream": {
+        "name": "rnaseq-enrichment-flow",
+        "type": "taffish-flow",
+        "homepage": "https://github.com/taffish/rnaseq-enrichment-flow",
+        "version": "0.1.0",
+        "license": "Apache-2.0"
+      }
+    },
+    "0.1.0-r3": {
+      "name": "rnaseq-enrichment-flow",
+      "kind": "flow",
+      "version": "0.1.0",
+      "release": 3,
+      "version_id": "0.1.0-r3",
+      "tag": "v0.1.0-r3",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rnaseq-enrichment-flow",
+      "repository_slug": "taffish/rnaseq-enrichment-flow",
+      "command": {
+        "name": "taf-rnaseq-enrichment-flow"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": false
+      },
+      "dependencies": {
+        "taf-enrichment-r": "0.1.0-r1"
+      },
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "enrichment",
+          "gene-set-analysis",
+          "workflow",
+          "transcriptomics"
+        ],
+        "keywords": [
+          "rnaseq-enrichment-flow",
+          "rna-seq",
+          "enrichment",
+          "ora",
+          "gsea",
+          "gmt",
+          "gene-sets",
+          "fgsea",
+          "transcriptomics"
+        ],
+        "summary": "TAFFISH RNA-seq enrichment flow for GMT-based ORA/GSEA from DE gene lists, ranked genes, background genes, publication-oriented plots, reports, and provenance.",
+        "description": "TAFFISH RNA-seq enrichment flow for GMT-based ORA/GSEA from DE gene lists, ranked genes, background genes, publication-oriented plots, reports, and provenance."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": null
+      },
+      "container": null,
+      "smoke": null,
+      "trust": {
+        "status": "not_applicable",
+        "checked_at": "2026-05-27T04:14:44Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rnaseq-enrichment-flow",
+        "ref": "v0.1.0-r3",
+        "commit": "72cb419d99bff464d38cd483ef4a5171407d57c4",
+        "html_url": "https://github.com/taffish/rnaseq-enrichment-flow/tree/v0.1.0-r3"
       },
       "upstream": {
         "name": "rnaseq-enrichment-flow",
