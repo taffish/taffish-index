@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-28T05:36:40Z",
+  "generated_at": "2026-05-28T09:47:28Z",
   "organization": "taffish",
   "counts": {
-    "packages": 114,
-    "versions": 174,
-    "commands": 114,
-    "repositories": 114,
+    "packages": 115,
+    "versions": 175,
+    "commands": 115,
+    "repositories": 115,
     "warnings": 0,
     "failed": 0,
     "rejected": 3
@@ -8939,6 +8939,133 @@
             "citation": "Thorvaldsdottir, Robinson, and Mesirov. 2013. Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration.",
             "doi": "10.1093/bib/bbs017",
             "pmid": "22517427"
+          }
+        }
+      }
+    },
+    "iqtree": {
+      "name": "iqtree",
+      "latest": "3.1.2-r1",
+      "repository_url": "https://github.com/taffish/iqtree",
+      "command": {
+        "name": "taf-iqtree"
+      },
+      "versions": {
+        "3.1.2-r1": {
+          "name": "iqtree",
+          "kind": "tool",
+          "version": "3.1.2",
+          "release": 1,
+          "version_id": "3.1.2-r1",
+          "tag": "v3.1.2-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/iqtree",
+          "repository_slug": "taffish/iqtree",
+          "command": {
+            "name": "taf-iqtree"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "phylogenetics",
+            "categories": [
+              "phylogenetics",
+              "molecular-evolution",
+              "model-selection",
+              "tree-inference",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "iq-tree",
+              "iqtree3",
+              "maximum likelihood",
+              "phylogenomics",
+              "modelfinder",
+              "ultrafast bootstrap",
+              "sh-alrt",
+              "alisim",
+              "cmaple",
+              "concordance factor"
+            ],
+            "summary": "IQ-TREE 3.1.2 phylogenomic maximum-likelihood inference suite.",
+            "description": "IQ-TREE 3.1.2 phylogenomic maximum-likelihood inference suite."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/iqtree:3.1.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.1.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b9446b35b475a664c0bbd251b5e4eb3e5ecb4b47b88edfa73c17cfa25e15b67a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f63775d3b9479b4d3f91fd9791ba3e5d0769f313af9c48cc48652e1778ccd632",
+              "linux/arm64": "sha256:99a967e2bcff1e3e27b932d12eecf1d65de8f4c8f41d93597afbb6612c870f21"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "iqtree3",
+              "iqtree",
+              "bash",
+              "sh",
+              "grep",
+              "sed",
+              "gzip",
+              "tar"
+            ],
+            "test": [
+              "iqtree3 --version 2>&1 | grep -F 'IQ-TREE version 3.1.2' >/dev/null && iqtree --version 2>&1 | grep -F 'IQ-TREE version 3.1.2' >/dev/null",
+              "iqtree3 --help 2>&1 | grep -F 'Usage: iqtree [-s ALIGNMENT]' >/dev/null && iqtree3 --help 2>&1 | grep -F 'MODEL-FINDER:' >/dev/null && iqtree3 --help 2>&1 | grep -F 'CONCORDANCE FACTOR ANALYSIS:' >/dev/null && iqtree3 --help 2>&1 | grep -F 'ALISIM: ALIGNMENT SIMULATOR' >/dev/null",
+              "set -eu; tmp=/tmp/taf-iqtree-ml-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/iqtree/share/doc/iqtree/examples/example.phy \"$tmp/in.phy\"; iqtree3 -s \"$tmp/in.phy\" -m JC -ninit 2 -n 2 -T 1 --redo --prefix \"$tmp/iqtree-smoke\" >/tmp/taf-iqtree-ml.log 2>&1; test -s \"$tmp/iqtree-smoke.iqtree\"; test -s \"$tmp/iqtree-smoke.treefile\"; test -s \"$tmp/iqtree-smoke.log\"; grep -F 'Model of substitution: JC' \"$tmp/iqtree-smoke.iqtree\" >/dev/null; grep -F 'MAXIMUM LIKELIHOOD TREE' \"$tmp/iqtree-smoke.iqtree\" >/dev/null; rm -rf \"$tmp\" /tmp/taf-iqtree-ml.log",
+              "set -eu; tmp=/tmp/taf-iqtree-alisim-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf \"%s\\n\" \"(A:0.1,B:0.1,C:0.1,D:0.1);\" > \"$tmp/tree.nwk\"; iqtree3 --alisim \"$tmp/sim\" -t \"$tmp/tree.nwk\" -m JC --length 20 --seed 7 -T 1 >/tmp/taf-iqtree-alisim.log 2>&1; test -s \"$tmp/sim.phy\"; grep -F 'A' \"$tmp/sim.phy\" >/dev/null; rm -rf \"$tmp\" /tmp/taf-iqtree-alisim.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-28T09:47:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-28T09:47:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/iqtree",
+            "ref": "v3.1.2-r1",
+            "commit": "86c11ceba3dbf1c7cf8b9527e3b5f4b0e287c80d",
+            "html_url": "https://github.com/taffish/iqtree/tree/v3.1.2-r1"
+          },
+          "upstream": {
+            "name": "IQ-TREE",
+            "type": "github",
+            "homepage": "https://iqtree.github.io/",
+            "repository": "iqtree/iqtree3",
+            "release_url": "https://github.com/iqtree/iqtree3/releases/tag/v3.1.2",
+            "version": "3.1.2",
+            "license": "GPL-2.0-only",
+            "citation": "Wong et al. 2025, IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models",
+            "doi": "10.32942/X2P62N"
           }
         }
       }
@@ -21754,6 +21881,10 @@
       "package": "igv",
       "version": "2.19.7-r1"
     },
+    "taf-iqtree": {
+      "package": "iqtree",
+      "version": "3.1.2-r1"
+    },
     "taf-jellyfish": {
       "package": "jellyfish",
       "version": "2.3.1-r1"
@@ -22306,6 +22437,12 @@
       "repository": "taffish/igv",
       "packages": [
         "igv"
+      ]
+    },
+    "taffish/iqtree": {
+      "repository": "taffish/iqtree",
+      "packages": [
+        "iqtree"
       ]
     },
     "taffish/jellyfish": {
