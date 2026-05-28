@@ -1,0 +1,127 @@
+{
+  "name": "bioconductor-bioviz",
+  "latest": "3.23-r1",
+  "repository_url": "https://github.com/taffish/bioconductor-bioviz",
+  "command": {
+    "name": "taf-bioconductor-bioviz"
+  },
+  "versions": {
+    "3.23-r1": {
+      "name": "bioconductor-bioviz",
+      "kind": "tool",
+      "version": "3.23",
+      "release": 1,
+      "version_id": "3.23-r1",
+      "tag": "v3.23-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bioconductor-bioviz",
+      "repository_slug": "taffish/bioconductor-bioviz",
+      "command": {
+        "name": "taf-bioconductor-bioviz"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "visualization",
+        "categories": [
+          "visualization",
+          "bioconductor",
+          "phylogenetics",
+          "plotting",
+          "r"
+        ],
+        "keywords": [
+          "bioconductor",
+          "r",
+          "rscript",
+          "ggtree",
+          "treeio",
+          "ape",
+          "ggplot2",
+          "svglite",
+          "ragg",
+          "newick",
+          "phylogeny",
+          "bioinformatics plots"
+        ],
+        "summary": "A TAFFISH-maintained R/Bioconductor 3.23 bioinformatics visualization runtime with a stable tree plotting helper CLI.",
+        "description": "A TAFFISH-maintained R/Bioconductor 3.23 bioinformatics visualization runtime with a stable tree plotting helper CLI."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bioconductor-bioviz:3.23-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.23-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:a79e8921a3fd9846e764499c73af05a3f18ed92b36a9c5b97924fd50a51b60eb",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3966170ea10d798e0954d8f23c9a22e2c0ddad9f3ac9e99a90601d92ddce82ce",
+          "linux/arm64": "sha256:bb9b39a89b6d0398581a95b317c36794648f42aec6ec4de8e966f68bc831742b"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "R",
+          "Rscript",
+          "bioviz-runtime-info",
+          "bioviz-tree",
+          "bash",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "Rscript --version 2>&1 | grep -F 'Rscript (R) version 4.6.0' >/dev/null && Rscript -e 'stopifnot(as.character(BiocManager::version()) == \"3.23\")' && bioviz-runtime-info | grep -F 'Bioconductor\t3.23' >/dev/null",
+          "Rscript -e 'pkgs <- c(\"ape\",\"treeio\",\"ggtree\",\"tidytree\",\"ggplot2\",\"svglite\",\"ragg\",\"optparse\",\"jsonlite\",\"readr\",\"data.table\",\"ggrepel\",\"patchwork\",\"cowplot\",\"scales\",\"viridis\",\"RColorBrewer\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly=TRUE)]; if (length(missing)) stop(paste(\"missing\", paste(missing, collapse=\",\")))'",
+          "bioviz-tree --version | grep -Fx 'bioviz-tree 0.1.0 (Bioconductor 3.23)' >/dev/null && bioviz-tree --help 2>&1 | grep -F 'Tree plotting helper for Newick phylogenies' >/dev/null",
+          "tmp=/tmp/taf-bioviz-tree-rect-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\n' '((seq1:0.1,seq2:0.2):0.3,(seq3:0.2,seq4:0.4):0.1);' > tree.nwk && printf '%b\n' 'sample\tgroup\tregion' 'seq1\tA\tleaf' 'seq2\tA\tleaf' 'seq3\tB\troot' 'seq4\tB\troot' > metadata.tsv && printf '%b\n' 'sequence_id\tlabel' 'seq1\tAlpha one' 'seq2\tAlpha two' 'seq3\tBeta one' 'seq4\tBeta two' > label-map.tsv && bioviz-tree --tree tree.nwk --metadata metadata.tsv --label-map label-map.tsv --color-by group --layout rectangular --formats pdf,png,svg --outdir out && test -s out/tree.pdf && test -s out/tree.png && test -s out/tree.svg && test -s out/tree_plot_summary.tsv && test -s out/run.manifest.json && grep -F 'metadata_matched_tips' out/tree_plot_summary.tsv >/dev/null && grep -F 'ggtree' out/versions.tsv >/dev/null && rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-bioviz-tree-circ-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\n' '((a:0.1,b:0.2):0.3,(c:0.2,d:0.4):0.1);' > tree.nwk && bioviz-tree --tree tree.nwk --layout circular --formats png --hide-tip-labels --outdir out && test -s out/tree.png && grep -F 'layout\tcircular' out/tree_plot_summary.tsv >/dev/null && rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-28T14:25:20Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-28T14:25:20Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bioconductor-bioviz",
+        "ref": "v3.23-r1",
+        "commit": "d7cd457e94a9b119024c72de211977dbe3b95d57",
+        "html_url": "https://github.com/taffish/bioconductor-bioviz/tree/v3.23-r1"
+      },
+      "upstream": {
+        "name": "Bioconductor bioinformatics visualization runtime",
+        "type": "official",
+        "homepage": "https://bioconductor.org/",
+        "release_url": "https://www.bioconductor.org/news/bioc_3_23_release/",
+        "version": "3.23",
+        "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
+        "citation": "Bioconductor project; package-specific citations are available from citation(package)"
+      }
+    }
+  }
+}
