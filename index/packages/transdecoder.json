@@ -1,0 +1,142 @@
+{
+  "name": "transdecoder",
+  "latest": "6.0.0-r1",
+  "repository_url": "https://github.com/taffish/transdecoder",
+  "command": {
+    "name": "taf-transdecoder"
+  },
+  "versions": {
+    "6.0.0-r1": {
+      "name": "transdecoder",
+      "kind": "tool",
+      "version": "6.0.0",
+      "release": 1,
+      "version_id": "6.0.0-r1",
+      "tag": "v6.0.0-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/transdecoder",
+      "repository_slug": "taffish/transdecoder",
+      "command": {
+        "name": "taf-transdecoder"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "transcriptomics",
+        "categories": [
+          "transcriptomics",
+          "genome-annotation",
+          "orf-prediction",
+          "protein-coding",
+          "rna-seq"
+        ],
+        "keywords": [
+          "transdecoder",
+          "orf",
+          "coding sequence",
+          "transcriptome",
+          "gtf",
+          "gff3",
+          "diamond",
+          "blast",
+          "pfam",
+          "hmmer"
+        ],
+        "summary": "TransDecoder 6.0.0 for identifying candidate coding regions in transcript sequences and projecting ORFs to genome coordinates.",
+        "description": "TransDecoder 6.0.0 for identifying candidate coding regions in transcript sequences and projecting ORFs to genome coordinates."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/transdecoder:6.0.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "6.0.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:b2ebf27b49d2297123558517c7f8d3c336ce3668377bc3cae4970d12db129f00",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:553d3b55bdb7307882745da079010e34ca4bda4e6a4672bbff409cbda2e3e5ba",
+          "linux/arm64": "sha256:a4417715d6cd2c0e2fc19e9f6537a28fd4c4acedb3282ddf87aeecbcd9c46a2c"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "TransDecoder",
+          "TransDecoder.LongOrfs",
+          "TransDecoder.Predict",
+          "gtf_genome_to_cdna_fasta.pl",
+          "gtf_to_alignment_gff3.pl",
+          "cdna_alignment_orf_to_genome_orf.pl",
+          "fasta_prot_checker.pl",
+          "pfam_runner.pl",
+          "diamond",
+          "blastp",
+          "makeblastdb",
+          "hmmsearch",
+          "hmmpress",
+          "hmmscan",
+          "ParaFly",
+          "ffindex_from_fasta",
+          "perl",
+          "python3",
+          "bash",
+          "gzip",
+          "grep",
+          "wc"
+        ],
+        "test": [
+          "TransDecoder --version 2>&1 | grep -Fx 'TransDecoder 6.0.0' >/dev/null && (TransDecoder --help 2>&1 || true) | grep -F 'TransDecoder - full pipeline wrapper' >/dev/null && (TransDecoder --help 2>&1 || true) | grep -F 'blast_search_pep' >/dev/null && (TransDecoder.LongOrfs -h 2>&1 || true) | grep -F 'Transdecoder.LongOrfs' >/dev/null && (TransDecoder.Predict -h 2>&1 || true) | grep -F 'retain_blastp_hits' >/dev/null && perl -MURI::Escape -e1 && diamond version 2>&1 | grep -F 'diamond version' >/dev/null && blastp -version 2>&1 | grep -F 'blastp:' >/dev/null && makeblastdb -version 2>&1 | grep -F 'makeblastdb:' >/dev/null && hmmsearch -h 2>&1 | grep -F 'HMMER' >/dev/null && hmmpress -h 2>&1 | grep -F 'HMMER' >/dev/null && hmmscan -h 2>&1 | grep -F 'HMMER' >/dev/null && ParaFly -h 2>&1 | grep -F 'ParaFly' >/dev/null && ffindex_from_fasta -h 2>&1 | grep -F 'ffindex_from_fasta' >/dev/null",
+          "set -eu; tmp=/tmp/taf-transdecoder-transcript-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; gunzip -c /opt/transdecoder/sample_data/simple_transcriptome_target/Trinity.fasta.gz > \"$tmp/Trinity.fasta\"; TransDecoder -t \"$tmp/Trinity.fasta\" -m 50 -T 50 --single_best_only --no_refine_starts -O \"$tmp/out\" > \"$tmp/run.log\" 2>&1; test -s \"$tmp/out/Trinity.fasta.transdecoder.pep\"; test -s \"$tmp/out/Trinity.fasta.transdecoder.cds\"; test -s \"$tmp/out/Trinity.fasta.transdecoder.gff3\"; test -s \"$tmp/out/Trinity.fasta.transdecoder.bed\"; fasta_prot_checker.pl \"$tmp/out/Trinity.fasta.transdecoder.pep\" > \"$tmp/check.log\" 2>&1; grep -F 'ORF type:' \"$tmp/out/Trinity.fasta.transdecoder.pep\" >/dev/null; rm -rf \"$tmp\"",
+          "set -eu; tmp=/tmp/taf-transdecoder-phases-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; gunzip -c /opt/transdecoder/sample_data/simple_transcriptome_target/Trinity.fasta.gz > \"$tmp/Trinity.fasta\"; TransDecoder.LongOrfs -t \"$tmp/Trinity.fasta\" -m 50 -O \"$tmp/out\" > \"$tmp/longorfs.log\" 2>&1; test -s \"$tmp/out/Trinity.fasta.transdecoder_dir/longest_orfs.pep\"; test -s \"$tmp/out/Trinity.fasta.transdecoder_dir/longest_orfs.cds\"; TransDecoder.Predict -t \"$tmp/Trinity.fasta\" -T 50 --single_best_only --no_refine_starts -O \"$tmp/out\" > \"$tmp/predict.log\" 2>&1; test -s \"$tmp/out/Trinity.fasta.transdecoder.pep\"; test -s \"$tmp/out/Trinity.fasta.transdecoder.cds\"; test -s \"$tmp/out/Trinity.fasta.transdecoder.gff3\"; rm -rf \"$tmp\"",
+          "set -eu; tmp=/tmp/taf-transdecoder-homology-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; gunzip -c /opt/transdecoder/sample_data/cufflinks_example/test.genome.fasta.gz > \"$tmp/test.genome.fasta\"; gunzip -c /opt/transdecoder/sample_data/cufflinks_example/transcripts.gtf.gz > \"$tmp/transcripts.gtf\"; gunzip -c /opt/transdecoder/sample_data/cufflinks_example/mini_sprot.db.pep.gz > \"$tmp/mini_sprot.db.pep\"; gunzip -c /opt/transdecoder/sample_data/cufflinks_example/mini_Pfam-A.hmm.gz > \"$tmp/mini_Pfam-A.hmm\"; TransDecoder --genome \"$tmp/test.genome.fasta\" --gtf \"$tmp/transcripts.gtf\" --blast_search_pep \"$tmp/mini_sprot.db.pep\" --blast_tool diamond --blast_threads 1 --pfam-search-db \"$tmp/mini_Pfam-A.hmm\" -m 50 -T 50 --single_best_only --no_refine_starts -O \"$tmp/out\" > \"$tmp/run.log\" 2>&1; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder.pep\"; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder.gff3\"; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder.genome.gff3\"; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder_dir/blastp.outfmt6\"; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder_dir/pfam.domtblout\"; grep -F 'mRNA' \"$tmp/out/transcripts.cDNA.fasta.transdecoder.genome.gff3\" >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-29T07:45:27Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-29T07:45:27Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/transdecoder",
+        "ref": "v6.0.0-r1",
+        "commit": "ccbd7713f79226b5e1de503b3dc5061636b9dd99",
+        "html_url": "https://github.com/taffish/transdecoder/tree/v6.0.0-r1"
+      },
+      "upstream": {
+        "name": "TransDecoder",
+        "type": "github",
+        "homepage": "https://github.com/TransDecoder/TransDecoder/wiki",
+        "repository": "https://github.com/TransDecoder/TransDecoder",
+        "release_url": "https://github.com/TransDecoder/TransDecoder/releases/tag/TransDecoder-v6.0.0",
+        "version": "6.0.0",
+        "license": "BSD-3-Clause",
+        "citation": "Haas et al. 2013. De novo transcript sequence reconstruction from RNA-seq using the Trinity platform for reference generation and analysis; TransDecoder is distributed by the Trinity/TransDecoder project.",
+        "doi": "10.1038/nprot.2013.084",
+        "pmid": "23845962"
+      }
+    }
+  }
+}
