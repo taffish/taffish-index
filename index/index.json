@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-29T07:45:27Z",
+  "generated_at": "2026-05-29T08:03:54Z",
   "organization": "taffish",
   "counts": {
-    "packages": 119,
-    "versions": 180,
-    "commands": 119,
-    "repositories": 119,
+    "packages": 120,
+    "versions": 181,
+    "commands": 120,
+    "repositories": 120,
     "warnings": 0,
     "failed": 0,
     "rejected": 3
@@ -4600,6 +4600,127 @@
             "citation": "Poplin et al. 2018",
             "doi": "10.1038/nbt.4235",
             "pmid": "30247488"
+          }
+        }
+      }
+    },
+    "diamond": {
+      "name": "diamond",
+      "latest": "2.2.1-r1",
+      "repository_url": "https://github.com/taffish/diamond",
+      "command": {
+        "name": "taf-diamond"
+      },
+      "versions": {
+        "2.2.1-r1": {
+          "name": "diamond",
+          "kind": "tool",
+          "version": "2.2.1",
+          "release": 1,
+          "version_id": "2.2.1-r1",
+          "tag": "v2.2.1-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/diamond",
+          "repository_slug": "taffish/diamond",
+          "command": {
+            "name": "taf-diamond"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-alignment",
+            "categories": [
+              "sequence-alignment",
+              "protein-search",
+              "homology-search",
+              "clustering",
+              "annotation"
+            ],
+            "keywords": [
+              "diamond",
+              "blastp",
+              "blastx",
+              "makedb",
+              "protein-alignment",
+              "sequence-search",
+              "dmnd",
+              "daa",
+              "linclust",
+              "deepclust"
+            ],
+            "summary": "DIAMOND 2.2.1 for fast protein sequence search, translated DNA-to-protein search, DIAMOND database creation, and protein clustering workflows.",
+            "description": "DIAMOND 2.2.1 for fast protein sequence search, translated DNA-to-protein search, DIAMOND database creation, and protein clustering workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/diamond:2.2.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:725feab93a9bdcc84fbb52430f7839ad8a74558e5917cf5908f6bcff5f1084c9",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2f5cb9216379a250e11c005af27e144c534c704cd668994800f1ac3c4703d951"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "diamond",
+              "sh"
+            ],
+            "test": [
+              "diamond version | grep -Fx 'diamond version 2.2.1' >/dev/null",
+              "diamond help | grep -F 'Syntax: diamond COMMAND [OPTIONS]' >/dev/null && diamond help | grep -F 'makedb' >/dev/null && diamond help | grep -F 'blastp' >/dev/null && diamond help | grep -F 'linclust' >/dev/null && { diamond blastp 2>&1 || true; } | grep -F 'Missing parameter: database file' >/dev/null && { diamond linclust 2>&1 || true; } | grep -F -- '--cluster-steps' >/dev/null && { diamond view 2>&1 || true; } | grep -F 'requires a DAA' >/dev/null",
+              "mkdir -p /tmp/taf-diamond-blastp && cd /tmp/taf-diamond-blastp && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref2\\nGILGYTEHQVVSSDFNSDTHSLSNISVQGDLNFVVDKDLRDTFQKLTNAK\\n' > ref.faa && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n' > query.faa && diamond makedb --in ref.faa -d ref --threads 1 >/tmp/taf-diamond-makedb.log 2>&1 && test -s ref.dmnd && diamond dbinfo -d ref.dmnd > dbinfo.txt && grep -F 'Database' dbinfo.txt >/dev/null && diamond blastp -d ref -q query.faa -o hits.tsv --threads 1 --max-target-seqs 1 --evalue 100 --outfmt 6 qseqid sseqid pident length evalue bitscore >/tmp/taf-diamond-blastp.log 2>&1 && grep -F 'q1' hits.tsv >/dev/null && grep -F 'ref1' hits.tsv >/dev/null",
+              "mkdir -p /tmp/taf-diamond-blastx && cd /tmp/taf-diamond-blastx && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n' > ref.faa && printf '>dna1\\nATGAAAACCGCTTACATTGCTAAACAAAGACAAATTTCCTTCGTGAAATCCCATTTC\\n' > dna.fa && diamond makedb --in ref.faa -d ref --threads 1 >/tmp/taf-diamond-blastx-makedb.log 2>&1 && diamond blastx -d ref -q dna.fa -o blastx.tsv --threads 1 --min-orf 1 --max-target-seqs 1 --evalue 100 --outfmt 6 qseqid sseqid >/tmp/taf-diamond-blastx.log 2>&1 && grep -F 'dna1' blastx.tsv >/dev/null",
+              "mkdir -p /tmp/taf-diamond-linclust && cd /tmp/taf-diamond-linclust && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref1_copy\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref2\\nGILGYTEHQVVSSDFNSDTHSLSNISVQGDLNFVVDKDLRDTFQKLTNAK\\n' > proteins.faa && diamond linclust -d proteins.faa -o clusters.tsv --threads 1 --approx-id 90 -M 128M >/tmp/taf-diamond-linclust.log 2>&1 && test -s clusters.tsv && grep -F 'ref1' clusters.tsv >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-05-29T08:03:54Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-05-29T08:03:54Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/diamond",
+            "ref": "v2.2.1-r1",
+            "commit": "05c44a9a47524ab351cbef785af8f3549790b851",
+            "html_url": "https://github.com/taffish/diamond/tree/v2.2.1-r1"
+          },
+          "upstream": {
+            "name": "DIAMOND",
+            "type": "github",
+            "homepage": "https://github.com/bbuchfink/diamond",
+            "repository": "bbuchfink/diamond",
+            "release_url": "https://github.com/bbuchfink/diamond/releases/tag/v2.2.1",
+            "version": "2.2.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "Buchfink et al. 2021; Buchfink et al. 2026",
+            "doi": "10.1038/s41592-021-01101-x; 10.1038/s41592-026-03030-z",
+            "pmid": "33828273; 41876643"
           }
         }
       }
@@ -22420,6 +22541,10 @@
       "package": "deepvariant",
       "version": "1.10.0-r2"
     },
+    "taf-diamond": {
+      "package": "diamond",
+      "version": "2.2.1-r1"
+    },
     "taf-edta": {
       "package": "edta",
       "version": "2.3.0-r2"
@@ -22954,6 +23079,12 @@
       "repository": "taffish/deepvariant",
       "packages": [
         "deepvariant"
+      ]
+    },
+    "taffish/diamond": {
+      "repository": "taffish/diamond",
+      "packages": [
+        "diamond"
       ]
     },
     "taffish/edta": {
