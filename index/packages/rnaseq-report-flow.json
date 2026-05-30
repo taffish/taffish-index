@@ -1,6 +1,6 @@
 {
   "name": "rnaseq-report-flow",
-  "latest": "0.2.0-r1",
+  "latest": "0.2.0-r2",
   "repository_url": "https://github.com/taffish/rnaseq-report-flow",
   "command": {
     "name": "taf-rnaseq-report-flow"
@@ -370,6 +370,82 @@
         "ref": "v0.2.0-r1",
         "commit": "57d2ca6ea190fc7f21908cf04dbfcd88c5eff75c",
         "html_url": "https://github.com/taffish/rnaseq-report-flow/tree/v0.2.0-r1"
+      },
+      "upstream": {
+        "name": "rnaseq-report-flow",
+        "type": "taffish-flow",
+        "homepage": "https://github.com/taffish/rnaseq-report-flow",
+        "version": "0.2.0",
+        "license": "Apache-2.0"
+      }
+    },
+    "0.2.0-r2": {
+      "name": "rnaseq-report-flow",
+      "kind": "flow",
+      "version": "0.2.0",
+      "release": 2,
+      "version_id": "0.2.0-r2",
+      "tag": "v0.2.0-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rnaseq-report-flow",
+      "repository_slug": "taffish/rnaseq-report-flow",
+      "command": {
+        "name": "taf-rnaseq-report-flow"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": false
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "report",
+          "workflow",
+          "transcriptomics",
+          "provenance"
+        ],
+        "keywords": [
+          "rnaseq-report-flow",
+          "rna-seq",
+          "report",
+          "summary",
+          "provenance",
+          "html",
+          "transcriptomics",
+          "interpretation",
+          "de-novo"
+        ],
+        "summary": "TAFFISH RNA-seq report flow that collects upstream reference or de novo RNA-seq flow outputs into a bilingual branded static HTML project report with workflow diagrams, active section navigation, organized plots, QC report links, tool links, methods, versions, commands, provenance, and an offline RNA-seq primer.",
+        "description": "TAFFISH RNA-seq report flow that collects upstream reference or de novo RNA-seq flow outputs into a bilingual branded static HTML project report with workflow diagrams, active section navigation, organized plots, QC report links, tool links, methods, versions, commands, provenance, and an offline RNA-seq primer."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": null
+      },
+      "container": null,
+      "smoke": null,
+      "trust": {
+        "status": "not_applicable",
+        "checked_at": "2026-05-30T08:15:04Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rnaseq-report-flow",
+        "ref": "v0.2.0-r2",
+        "commit": "e986d09b236d81fba601d597f2af0b6ac9fb7ed4",
+        "html_url": "https://github.com/taffish/rnaseq-report-flow/tree/v0.2.0-r2"
       },
       "upstream": {
         "name": "rnaseq-report-flow",
