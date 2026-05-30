@@ -1,6 +1,6 @@
 {
   "name": "rnaseq-standard-flow",
-  "latest": "0.2.0-r1",
+  "latest": "0.2.0-r2",
   "repository_url": "https://github.com/taffish/rnaseq-standard-flow",
   "command": {
     "name": "taf-rnaseq-standard-flow"
@@ -258,6 +258,97 @@
         "ref": "v0.2.0-r1",
         "commit": "0f126229db8a735b32d49186404b30b616acded4",
         "html_url": "https://github.com/taffish/rnaseq-standard-flow/tree/v0.2.0-r1"
+      },
+      "upstream": {
+        "name": "rnaseq-standard-flow",
+        "type": "taffish-flow",
+        "homepage": "https://github.com/taffish/rnaseq-standard-flow",
+        "version": "0.2.0",
+        "license": "Apache-2.0"
+      }
+    },
+    "0.2.0-r2": {
+      "name": "rnaseq-standard-flow",
+      "kind": "flow",
+      "version": "0.2.0",
+      "release": 2,
+      "version_id": "0.2.0-r2",
+      "tag": "v0.2.0-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rnaseq-standard-flow",
+      "repository_slug": "taffish/rnaseq-standard-flow",
+      "command": {
+        "name": "taf-rnaseq-standard-flow"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": false
+      },
+      "dependencies": {
+        "taf-rnaseq-alignment-flow": "0.1.0-r1",
+        "taf-rnaseq-alignment-qc-flow": "0.1.0-r1",
+        "taf-rnaseq-count-flow": "0.1.0-r1",
+        "taf-rnaseq-de-flow": "0.1.0-r2",
+        "taf-rnaseq-denovo-annotation-flow": "0.1.0-r1",
+        "taf-rnaseq-denovo-assembly-flow": "0.1.0-r1",
+        "taf-rnaseq-denovo-expression-flow": "0.1.0-r1",
+        "taf-rnaseq-enrichment-flow": "0.1.0-r3",
+        "taf-rnaseq-expression-flow": "0.1.0-r1",
+        "taf-rnaseq-index-flow": "0.1.0-r1",
+        "taf-rnaseq-report-flow": "0.2.0-r2"
+      },
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "standard",
+          "workflow",
+          "transcriptomics",
+          "report"
+        ],
+        "keywords": [
+          "rnaseq-standard-flow",
+          "rna-seq",
+          "salmon",
+          "hisat2",
+          "featurecounts",
+          "deseq2",
+          "enrichment",
+          "report",
+          "transcriptomics",
+          "denovo",
+          "trinity",
+          "diamond"
+        ],
+        "summary": "TAFFISH RNA-seq standard flow that composes the published RNA-seq subflows into a default reference Salmon-first route, an optional HISAT2/featureCounts branch, and an explicit de novo route.",
+        "description": "TAFFISH RNA-seq standard flow that composes the published RNA-seq subflows into a default reference Salmon-first route, an optional HISAT2/featureCounts branch, and an explicit de novo route."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": null
+      },
+      "container": null,
+      "smoke": null,
+      "trust": {
+        "status": "not_applicable",
+        "checked_at": "2026-05-30T08:43:34Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rnaseq-standard-flow",
+        "ref": "v0.2.0-r2",
+        "commit": "ff45a77327d94ef1f8d0e59e6c33013ac8d9ff47",
+        "html_url": "https://github.com/taffish/rnaseq-standard-flow/tree/v0.2.0-r2"
       },
       "upstream": {
         "name": "rnaseq-standard-flow",
