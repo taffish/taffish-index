@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-05-29T11:24:55Z",
+  "generated_at": "2026-05-30T04:36:03Z",
   "organization": "taffish",
   "counts": {
-    "packages": 121,
-    "versions": 182,
-    "commands": 121,
-    "repositories": 121,
+    "packages": 124,
+    "versions": 186,
+    "commands": 124,
+    "repositories": 124,
     "warnings": 0,
     "failed": 0,
     "rejected": 3
@@ -16591,6 +16591,280 @@
         }
       }
     },
+    "rnaseq-denovo-annotation-flow": {
+      "name": "rnaseq-denovo-annotation-flow",
+      "latest": "0.1.0-r1",
+      "repository_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
+      "command": {
+        "name": "taf-rnaseq-denovo-annotation-flow"
+      },
+      "versions": {
+        "0.1.0-r1": {
+          "name": "rnaseq-denovo-annotation-flow",
+          "kind": "flow",
+          "version": "0.1.0",
+          "release": 1,
+          "version_id": "0.1.0-r1",
+          "tag": "v0.1.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
+          "repository_slug": "taffish/rnaseq-denovo-annotation-flow",
+          "command": {
+            "name": "taf-rnaseq-denovo-annotation-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-diamond": "2.2.1-r1",
+            "taf-seqkit": "2.13.0-r2",
+            "taf-transdecoder": "6.0.0-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "de-novo",
+              "annotation",
+              "transcriptomics",
+              "workflow"
+            ],
+            "keywords": [
+              "rnaseq-denovo-annotation-flow",
+              "rna-seq",
+              "de-novo",
+              "transdecoder",
+              "diamond",
+              "orf",
+              "functional-annotation",
+              "gene-sets"
+            ],
+            "summary": "TAFFISH RNA-seq de novo annotation flow for TransDecoder ORF prediction, DIAMOND protein homology evidence, annotation tables, optional GO-derived GMT/background files, and provenance.",
+            "description": "TAFFISH RNA-seq de novo annotation flow for TransDecoder ORF prediction, DIAMOND protein homology evidence, annotation tables, optional GO-derived GMT/background files, and provenance."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-05-30T04:36:03Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-denovo-annotation-flow",
+            "ref": "v0.1.0-r1",
+            "commit": "023944f54e7ea58245b81e4d4e725bdda1e154f0",
+            "html_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow/tree/v0.1.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-denovo-annotation-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
+            "version": "0.1.0",
+            "license": "Apache-2.0"
+          }
+        }
+      }
+    },
+    "rnaseq-denovo-assembly-flow": {
+      "name": "rnaseq-denovo-assembly-flow",
+      "latest": "0.1.0-r1",
+      "repository_url": "https://github.com/taffish/rnaseq-denovo-assembly-flow",
+      "command": {
+        "name": "taf-rnaseq-denovo-assembly-flow"
+      },
+      "versions": {
+        "0.1.0-r1": {
+          "name": "rnaseq-denovo-assembly-flow",
+          "kind": "flow",
+          "version": "0.1.0",
+          "release": 1,
+          "version_id": "0.1.0-r1",
+          "tag": "v0.1.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-denovo-assembly-flow",
+          "repository_slug": "taffish/rnaseq-denovo-assembly-flow",
+          "command": {
+            "name": "taf-rnaseq-denovo-assembly-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-busco": "6.0.0-r2",
+            "taf-fastp": "1.3.3-r3",
+            "taf-fastqc": "0.12.1-r1",
+            "taf-multiqc": "1.35-r2",
+            "taf-seqkit": "2.13.0-r2",
+            "taf-spades": "4.2.0-r1",
+            "taf-trinity": "2.15.2-r2"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "de-novo-assembly",
+              "transcriptomics",
+              "workflow"
+            ],
+            "keywords": [
+              "rnaseq-denovo-assembly-flow",
+              "rna-seq",
+              "de-novo",
+              "trinity",
+              "rnaspades",
+              "busco",
+              "transcriptome-assembly",
+              "fastq"
+            ],
+            "summary": "TAFFISH RNA-seq de novo assembly flow for FASTQ QC/cleaning, Trinity-first transcriptome assembly, assembly statistics, optional BUSCO completeness, and MultiQC reporting.",
+            "description": "TAFFISH RNA-seq de novo assembly flow for FASTQ QC/cleaning, Trinity-first transcriptome assembly, assembly statistics, optional BUSCO completeness, and MultiQC reporting."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-05-30T04:36:03Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-denovo-assembly-flow",
+            "ref": "v0.1.0-r1",
+            "commit": "e7daa2c4fc79a15fb29517257d076d87693f9707",
+            "html_url": "https://github.com/taffish/rnaseq-denovo-assembly-flow/tree/v0.1.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-denovo-assembly-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-denovo-assembly-flow",
+            "version": "0.1.0",
+            "license": "Apache-2.0"
+          }
+        }
+      }
+    },
+    "rnaseq-denovo-expression-flow": {
+      "name": "rnaseq-denovo-expression-flow",
+      "latest": "0.1.0-r1",
+      "repository_url": "https://github.com/taffish/rnaseq-denovo-expression-flow",
+      "command": {
+        "name": "taf-rnaseq-denovo-expression-flow"
+      },
+      "versions": {
+        "0.1.0-r1": {
+          "name": "rnaseq-denovo-expression-flow",
+          "kind": "flow",
+          "version": "0.1.0",
+          "release": 1,
+          "version_id": "0.1.0-r1",
+          "tag": "v0.1.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-denovo-expression-flow",
+          "repository_slug": "taffish/rnaseq-denovo-expression-flow",
+          "command": {
+            "name": "taf-rnaseq-denovo-expression-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-fastp": "1.3.3-r3",
+            "taf-fastqc": "0.12.1-r1",
+            "taf-multiqc": "1.35-r2",
+            "taf-salmon": "1.11.4-r1",
+            "taf-seqkit": "2.13.0-r2"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "de-novo",
+              "expression",
+              "quantification",
+              "workflow",
+              "transcriptomics"
+            ],
+            "keywords": [
+              "rnaseq-denovo-expression-flow",
+              "rna-seq",
+              "de-novo",
+              "salmon",
+              "transcriptome",
+              "transcript-counts",
+              "transcript-tpm",
+              "fastq",
+              "multiqc"
+            ],
+            "summary": "TAFFISH RNA-seq de novo expression flow for Salmon indexing and quantification against assembled transcripts, transcript-level matrices, optional pseudo-gene aggregation, and MultiQC reporting.",
+            "description": "TAFFISH RNA-seq de novo expression flow for Salmon indexing and quantification against assembled transcripts, transcript-level matrices, optional pseudo-gene aggregation, and MultiQC reporting."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-05-30T04:36:03Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-denovo-expression-flow",
+            "ref": "v0.1.0-r1",
+            "commit": "487d475a2c6ca665e520a13e12de16fbcd3562bc",
+            "html_url": "https://github.com/taffish/rnaseq-denovo-expression-flow/tree/v0.1.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-denovo-expression-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-denovo-expression-flow",
+            "version": "0.1.0",
+            "license": "Apache-2.0"
+          }
+        }
+      }
+    },
     "rnaseq-enrichment-flow": {
       "name": "rnaseq-enrichment-flow",
       "latest": "0.1.0-r3",
@@ -17023,7 +17297,7 @@
     },
     "rnaseq-report-flow": {
       "name": "rnaseq-report-flow",
-      "latest": "0.1.0-r4",
+      "latest": "0.2.0-r1",
       "repository_url": "https://github.com/taffish/rnaseq-report-flow",
       "command": {
         "name": "taf-rnaseq-report-flow"
@@ -17323,6 +17597,82 @@
             "type": "taffish-flow",
             "homepage": "https://github.com/taffish/rnaseq-report-flow",
             "version": "0.1.0",
+            "license": "Apache-2.0"
+          }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-report-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-report-flow",
+          "repository_slug": "taffish/rnaseq-report-flow",
+          "command": {
+            "name": "taf-rnaseq-report-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "report",
+              "workflow",
+              "transcriptomics",
+              "provenance"
+            ],
+            "keywords": [
+              "rnaseq-report-flow",
+              "rna-seq",
+              "report",
+              "summary",
+              "provenance",
+              "html",
+              "transcriptomics",
+              "interpretation",
+              "de-novo"
+            ],
+            "summary": "TAFFISH RNA-seq report flow that collects upstream reference or de novo RNA-seq flow outputs into a bilingual branded static HTML project report with workflow diagrams, active section navigation, organized plots, QC report links, tool links, methods, versions, commands, provenance, and an offline RNA-seq primer.",
+            "description": "TAFFISH RNA-seq report flow that collects upstream reference or de novo RNA-seq flow outputs into a bilingual branded static HTML project report with workflow diagrams, active section navigation, organized plots, QC report links, tool links, methods, versions, commands, provenance, and an offline RNA-seq primer."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-05-30T04:36:03Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-report-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "57d2ca6ea190fc7f21908cf04dbfcd88c5eff75c",
+            "html_url": "https://github.com/taffish/rnaseq-report-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-report-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-report-flow",
+            "version": "0.2.0",
             "license": "Apache-2.0"
           }
         }
@@ -22913,6 +23263,18 @@
       "package": "rnaseq-de-flow",
       "version": "0.1.0-r2"
     },
+    "taf-rnaseq-denovo-annotation-flow": {
+      "package": "rnaseq-denovo-annotation-flow",
+      "version": "0.1.0-r1"
+    },
+    "taf-rnaseq-denovo-assembly-flow": {
+      "package": "rnaseq-denovo-assembly-flow",
+      "version": "0.1.0-r1"
+    },
+    "taf-rnaseq-denovo-expression-flow": {
+      "package": "rnaseq-denovo-expression-flow",
+      "version": "0.1.0-r1"
+    },
     "taf-rnaseq-enrichment-flow": {
       "package": "rnaseq-enrichment-flow",
       "version": "0.1.0-r3"
@@ -22927,7 +23289,7 @@
     },
     "taf-rnaseq-report-flow": {
       "package": "rnaseq-report-flow",
-      "version": "0.1.0-r4"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-standard-flow": {
       "package": "rnaseq-standard-flow",
@@ -23567,6 +23929,24 @@
       "repository": "taffish/rnaseq-de-flow",
       "packages": [
         "rnaseq-de-flow"
+      ]
+    },
+    "taffish/rnaseq-denovo-annotation-flow": {
+      "repository": "taffish/rnaseq-denovo-annotation-flow",
+      "packages": [
+        "rnaseq-denovo-annotation-flow"
+      ]
+    },
+    "taffish/rnaseq-denovo-assembly-flow": {
+      "repository": "taffish/rnaseq-denovo-assembly-flow",
+      "packages": [
+        "rnaseq-denovo-assembly-flow"
+      ]
+    },
+    "taffish/rnaseq-denovo-expression-flow": {
+      "repository": "taffish/rnaseq-denovo-expression-flow",
+      "packages": [
+        "rnaseq-denovo-expression-flow"
       ]
     },
     "taffish/rnaseq-enrichment-flow": {
