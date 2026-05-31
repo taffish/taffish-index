@@ -1,0 +1,139 @@
+{
+  "name": "eggnog-mapper",
+  "latest": "2.1.15-r1",
+  "repository_url": "https://github.com/taffish/eggnog-mapper",
+  "command": {
+    "name": "taf-eggnog-mapper"
+  },
+  "versions": {
+    "2.1.15-r1": {
+      "name": "eggnog-mapper",
+      "kind": "tool",
+      "version": "2.1.15",
+      "release": 1,
+      "version_id": "2.1.15-r1",
+      "tag": "v2.1.15-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/eggnog-mapper",
+      "repository_slug": "taffish/eggnog-mapper",
+      "command": {
+        "name": "taf-eggnog-mapper"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "functional-annotation",
+        "categories": [
+          "functional-annotation",
+          "orthology",
+          "protein-annotation",
+          "genome-annotation",
+          "transcriptome-annotation"
+        ],
+        "keywords": [
+          "eggnog-mapper",
+          "eggnog",
+          "emapper",
+          "functional-annotation",
+          "orthology",
+          "diamond",
+          "hmmer",
+          "mmseqs2",
+          "prodigal",
+          "go",
+          "kegg",
+          "cog"
+        ],
+        "summary": "eggNOG-mapper 2.1.15 runtime for functional annotation through orthology assignment. Production eggNOG databases are provided externally through --data_dir.",
+        "description": "eggNOG-mapper 2.1.15 runtime for functional annotation through orthology assignment. Production eggNOG databases are provided externally through --data_dir."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/eggnog-mapper:2.1.15-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.1.15-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:4727ae0c68d66201b5ce21620f4a0b3edde440b3efefcbbe4228565ae5dd9427",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:052f0eedd89e739d21061b3e1ed2398f5fa9c53591365b1d0478b4d5ecff59dc",
+          "linux/arm64": "sha256:03d5e74a1b63d0116cf5237727d81ee45277c2d01b1dabe007bd48886fe1e4c3"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "emapper.py",
+          "download_eggnog_data.py",
+          "hmm_mapper.py",
+          "diamond",
+          "mmseqs",
+          "hmmsearch",
+          "hmmscan",
+          "hmmpgmd",
+          "hmmpress",
+          "prodigal",
+          "python3",
+          "wget",
+          "gzip",
+          "tar",
+          "awk",
+          "grep",
+          "sh"
+        ],
+        "test": [
+          "emapper.py --version 2>&1 | grep -F '2.1.15' >/dev/null && emapper.py --help | grep -F 'usage:' >/dev/null && download_eggnog_data.py --help | grep -F -- '--data_dir' >/dev/null && hmm_mapper.py --help | grep -F 'usage:' >/dev/null",
+          "mkdir -p /tmp/taf-eggnog-download-plan && download_eggnog_data.py --data_dir /tmp/taf-eggnog-download-plan -s -y 2>&1 | grep -F 'eggnog.db.gz' >/dev/null && test ! -e /tmp/taf-eggnog-download-plan/eggnog.db",
+          "mkdir -p /tmp/taf-eggnog-diamond && diamond makedb --in /opt/eggnog-mapper/test-fixtures/test_queries.fa -d /tmp/taf-eggnog-diamond/testdb --threads 1 >/tmp/taf-eggnog-diamond/makedb.log 2>&1 && emapper.py -m diamond -i /opt/eggnog-mapper/test-fixtures/test_queries.fa --dmnd_db /tmp/taf-eggnog-diamond/testdb.dmnd --data_dir /opt/eggnog-mapper/test-fixtures --output_dir /tmp/taf-eggnog-diamond -o test --cpu 1 --override >/tmp/taf-eggnog-diamond/emapper.log 2>&1 && test -s /tmp/taf-eggnog-diamond/test.emapper.seed_orthologs && test -s /tmp/taf-eggnog-diamond/test.emapper.annotations && grep -F 'COG0012' /tmp/taf-eggnog-diamond/test.emapper.annotations >/dev/null && grep -F 'GO:0003674' /tmp/taf-eggnog-diamond/test.emapper.annotations >/dev/null",
+          "mkdir -p /tmp/taf-eggnog-hmm && hmm_mapper.py -i /opt/eggnog-mapper/test-fixtures/test_queries.fa -d /opt/eggnog-mapper/test-fixtures/hmmer_custom_dbs/bact.hmm --output_dir /tmp/taf-eggnog-hmm -o test >/tmp/taf-eggnog-hmm/hmm_mapper.log 2>&1 && test -s /tmp/taf-eggnog-hmm/test.emapper.hmm_hits && grep -F 'COG0012' /tmp/taf-eggnog-hmm/test.emapper.hmm_hits >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-05-31T16:31:22Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-05-31T16:31:22Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/eggnog-mapper",
+        "ref": "v2.1.15-r1",
+        "commit": "941fa5c0092aedd2466b68aff2f2523acc0df3e3",
+        "html_url": "https://github.com/taffish/eggnog-mapper/tree/v2.1.15-r1"
+      },
+      "upstream": {
+        "name": "eggNOG-mapper",
+        "type": "github",
+        "homepage": "http://eggnog-mapper.embl.de",
+        "repository": "eggnogdb/eggnog-mapper",
+        "release_url": "https://github.com/eggnogdb/eggnog-mapper/releases/tag/v2.1.15",
+        "version": "2.1.15",
+        "license": "AGPL-3.0-only",
+        "citation": "Cantalapiedra et al. 2021; Huerta-Cepas et al. 2019",
+        "doi": "10.1093/molbev/msab293; 10.1093/nar/gky1085",
+        "pmid": "34597405; 30418610"
+      }
+    }
+  }
+}
