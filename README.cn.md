@@ -106,11 +106,14 @@ trust-gate 失败分开报告。
 | `warnings` | 非致命扫描或校验 warning。 |
 
 每个 package 记录中包含一个 `versions` object，以 version id 为 key，例如
-`0.1.0-r1`。
+`0.1.0-r1`。`latest` 字段继续表示按 version/release 语义得到的默认安装版本。
+可选的 `recent_at` 和 `recent_version` 字段表示最近成功发布并进入主 index 的
+release，用于网页展示和排序。
 
 每个 version record 包含 package 元数据、runtime 标记、dependency 元数据、
-platform 约束、可选的人类可读 meta 字段、source ref 信息、可选 container
-元数据、可选 smoke 元数据、trust 状态和可选 upstream 元数据。
+platform 约束、可选的人类可读 meta 字段、source ref 信息、可选发布时间
+元数据、可选 container 元数据、可选 smoke 元数据、trust 状态和可选 upstream
+元数据。
 
 ## 包发现规则
 

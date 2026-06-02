@@ -110,12 +110,15 @@ Top-level fields include:
 | `warnings` | Non-fatal scan or validation warnings. |
 
 Each package record contains a `versions` object keyed by version id, such as
-`0.1.0-r1`.
+`0.1.0-r1`. The `latest` field keeps the default install version semantics
+based on version/release ordering. The optional `recent_at` and
+`recent_version` fields identify the most recently published accepted release
+for registry display and sorting.
 
 Each version record contains package metadata, runtime flags, dependency
 metadata, platform constraints, optional human-facing meta fields, source ref
-information, optional container metadata, optional smoke metadata, trust status,
-and optional upstream metadata.
+information, optional publication time metadata, optional container metadata,
+optional smoke metadata, trust status, and optional upstream metadata.
 
 ## Package Discovery
 

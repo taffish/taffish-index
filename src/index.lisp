@@ -121,6 +121,8 @@
        (cons "release" (plist-ref record :release))
        (cons "version_id" (plist-ref record :version-id))
        (cons "tag" (plist-ref record :tag))
+       (cons "published_at" (or (plist-ref record :published-at) :null))
+       (cons "published_at_source" (or (plist-ref record :published-at-source) :null))
        (cons "license" (or (plist-ref record :license) :null))
        (cons "repository_url" (plist-ref record :repository-url))
        (cons "repository_slug" (plist-ref record :repository-slug))
@@ -190,12 +192,26 @@
     (json-object
      (cons "name" (getf entry :name))
      (cons "latest" (getf entry :latest))
+     (cons "recent_version" (or (getf entry :recent-version) :null))
+     (cons "recent_at" (or (getf entry :recent-at) :null))
      (cons "repository_url" (getf entry :repository-url))
      (cons "command"
            (json-object
             (cons "name" (getf entry :command-name))))
      (cons "versions"
            (sorted-object-from-hash versions #'project-record-json)))))
+
+(defun record-newer-by-published-at-p (candidate current)
+  (let ((candidate-time (plist-ref candidate :published-at))
+        (current-time (and current (plist-ref current :published-at))))
+    (cond
+      ((and (stringp candidate-time)
+            (stringp current-time))
+       (string> candidate-time current-time))
+      ((stringp candidate-time) t)
+      ((stringp current-time) nil)
+      ((null current) t)
+      (t (> (compare-version-release candidate current) 0)))))
 
 (defun register-record (record packages commands repositories)
   (let* ((name (plist-ref record :name))
@@ -206,6 +222,8 @@
                       (setf (gethash name packages)
                             (list :name name
                                   :latest version-id
+                                  :recent-version version-id
+                                  :recent-at (plist-ref record :published-at)
                                   :repository-url (plist-ref record :repository-url)
                                   :command-name command-name
                                   :versions (make-hash-table :test #'equal))))))
@@ -214,6 +232,11 @@
       (when (or (null latest)
                 (> (compare-version-release record latest) 0))
         (setf (getf package :latest) version-id)))
+    (let ((recent (gethash (getf package :recent-version)
+                           (getf package :versions))))
+      (when (record-newer-by-published-at-p record recent)
+        (setf (getf package :recent-version) version-id
+              (getf package :recent-at) (plist-ref record :published-at))))
     (let ((command-entry (gethash command-name commands)))
       (when (or (null command-entry)
                 (> (compare-version-release
@@ -417,6 +440,8 @@
           :release (json-int-value (json-ref record "release"))
           :version-id (json-ref record "version_id")
           :tag (json-ref record "tag")
+          :published-at (json-ref record "published_at")
+          :published-at-source (json-ref record "published_at_source")
           :license (json-ref record "license")
           :repository-url (json-ref record "repository_url")
           :repository-slug (json-ref record "repository_slug")

@@ -66,6 +66,57 @@
   (github-paged-list
    (format nil "/repos/~A/tags?" full-name)))
 
+(defun github-list-releases (full-name)
+  (github-paged-list
+   (format nil "/repos/~A/releases?" full-name)))
+
+(defun github-release-time-map (full-name)
+  (let ((table (make-hash-table :test #'equal)))
+    (dolist (release (github-list-releases full-name))
+      (let ((tag-name (json-ref release "tag_name"))
+            (published-at (json-ref release "published_at"))
+            (created-at (json-ref release "created_at")))
+        (when (and (stringp tag-name)
+                   (or (stringp published-at)
+                       (stringp created-at)))
+          (setf (gethash tag-name table)
+                (list :published-at (or published-at created-at)
+                      :published-at-source
+                      (if (stringp published-at)
+                          "github-release"
+                          "github-release-created"))))))
+    table))
+
+(defun github-commit-date (full-name commit)
+  (when (and (stringp commit)
+             (not (blank-string-p commit)))
+    (handler-case
+        (let* ((json (github-api-json
+                      (format nil "/repos/~A/commits/~A"
+                              full-name
+                              (url-safe-segment commit))))
+               (commit-json (json-ref json "commit"))
+               (committer (json-ref commit-json "committer"))
+               (author (json-ref commit-json "author")))
+          (or (json-ref committer "date")
+              (json-ref author "date")))
+      (error () nil))))
+
+(defun github-tag-time (full-name tag-name commit release-time-map)
+  (if release-time-map
+      (let ((release-time (gethash tag-name release-time-map)))
+        (cond
+          ((and release-time
+                (plist-ref release-time :published-at))
+           (values (plist-ref release-time :published-at)
+                   (plist-ref release-time :published-at-source)))
+          (t
+           (let ((commit-date (github-commit-date full-name commit)))
+             (if commit-date
+                 (values commit-date "git-commit")
+                 (values nil nil))))))
+      (values nil nil)))
+
 (defun github-raw-url (full-name ref path)
   (destructuring-bind (owner repo)
       (split-string full-name #\/)
@@ -99,18 +150,24 @@
 (defun repo-fork-p (repo-json)
   (eq (json-ref repo-json "fork") t))
 
-(defun scan-github-ref (full-name ref &key commit enforce-repository)
+(defun scan-github-ref (full-name ref &key commit enforce-repository
+                                  published-at published-at-source)
   (let ((toml (github-raw-text full-name ref "taffish.toml")))
     (when toml
-      (validate-project-from-toml
-       toml
-       (lambda (path)
-         (github-file-exists-p full-name ref path))
-       :source-repository full-name
-       :ref ref
-       :commit commit
-       :html-url (format nil "https://github.com/~A/tree/~A" full-name ref)
-       :enforce-repository enforce-repository))))
+      (let ((record
+              (validate-project-from-toml
+               toml
+               (lambda (path)
+                 (github-file-exists-p full-name ref path))
+               :source-repository full-name
+               :ref ref
+               :commit commit
+               :html-url (format nil "https://github.com/~A/tree/~A" full-name ref)
+               :enforce-repository enforce-repository)))
+        (when record
+          (setf (getf record :published-at) published-at
+                (getf record :published-at-source) published-at-source)
+          record)))))
 
 (defun warning-record (repository ref message)
   (list :repository repository :ref ref :message message))
@@ -121,7 +178,8 @@
          (default-toml (github-raw-text full-name default-branch "taffish.toml"))
          (records nil)
          (warnings nil)
-         (release-tags nil))
+         (release-tags nil)
+         (release-time-map nil))
     (unless default-toml
       (return-from scan-github-repository (values nil nil)))
     (handler-case
@@ -134,19 +192,29 @@
         (push (warning-record full-name nil
                               (format nil "failed to list tags: ~A" c))
               warnings)))
+    (handler-case
+        (setf release-time-map (github-release-time-map full-name))
+      (error (c)
+        (push (warning-record full-name nil
+                              (format nil "failed to list releases: ~A" c))
+              warnings)))
     (dolist (tag-json release-tags)
       (let* ((tag-name (json-ref tag-json "name"))
              (commit-json (json-ref tag-json "commit"))
              (commit (and commit-json (json-ref commit-json "sha"))))
         (handler-case
-            (let ((record (scan-github-ref full-name tag-name
-                                           :commit commit
-                                           :enforce-repository t)))
-              (when record
-                (unless (string= tag-name (plist-ref record :tag))
-                  (error "release tag ~A does not match taffish.toml version ~A"
-                         tag-name (plist-ref record :tag)))
-                (push record records)))
+            (multiple-value-bind (published-at published-at-source)
+                (github-tag-time full-name tag-name commit release-time-map)
+              (let ((record (scan-github-ref full-name tag-name
+                                             :commit commit
+                                             :published-at published-at
+                                             :published-at-source published-at-source
+                                             :enforce-repository t)))
+                (when record
+                  (unless (string= tag-name (plist-ref record :tag))
+                    (error "release tag ~A does not match taffish.toml version ~A"
+                           tag-name (plist-ref record :tag)))
+                  (push record records))))
           (error (c)
             (push (warning-record full-name tag-name (format nil "~A" c))
                   warnings)))))
