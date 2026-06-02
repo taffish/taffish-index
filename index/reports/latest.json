@@ -1,14 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-06-01T09:31:32Z",
+  "generated_at": "2026-06-02T02:27:38Z",
   "organization": "taffish",
   "counts": {
     "failed": 0,
-    "rejected": 3,
+    "rejected": 4,
     "warnings": 0
   },
   "failed": [],
   "rejected": [
+    {
+      "repository": "taffish/antismash",
+      "ref": "v8.0.4-r1",
+      "version_id": "8.0.4-r1",
+      "reason": "Immutable release has a Docker image build failure and should not be added to the main index.",
+      "replacement": "8.0.4-r2",
+      "image": "ghcr.io/taffish/antismash:8.0.4-r1"
+    },
     {
       "repository": "taffish/deepvariant",
       "ref": "v1.10.0-r1",

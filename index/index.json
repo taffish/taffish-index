@@ -1,15 +1,15 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-01T09:31:32Z",
+  "generated_at": "2026-06-02T02:27:38Z",
   "organization": "taffish",
   "counts": {
-    "packages": 126,
-    "versions": 193,
-    "commands": 126,
-    "repositories": 126,
+    "packages": 129,
+    "versions": 196,
+    "commands": 129,
+    "repositories": 129,
     "warnings": 0,
     "failed": 0,
-    "rejected": 3
+    "rejected": 4
   },
   "packages": {
     "agat": {
@@ -134,6 +134,134 @@
             "license": "GPL-3.0",
             "citation": "Dainat J. 2022. Another Gtf/Gff Analysis Toolkit (AGAT): Resolve interoperability issues and accomplish more with your annotations. Plant and Animal Genome XXIX Conference. https://github.com/NBISweden/AGAT.",
             "doi": "10.5281/zenodo.3552717"
+          }
+        }
+      }
+    },
+    "antismash": {
+      "name": "antismash",
+      "latest": "8.0.4-r2",
+      "repository_url": "https://github.com/taffish/antismash",
+      "command": {
+        "name": "taf-antismash"
+      },
+      "versions": {
+        "8.0.4-r2": {
+          "name": "antismash",
+          "kind": "tool",
+          "version": "8.0.4",
+          "release": 2,
+          "version_id": "8.0.4-r2",
+          "tag": "v8.0.4-r2",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/antismash",
+          "repository_slug": "taffish/antismash",
+          "command": {
+            "name": "taf-antismash"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-mining",
+            "categories": [
+              "genome-mining",
+              "annotation",
+              "secondary-metabolism",
+              "bgc",
+              "microbial-genomics"
+            ],
+            "keywords": [
+              "antismash",
+              "biosynthetic gene cluster",
+              "bgc",
+              "secondary metabolism",
+              "natural products",
+              "genome mining",
+              "clusterblast",
+              "mibig",
+              "nrps",
+              "pks"
+            ],
+            "summary": "antiSMASH 8.0.4 standalone runtime for bacterial and fungal secondary metabolite biosynthetic gene cluster prediction.",
+            "description": "antiSMASH 8.0.4 standalone runtime for bacterial and fungal secondary metabolite biosynthetic gene cluster prediction."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/antismash:8.0.4-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "8.0.4-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9783f4d89ef03bce1bc7d9e58339b95130cc2416c88ae518d24eedcf61173cdc",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e526f65793f036ada0b51d29d0ba3c0a070c9bbb749f0b7625a781fbb2006def"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "antismash",
+              "download-antismash-databases",
+              "python3",
+              "diamond",
+              "hmmscan",
+              "hmmsearch",
+              "prodigal",
+              "blastp",
+              "makeblastdb"
+            ],
+            "test": [
+              "python3 -c 'import antismash; print(antismash.__version__)' | grep -Fx '8.0.4' >/dev/null && antismash --version 2>&1 | grep -F '8.0.4' >/dev/null",
+              "antismash --help 2>&1 | grep -F 'usage: antismash' >/dev/null && antismash --help-showall 2>&1 | grep -F -- '--minimal' >/dev/null && antismash --help-showall 2>&1 | grep -F -- '--taxon' >/dev/null",
+              "test -d /local/databases && find -L /local/databases -mindepth 1 -print | head -n 1 | grep -q . && python3 -c 'import antismash; antismash.config.build_config([\"--databases\", \"/local/databases\"], modules=antismash.get_all_modules()); antismash.main.prepare_module_data()'",
+              "diamond version 2>&1 | grep -F 'diamond' >/dev/null && hmmscan -h 2>&1 | grep -F 'HMMER' >/dev/null && hmmsearch -h 2>&1 | grep -F 'HMMER' >/dev/null && prodigal -v 2>&1 | grep -F 'Prodigal' >/dev/null && blastp -version 2>&1 | grep -F 'blastp' >/dev/null",
+              "tmp=/tmp/taf-antismash-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python3 -c 'print(\">tiny\\n\" + \"ATG\" + \"GCT\" * 998 + \"TAA\")' > \"$tmp/tiny.fa\"; antismash --taxon bacteria --genefinding-tool prodigal --minimal --output-dir \"$tmp/out\" \"$tmp/tiny.fa\" >/tmp/taf-antismash-smoke.log 2>&1; find \"$tmp/out\" -type f -name \"*.json\" | grep -q .; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-02T02:27:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-02T02:27:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/antismash",
+            "ref": "v8.0.4-r2",
+            "commit": "e38892ebf748a9196f45415c012e70c772e4c5a2",
+            "html_url": "https://github.com/taffish/antismash/tree/v8.0.4-r2"
+          },
+          "upstream": {
+            "name": "antiSMASH",
+            "type": "github",
+            "homepage": "https://antismash.secondarymetabolites.org/",
+            "repository": "antismash/antismash",
+            "release_url": "https://github.com/antismash/antismash/tree/8-0-4",
+            "version": "8-0-4",
+            "license": "AGPL-3.0-or-later; bundled databases, third-party tools, and data resources retain their own upstream terms",
+            "citation": "Blin et al. 2025, antiSMASH 8.0",
+            "doi": "10.1093/nar/gkaf334",
+            "pmid": "40276974"
           }
         }
       }
@@ -3176,6 +3304,127 @@
             "citation": "Krzywinski et al. 2009",
             "doi": "10.1101/gr.092759.109",
             "pmid": "19541911"
+          }
+        }
+      }
+    },
+    "clinker": {
+      "name": "clinker",
+      "latest": "0.0.32-r1",
+      "repository_url": "https://github.com/taffish/clinker",
+      "command": {
+        "name": "taf-clinker"
+      },
+      "versions": {
+        "0.0.32-r1": {
+          "name": "clinker",
+          "kind": "tool",
+          "version": "0.0.32",
+          "release": 1,
+          "version_id": "0.0.32-r1",
+          "tag": "v0.0.32-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/clinker",
+          "repository_slug": "taffish/clinker",
+          "command": {
+            "name": "taf-clinker"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "gene-cluster",
+            "categories": [
+              "gene-cluster",
+              "comparative-genomics",
+              "visualisation",
+              "biosynthetic-gene-clusters"
+            ],
+            "keywords": [
+              "clinker",
+              "clustermap",
+              "genbank",
+              "gff3",
+              "gene-cluster",
+              "biosynthetic-gene-cluster",
+              "synteny",
+              "html-report",
+              "svg"
+            ],
+            "summary": "clinker 0.0.32 for comparing gene clusters from GenBank or GFF3 inputs and generating alignment summaries, sessions, similarity matrices, and static clustermap.js HTML visualisations.",
+            "description": "clinker 0.0.32 for comparing gene clusters from GenBank or GFF3 inputs and generating alignment summaries, sessions, similarity matrices, and static clustermap.js HTML visualisations."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/clinker:0.0.32-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.0.32-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6818c3aa6e3a1b0adbad1e70ac4084a9e19ac793fb16ea7ea75cd765c8d46d51",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:36317107a8bb6cee67d40e3f1236964e83756b226ddc6575a1f7715742780252",
+              "linux/arm64": "sha256:bb592fc8fe26b2a7fc373a51d51f0ecfc547c88ba06d1d3eb960fb63da026a20"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "clinker",
+              "python",
+              "python3"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata; print(importlib.metadata.version(\"clinker\"))')\" = '0.0.32' && clinker --version | grep -Fx 'clinker v0.0.32' >/dev/null",
+              "clinker --help 2>&1 | grep -F 'gene cluster comparison figures' >/dev/null && clinker --help 2>&1 | grep -F -- '--plot' >/dev/null && python -c 'import pathlib; import clinker, Bio, numpy, scipy, gffutils, disjoint_set, clinker.plot; d = pathlib.Path(clinker.plot.__file__).parent / \"plot\"; assert (d / \"index.html\").is_file(); assert (d / \"clustermap.min.js\").is_file()'",
+              "mkdir -p /tmp/taf-clinker-gbk && cd /tmp/taf-clinker-gbk && cp '/opt/clinker/examples/A. alliaceus CBS 536.65.gbk' a.gbk && cp '/opt/clinker/examples/A. versicolor CBS 583.65.gbk' b.gbk && clinker a.gbk b.gbk -o alignments.csv -dl ',' -dc 3 -s session.json -ji 2 -mo matrix.tsv -p plot.html -j 1 -f >/tmp/taf-clinker-gbk.log 2>&1 && test -s alignments.csv && test -s session.json && test -s matrix.tsv && test -s plot.html && grep -F '\"clusters\"' session.json >/dev/null && grep -F 'clustermap' plot.html >/dev/null",
+              "mkdir -p /tmp/taf-clinker-gff && cd /tmp/taf-clinker-gff && printf '>ctg1\\nATGAAAACCGCTTACATTGCTAAACAAAGACAAATTTCCTTCGTGAAATCCCATTTC\\n' > a.fa && printf '>ctg2\\nATGAAAACCGCTTACATTGCTAAACAAAGACAAATTTCCTTCGTGAAATCCCATTTC\\n' > b.fa && printf '##gff-version 3\\n##sequence-region ctg1 1 60\\nctg1\\tTAFFISH\\tgene\\t1\\t60\\t.\\t+\\t.\\tID=gene_a\\nctg1\\tTAFFISH\\tCDS\\t1\\t60\\t.\\t+\\t0\\tID=cds_a;Parent=gene_a;locus_tag=gene_a;translation=MKTAYIAKQRQISFVKSHF\\n' > a.gff3 && printf '##gff-version 3\\n##sequence-region ctg2 1 60\\nctg2\\tTAFFISH\\tgene\\t1\\t60\\t.\\t+\\t.\\tID=gene_b\\nctg2\\tTAFFISH\\tCDS\\t1\\t60\\t.\\t+\\t0\\tID=cds_b;Parent=gene_b;locus_tag=gene_b;translation=MKTAYIAKQRQISFVKSHF\\n' > b.gff3 && clinker a.gff3 b.gff3 -na -s session.json -ji 2 -p plot.html -f >/tmp/taf-clinker-gff.log 2>&1 && test -s session.json && test -s plot.html && grep -F 'gene_a' session.json >/dev/null && grep -F 'clustermap' plot.html >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-02T02:27:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-02T02:27:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/clinker",
+            "ref": "v0.0.32-r1",
+            "commit": "6d8ebdc652c45072dd02023457a7bfca3624cd2c",
+            "html_url": "https://github.com/taffish/clinker/tree/v0.0.32-r1"
+          },
+          "upstream": {
+            "name": "clinker",
+            "type": "github",
+            "homepage": "https://github.com/gamcil/clinker",
+            "repository": "gamcil/clinker",
+            "release_url": "https://github.com/gamcil/clinker/tree/v0.0.32",
+            "version": "0.0.32",
+            "license": "MIT",
+            "citation": "Gilchrist and Chooi 2021",
+            "doi": "10.1093/bioinformatics/btab007",
+            "pmid": "33459763"
           }
         }
       }
@@ -10578,6 +10827,138 @@
             "citation": "Kokot et al. 2017; Deorowicz et al. 2015; Deorowicz et al. 2013",
             "doi": "10.1093/bioinformatics/btx304; 10.1093/bioinformatics/btv022; 10.1186/1471-2105-14-160",
             "pmid": "28472236; 25609798; 23679007"
+          }
+        }
+      }
+    },
+    "kofamscan": {
+      "name": "kofamscan",
+      "latest": "1.3.0-r1",
+      "repository_url": "https://github.com/taffish/kofamscan",
+      "command": {
+        "name": "taf-kofamscan"
+      },
+      "versions": {
+        "1.3.0-r1": {
+          "name": "kofamscan",
+          "kind": "tool",
+          "version": "1.3.0",
+          "release": 1,
+          "version_id": "1.3.0-r1",
+          "tag": "v1.3.0-r1",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/kofamscan",
+          "repository_slug": "taffish/kofamscan",
+          "command": {
+            "name": "taf-kofamscan"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "functional-annotation",
+            "categories": [
+              "functional-annotation",
+              "orthology",
+              "protein-annotation",
+              "genome-annotation",
+              "metagenome-annotation"
+            ],
+            "keywords": [
+              "kofamscan",
+              "kofam",
+              "kofamkoala",
+              "kegg",
+              "ko",
+              "orthology",
+              "hmmer",
+              "hmmsearch",
+              "protein-annotation"
+            ],
+            "summary": "KofamScan 1.3.0 runtime for KEGG Orthology assignment with user-provided KOfam HMM profiles and ko_list files.",
+            "description": "KofamScan 1.3.0 runtime for KEGG Orthology assignment with user-provided KOfam HMM profiles and ko_list files."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/kofamscan:1.3.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6c6e0eee68e6d0f3174a5cb2383ec825b0e6e8c2ba07e5b2b6261b7a7cf8c0e0",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:8427eadbd59402688be368387c76b3817c48325d182400fac9c312e86aaa63e6",
+              "linux/arm64": "sha256:5388b3b1f97a3ad2a41b6c2d5cbf2414908016db18d8f35ec44cfa94a17f3748"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "exec_annotation",
+              "ruby",
+              "parallel",
+              "hmmsearch",
+              "hmmbuild",
+              "hmmpress",
+              "hmmstat",
+              "gzip",
+              "tar",
+              "awk",
+              "sed",
+              "grep",
+              "sh"
+            ],
+            "test": [
+              "exec_annotation --version | grep -Fx 'exec_annotation 1.3.0' >/dev/null && exec_annotation --help | grep -F 'FASTA formatted query sequence file' >/dev/null && ruby -I/opt/kofam_scan/lib -e 'require \"kofam_scan\"; abort unless KofamScan::VERSION == \"1.3.0\"'",
+              "parallel --version | grep -F 'GNU parallel' >/dev/null && hmmsearch -h 2>&1 | grep -F 'HMMER' >/dev/null && hmmbuild -h 2>&1 | grep -F 'HMMER' >/dev/null && hmmpress -h 2>&1 | grep -F 'HMMER' >/dev/null",
+              "mkdir -p /tmp/taf-kofamscan-smoke && exec_annotation -p /opt/kofam_scan/test-fixtures/profiles/smoke.hal -k /opt/kofam_scan/test-fixtures/ko_list --tmp-dir /tmp/taf-kofamscan-smoke/tmp --cpu 1 -f mapper -o /tmp/taf-kofamscan-smoke/result.tsv /opt/kofam_scan/test-fixtures/query.fa >/tmp/taf-kofamscan-smoke/run.log 2>&1 && test -s /tmp/taf-kofamscan-smoke/result.tsv && grep -F 'smoke_gene' /tmp/taf-kofamscan-smoke/result.tsv >/dev/null && grep -F 'K99999' /tmp/taf-kofamscan-smoke/result.tsv >/dev/null && test -s /tmp/taf-kofamscan-smoke/tmp/tabular/tabular.txt",
+              "mkdir -p /tmp/taf-kofamscan-align && exec_annotation -p /opt/kofam_scan/test-fixtures/profiles -k /opt/kofam_scan/test-fixtures/ko_list --tmp-dir /tmp/taf-kofamscan-align/tmp --cpu 1 --create-alignment --keep-output -f detail-tsv -o /tmp/taf-kofamscan-align/result.tsv /opt/kofam_scan/test-fixtures/query.fa >/tmp/taf-kofamscan-align/run.log 2>&1 && test -s /tmp/taf-kofamscan-align/result.tsv && grep -F 'K99999' /tmp/taf-kofamscan-align/result.tsv >/dev/null && test -s /tmp/taf-kofamscan-align/tmp/alignment/smoke_gene && test -s /tmp/taf-kofamscan-align/tmp/output/K99999"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-02T02:27:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-02T02:27:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/kofamscan",
+            "ref": "v1.3.0-r1",
+            "commit": "a04fb1ee3550e96729c63a281dbe610cc564f424",
+            "html_url": "https://github.com/taffish/kofamscan/tree/v1.3.0-r1"
+          },
+          "upstream": {
+            "name": "KofamScan",
+            "type": "github",
+            "homepage": "https://www.genome.jp/tools/kofamkoala/",
+            "repository": "takaram/kofam_scan",
+            "release_url": "https://github.com/takaram/kofam_scan/releases/tag/v1.3.0",
+            "version": "1.3.0",
+            "license": "MIT",
+            "citation": "Aramaki et al. 2020",
+            "doi": "10.1093/bioinformatics/btz859",
+            "pmid": "31742321"
           }
         }
       }
@@ -23680,6 +24061,10 @@
       "package": "agat",
       "version": "1.7.0-r1"
     },
+    "taf-antismash": {
+      "package": "antismash",
+      "version": "8.0.4-r2"
+    },
     "taf-augustus": {
       "package": "augustus",
       "version": "3.5.0-r1"
@@ -23755,6 +24140,10 @@
     "taf-circos": {
       "package": "circos",
       "version": "0.69-10-r1"
+    },
+    "taf-clinker": {
+      "package": "clinker",
+      "version": "0.0.32-r1"
     },
     "taf-clipkit": {
       "package": "clipkit",
@@ -23911,6 +24300,10 @@
     "taf-kmc": {
       "package": "kmc",
       "version": "3.2.4-r1"
+    },
+    "taf-kofamscan": {
+      "package": "kofamscan",
+      "version": "1.3.0-r1"
     },
     "taf-mafft": {
       "package": "mafft",
@@ -24188,6 +24581,12 @@
         "agat"
       ]
     },
+    "taffish/antismash": {
+      "repository": "taffish/antismash",
+      "packages": [
+        "antismash"
+      ]
+    },
     "taffish/augustus": {
       "repository": "taffish/augustus",
       "packages": [
@@ -24300,6 +24699,12 @@
       "repository": "taffish/circos",
       "packages": [
         "circos"
+      ]
+    },
+    "taffish/clinker": {
+      "repository": "taffish/clinker",
+      "packages": [
+        "clinker"
       ]
     },
     "taffish/clipkit": {
@@ -24534,6 +24939,12 @@
       "repository": "taffish/kmc",
       "packages": [
         "kmc"
+      ]
+    },
+    "taffish/kofamscan": {
+      "repository": "taffish/kofamscan",
+      "packages": [
+        "kofamscan"
       ]
     },
     "taffish/mafft": {

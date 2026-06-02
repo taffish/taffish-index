@@ -1,0 +1,121 @@
+{
+  "name": "clinker",
+  "latest": "0.0.32-r1",
+  "repository_url": "https://github.com/taffish/clinker",
+  "command": {
+    "name": "taf-clinker"
+  },
+  "versions": {
+    "0.0.32-r1": {
+      "name": "clinker",
+      "kind": "tool",
+      "version": "0.0.32",
+      "release": 1,
+      "version_id": "0.0.32-r1",
+      "tag": "v0.0.32-r1",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/clinker",
+      "repository_slug": "taffish/clinker",
+      "command": {
+        "name": "taf-clinker"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "gene-cluster",
+        "categories": [
+          "gene-cluster",
+          "comparative-genomics",
+          "visualisation",
+          "biosynthetic-gene-clusters"
+        ],
+        "keywords": [
+          "clinker",
+          "clustermap",
+          "genbank",
+          "gff3",
+          "gene-cluster",
+          "biosynthetic-gene-cluster",
+          "synteny",
+          "html-report",
+          "svg"
+        ],
+        "summary": "clinker 0.0.32 for comparing gene clusters from GenBank or GFF3 inputs and generating alignment summaries, sessions, similarity matrices, and static clustermap.js HTML visualisations.",
+        "description": "clinker 0.0.32 for comparing gene clusters from GenBank or GFF3 inputs and generating alignment summaries, sessions, similarity matrices, and static clustermap.js HTML visualisations."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/clinker:0.0.32-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.0.32-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6818c3aa6e3a1b0adbad1e70ac4084a9e19ac793fb16ea7ea75cd765c8d46d51",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:36317107a8bb6cee67d40e3f1236964e83756b226ddc6575a1f7715742780252",
+          "linux/arm64": "sha256:bb592fc8fe26b2a7fc373a51d51f0ecfc547c88ba06d1d3eb960fb63da026a20"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "clinker",
+          "python",
+          "python3"
+        ],
+        "test": [
+          "test \"$(python -c 'import importlib.metadata; print(importlib.metadata.version(\"clinker\"))')\" = '0.0.32' && clinker --version | grep -Fx 'clinker v0.0.32' >/dev/null",
+          "clinker --help 2>&1 | grep -F 'gene cluster comparison figures' >/dev/null && clinker --help 2>&1 | grep -F -- '--plot' >/dev/null && python -c 'import pathlib; import clinker, Bio, numpy, scipy, gffutils, disjoint_set, clinker.plot; d = pathlib.Path(clinker.plot.__file__).parent / \"plot\"; assert (d / \"index.html\").is_file(); assert (d / \"clustermap.min.js\").is_file()'",
+          "mkdir -p /tmp/taf-clinker-gbk && cd /tmp/taf-clinker-gbk && cp '/opt/clinker/examples/A. alliaceus CBS 536.65.gbk' a.gbk && cp '/opt/clinker/examples/A. versicolor CBS 583.65.gbk' b.gbk && clinker a.gbk b.gbk -o alignments.csv -dl ',' -dc 3 -s session.json -ji 2 -mo matrix.tsv -p plot.html -j 1 -f >/tmp/taf-clinker-gbk.log 2>&1 && test -s alignments.csv && test -s session.json && test -s matrix.tsv && test -s plot.html && grep -F '\"clusters\"' session.json >/dev/null && grep -F 'clustermap' plot.html >/dev/null",
+          "mkdir -p /tmp/taf-clinker-gff && cd /tmp/taf-clinker-gff && printf '>ctg1\\nATGAAAACCGCTTACATTGCTAAACAAAGACAAATTTCCTTCGTGAAATCCCATTTC\\n' > a.fa && printf '>ctg2\\nATGAAAACCGCTTACATTGCTAAACAAAGACAAATTTCCTTCGTGAAATCCCATTTC\\n' > b.fa && printf '##gff-version 3\\n##sequence-region ctg1 1 60\\nctg1\\tTAFFISH\\tgene\\t1\\t60\\t.\\t+\\t.\\tID=gene_a\\nctg1\\tTAFFISH\\tCDS\\t1\\t60\\t.\\t+\\t0\\tID=cds_a;Parent=gene_a;locus_tag=gene_a;translation=MKTAYIAKQRQISFVKSHF\\n' > a.gff3 && printf '##gff-version 3\\n##sequence-region ctg2 1 60\\nctg2\\tTAFFISH\\tgene\\t1\\t60\\t.\\t+\\t.\\tID=gene_b\\nctg2\\tTAFFISH\\tCDS\\t1\\t60\\t.\\t+\\t0\\tID=cds_b;Parent=gene_b;locus_tag=gene_b;translation=MKTAYIAKQRQISFVKSHF\\n' > b.gff3 && clinker a.gff3 b.gff3 -na -s session.json -ji 2 -p plot.html -f >/tmp/taf-clinker-gff.log 2>&1 && test -s session.json && test -s plot.html && grep -F 'gene_a' session.json >/dev/null && grep -F 'clustermap' plot.html >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-02T02:27:38Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-02T02:27:38Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/clinker",
+        "ref": "v0.0.32-r1",
+        "commit": "6d8ebdc652c45072dd02023457a7bfca3624cd2c",
+        "html_url": "https://github.com/taffish/clinker/tree/v0.0.32-r1"
+      },
+      "upstream": {
+        "name": "clinker",
+        "type": "github",
+        "homepage": "https://github.com/gamcil/clinker",
+        "repository": "gamcil/clinker",
+        "release_url": "https://github.com/gamcil/clinker/tree/v0.0.32",
+        "version": "0.0.32",
+        "license": "MIT",
+        "citation": "Gilchrist and Chooi 2021",
+        "doi": "10.1093/bioinformatics/btab007",
+        "pmid": "33459763"
+      }
+    }
+  }
+}

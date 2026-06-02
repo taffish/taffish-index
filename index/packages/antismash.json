@@ -1,0 +1,128 @@
+{
+  "name": "antismash",
+  "latest": "8.0.4-r2",
+  "repository_url": "https://github.com/taffish/antismash",
+  "command": {
+    "name": "taf-antismash"
+  },
+  "versions": {
+    "8.0.4-r2": {
+      "name": "antismash",
+      "kind": "tool",
+      "version": "8.0.4",
+      "release": 2,
+      "version_id": "8.0.4-r2",
+      "tag": "v8.0.4-r2",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/antismash",
+      "repository_slug": "taffish/antismash",
+      "command": {
+        "name": "taf-antismash"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-mining",
+        "categories": [
+          "genome-mining",
+          "annotation",
+          "secondary-metabolism",
+          "bgc",
+          "microbial-genomics"
+        ],
+        "keywords": [
+          "antismash",
+          "biosynthetic gene cluster",
+          "bgc",
+          "secondary metabolism",
+          "natural products",
+          "genome mining",
+          "clusterblast",
+          "mibig",
+          "nrps",
+          "pks"
+        ],
+        "summary": "antiSMASH 8.0.4 standalone runtime for bacterial and fungal secondary metabolite biosynthetic gene cluster prediction.",
+        "description": "antiSMASH 8.0.4 standalone runtime for bacterial and fungal secondary metabolite biosynthetic gene cluster prediction."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/antismash:8.0.4-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "8.0.4-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:9783f4d89ef03bce1bc7d9e58339b95130cc2416c88ae518d24eedcf61173cdc",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:e526f65793f036ada0b51d29d0ba3c0a070c9bbb749f0b7625a781fbb2006def"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "antismash",
+          "download-antismash-databases",
+          "python3",
+          "diamond",
+          "hmmscan",
+          "hmmsearch",
+          "prodigal",
+          "blastp",
+          "makeblastdb"
+        ],
+        "test": [
+          "python3 -c 'import antismash; print(antismash.__version__)' | grep -Fx '8.0.4' >/dev/null && antismash --version 2>&1 | grep -F '8.0.4' >/dev/null",
+          "antismash --help 2>&1 | grep -F 'usage: antismash' >/dev/null && antismash --help-showall 2>&1 | grep -F -- '--minimal' >/dev/null && antismash --help-showall 2>&1 | grep -F -- '--taxon' >/dev/null",
+          "test -d /local/databases && find -L /local/databases -mindepth 1 -print | head -n 1 | grep -q . && python3 -c 'import antismash; antismash.config.build_config([\"--databases\", \"/local/databases\"], modules=antismash.get_all_modules()); antismash.main.prepare_module_data()'",
+          "diamond version 2>&1 | grep -F 'diamond' >/dev/null && hmmscan -h 2>&1 | grep -F 'HMMER' >/dev/null && hmmsearch -h 2>&1 | grep -F 'HMMER' >/dev/null && prodigal -v 2>&1 | grep -F 'Prodigal' >/dev/null && blastp -version 2>&1 | grep -F 'blastp' >/dev/null",
+          "tmp=/tmp/taf-antismash-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python3 -c 'print(\">tiny\\n\" + \"ATG\" + \"GCT\" * 998 + \"TAA\")' > \"$tmp/tiny.fa\"; antismash --taxon bacteria --genefinding-tool prodigal --minimal --output-dir \"$tmp/out\" \"$tmp/tiny.fa\" >/tmp/taf-antismash-smoke.log 2>&1; find \"$tmp/out\" -type f -name \"*.json\" | grep -q .; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-02T02:27:38Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-02T02:27:38Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/antismash",
+        "ref": "v8.0.4-r2",
+        "commit": "e38892ebf748a9196f45415c012e70c772e4c5a2",
+        "html_url": "https://github.com/taffish/antismash/tree/v8.0.4-r2"
+      },
+      "upstream": {
+        "name": "antiSMASH",
+        "type": "github",
+        "homepage": "https://antismash.secondarymetabolites.org/",
+        "repository": "antismash/antismash",
+        "release_url": "https://github.com/antismash/antismash/tree/8-0-4",
+        "version": "8-0-4",
+        "license": "AGPL-3.0-or-later; bundled databases, third-party tools, and data resources retain their own upstream terms",
+        "citation": "Blin et al. 2025, antiSMASH 8.0",
+        "doi": "10.1093/nar/gkaf334",
+        "pmid": "40276974"
+      }
+    }
+  }
+}
