@@ -1,13 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-06-02T06:03:17Z",
+  "generated_at": "2026-06-03T02:29:04Z",
   "organization": "taffish",
   "counts": {
-    "failed": 0,
+    "failed": 1,
     "rejected": 4,
     "warnings": 0
   },
-  "failed": [],
+  "failed": [
+    {
+      "repository": "taffish/bakta",
+      "ref": "v1.12.0-r1",
+      "version_id": "1.12.0-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (docker, exit 1): python3 -c 'import bakta; print(bakta.__version__, bakta.__db_schema_version__)' | grep -Fx '1.12.0 6' >/dev/null && bakta_db list 2>&1 | grep -F 'Required database schema version: 6' >/dev/null && bakta_db list 2>&1 | grep -F '6.0' >/dev/null\nstdout: \nstderr: ",
+      "image": "ghcr.io/taffish/bakta:1.12.0-r1"
+    }
+  ],
   "rejected": [
     {
       "repository": "taffish/antismash",
