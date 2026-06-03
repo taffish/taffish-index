@@ -1,0 +1,138 @@
+{
+  "name": "bakta",
+  "latest": "1.12.0-r2",
+  "recent_version": "1.12.0-r2",
+  "recent_at": "2026-06-03T02:48:58Z",
+  "repository_url": "https://github.com/taffish/bakta",
+  "command": {
+    "name": "taf-bakta"
+  },
+  "versions": {
+    "1.12.0-r2": {
+      "name": "bakta",
+      "kind": "tool",
+      "version": "1.12.0",
+      "release": 2,
+      "version_id": "1.12.0-r2",
+      "tag": "v1.12.0-r2",
+      "published_at": "2026-06-03T02:48:58Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bakta",
+      "repository_slug": "taffish/bakta",
+      "command": {
+        "name": "taf-bakta"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-annotation",
+        "categories": [
+          "genome-annotation",
+          "prokaryotic-genomics",
+          "bacterial-genomics",
+          "plasmid-annotation",
+          "functional-annotation"
+        ],
+        "keywords": [
+          "bakta",
+          "bacterial-genome-annotation",
+          "prokaryotic-annotation",
+          "plasmid",
+          "mag",
+          "gff3",
+          "genbank",
+          "amrfinder",
+          "diamond",
+          "trnascan-se",
+          "aragorn",
+          "infernal"
+        ],
+        "summary": "Bakta 1.12.0 runtime for rapid standardized bacterial, plasmid, and MAG annotation. Production Bakta databases are mandatory and user-provided via --db or BAKTA_DB.",
+        "description": "Bakta 1.12.0 runtime for rapid standardized bacterial, plasmid, and MAG annotation. Production Bakta databases are mandatory and user-provided via --db or BAKTA_DB."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bakta:1.12.0-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.12.0-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:84a8b75e25b925162b7e686a08a523a70a1ee6a0b42ec3cd3d87e3f9ec0eedc9",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:628dbbf7e6e60449eb81227b14b6ff9e4605fe99e5e8a02c95ba0a601d482895"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "bakta",
+          "bakta_db",
+          "bakta_proteins",
+          "bakta_plot",
+          "bakta_io",
+          "python3",
+          "diamond",
+          "blastn",
+          "makeblastdb",
+          "amrfinder",
+          "tRNAscan-SE",
+          "aragorn",
+          "cmscan",
+          "cmpress",
+          "pilercr"
+        ],
+        "test": [
+          "bakta --version 2>&1 | grep -F 'bakta 1.12.0' >/dev/null && bakta --help 2>&1 | grep -F 'usage: bakta' >/dev/null && bakta_db --help 2>&1 | grep -F '{list,download,install,update}' >/dev/null && bakta_proteins --help 2>&1 | grep -F 'usage: bakta_proteins' >/dev/null && bakta_plot --help 2>&1 | grep -F 'usage: bakta_plot' >/dev/null && bakta_io --help 2>&1 | grep -F 'usage: bakta_io' >/dev/null",
+          "python3 -c 'import bakta; print(bakta.__version__, bakta.__db_schema_version__)' | grep -Fx '1.12.0 6' >/dev/null && bakta_db --version 2>&1 | grep -F 'bakta_db 1.12.0' >/dev/null",
+          "diamond version 2>&1 | grep -F 'diamond version 2.1.21' >/dev/null && blastn -version 2>&1 | grep -F 'blastn: 2.17.0' >/dev/null && makeblastdb -version 2>&1 | grep -F 'makeblastdb: 2.17.0' >/dev/null && amrfinder --version 2>&1 | grep -Fx '4.2.7' >/dev/null && tRNAscan-SE -h 2>&1 | grep -F 'tRNAscan-SE 2.0.12' >/dev/null && aragorn -h 2>&1 | grep -F 'ARAGORN v1.2.41' >/dev/null && cmscan -h 2>&1 | grep -F 'INFERNAL 1.1.5' >/dev/null && pilercr -h 2>&1 | grep -F 'pilercr v1.06' >/dev/null",
+          "tmp=/tmp/taf-bakta-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>tiny\\nATGAAATAA\\n' > \"$tmp/tiny.fa\"; if bakta --db \"$tmp/no-db\" --output \"$tmp/out\" --prefix tiny \"$tmp/tiny.fa\" > \"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; fi; grep -Ei 'database|db' \"$tmp/run.log\" >/dev/null; test ! -e \"$tmp/out/tiny.gff3\"; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-03T03:08:34Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-03T03:08:34Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bakta",
+        "ref": "v1.12.0-r2",
+        "commit": "e44f55d25875fe41513aec5d36c01ed723b29985",
+        "html_url": "https://github.com/taffish/bakta/tree/v1.12.0-r2"
+      },
+      "upstream": {
+        "name": "Bakta",
+        "type": "github",
+        "homepage": "https://bakta.readthedocs.io/",
+        "repository": "oschwengers/bakta",
+        "release_url": "https://github.com/oschwengers/bakta/releases/tag/v1.12.0",
+        "version": "1.12.0",
+        "license": "GPL-3.0",
+        "citation": "Schwengers et al. 2021",
+        "doi": "10.1099/mgen.0.000685"
+      }
+    }
+  }
+}

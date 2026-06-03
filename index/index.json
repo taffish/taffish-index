@@ -1,15 +1,15 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-03T02:29:04Z",
+  "generated_at": "2026-06-03T03:08:34Z",
   "organization": "taffish",
   "counts": {
-    "packages": 129,
-    "versions": 196,
-    "commands": 129,
-    "repositories": 129,
+    "packages": 131,
+    "versions": 198,
+    "commands": 131,
+    "repositories": 131,
     "warnings": 0,
-    "failed": 1,
-    "rejected": 4
+    "failed": 0,
+    "rejected": 5
   },
   "packages": {
     "agat": {
@@ -506,6 +506,144 @@
             "citation": "Eberhardt et al. 2021",
             "doi": "10.1021/acs.jcim.1c00203",
             "pmid": "34278794"
+          }
+        }
+      }
+    },
+    "bakta": {
+      "name": "bakta",
+      "latest": "1.12.0-r2",
+      "recent_version": "1.12.0-r2",
+      "recent_at": "2026-06-03T02:48:58Z",
+      "repository_url": "https://github.com/taffish/bakta",
+      "command": {
+        "name": "taf-bakta"
+      },
+      "versions": {
+        "1.12.0-r2": {
+          "name": "bakta",
+          "kind": "tool",
+          "version": "1.12.0",
+          "release": 2,
+          "version_id": "1.12.0-r2",
+          "tag": "v1.12.0-r2",
+          "published_at": "2026-06-03T02:48:58Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bakta",
+          "repository_slug": "taffish/bakta",
+          "command": {
+            "name": "taf-bakta"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-annotation",
+            "categories": [
+              "genome-annotation",
+              "prokaryotic-genomics",
+              "bacterial-genomics",
+              "plasmid-annotation",
+              "functional-annotation"
+            ],
+            "keywords": [
+              "bakta",
+              "bacterial-genome-annotation",
+              "prokaryotic-annotation",
+              "plasmid",
+              "mag",
+              "gff3",
+              "genbank",
+              "amrfinder",
+              "diamond",
+              "trnascan-se",
+              "aragorn",
+              "infernal"
+            ],
+            "summary": "Bakta 1.12.0 runtime for rapid standardized bacterial, plasmid, and MAG annotation. Production Bakta databases are mandatory and user-provided via --db or BAKTA_DB.",
+            "description": "Bakta 1.12.0 runtime for rapid standardized bacterial, plasmid, and MAG annotation. Production Bakta databases are mandatory and user-provided via --db or BAKTA_DB."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bakta:1.12.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.12.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:84a8b75e25b925162b7e686a08a523a70a1ee6a0b42ec3cd3d87e3f9ec0eedc9",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:628dbbf7e6e60449eb81227b14b6ff9e4605fe99e5e8a02c95ba0a601d482895"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "bakta",
+              "bakta_db",
+              "bakta_proteins",
+              "bakta_plot",
+              "bakta_io",
+              "python3",
+              "diamond",
+              "blastn",
+              "makeblastdb",
+              "amrfinder",
+              "tRNAscan-SE",
+              "aragorn",
+              "cmscan",
+              "cmpress",
+              "pilercr"
+            ],
+            "test": [
+              "bakta --version 2>&1 | grep -F 'bakta 1.12.0' >/dev/null && bakta --help 2>&1 | grep -F 'usage: bakta' >/dev/null && bakta_db --help 2>&1 | grep -F '{list,download,install,update}' >/dev/null && bakta_proteins --help 2>&1 | grep -F 'usage: bakta_proteins' >/dev/null && bakta_plot --help 2>&1 | grep -F 'usage: bakta_plot' >/dev/null && bakta_io --help 2>&1 | grep -F 'usage: bakta_io' >/dev/null",
+              "python3 -c 'import bakta; print(bakta.__version__, bakta.__db_schema_version__)' | grep -Fx '1.12.0 6' >/dev/null && bakta_db --version 2>&1 | grep -F 'bakta_db 1.12.0' >/dev/null",
+              "diamond version 2>&1 | grep -F 'diamond version 2.1.21' >/dev/null && blastn -version 2>&1 | grep -F 'blastn: 2.17.0' >/dev/null && makeblastdb -version 2>&1 | grep -F 'makeblastdb: 2.17.0' >/dev/null && amrfinder --version 2>&1 | grep -Fx '4.2.7' >/dev/null && tRNAscan-SE -h 2>&1 | grep -F 'tRNAscan-SE 2.0.12' >/dev/null && aragorn -h 2>&1 | grep -F 'ARAGORN v1.2.41' >/dev/null && cmscan -h 2>&1 | grep -F 'INFERNAL 1.1.5' >/dev/null && pilercr -h 2>&1 | grep -F 'pilercr v1.06' >/dev/null",
+              "tmp=/tmp/taf-bakta-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>tiny\\nATGAAATAA\\n' > \"$tmp/tiny.fa\"; if bakta --db \"$tmp/no-db\" --output \"$tmp/out\" --prefix tiny \"$tmp/tiny.fa\" > \"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; fi; grep -Ei 'database|db' \"$tmp/run.log\" >/dev/null; test ! -e \"$tmp/out/tiny.gff3\"; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-03T03:08:34Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-03T03:08:34Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bakta",
+            "ref": "v1.12.0-r2",
+            "commit": "e44f55d25875fe41513aec5d36c01ed723b29985",
+            "html_url": "https://github.com/taffish/bakta/tree/v1.12.0-r2"
+          },
+          "upstream": {
+            "name": "Bakta",
+            "type": "github",
+            "homepage": "https://bakta.readthedocs.io/",
+            "repository": "oschwengers/bakta",
+            "release_url": "https://github.com/oschwengers/bakta/releases/tag/v1.12.0",
+            "version": "1.12.0",
+            "license": "GPL-3.0",
+            "citation": "Schwengers et al. 2021",
+            "doi": "10.1099/mgen.0.000685"
           }
         }
       }
@@ -15373,6 +15511,145 @@
         }
       }
     },
+    "pfam-scan": {
+      "name": "pfam-scan",
+      "latest": "1.6-r1",
+      "recent_version": "1.6-r1",
+      "recent_at": "2026-06-03T02:50:33Z",
+      "repository_url": "https://github.com/taffish/pfam-scan",
+      "command": {
+        "name": "taf-pfam-scan"
+      },
+      "versions": {
+        "1.6-r1": {
+          "name": "pfam-scan",
+          "kind": "tool",
+          "version": "1.6",
+          "release": 1,
+          "version_id": "1.6-r1",
+          "tag": "v1.6-r1",
+          "published_at": "2026-06-03T02:50:33Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/pfam-scan",
+          "repository_slug": "taffish/pfam-scan",
+          "command": {
+            "name": "taf-pfam-scan"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "functional-annotation",
+            "categories": [
+              "functional-annotation",
+              "protein-annotation",
+              "domain-annotation",
+              "profile-hmm",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "pfam",
+              "pfam-scan",
+              "pfam_scan",
+              "pfam_scan.pl",
+              "hmmer",
+              "hmmscan",
+              "protein-domain",
+              "active-site",
+              "hmm"
+            ],
+            "summary": "Official PfamScan 1.6 pfam_scan.pl runtime for scanning protein FASTA sequences against user-provided Pfam HMM libraries.",
+            "description": "Official PfamScan 1.6 pfam_scan.pl runtime for scanning protein FASTA sequences against user-provided Pfam HMM libraries."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/pfam-scan:1.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:25c5344acd34f8567b73a6193e08366e8f7e15dd8faebe9b805ec35556329a88",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0f5c4cb66ef3db837526cf41ffa1608416e7c77b8a42963f739e0fb46bd546ef",
+              "linux/arm64": "sha256:8bc2f1899abe7999a817fadd525098e337923c20c1223c32c8c0b9f50e81cc7a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "pfam_scan.pl",
+              "perl",
+              "hmmscan",
+              "hmmalign",
+              "hmmbuild",
+              "hmmpress",
+              "hmmstat",
+              "translate",
+              "gzip",
+              "gunzip",
+              "tar",
+              "awk",
+              "sed",
+              "grep",
+              "sh"
+            ],
+            "test": [
+              "grep -F 'my $VERSION = \"1.6\"' /opt/pfam_scan/pfam_scan.pl >/dev/null && pfam_scan.pl -h 2>&1 | grep -F 'pfam_scan.pl: search a FASTA file against a library of Pfam HMMs' >/dev/null && hmmscan -h 2>&1 | grep -F '# HMMER 3.4' >/dev/null && translate -h 2>&1 | grep -F 'translate' >/dev/null",
+              "perl -I/opt/pfam_scan -MBio::Pfam::Scan::PfamScan -MBio::Seq::RichSeq -MIPC::Run -MJSON -e 'print \"pfam perl deps ok\\n\"' | grep -Fx 'pfam perl deps ok' >/dev/null",
+              "mkdir -p /tmp/taf-pfam-scan-smoke && pfam_scan.pl -fasta /opt/pfam_scan/test-fixtures/query.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -outfile /tmp/taf-pfam-scan-smoke/result.txt >/tmp/taf-pfam-scan-smoke/run.log 2>&1 && test -s /tmp/taf-pfam-scan-smoke/result.txt && grep -F 'pfam_scan.pl' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null && grep -F 'smoke_gene' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null && grep -F 'PF99999.1' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null && grep -F 'PFAMSMOKE' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null",
+              "mkdir -p /tmp/taf-pfam-scan-json && pfam_scan.pl -fasta /opt/pfam_scan/test-fixtures/query.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -json pretty >/tmp/taf-pfam-scan-json/result.json 2>/tmp/taf-pfam-scan-json/run.log && test -s /tmp/taf-pfam-scan-json/result.json && grep -F 'smoke_gene' /tmp/taf-pfam-scan-json/result.json >/dev/null && grep -F 'PF99999.1' /tmp/taf-pfam-scan-json/result.json >/dev/null",
+              "mkdir -p /tmp/taf-pfam-scan-as && pfam_scan.pl -fasta /opt/pfam_scan/test-fixtures/query.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -as -outfile /tmp/taf-pfam-scan-as/result.txt >/tmp/taf-pfam-scan-as/run.log 2>&1 && test -s /tmp/taf-pfam-scan-as/result.txt && grep -F 'PF99999.1' /tmp/taf-pfam-scan-as/result.txt >/dev/null",
+              "mkdir -p /tmp/taf-pfam-scan-translate && cp /opt/pfam_scan/test-fixtures/query_dna.fa /tmp/taf-pfam-scan-translate/query_dna.fa && pfam_scan.pl -fasta /tmp/taf-pfam-scan-translate/query_dna.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -translate all -outfile /tmp/taf-pfam-scan-translate/result.txt >/tmp/taf-pfam-scan-translate/run.log 2>&1 && test -s /tmp/taf-pfam-scan-translate/result.txt && test -s /tmp/taf-pfam-scan-translate/query_dna.fa.translated && grep -F 'translate DNA sequence: all' /tmp/taf-pfam-scan-translate/result.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-03T03:08:34Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-03T03:08:34Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/pfam-scan",
+            "ref": "v1.6-r1",
+            "commit": "6f1d9689a2f9e109c89aee9609067d397cdcb00e",
+            "html_url": "https://github.com/taffish/pfam-scan/tree/v1.6-r1"
+          },
+          "upstream": {
+            "name": "PfamScan",
+            "type": "official",
+            "homepage": "https://pfam-docs.readthedocs.io/en/latest/ftp-site.html",
+            "release_url": "https://ftp.ebi.ac.uk/pub/databases/Pfam/Tools/",
+            "version": "1.6",
+            "license": "GPL-2.0-or-later",
+            "citation": "Paysan-Lafosse et al. 2024; Coggill et al. 2008",
+            "doi": "10.1093/nar/gkae997; 10.1002/0471250953.bi0205s23",
+            "pmid": "39540428"
+          }
+        }
+      }
+    },
     "phylogeny-flow": {
       "name": "phylogeny-flow",
       "latest": "0.1.0-r1",
@@ -24723,6 +25000,10 @@
       "package": "autodock-vina",
       "version": "1.2.7-r1"
     },
+    "taf-bakta": {
+      "package": "bakta",
+      "version": "1.12.0-r2"
+    },
     "taf-bam-qc-flow": {
       "package": "bam-qc-flow",
       "version": "0.1.0-r1"
@@ -25015,6 +25296,10 @@
       "package": "pandepth",
       "version": "2.26-r2"
     },
+    "taf-pfam-scan": {
+      "package": "pfam-scan",
+      "version": "1.6-r1"
+    },
     "taf-phylogeny-flow": {
       "package": "phylogeny-flow",
       "version": "0.1.0-r1"
@@ -25247,6 +25532,12 @@
       "repository": "taffish/autodock-vina",
       "packages": [
         "autodock-vina"
+      ]
+    },
+    "taffish/bakta": {
+      "repository": "taffish/bakta",
+      "packages": [
+        "bakta"
       ]
     },
     "taffish/bam-qc-flow": {
@@ -25685,6 +25976,12 @@
       "repository": "taffish/pandepth",
       "packages": [
         "pandepth"
+      ]
+    },
+    "taffish/pfam-scan": {
+      "repository": "taffish/pfam-scan",
+      "packages": [
+        "pfam-scan"
       ]
     },
     "taffish/phylogeny-flow": {
