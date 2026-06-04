@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-04T09:54:35Z",
+  "generated_at": "2026-06-04T13:52:56Z",
   "organization": "taffish",
   "counts": {
-    "packages": 135,
-    "versions": 202,
-    "commands": 135,
-    "repositories": 135,
+    "packages": 136,
+    "versions": 203,
+    "commands": 136,
+    "repositories": 136,
     "warnings": 0,
     "failed": 0,
     "rejected": 5
@@ -21843,6 +21843,130 @@
         }
       }
     },
+    "seurat": {
+      "name": "seurat",
+      "latest": "5.5.0-r1",
+      "recent_version": "5.5.0-r1",
+      "recent_at": "2026-06-04T13:47:42Z",
+      "repository_url": "https://github.com/taffish/seurat",
+      "command": {
+        "name": "taf-seurat"
+      },
+      "versions": {
+        "5.5.0-r1": {
+          "name": "seurat",
+          "kind": "tool",
+          "version": "5.5.0",
+          "release": 1,
+          "version_id": "5.5.0-r1",
+          "tag": "v5.5.0-r1",
+          "published_at": "2026-06-04T13:47:42Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/seurat",
+          "repository_slug": "taffish/seurat",
+          "command": {
+            "name": "taf-seurat"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "scrna-seq",
+              "r",
+              "seurat",
+              "visualization"
+            ],
+            "keywords": [
+              "seurat",
+              "single-cell",
+              "scrna-seq",
+              "r",
+              "seuratobject",
+              "umap",
+              "pca",
+              "clustering",
+              "markers"
+            ],
+            "summary": "Seurat 5.5.0 R runtime for single-cell analysis with SeuratObject, normalization, variable features, PCA, clustering, UMAP, marker testing, and plotting support.",
+            "description": "Seurat 5.5.0 R runtime for single-cell analysis with SeuratObject, normalization, variable features, PCA, clustering, UMAP, marker testing, and plotting support."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/seurat:5.5.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.5.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d6fbd17565bd307feea1d9c441f06b1c8c401673f19a8a722fdc40a2784c24c4",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:29ebcd09ba42c6ccc53410093ee65581420da47d081968912fd7fd479272e339"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "R",
+              "Rscript",
+              "seurat-runtime-info",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "Rscript -e 'stopifnot(as.character(getRversion()) == \"4.5.2\"); stopifnot(as.character(packageVersion(\"Seurat\")) == \"5.5.0\"); stopifnot(as.character(packageVersion(\"SeuratObject\")) == \"5.4.0\")' && seurat-runtime-info --version | grep -Fx 'seurat-runtime-info 5.5.0-r1' >/dev/null && seurat-runtime-info | grep -F \"$(printf 'Seurat\\t5.5.0')\" >/dev/null && seurat-runtime-info | grep -F \"$(printf 'hdf5r\\t')\" >/dev/null && seurat-runtime-info | grep -F \"$(printf 'BPCells\\t')\" >/dev/null",
+              "Rscript -e 'pkgs <- c(\"Seurat\",\"SeuratObject\",\"Matrix\",\"ggplot2\",\"patchwork\",\"future\",\"sctransform\",\"uwot\",\"RANN\",\"RcppAnnoy\",\"RcppHNSW\",\"RSpectra\",\"hdf5r\",\"BPCells\",\"glmGamPoi\",\"MAST\",\"SingleCellExperiment\",\"harmony\",\"leidenbase\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly=TRUE)]; if (length(missing)) stop(paste(\"missing\", paste(missing, collapse=\",\")))' && seurat-runtime-info | grep -F \"$(printf 'Signac\\tMISSING')\" >/dev/null && seurat-runtime-info | grep -F \"$(printf 'Azimuth\\tMISSING')\" >/dev/null && seurat-runtime-info | grep -F \"$(printf 'SeuratData\\tMISSING')\" >/dev/null",
+              "tmp=/tmp/taf-seurat-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; Rscript /opt/seurat/share/testdata/seurat_smoke.R \"$tmp/out\" && test -s \"$tmp/out/seurat_smoke.rds\" && test -s \"$tmp/out/markers.tsv\" && test -s \"$tmp/out/clusters.tsv\" && test -s \"$tmp/out/plots/umap.png\" && test -s \"$tmp/out/plots/umap.pdf\" && test -s \"$tmp/out/plots/qc_violin.png\" && test -s \"$tmp/out/plots/qc_violin.pdf\" && grep -F 'Seurat' \"$tmp/out/versions.tsv\" >/dev/null && grep -F 'Gene' \"$tmp/out/markers.tsv\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-04T13:52:56Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-04T13:52:56Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/seurat",
+            "ref": "v5.5.0-r1",
+            "commit": "b7d44ecb150612a95d660ac8354c55fa29d72feb",
+            "html_url": "https://github.com/taffish/seurat/tree/v5.5.0-r1"
+          },
+          "upstream": {
+            "name": "Seurat",
+            "type": "github",
+            "homepage": "https://satijalab.org/seurat/",
+            "repository": "https://github.com/satijalab/seurat",
+            "release_url": "https://github.com/satijalab/seurat/releases/tag/v5.5.0",
+            "version": "5.5.0",
+            "license": "MIT + file LICENSE",
+            "citation": "Hao et al. Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nature Biotechnology (2023) [Seurat v5].",
+            "doi": "10.1038/s41587-023-01767-y"
+          }
+        }
+      }
+    },
     "snpeff": {
       "name": "snpeff",
       "latest": "5.4c-r1",
@@ -25954,6 +26078,10 @@
       "package": "seqtk",
       "version": "1.5-r1"
     },
+    "taf-seurat": {
+      "package": "seurat",
+      "version": "5.5.0-r1"
+    },
     "taf-snpeff": {
       "package": "snpeff",
       "version": "5.4c-r1"
@@ -26720,6 +26848,12 @@
       "repository": "taffish/seqtk",
       "packages": [
         "seqtk"
+      ]
+    },
+    "taffish/seurat": {
+      "repository": "taffish/seurat",
+      "packages": [
+        "seurat"
       ]
     },
     "taffish/snpeff": {
