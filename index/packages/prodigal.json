@@ -1,0 +1,125 @@
+{
+  "name": "prodigal",
+  "latest": "2.6.3-r1",
+  "recent_version": "2.6.3-r1",
+  "recent_at": "2026-06-03T19:11:28Z",
+  "repository_url": "https://github.com/taffish/prodigal",
+  "command": {
+    "name": "taf-prodigal"
+  },
+  "versions": {
+    "2.6.3-r1": {
+      "name": "prodigal",
+      "kind": "tool",
+      "version": "2.6.3",
+      "release": 1,
+      "version_id": "2.6.3-r1",
+      "tag": "v2.6.3-r1",
+      "published_at": "2026-06-03T19:11:28Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/prodigal",
+      "repository_slug": "taffish/prodigal",
+      "command": {
+        "name": "taf-prodigal"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "gene-prediction",
+        "categories": [
+          "gene-prediction",
+          "genome-annotation",
+          "prokaryotic-genomics",
+          "metagenomics"
+        ],
+        "keywords": [
+          "prodigal",
+          "cds",
+          "gene prediction",
+          "orf",
+          "prokaryotic",
+          "metagenome",
+          "gff3",
+          "genbank",
+          "protein translation"
+        ],
+        "summary": "Prodigal 2.6.3 prokaryotic protein-coding gene prediction runtime.",
+        "description": "Prodigal 2.6.3 prokaryotic protein-coding gene prediction runtime."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/prodigal:2.6.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.6.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:4285eb8ab376c531eb548f5b536afdc10caae0135b7fd53efc2525c5dcc86c0d",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:f69bf5924f1830e854f06e2bd7fc27b328f86dfd1156b38a6dab3981bd06f54f",
+          "linux/arm64": "sha256:60d3074dd99f13367aeb5524c24096149f854df50f3e7d308a9ca98a83127cda"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "prodigal",
+          "bash",
+          "sh",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "prodigal -v 2>&1 | grep -Fx 'Prodigal V2.6.3: February, 2016' >/dev/null && prodigal -h 2>&1 | grep -F 'Usage:  prodigal' >/dev/null && prodigal -h 2>&1 | grep -F -- '-p:  Select procedure (single or meta).' >/dev/null",
+          "tmp=/tmp/taf-prodigal-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; seq=\"ATG\"; i=0; while [ \"$i\" -lt 300 ]; do seq=\"${seq}GCT\"; i=$((i+1)); done; seq=\"${seq}TAA\"; printf '>contig1\\n%s\\n' \"$seq\" > \"$tmp/tiny.fna\"; prodigal -p meta -q -i \"$tmp/tiny.fna\" -o \"$tmp/genes.gff\" -f gff -a \"$tmp/proteins.faa\" -d \"$tmp/genes.ffn\"; test -s \"$tmp/genes.gff\"; test -s \"$tmp/proteins.faa\"; test -s \"$tmp/genes.ffn\"; grep -F 'Prodigal_v2.6.3' \"$tmp/genes.gff\" >/dev/null; grep -F '>contig1_1' \"$tmp/proteins.faa\" >/dev/null; grep -F '>contig1_1' \"$tmp/genes.ffn\" >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-04T01:14:36Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-04T01:14:36Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/prodigal",
+        "ref": "v2.6.3-r1",
+        "commit": "62996211a012ae8aa7604afae0967ac7c835f31a",
+        "html_url": "https://github.com/taffish/prodigal/tree/v2.6.3-r1"
+      },
+      "upstream": {
+        "name": "Prodigal",
+        "type": "github",
+        "homepage": "https://github.com/hyattpd/Prodigal",
+        "repository": "hyattpd/Prodigal",
+        "release_url": "https://github.com/hyattpd/Prodigal/releases/tag/v2.6.3",
+        "version": "2.6.3",
+        "license": "GPL-3.0-or-later",
+        "citation": "Hyatt et al. 2010",
+        "doi": "10.1186/1471-2105-11-119",
+        "pmid": "20211023"
+      }
+    }
+  }
+}
