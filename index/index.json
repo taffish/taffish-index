@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-04T06:09:25Z",
+  "generated_at": "2026-06-04T07:31:57Z",
   "organization": "taffish",
   "counts": {
-    "packages": 133,
-    "versions": 200,
-    "commands": 133,
-    "repositories": 133,
+    "packages": 134,
+    "versions": 201,
+    "commands": 134,
+    "repositories": 134,
     "warnings": 0,
     "failed": 0,
     "rejected": 5
@@ -21205,6 +21205,132 @@
         }
       }
     },
+    "scanpy": {
+      "name": "scanpy",
+      "latest": "1.12.1-r1",
+      "recent_version": "1.12.1-r1",
+      "recent_at": "2026-06-04T06:40:43Z",
+      "repository_url": "https://github.com/taffish/scanpy",
+      "command": {
+        "name": "taf-scanpy"
+      },
+      "versions": {
+        "1.12.1-r1": {
+          "name": "scanpy",
+          "kind": "tool",
+          "version": "1.12.1",
+          "release": 1,
+          "version_id": "1.12.1-r1",
+          "tag": "v1.12.1-r1",
+          "published_at": "2026-06-04T06:40:43Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/scanpy",
+          "repository_slug": "taffish/scanpy",
+          "command": {
+            "name": "taf-scanpy"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "transcriptomics",
+              "python",
+              "scverse",
+              "visualization"
+            ],
+            "keywords": [
+              "scanpy",
+              "single-cell",
+              "scrna-seq",
+              "anndata",
+              "h5ad",
+              "leiden",
+              "umap",
+              "pca"
+            ],
+            "summary": "Scanpy 1.12.1 Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, and plotting support.",
+            "description": "Scanpy 1.12.1 Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, and plotting support."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/scanpy:1.12.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.12.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:0135d7fd79df0e3fa15fe34c89c33fde5fbc095537f37bc4516a52f7dfcc8f24",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0ecd48f645990c76860b4bc9050c267c84407e18e49b093a4d4bd5079a07bc0f",
+              "linux/arm64": "sha256:5fa291c4c7d2774a868c91340b9ad886e2065d539fd56d576a9ca2cf49e9b7ae"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "scanpy",
+              "python",
+              "python3",
+              "pip",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata as md; print(md.version(\"scanpy\"))')\" = '1.12.1' && python -c 'import importlib.metadata as md; import scanpy as sc, anndata, h5py, igraph, leidenalg, matplotlib, natsort, networkx, numba, numpy, pandas, pynndescent, scipy, seaborn, sklearn, statsmodels, umap; from skmisc.loess import loess; print(md.version(\"scanpy\"))' | grep -Fx '1.12.1' >/dev/null && scanpy --help 2>&1 | grep -E 'usage:|Usage:' >/dev/null",
+              "tmp=/tmp/taf-scanpy-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/scanpy/share/testdata/scanpy_smoke.py \"$tmp/out\" && test -s \"$tmp/out/scanpy_smoke.h5ad\" && test -s \"$tmp/out/pca.png\" && test -s \"$tmp/out/markers.tsv\" && test -s \"$tmp/out/versions.tsv\" && grep -F 'gene' \"$tmp/out/markers.tsv\" >/dev/null && grep -F 'scanpy' \"$tmp/out/versions.tsv\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-04T07:31:57Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-04T07:31:57Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/scanpy",
+            "ref": "v1.12.1-r1",
+            "commit": "b62c6d0484283612d0ee7c102f256850b56996b3",
+            "html_url": "https://github.com/taffish/scanpy/tree/v1.12.1-r1"
+          },
+          "upstream": {
+            "name": "Scanpy",
+            "type": "github",
+            "homepage": "https://scanpy.readthedocs.io/",
+            "repository": "https://github.com/scverse/scanpy",
+            "release_url": "https://github.com/scverse/scanpy/releases/tag/1.12.1",
+            "version": "1.12.1",
+            "license": "BSD-3-Clause",
+            "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
+            "doi": "10.1186/s13059-017-1382-0",
+            "pmid": "29409532"
+          }
+        }
+      }
+    },
     "seqkit": {
       "name": "seqkit",
       "latest": "2.13.0-r2",
@@ -25678,6 +25804,10 @@
       "package": "samtools",
       "version": "1.23.1-r1"
     },
+    "taf-scanpy": {
+      "package": "scanpy",
+      "version": "1.12.1-r1"
+    },
     "taf-seqkit": {
       "package": "seqkit",
       "version": "2.13.0-r2"
@@ -26428,6 +26558,12 @@
       "repository": "taffish/samtools",
       "packages": [
         "samtools"
+      ]
+    },
+    "taffish/scanpy": {
+      "repository": "taffish/scanpy",
+      "packages": [
+        "scanpy"
       ]
     },
     "taffish/seqkit": {
