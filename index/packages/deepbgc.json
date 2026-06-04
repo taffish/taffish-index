@@ -1,0 +1,133 @@
+{
+  "name": "deepbgc",
+  "latest": "0.1.31-r1",
+  "recent_version": "0.1.31-r1",
+  "recent_at": "2026-06-04T02:45:45Z",
+  "repository_url": "https://github.com/taffish/deepbgc",
+  "command": {
+    "name": "taf-deepbgc"
+  },
+  "versions": {
+    "0.1.31-r1": {
+      "name": "deepbgc",
+      "kind": "tool",
+      "version": "0.1.31",
+      "release": 1,
+      "version_id": "0.1.31-r1",
+      "tag": "v0.1.31-r1",
+      "published_at": "2026-06-04T02:45:45Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/deepbgc",
+      "repository_slug": "taffish/deepbgc",
+      "command": {
+        "name": "taf-deepbgc"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "biosynthetic-gene-clusters",
+        "categories": [
+          "biosynthetic-gene-clusters",
+          "genome-mining",
+          "secondary-metabolism",
+          "functional-annotation",
+          "deep-learning"
+        ],
+        "keywords": [
+          "deepbgc",
+          "biosynthetic gene cluster",
+          "bgc",
+          "pfam",
+          "hmmer",
+          "prodigal",
+          "clusterfinder",
+          "hmmlearn",
+          "antismash json",
+          "natural products",
+          "secondary metabolites"
+        ],
+        "summary": "DeepBGC 0.1.31 slim runtime for biosynthetic gene cluster detection and classification, including the official hmmlearn extra. Production models and Pfam data are user-managed through deepbgc download or DEEPBGC_DOWNLOADS_DIR.",
+        "description": "DeepBGC 0.1.31 slim runtime for biosynthetic gene cluster detection and classification, including the official hmmlearn extra. Production models and Pfam data are user-managed through deepbgc download or DEEPBGC_DOWNLOADS_DIR."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/deepbgc:0.1.31-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.1.31-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:60f1233d0a812957595ab026e570803e147acd2335ef5459d9d2fce44b768b29",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:4dd5025e568198e464bf7351572ae646737f44ce4486c1e092f8852cc5522623"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "deepbgc",
+          "python",
+          "hmmscan",
+          "hmmpress",
+          "hmmbuild",
+          "prodigal",
+          "sh",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "deepbgc --help 2>&1 | grep -F 'version 0.1.31' >/dev/null && deepbgc pipeline --help 2>&1 | grep -F 'Run DeepBGC pipeline' >/dev/null && deepbgc prepare --help 2>&1 | grep -F 'Prepare genomic sequence' >/dev/null && deepbgc download --help 2>&1 | grep -F 'Download trained models' >/dev/null && python -c 'import deepbgc, tensorflow as tf, keras, hmmlearn; from hmmlearn import hmm; from deepbgc.models.hmm import DiscreteHMM, GeneBorderHMM, ClusterFinderHMM; print(deepbgc.__version__, tf.__version__, keras.__version__, hmmlearn.__version__, hmm.MultinomialHMM.__name__, DiscreteHMM.__name__, GeneBorderHMM.__name__, ClusterFinderHMM.__name__)' 2>&1 | grep -Fx '0.1.31 1.15.4 2.2.4 0.2.6 MultinomialHMM DiscreteHMM GeneBorderHMM ClusterFinderHMM' >/dev/null",
+          "hmmscan -h 2>&1 | grep -F '# HMMER 3.3.2' >/dev/null && hmmpress -h 2>&1 | grep -F '# HMMER 3.3.2' >/dev/null && hmmbuild -h 2>&1 | grep -F '# HMMER 3.3.2' >/dev/null && prodigal -v 2>&1 | grep -Fx 'Prodigal V2.6.3: February, 2016' >/dev/null",
+          "tmp=/tmp/taf-deepbgc-pipeline-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp/data/common\"; printf '%s\\n' '# STOCKHOLM 1.0' '#=GF ID TAFFISH_SMOKE' '#=GF AC PF99999.1' 'seed1 MKTAYIAKQRQISFVKSHFSRQDILD' 'seed2 MKTAYIAKQRQISFVKSHFSRQDILD' '//' > \"$tmp/seed.sto\"; hmmbuild \"$tmp/data/common/Pfam-A.31.0.hmm\" \"$tmp/seed.sto\" > \"$tmp/hmmbuild.log\" 2>&1; hmmpress \"$tmp/data/common/Pfam-A.31.0.hmm\" > \"$tmp/hmmpress.log\" 2>&1; printf 'PF99999\\tCL9999\\tTAFFISH\\tTAFFISH_SMOKE\\tTAFFISH smoke Pfam profile\\n' > \"$tmp/data/common/Pfam-A.31.0.clans.tsv\"; printf '>prot1\\nMKTAYIAKQRQISFVKSHFSRQDILD\\n' > \"$tmp/protein.fa\"; DEEPBGC_DOWNLOADS_DIR=\"$tmp/data\" deepbgc pipeline --protein --no-detector --no-classifier --minimal-output -o \"$tmp/out\" \"$tmp/protein.fa\" > \"$tmp/run.log\" 2>&1; test -s \"$tmp/out/out.full.gbk\"; test -s \"$tmp/out/out.antismash.json\"; test -s \"$tmp/out/README.txt\"; grep -F 'PF99999.1' \"$tmp/out/out.full.gbk\" >/dev/null; grep -F '\"version\": \"0.1.31\"' \"$tmp/out/out.antismash.json\" >/dev/null; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-deepbgc-missing-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>prot1\\nMKTAYIAKQRQISFVKSHFSRQDILD\\n' > \"$tmp/protein.fa\"; if deepbgc prepare --protein --output-tsv \"$tmp/out.tsv\" \"$tmp/protein.fa\" > \"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; fi; grep -F 'Pfam-A.31.0.hmm' \"$tmp/run.log\" >/dev/null; grep -F 'Use \"deepbgc download\"' \"$tmp/run.log\" >/dev/null; test ! -s \"$tmp/out.tsv\"; rm -rf \"$tmp\"",
+          "python -c 'import numpy as np, pandas as pd; from deepbgc.models.hmm import DiscreteHMM; model=DiscreteHMM()._construct_model(np.array([0.9,0.1]), np.array([[0.9,0.1],[0.1,0.9]]), np.array([[0.8,0.2,0.5],[0.2,0.8,0.5]]), {\"PF00001\":0,\"PF00002\":1}); pred=model.predict(pd.DataFrame({\"pfam_id\":[\"PF00001\",\"PF00002\",\"PF99999\"]})); assert len(pred)==3; assert pred.notnull().all(); print(\"deepbgc-hmm-ok\", round(float(pred.iloc[0]), 6))' 2>&1 | grep -F 'deepbgc-hmm-ok' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-04T02:48:03Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-04T02:48:03Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/deepbgc",
+        "ref": "v0.1.31-r1",
+        "commit": "b085cacb78db8dea6f821b56751316224d7ff2d7",
+        "html_url": "https://github.com/taffish/deepbgc/tree/v0.1.31-r1"
+      },
+      "upstream": {
+        "name": "DeepBGC",
+        "type": "github",
+        "homepage": "https://github.com/Merck/deepbgc",
+        "repository": "Merck/deepbgc",
+        "release_url": "https://pypi.org/project/deepbgc/0.1.31/",
+        "version": "0.1.31",
+        "license": "MIT",
+        "citation": "Hannigan et al. 2019",
+        "doi": "10.1093/nar/gkz654",
+        "pmid": "31350811"
+      }
+    }
+  }
+}
