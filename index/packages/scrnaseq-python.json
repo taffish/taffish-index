@@ -1,0 +1,134 @@
+{
+  "name": "scrnaseq-python",
+  "latest": "0.1.0-r1",
+  "recent_version": "0.1.0-r1",
+  "recent_at": "2026-06-04T09:35:14Z",
+  "repository_url": "https://github.com/taffish/scrnaseq-python",
+  "command": {
+    "name": "taf-scrnaseq-python"
+  },
+  "versions": {
+    "0.1.0-r1": {
+      "name": "scrnaseq-python",
+      "kind": "tool",
+      "version": "0.1.0",
+      "release": 1,
+      "version_id": "0.1.0-r1",
+      "tag": "v0.1.0-r1",
+      "published_at": "2026-06-04T09:35:14Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/scrnaseq-python",
+      "repository_slug": "taffish/scrnaseq-python",
+      "command": {
+        "name": "taf-scrnaseq-python"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "single-cell",
+        "categories": [
+          "single-cell",
+          "scrna-seq",
+          "python",
+          "anndata",
+          "workflow-helper"
+        ],
+        "keywords": [
+          "scrnaseq-python",
+          "single-cell",
+          "scrna-seq",
+          "scanpy",
+          "anndata",
+          "h5ad",
+          "10x",
+          "qc",
+          "umap",
+          "leiden",
+          "markers"
+        ],
+        "summary": "TAFFISH first-party Python helper runtime for matrix-level scRNA-seq import, QC, filtering, Scanpy analysis, marker ranking, candidate annotation, tables, plots, and h5ad handoff.",
+        "description": "TAFFISH first-party Python helper runtime for matrix-level scRNA-seq import, QC, filtering, Scanpy analysis, marker ranking, candidate annotation, tables, plots, and h5ad handoff."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/scrnaseq-python:0.1.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.1.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:d2d96739fd1a0749f223a1fdb81c8075efd32cb19a536c3dd2dd6595fdd03351",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:55e3f4601d46566c0344e6a622362d30dd4635333eee45bc5923e6d50a2e9629",
+          "linux/arm64": "sha256:b3f345e039e4e5faceae32c9e6ff06fd36898be06d10bdff243024e7ab9e2247"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "python",
+          "python3",
+          "scanpy",
+          "scrnaseq-python-import",
+          "scrnaseq-python-qc",
+          "scrnaseq-python-filter",
+          "scrnaseq-python-analysis",
+          "scrnaseq-python-marker",
+          "scrnaseq-python-annotate",
+          "scrnaseq-python-summarize",
+          "scrnaseq-python-versions"
+        ],
+        "test": [
+          "scrnaseq-python-versions --tsv | grep -F 'scrnaseq-python' | grep -F '0.1.0' >/dev/null && scrnaseq-python-versions --tsv | grep -F 'scanpy' | grep -F '1.12.1' >/dev/null && python -c 'import scanpy, anndata, numpy, pandas, scipy, matplotlib, seaborn, sklearn, statsmodels, numba, networkx, pynndescent, umap, igraph, leidenalg; from skmisc.loess import loess; print(\"ok\")' | grep -Fx ok >/dev/null && scrnaseq-python-import --help | grep -F 'Import 10x matrix' >/dev/null && scrnaseq-python-analysis --help | grep -F 'Leiden' >/dev/null",
+          "tmp=/tmp/taf-scrnaseq-python-h5ad-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python -c 'import anndata as ad, numpy as np, pandas as pd; X=np.array([[1,0,3],[0,2,1],[4,0,0]], dtype=\"float32\"); obs=pd.DataFrame(index=[\"cell1\",\"cell2\",\"cell3\"]); var=pd.DataFrame(index=[\"GeneA\",\"GeneB\",\"MT-GeneC\"]); ad.AnnData(X=X, obs=obs, var=var).write_h5ad(\"tiny.h5ad\")' && scrnaseq-python-import --h5ad tiny.h5ad --sample-id tiny --outdir out && test -s out/adata.raw.h5ad && test -s out/input_summary.tsv && grep -F 'h5ad' out/input_summary.tsv >/dev/null && scrnaseq-python-summarize --h5ad out/adata.raw.h5ad --outdir summary && test -s summary/h5ad_summary.tsv && rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-scrnaseq-python-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/scrnaseq-python/share/testdata/scrnaseq_python_smoke.py \"$tmp/out\" && test -s \"$tmp/out/import/adata.raw.h5ad\" && test -s \"$tmp/out/qc/plots/qc_violin.png\" && test -s \"$tmp/out/filter/adata.filtered.h5ad\" && test -s \"$tmp/out/analysis/tables/clusters.tsv\" && test -s \"$tmp/out/analysis/plots/umap_by_cluster.png\" && test -s \"$tmp/out/marker/markers/cluster_markers.tsv\" && test -s \"$tmp/out/annotation/annotation/cluster_annotation.tsv\" && test -s \"$tmp/out/summary/h5ad_summary.tsv\" && rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-04T09:54:35Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-04T09:54:35Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/scrnaseq-python",
+        "ref": "v0.1.0-r1",
+        "commit": "8587b40d8f95919199db54fe70e562f47be1d5ac",
+        "html_url": "https://github.com/taffish/scrnaseq-python/tree/v0.1.0-r1"
+      },
+      "upstream": {
+        "name": "TAFFISH scrnaseq-python runtime",
+        "type": "first-party",
+        "homepage": "https://github.com/taffish/scrnaseq-python",
+        "repository": "taffish/scrnaseq-python",
+        "version": "0.1.0",
+        "license": "Apache-2.0",
+        "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
+        "doi": "10.1186/s13059-017-1382-0",
+        "pmid": "29409532"
+      }
+    }
+  }
+}
