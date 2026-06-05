@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-05T01:52:05Z",
+  "generated_at": "2026-06-05T02:10:08Z",
   "organization": "taffish",
   "counts": {
-    "packages": 139,
-    "versions": 206,
-    "commands": 139,
-    "repositories": 139,
+    "packages": 140,
+    "versions": 207,
+    "commands": 140,
+    "repositories": 140,
     "warnings": 0,
     "failed": 0,
     "rejected": 5
@@ -5510,6 +5510,130 @@
             "citation": "Buchfink et al. 2021; Buchfink et al. 2026",
             "doi": "10.1038/s41592-021-01101-x; 10.1038/s41592-026-03030-z",
             "pmid": "33828273; 41876643"
+          }
+        }
+      }
+    },
+    "doubletdetection": {
+      "name": "doubletdetection",
+      "latest": "4.3.0.post1-r1",
+      "recent_version": "4.3.0.post1-r1",
+      "recent_at": "2026-06-05T02:01:32Z",
+      "repository_url": "https://github.com/taffish/doubletdetection",
+      "command": {
+        "name": "taf-doubletdetection"
+      },
+      "versions": {
+        "4.3.0.post1-r1": {
+          "name": "doubletdetection",
+          "kind": "tool",
+          "version": "4.3.0.post1",
+          "release": 1,
+          "version_id": "4.3.0.post1-r1",
+          "tag": "v4.3.0.post1-r1",
+          "published_at": "2026-06-05T02:01:32Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/doubletdetection",
+          "repository_slug": "taffish/doubletdetection",
+          "command": {
+            "name": "taf-doubletdetection"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "scrna-seq",
+              "python",
+              "doublet-detection",
+              "quality-control"
+            ],
+            "keywords": [
+              "doubletdetection",
+              "single-cell",
+              "scrna-seq",
+              "doublet",
+              "anndata",
+              "h5ad",
+              "quality control"
+            ],
+            "summary": "DoubletDetection 4.3.0.post1 Python runtime and TAFFISH helper CLI for single-cell RNA-seq doublet detection.",
+            "description": "DoubletDetection 4.3.0.post1 Python runtime and TAFFISH helper CLI for single-cell RNA-seq doublet detection."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/doubletdetection:4.3.0.post1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.3.0.post1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4447b77a49d49fb8f5669350bda31a3071017d68b07e3680c23c128687fa013e",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:82b3b3e7257b75dfb2115dba0ca718976788e0e747f52f73fe323e8716abe339",
+              "linux/arm64": "sha256:8881356facc5c4a9e5702e7182ad0ee3dedcc4a47923c60673cf22370b8c07a6"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "doubletdetection-run",
+              "python",
+              "python3",
+              "pip",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata as md; print(md.version(\"doubletdetection\"))')\" = '4.3.0.post1' && python -c 'import importlib.metadata as md; import doubletdetection, anndata, matplotlib, numpy, pandas, phenograph, scanpy, scipy, sklearn, tqdm; print(md.version(\"doubletdetection\"))' | grep -Fx '4.3.0.post1' >/dev/null && doubletdetection-run --help | grep -F 'Run DoubletDetection doublet detection' >/dev/null",
+              "tmp=/tmp/taf-doubletdetection-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/doubletdetection/share/testdata/doubletdetection_smoke.py \"$tmp/out\" && test -s \"$tmp/out/doubletdetection.doublet_scores.tsv\" && test -s \"$tmp/out/doubletdetection.annotated.h5ad\" && test -s \"$tmp/out/doubletdetection.convergence.png\" && test -s \"$tmp/out/doubletdetection.threshold.png\" && test -s \"$tmp/out/versions.tsv\" && grep -F 'predicted_doublet' \"$tmp/out/doubletdetection.doublet_scores.tsv\" >/dev/null && grep -F 'doubletdetection' \"$tmp/out/versions.tsv\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-05T02:10:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-05T02:10:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/doubletdetection",
+            "ref": "v4.3.0.post1-r1",
+            "commit": "1f2c80f2678cfbcd81403c20cca9e6b72dac18fa",
+            "html_url": "https://github.com/taffish/doubletdetection/tree/v4.3.0.post1-r1"
+          },
+          "upstream": {
+            "name": "DoubletDetection",
+            "type": "github",
+            "homepage": "https://doubletdetection.readthedocs.io/",
+            "repository": "https://github.com/JonathanShor/DoubletDetection",
+            "release_url": "https://github.com/JonathanShor/DoubletDetection/releases/tag/v4.3.0.post1",
+            "version": "4.3.0.post1",
+            "license": "MIT",
+            "citation": "Gayoso, Shor, Carr, Sharma and Pe'er. DoubletDetection (Version v3.0). Zenodo (2020).",
+            "doi": "10.5281/zenodo.2678041"
           }
         }
       }
@@ -26149,6 +26273,10 @@
       "package": "diamond",
       "version": "2.2.1-r1"
     },
+    "taf-doubletdetection": {
+      "package": "doubletdetection",
+      "version": "4.3.0.post1-r1"
+    },
     "taf-edta": {
       "package": "edta",
       "version": "2.3.0-r2"
@@ -26775,6 +26903,12 @@
       "repository": "taffish/diamond",
       "packages": [
         "diamond"
+      ]
+    },
+    "taffish/doubletdetection": {
+      "repository": "taffish/doubletdetection",
+      "packages": [
+        "doubletdetection"
       ]
     },
     "taffish/edta": {
