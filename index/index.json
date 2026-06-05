@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-04T16:45:30Z",
+  "generated_at": "2026-06-05T01:52:05Z",
   "organization": "taffish",
   "counts": {
-    "packages": 138,
-    "versions": 205,
-    "commands": 138,
-    "repositories": 138,
+    "packages": 139,
+    "versions": 206,
+    "commands": 139,
+    "repositories": 139,
     "warnings": 0,
     "failed": 0,
     "rejected": 5
@@ -21723,6 +21723,131 @@
         }
       }
     },
+    "scrublet": {
+      "name": "scrublet",
+      "latest": "0.2.3-r1",
+      "recent_version": "0.2.3-r1",
+      "recent_at": "2026-06-05T01:30:29Z",
+      "repository_url": "https://github.com/taffish/scrublet",
+      "command": {
+        "name": "taf-scrublet"
+      },
+      "versions": {
+        "0.2.3-r1": {
+          "name": "scrublet",
+          "kind": "tool",
+          "version": "0.2.3",
+          "release": 1,
+          "version_id": "0.2.3-r1",
+          "tag": "v0.2.3-r1",
+          "published_at": "2026-06-05T01:30:29Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/scrublet",
+          "repository_slug": "taffish/scrublet",
+          "command": {
+            "name": "taf-scrublet"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "scrna-seq",
+              "python",
+              "doublet-detection",
+              "quality-control"
+            ],
+            "keywords": [
+              "scrublet",
+              "single-cell",
+              "scrna-seq",
+              "doublet",
+              "anndata",
+              "h5ad",
+              "quality control"
+            ],
+            "summary": "Scrublet 0.2.3 Python runtime and TAFFISH helper CLI for single-cell RNA-seq doublet detection.",
+            "description": "Scrublet 0.2.3 Python runtime and TAFFISH helper CLI for single-cell RNA-seq doublet detection."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/scrublet:0.2.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.2.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:93b2cc537338cd0a3cd97596d4783583d43cccd1c5f9707a61bc641f14b54ea1",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:9237968390a2d2f485b61102b9f0c35868d3905c06e718d81231565e5d4908a0",
+              "linux/arm64": "sha256:94aa8cc988dd5eb847882700a5c88491cb687dbab5034ec9a0f7796a19a2ec11"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "scrublet-run",
+              "python",
+              "python3",
+              "pip",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata as md; print(md.version(\"scrublet\"))')\" = '0.2.3' && python -c 'import importlib.metadata as md; import scrublet, anndata, annoy, matplotlib, numba, numpy, pandas, scipy, skimage, sklearn, umap; print(md.version(\"scrublet\"))' | grep -Fx '0.2.3' >/dev/null && scrublet-run --help | grep -F 'Run Scrublet doublet detection' >/dev/null",
+              "tmp=/tmp/taf-scrublet-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/scrublet/share/testdata/scrublet_smoke.py \"$tmp/out\" && test -s \"$tmp/out/scrublet.doublet_scores.tsv\" && test -s \"$tmp/out/scrublet.annotated.h5ad\" && test -s \"$tmp/out/scrublet.histogram.png\" && test -s \"$tmp/out/versions.tsv\" && grep -F 'predicted_doublet' \"$tmp/out/scrublet.doublet_scores.tsv\" >/dev/null && grep -F 'scrublet' \"$tmp/out/versions.tsv\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-05T01:52:05Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-05T01:52:05Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/scrublet",
+            "ref": "v0.2.3-r1",
+            "commit": "43ea61894fdbef34695a8dd80ca83fb13d66f720",
+            "html_url": "https://github.com/taffish/scrublet/tree/v0.2.3-r1"
+          },
+          "upstream": {
+            "name": "Scrublet",
+            "type": "pypi",
+            "homepage": "https://github.com/swolock/scrublet",
+            "repository": "https://github.com/swolock/scrublet",
+            "release_url": "https://pypi.org/project/scrublet/0.2.3/",
+            "version": "0.2.3",
+            "license": "MIT",
+            "citation": "Wolock, Lopez and Klein. Scrublet: Computational Identification of Cell Doublets in Single-Cell Transcriptomic Data. Cell Systems 8, 281-291.e9 (2019).",
+            "doi": "10.1016/j.cels.2018.11.005",
+            "pmid": "30954475"
+          }
+        }
+      }
+    },
     "seqkit": {
       "name": "seqkit",
       "latest": "2.13.0-r2",
@@ -26336,6 +26461,10 @@
       "package": "scrnaseq-r",
       "version": "0.1.0-r1"
     },
+    "taf-scrublet": {
+      "package": "scrublet",
+      "version": "0.2.3-r1"
+    },
     "taf-seqkit": {
       "package": "seqkit",
       "version": "2.13.0-r2"
@@ -27114,6 +27243,12 @@
       "repository": "taffish/scrnaseq-r",
       "packages": [
         "scrnaseq-r"
+      ]
+    },
+    "taffish/scrublet": {
+      "repository": "taffish/scrublet",
+      "packages": [
+        "scrublet"
       ]
     },
     "taffish/seqkit": {
