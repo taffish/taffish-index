@@ -1,0 +1,136 @@
+{
+  "name": "bracken",
+  "latest": "3.1-r1",
+  "recent_version": "3.1-r1",
+  "recent_at": "2026-06-06T02:15:47Z",
+  "repository_url": "https://github.com/taffish/bracken",
+  "command": {
+    "name": "taf-bracken"
+  },
+  "versions": {
+    "3.1-r1": {
+      "name": "bracken",
+      "kind": "tool",
+      "version": "3.1",
+      "release": 1,
+      "version_id": "3.1-r1",
+      "tag": "v3.1-r1",
+      "published_at": "2026-06-06T02:15:47Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bracken",
+      "repository_slug": "taffish/bracken",
+      "command": {
+        "name": "taf-bracken"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "microbiome",
+          "taxonomy-classification",
+          "abundance-estimation",
+          "kraken"
+        ],
+        "keywords": [
+          "bracken",
+          "kraken",
+          "kraken2",
+          "taxonomy",
+          "metagenomics",
+          "microbiome",
+          "abundance",
+          "kmer"
+        ],
+        "summary": "Bracken 3.1 abundance-estimation runtime with Bracken helper scripts and bundled Kraken 2 runtime support for user-provided Kraken databases.",
+        "description": "Bracken 3.1 abundance-estimation runtime with Bracken helper scripts and bundled Kraken 2 runtime support for user-provided Kraken databases."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bracken:3.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:2bfec8676ce87bf952be33a6bb3c77721722e24eacc46c767281cb02b032eac9",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:102d464d2a11f08f3c78df67cc255dd1127a49ed0279273e9cdd5ef7cd9576d4",
+          "linux/arm64": "sha256:fa045904b3bc91aee7fedcfd9e023ace2de29c8ad9f9059e085d2ce67bd06927"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "bracken",
+          "bracken-build",
+          "kmer2read_distr",
+          "est_abundance.py",
+          "generate_kmer_distribution.py",
+          "combine_bracken_outputs.py",
+          "kraken2",
+          "kraken2-build",
+          "kraken2-inspect",
+          "python",
+          "python3",
+          "bash",
+          "sh",
+          "find",
+          "grep",
+          "awk"
+        ],
+        "test": [
+          "bracken -v 2>&1 | grep -Fx 'Bracken v3.0.1' >/dev/null && bracken-build -v 2>&1 | grep -Fx 'bracken-build.sh v3.0.1' >/dev/null && test \"$(cat /opt/bracken/share/doc/bracken/UPSTREAM_TAG)\" = 'v3.1' && kraken2 --version 2>&1 | grep -Fx 'Kraken version 2.17.1' >/dev/null",
+          "bracken -h 2>&1 | grep -F 'Usage: bracken' >/dev/null && bracken-build -h 2>&1 | grep -F 'Usage: bracken_build' >/dev/null && python /opt/bracken/src/est_abundance.py -h 2>&1 | grep -F 'Input kraken report file' >/dev/null && python /opt/bracken/src/generate_kmer_distribution.py -h 2>&1 | grep -F 'Kraken counts file' >/dev/null && python /opt/bracken/analysis_scripts/combine_bracken_outputs.py -h 2>&1 | grep -F 'Bracken output files' >/dev/null",
+          "tmp=/tmp/taf-bracken-workflow-$$; rm -rf \"$tmp\"; /opt/bracken/test-fixtures/bracken_smoke.sh \"$tmp\" && test -s \"$tmp/sample.bracken\" && test -s \"$tmp/sample.bracken.report\" && test -s \"$tmp/combined.tsv\" && test -s \"$tmp/tiny.kmer_distrib\" && grep -F 'Escherichia coli' \"$tmp/sample.bracken\" >/dev/null && grep -F 'S1_num' \"$tmp/combined.tsv\" >/dev/null && rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-06T03:14:13Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-06T03:14:13Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bracken",
+        "ref": "v3.1-r1",
+        "commit": "8ef035b1ab736a91243f581d0975761b5172cfd2",
+        "html_url": "https://github.com/taffish/bracken/tree/v3.1-r1"
+      },
+      "upstream": {
+        "name": "Bracken",
+        "type": "github",
+        "homepage": "https://ccb.jhu.edu/software/bracken/",
+        "repository": "https://github.com/jenniferlu717/Bracken",
+        "release_url": "https://github.com/jenniferlu717/Bracken/releases/tag/v3.1",
+        "version": "3.1",
+        "license": "GPL-3.0-or-later",
+        "citation": "Lu et al. Bracken: estimating species abundance in metagenomics data. PeerJ Computer Science 3:e104 (2017).",
+        "doi": "10.7717/peerj-cs.104"
+      }
+    }
+  }
+}

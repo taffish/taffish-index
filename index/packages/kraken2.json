@@ -1,0 +1,155 @@
+{
+  "name": "kraken2",
+  "latest": "2.17.1-r1",
+  "recent_version": "2.17.1-r1",
+  "recent_at": "2026-06-06T02:30:42Z",
+  "repository_url": "https://github.com/taffish/kraken2",
+  "command": {
+    "name": "taf-kraken2"
+  },
+  "versions": {
+    "2.17.1-r1": {
+      "name": "kraken2",
+      "kind": "tool",
+      "version": "2.17.1",
+      "release": 1,
+      "version_id": "2.17.1-r1",
+      "tag": "v2.17.1-r1",
+      "published_at": "2026-06-06T02:30:42Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/kraken2",
+      "repository_slug": "taffish/kraken2",
+      "command": {
+        "name": "taf-kraken2"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "taxonomy-classification",
+          "sequence-analysis",
+          "microbiome",
+          "kmer"
+        ],
+        "keywords": [
+          "kraken2",
+          "kraken",
+          "k2",
+          "taxonomic-classification",
+          "metagenomics",
+          "microbiome",
+          "k-mer",
+          "minimizer",
+          "ncbi-taxonomy",
+          "database"
+        ],
+        "summary": "Kraken 2.17.1 runtime for taxonomic classification of sequencing reads against user-provided Kraken 2 databases.",
+        "description": "Kraken 2.17.1 runtime for taxonomic classification of sequencing reads against user-provided Kraken 2 databases."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/kraken2:2.17.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.17.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:d65b58deaa9262cda9525c3ebc3ffa0e589e39fb6eeb08296055cee80cc97165",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:7648e04d056f41dcca4bb83ec0643d838c713137c03716682958a1496795a066",
+          "linux/arm64": "sha256:c3e40285dd39febac6e058641237bc214731865cbc0a6581cd2583dea29b60ae"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "kraken2",
+          "kraken2-build",
+          "kraken2-inspect",
+          "k2",
+          "classify",
+          "build_db",
+          "estimate_capacity",
+          "dump_table",
+          "lookup_accession_numbers",
+          "k2mask",
+          "blast_to_fasta",
+          "python3",
+          "perl",
+          "bash",
+          "wget",
+          "rsync",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar",
+          "find",
+          "xargs",
+          "sed",
+          "grep",
+          "awk",
+          "segmasker",
+          "dustmasker"
+        ],
+        "test": [
+          "kraken2 --version 2>&1 | grep -Fx 'Kraken version 2.17.1' >/dev/null && kraken2-build --version 2>&1 | grep -Fx 'Kraken version 2.17.1' >/dev/null && kraken2-inspect --version 2>&1 | grep -Fx 'Kraken version 2.17.1' >/dev/null && k2 --version 2>&1 | grep -Fx '2.17.1' >/dev/null",
+          "kraken2 --help 2>&1 | grep -F 'Usage: kraken2 [options] <filename(s)>' >/dev/null && kraken2-build --help 2>&1 | grep -F -- '--download-taxonomy' >/dev/null && kraken2-inspect --help 2>&1 | grep -F 'Usage: kraken2-inspect [options]' >/dev/null && k2 --help 2>&1 | grep -F 'classify' >/dev/null",
+          "python3 -c 'import bz2, gzip, lzma, ctypes, pathlib; root = pathlib.Path(\"/opt/kraken2/bin\"); ctypes.CDLL(str(root / \"libtax.so\")); print(\"python deps ok\")'",
+          "segmasker -help 2>&1 | grep -F 'segmasker' >/dev/null && dustmasker -help 2>&1 | grep -F 'dustmasker' >/dev/null && blast_to_fasta -h 2>&1 | grep -F 'blast_volume' >/dev/null",
+          "tmp=/tmp/taf-kraken2-classify-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; kraken2 --db /opt/kraken2/test-fixtures/tiny-db --report \"$tmp/report.tsv\" --output \"$tmp/output.tsv\" /opt/kraken2/test-fixtures/lambda-read.fa >/tmp/taf-kraken2-classify.stdout 2>\"$tmp/run.log\"; test -s \"$tmp/report.tsv\"; test -s \"$tmp/output.tsv\"; grep -F 'Escherichia virus Lambda' \"$tmp/report.tsv\" >/dev/null; grep -F \"$(printf 'C\\tlambda_read\\t10710\\t')\" \"$tmp/output.tsv\" >/dev/null; rm -rf \"$tmp\" /tmp/taf-kraken2-classify.stdout",
+          "tmp=/tmp/taf-kraken2-inspect-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; kraken2-inspect --db /opt/kraken2/test-fixtures/tiny-db > \"$tmp/inspect.tsv\" 2>\"$tmp/run.log\"; test -s \"$tmp/inspect.tsv\"; grep -F 'Escherichia virus Lambda' \"$tmp/inspect.tsv\" >/dev/null; k2 inspect --db /opt/kraken2/test-fixtures/tiny-db --output \"$tmp/k2-inspect.tsv\" 2>\"$tmp/k2-inspect.log\"; test -s \"$tmp/k2-inspect.tsv\"; grep -F 'Escherichia virus Lambda' \"$tmp/k2-inspect.tsv\" >/dev/null; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-kraken2-build-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp/db/taxonomy\"; cp /opt/kraken2/test-fixtures/taxonomy/names.dmp /opt/kraken2/test-fixtures/taxonomy/nodes.dmp \"$tmp/db/taxonomy/\"; kraken2-build --db \"$tmp/db\" --add-to-library /opt/kraken2/test-fixtures/lambda-reference.fa --no-masking >\"$tmp/add.log\" 2>&1; kraken2-build --db \"$tmp/db\" --build --threads 1 --kmer-len 21 --minimizer-len 15 --minimizer-spaces 0 >\"$tmp/build.log\" 2>&1; test -s \"$tmp/db/hash.k2d\"; test -s \"$tmp/db/opts.k2d\"; test -s \"$tmp/db/taxo.k2d\"; kraken2 --db \"$tmp/db\" --output \"$tmp/out.tsv\" /opt/kraken2/test-fixtures/lambda-read.fa >\"$tmp/stdout.log\" 2>&1; grep -F \"$(printf 'C\\tlambda_read\\t10710\\t')\" \"$tmp/out.tsv\" >/dev/null; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-kraken2-compressed-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; gzip -c /opt/kraken2/test-fixtures/lambda-read.fa > \"$tmp/lambda-read.fa.gz\"; kraken2 --db /opt/kraken2/test-fixtures/tiny-db --gzip-compressed --output \"$tmp/out.tsv\" \"$tmp/lambda-read.fa.gz\" >\"$tmp/stdout.log\" 2>\"$tmp/run.log\"; grep -F \"$(printf 'C\\tlambda_read\\t10710\\t')\" \"$tmp/out.tsv\" >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-06T03:14:13Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-06T03:14:13Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/kraken2",
+        "ref": "v2.17.1-r1",
+        "commit": "32cfb57c1502bb5674f1a5486b6af2df3697ca3a",
+        "html_url": "https://github.com/taffish/kraken2/tree/v2.17.1-r1"
+      },
+      "upstream": {
+        "name": "Kraken 2",
+        "type": "github",
+        "homepage": "https://github.com/DerrickWood/kraken2",
+        "repository": "DerrickWood/kraken2",
+        "release_url": "https://github.com/DerrickWood/kraken2/releases/tag/v2.17.1",
+        "version": "2.17.1",
+        "license": "MIT",
+        "citation": "Wood et al. 2019",
+        "doi": "10.1186/s13059-019-1891-0",
+        "pmid": "31779668"
+      }
+    }
+  }
+}

@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-05T05:49:48Z",
+  "generated_at": "2026-06-06T03:14:13Z",
   "organization": "taffish",
   "counts": {
-    "packages": 140,
-    "versions": 207,
-    "commands": 140,
-    "repositories": 140,
+    "packages": 142,
+    "versions": 209,
+    "commands": 142,
+    "repositories": 142,
     "warnings": 0,
     "failed": 0,
     "rejected": 5
@@ -2438,6 +2438,142 @@
             "citation": "Langmead and Salzberg 2012",
             "doi": "10.1038/nmeth.1923",
             "pmid": "22388286"
+          }
+        }
+      }
+    },
+    "bracken": {
+      "name": "bracken",
+      "latest": "3.1-r1",
+      "recent_version": "3.1-r1",
+      "recent_at": "2026-06-06T02:15:47Z",
+      "repository_url": "https://github.com/taffish/bracken",
+      "command": {
+        "name": "taf-bracken"
+      },
+      "versions": {
+        "3.1-r1": {
+          "name": "bracken",
+          "kind": "tool",
+          "version": "3.1",
+          "release": 1,
+          "version_id": "3.1-r1",
+          "tag": "v3.1-r1",
+          "published_at": "2026-06-06T02:15:47Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bracken",
+          "repository_slug": "taffish/bracken",
+          "command": {
+            "name": "taf-bracken"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "microbiome",
+              "taxonomy-classification",
+              "abundance-estimation",
+              "kraken"
+            ],
+            "keywords": [
+              "bracken",
+              "kraken",
+              "kraken2",
+              "taxonomy",
+              "metagenomics",
+              "microbiome",
+              "abundance",
+              "kmer"
+            ],
+            "summary": "Bracken 3.1 abundance-estimation runtime with Bracken helper scripts and bundled Kraken 2 runtime support for user-provided Kraken databases.",
+            "description": "Bracken 3.1 abundance-estimation runtime with Bracken helper scripts and bundled Kraken 2 runtime support for user-provided Kraken databases."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bracken:3.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2bfec8676ce87bf952be33a6bb3c77721722e24eacc46c767281cb02b032eac9",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:102d464d2a11f08f3c78df67cc255dd1127a49ed0279273e9cdd5ef7cd9576d4",
+              "linux/arm64": "sha256:fa045904b3bc91aee7fedcfd9e023ace2de29c8ad9f9059e085d2ce67bd06927"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "bracken",
+              "bracken-build",
+              "kmer2read_distr",
+              "est_abundance.py",
+              "generate_kmer_distribution.py",
+              "combine_bracken_outputs.py",
+              "kraken2",
+              "kraken2-build",
+              "kraken2-inspect",
+              "python",
+              "python3",
+              "bash",
+              "sh",
+              "find",
+              "grep",
+              "awk"
+            ],
+            "test": [
+              "bracken -v 2>&1 | grep -Fx 'Bracken v3.0.1' >/dev/null && bracken-build -v 2>&1 | grep -Fx 'bracken-build.sh v3.0.1' >/dev/null && test \"$(cat /opt/bracken/share/doc/bracken/UPSTREAM_TAG)\" = 'v3.1' && kraken2 --version 2>&1 | grep -Fx 'Kraken version 2.17.1' >/dev/null",
+              "bracken -h 2>&1 | grep -F 'Usage: bracken' >/dev/null && bracken-build -h 2>&1 | grep -F 'Usage: bracken_build' >/dev/null && python /opt/bracken/src/est_abundance.py -h 2>&1 | grep -F 'Input kraken report file' >/dev/null && python /opt/bracken/src/generate_kmer_distribution.py -h 2>&1 | grep -F 'Kraken counts file' >/dev/null && python /opt/bracken/analysis_scripts/combine_bracken_outputs.py -h 2>&1 | grep -F 'Bracken output files' >/dev/null",
+              "tmp=/tmp/taf-bracken-workflow-$$; rm -rf \"$tmp\"; /opt/bracken/test-fixtures/bracken_smoke.sh \"$tmp\" && test -s \"$tmp/sample.bracken\" && test -s \"$tmp/sample.bracken.report\" && test -s \"$tmp/combined.tsv\" && test -s \"$tmp/tiny.kmer_distrib\" && grep -F 'Escherichia coli' \"$tmp/sample.bracken\" >/dev/null && grep -F 'S1_num' \"$tmp/combined.tsv\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-06T03:14:13Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-06T03:14:13Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bracken",
+            "ref": "v3.1-r1",
+            "commit": "8ef035b1ab736a91243f581d0975761b5172cfd2",
+            "html_url": "https://github.com/taffish/bracken/tree/v3.1-r1"
+          },
+          "upstream": {
+            "name": "Bracken",
+            "type": "github",
+            "homepage": "https://ccb.jhu.edu/software/bracken/",
+            "repository": "https://github.com/jenniferlu717/Bracken",
+            "release_url": "https://github.com/jenniferlu717/Bracken/releases/tag/v3.1",
+            "version": "3.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "Lu et al. Bracken: estimating species abundance in metagenomics data. PeerJ Computer Science 3:e104 (2017).",
+            "doi": "10.7717/peerj-cs.104"
           }
         }
       }
@@ -11775,6 +11911,161 @@
             "citation": "Aramaki et al. 2020",
             "doi": "10.1093/bioinformatics/btz859",
             "pmid": "31742321"
+          }
+        }
+      }
+    },
+    "kraken2": {
+      "name": "kraken2",
+      "latest": "2.17.1-r1",
+      "recent_version": "2.17.1-r1",
+      "recent_at": "2026-06-06T02:30:42Z",
+      "repository_url": "https://github.com/taffish/kraken2",
+      "command": {
+        "name": "taf-kraken2"
+      },
+      "versions": {
+        "2.17.1-r1": {
+          "name": "kraken2",
+          "kind": "tool",
+          "version": "2.17.1",
+          "release": 1,
+          "version_id": "2.17.1-r1",
+          "tag": "v2.17.1-r1",
+          "published_at": "2026-06-06T02:30:42Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/kraken2",
+          "repository_slug": "taffish/kraken2",
+          "command": {
+            "name": "taf-kraken2"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "taxonomy-classification",
+              "sequence-analysis",
+              "microbiome",
+              "kmer"
+            ],
+            "keywords": [
+              "kraken2",
+              "kraken",
+              "k2",
+              "taxonomic-classification",
+              "metagenomics",
+              "microbiome",
+              "k-mer",
+              "minimizer",
+              "ncbi-taxonomy",
+              "database"
+            ],
+            "summary": "Kraken 2.17.1 runtime for taxonomic classification of sequencing reads against user-provided Kraken 2 databases.",
+            "description": "Kraken 2.17.1 runtime for taxonomic classification of sequencing reads against user-provided Kraken 2 databases."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/kraken2:2.17.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.17.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d65b58deaa9262cda9525c3ebc3ffa0e589e39fb6eeb08296055cee80cc97165",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7648e04d056f41dcca4bb83ec0643d838c713137c03716682958a1496795a066",
+              "linux/arm64": "sha256:c3e40285dd39febac6e058641237bc214731865cbc0a6581cd2583dea29b60ae"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "kraken2",
+              "kraken2-build",
+              "kraken2-inspect",
+              "k2",
+              "classify",
+              "build_db",
+              "estimate_capacity",
+              "dump_table",
+              "lookup_accession_numbers",
+              "k2mask",
+              "blast_to_fasta",
+              "python3",
+              "perl",
+              "bash",
+              "wget",
+              "rsync",
+              "gzip",
+              "bzip2",
+              "xz",
+              "tar",
+              "find",
+              "xargs",
+              "sed",
+              "grep",
+              "awk",
+              "segmasker",
+              "dustmasker"
+            ],
+            "test": [
+              "kraken2 --version 2>&1 | grep -Fx 'Kraken version 2.17.1' >/dev/null && kraken2-build --version 2>&1 | grep -Fx 'Kraken version 2.17.1' >/dev/null && kraken2-inspect --version 2>&1 | grep -Fx 'Kraken version 2.17.1' >/dev/null && k2 --version 2>&1 | grep -Fx '2.17.1' >/dev/null",
+              "kraken2 --help 2>&1 | grep -F 'Usage: kraken2 [options] <filename(s)>' >/dev/null && kraken2-build --help 2>&1 | grep -F -- '--download-taxonomy' >/dev/null && kraken2-inspect --help 2>&1 | grep -F 'Usage: kraken2-inspect [options]' >/dev/null && k2 --help 2>&1 | grep -F 'classify' >/dev/null",
+              "python3 -c 'import bz2, gzip, lzma, ctypes, pathlib; root = pathlib.Path(\"/opt/kraken2/bin\"); ctypes.CDLL(str(root / \"libtax.so\")); print(\"python deps ok\")'",
+              "segmasker -help 2>&1 | grep -F 'segmasker' >/dev/null && dustmasker -help 2>&1 | grep -F 'dustmasker' >/dev/null && blast_to_fasta -h 2>&1 | grep -F 'blast_volume' >/dev/null",
+              "tmp=/tmp/taf-kraken2-classify-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; kraken2 --db /opt/kraken2/test-fixtures/tiny-db --report \"$tmp/report.tsv\" --output \"$tmp/output.tsv\" /opt/kraken2/test-fixtures/lambda-read.fa >/tmp/taf-kraken2-classify.stdout 2>\"$tmp/run.log\"; test -s \"$tmp/report.tsv\"; test -s \"$tmp/output.tsv\"; grep -F 'Escherichia virus Lambda' \"$tmp/report.tsv\" >/dev/null; grep -F \"$(printf 'C\\tlambda_read\\t10710\\t')\" \"$tmp/output.tsv\" >/dev/null; rm -rf \"$tmp\" /tmp/taf-kraken2-classify.stdout",
+              "tmp=/tmp/taf-kraken2-inspect-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; kraken2-inspect --db /opt/kraken2/test-fixtures/tiny-db > \"$tmp/inspect.tsv\" 2>\"$tmp/run.log\"; test -s \"$tmp/inspect.tsv\"; grep -F 'Escherichia virus Lambda' \"$tmp/inspect.tsv\" >/dev/null; k2 inspect --db /opt/kraken2/test-fixtures/tiny-db --output \"$tmp/k2-inspect.tsv\" 2>\"$tmp/k2-inspect.log\"; test -s \"$tmp/k2-inspect.tsv\"; grep -F 'Escherichia virus Lambda' \"$tmp/k2-inspect.tsv\" >/dev/null; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-kraken2-build-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp/db/taxonomy\"; cp /opt/kraken2/test-fixtures/taxonomy/names.dmp /opt/kraken2/test-fixtures/taxonomy/nodes.dmp \"$tmp/db/taxonomy/\"; kraken2-build --db \"$tmp/db\" --add-to-library /opt/kraken2/test-fixtures/lambda-reference.fa --no-masking >\"$tmp/add.log\" 2>&1; kraken2-build --db \"$tmp/db\" --build --threads 1 --kmer-len 21 --minimizer-len 15 --minimizer-spaces 0 >\"$tmp/build.log\" 2>&1; test -s \"$tmp/db/hash.k2d\"; test -s \"$tmp/db/opts.k2d\"; test -s \"$tmp/db/taxo.k2d\"; kraken2 --db \"$tmp/db\" --output \"$tmp/out.tsv\" /opt/kraken2/test-fixtures/lambda-read.fa >\"$tmp/stdout.log\" 2>&1; grep -F \"$(printf 'C\\tlambda_read\\t10710\\t')\" \"$tmp/out.tsv\" >/dev/null; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-kraken2-compressed-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; gzip -c /opt/kraken2/test-fixtures/lambda-read.fa > \"$tmp/lambda-read.fa.gz\"; kraken2 --db /opt/kraken2/test-fixtures/tiny-db --gzip-compressed --output \"$tmp/out.tsv\" \"$tmp/lambda-read.fa.gz\" >\"$tmp/stdout.log\" 2>\"$tmp/run.log\"; grep -F \"$(printf 'C\\tlambda_read\\t10710\\t')\" \"$tmp/out.tsv\" >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-06T03:14:13Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-06T03:14:13Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/kraken2",
+            "ref": "v2.17.1-r1",
+            "commit": "32cfb57c1502bb5674f1a5486b6af2df3697ca3a",
+            "html_url": "https://github.com/taffish/kraken2/tree/v2.17.1-r1"
+          },
+          "upstream": {
+            "name": "Kraken 2",
+            "type": "github",
+            "homepage": "https://github.com/DerrickWood/kraken2",
+            "repository": "DerrickWood/kraken2",
+            "release_url": "https://github.com/DerrickWood/kraken2/releases/tag/v2.17.1",
+            "version": "2.17.1",
+            "license": "MIT",
+            "citation": "Wood et al. 2019",
+            "doi": "10.1186/s13059-019-1891-0",
+            "pmid": "31779668"
           }
         }
       }
@@ -26197,6 +26488,10 @@
       "package": "bowtie2",
       "version": "2.5.5-r1"
     },
+    "taf-bracken": {
+      "package": "bracken",
+      "version": "3.1-r1"
+    },
     "taf-busco": {
       "package": "busco",
       "version": "6.0.0-r2"
@@ -26396,6 +26691,10 @@
     "taf-kofamscan": {
       "package": "kofamscan",
       "version": "1.3.0-r1"
+    },
+    "taf-kraken2": {
+      "package": "kraken2",
+      "version": "2.17.1-r1"
     },
     "taf-mafft": {
       "package": "mafft",
@@ -26791,6 +27090,12 @@
         "bowtie2"
       ]
     },
+    "taffish/bracken": {
+      "repository": "taffish/bracken",
+      "packages": [
+        "bracken"
+      ]
+    },
     "taffish/busco": {
       "repository": "taffish/busco",
       "packages": [
@@ -27089,6 +27394,12 @@
       "repository": "taffish/kofamscan",
       "packages": [
         "kofamscan"
+      ]
+    },
+    "taffish/kraken2": {
+      "repository": "taffish/kraken2",
+      "packages": [
+        "kraken2"
       ]
     },
     "taffish/mafft": {
