@@ -1,0 +1,132 @@
+{
+  "name": "megahit",
+  "latest": "1.2.9-r1",
+  "recent_version": "1.2.9-r1",
+  "recent_at": "2026-06-06T04:36:42Z",
+  "repository_url": "https://github.com/taffish/megahit",
+  "command": {
+    "name": "taf-megahit"
+  },
+  "versions": {
+    "1.2.9-r1": {
+      "name": "megahit",
+      "kind": "tool",
+      "version": "1.2.9",
+      "release": 1,
+      "version_id": "1.2.9-r1",
+      "tag": "v1.2.9-r1",
+      "published_at": "2026-06-06T04:36:42Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/megahit",
+      "repository_slug": "taffish/megahit",
+      "command": {
+        "name": "taf-megahit"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "genome-assembly",
+          "de-novo-assembly",
+          "short-read"
+        ],
+        "keywords": [
+          "megahit",
+          "metagenome assembly",
+          "short reads",
+          "de bruijn graph",
+          "fastq",
+          "fasta",
+          "paired-end",
+          "interleaved reads",
+          "contigs",
+          "fastg"
+        ],
+        "summary": "Ultra-fast and memory-efficient short-read de novo assembler optimized for large and complex metagenomes, with support for paired-end, interleaved, and single-end FASTA/FASTQ inputs.",
+        "description": "Ultra-fast and memory-efficient short-read de novo assembler optimized for large and complex metagenomes, with support for paired-end, interleaved, and single-end FASTA/FASTQ inputs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/megahit:1.2.9-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.2.9-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:12aaff1f66e5d34321a2f4261a271b5d9b1437e1bb5e67a17f1db9d12d78ab48",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:dc2ba9d36ebbde552ac45dc6df23728082de4f29a30facbcc9c1de781fbc7d66",
+          "linux/arm64": "sha256:2bce96cac9a9b687aa655ab450cd32ca9d8f0018055f8a31c29a2746105aa172"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "megahit",
+          "megahit_core",
+          "megahit_core_popcnt",
+          "megahit_core_no_hw_accel",
+          "megahit_toolkit",
+          "python3",
+          "gzip",
+          "bzip2",
+          "bash"
+        ],
+        "test": [
+          "megahit --version 2>&1 | grep -Fx 'MEGAHIT v1.2.9' >/dev/null && megahit_core dumpversion | grep -Fx 'v1.2.9' >/dev/null",
+          "megahit -h 2>&1 | grep -F 'Usage:' >/dev/null && megahit -h 2>&1 | grep -F -- '--presets' >/dev/null && megahit_core 2>&1 | grep -F 'contig2fastg' >/dev/null",
+          "for x in megahit_core megahit_core_popcnt megahit_core_no_hw_accel; do command -v \"$x\" >/dev/null; ! ldd \"$(command -v \"$x\")\" 2>&1 | grep -F 'not found' >/dev/null; done && gzip --version >/dev/null && bzip2 --help >/dev/null 2>&1",
+          "tmp=\"/tmp/taf-megahit-smoke-$$\"; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; megahit --test -t 1 --k-list 21,29,39,59 --keep-tmp-files -o out > run.log 2>&1; test -s out/final.contigs.fa; grep -F 'ALL DONE' out/log >/dev/null; megahit_toolkit contig2fastg 59 out/intermediate_contigs/k59.contigs.fa > k59.fastg; test -s k59.fastg; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-06T05:09:34Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-06T05:09:34Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/megahit",
+        "ref": "v1.2.9-r1",
+        "commit": "a0e35b92654fe0654428f346293b296aafe7479f",
+        "html_url": "https://github.com/taffish/megahit/tree/v1.2.9-r1"
+      },
+      "upstream": {
+        "name": "MEGAHIT",
+        "type": "github",
+        "homepage": "https://github.com/voutcn/megahit",
+        "repository": "voutcn/megahit",
+        "release_url": "https://github.com/voutcn/megahit/releases/tag/v1.2.9",
+        "version": "1.2.9",
+        "license": "GPL-3.0-or-later",
+        "citation": "Li et al. 2015; Li et al. 2016",
+        "doi": "10.1093/bioinformatics/btv033; 10.1016/j.ymeth.2016.02.020",
+        "pmid": "25609793"
+      }
+    }
+  }
+}

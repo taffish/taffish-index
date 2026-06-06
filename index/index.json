@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-06T03:14:13Z",
+  "generated_at": "2026-06-06T05:09:34Z",
   "organization": "taffish",
   "counts": {
-    "packages": 142,
-    "versions": 209,
-    "commands": 142,
-    "repositories": 142,
+    "packages": 145,
+    "versions": 212,
+    "commands": 145,
+    "repositories": 145,
     "warnings": 0,
     "failed": 0,
     "rejected": 5
@@ -12070,6 +12070,155 @@
         }
       }
     },
+    "krona": {
+      "name": "krona",
+      "latest": "2.8.1-r1",
+      "recent_version": "2.8.1-r1",
+      "recent_at": "2026-06-06T04:40:33Z",
+      "repository_url": "https://github.com/taffish/krona",
+      "command": {
+        "name": "taf-krona"
+      },
+      "versions": {
+        "2.8.1-r1": {
+          "name": "krona",
+          "kind": "tool",
+          "version": "2.8.1",
+          "release": 1,
+          "version_id": "2.8.1-r1",
+          "tag": "v2.8.1-r1",
+          "published_at": "2026-06-06T04:40:33Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/krona",
+          "repository_slug": "taffish/krona",
+          "command": {
+            "name": "taf-krona"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "visualization",
+              "taxonomy",
+              "reporting",
+              "web-report"
+            ],
+            "keywords": [
+              "krona",
+              "kronatools",
+              "metagenomics",
+              "taxonomy",
+              "html",
+              "interactive-visualization"
+            ],
+            "summary": "KronaTools 2.8.1 for generating interactive hierarchical HTML charts from metagenomic, taxonomy, BLAST, EC, RDP, and other tabular outputs.",
+            "description": "KronaTools 2.8.1 for generating interactive hierarchical HTML charts from metagenomic, taxonomy, BLAST, EC, RDP, and other tabular outputs."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/krona:2.8.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.8.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:1110b7ea879c7e0985dfef97ce8b4957245bc110f6d5d827c661553ba9733c3a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:3c82dd3031beebbf77df4b114e755bd943543bf64470628511bb4e2c9fc9240b",
+              "linux/arm64": "sha256:5feccea0a4e25280e6b06a171ffb50c729ab3f62a32deaa8e10f4ee3690147f4"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "ktImportText",
+              "ktImportTaxonomy",
+              "ktImportBLAST",
+              "ktClassifyBLAST",
+              "ktImportEC",
+              "ktImportRDP",
+              "ktImportKrona",
+              "ktImportXML",
+              "ktGetLCA",
+              "ktGetTaxInfo",
+              "ktGetTaxIDFromAcc",
+              "updateTaxonomy.sh",
+              "updateAccessions.sh",
+              "deployResources.sh",
+              "perl",
+              "curl",
+              "make",
+              "tar",
+              "gzip",
+              "gunzip",
+              "awk",
+              "grep",
+              "cut",
+              "sort",
+              "md5sum",
+              "du",
+              "tput",
+              "sh",
+              "bash"
+            ],
+            "test": [
+              "perl -MKronaTools -e 'print $KronaTools::version' | grep -Fx '2.8.1' >/dev/null",
+              "ktImportText 2>&1 | grep -F 'KronaTools 2.8.1 - ktImportText' >/dev/null && ktImportTaxonomy 2>&1 | grep -F 'KronaTools 2.8.1 - ktImportTaxonomy' >/dev/null && updateTaxonomy.sh --help | grep -F 'updateTaxonomy.sh [options...]' >/dev/null",
+              "tmp=/tmp/taf-krona-smoke-$$; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '10\\tBacteria\\tProteobacteria\\n5\\tBacteria\\tFirmicutes\\n2\\tArchaea\\n' > profile.tsv; ktImportText -o chart.html profile.tsv >/tmp/taf-krona-importtext.log 2>&1; test -s chart.html; grep -F '<node name=\"Proteobacteria\">' chart.html >/dev/null; grep -F 'Javascript must be enabled to view this page.' chart.html >/dev/null; rm -rf \"$tmp\" /tmp/taf-krona-importtext.log",
+              "tmp=/tmp/taf-krona-taxonomy-$$; mkdir -p \"$tmp\"; cd \"$tmp\"; printf 'q1\\t562\\t99\\n' > tax.tsv; if ktImportTaxonomy -o tax.html tax.tsv >log 2>&1; then cat log; exit 1; fi; grep -F 'Was updateTaxonomy.sh run?' log >/dev/null; test ! -s tax.html; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-06T05:09:34Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-06T05:09:34Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/krona",
+            "ref": "v2.8.1-r1",
+            "commit": "442283638bce8a7785364bb54c1c04ee456145a9",
+            "html_url": "https://github.com/taffish/krona/tree/v2.8.1-r1"
+          },
+          "upstream": {
+            "name": "KronaTools",
+            "type": "github",
+            "homepage": "https://github.com/marbl/Krona/wiki",
+            "repository": "marbl/Krona",
+            "release_url": "https://github.com/marbl/Krona/releases/tag/v2.8.1",
+            "version": "2.8.1",
+            "license": "BSD-like permissive license with KRONA trademark restrictions",
+            "citation": "Ondov, Bergman, and Phillippy. 2011. Interactive metagenomic visualization in a Web browser.",
+            "doi": "10.1186/1471-2105-12-385",
+            "pmid": "21961884"
+          }
+        }
+      }
+    },
     "mafft": {
       "name": "mafft",
       "latest": "7.525-r3",
@@ -12648,6 +12797,138 @@
             "citation": "Wang et al. 2012",
             "doi": "10.1093/nar/gkr1293",
             "pmid": "22217600"
+          }
+        }
+      }
+    },
+    "megahit": {
+      "name": "megahit",
+      "latest": "1.2.9-r1",
+      "recent_version": "1.2.9-r1",
+      "recent_at": "2026-06-06T04:36:42Z",
+      "repository_url": "https://github.com/taffish/megahit",
+      "command": {
+        "name": "taf-megahit"
+      },
+      "versions": {
+        "1.2.9-r1": {
+          "name": "megahit",
+          "kind": "tool",
+          "version": "1.2.9",
+          "release": 1,
+          "version_id": "1.2.9-r1",
+          "tag": "v1.2.9-r1",
+          "published_at": "2026-06-06T04:36:42Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/megahit",
+          "repository_slug": "taffish/megahit",
+          "command": {
+            "name": "taf-megahit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "genome-assembly",
+              "de-novo-assembly",
+              "short-read"
+            ],
+            "keywords": [
+              "megahit",
+              "metagenome assembly",
+              "short reads",
+              "de bruijn graph",
+              "fastq",
+              "fasta",
+              "paired-end",
+              "interleaved reads",
+              "contigs",
+              "fastg"
+            ],
+            "summary": "Ultra-fast and memory-efficient short-read de novo assembler optimized for large and complex metagenomes, with support for paired-end, interleaved, and single-end FASTA/FASTQ inputs.",
+            "description": "Ultra-fast and memory-efficient short-read de novo assembler optimized for large and complex metagenomes, with support for paired-end, interleaved, and single-end FASTA/FASTQ inputs."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/megahit:1.2.9-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.2.9-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:12aaff1f66e5d34321a2f4261a271b5d9b1437e1bb5e67a17f1db9d12d78ab48",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:dc2ba9d36ebbde552ac45dc6df23728082de4f29a30facbcc9c1de781fbc7d66",
+              "linux/arm64": "sha256:2bce96cac9a9b687aa655ab450cd32ca9d8f0018055f8a31c29a2746105aa172"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "megahit",
+              "megahit_core",
+              "megahit_core_popcnt",
+              "megahit_core_no_hw_accel",
+              "megahit_toolkit",
+              "python3",
+              "gzip",
+              "bzip2",
+              "bash"
+            ],
+            "test": [
+              "megahit --version 2>&1 | grep -Fx 'MEGAHIT v1.2.9' >/dev/null && megahit_core dumpversion | grep -Fx 'v1.2.9' >/dev/null",
+              "megahit -h 2>&1 | grep -F 'Usage:' >/dev/null && megahit -h 2>&1 | grep -F -- '--presets' >/dev/null && megahit_core 2>&1 | grep -F 'contig2fastg' >/dev/null",
+              "for x in megahit_core megahit_core_popcnt megahit_core_no_hw_accel; do command -v \"$x\" >/dev/null; ! ldd \"$(command -v \"$x\")\" 2>&1 | grep -F 'not found' >/dev/null; done && gzip --version >/dev/null && bzip2 --help >/dev/null 2>&1",
+              "tmp=\"/tmp/taf-megahit-smoke-$$\"; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; megahit --test -t 1 --k-list 21,29,39,59 --keep-tmp-files -o out > run.log 2>&1; test -s out/final.contigs.fa; grep -F 'ALL DONE' out/log >/dev/null; megahit_toolkit contig2fastg 59 out/intermediate_contigs/k59.contigs.fa > k59.fastg; test -s k59.fastg; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-06T05:09:34Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-06T05:09:34Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/megahit",
+            "ref": "v1.2.9-r1",
+            "commit": "a0e35b92654fe0654428f346293b296aafe7479f",
+            "html_url": "https://github.com/taffish/megahit/tree/v1.2.9-r1"
+          },
+          "upstream": {
+            "name": "MEGAHIT",
+            "type": "github",
+            "homepage": "https://github.com/voutcn/megahit",
+            "repository": "voutcn/megahit",
+            "release_url": "https://github.com/voutcn/megahit/releases/tag/v1.2.9",
+            "version": "1.2.9",
+            "license": "GPL-3.0-or-later",
+            "citation": "Li et al. 2015; Li et al. 2016",
+            "doi": "10.1093/bioinformatics/btv033; 10.1016/j.ymeth.2016.02.020",
+            "pmid": "25609793"
           }
         }
       }
@@ -23031,6 +23312,132 @@
         }
       }
     },
+    "sourmash": {
+      "name": "sourmash",
+      "latest": "4.9.4-r1",
+      "recent_version": "4.9.4-r1",
+      "recent_at": "2026-06-06T04:36:29Z",
+      "repository_url": "https://github.com/taffish/sourmash",
+      "command": {
+        "name": "taf-sourmash"
+      },
+      "versions": {
+        "4.9.4-r1": {
+          "name": "sourmash",
+          "kind": "tool",
+          "version": "4.9.4",
+          "release": 1,
+          "version_id": "4.9.4-r1",
+          "tag": "v4.9.4-r1",
+          "published_at": "2026-06-06T04:36:29Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/sourmash",
+          "repository_slug": "taffish/sourmash",
+          "command": {
+            "name": "taf-sourmash"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "kmer",
+            "categories": [
+              "kmer",
+              "sketching",
+              "metagenomics",
+              "genomics",
+              "sequence-comparison"
+            ],
+            "keywords": [
+              "sourmash",
+              "fracminhash",
+              "minhash",
+              "sketch",
+              "k-mer",
+              "metagenomics",
+              "genomics",
+              "ani",
+              "gather",
+              "search"
+            ],
+            "summary": "sourmash 4.9.4 command-line and Python runtime for k-mer sketching, comparison, search, gather, and taxonomy workflows with user-provided signature databases.",
+            "description": "sourmash 4.9.4 command-line and Python runtime for k-mer sketching, comparison, search, gather, and taxonomy workflows with user-provided signature databases."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/sourmash:4.9.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.9.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5f895518bea1bf553023fbd6f36df808117fcaf3396adb31937c7cd54a8f0966",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:72a6dba0c21edc2b7e763154bf876de8c5bfafdd790e28dd1682d93fea1f184c"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "sourmash",
+              "python",
+              "python3",
+              "bash",
+              "sh",
+              "gzip"
+            ],
+            "test": [
+              "sourmash --version 2>&1 | grep -Fx 'sourmash 4.9.4' >/dev/null && python -c 'import importlib.metadata as md; import sourmash, screed, numpy, scipy, matplotlib, cffi, redis, ipfshttpclient; print(md.version(\"sourmash\"))' | grep -Fx '4.9.4' >/dev/null",
+              "sourmash --help 2>&1 | grep -F 'sourmash' >/dev/null && sourmash sketch dna --help 2>&1 | grep -F 'sourmash sketch dna' >/dev/null && sourmash compare --help 2>&1 | grep -F 'sourmash compare' >/dev/null && sourmash search --help 2>&1 | grep -F 'sourmash search' >/dev/null && sourmash tax --help 2>&1 | grep -F 'sourmash tax' >/dev/null",
+              "tmp=/tmp/taf-sourmash-workflow-$$; rm -rf \"$tmp\"; /opt/sourmash/share/testdata/sourmash_smoke.sh \"$tmp\" && test -s \"$tmp/a.sig\" && test -s \"$tmp/b.sig\" && test -s \"$tmp/cmp\" && test -s \"$tmp/cmp.matrix.png\" && test -s \"$tmp/search.txt\" && grep -F 'sample_a' \"$tmp/search.txt\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-06T05:09:34Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-06T05:09:34Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/sourmash",
+            "ref": "v4.9.4-r1",
+            "commit": "f266f76d5442e744904252615135c99d6c09e040",
+            "html_url": "https://github.com/taffish/sourmash/tree/v4.9.4-r1"
+          },
+          "upstream": {
+            "name": "sourmash",
+            "type": "github",
+            "homepage": "https://sourmash.bio/",
+            "repository": "https://github.com/sourmash-bio/sourmash",
+            "release_url": "https://github.com/sourmash-bio/sourmash/releases/tag/v4.9.4",
+            "version": "4.9.4",
+            "license": "BSD-3-Clause",
+            "citation": "Pierce-Ward et al. sourmash v4: A multitool to quickly search, compare, and analyze genomic and metagenomic data sets. Journal of Open Source Software 9(98):6830 (2024).",
+            "doi": "10.21105/joss.06830"
+          }
+        }
+      }
+    },
     "spades": {
       "name": "spades",
       "latest": "4.2.0-r1",
@@ -26696,6 +27103,10 @@
       "package": "kraken2",
       "version": "2.17.1-r1"
     },
+    "taf-krona": {
+      "package": "krona",
+      "version": "2.8.1-r1"
+    },
     "taf-mafft": {
       "package": "mafft",
       "version": "7.525-r3"
@@ -26703,6 +27114,10 @@
     "taf-mcscanx": {
       "package": "mcscanx",
       "version": "1.0.0-r1"
+    },
+    "taf-megahit": {
+      "package": "megahit",
+      "version": "1.2.9-r1"
     },
     "taf-merfin": {
       "package": "merfin",
@@ -26911,6 +27326,10 @@
     "taf-soapnuke": {
       "package": "soapnuke",
       "version": "2.1.9-r1"
+    },
+    "taf-sourmash": {
+      "package": "sourmash",
+      "version": "4.9.4-r1"
     },
     "taf-spades": {
       "package": "spades",
@@ -27402,6 +27821,12 @@
         "kraken2"
       ]
     },
+    "taffish/krona": {
+      "repository": "taffish/krona",
+      "packages": [
+        "krona"
+      ]
+    },
     "taffish/mafft": {
       "repository": "taffish/mafft",
       "packages": [
@@ -27412,6 +27837,12 @@
       "repository": "taffish/mcscanx",
       "packages": [
         "mcscanx"
+      ]
+    },
+    "taffish/megahit": {
+      "repository": "taffish/megahit",
+      "packages": [
+        "megahit"
       ]
     },
     "taffish/merfin": {
@@ -27724,6 +28155,12 @@
       "repository": "taffish/soapnuke",
       "packages": [
         "soapnuke"
+      ]
+    },
+    "taffish/sourmash": {
+      "repository": "taffish/sourmash",
+      "packages": [
+        "sourmash"
       ]
     },
     "taffish/spades": {

@@ -1,0 +1,126 @@
+{
+  "name": "sourmash",
+  "latest": "4.9.4-r1",
+  "recent_version": "4.9.4-r1",
+  "recent_at": "2026-06-06T04:36:29Z",
+  "repository_url": "https://github.com/taffish/sourmash",
+  "command": {
+    "name": "taf-sourmash"
+  },
+  "versions": {
+    "4.9.4-r1": {
+      "name": "sourmash",
+      "kind": "tool",
+      "version": "4.9.4",
+      "release": 1,
+      "version_id": "4.9.4-r1",
+      "tag": "v4.9.4-r1",
+      "published_at": "2026-06-06T04:36:29Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/sourmash",
+      "repository_slug": "taffish/sourmash",
+      "command": {
+        "name": "taf-sourmash"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "kmer",
+        "categories": [
+          "kmer",
+          "sketching",
+          "metagenomics",
+          "genomics",
+          "sequence-comparison"
+        ],
+        "keywords": [
+          "sourmash",
+          "fracminhash",
+          "minhash",
+          "sketch",
+          "k-mer",
+          "metagenomics",
+          "genomics",
+          "ani",
+          "gather",
+          "search"
+        ],
+        "summary": "sourmash 4.9.4 command-line and Python runtime for k-mer sketching, comparison, search, gather, and taxonomy workflows with user-provided signature databases.",
+        "description": "sourmash 4.9.4 command-line and Python runtime for k-mer sketching, comparison, search, gather, and taxonomy workflows with user-provided signature databases."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/sourmash:4.9.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.9.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:5f895518bea1bf553023fbd6f36df808117fcaf3396adb31937c7cd54a8f0966",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:72a6dba0c21edc2b7e763154bf876de8c5bfafdd790e28dd1682d93fea1f184c"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "sourmash",
+          "python",
+          "python3",
+          "bash",
+          "sh",
+          "gzip"
+        ],
+        "test": [
+          "sourmash --version 2>&1 | grep -Fx 'sourmash 4.9.4' >/dev/null && python -c 'import importlib.metadata as md; import sourmash, screed, numpy, scipy, matplotlib, cffi, redis, ipfshttpclient; print(md.version(\"sourmash\"))' | grep -Fx '4.9.4' >/dev/null",
+          "sourmash --help 2>&1 | grep -F 'sourmash' >/dev/null && sourmash sketch dna --help 2>&1 | grep -F 'sourmash sketch dna' >/dev/null && sourmash compare --help 2>&1 | grep -F 'sourmash compare' >/dev/null && sourmash search --help 2>&1 | grep -F 'sourmash search' >/dev/null && sourmash tax --help 2>&1 | grep -F 'sourmash tax' >/dev/null",
+          "tmp=/tmp/taf-sourmash-workflow-$$; rm -rf \"$tmp\"; /opt/sourmash/share/testdata/sourmash_smoke.sh \"$tmp\" && test -s \"$tmp/a.sig\" && test -s \"$tmp/b.sig\" && test -s \"$tmp/cmp\" && test -s \"$tmp/cmp.matrix.png\" && test -s \"$tmp/search.txt\" && grep -F 'sample_a' \"$tmp/search.txt\" >/dev/null && rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-06T05:09:34Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-06T05:09:34Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/sourmash",
+        "ref": "v4.9.4-r1",
+        "commit": "f266f76d5442e744904252615135c99d6c09e040",
+        "html_url": "https://github.com/taffish/sourmash/tree/v4.9.4-r1"
+      },
+      "upstream": {
+        "name": "sourmash",
+        "type": "github",
+        "homepage": "https://sourmash.bio/",
+        "repository": "https://github.com/sourmash-bio/sourmash",
+        "release_url": "https://github.com/sourmash-bio/sourmash/releases/tag/v4.9.4",
+        "version": "4.9.4",
+        "license": "BSD-3-Clause",
+        "citation": "Pierce-Ward et al. sourmash v4: A multitool to quickly search, compare, and analyze genomic and metagenomic data sets. Journal of Open Source Software 9(98):6830 (2024).",
+        "doi": "10.21105/joss.06830"
+      }
+    }
+  }
+}

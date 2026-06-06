@@ -1,0 +1,149 @@
+{
+  "name": "krona",
+  "latest": "2.8.1-r1",
+  "recent_version": "2.8.1-r1",
+  "recent_at": "2026-06-06T04:40:33Z",
+  "repository_url": "https://github.com/taffish/krona",
+  "command": {
+    "name": "taf-krona"
+  },
+  "versions": {
+    "2.8.1-r1": {
+      "name": "krona",
+      "kind": "tool",
+      "version": "2.8.1",
+      "release": 1,
+      "version_id": "2.8.1-r1",
+      "tag": "v2.8.1-r1",
+      "published_at": "2026-06-06T04:40:33Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/krona",
+      "repository_slug": "taffish/krona",
+      "command": {
+        "name": "taf-krona"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "visualization",
+          "taxonomy",
+          "reporting",
+          "web-report"
+        ],
+        "keywords": [
+          "krona",
+          "kronatools",
+          "metagenomics",
+          "taxonomy",
+          "html",
+          "interactive-visualization"
+        ],
+        "summary": "KronaTools 2.8.1 for generating interactive hierarchical HTML charts from metagenomic, taxonomy, BLAST, EC, RDP, and other tabular outputs.",
+        "description": "KronaTools 2.8.1 for generating interactive hierarchical HTML charts from metagenomic, taxonomy, BLAST, EC, RDP, and other tabular outputs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/krona:2.8.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.8.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:1110b7ea879c7e0985dfef97ce8b4957245bc110f6d5d827c661553ba9733c3a",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3c82dd3031beebbf77df4b114e755bd943543bf64470628511bb4e2c9fc9240b",
+          "linux/arm64": "sha256:5feccea0a4e25280e6b06a171ffb50c729ab3f62a32deaa8e10f4ee3690147f4"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "ktImportText",
+          "ktImportTaxonomy",
+          "ktImportBLAST",
+          "ktClassifyBLAST",
+          "ktImportEC",
+          "ktImportRDP",
+          "ktImportKrona",
+          "ktImportXML",
+          "ktGetLCA",
+          "ktGetTaxInfo",
+          "ktGetTaxIDFromAcc",
+          "updateTaxonomy.sh",
+          "updateAccessions.sh",
+          "deployResources.sh",
+          "perl",
+          "curl",
+          "make",
+          "tar",
+          "gzip",
+          "gunzip",
+          "awk",
+          "grep",
+          "cut",
+          "sort",
+          "md5sum",
+          "du",
+          "tput",
+          "sh",
+          "bash"
+        ],
+        "test": [
+          "perl -MKronaTools -e 'print $KronaTools::version' | grep -Fx '2.8.1' >/dev/null",
+          "ktImportText 2>&1 | grep -F 'KronaTools 2.8.1 - ktImportText' >/dev/null && ktImportTaxonomy 2>&1 | grep -F 'KronaTools 2.8.1 - ktImportTaxonomy' >/dev/null && updateTaxonomy.sh --help | grep -F 'updateTaxonomy.sh [options...]' >/dev/null",
+          "tmp=/tmp/taf-krona-smoke-$$; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '10\\tBacteria\\tProteobacteria\\n5\\tBacteria\\tFirmicutes\\n2\\tArchaea\\n' > profile.tsv; ktImportText -o chart.html profile.tsv >/tmp/taf-krona-importtext.log 2>&1; test -s chart.html; grep -F '<node name=\"Proteobacteria\">' chart.html >/dev/null; grep -F 'Javascript must be enabled to view this page.' chart.html >/dev/null; rm -rf \"$tmp\" /tmp/taf-krona-importtext.log",
+          "tmp=/tmp/taf-krona-taxonomy-$$; mkdir -p \"$tmp\"; cd \"$tmp\"; printf 'q1\\t562\\t99\\n' > tax.tsv; if ktImportTaxonomy -o tax.html tax.tsv >log 2>&1; then cat log; exit 1; fi; grep -F 'Was updateTaxonomy.sh run?' log >/dev/null; test ! -s tax.html; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-06T05:09:34Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-06T05:09:34Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/krona",
+        "ref": "v2.8.1-r1",
+        "commit": "442283638bce8a7785364bb54c1c04ee456145a9",
+        "html_url": "https://github.com/taffish/krona/tree/v2.8.1-r1"
+      },
+      "upstream": {
+        "name": "KronaTools",
+        "type": "github",
+        "homepage": "https://github.com/marbl/Krona/wiki",
+        "repository": "marbl/Krona",
+        "release_url": "https://github.com/marbl/Krona/releases/tag/v2.8.1",
+        "version": "2.8.1",
+        "license": "BSD-like permissive license with KRONA trademark restrictions",
+        "citation": "Ondov, Bergman, and Phillippy. 2011. Interactive metagenomic visualization in a Web browser.",
+        "doi": "10.1186/1471-2105-12-385",
+        "pmid": "21961884"
+      }
+    }
+  }
+}
