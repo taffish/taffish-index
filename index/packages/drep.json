@@ -1,0 +1,138 @@
+{
+  "name": "drep",
+  "latest": "3.4.2-r1",
+  "recent_version": "3.4.2-r1",
+  "recent_at": "2026-06-07T05:46:03Z",
+  "repository_url": "https://github.com/taffish/drep",
+  "command": {
+    "name": "taf-drep"
+  },
+  "versions": {
+    "3.4.2-r1": {
+      "name": "drep",
+      "kind": "tool",
+      "version": "3.4.2",
+      "release": 1,
+      "version_id": "3.4.2-r1",
+      "tag": "v3.4.2-r1",
+      "published_at": "2026-06-07T05:46:03Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/drep",
+      "repository_slug": "taffish/drep",
+      "command": {
+        "name": "taf-drep"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "mag",
+          "genome-dereplication",
+          "comparative-genomics",
+          "ani"
+        ],
+        "keywords": [
+          "drep",
+          "mag",
+          "metagenome-assembled-genomes",
+          "dereplication",
+          "ani",
+          "mash",
+          "mummer",
+          "fastani",
+          "prodigal",
+          "genome-quality"
+        ],
+        "summary": "dRep 3.4.2 for comparing and de-replicating microbial genomes and MAGs using Mash primary clustering, MUMmer ANIm/ANImf, optional fastANI, and user-provided genome quality information.",
+        "description": "dRep 3.4.2 for comparing and de-replicating microbial genomes and MAGs using Mash primary clustering, MUMmer ANIm/ANImf, optional fastANI, and user-provided genome quality information."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/drep:3.4.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.4.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:2b3483c0c36360a0477e22bf3e6ef2e571325338b145bea4bcd40e65a1f20fc6",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3ffffefd4b97527fd11178536f7bf5180a0ae0e51114fb9ce8795d376e13fa27",
+          "linux/arm64": "sha256:9f95ab6af0d98db98a03fa431354111f81428742ec2cda6b3bfae9787f9bbf5f"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "dRep",
+          "parse_stb.py",
+          "ScaffoldLevel_dRep.py",
+          "python",
+          "python3",
+          "mash",
+          "nucmer",
+          "delta-filter",
+          "show-coords",
+          "fastANI",
+          "prodigal",
+          "sh",
+          "bash"
+        ],
+        "test": [
+          "test \"$(python -c 'import importlib.metadata; print(importlib.metadata.version(\"drep\"))')\" = '3.4.2' && test \"$(python -c 'from pathlib import Path; import drep; print((Path(drep.__file__).parent / \"VERSION\").read_text().strip())')\" = '3.4.2' && dRep -h 2>&1 | grep -F 'dRep v3.4.2' >/dev/null",
+          "dRep -h 2>&1 | grep -F 'compare' >/dev/null && dRep compare -h 2>&1 | grep -F 'usage: dRep compare' >/dev/null && dRep dereplicate -h 2>&1 | grep -F 'usage: dRep dereplicate' >/dev/null && dRep check_dependencies 2>&1 | grep -F 'mash' >/dev/null",
+          "dRep check_dependencies >/tmp/taf-drep-dependencies.log 2>&1 || true; grep -E 'mash.*all good' /tmp/taf-drep-dependencies.log >/dev/null && grep -E 'nucmer.*all good' /tmp/taf-drep-dependencies.log >/dev/null && grep -E 'fastANI.*all good' /tmp/taf-drep-dependencies.log >/dev/null && grep -E 'prodigal.*all good' /tmp/taf-drep-dependencies.log >/dev/null && rm -f /tmp/taf-drep-dependencies.log",
+          "mkdir -p /tmp/taf-drep-compare && cd /tmp/taf-drep-compare && python -c 'from pathlib import Path; import random; random.seed(1); dna=\"ACGT\"; seq=\"\".join(random.choice(dna) for _ in range(60000)); seq2=list(seq); [seq2.__setitem__(i, dna[(dna.index(seq2[i])+1)%4]) for i in range(0, 60000, 1000)]; Path(\"genome_a.fa\").write_text(\">genome_a\\n\"+seq+\"\\n\"); Path(\"genome_b.fa\").write_text(\">genome_b\\n\"+\"\".join(seq2)+\"\\n\")' && dRep compare compare_out -g genome_a.fa genome_b.fa -p 1 --S_algorithm ANImf >/tmp/taf-drep-compare.log 2>&1 && test -s compare_out/data_tables/Bdb.csv && test -s compare_out/data_tables/Mdb.csv && test -s compare_out/data_tables/Ndb.csv && grep -F 'genome_a' compare_out/data_tables/Bdb.csv >/dev/null && rm -rf /tmp/taf-drep-compare /tmp/taf-drep-compare.log",
+          "mkdir -p /tmp/taf-drep-dereplicate && cd /tmp/taf-drep-dereplicate && python -c 'from pathlib import Path; import random; random.seed(1); dna=\"ACGT\"; seq=\"\".join(random.choice(dna) for _ in range(60000)); seq2=list(seq); [seq2.__setitem__(i, dna[(dna.index(seq2[i])+1)%4]) for i in range(0, 60000, 1000)]; Path(\"genome_a.fa\").write_text(\">genome_a\\n\"+seq+\"\\n\"); Path(\"genome_b.fa\").write_text(\">genome_b\\n\"+\"\".join(seq2)+\"\\n\")' && dRep dereplicate derep_out -g genome_a.fa genome_b.fa -p 1 --ignoreGenomeQuality >/tmp/taf-drep-dereplicate.log 2>&1 && test -s derep_out/data_tables/Wdb.csv && test -d derep_out/dereplicated_genomes && rm -rf /tmp/taf-drep-dereplicate /tmp/taf-drep-dereplicate.log"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-07T05:53:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-07T05:53:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/drep",
+        "ref": "v3.4.2-r1",
+        "commit": "026dae1cc1bbc7d3466512b1307d710897414246",
+        "html_url": "https://github.com/taffish/drep/tree/v3.4.2-r1"
+      },
+      "upstream": {
+        "name": "dRep",
+        "type": "github",
+        "homepage": "https://drep.readthedocs.io/",
+        "repository": "MrOlm/drep",
+        "release_url": "https://github.com/MrOlm/drep/releases/tag/v3.4.2",
+        "version": "3.4.2",
+        "license": "MIT",
+        "citation": "Olm, Brown, Brooks, Firek, Baker, Burstein, Soenjoyo, Thomas, Morowitz, and Banfield 2017",
+        "doi": "10.1038/ismej.2017.126",
+        "pmid": "28742071"
+      }
+    }
+  }
+}
