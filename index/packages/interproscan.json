@@ -1,8 +1,8 @@
 {
   "name": "interproscan",
-  "latest": "5.77-108.0-r2",
-  "recent_version": "5.77-108.0-r2",
-  "recent_at": "2026-06-07T15:43:06Z",
+  "latest": "5.77-108.0-r3",
+  "recent_version": "5.77-108.0-r3",
+  "recent_at": "2026-06-07T15:59:28Z",
   "repository_url": "https://github.com/taffish/interproscan",
   "command": {
     "name": "taf-interproscan"
@@ -233,6 +233,130 @@
         "ref": "v5.77-108.0-r2",
         "commit": "b845326adc82d57c18adce1fd3f5f45f097d3872",
         "html_url": "https://github.com/taffish/interproscan/tree/v5.77-108.0-r2"
+      },
+      "upstream": {
+        "name": "InterProScan",
+        "type": "github",
+        "homepage": "https://www.ebi.ac.uk/interpro/",
+        "repository": "ebi-pf-team/interproscan",
+        "release_url": "https://github.com/ebi-pf-team/interproscan/releases/tag/5.77-108.0",
+        "version": "5.77-108.0",
+        "license": "Apache-2.0; bundled member database binaries, models, data, and optional licensed analyses have separate upstream terms",
+        "citation": "Jones et al. 2014; Blum et al. 2025",
+        "doi": "10.1093/bioinformatics/btu031; 10.1093/nar/gkae1082",
+        "pmid": "24451626; 39565202"
+      }
+    },
+    "5.77-108.0-r3": {
+      "name": "interproscan",
+      "kind": "tool",
+      "version": "5.77-108.0",
+      "release": 3,
+      "version_id": "5.77-108.0-r3",
+      "tag": "v5.77-108.0-r3",
+      "published_at": "2026-06-07T15:59:28Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/interproscan",
+      "repository_slug": "taffish/interproscan",
+      "command": {
+        "name": "taf-interproscan"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "functional-annotation",
+        "categories": [
+          "functional-annotation",
+          "protein-annotation",
+          "domain-analysis",
+          "proteomics",
+          "genomics"
+        ],
+        "keywords": [
+          "interproscan",
+          "interpro",
+          "protein-domains",
+          "protein-family",
+          "functional-annotation",
+          "go-terms",
+          "pathways",
+          "iprscan"
+        ],
+        "summary": "InterProScan 5.77-108.0 runtime for protein domain, family, site, GO, pathway, and sequence functional annotation workflows. The matching external data archive is discovered or mounted separately.",
+        "description": "InterProScan 5.77-108.0 runtime for protein domain, family, site, GO, pathway, and sequence functional annotation workflows. The matching external data archive is discovered or mounted separately."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/interproscan:5.77-108.0-r3",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "5.77-108.0-r3",
+        "image_tag_matches_version": true,
+        "digest": "sha256:bbd79a4a4fe8805fcfcac44b075ad2debe6f8a52df6b609d06c026580d37a0a9",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d2fb7fc00b9844c71970dc64ac3bb91c2f45ae5f017d0fb8d1fc16aa2f2a6d0d"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "taf-interproscan-entrypoint",
+          "interproscan.sh",
+          "interproscan-download-data",
+          "interproscan-download-data-5.77-108.0",
+          "java",
+          "python3",
+          "perl",
+          "tar",
+          "find",
+          "ln",
+          "sed",
+          "tr",
+          "grep",
+          "sh"
+        ],
+        "test": [
+          "taf-interproscan-entrypoint -version 2>&1 | grep -F 'InterProScan version 5.77-108.0' >/dev/null",
+          "taf-interproscan-entrypoint -help >/tmp/taf-interproscan-help.txt 2>&1 || true; grep -F 'Available analyses:' /tmp/taf-interproscan-help.txt >/dev/null && grep -F 'Pfam (38.1)' /tmp/taf-interproscan-help.txt >/dev/null && grep -F 'Deactivated analyses:' /tmp/taf-interproscan-help.txt >/dev/null && grep -F -- '-dp,--disable-precalc' /tmp/taf-interproscan-help.txt >/dev/null",
+          "tmp=/tmp/taf-interproscan-data-helper-$$; rm -rf \"$tmp\" && mkdir -p \"$tmp\" && interproscan-download-data --help 2>&1 | grep -F 'Download and prepare the InterProScan 5.77-108.0 data archive' >/dev/null && (cd \"$tmp\" && interproscan-download-data --dry-run 2>&1 | grep -F 'Archive URL: https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.77-108.0/alt/interproscan-data-5.77-108.0.tar.gz' >/dev/null) && mkdir -p \"$tmp/existing/5.77-108.0/data\" && interproscan-download-data --db-root \"$tmp/existing\" 2>&1 | grep -F \"Existing DBROOT/5.77-108.0/data directory found: $tmp/existing/5.77-108.0/data\" >/dev/null; status=$?; rm -rf \"$tmp\"; exit \"$status\"",
+          "test ! -e /opt/interproscan/data && taf-interproscan-entrypoint -i /opt/interproscan/test_single_protein.fasta -f TSV -o /tmp/taf-interproscan.tsv -dp 2>&1 | grep -F 'InterProScan data directory is not mounted' >/dev/null",
+          "test -s /opt/interproscan/test_single_protein.fasta && test -s /opt/interproscan/interproscan.properties && grep -F 'data.directory=data' /opt/interproscan/interproscan.properties >/dev/null && grep -F 'precalculated.match.lookup.service.url=https://www.ebi.ac.uk/interpro/match-lookup' /opt/interproscan/interproscan.properties >/dev/null",
+          "test -x /opt/interproscan/bin/hmmer/hmmer3/3.3/hmmscan && test -x /opt/interproscan/bin/hmmer/hmmer3/3.3/hmmsearch && test -x /opt/interproscan/bin/prints/fingerPRINTScan && /opt/interproscan/bin/hmmer/hmmer3/3.3/hmmscan -h 2>&1 | grep -F 'HMMER' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-07T16:01:25Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-07T16:01:25Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/interproscan",
+        "ref": "v5.77-108.0-r3",
+        "commit": "4ab69c5898bc31b03a9d0ac51f3396b8ff255fb3",
+        "html_url": "https://github.com/taffish/interproscan/tree/v5.77-108.0-r3"
       },
       "upstream": {
         "name": "InterProScan",
