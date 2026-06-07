@@ -1,0 +1,156 @@
+{
+  "name": "gtdbtk",
+  "latest": "2.7.2-r1",
+  "recent_version": "2.7.2-r1",
+  "recent_at": "2026-06-07T07:40:39Z",
+  "repository_url": "https://github.com/taffish/gtdbtk",
+  "command": {
+    "name": "taf-gtdbtk"
+  },
+  "versions": {
+    "2.7.2-r1": {
+      "name": "gtdbtk",
+      "kind": "tool",
+      "version": "2.7.2",
+      "release": 1,
+      "version_id": "2.7.2-r1",
+      "tag": "v2.7.2-r1",
+      "published_at": "2026-06-07T07:40:39Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/gtdbtk",
+      "repository_slug": "taffish/gtdbtk",
+      "command": {
+        "name": "taf-gtdbtk"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "taxonomy",
+          "mag",
+          "sag",
+          "microbial-genomics",
+          "phylogenomics"
+        ],
+        "keywords": [
+          "gtdb-tk",
+          "gtdbtk",
+          "gtdb",
+          "taxonomy",
+          "mag",
+          "sag",
+          "bacterial-genomics",
+          "archaeal-genomics",
+          "skani",
+          "pplacer",
+          "prodigal",
+          "hmmer"
+        ],
+        "summary": "GTDB-Tk 2.7.2 runtime for assigning bacterial and archaeal genomes to the Genome Taxonomy Database. The large GTDB-Tk R232 reference package is external and user-provided through GTDBTK_DATA_PATH.",
+        "description": "GTDB-Tk 2.7.2 runtime for assigning bacterial and archaeal genomes to the Genome Taxonomy Database. The large GTDB-Tk R232 reference package is external and user-provided through GTDBTK_DATA_PATH."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/gtdbtk:2.7.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.7.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:653d082155e0b182ad477ac29cdacbb35709f455d985770201e315c101e3f348",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:e97f46159afa92f16c59447c0e0c529d2f4ce7167057a47d0ec2595b7ce3ab57"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "gtdbtk",
+          "gtdbtk-download-r232-db",
+          "gtdb_to_ncbi_majority_vote",
+          "gtdb_to_ncbi_majority_vote.py",
+          "prodigal",
+          "hmmsearch",
+          "hmmalign",
+          "hmmpress",
+          "hmmstat",
+          "hmmscan",
+          "phmmer",
+          "pplacer",
+          "guppy",
+          "FastTree",
+          "FastTreeMP",
+          "skani",
+          "python3",
+          "bash",
+          "sh",
+          "curl",
+          "wget",
+          "md5sum",
+          "gzip",
+          "tar",
+          "find",
+          "ln",
+          "awk",
+          "sed",
+          "grep"
+        ],
+        "test": [
+          "gtdbtk --version 2>&1 | grep -Fx 'gtdbtk: version 2.7.2 Copyright 2017 Pierre-Alain Chaumeil, Aaron Mussig and Donovan Parks' >/dev/null && gtdbtk --help 2>&1 | grep -F 'GTDB-Tk v2.7.2' >/dev/null && python3 -c 'import gtdbtk, dendropy, numpy, tqdm, pydantic; print(gtdbtk.__version__)' | grep -Fx '2.7.2' >/dev/null",
+          "gtdbtk classify_wf --help 2>&1 | grep -F 'usage: gtdbtk classify_wf' >/dev/null && gtdbtk de_novo_wf --help 2>&1 | grep -F 'usage: gtdbtk de_novo_wf' >/dev/null && gtdbtk identify --help 2>&1 | grep -F 'usage: gtdbtk identify' >/dev/null && gtdbtk align --help 2>&1 | grep -F 'usage: gtdbtk align' >/dev/null && gtdbtk check_install --help 2>&1 | grep -F 'GTDB-Tk version package to test for compatibility' >/dev/null && gtdbtk test --help 2>&1 | grep -F 'usage: gtdbtk test' >/dev/null",
+          "prodigal -v 2>&1 | grep -F 'Prodigal V2.6.3' >/dev/null && hmmsearch -h 2>&1 | grep -F '# HMMER 3.3.2' >/dev/null && hmmalign -h 2>&1 | grep -F '# HMMER 3.3.2' >/dev/null && pplacer --version 2>&1 | grep -Fx 'v1.1.alpha19-0-g807f6f3' >/dev/null && guppy --version 2>&1 | grep -Fx 'v1.1.alpha19-0-g807f6f3' >/dev/null && FastTree 2>&1 | grep -F 'FastTree Version 2.1.11' >/dev/null && FastTreeMP 2>&1 | grep -F 'FastTree Version 2.1.11' >/dev/null && skani -V 2>&1 | grep -Fx 'skani 0.3.1' >/dev/null",
+          "gtdb_to_ncbi_majority_vote --help 2>&1 | grep -F 'GTDB to NCBI Majority Vote v0.2.1' >/dev/null && gtdb_to_ncbi_majority_vote.py --help 2>&1 | grep -F 'Translate GTDB to NCBI classification via majority vote' >/dev/null",
+          "tmp=/tmp/taf-gtdbtk-helper-$$; rm -rf \"$tmp\" && mkdir -p \"$tmp\" && gtdbtk-download-r232-db --help 2>&1 | grep -F 'Download and install the GTDB-Tk R232 reference package' >/dev/null && (cd \"$tmp\" && gtdbtk-download-r232-db --dry-run 2>&1 | grep -F 'Download directory:' | grep -F \"$tmp/downloads\" >/dev/null) && mkdir -p \"$tmp/existing/r232\" && gtdbtk-download-r232-db --db-root \"$tmp/existing\" 2>&1 | grep -F \"Existing DBROOT/r232 directory found: $tmp/existing/r232\" >/dev/null && gtdbtk-download-r232-db --dry-run --db-root /tmp/taf-gtdbtk-r232-db-explicit 2>&1 | grep -F 'Expected MD5: 25a59e0352b1fd150c589f56559767d4' >/dev/null; status=$?; rm -rf \"$tmp\"; exit \"$status\"",
+          "tmp=/tmp/taf-gtdbtk-no-db-$$; rm -rf \"$tmp\" && mkdir -p \"$tmp/genomes\" && printf '>tiny\\nATGAAATAA\\n' > \"$tmp/genomes/tiny.fna\" && if gtdbtk classify_wf --genome_dir \"$tmp/genomes\" --out_dir \"$tmp/out\" --cpus 1 >\"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; else grep -F 'The GTDB-Tk reference data does not exist or is corrupted.' \"$tmp/run.log\" >/dev/null && grep -F 'GTDBTK_DATA_PATH=/refdata/' \"$tmp/run.log\" >/dev/null && test ! -e \"$tmp/out/gtdbtk.bac120.summary.tsv\"; fi; status=$?; rm -rf \"$tmp\"; exit \"$status\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-07T07:44:15Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-07T07:44:15Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/gtdbtk",
+        "ref": "v2.7.2-r1",
+        "commit": "33432a9ca0b33d9a0ff3c5d52aaecd975762d109",
+        "html_url": "https://github.com/taffish/gtdbtk/tree/v2.7.2-r1"
+      },
+      "upstream": {
+        "name": "GTDB-Tk",
+        "type": "github",
+        "homepage": "https://ecogenomics.github.io/GTDBTk/",
+        "repository": "Ecogenomics/GTDBTk",
+        "release_url": "https://github.com/Ecogenomics/GTDBTk/tree/2.7.2",
+        "version": "2.7.2",
+        "license": "GPL-3.0-or-later",
+        "citation": "Chaumeil et al. 2022; Chaumeil et al. 2019",
+        "doi": "10.1093/bioinformatics/btac672; 10.1093/bioinformatics/btz848",
+        "pmid": "36287221; 31730192"
+      }
+    }
+  }
+}
