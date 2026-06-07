@@ -1,0 +1,147 @@
+{
+  "name": "barrnap",
+  "latest": "1.10.6-r1",
+  "recent_version": "1.10.6-r1",
+  "recent_at": "2026-06-07T05:47:20Z",
+  "repository_url": "https://github.com/taffish/barrnap",
+  "command": {
+    "name": "taf-barrnap"
+  },
+  "versions": {
+    "1.10.6-r1": {
+      "name": "barrnap",
+      "kind": "tool",
+      "version": "1.10.6",
+      "release": 1,
+      "version_id": "1.10.6-r1",
+      "tag": "v1.10.6-r1",
+      "published_at": "2026-06-07T05:47:20Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/barrnap",
+      "repository_slug": "taffish/barrnap",
+      "command": {
+        "name": "taf-barrnap"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-annotation",
+        "categories": [
+          "genome-annotation",
+          "rna-annotation",
+          "microbial-genomics",
+          "noncoding-rna",
+          "metagenomics"
+        ],
+        "keywords": [
+          "barrnap",
+          "rrna",
+          "trna",
+          "tmrna",
+          "ncrna",
+          "mrna",
+          "gff3",
+          "infernal",
+          "aragorn",
+          "rfam",
+          "uniprot",
+          "microbial annotation"
+        ],
+        "summary": "Barrnap 1.10.6 runtime for annotating microbial RNA features from FASTA/GenBank/FASTQ inputs and writing GFF3 output.",
+        "description": "Barrnap 1.10.6 runtime for annotating microbial RNA features from FASTA/GenBank/FASTQ inputs and writing GFF3 output."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/barrnap:1.10.6-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.10.6-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:e44ff4e397394c8a93822f53569757ee1ff10cbad09e00ab35fe8cb261161f20",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0e7d410cf3e0577810d53dbe6273d2e6a85f0cd9e54afa231e58c0ad71d3324c",
+          "linux/arm64": "sha256:be842e38ddba92e3824103cef02586f16fa810bfb0ab2c27f2e3146acdf5201f"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "barrnap",
+          "perl",
+          "cmsearch",
+          "cmscan",
+          "aragorn",
+          "bedtools",
+          "any2fasta",
+          "seqkit",
+          "pyrodigal",
+          "transterm",
+          "ziggypep",
+          "diamond",
+          "taxonkit",
+          "make",
+          "mmseqs",
+          "gzip",
+          "tar",
+          "bash",
+          "sh",
+          "awk",
+          "sed",
+          "grep"
+        ],
+        "test": [
+          "barrnap --version 2>&1 | grep -Fx 'barrnap 1.10.5' >/dev/null && barrnap --help 2>&1 | grep -F 'Rapid microbial RNA annotationn' >/dev/null && barrnap --listdb > /tmp/taf-barrnap-listdb.txt 2>&1 && grep -F -- \"--kingdom 'bac' has: tRNA tmRNA CDS ncRNA rRNA\" /tmp/taf-barrnap-listdb.txt >/dev/null && grep -F -- \"--kingdom 'arc' has: tRNA tmRNA CDS ncRNA rRNA\" /tmp/taf-barrnap-listdb.txt >/dev/null && grep -F -- \"--kingdom 'fun' has: tRNA tmRNA CDS ncRNA rRNA\" /tmp/taf-barrnap-listdb.txt >/dev/null",
+          "micromamba list -n base | grep -E 'barrnap[[:space:]]+1\\.10\\.6[[:space:]]+' >/dev/null && cmsearch -h 2>&1 | grep -F '# INFERNAL 1.1.5' >/dev/null && cmscan -h 2>&1 | grep -F '# INFERNAL 1.1.5' >/dev/null && aragorn -h 2>&1 | grep -F 'ARAGORN v1.2.41' >/dev/null && bedtools --version 2>&1 | grep -F 'bedtools v2.31.1' >/dev/null && seqkit version 2>&1 | grep -F 'seqkit v2.13.0' >/dev/null && diamond --version 2>&1 | grep -F 'diamond version 2.2.1' >/dev/null && ziggypep -v 2>&1 | grep -Fx 'ziggypep 0.3.1' >/dev/null",
+          "tmp=/tmp/taf-barrnap-rrna-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; barrnap --quiet --threads 1 --kingdom bac /opt/barrnap/share/test/small.fa > \"$tmp/small.gff\" 2> \"$tmp/run.log\"; test -s \"$tmp/small.gff\"; grep -F '##gff-version 3' \"$tmp/small.gff\" >/dev/null; grep -F 'Name=16S_rRNA' \"$tmp/small.gff\" >/dev/null; grep -F 'Name=23S_rRNA' \"$tmp/small.gff\" >/dev/null; grep -F 'Name=5S_rRNA' \"$tmp/small.gff\" >/dev/null; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-barrnap-all-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; barrnap --quiet --threads 1 --all --outseq \"$tmp/rna.fa\" --incseqreg --incseq --addids /opt/barrnap/share/test/small.fa > \"$tmp/all.gff\" 2> \"$tmp/run.log\"; test -s \"$tmp/all.gff\"; test -s \"$tmp/rna.fa\"; grep -F '##sequence-region' \"$tmp/all.gff\" >/dev/null; grep -F '##FASTA' \"$tmp/all.gff\" >/dev/null; grep -F 'ID=16S' \"$tmp/all.gff\" >/dev/null; grep -F 'Dbxref=Rfam:' \"$tmp/all.gff\" >/dev/null; awk -F '\\t' '$3 == \"tRNA\" || $3 == \"tmRNA\" {found=1} END {exit !found}' \"$tmp/all.gff\"; awk -F '\\t' '$3 == \"ncRNA\" || $3 == \"CDS\" {found=1} END {exit !found}' \"$tmp/all.gff\"; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-barrnap-bad-kingdom-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; if barrnap --kingdom wrong /opt/barrnap/share/test/nohits.fa > \"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; fi; grep -F 'Imvalid --kingdom' \"$tmp/run.log\" >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-07T06:42:36Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-07T06:42:36Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/barrnap",
+        "ref": "v1.10.6-r1",
+        "commit": "b14ba1efc29b724c497dd8e59e8fcfad90ef21e5",
+        "html_url": "https://github.com/taffish/barrnap/tree/v1.10.6-r1"
+      },
+      "upstream": {
+        "name": "Barrnap",
+        "type": "github",
+        "homepage": "https://github.com/tseemann/barrnap",
+        "repository": "tseemann/barrnap",
+        "release_url": "https://github.com/tseemann/barrnap/releases/tag/v1.10.6",
+        "version": "1.10.6",
+        "license": "GPL-3.0; bundled database resources include Rfam CC0 and UniProt/Swiss-Prot CC-BY-4.0-derived data",
+        "citation": "Seemann T. Barrnap: BAsic Rapid Ribosomal RNA Predictor. https://github.com/tseemann/barrnap"
+      }
+    }
+  }
+}
