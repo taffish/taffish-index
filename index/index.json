@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-08T14:43:30Z",
+  "generated_at": "2026-06-08T15:25:28Z",
   "organization": "taffish",
   "counts": {
-    "packages": 156,
-    "versions": 225,
-    "commands": 156,
-    "repositories": 156,
+    "packages": 157,
+    "versions": 226,
+    "commands": 157,
+    "repositories": 157,
     "warnings": 0,
     "failed": 0,
     "rejected": 7
@@ -14033,6 +14033,154 @@
             "citation": "Li et al. 2015; Li et al. 2016",
             "doi": "10.1093/bioinformatics/btv033; 10.1016/j.ymeth.2016.02.020",
             "pmid": "25609793"
+          }
+        }
+      }
+    },
+    "meme-suite": {
+      "name": "meme-suite",
+      "latest": "5.5.9-r1",
+      "recent_version": "5.5.9-r1",
+      "recent_at": "2026-06-08T15:08:19Z",
+      "repository_url": "https://github.com/taffish/meme-suite",
+      "command": {
+        "name": "taf-meme-suite"
+      },
+      "versions": {
+        "5.5.9-r1": {
+          "name": "meme-suite",
+          "kind": "tool",
+          "version": "5.5.9",
+          "release": 1,
+          "version_id": "5.5.9-r1",
+          "tag": "v5.5.9-r1",
+          "published_at": "2026-06-08T15:08:19Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/meme-suite",
+          "repository_slug": "taffish/meme-suite",
+          "command": {
+            "name": "taf-meme-suite"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "motif-analysis",
+            "categories": [
+              "motif-analysis",
+              "sequence-analysis",
+              "functional-genomics",
+              "transcription-factor-binding",
+              "genomics",
+              "proteomics"
+            ],
+            "keywords": [
+              "meme suite",
+              "meme",
+              "streme",
+              "fimo",
+              "mast",
+              "tomtom",
+              "ame",
+              "meme-chip",
+              "xstreme",
+              "dreme",
+              "motif discovery",
+              "motif scanning",
+              "motif comparison"
+            ],
+            "summary": "MEME Suite 5.5.9 command-line runtime for motif discovery, motif scanning, motif enrichment, and motif comparison workflows. Large external motif, sequence, GOMo, and T-Gene databases are managed outside the image.",
+            "description": "MEME Suite 5.5.9 command-line runtime for motif discovery, motif scanning, motif enrichment, and motif comparison workflows. Large external motif, sequence, GOMo, and T-Gene databases are managed outside the image."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/meme-suite:5.5.9-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.5.9-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:793c58d8da9400645fd1b54a101f8d1fc9882e9ecfb2af18d81105a1476a31cc",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7677653d11a31f2e712a2054b37f3bf78c2c62889beb7dd3acc3f89a95f09556",
+              "linux/arm64": "sha256:a071eab8b365e1ed503ba63e11cda03c9c2d3e6b320d91398cfbe3cd34767278"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 360,
+            "exist": [
+              "meme",
+              "streme",
+              "fimo",
+              "mast",
+              "ame",
+              "tomtom",
+              "meme-chip",
+              "xstreme",
+              "dreme",
+              "sea",
+              "centrimo",
+              "meme-suite-db-info",
+              "meme-suite-download-dbs",
+              "perl",
+              "python",
+              "gs",
+              "curl",
+              "sh",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "test -d /opt/conda/share/meme-5.5.9 && test -s /opt/meme-suite/share/licenses/meme-suite/COPYING && grep -F 'source_sha256=0406fb7b1dc27f6aab3d6d3a29ecdf617bbdd946690cfa97ca2129bc210bfd12' /opt/meme-suite/share/doc/source.txt >/dev/null && (meme -h 2>&1 || true) | grep -F 'Usage:' >/dev/null && (tomtom -h 2>&1 || true) | grep -F 'Usage:' >/dev/null && (streme --help 2>&1 || true) | grep -F 'Usage:' >/dev/null && (ame -h 2>&1 || true) | grep -F 'Usage:' >/dev/null && gs --version >/dev/null && curl --version >/dev/null",
+              "perl -e 'use XML::Parser; use JSON; print \"meme perl deps ok\\n\"' | grep -Fx 'meme perl deps ok' >/dev/null && python -c 'print(\"meme python ok\")' | grep -Fx 'meme python ok' >/dev/null && meme-suite-db-info | grep -F 'MEME Suite database boundary' >/dev/null && meme-suite-db-info | grep -F 'https://meme-suite.org/meme-software/index.html' >/dev/null && meme-suite-download-dbs --help | grep -F 'Download selected official MEME Suite database bundles' >/dev/null && meme-suite-download-dbs --dry-run --motif | grep -F 'motif_databases.12.27.tgz' >/dev/null",
+              "set -e; tmp=/tmp/taf-meme-suite-fimo-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; fimo --oc \"$tmp/fimo\" --thresh 1e-3 /opt/meme-suite/share/testdata/smoke.meme /opt/meme-suite/share/testdata/smoke.fa > \"$tmp/fimo.log\" 2>&1; test -s \"$tmp/fimo/fimo.tsv\"; grep -F 'SMOKE_MOTIF' \"$tmp/fimo/fimo.tsv\" >/dev/null; grep -F 'smoke_seq_1' \"$tmp/fimo/fimo.tsv\" >/dev/null; rm -rf \"$tmp\"",
+              "set -e; tmp=/tmp/taf-meme-suite-tomtom-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; tomtom -oc \"$tmp/tomtom\" /opt/meme-suite/share/testdata/smoke.meme /opt/meme-suite/share/testdata/smoke.meme > \"$tmp/tomtom.log\" 2>&1; test -s \"$tmp/tomtom/tomtom.tsv\"; grep -F 'SMOKE_MOTIF' \"$tmp/tomtom/tomtom.tsv\" >/dev/null; rm -rf \"$tmp\"",
+              "set -e; tmp=/tmp/taf-meme-suite-meme-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; meme /opt/meme-suite/share/testdata/smoke_discovery.fa -dna -mod zoops -nmotifs 1 -minw 6 -maxw 6 -oc \"$tmp/meme\" -nostatus > \"$tmp/meme.log\" 2>&1; test -s \"$tmp/meme/meme.txt\"; grep -F 'MEME' \"$tmp/meme/meme.txt\" >/dev/null; grep -F 'MOTIF' \"$tmp/meme/meme.txt\" >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-08T15:25:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-08T15:25:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/meme-suite",
+            "ref": "v5.5.9-r1",
+            "commit": "2dcd592accf2bf4edb6616f69d1f7c054b61f54d",
+            "html_url": "https://github.com/taffish/meme-suite/tree/v5.5.9-r1"
+          },
+          "upstream": {
+            "name": "MEME Suite",
+            "type": "official",
+            "homepage": "https://meme-suite.org/meme/",
+            "release_url": "https://meme-suite.org/meme-software/index.html",
+            "version": "5.5.9",
+            "license": "MEME Suite non-commercial educational/research/non-profit license; commercial use requires a separate UCSD license",
+            "citation": "Bailey et al. 2015, The MEME Suite; Bailey et al. 2009, MEME SUITE: tools for motif discovery and searching",
+            "doi": "10.1093/nar/gkv416; 10.1093/nar/gkp335",
+            "pmid": "25953851; 19458158"
           }
         }
       }
@@ -28942,6 +29090,10 @@
       "package": "megahit",
       "version": "1.2.9-r1"
     },
+    "taf-meme-suite": {
+      "package": "meme-suite",
+      "version": "5.5.9-r1"
+    },
     "taf-merfin": {
       "package": "merfin",
       "version": "1.1-r2"
@@ -29722,6 +29874,12 @@
       "repository": "taffish/megahit",
       "packages": [
         "megahit"
+      ]
+    },
+    "taffish/meme-suite": {
+      "repository": "taffish/meme-suite",
+      "packages": [
+        "meme-suite"
       ]
     },
     "taffish/merfin": {
