@@ -1,0 +1,139 @@
+{
+  "name": "weblogo",
+  "latest": "3.9.0-r1",
+  "recent_version": "3.9.0-r1",
+  "recent_at": "2026-06-08T14:36:21Z",
+  "repository_url": "https://github.com/taffish/weblogo",
+  "command": {
+    "name": "taf-weblogo"
+  },
+  "versions": {
+    "3.9.0-r1": {
+      "name": "weblogo",
+      "kind": "tool",
+      "version": "3.9.0",
+      "release": 1,
+      "version_id": "3.9.0-r1",
+      "tag": "v3.9.0-r1",
+      "published_at": "2026-06-08T14:36:21Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/weblogo",
+      "repository_slug": "taffish/weblogo",
+      "command": {
+        "name": "taf-weblogo"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "motif",
+        "categories": [
+          "motif",
+          "sequence-logo",
+          "visualization",
+          "alignment",
+          "sequence-analysis"
+        ],
+        "keywords": [
+          "weblogo",
+          "sequence logo",
+          "motif",
+          "multiple sequence alignment",
+          "fasta",
+          "clustal",
+          "transfac",
+          "eps",
+          "png",
+          "pdf",
+          "svg"
+        ],
+        "summary": "WebLogo 3.9.0 runtime for generating sequence logos from biological sequence alignments and motif matrices.",
+        "description": "WebLogo 3.9.0 runtime for generating sequence logos from biological sequence alignments and motif matrices."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/weblogo:3.9.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.9.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:24abd66e18c0aa3cab6ee38718de7ff8f06155c9a78f03dcb738ce2c3e59ad3f",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:2337f07455a812a3368b6662b01c92cf7fe52727610691fc4f876a026cdc6dfd",
+          "linux/arm64": "sha256:2bf1e888319552b9c01d41777b4ff77bd11923906e30a6360154a1d87d46a7f1"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "weblogo",
+          "transformseq",
+          "python",
+          "python3",
+          "gs",
+          "pdf2svg",
+          "curl",
+          "file",
+          "bash",
+          "sh",
+          "grep",
+          "sed",
+          "awk"
+        ],
+        "test": [
+          "weblogo --version 2>&1 | grep -Fx 'WebLogo 3.9.0' >/dev/null && transformseq --version 2>&1 | grep -Fx '1.0.0' >/dev/null && weblogo --help 2>&1 | grep -F 'Format of output: eps' >/dev/null && weblogo --help 2>&1 | grep -F 'WebLogo Server' >/dev/null && transformseq --help 2>&1 | grep -F 'Multiple sequence alignment output format' >/dev/null",
+          "python -c 'import importlib.metadata as md; assert md.version(\"weblogo\") == \"3.9.0\"; import weblogo, numpy, scipy, importlib_resources, importlib_metadata; print(\"weblogo-runtime-ok\")' | grep -F 'weblogo-runtime-ok' >/dev/null && gs --version >/dev/null && pdf2svg 2>&1 | grep -F 'Usage' >/dev/null",
+          "tmp=/tmp/taf-weblogo-logo-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '%s\\n' '>s1' 'ACGTACGA' '>s2' 'ACGTTCGA' '>s3' 'ACGTACCA' > \"$tmp/seq.fa\"; weblogo -f \"$tmp/seq.fa\" --sequence-type dna --title 'TAF WebLogo smoke' -F eps -o \"$tmp/logo.eps\"; grep -F '%%Creator:      WebLogo 3.9.0' \"$tmp/logo.eps\" >/dev/null; weblogo -f \"$tmp/seq.fa\" --sequence-type dna -F png -o \"$tmp/logo.png\"; file \"$tmp/logo.png\" | grep -F 'PNG image data' >/dev/null; weblogo -f \"$tmp/seq.fa\" --sequence-type dna -F pdf -o \"$tmp/logo.pdf\"; file \"$tmp/logo.pdf\" | grep -F 'PDF document' >/dev/null; weblogo -f \"$tmp/seq.fa\" --sequence-type dna -F svg -o \"$tmp/logo.svg\"; grep -F '<svg' \"$tmp/logo.svg\" >/dev/null; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-weblogo-transform-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '%s\\n' '>s1' 'ACGTACGA' '>s2' 'ACGTTCGA' > \"$tmp/seq.fa\"; transformseq -f \"$tmp/seq.fa\" --reverse -o \"$tmp/reverse.fa\"; grep -F 'AGCATGCA' \"$tmp/reverse.fa\" >/dev/null; weblogo --serve --port 18080 > \"$tmp/server.log\" 2>&1 & pid=$!; ok=0; for i in 1 2 3 4 5; do if curl -fsS http://127.0.0.1:18080/ > \"$tmp/index.html\" 2>/dev/null; then ok=1; break; fi; sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; test \"$ok\" = 1; grep -F 'WebLogo' \"$tmp/index.html\" >/dev/null; rm -rf \"$tmp\"",
+          "test -s /opt/weblogo/share/doc/weblogo/README.md && test -s /opt/weblogo/share/doc/weblogo/CITATION.cff && test -s /opt/weblogo/share/doc/weblogo/source.txt && test -s /opt/weblogo/share/licenses/weblogo/LICENSE && test -s /opt/weblogo/share/testdata/cap.fa"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-08T14:43:30Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-08T14:43:30Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/weblogo",
+        "ref": "v3.9.0-r1",
+        "commit": "feec7c30ceab332e8d643182aeb84e270e40ddc0",
+        "html_url": "https://github.com/taffish/weblogo/tree/v3.9.0-r1"
+      },
+      "upstream": {
+        "name": "WebLogo",
+        "type": "github",
+        "homepage": "https://github.com/gecrooks/weblogo",
+        "repository": "gecrooks/weblogo",
+        "release_url": "https://github.com/gecrooks/weblogo/tree/3.9.0",
+        "version": "3.9.0",
+        "license": "MIT",
+        "citation": "Crooks et al. 2004, WebLogo: A sequence logo generator",
+        "doi": "10.1101/gr.849004",
+        "pmid": "15173120"
+      }
+    }
+  }
+}

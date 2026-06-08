@@ -1,0 +1,127 @@
+{
+  "name": "logomaker",
+  "latest": "0.8.7-r1",
+  "recent_version": "0.8.7-r1",
+  "recent_at": "2026-06-08T14:30:16Z",
+  "repository_url": "https://github.com/taffish/logomaker",
+  "command": {
+    "name": "taf-logomaker"
+  },
+  "versions": {
+    "0.8.7-r1": {
+      "name": "logomaker",
+      "kind": "tool",
+      "version": "0.8.7",
+      "release": 1,
+      "version_id": "0.8.7-r1",
+      "tag": "v0.8.7-r1",
+      "published_at": "2026-06-08T14:30:16Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/logomaker",
+      "repository_slug": "taffish/logomaker",
+      "command": {
+        "name": "taf-logomaker"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "visualization",
+        "categories": [
+          "visualization",
+          "sequence-analysis",
+          "motif-analysis",
+          "python"
+        ],
+        "keywords": [
+          "logomaker",
+          "sequence-logo",
+          "motif",
+          "dna",
+          "rna",
+          "protein",
+          "matplotlib"
+        ],
+        "summary": "Logomaker 0.8.7 Python runtime with a small TAFFISH helper CLI for creating sequence-logo figures from matrices, aligned FASTA files, and upstream demo data.",
+        "description": "Logomaker 0.8.7 Python runtime with a small TAFFISH helper CLI for creating sequence-logo figures from matrices, aligned FASTA files, and upstream demo data."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/logomaker:0.8.7-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.8.7-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:3b238482356bc49f3bb9bd929f86300cf2b37829dadedc07a99e7dc2dc0b3f14",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b812bc1fe2ea6407eee34588f10a90910b5454e073b1a2a62374db7ae7033202",
+          "linux/arm64": "sha256:2dd2e527f8ab74c9771d624baad4d834ca57b0ba945a3c0ee3c5ff091eb3f64a"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "logomaker",
+          "python",
+          "python3",
+          "pip",
+          "bash",
+          "sh"
+        ],
+        "test": [
+          "test \"$(python -c 'import importlib.metadata as md; print(md.version(\"logomaker\"))')\" = '0.8.7' && python -c 'import logomaker, matplotlib, numpy, pandas; import importlib.metadata as md; print(md.version(\"logomaker\"))' | grep -Fx '0.8.7' >/dev/null && logomaker --version | grep -Fx 'logomaker 0.8.7' >/dev/null",
+          "logomaker --help | grep -F 'Create sequence logos with Logomaker' >/dev/null && logomaker matrix --help | grep -F 'Render a logo from a TSV matrix' >/dev/null && logomaker alignment --help | grep -F 'Render a logo from an aligned FASTA file' >/dev/null && logomaker demo --help | grep -F 'Render an upstream Logomaker demo figure' >/dev/null",
+          "tmp=/tmp/taf-logomaker-matrix-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf 'pos\\tA\\tC\\tG\\tT\\n0\\t0.70\\t0.10\\t0.10\\t0.10\\n1\\t0.10\\t0.70\\t0.10\\t0.10\\n2\\t0.10\\t0.10\\t0.70\\t0.10\\n3\\t0.10\\t0.10\\t0.10\\t0.70\\n' > \"$tmp/matrix.tsv\"; logomaker matrix --input \"$tmp/matrix.tsv\" --output \"$tmp/logo.svg\" --matrix-type probability --color-scheme classic --title smoke; test -s \"$tmp/logo.svg\"; grep -F '<svg' \"$tmp/logo.svg\" >/dev/null; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-logomaker-alignment-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>s1\\nACGTAC\\n>s2\\nACGTTC\\n>s3\\nACGTGC\\n>s4\\nACGTAC\\n' > \"$tmp/aln.fa\"; logomaker alignment --input \"$tmp/aln.fa\" --output \"$tmp/logo.png\" --to-type information --color-scheme classic; test -s \"$tmp/logo.png\"; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-logomaker-demo-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; logomaker demo --name logo --output \"$tmp/demo.pdf\" >/tmp/taf-logomaker-demo.log 2>&1; test -s \"$tmp/demo.pdf\"; rm -rf \"$tmp\" /tmp/taf-logomaker-demo.log"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-08T14:43:30Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-08T14:43:30Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/logomaker",
+        "ref": "v0.8.7-r1",
+        "commit": "41819342a9540d71ffd745e39ad38893a6c39d1a",
+        "html_url": "https://github.com/taffish/logomaker/tree/v0.8.7-r1"
+      },
+      "upstream": {
+        "name": "Logomaker",
+        "type": "github",
+        "homepage": "https://logomaker.readthedocs.io/",
+        "repository": "https://github.com/jbkinney/logomaker",
+        "release_url": "https://github.com/jbkinney/logomaker/tree/v0.8.7",
+        "version": "0.8.7",
+        "license": "MIT",
+        "citation": "Tareen A and Kinney JB. Logomaker: beautiful sequence logos in Python. Bioinformatics 36(7):2272-2274 (2020).",
+        "doi": "10.1093/bioinformatics/btz921",
+        "pmid": "31821414"
+      }
+    }
+  }
+}
