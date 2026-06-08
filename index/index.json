@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-08T10:28:42Z",
+  "generated_at": "2026-06-08T11:09:07Z",
   "organization": "taffish",
   "counts": {
-    "packages": 153,
-    "versions": 222,
-    "commands": 153,
-    "repositories": 153,
+    "packages": 154,
+    "versions": 223,
+    "commands": 154,
+    "repositories": 154,
     "warnings": 0,
     "failed": 0,
     "rejected": 7
@@ -27405,6 +27405,144 @@
         }
       }
     },
+    "truvari": {
+      "name": "truvari",
+      "latest": "5.4.0-r1",
+      "recent_version": "5.4.0-r1",
+      "recent_at": "2026-06-08T10:58:29Z",
+      "repository_url": "https://github.com/taffish/truvari",
+      "command": {
+        "name": "taf-truvari"
+      },
+      "versions": {
+        "5.4.0-r1": {
+          "name": "truvari",
+          "kind": "tool",
+          "version": "5.4.0",
+          "release": 1,
+          "version_id": "5.4.0-r1",
+          "tag": "v5.4.0-r1",
+          "published_at": "2026-06-08T10:58:29Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/truvari",
+          "repository_slug": "taffish/truvari",
+          "command": {
+            "name": "taf-truvari"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-variation",
+            "categories": [
+              "structural-variation",
+              "variant-benchmarking",
+              "variant-merging",
+              "annotation",
+              "genomics",
+              "vcf"
+            ],
+            "keywords": [
+              "truvari",
+              "structural variant",
+              "sv",
+              "benchmarking",
+              "vcf",
+              "collapse",
+              "bench",
+              "phab",
+              "refine",
+              "variant annotation",
+              "giab"
+            ],
+            "summary": "Truvari 5.4.0 runtime for structural variant benchmarking, merging, harmonization, annotation, and VCF analysis.",
+            "description": "Truvari 5.4.0 runtime for structural variant benchmarking, merging, harmonization, annotation, and VCF analysis."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/truvari:5.4.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.4.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c81883229759486bcff12fc2a41766440734517d35b49ca462296b012b2fa02c",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:587ad4e89162d5b29bbdeff7f546f301c6912fb0bb24b9e75717b0985b557867",
+              "linux/arm64": "sha256:2ec9322bb0b9bd6a9bd9da6f8967741cc012ca748bf407240385090eb0dfeeeb"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "truvari",
+              "python",
+              "bcftools",
+              "samtools",
+              "bgzip",
+              "tabix",
+              "mafft",
+              "bwa",
+              "bash",
+              "sh",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "truvari version 2>&1 | grep -Fx 'Truvari v5.4.0' >/dev/null && truvari version -v 2>&1 | grep -Fx 'Truvari 5.4.0' >/dev/null && truvari -h 2>&1 | grep -F 'Structural Variant Benchmarking and Annotation' >/dev/null && truvari bench -h 2>&1 | grep -F 'Structural variant benchmarking tool' >/dev/null && truvari bench -h 2>&1 | grep -F -- '--base BASE' >/dev/null && truvari collapse -h 2>&1 | grep -F 'Structural variant collapser' >/dev/null && truvari anno -h 2>&1 | grep -F 'Truvari annotations' >/dev/null && truvari anno svinfo -h 2>&1 | grep -F 'Adds SVTYPE and SVLEN INFO fields' >/dev/null && truvari phab -h 2>&1 | grep -F 'Wrapper around MAFFT' >/dev/null && truvari refine -h 2>&1 | grep -F 'Automated Truvari bench result refinement' >/dev/null",
+              "python -c 'import importlib.metadata as md; assert md.version(\"truvari\") == \"5.4.0\"; assert md.version(\"bwapy\") == \"0.1.4\"; import truvari, edlib, intervaltree, joblib, numpy, pandas, psutil, pyabpoa, pysam, tabix, pywfa, rich, bwapy; print(\"truvari-runtime-ok\", md.version(\"pysam\"), md.version(\"pyabpoa\"), md.version(\"pywfa\"), md.version(\"bwapy\"))' | grep -F 'truvari-runtime-ok' >/dev/null && python --version 2>&1 | grep -F 'Python 3.11.15' >/dev/null && bcftools --version 2>&1 | grep -F 'bcftools 1.23.1' >/dev/null && samtools --version 2>&1 | grep -F 'samtools 1.23.1' >/dev/null && bgzip --help 2>&1 | grep -F 'Version: 1.' >/dev/null && tabix --help 2>&1 | grep -F 'Version: 1.' >/dev/null && mafft --version 2>&1 | grep -F 'v7.526' >/dev/null && (bwa 2>&1 || true) | grep -F 'Version: 0.7.19' >/dev/null && test -s /opt/truvari/share/doc/truvari/README.md && test -s /opt/truvari/share/doc/truvari/source.txt && test -s /opt/truvari/share/licenses/truvari/LICENSE",
+              "tmp=/tmp/taf-truvari-bench-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/truvari/share/testdata/make_sv_fixture.py \"$tmp\"; samtools faidx \"$tmp/ref.fa\"; for v in base comp collapse; do bgzip -c \"$tmp/$v.vcf\" > \"$tmp/$v.vcf.gz\"; tabix -f -p vcf \"$tmp/$v.vcf.gz\"; done; truvari bench -b \"$tmp/base.vcf.gz\" -c \"$tmp/comp.vcf.gz\" -f \"$tmp/ref.fa\" -o \"$tmp/bench\" --passonly --pctseq 0 --sizemin 50 --sizefilt 50 > \"$tmp/bench.log\" 2>&1; test -s \"$tmp/bench/summary.json\"; test -s \"$tmp/bench/tp-base.vcf.gz\"; test -s \"$tmp/bench/fp.vcf.gz\"; grep -F '\"TP-base\": 1' \"$tmp/bench/summary.json\" >/dev/null; grep -F '\"FP\": 1' \"$tmp/bench/summary.json\" >/dev/null; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-truvari-collapse-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/truvari/share/testdata/make_sv_fixture.py \"$tmp\"; bgzip -c \"$tmp/collapse.vcf\" > \"$tmp/collapse.vcf.gz\"; tabix -f -p vcf \"$tmp/collapse.vcf.gz\"; truvari collapse -i \"$tmp/collapse.vcf.gz\" -o \"$tmp/collapsed.vcf\" -c \"$tmp/removed.vcf\" --pctseq 0 --sizemin 50 --passonly > \"$tmp/collapse.log\" 2>&1; grep -F 'dup_a' \"$tmp/collapsed.vcf\" >/dev/null; grep -F 'dup_b' \"$tmp/removed.vcf\" >/dev/null; grep -F 'CollapseId=' \"$tmp/collapsed.vcf\" >/dev/null; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-truvari-anno-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/truvari/share/testdata/make_sv_fixture.py \"$tmp\"; truvari anno svinfo \"$tmp/anno.vcf\" -o \"$tmp/annotated.vcf\" > \"$tmp/anno.log\" 2>&1; grep -F 'SVTYPE=DEL;SVLEN=80' \"$tmp/annotated.vcf\" >/dev/null; grep -F 'Finished svinfo' \"$tmp/anno.log\" >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-08T11:09:07Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-08T11:09:07Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/truvari",
+            "ref": "v5.4.0-r1",
+            "commit": "d3231c86eef5f75d7b07619105c37aa1bc233ac3",
+            "html_url": "https://github.com/taffish/truvari/tree/v5.4.0-r1"
+          },
+          "upstream": {
+            "name": "Truvari",
+            "type": "github",
+            "homepage": "https://github.com/ACEnglish/truvari",
+            "repository": "ACEnglish/truvari",
+            "release_url": "https://github.com/ACEnglish/truvari/releases/tag/v5.4.0",
+            "version": "5.4.0",
+            "license": "MIT",
+            "citation": "English et al. 2022, Truvari: refined structural variant comparison preserves allelic diversity",
+            "doi": "10.1186/s13059-022-02840-6"
+          }
+        }
+      }
+    },
     "ucsc-kent": {
       "name": "ucsc-kent",
       "latest": "492-r1",
@@ -28814,6 +28952,10 @@
       "package": "trnascan-se",
       "version": "2.0.12-r1"
     },
+    "taf-truvari": {
+      "package": "truvari",
+      "version": "5.4.0-r1"
+    },
     "taf-ucsc-kent": {
       "package": "ucsc-kent",
       "version": "492-r1"
@@ -29720,6 +29862,12 @@
       "repository": "taffish/trnascan-se",
       "packages": [
         "trnascan-se"
+      ]
+    },
+    "taffish/truvari": {
+      "repository": "taffish/truvari",
+      "packages": [
+        "truvari"
       ]
     },
     "taffish/ucsc-kent": {
