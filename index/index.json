@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-08T06:08:59Z",
+  "generated_at": "2026-06-08T09:29:53Z",
   "organization": "taffish",
   "counts": {
-    "packages": 151,
-    "versions": 220,
-    "commands": 151,
-    "repositories": 151,
+    "packages": 152,
+    "versions": 221,
+    "commands": 152,
+    "repositories": 152,
     "warnings": 0,
     "failed": 0,
     "rejected": 7
@@ -24162,6 +24162,145 @@
         }
       }
     },
+    "sniffles": {
+      "name": "sniffles",
+      "latest": "2.8.0-r1",
+      "recent_version": "2.8.0-r1",
+      "recent_at": "2026-06-08T09:21:22Z",
+      "repository_url": "https://github.com/taffish/sniffles",
+      "command": {
+        "name": "taf-sniffles"
+      },
+      "versions": {
+        "2.8.0-r1": {
+          "name": "sniffles",
+          "kind": "tool",
+          "version": "2.8.0",
+          "release": 1,
+          "version_id": "2.8.0-r1",
+          "tag": "v2.8.0-r1",
+          "published_at": "2026-06-08T09:21:22Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/sniffles",
+          "repository_slug": "taffish/sniffles",
+          "command": {
+            "name": "taf-sniffles"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-variation",
+            "categories": [
+              "structural-variation",
+              "variant-calling",
+              "long-read",
+              "genomics",
+              "bam",
+              "vcf"
+            ],
+            "keywords": [
+              "sniffles2",
+              "sniffles",
+              "structural variant",
+              "sv",
+              "long-read",
+              "pacbio",
+              "oxford nanopore",
+              "bam",
+              "cram",
+              "vcf",
+              "snf",
+              "mosaic",
+              "population calling",
+              "genotyping"
+            ],
+            "summary": "Sniffles2 2.8.0 runtime for long-read structural variant calling from sorted and indexed BAM/CRAM alignments.",
+            "description": "Sniffles2 2.8.0 runtime for long-read structural variant calling from sorted and indexed BAM/CRAM alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/sniffles:2.8.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.8.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:60faafc546e3c43fc3646b2f7c151bf2cf55d66bf37a470440190cf909748f8e",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7ff16f80183ae18eafe187c9dee1a5bc8433a856e77dd599adf264fd671c2739",
+              "linux/arm64": "sha256:1ab4ef36d5d00ff05a8556cee1df155ea7bafa76abac0535b9211f91e7afc880"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "sniffles",
+              "python",
+              "samtools",
+              "bgzip",
+              "tabix",
+              "bash",
+              "sh",
+              "grep",
+              "sed",
+              "awk"
+            ],
+            "test": [
+              "sniffles --version 2>&1 | grep -Fx 'Sniffles2, Version 2.8.0' >/dev/null && sniffles --help 2>&1 | grep -F 'Sniffles2: A fast structural variant (SV) caller' >/dev/null && sniffles --help 2>&1 | grep -F -- '--input SORTED_INPUT.bam' >/dev/null && sniffles --help 2>&1 | grep -F -- '--vcf OUTPUT.vcf' >/dev/null && sniffles --help 2>&1 | grep -F -- '--mosaic' >/dev/null && sniffles --expert-help 2>&1 | grep -F -- '--tandem-repeats' >/dev/null",
+              "python -c 'import importlib.metadata as md; assert md.version(\"sniffles\") == \"2.8.0\"; import sniffles, pysam, edlib, psutil, numpy, spoa; print(\"sniffles-runtime-ok\", md.version(\"pysam\"), md.version(\"edlib\"), md.version(\"psutil\"), md.version(\"numpy\"), md.version(\"pyspoa\"))' | grep -F 'sniffles-runtime-ok' >/dev/null && python --version 2>&1 | grep -F 'Python 3.10.15' >/dev/null && samtools --version 2>&1 | grep -F 'samtools 1.22.1' >/dev/null && bgzip --help 2>&1 | grep -F 'Version: 1.' >/dev/null && tabix --help 2>&1 | grep -F 'Version: 1.' >/dev/null",
+              "tmp=/tmp/taf-sniffles-call-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/sniffles/share/testdata/make_minimal_bam.py \"$tmp/reads.bam\"; cd \"$tmp\"; samtools quickcheck reads.bam; sniffles --input reads.bam --vcf calls.vcf --threads 1 --minsupport 1 --all-contigs > run.log 2>&1; test -s calls.vcf; grep -F '##fileformat=VCFv4.2' calls.vcf >/dev/null; grep -F '##source=Sniffles2_2.8.0' calls.vcf >/dev/null; grep -F '#CHROM' calls.vcf >/dev/null; grep -F 'Wrote 0 called SVs to calls.vcf' run.log >/dev/null; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-sniffles-snf-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/sniffles/share/testdata/make_minimal_bam.py \"$tmp/reads.bam\"; cd \"$tmp\"; sniffles --input reads.bam --snf sample.snf --threads 1 --minsupport 1 --all-contigs > run.log 2>&1; test -s sample.snf; grep -F 'Running Sniffles2, build 2.8.0' run.log >/dev/null; rm -rf \"$tmp\"",
+              "test -s /opt/sniffles/share/annotations/human_GRCh38_no_alt_analysis_set.trf.bed && test -s /opt/sniffles/share/annotations/human_hs37d5.trf.bed && test -s /opt/sniffles/share/doc/sniffles/README.md && test -s /opt/sniffles/share/licenses/sniffles/LICENSE"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-08T09:29:53Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-08T09:29:53Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/sniffles",
+            "ref": "v2.8.0-r1",
+            "commit": "ef4edcd435b3a1347a712b2a23bd9e583a87d82a",
+            "html_url": "https://github.com/taffish/sniffles/tree/v2.8.0-r1"
+          },
+          "upstream": {
+            "name": "Sniffles2",
+            "type": "github",
+            "homepage": "https://github.com/fritzsedlazeck/Sniffles",
+            "repository": "fritzsedlazeck/Sniffles",
+            "release_url": "https://github.com/fritzsedlazeck/Sniffles/releases/tag/v2.8.0",
+            "version": "2.8.0",
+            "license": "MIT",
+            "citation": "Smolka et al. 2024, Detection of mosaic and population-level structural variants with Sniffles2; Sedlazeck et al. 2018, Accurate detection of complex structural variations using single-molecule sequencing",
+            "doi": "10.1038/s41587-023-02024-y; 10.1038/s41592-018-0001-7"
+          }
+        }
+      }
+    },
     "snpeff": {
       "name": "snpeff",
       "latest": "5.4c-r1",
@@ -28459,6 +28598,10 @@
       "package": "seurat",
       "version": "5.5.0-r1"
     },
+    "taf-sniffles": {
+      "package": "sniffles",
+      "version": "2.8.0-r1"
+    },
     "taf-snpeff": {
       "package": "snpeff",
       "version": "5.4c-r1"
@@ -29319,6 +29462,12 @@
       "repository": "taffish/seurat",
       "packages": [
         "seurat"
+      ]
+    },
+    "taffish/sniffles": {
+      "repository": "taffish/sniffles",
+      "packages": [
+        "sniffles"
       ]
     },
     "taffish/snpeff": {
