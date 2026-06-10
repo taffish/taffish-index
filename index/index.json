@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-10T01:00:05Z",
+  "generated_at": "2026-06-10T01:37:10Z",
   "organization": "taffish",
   "counts": {
-    "packages": 158,
-    "versions": 228,
-    "commands": 158,
-    "repositories": 158,
+    "packages": 160,
+    "versions": 230,
+    "commands": 160,
+    "repositories": 160,
     "warnings": 0,
     "failed": 0,
     "rejected": 7
@@ -8169,6 +8169,137 @@
         }
       }
     },
+    "flye": {
+      "name": "flye",
+      "latest": "2.9.6-r1",
+      "recent_version": "2.9.6-r1",
+      "recent_at": "2026-06-10T01:05:58Z",
+      "repository_url": "https://github.com/taffish/flye",
+      "command": {
+        "name": "taf-flye"
+      },
+      "versions": {
+        "2.9.6-r1": {
+          "name": "flye",
+          "kind": "tool",
+          "version": "2.9.6",
+          "release": 1,
+          "version_id": "2.9.6-r1",
+          "tag": "v2.9.6-r1",
+          "published_at": "2026-06-10T01:05:58Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/flye",
+          "repository_slug": "taffish/flye",
+          "command": {
+            "name": "taf-flye"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "long-read",
+              "metagenomics",
+              "de-novo-assembly"
+            ],
+            "keywords": [
+              "flye",
+              "metaflye",
+              "pacbio",
+              "ont",
+              "nanopore",
+              "hifi",
+              "long reads",
+              "repeat graph",
+              "assembly",
+              "contigs",
+              "gfa"
+            ],
+            "summary": "Flye long-read de novo assembler for PacBio and Oxford Nanopore reads, including isolate and metagenome repeat-graph assembly modes.",
+            "description": "Flye long-read de novo assembler for PacBio and Oxford Nanopore reads, including isolate and metagenome repeat-graph assembly modes."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/flye:2.9.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.9.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9fffdfc608b331be5859f10107fb53bfc248f0db852a0b6bd64151bfe3cfcb36",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0a928f3a6f59b8641d024fc3de85caa21863290ca66340f67d8b55e7dadd2000",
+              "linux/arm64": "sha256:07fd94175d415b2036a117f58d64037c04c70cfbe93797cab7aef45fa321cc71"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "flye",
+              "flye-modules",
+              "flye-minimap2",
+              "flye-samtools",
+              "python3",
+              "bash",
+              "gzip"
+            ],
+            "test": [
+              "flye --version 2>&1 | grep -Fx '2.9.6-b1802' >/dev/null",
+              "flye --help 2>&1 | grep -F 'Assembly of long reads with repeat graphs' >/dev/null && flye --help 2>&1 | grep -F -- '--pacbio-hifi' >/dev/null && flye --help 2>&1 | grep -F -- '--nano-hq' >/dev/null && flye --help 2>&1 | grep -F -- '--meta' >/dev/null",
+              "python3 -c 'from flye.__version__ import __version__; assert __version__ == \"2.9.6\"' && command -v flye-modules >/dev/null && command -v flye-minimap2 >/dev/null && command -v flye-samtools >/dev/null",
+              "for x in flye-modules flye-minimap2 flye-samtools; do command -v \"$x\" >/dev/null; ! ldd \"$(command -v \"$x\")\" 2>&1 | grep -F 'not found' >/dev/null; done",
+              "tmp=/tmp/taf-flye-toy-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python3 -m flye.tests.test_toy > toy.log 2>&1; grep -F 'TEST SUCCESSFUL' toy.log >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-10T01:37:10Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-10T01:37:10Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/flye",
+            "ref": "v2.9.6-r1",
+            "commit": "f02d1c4d13ca038a864215b3f534a046acc400c2",
+            "html_url": "https://github.com/taffish/flye/tree/v2.9.6-r1"
+          },
+          "upstream": {
+            "name": "Flye",
+            "type": "github",
+            "homepage": "https://github.com/mikolmogorov/Flye",
+            "repository": "mikolmogorov/Flye",
+            "release_url": "https://github.com/mikolmogorov/Flye/releases/tag/2.9.6",
+            "version": "2.9.6",
+            "license": "BSD-3-Clause",
+            "citation": "Kolmogorov et al. 2019; Kolmogorov et al. 2020",
+            "doi": "10.1038/s41587-019-0072-8; 10.1038/s41592-020-00971-x"
+          }
+        }
+      }
+    },
     "foldseek": {
       "name": "foldseek",
       "latest": "10-r2",
@@ -14020,6 +14151,147 @@
             "citation": "Wang et al. 2012",
             "doi": "10.1093/nar/gkr1293",
             "pmid": "22217600"
+          }
+        }
+      }
+    },
+    "medaka": {
+      "name": "medaka",
+      "latest": "2.2.2-r1",
+      "recent_version": "2.2.2-r1",
+      "recent_at": "2026-06-10T01:00:19Z",
+      "repository_url": "https://github.com/taffish/medaka",
+      "command": {
+        "name": "taf-medaka"
+      },
+      "versions": {
+        "2.2.2-r1": {
+          "name": "medaka",
+          "kind": "tool",
+          "version": "2.2.2",
+          "release": 1,
+          "version_id": "2.2.2-r1",
+          "tag": "v2.2.2-r1",
+          "published_at": "2026-06-10T01:00:19Z",
+          "published_at_source": "github-release",
+          "license": "Oxford Nanopore Technologies PLC. Public License Version 1.0",
+          "repository_url": "https://github.com/taffish/medaka",
+          "repository_slug": "taffish/medaka",
+          "command": {
+            "name": "taf-medaka"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "long-read",
+            "categories": [
+              "long-read",
+              "nanopore",
+              "polishing",
+              "variant-calling",
+              "deep-learning"
+            ],
+            "keywords": [
+              "medaka",
+              "oxford nanopore",
+              "ont",
+              "nanopore",
+              "consensus",
+              "polishing",
+              "variant-calling",
+              "minimap2",
+              "samtools",
+              "pytorch",
+              "pyabpoa"
+            ],
+            "summary": "Medaka 2.2.2 CPU-oriented runtime for Oxford Nanopore consensus polishing and haploid variant calling, with bundled models, pyabpoa, and required alignment/HTS helper binaries.",
+            "description": "Medaka 2.2.2 CPU-oriented runtime for Oxford Nanopore consensus polishing and haploid variant calling, with bundled models, pyabpoa, and required alignment/HTS helper binaries."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/medaka:2.2.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:da146c20e2c892f07e7c2f03c4dc559bf29c08cc8813b66bbdf2ded28fcc12a8",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:d880e0fd01322ebbd6ddc62ccb7d747302283c6b7bfcb769aaaff93f09c4e6d6",
+              "linux/arm64": "sha256:b47e11ce894295a044149243a58b236a6ab3103a33ededf40501b2334cbc900c"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "medaka",
+              "medaka_consensus",
+              "medaka_consensus_joint",
+              "medaka_variant",
+              "medaka_counts",
+              "medaka_data_path",
+              "medaka_version_report",
+              "mini_align",
+              "python",
+              "python3",
+              "samtools",
+              "minimap2",
+              "bcftools",
+              "bgzip",
+              "tabix",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "test \"$(python -c 'import medaka; print(medaka.__version__)')\" = '2.2.2' && medaka --version 2>&1 | grep -F '2.2.2' >/dev/null && python -c 'import medaka, torch, pysam, mappy, spoa, parasail, pyabpoa; print(medaka.__version__)' | grep -Fx '2.2.2' >/dev/null",
+              "medaka --help 2>&1 | grep -F 'usage: medaka' >/dev/null && medaka tools list_models 2>&1 | grep -F 'Available:' >/dev/null && medaka_consensus -h 2>&1 | grep -F 'Assembly polishing via neural networks' >/dev/null && medaka_variant -h 2>&1 | grep -F 'Haploid variant calling via neural networks' >/dev/null && medaka_consensus_joint -h 2>&1 | grep -F 'Assembly polishing via neural networks' >/dev/null",
+              "medaka_version_report >/tmp/taf-medaka-version-report.txt 2>&1 && rm -f /tmp/taf-medaka-version-report.txt && samtools --version 2>&1 | grep -F 'samtools' >/dev/null && minimap2 --version 2>&1 | grep -E '^[0-9]' >/dev/null && bcftools --version 2>&1 | grep -F 'bcftools' >/dev/null && bgzip --help 2>&1 | grep -F 'Version:' >/dev/null && tabix --help 2>&1 | grep -F 'Version:' >/dev/null",
+              "data=$(medaka_data_path); test -d \"$data\" && find \"$data\" -name '*_model_pt.tar.gz' | grep -F '_model_pt.tar.gz' >/dev/null && medaka tools list_models 2>&1 | grep -F 'Default consensus:' >/dev/null",
+              "tmp=/tmp/taf-medaka-mini-align-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>draft\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > \"$tmp/draft.fa\"; printf '>read1\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n>read2\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > \"$tmp/reads.fa\"; mini_align -i \"$tmp/reads.fa\" -r \"$tmp/draft.fa\" -p \"$tmp/calls_to_draft\" -t 1 >/tmp/taf-medaka-mini-align.log 2>&1; test -s \"$tmp/calls_to_draft.bam\"; samtools quickcheck \"$tmp/calls_to_draft.bam\"; test -s \"$tmp/calls_to_draft.bam.bai\"; rm -rf \"$tmp\" /tmp/taf-medaka-mini-align.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-10T01:37:10Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-10T01:37:10Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/medaka",
+            "ref": "v2.2.2-r1",
+            "commit": "38e5c8dd5f5cfddee5354fef5b91219d66477b87",
+            "html_url": "https://github.com/taffish/medaka/tree/v2.2.2-r1"
+          },
+          "upstream": {
+            "name": "medaka",
+            "type": "github",
+            "homepage": "https://github.com/nanoporetech/medaka",
+            "repository": "https://github.com/nanoporetech/medaka",
+            "release_url": "https://github.com/nanoporetech/medaka/releases/tag/v2.2.2",
+            "version": "2.2.2",
+            "license": "Oxford Nanopore Technologies PLC. Public License Version 1.0",
+            "citation": "Oxford Nanopore Technologies. medaka: Sequence correction provided by ONT Research."
           }
         }
       }
@@ -29224,6 +29496,10 @@
       "package": "fasttree",
       "version": "2.2.0-r1"
     },
+    "taf-flye": {
+      "package": "flye",
+      "version": "2.9.6-r1"
+    },
     "taf-foldseek": {
       "package": "foldseek",
       "version": "10-r2"
@@ -29335,6 +29611,10 @@
     "taf-mcscanx": {
       "package": "mcscanx",
       "version": "1.0.0-r1"
+    },
+    "taf-medaka": {
+      "package": "medaka",
+      "version": "2.2.2-r1"
     },
     "taf-megahit": {
       "package": "megahit",
@@ -29956,6 +30236,12 @@
         "fasttree"
       ]
     },
+    "taffish/flye": {
+      "repository": "taffish/flye",
+      "packages": [
+        "flye"
+      ]
+    },
     "taffish/foldseek": {
       "repository": "taffish/foldseek",
       "packages": [
@@ -30122,6 +30408,12 @@
       "repository": "taffish/mcscanx",
       "packages": [
         "mcscanx"
+      ]
+    },
+    "taffish/medaka": {
+      "repository": "taffish/medaka",
+      "packages": [
+        "medaka"
       ]
     },
     "taffish/megahit": {

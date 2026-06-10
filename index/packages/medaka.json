@@ -1,0 +1,141 @@
+{
+  "name": "medaka",
+  "latest": "2.2.2-r1",
+  "recent_version": "2.2.2-r1",
+  "recent_at": "2026-06-10T01:00:19Z",
+  "repository_url": "https://github.com/taffish/medaka",
+  "command": {
+    "name": "taf-medaka"
+  },
+  "versions": {
+    "2.2.2-r1": {
+      "name": "medaka",
+      "kind": "tool",
+      "version": "2.2.2",
+      "release": 1,
+      "version_id": "2.2.2-r1",
+      "tag": "v2.2.2-r1",
+      "published_at": "2026-06-10T01:00:19Z",
+      "published_at_source": "github-release",
+      "license": "Oxford Nanopore Technologies PLC. Public License Version 1.0",
+      "repository_url": "https://github.com/taffish/medaka",
+      "repository_slug": "taffish/medaka",
+      "command": {
+        "name": "taf-medaka"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "long-read",
+        "categories": [
+          "long-read",
+          "nanopore",
+          "polishing",
+          "variant-calling",
+          "deep-learning"
+        ],
+        "keywords": [
+          "medaka",
+          "oxford nanopore",
+          "ont",
+          "nanopore",
+          "consensus",
+          "polishing",
+          "variant-calling",
+          "minimap2",
+          "samtools",
+          "pytorch",
+          "pyabpoa"
+        ],
+        "summary": "Medaka 2.2.2 CPU-oriented runtime for Oxford Nanopore consensus polishing and haploid variant calling, with bundled models, pyabpoa, and required alignment/HTS helper binaries.",
+        "description": "Medaka 2.2.2 CPU-oriented runtime for Oxford Nanopore consensus polishing and haploid variant calling, with bundled models, pyabpoa, and required alignment/HTS helper binaries."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/medaka:2.2.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.2.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:da146c20e2c892f07e7c2f03c4dc559bf29c08cc8813b66bbdf2ded28fcc12a8",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d880e0fd01322ebbd6ddc62ccb7d747302283c6b7bfcb769aaaff93f09c4e6d6",
+          "linux/arm64": "sha256:b47e11ce894295a044149243a58b236a6ab3103a33ededf40501b2334cbc900c"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "medaka",
+          "medaka_consensus",
+          "medaka_consensus_joint",
+          "medaka_variant",
+          "medaka_counts",
+          "medaka_data_path",
+          "medaka_version_report",
+          "mini_align",
+          "python",
+          "python3",
+          "samtools",
+          "minimap2",
+          "bcftools",
+          "bgzip",
+          "tabix",
+          "bash",
+          "sh"
+        ],
+        "test": [
+          "test \"$(python -c 'import medaka; print(medaka.__version__)')\" = '2.2.2' && medaka --version 2>&1 | grep -F '2.2.2' >/dev/null && python -c 'import medaka, torch, pysam, mappy, spoa, parasail, pyabpoa; print(medaka.__version__)' | grep -Fx '2.2.2' >/dev/null",
+          "medaka --help 2>&1 | grep -F 'usage: medaka' >/dev/null && medaka tools list_models 2>&1 | grep -F 'Available:' >/dev/null && medaka_consensus -h 2>&1 | grep -F 'Assembly polishing via neural networks' >/dev/null && medaka_variant -h 2>&1 | grep -F 'Haploid variant calling via neural networks' >/dev/null && medaka_consensus_joint -h 2>&1 | grep -F 'Assembly polishing via neural networks' >/dev/null",
+          "medaka_version_report >/tmp/taf-medaka-version-report.txt 2>&1 && rm -f /tmp/taf-medaka-version-report.txt && samtools --version 2>&1 | grep -F 'samtools' >/dev/null && minimap2 --version 2>&1 | grep -E '^[0-9]' >/dev/null && bcftools --version 2>&1 | grep -F 'bcftools' >/dev/null && bgzip --help 2>&1 | grep -F 'Version:' >/dev/null && tabix --help 2>&1 | grep -F 'Version:' >/dev/null",
+          "data=$(medaka_data_path); test -d \"$data\" && find \"$data\" -name '*_model_pt.tar.gz' | grep -F '_model_pt.tar.gz' >/dev/null && medaka tools list_models 2>&1 | grep -F 'Default consensus:' >/dev/null",
+          "tmp=/tmp/taf-medaka-mini-align-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>draft\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > \"$tmp/draft.fa\"; printf '>read1\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n>read2\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > \"$tmp/reads.fa\"; mini_align -i \"$tmp/reads.fa\" -r \"$tmp/draft.fa\" -p \"$tmp/calls_to_draft\" -t 1 >/tmp/taf-medaka-mini-align.log 2>&1; test -s \"$tmp/calls_to_draft.bam\"; samtools quickcheck \"$tmp/calls_to_draft.bam\"; test -s \"$tmp/calls_to_draft.bam.bai\"; rm -rf \"$tmp\" /tmp/taf-medaka-mini-align.log"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-10T01:37:10Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-10T01:37:10Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/medaka",
+        "ref": "v2.2.2-r1",
+        "commit": "38e5c8dd5f5cfddee5354fef5b91219d66477b87",
+        "html_url": "https://github.com/taffish/medaka/tree/v2.2.2-r1"
+      },
+      "upstream": {
+        "name": "medaka",
+        "type": "github",
+        "homepage": "https://github.com/nanoporetech/medaka",
+        "repository": "https://github.com/nanoporetech/medaka",
+        "release_url": "https://github.com/nanoporetech/medaka/releases/tag/v2.2.2",
+        "version": "2.2.2",
+        "license": "Oxford Nanopore Technologies PLC. Public License Version 1.0",
+        "citation": "Oxford Nanopore Technologies. medaka: Sequence correction provided by ONT Research."
+      }
+    }
+  }
+}
