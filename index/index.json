@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-09T05:17:36Z",
+  "generated_at": "2026-06-10T01:00:05Z",
   "organization": "taffish",
   "counts": {
-    "packages": 157,
-    "versions": 227,
-    "commands": 157,
-    "repositories": 157,
+    "packages": 158,
+    "versions": 228,
+    "commands": 158,
+    "repositories": 158,
     "warnings": 0,
     "failed": 0,
     "rejected": 7
@@ -19649,6 +19649,137 @@
         }
       }
     },
+    "racon": {
+      "name": "racon",
+      "latest": "1.5.0-r1",
+      "recent_version": "1.5.0-r1",
+      "recent_at": "2026-06-10T00:38:14Z",
+      "repository_url": "https://github.com/taffish/racon",
+      "command": {
+        "name": "taf-racon"
+      },
+      "versions": {
+        "1.5.0-r1": {
+          "name": "racon",
+          "kind": "tool",
+          "version": "1.5.0",
+          "release": 1,
+          "version_id": "1.5.0-r1",
+          "tag": "v1.5.0-r1",
+          "published_at": "2026-06-10T00:38:14Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/racon",
+          "repository_slug": "taffish/racon",
+          "command": {
+            "name": "taf-racon"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-polishing",
+            "categories": [
+              "genome-polishing",
+              "long-read",
+              "consensus",
+              "assembly",
+              "genomics"
+            ],
+            "keywords": [
+              "racon",
+              "long-read",
+              "polishing",
+              "consensus",
+              "pacbio",
+              "oxford nanopore",
+              "ont",
+              "paf",
+              "sam",
+              "mhap",
+              "assembly"
+            ],
+            "summary": "Racon 1.5.0 CPU command-line runtime for long-read and short-read contig polishing or read error correction from FASTA/FASTQ sequences and MHAP/PAF/SAM overlaps.",
+            "description": "Racon 1.5.0 CPU command-line runtime for long-read and short-read contig polishing or read error correction from FASTA/FASTQ sequences and MHAP/PAF/SAM overlaps."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/racon:1.5.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.5.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:1e6bae7a15d4f2c35c987ef1bd2f31c117fedaf9eb7978ca84d14c57b0da8f3d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:4451836e9c3cd9707ad87d9752d7f6b266d173157e12a5cca042e56e9ea3f6a3",
+              "linux/arm64": "sha256:77a31f532f5654cff5c3bcb685185e0d35520633f2eba6a15c7c69b7e9570c2b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "racon",
+              "bash",
+              "sh",
+              "ldd",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "racon --version | grep -Fx '1.5.0' >/dev/null",
+              "racon --help 2>&1 | grep -F 'usage: racon' >/dev/null && racon --help 2>&1 | grep -F '<sequences> <overlaps> <target sequences>' >/dev/null",
+              "ldd \"$(command -v racon)\" | grep -F 'libz' >/dev/null",
+              "tmp=/tmp/taf-racon-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; racon -t 1 /opt/racon/share/testdata/sample_reads.fastq.gz /opt/racon/share/testdata/sample_overlaps.paf.gz /opt/racon/share/testdata/sample_layout.fasta.gz > polished.fa; test -s polished.fa; grep -F '>utg000001l' polished.fa >/dev/null; grep -E '^[ACGTN]+$' polished.fa >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-10T01:00:05Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-10T01:00:05Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/racon",
+            "ref": "v1.5.0-r1",
+            "commit": "79417892d5bb320e01fc6cdddab7a47ea26eff32",
+            "html_url": "https://github.com/taffish/racon/tree/v1.5.0-r1"
+          },
+          "upstream": {
+            "name": "Racon",
+            "type": "github",
+            "homepage": "https://github.com/lbcb-sci/racon",
+            "repository": "lbcb-sci/racon",
+            "release_url": "https://github.com/lbcb-sci/racon/releases/tag/1.5.0",
+            "version": "1.5.0",
+            "license": "MIT",
+            "citation": "Vaser et al. 2017, Fast and accurate de novo genome assembly from noisy long reads",
+            "doi": "10.1101/gr.214270.116",
+            "pmid": "28100585"
+          }
+        }
+      }
+    },
     "repeatmasker": {
       "name": "repeatmasker",
       "latest": "4.2.3-r3",
@@ -29309,6 +29440,10 @@
       "package": "quast",
       "version": "5.3.0-r2"
     },
+    "taf-racon": {
+      "package": "racon",
+      "version": "1.5.0-r1"
+    },
     "taf-repeatmasker": {
       "package": "repeatmasker",
       "version": "4.2.3-r3"
@@ -30143,6 +30278,12 @@
       "repository": "taffish/quast",
       "packages": [
         "quast"
+      ]
+    },
+    "taffish/racon": {
+      "repository": "taffish/racon",
+      "packages": [
+        "racon"
       ]
     },
     "taffish/repeatmasker": {
