@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-11T06:06:31Z",
+  "generated_at": "2026-06-11T11:22:42Z",
   "organization": "taffish",
   "counts": {
-    "packages": 160,
-    "versions": 230,
-    "commands": 160,
-    "repositories": 160,
+    "packages": 162,
+    "versions": 232,
+    "commands": 162,
+    "repositories": 162,
     "warnings": 0,
     "failed": 0,
     "rejected": 7
@@ -19109,6 +19109,142 @@
         }
       }
     },
+    "purge-dups": {
+      "name": "purge-dups",
+      "latest": "1.2.6-r1",
+      "recent_version": "1.2.6-r1",
+      "recent_at": "2026-06-11T11:17:58Z",
+      "repository_url": "https://github.com/taffish/purge-dups",
+      "command": {
+        "name": "taf-purge-dups"
+      },
+      "versions": {
+        "1.2.6-r1": {
+          "name": "purge-dups",
+          "kind": "tool",
+          "version": "1.2.6",
+          "release": 1,
+          "version_id": "1.2.6-r1",
+          "tag": "v1.2.6-r1",
+          "published_at": "2026-06-11T11:17:58Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/purge-dups",
+          "repository_slug": "taffish/purge-dups",
+          "command": {
+            "name": "taf-purge-dups"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "assembly-curation",
+              "haplotig-purging",
+              "long-read",
+              "genomics"
+            ],
+            "keywords": [
+              "purge_dups",
+              "purge-dups",
+              "haplotig",
+              "haplotypic duplication",
+              "overlap purging",
+              "assembly curation",
+              "pacbio",
+              "ont",
+              "paf",
+              "coverage"
+            ],
+            "summary": "Purge_Dups 1.2.6 command-line runtime for detecting and removing haplotigs and contig overlaps from de novo genome assemblies using read-depth and self-alignment evidence.",
+            "description": "Purge_Dups 1.2.6 command-line runtime for detecting and removing haplotigs and contig overlaps from de novo genome assemblies using read-depth and self-alignment evidence."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/purge-dups:1.2.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.2.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:7527a0276572314381df417cc989572ff829e8260556ba0aa6880bba1d719b38",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:d460cf082f83d03e469f34cfe23dabb3485384c0caafefe45aeba769b009708d",
+              "linux/arm64": "sha256:9d3d0bc584067e89e1ebbd4e1698e1e13603f32e2c7bfeef79508484409682fd"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "purge_dups",
+              "split_fa",
+              "pbcstat",
+              "calcuts",
+              "get_seqs",
+              "ngscstat",
+              "pd_config.py",
+              "python3",
+              "bash",
+              "sh",
+              "awk",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "purge_dups -h 2>&1 | grep -F 'Program: purge_dups' >/dev/null && purge_dups -h 2>&1 | grep -F 'Version: 1.2.5' >/dev/null && purge_dups -h 2>&1 | grep -F 'Usage: purge_dups' >/dev/null",
+              "for cmd in split_fa pbcstat calcuts get_seqs ngscstat; do \"$cmd\" -h 2>&1 | grep -F 'Usage:' >/dev/null; done",
+              "pd_config.py --help 2>&1 | grep -F 'generate a configuration file in json format' >/dev/null && pd_config.py --version 2>&1 | grep -F 'pd_config.py 0.0.0' >/dev/null",
+              "ldd \"$(command -v purge_dups)\" | grep -F 'libz' >/dev/null && ldd \"$(command -v pbcstat)\" | grep -F 'libz' >/dev/null && test -s /opt/purge-dups/share/source-metadata/build.txt",
+              "tmp=/tmp/taf-purge-dups-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>ctg1\\nAAAACCCCGGGGTTTTAAAACCCC\\n>ctg2\\nAAAAGGGGCCCCAAAAGGGGCCCC\\n' > asm.fa; split_fa asm.fa > asm.split.fa; grep -F '>ctg1:1-24' asm.split.fa >/dev/null; printf 'read1\\t24\\t0\\t24\\t+\\tctg1\\t24\\t0\\t24\\t24\\t24\\t60\\nread2\\t24\\t0\\t24\\t+\\tctg2\\t24\\t0\\t24\\t24\\t24\\t60\\n' > reads.paf; pbcstat reads.paf >/dev/null 2>&1; test -s PB.stat; test -s PB.base.cov; grep -F '>ctg1' PB.base.cov >/dev/null; printf '1\\t1\\n2\\t20\\n3\\t15\\n4\\t3\\n' > stat.in; calcuts -l 1 -m 2 -u 5 stat.in > cutoffs; awk \"NR==1 && \\$1==1 && \\$6==5 {ok=1} END{exit ok?0:1}\" cutoffs; purge_dups -T cutoffs -c PB.base.cov reads.paf > dups.bed 2> purge.log; grep -F '[M::main] finish sorting' purge.log >/dev/null; grep -F 'JUNK' dups.bed >/dev/null; get_seqs -p out dups.bed asm.fa; test -s out.hap.fa; grep -F '>hap_ctg1 JUNK' out.hap.fa >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-11T11:22:42Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-11T11:22:42Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/purge-dups",
+            "ref": "v1.2.6-r1",
+            "commit": "a51ceb0ed6373e46c0e4054894611c96106f7cc7",
+            "html_url": "https://github.com/taffish/purge-dups/tree/v1.2.6-r1"
+          },
+          "upstream": {
+            "name": "Purge_Dups",
+            "type": "github",
+            "homepage": "https://github.com/dfguan/purge_dups",
+            "repository": "dfguan/purge_dups",
+            "release_url": "https://github.com/dfguan/purge_dups/releases/tag/v1.2.6",
+            "version": "1.2.6",
+            "license": "MIT",
+            "citation": "Guan et al. 2020, Identifying and removing haplotypic duplication in primary genome assemblies"
+          }
+        }
+      }
+    },
     "pygenomeviz": {
       "name": "pygenomeviz",
       "latest": "1.6.1-r1",
@@ -29168,6 +29304,136 @@
         }
       }
     },
+    "yahs": {
+      "name": "yahs",
+      "latest": "1.2.2-r1",
+      "recent_version": "1.2.2-r1",
+      "recent_at": "2026-06-11T11:12:38Z",
+      "repository_url": "https://github.com/taffish/yahs",
+      "command": {
+        "name": "taf-yahs"
+      },
+      "versions": {
+        "1.2.2-r1": {
+          "name": "yahs",
+          "kind": "tool",
+          "version": "1.2.2",
+          "release": 1,
+          "version_id": "1.2.2-r1",
+          "tag": "v1.2.2-r1",
+          "published_at": "2026-06-11T11:12:38Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/yahs",
+          "repository_slug": "taffish/yahs",
+          "command": {
+            "name": "taf-yahs"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "scaffolding",
+              "hi-c",
+              "3d-genome",
+              "genomics"
+            ],
+            "keywords": [
+              "yahs",
+              "hi-c",
+              "scaffolding",
+              "assembly",
+              "agp",
+              "juicebox",
+              "jbat",
+              "contact map"
+            ],
+            "summary": "YaHS 1.2.2 Hi-C genome scaffolding toolkit with yahs, juicer, agp_to_fasta, and samtools faidx support.",
+            "description": "YaHS 1.2.2 Hi-C genome scaffolding toolkit with yahs, juicer, agp_to_fasta, and samtools faidx support."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/yahs:1.2.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.2.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:00dee7398aea4c9af1ec09c50081981b3be38e719950adb32243f93ddab7ec89",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:56c759eea6835a6715ff8e797e3a81911e0ac0715d49ec789c09bd93d3ed0e00",
+              "linux/arm64": "sha256:55de73ea0e044d19c3b08e2f3451ebff2f8319d82f9f7ffa5c40a4d7533ce75d"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "yahs",
+              "juicer",
+              "agp_to_fasta",
+              "samtools",
+              "bash",
+              "sh",
+              "grep",
+              "awk",
+              "sort"
+            ],
+            "test": [
+              "set -eu; test \"$(yahs --version)\" = '1.2.2' && test \"$(juicer --version)\" = '1.2.2' && test \"$(agp_to_fasta --version)\" = '1.2.2' && yahs -? 2>&1 | grep -F 'Usage: yahs' >/dev/null && yahs -? 2>&1 | grep -F -- '--convert-to-binary' >/dev/null && juicer 2>&1 | grep -F 'Usage:   juicer <command> <arguments>' >/dev/null && agp_to_fasta --help 2>&1 | grep -F 'Usage: agp_to_fasta' >/dev/null",
+              "set -eu; tmp=/tmp/taf-yahs-convert-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>ctg1\\nACGTACGTACGTACGT\\n>ctg2\\nAAAACCCCGGGGTTTT\\n' > \"$tmp/contigs.fa\"; samtools faidx \"$tmp/contigs.fa\"; printf 'ctg1\\t0\\t16\\tread001/1\\t60\\nctg2\\t0\\t16\\tread001/2\\t60\\nctg1\\t2\\t14\\tread002/1\\t60\\nctg2\\t2\\t14\\tread002/2\\t60\\n' > \"$tmp/hic.bed\"; yahs --convert-to-binary --file-type BED -o \"$tmp/yahs\" \"$tmp/contigs.fa\" \"$tmp/hic.bed\" >/tmp/taf-yahs-convert.log 2>&1; test -s \"$tmp/yahs.bin\"; grep -F 'Version: 1.2.2' /tmp/taf-yahs-convert.log >/dev/null; rm -rf \"$tmp\" /tmp/taf-yahs-convert.log",
+              "set -eu; tmp=/tmp/taf-yahs-agp-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>ctg1\\nACGTACGT\\n>ctg2\\nAAAACCCC\\n' > \"$tmp/contigs.fa\"; printf 'scaffold_1\\t1\\t8\\t1\\tW\\tctg1\\t1\\t8\\t+\\nscaffold_1\\t9\\t108\\t2\\tN\\t100\\tscaffold\\tyes\\tproximity_ligation\\nscaffold_1\\t109\\t116\\t3\\tW\\tctg2\\t1\\t8\\t-\\n' > \"$tmp/scaffolds.agp\"; agp_to_fasta \"$tmp/scaffolds.agp\" \"$tmp/contigs.fa\" -o \"$tmp/scaffolds.fa\" >/tmp/taf-yahs-agp.log 2>&1; test -s \"$tmp/scaffolds.fa\"; grep -F '>scaffold_1' \"$tmp/scaffolds.fa\" >/dev/null; grep -F 'ACGTACGT' \"$tmp/scaffolds.fa\" >/dev/null; grep -F 'GGGGTTTT' \"$tmp/scaffolds.fa\" >/dev/null; grep -F 'Version: 1.2.2' /tmp/taf-yahs-agp.log >/dev/null; rm -rf \"$tmp\" /tmp/taf-yahs-agp.log",
+              "set -eu; tmp=/tmp/taf-yahs-juicer-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>ctg1\\nACGTACGTACGTACGT\\n>ctg2\\nAAAACCCCGGGGTTTT\\n' > \"$tmp/contigs.fa\"; samtools faidx \"$tmp/contigs.fa\"; printf 'scaffold_1\\t1\\t16\\t1\\tW\\tctg1\\t1\\t16\\t+\\nscaffold_1\\t17\\t116\\t2\\tN\\t100\\tscaffold\\tyes\\tproximity_ligation\\nscaffold_1\\t117\\t132\\t3\\tW\\tctg2\\t1\\t16\\t+\\n' > \"$tmp/scaffolds.agp\"; printf 'ctg1\\t0\\t16\\tread001/1\\t60\\nctg2\\t0\\t16\\tread001/2\\t60\\nctg1\\t2\\t14\\tread002/1\\t60\\nctg2\\t2\\t14\\tread002/2\\t60\\n' > \"$tmp/hic.bed\"; juicer pre --file-type BED -o \"$tmp/pre\" \"$tmp/hic.bed\" \"$tmp/scaffolds.agp\" \"$tmp/contigs.fa.fai\" >/tmp/taf-yahs-juicer.log 2>&1; test -s \"$tmp/pre.txt\"; grep -F 'scaffold_1' \"$tmp/pre.txt\" >/dev/null; grep -F 'Version: 1.2.2' /tmp/taf-yahs-juicer.log >/dev/null; rm -rf \"$tmp\" /tmp/taf-yahs-juicer.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-11T11:22:42Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-11T11:22:42Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/yahs",
+            "ref": "v1.2.2-r1",
+            "commit": "5397cc00a29ee6be36c8b7bf7f7c329a5fd9bd8c",
+            "html_url": "https://github.com/taffish/yahs/tree/v1.2.2-r1"
+          },
+          "upstream": {
+            "name": "YaHS",
+            "type": "github",
+            "homepage": "https://github.com/c-zhou/yahs",
+            "repository": "c-zhou/yahs",
+            "release_url": "https://github.com/c-zhou/yahs/releases/tag/v1.2.2",
+            "version": "1.2.2",
+            "license": "MIT",
+            "citation": "Zhou C, McCarthy SA, Durbin R. YaHS: yet another Hi-C scaffolding tool. Bioinformatics 39(1):btac808 (2023).",
+            "doi": "10.1093/bioinformatics/btac808"
+          }
+        }
+      }
+    },
     "yak": {
       "name": "yak",
       "latest": "0.1-r1",
@@ -29700,6 +29966,10 @@
       "package": "prodigal",
       "version": "2.6.3-r1"
     },
+    "taf-purge-dups": {
+      "package": "purge-dups",
+      "version": "1.2.6-r1"
+    },
     "taf-pygenomeviz": {
       "package": "pygenomeviz",
       "version": "1.6.1-r1"
@@ -29935,6 +30205,10 @@
     "taf-whatshap": {
       "package": "whatshap",
       "version": "2.8-r1"
+    },
+    "taf-yahs": {
+      "package": "yahs",
+      "version": "1.2.2-r1"
     },
     "taf-yak": {
       "package": "yak",
@@ -30542,6 +30816,12 @@
         "prodigal"
       ]
     },
+    "taffish/purge-dups": {
+      "repository": "taffish/purge-dups",
+      "packages": [
+        "purge-dups"
+      ]
+    },
     "taffish/pygenomeviz": {
       "repository": "taffish/pygenomeviz",
       "packages": [
@@ -30894,6 +31174,12 @@
       "repository": "taffish/whatshap",
       "packages": [
         "whatshap"
+      ]
+    },
+    "taffish/yahs": {
+      "repository": "taffish/yahs",
+      "packages": [
+        "yahs"
       ]
     },
     "taffish/yak": {

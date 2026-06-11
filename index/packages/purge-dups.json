@@ -1,0 +1,136 @@
+{
+  "name": "purge-dups",
+  "latest": "1.2.6-r1",
+  "recent_version": "1.2.6-r1",
+  "recent_at": "2026-06-11T11:17:58Z",
+  "repository_url": "https://github.com/taffish/purge-dups",
+  "command": {
+    "name": "taf-purge-dups"
+  },
+  "versions": {
+    "1.2.6-r1": {
+      "name": "purge-dups",
+      "kind": "tool",
+      "version": "1.2.6",
+      "release": 1,
+      "version_id": "1.2.6-r1",
+      "tag": "v1.2.6-r1",
+      "published_at": "2026-06-11T11:17:58Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/purge-dups",
+      "repository_slug": "taffish/purge-dups",
+      "command": {
+        "name": "taf-purge-dups"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-assembly",
+        "categories": [
+          "genome-assembly",
+          "assembly-curation",
+          "haplotig-purging",
+          "long-read",
+          "genomics"
+        ],
+        "keywords": [
+          "purge_dups",
+          "purge-dups",
+          "haplotig",
+          "haplotypic duplication",
+          "overlap purging",
+          "assembly curation",
+          "pacbio",
+          "ont",
+          "paf",
+          "coverage"
+        ],
+        "summary": "Purge_Dups 1.2.6 command-line runtime for detecting and removing haplotigs and contig overlaps from de novo genome assemblies using read-depth and self-alignment evidence.",
+        "description": "Purge_Dups 1.2.6 command-line runtime for detecting and removing haplotigs and contig overlaps from de novo genome assemblies using read-depth and self-alignment evidence."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/purge-dups:1.2.6-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.2.6-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:7527a0276572314381df417cc989572ff829e8260556ba0aa6880bba1d719b38",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d460cf082f83d03e469f34cfe23dabb3485384c0caafefe45aeba769b009708d",
+          "linux/arm64": "sha256:9d3d0bc584067e89e1ebbd4e1698e1e13603f32e2c7bfeef79508484409682fd"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "purge_dups",
+          "split_fa",
+          "pbcstat",
+          "calcuts",
+          "get_seqs",
+          "ngscstat",
+          "pd_config.py",
+          "python3",
+          "bash",
+          "sh",
+          "awk",
+          "gzip",
+          "ldd"
+        ],
+        "test": [
+          "purge_dups -h 2>&1 | grep -F 'Program: purge_dups' >/dev/null && purge_dups -h 2>&1 | grep -F 'Version: 1.2.5' >/dev/null && purge_dups -h 2>&1 | grep -F 'Usage: purge_dups' >/dev/null",
+          "for cmd in split_fa pbcstat calcuts get_seqs ngscstat; do \"$cmd\" -h 2>&1 | grep -F 'Usage:' >/dev/null; done",
+          "pd_config.py --help 2>&1 | grep -F 'generate a configuration file in json format' >/dev/null && pd_config.py --version 2>&1 | grep -F 'pd_config.py 0.0.0' >/dev/null",
+          "ldd \"$(command -v purge_dups)\" | grep -F 'libz' >/dev/null && ldd \"$(command -v pbcstat)\" | grep -F 'libz' >/dev/null && test -s /opt/purge-dups/share/source-metadata/build.txt",
+          "tmp=/tmp/taf-purge-dups-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>ctg1\\nAAAACCCCGGGGTTTTAAAACCCC\\n>ctg2\\nAAAAGGGGCCCCAAAAGGGGCCCC\\n' > asm.fa; split_fa asm.fa > asm.split.fa; grep -F '>ctg1:1-24' asm.split.fa >/dev/null; printf 'read1\\t24\\t0\\t24\\t+\\tctg1\\t24\\t0\\t24\\t24\\t24\\t60\\nread2\\t24\\t0\\t24\\t+\\tctg2\\t24\\t0\\t24\\t24\\t24\\t60\\n' > reads.paf; pbcstat reads.paf >/dev/null 2>&1; test -s PB.stat; test -s PB.base.cov; grep -F '>ctg1' PB.base.cov >/dev/null; printf '1\\t1\\n2\\t20\\n3\\t15\\n4\\t3\\n' > stat.in; calcuts -l 1 -m 2 -u 5 stat.in > cutoffs; awk \"NR==1 && \\$1==1 && \\$6==5 {ok=1} END{exit ok?0:1}\" cutoffs; purge_dups -T cutoffs -c PB.base.cov reads.paf > dups.bed 2> purge.log; grep -F '[M::main] finish sorting' purge.log >/dev/null; grep -F 'JUNK' dups.bed >/dev/null; get_seqs -p out dups.bed asm.fa; test -s out.hap.fa; grep -F '>hap_ctg1 JUNK' out.hap.fa >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-11T11:22:42Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-11T11:22:42Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/purge-dups",
+        "ref": "v1.2.6-r1",
+        "commit": "a51ceb0ed6373e46c0e4054894611c96106f7cc7",
+        "html_url": "https://github.com/taffish/purge-dups/tree/v1.2.6-r1"
+      },
+      "upstream": {
+        "name": "Purge_Dups",
+        "type": "github",
+        "homepage": "https://github.com/dfguan/purge_dups",
+        "repository": "dfguan/purge_dups",
+        "release_url": "https://github.com/dfguan/purge_dups/releases/tag/v1.2.6",
+        "version": "1.2.6",
+        "license": "MIT",
+        "citation": "Guan et al. 2020, Identifying and removing haplotypic duplication in primary genome assemblies"
+      }
+    }
+  }
+}
