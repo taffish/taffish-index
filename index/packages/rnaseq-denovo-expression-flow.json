@@ -1,8 +1,8 @@
 {
   "name": "rnaseq-denovo-expression-flow",
-  "latest": "0.1.0-r1",
-  "recent_version": "0.1.0-r1",
-  "recent_at": "2026-05-30T04:04:40Z",
+  "latest": "0.2.0-r1",
+  "recent_version": "0.2.0-r1",
+  "recent_at": "2026-06-12T07:32:22Z",
   "repository_url": "https://github.com/taffish/rnaseq-denovo-expression-flow",
   "command": {
     "name": "taf-rnaseq-denovo-expression-flow"
@@ -90,6 +90,91 @@
         "type": "taffish-flow",
         "homepage": "https://github.com/taffish/rnaseq-denovo-expression-flow",
         "version": "0.1.0",
+        "license": "Apache-2.0"
+      }
+    },
+    "0.2.0-r1": {
+      "name": "rnaseq-denovo-expression-flow",
+      "kind": "flow",
+      "version": "0.2.0",
+      "release": 1,
+      "version_id": "0.2.0-r1",
+      "tag": "v0.2.0-r1",
+      "published_at": "2026-06-12T07:32:22Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rnaseq-denovo-expression-flow",
+      "repository_slug": "taffish/rnaseq-denovo-expression-flow",
+      "command": {
+        "name": "taf-rnaseq-denovo-expression-flow"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": false
+      },
+      "dependencies": {
+        "taf-fastp": "1.3.3-r3",
+        "taf-fastqc": "0.12.1-r1",
+        "taf-multiqc": "1.35-r2",
+        "taf-salmon": "1.11.4-r1",
+        "taf-seqkit": "2.13.0-r2"
+      },
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "de-novo",
+          "expression",
+          "quantification",
+          "workflow",
+          "transcriptomics"
+        ],
+        "keywords": [
+          "rnaseq-denovo-expression-flow",
+          "rna-seq",
+          "de-novo",
+          "salmon",
+          "transcriptome",
+          "transcript-counts",
+          "transcript-tpm",
+          "fastq",
+          "multiqc"
+        ],
+        "summary": "TAFFISH RNA-seq de novo expression flow for Salmon indexing and quantification against assembled transcripts, transcript-level matrices, optional pseudo-gene aggregation, and MultiQC reporting.",
+        "description": "TAFFISH RNA-seq de novo expression flow for Salmon indexing and quantification against assembled transcripts, transcript-level matrices, optional pseudo-gene aggregation, and MultiQC reporting."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": null
+      },
+      "container": null,
+      "smoke": null,
+      "trust": {
+        "status": "not_applicable",
+        "checked_at": "2026-06-12T07:48:49Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rnaseq-denovo-expression-flow",
+        "ref": "v0.2.0-r1",
+        "commit": "6605ad97bcea7519768f38c174d25baae3b26a49",
+        "html_url": "https://github.com/taffish/rnaseq-denovo-expression-flow/tree/v0.2.0-r1"
+      },
+      "upstream": {
+        "name": "rnaseq-denovo-expression-flow",
+        "type": "taffish-flow",
+        "homepage": "https://github.com/taffish/rnaseq-denovo-expression-flow",
+        "version": "0.2.0",
         "license": "Apache-2.0"
       }
     }

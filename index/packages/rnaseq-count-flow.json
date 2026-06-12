@@ -1,8 +1,8 @@
 {
   "name": "rnaseq-count-flow",
-  "latest": "0.1.0-r1",
-  "recent_version": "0.1.0-r1",
-  "recent_at": "2026-05-26T05:20:09Z",
+  "latest": "0.2.0-r1",
+  "recent_version": "0.2.0-r1",
+  "recent_at": "2026-06-12T07:29:29Z",
   "repository_url": "https://github.com/taffish/rnaseq-count-flow",
   "command": {
     "name": "taf-rnaseq-count-flow"
@@ -85,6 +85,86 @@
         "type": "taffish-flow",
         "homepage": "https://github.com/taffish/rnaseq-count-flow",
         "version": "0.1.0",
+        "license": "Apache-2.0"
+      }
+    },
+    "0.2.0-r1": {
+      "name": "rnaseq-count-flow",
+      "kind": "flow",
+      "version": "0.2.0",
+      "release": 1,
+      "version_id": "0.2.0-r1",
+      "tag": "v0.2.0-r1",
+      "published_at": "2026-06-12T07:29:29Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rnaseq-count-flow",
+      "repository_slug": "taffish/rnaseq-count-flow",
+      "command": {
+        "name": "taf-rnaseq-count-flow"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": false
+      },
+      "dependencies": {
+        "taf-multiqc": "1.35-r2",
+        "taf-samtools": "1.23.1-r1",
+        "taf-subread": "2.1.1-r2"
+      },
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "read-counting",
+          "workflow",
+          "transcriptomics"
+        ],
+        "keywords": [
+          "rnaseq-count-flow",
+          "rna-seq",
+          "featurecounts",
+          "subread",
+          "bam",
+          "gtf",
+          "gene-counts",
+          "count-matrix"
+        ],
+        "summary": "TAFFISH RNA-seq count flow for generating featureCounts gene-level count matrices from coordinate-sorted BAM files and gene annotation.",
+        "description": "TAFFISH RNA-seq count flow for generating featureCounts gene-level count matrices from coordinate-sorted BAM files and gene annotation."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": null
+      },
+      "container": null,
+      "smoke": null,
+      "trust": {
+        "status": "not_applicable",
+        "checked_at": "2026-06-12T07:48:49Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rnaseq-count-flow",
+        "ref": "v0.2.0-r1",
+        "commit": "9ae73cdde467a0bd71b46f834c9fabc22059c25e",
+        "html_url": "https://github.com/taffish/rnaseq-count-flow/tree/v0.2.0-r1"
+      },
+      "upstream": {
+        "name": "rnaseq-count-flow",
+        "type": "taffish-flow",
+        "homepage": "https://github.com/taffish/rnaseq-count-flow",
+        "version": "0.2.0",
         "license": "Apache-2.0"
       }
     }

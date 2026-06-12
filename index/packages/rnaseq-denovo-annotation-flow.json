@@ -1,8 +1,8 @@
 {
   "name": "rnaseq-denovo-annotation-flow",
-  "latest": "0.1.0-r1",
-  "recent_version": "0.1.0-r1",
-  "recent_at": "2026-05-30T03:58:19Z",
+  "latest": "0.2.0-r1",
+  "recent_version": "0.2.0-r1",
+  "recent_at": "2026-06-12T07:30:06Z",
   "repository_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
   "command": {
     "name": "taf-rnaseq-denovo-annotation-flow"
@@ -86,6 +86,87 @@
         "type": "taffish-flow",
         "homepage": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
         "version": "0.1.0",
+        "license": "Apache-2.0"
+      }
+    },
+    "0.2.0-r1": {
+      "name": "rnaseq-denovo-annotation-flow",
+      "kind": "flow",
+      "version": "0.2.0",
+      "release": 1,
+      "version_id": "0.2.0-r1",
+      "tag": "v0.2.0-r1",
+      "published_at": "2026-06-12T07:30:06Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
+      "repository_slug": "taffish/rnaseq-denovo-annotation-flow",
+      "command": {
+        "name": "taf-rnaseq-denovo-annotation-flow"
+      },
+      "runtime": {
+        "pipe": false,
+        "command_mode": false
+      },
+      "dependencies": {
+        "taf-diamond": "2.2.1-r1",
+        "taf-seqkit": "2.13.0-r2",
+        "taf-transdecoder": "6.0.0-r1"
+      },
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "de-novo",
+          "annotation",
+          "transcriptomics",
+          "workflow"
+        ],
+        "keywords": [
+          "rnaseq-denovo-annotation-flow",
+          "rna-seq",
+          "de-novo",
+          "transdecoder",
+          "diamond",
+          "orf",
+          "functional-annotation",
+          "gene-sets"
+        ],
+        "summary": "TAFFISH RNA-seq de novo annotation flow for TransDecoder ORF prediction, DIAMOND protein homology evidence, annotation tables, optional GO-derived GMT/background files, and provenance.",
+        "description": "TAFFISH RNA-seq de novo annotation flow for TransDecoder ORF prediction, DIAMOND protein homology evidence, annotation tables, optional GO-derived GMT/background files, and provenance."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": null
+      },
+      "container": null,
+      "smoke": null,
+      "trust": {
+        "status": "not_applicable",
+        "checked_at": "2026-06-12T07:48:49Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/rnaseq-denovo-annotation-flow",
+        "ref": "v0.2.0-r1",
+        "commit": "b86edc3dff7e51027fb887f1a356b5b9c950b786",
+        "html_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow/tree/v0.2.0-r1"
+      },
+      "upstream": {
+        "name": "rnaseq-denovo-annotation-flow",
+        "type": "taffish-flow",
+        "homepage": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
+        "version": "0.2.0",
         "license": "Apache-2.0"
       }
     }

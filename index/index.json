@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-12T06:01:49Z",
+  "generated_at": "2026-06-12T07:48:49Z",
   "organization": "taffish",
   "counts": {
     "packages": 163,
-    "versions": 233,
+    "versions": 244,
     "commands": 163,
     "repositories": 163,
     "warnings": 0,
@@ -21030,9 +21030,9 @@
     },
     "rnaseq-alignment-flow": {
       "name": "rnaseq-alignment-flow",
-      "latest": "0.1.0-r1",
-      "recent_version": "0.1.0-r1",
-      "recent_at": "2026-05-26T05:19:13Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:23:42Z",
       "repository_url": "https://github.com/taffish/rnaseq-alignment-flow",
       "command": {
         "name": "taf-rnaseq-alignment-flow"
@@ -21120,14 +21120,97 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-alignment-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:23:42Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-alignment-flow",
+          "repository_slug": "taffish/rnaseq-alignment-flow",
+          "command": {
+            "name": "taf-rnaseq-alignment-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-fastp": "1.3.3-r3",
+            "taf-hisat2": "2.2.2-r2",
+            "taf-multiqc": "1.35-r2",
+            "taf-samtools": "1.23.1-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "alignment",
+              "bam",
+              "workflow",
+              "transcriptomics"
+            ],
+            "keywords": [
+              "rnaseq-alignment-flow",
+              "rna-seq",
+              "hisat2",
+              "spliced-alignment",
+              "bam",
+              "samtools",
+              "fastp",
+              "multiqc",
+              "transcriptomics"
+            ],
+            "summary": "TAFFISH RNA-seq alignment flow for turning FASTQ sample tables and a prebuilt HISAT2 index into coordinate-sorted BAM/BAI files, summaries, MultiQC, and provenance.",
+            "description": "TAFFISH RNA-seq alignment flow for turning FASTQ sample tables and a prebuilt HISAT2 index into coordinate-sorted BAM/BAI files, summaries, MultiQC, and provenance."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-alignment-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "62ae82977e8c5c35cc288adfdce9de64db419ca8",
+            "html_url": "https://github.com/taffish/rnaseq-alignment-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-alignment-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-alignment-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-alignment-qc-flow": {
       "name": "rnaseq-alignment-qc-flow",
-      "latest": "0.1.0-r1",
-      "recent_version": "0.1.0-r1",
-      "recent_at": "2026-05-26T05:19:50Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:28:16Z",
       "repository_url": "https://github.com/taffish/rnaseq-alignment-qc-flow",
       "command": {
         "name": "taf-rnaseq-alignment-qc-flow"
@@ -21215,14 +21298,97 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-alignment-qc-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:28:16Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-alignment-qc-flow",
+          "repository_slug": "taffish/rnaseq-alignment-qc-flow",
+          "command": {
+            "name": "taf-rnaseq-alignment-qc-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-gffread": "0.12.9-r1",
+            "taf-multiqc": "1.35-r2",
+            "taf-qualimap": "2.3-r1",
+            "taf-rseqc": "5.0.4-r2",
+            "taf-samtools": "1.23.1-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "alignment-qc",
+              "quality-control",
+              "workflow",
+              "transcriptomics"
+            ],
+            "keywords": [
+              "rnaseq-alignment-qc-flow",
+              "rna-seq",
+              "bam",
+              "rseqc",
+              "qualimap",
+              "samtools",
+              "multiqc",
+              "alignment qc"
+            ],
+            "summary": "TAFFISH RNA-seq alignment QC flow for evaluating coordinate-sorted BAM files with RSeQC, Qualimap, SAMtools, and MultiQC.",
+            "description": "TAFFISH RNA-seq alignment QC flow for evaluating coordinate-sorted BAM files with RSeQC, Qualimap, SAMtools, and MultiQC."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-alignment-qc-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "abde7eec0b2a0f66411dae2fb0cc6210a30206be",
+            "html_url": "https://github.com/taffish/rnaseq-alignment-qc-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-alignment-qc-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-alignment-qc-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-count-flow": {
       "name": "rnaseq-count-flow",
-      "latest": "0.1.0-r1",
-      "recent_version": "0.1.0-r1",
-      "recent_at": "2026-05-26T05:20:09Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:29:29Z",
       "repository_url": "https://github.com/taffish/rnaseq-count-flow",
       "command": {
         "name": "taf-rnaseq-count-flow"
@@ -21307,14 +21473,94 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-count-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:29:29Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-count-flow",
+          "repository_slug": "taffish/rnaseq-count-flow",
+          "command": {
+            "name": "taf-rnaseq-count-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-multiqc": "1.35-r2",
+            "taf-samtools": "1.23.1-r1",
+            "taf-subread": "2.1.1-r2"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "read-counting",
+              "workflow",
+              "transcriptomics"
+            ],
+            "keywords": [
+              "rnaseq-count-flow",
+              "rna-seq",
+              "featurecounts",
+              "subread",
+              "bam",
+              "gtf",
+              "gene-counts",
+              "count-matrix"
+            ],
+            "summary": "TAFFISH RNA-seq count flow for generating featureCounts gene-level count matrices from coordinate-sorted BAM files and gene annotation.",
+            "description": "TAFFISH RNA-seq count flow for generating featureCounts gene-level count matrices from coordinate-sorted BAM files and gene annotation."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-count-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "9ae73cdde467a0bd71b46f834c9fabc22059c25e",
+            "html_url": "https://github.com/taffish/rnaseq-count-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-count-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-count-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-de-flow": {
       "name": "rnaseq-de-flow",
-      "latest": "0.1.0-r2",
-      "recent_version": "0.1.0-r2",
-      "recent_at": "2026-05-26T14:19:57Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:29:48Z",
       "repository_url": "https://github.com/taffish/rnaseq-de-flow",
       "command": {
         "name": "taf-rnaseq-de-flow"
@@ -21479,14 +21725,94 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-de-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:29:48Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-de-flow",
+          "repository_slug": "taffish/rnaseq-de-flow",
+          "command": {
+            "name": "taf-rnaseq-de-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-bioconductor-rnaseq": "3.23-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "differential-expression",
+              "workflow",
+              "transcriptomics",
+              "statistics"
+            ],
+            "keywords": [
+              "rnaseq-de-flow",
+              "rna-seq",
+              "deseq2",
+              "differential-expression",
+              "gene-counts",
+              "volcano",
+              "pca",
+              "heatmap",
+              "transcriptomics"
+            ],
+            "summary": "TAFFISH RNA-seq differential expression flow for count matrix validation, DESeq2 analysis, normalized matrices, unified QC plots, gene lists, and provenance.",
+            "description": "TAFFISH RNA-seq differential expression flow for count matrix validation, DESeq2 analysis, normalized matrices, unified QC plots, gene lists, and provenance."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-de-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "b1d03524100dcf85e7b80d08fd2f2f1e6006f255",
+            "html_url": "https://github.com/taffish/rnaseq-de-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-de-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-de-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-denovo-annotation-flow": {
       "name": "rnaseq-denovo-annotation-flow",
-      "latest": "0.1.0-r1",
-      "recent_version": "0.1.0-r1",
-      "recent_at": "2026-05-30T03:58:19Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:30:06Z",
       "repository_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
       "command": {
         "name": "taf-rnaseq-denovo-annotation-flow"
@@ -21572,14 +21898,95 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-denovo-annotation-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:30:06Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
+          "repository_slug": "taffish/rnaseq-denovo-annotation-flow",
+          "command": {
+            "name": "taf-rnaseq-denovo-annotation-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-diamond": "2.2.1-r1",
+            "taf-seqkit": "2.13.0-r2",
+            "taf-transdecoder": "6.0.0-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "de-novo",
+              "annotation",
+              "transcriptomics",
+              "workflow"
+            ],
+            "keywords": [
+              "rnaseq-denovo-annotation-flow",
+              "rna-seq",
+              "de-novo",
+              "transdecoder",
+              "diamond",
+              "orf",
+              "functional-annotation",
+              "gene-sets"
+            ],
+            "summary": "TAFFISH RNA-seq de novo annotation flow for TransDecoder ORF prediction, DIAMOND protein homology evidence, annotation tables, optional GO-derived GMT/background files, and provenance.",
+            "description": "TAFFISH RNA-seq de novo annotation flow for TransDecoder ORF prediction, DIAMOND protein homology evidence, annotation tables, optional GO-derived GMT/background files, and provenance."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-denovo-annotation-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "b86edc3dff7e51027fb887f1a356b5b9c950b786",
+            "html_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-denovo-annotation-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-denovo-assembly-flow": {
       "name": "rnaseq-denovo-assembly-flow",
-      "latest": "0.1.0-r1",
-      "recent_version": "0.1.0-r1",
-      "recent_at": "2026-05-30T04:01:43Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:31:35Z",
       "repository_url": "https://github.com/taffish/rnaseq-denovo-assembly-flow",
       "command": {
         "name": "taf-rnaseq-denovo-assembly-flow"
@@ -21668,14 +22075,98 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-denovo-assembly-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:31:35Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-denovo-assembly-flow",
+          "repository_slug": "taffish/rnaseq-denovo-assembly-flow",
+          "command": {
+            "name": "taf-rnaseq-denovo-assembly-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-busco": "6.0.0-r2",
+            "taf-fastp": "1.3.3-r3",
+            "taf-fastqc": "0.12.1-r1",
+            "taf-multiqc": "1.35-r2",
+            "taf-seqkit": "2.13.0-r2",
+            "taf-spades": "4.2.0-r1",
+            "taf-trinity": "2.15.2-r2"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "de-novo-assembly",
+              "transcriptomics",
+              "workflow"
+            ],
+            "keywords": [
+              "rnaseq-denovo-assembly-flow",
+              "rna-seq",
+              "de-novo",
+              "trinity",
+              "rnaspades",
+              "busco",
+              "transcriptome-assembly",
+              "fastq"
+            ],
+            "summary": "TAFFISH RNA-seq de novo assembly flow for FASTQ QC/cleaning, Trinity-first transcriptome assembly, assembly statistics, optional BUSCO completeness, and MultiQC reporting.",
+            "description": "TAFFISH RNA-seq de novo assembly flow for FASTQ QC/cleaning, Trinity-first transcriptome assembly, assembly statistics, optional BUSCO completeness, and MultiQC reporting."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-denovo-assembly-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "ba167e98aeaad5548095bd2214c63224e9d33cbb",
+            "html_url": "https://github.com/taffish/rnaseq-denovo-assembly-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-denovo-assembly-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-denovo-assembly-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-denovo-expression-flow": {
       "name": "rnaseq-denovo-expression-flow",
-      "latest": "0.1.0-r1",
-      "recent_version": "0.1.0-r1",
-      "recent_at": "2026-05-30T04:04:40Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:32:22Z",
       "repository_url": "https://github.com/taffish/rnaseq-denovo-expression-flow",
       "command": {
         "name": "taf-rnaseq-denovo-expression-flow"
@@ -21765,14 +22256,99 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-denovo-expression-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:32:22Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-denovo-expression-flow",
+          "repository_slug": "taffish/rnaseq-denovo-expression-flow",
+          "command": {
+            "name": "taf-rnaseq-denovo-expression-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-fastp": "1.3.3-r3",
+            "taf-fastqc": "0.12.1-r1",
+            "taf-multiqc": "1.35-r2",
+            "taf-salmon": "1.11.4-r1",
+            "taf-seqkit": "2.13.0-r2"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "de-novo",
+              "expression",
+              "quantification",
+              "workflow",
+              "transcriptomics"
+            ],
+            "keywords": [
+              "rnaseq-denovo-expression-flow",
+              "rna-seq",
+              "de-novo",
+              "salmon",
+              "transcriptome",
+              "transcript-counts",
+              "transcript-tpm",
+              "fastq",
+              "multiqc"
+            ],
+            "summary": "TAFFISH RNA-seq de novo expression flow for Salmon indexing and quantification against assembled transcripts, transcript-level matrices, optional pseudo-gene aggregation, and MultiQC reporting.",
+            "description": "TAFFISH RNA-seq de novo expression flow for Salmon indexing and quantification against assembled transcripts, transcript-level matrices, optional pseudo-gene aggregation, and MultiQC reporting."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-denovo-expression-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "6605ad97bcea7519768f38c174d25baae3b26a49",
+            "html_url": "https://github.com/taffish/rnaseq-denovo-expression-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-denovo-expression-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-denovo-expression-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-enrichment-flow": {
       "name": "rnaseq-enrichment-flow",
-      "latest": "0.1.0-r3",
-      "recent_version": "0.1.0-r3",
-      "recent_at": "2026-05-27T04:14:19Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:32:38Z",
       "repository_url": "https://github.com/taffish/rnaseq-enrichment-flow",
       "command": {
         "name": "taf-rnaseq-enrichment-flow"
@@ -22017,14 +22593,94 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-enrichment-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:32:38Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-enrichment-flow",
+          "repository_slug": "taffish/rnaseq-enrichment-flow",
+          "command": {
+            "name": "taf-rnaseq-enrichment-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-enrichment-r": "0.1.0-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "enrichment",
+              "gene-set-analysis",
+              "workflow",
+              "transcriptomics"
+            ],
+            "keywords": [
+              "rnaseq-enrichment-flow",
+              "rna-seq",
+              "enrichment",
+              "ora",
+              "gsea",
+              "gmt",
+              "gene-sets",
+              "fgsea",
+              "transcriptomics"
+            ],
+            "summary": "TAFFISH RNA-seq enrichment flow for GMT-based ORA/GSEA from DE gene lists, ranked genes, background genes, publication-oriented plots, reports, and provenance.",
+            "description": "TAFFISH RNA-seq enrichment flow for GMT-based ORA/GSEA from DE gene lists, ranked genes, background genes, publication-oriented plots, reports, and provenance."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-enrichment-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "633a13101b74274ac1abd3c85021c1b61c235494",
+            "html_url": "https://github.com/taffish/rnaseq-enrichment-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-enrichment-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-enrichment-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-expression-flow": {
       "name": "rnaseq-expression-flow",
-      "latest": "0.1.0-r1",
-      "recent_version": "0.1.0-r1",
-      "recent_at": "2026-05-26T05:21:13Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:42:13Z",
       "repository_url": "https://github.com/taffish/rnaseq-expression-flow",
       "command": {
         "name": "taf-rnaseq-expression-flow"
@@ -22114,14 +22770,99 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-expression-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:42:13Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-expression-flow",
+          "repository_slug": "taffish/rnaseq-expression-flow",
+          "command": {
+            "name": "taf-rnaseq-expression-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-bioconductor-rnaseq": "3.23-r1",
+            "taf-fastp": "1.3.3-r3",
+            "taf-fastqc": "0.12.1-r1",
+            "taf-multiqc": "1.35-r2",
+            "taf-salmon": "1.11.4-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "expression",
+              "quantification",
+              "workflow",
+              "transcriptomics"
+            ],
+            "keywords": [
+              "rnaseq-expression-flow",
+              "rna-seq",
+              "salmon",
+              "tximport",
+              "fastq",
+              "expression-matrix",
+              "transcriptomics",
+              "fastqc",
+              "fastp",
+              "multiqc"
+            ],
+            "summary": "TAFFISH RNA-seq expression flow for Salmon transcript quantification, tximport gene-level matrices, optional read QC, optional trimming, and MultiQC reporting.",
+            "description": "TAFFISH RNA-seq expression flow for Salmon transcript quantification, tximport gene-level matrices, optional read QC, optional trimming, and MultiQC reporting."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-expression-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "919b315ad3a21068c2b6aacc3afada85b4199efd",
+            "html_url": "https://github.com/taffish/rnaseq-expression-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-expression-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-expression-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-index-flow": {
       "name": "rnaseq-index-flow",
-      "latest": "0.1.0-r1",
-      "recent_version": "0.1.0-r1",
-      "recent_at": "2026-05-26T05:21:32Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-12T07:32:54Z",
       "repository_url": "https://github.com/taffish/rnaseq-index-flow",
       "command": {
         "name": "taf-rnaseq-index-flow"
@@ -22211,14 +22952,99 @@
             "version": "0.1.0",
             "license": "Apache-2.0"
           }
+        },
+        "0.2.0-r1": {
+          "name": "rnaseq-index-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-12T07:32:54Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-index-flow",
+          "repository_slug": "taffish/rnaseq-index-flow",
+          "command": {
+            "name": "taf-rnaseq-index-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-agat": "1.7.0-r1",
+            "taf-gffread": "0.12.9-r1",
+            "taf-hisat2": "2.2.2-r2",
+            "taf-kallisto": "0.52.0-r1",
+            "taf-salmon": "1.11.4-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "reference",
+              "index",
+              "workflow",
+              "transcriptomics"
+            ],
+            "keywords": [
+              "rnaseq-index-flow",
+              "rna-seq",
+              "transcriptome",
+              "reference",
+              "salmon",
+              "kallisto",
+              "hisat2",
+              "gffread",
+              "agat",
+              "tx2gene"
+            ],
+            "summary": "TAFFISH RNA-seq reference preparation flow for transcript FASTA, tx2gene.tsv, Salmon/Kallisto transcript indexes, and optional HISAT2 genome index generation.",
+            "description": "TAFFISH RNA-seq reference preparation flow for transcript FASTA, tx2gene.tsv, Salmon/Kallisto transcript indexes, and optional HISAT2 genome index generation."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-index-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "fdaa4a55f7827a531a7539c48171f69e970efbbc",
+            "html_url": "https://github.com/taffish/rnaseq-index-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-index-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-index-flow",
+            "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
         }
       }
     },
     "rnaseq-report-flow": {
       "name": "rnaseq-report-flow",
-      "latest": "0.2.0-r2",
-      "recent_version": "0.2.0-r2",
-      "recent_at": "2026-05-30T08:13:53Z",
+      "latest": "0.3.0-r1",
+      "recent_version": "0.3.0-r1",
+      "recent_at": "2026-06-12T07:35:45Z",
       "repository_url": "https://github.com/taffish/rnaseq-report-flow",
       "command": {
         "name": "taf-rnaseq-report-flow"
@@ -22682,6 +23508,84 @@
             "type": "taffish-flow",
             "homepage": "https://github.com/taffish/rnaseq-report-flow",
             "version": "0.2.0",
+            "license": "Apache-2.0"
+          }
+        },
+        "0.3.0-r1": {
+          "name": "rnaseq-report-flow",
+          "kind": "flow",
+          "version": "0.3.0",
+          "release": 1,
+          "version_id": "0.3.0-r1",
+          "tag": "v0.3.0-r1",
+          "published_at": "2026-06-12T07:35:45Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnaseq-report-flow",
+          "repository_slug": "taffish/rnaseq-report-flow",
+          "command": {
+            "name": "taf-rnaseq-report-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "report",
+              "workflow",
+              "transcriptomics",
+              "provenance"
+            ],
+            "keywords": [
+              "rnaseq-report-flow",
+              "rna-seq",
+              "report",
+              "summary",
+              "provenance",
+              "html",
+              "transcriptomics",
+              "interpretation",
+              "de-novo"
+            ],
+            "summary": "TAFFISH RNA-seq report flow that collects upstream reference or de novo RNA-seq flow outputs into a bilingual branded static HTML project report with workflow diagrams, active section navigation, organized plots, QC report links, tool links, methods, versions, commands, provenance, and an offline RNA-seq primer.",
+            "description": "TAFFISH RNA-seq report flow that collects upstream reference or de novo RNA-seq flow outputs into a bilingual branded static HTML project report with workflow diagrams, active section navigation, organized plots, QC report links, tool links, methods, versions, commands, provenance, and an offline RNA-seq primer."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-12T07:48:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnaseq-report-flow",
+            "ref": "v0.3.0-r1",
+            "commit": "7af3932513569771cf87c1d3b6115710e48647a2",
+            "html_url": "https://github.com/taffish/rnaseq-report-flow/tree/v0.3.0-r1"
+          },
+          "upstream": {
+            "name": "rnaseq-report-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/rnaseq-report-flow",
+            "version": "0.3.0",
             "license": "Apache-2.0"
           }
         }
@@ -30141,47 +31045,47 @@
     },
     "taf-rnaseq-alignment-flow": {
       "package": "rnaseq-alignment-flow",
-      "version": "0.1.0-r1"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-alignment-qc-flow": {
       "package": "rnaseq-alignment-qc-flow",
-      "version": "0.1.0-r1"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-count-flow": {
       "package": "rnaseq-count-flow",
-      "version": "0.1.0-r1"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-de-flow": {
       "package": "rnaseq-de-flow",
-      "version": "0.1.0-r2"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-denovo-annotation-flow": {
       "package": "rnaseq-denovo-annotation-flow",
-      "version": "0.1.0-r1"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-denovo-assembly-flow": {
       "package": "rnaseq-denovo-assembly-flow",
-      "version": "0.1.0-r1"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-denovo-expression-flow": {
       "package": "rnaseq-denovo-expression-flow",
-      "version": "0.1.0-r1"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-enrichment-flow": {
       "package": "rnaseq-enrichment-flow",
-      "version": "0.1.0-r3"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-expression-flow": {
       "package": "rnaseq-expression-flow",
-      "version": "0.1.0-r1"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-index-flow": {
       "package": "rnaseq-index-flow",
-      "version": "0.1.0-r1"
+      "version": "0.2.0-r1"
     },
     "taf-rnaseq-report-flow": {
       "package": "rnaseq-report-flow",
-      "version": "0.2.0-r2"
+      "version": "0.3.0-r1"
     },
     "taf-rnaseq-standard-flow": {
       "package": "rnaseq-standard-flow",
