@@ -1,0 +1,131 @@
+{
+  "name": "cooltools",
+  "latest": "0.7.1-r2",
+  "recent_version": "0.7.1-r2",
+  "recent_at": "2026-06-13T04:14:27Z",
+  "repository_url": "https://github.com/taffish/cooltools",
+  "command": {
+    "name": "taf-cooltools"
+  },
+  "versions": {
+    "0.7.1-r2": {
+      "name": "cooltools",
+      "kind": "tool",
+      "version": "0.7.1",
+      "release": 2,
+      "version_id": "0.7.1-r2",
+      "tag": "v0.7.1-r2",
+      "published_at": "2026-06-13T04:14:27Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/cooltools",
+      "repository_slug": "taffish/cooltools",
+      "command": {
+        "name": "taf-cooltools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "hi-c",
+        "categories": [
+          "hi-c",
+          "3d-genome",
+          "chromatin",
+          "contact-map",
+          "genomics"
+        ],
+        "keywords": [
+          "cooltools",
+          "cooler",
+          "hi-c",
+          "micro-c",
+          "3d genome",
+          "expected",
+          "insulation",
+          "compartments",
+          "dots",
+          "pileup"
+        ],
+        "summary": "cooltools 0.7.1 command-line and Python runtime for analyzing Hi-C and Micro-C contact maps stored in .cool/.mcool format.",
+        "description": "cooltools 0.7.1 command-line and Python runtime for analyzing Hi-C and Micro-C contact maps stored in .cool/.mcool format."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/cooltools:0.7.1-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.7.1-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:4421c6945d4a33c08ef472e36b3e63e9c7aa60183c23d328c17400d67242a653",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:f93dce0ba54670c23925ec28a6cc4bdfc07d02345dceac2865704fbbf36531d2",
+          "linux/arm64": "sha256:c488ff5cbe5bbb2df93e26705c15d344e00049ab4f39c0bff4fbc765847e8778"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "cooltools",
+          "cooler",
+          "python",
+          "python3",
+          "bash",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "set -eu; cooltools --version 2>&1 | grep -F '0.7.1' >/dev/null; python -c 'import importlib.metadata as md; import cooltools; print(md.version(\"cooltools\"))' | grep -Fx '0.7.1' >/dev/null; cooltools --help 2>&1 | grep -F 'expected-cis' >/dev/null; cooltools --help 2>&1 | grep -F 'insulation' >/dev/null; cooltools --help 2>&1 | grep -F 'genome' >/dev/null",
+          "set -eu; python -c 'import bioframe, cooler, cooltools, click, h5py, joblib, matplotlib, multiprocess, numba, numpy, pandas, scipy, skimage, sklearn; print(cooltools.__version__)' | grep -Fx '0.7.1' >/dev/null; cooler --version 2>&1 | grep -F 'cooler' >/dev/null",
+          "set -eu; cooltools coverage --help 2>&1 | grep -F 'Calculate the sums of cis' >/dev/null; cooltools expected-cis --help 2>&1 | grep -F 'Calculate expected Hi-C signal' >/dev/null; cooltools genome binnify --help 2>&1 | grep -F 'CHROMSIZES_PATH' >/dev/null",
+          "set -eu; tmp=/tmp/taf-cooltools-coverage-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/cooltools/share/testdata/cooltools_smoke.py \"$tmp\"; cooler info \"$tmp/tiny.cool\" | grep -F 'nbins' >/dev/null; cooltools coverage --ignore-diags 0 \"$tmp/tiny.cool\" -o \"$tmp/coverage.tsv\"; test -s \"$tmp/coverage.tsv\"; grep -F 'cov_cis_raw' \"$tmp/coverage.tsv\" >/dev/null; grep -F 'chr1' \"$tmp/coverage.tsv\" >/dev/null; rm -rf \"$tmp\"",
+          "set -eu; tmp=/tmp/taf-cooltools-genome-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf 'chr1\\t3000\\nchr2\\t2000\\n' > \"$tmp/chrom.sizes\"; cooltools genome binnify --all-names \"$tmp/chrom.sizes\" 1000 > \"$tmp/bins.bed\"; test -s \"$tmp/bins.bed\"; grep -F 'chr1' \"$tmp/bins.bed\" >/dev/null; grep -F 'chr2' \"$tmp/bins.bed\" >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-13T05:36:24Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-13T05:36:24Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/cooltools",
+        "ref": "v0.7.1-r2",
+        "commit": "cd1bf704b121f500b27c4e04e04b8794b4198c66",
+        "html_url": "https://github.com/taffish/cooltools/tree/v0.7.1-r2"
+      },
+      "upstream": {
+        "name": "cooltools",
+        "type": "github",
+        "homepage": "https://cooltools.readthedocs.io/",
+        "repository": "https://github.com/open2c/cooltools",
+        "release_url": "https://github.com/open2c/cooltools/releases/tag/v0.7.1",
+        "version": "0.7.1",
+        "license": "MIT",
+        "citation": "Open2C et al. Cooltools: enabling high-resolution Hi-C analysis in Python. bioRxiv (2022).",
+        "doi": "10.1101/2022.10.31.514564"
+      }
+    }
+  }
+}
