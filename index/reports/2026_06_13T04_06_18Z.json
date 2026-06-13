@@ -1,14 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-06-12T15:14:52Z",
+  "generated_at": "2026-06-13T04:06:18Z",
   "organization": "taffish",
   "counts": {
     "failed": 0,
-    "rejected": 7,
+    "rejected": 8,
     "warnings": 0
   },
   "failed": [],
   "rejected": [
+    {
+      "repository": "taffish/cooltools",
+      "ref": "v0.7.1-r1",
+      "version_id": "0.7.1-r1",
+      "reason": "Immutable release has a Docker image build failure and should not be added to the main index; fixed by v0.7.1-r2.",
+      "replacement": "0.7.1-r2",
+      "image": "ghcr.io/taffish/cooltools:0.7.1-r1"
+    },
     {
       "repository": "taffish/metabat2",
       "ref": "v2.18-r1",
