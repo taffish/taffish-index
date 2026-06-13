@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-13T05:47:34Z",
+  "generated_at": "2026-06-13T15:34:49Z",
   "organization": "taffish",
   "counts": {
     "packages": 165,
-    "versions": 249,
+    "versions": 251,
     "commands": 165,
     "repositories": 165,
     "warnings": 0,
@@ -650,9 +650,9 @@
     },
     "bam-qc-flow": {
       "name": "bam-qc-flow",
-      "latest": "0.1.0-r1",
-      "recent_version": "0.1.0-r1",
-      "recent_at": "2026-05-20T11:32:45Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-13T15:33:41Z",
       "repository_url": "https://github.com/taffish/bam-qc-flow",
       "command": {
         "name": "taf-bam-qc-flow"
@@ -737,6 +737,88 @@
             "type": "taffish-flow",
             "homepage": "https://github.com/taffish/bam-qc-flow",
             "version": "0.1.0",
+            "license": "Apache-2.0"
+          }
+        },
+        "0.2.0-r1": {
+          "name": "bam-qc-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-13T15:33:41Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bam-qc-flow",
+          "repository_slug": "taffish/bam-qc-flow",
+          "command": {
+            "name": "taf-bam-qc-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-mosdepth": "0.3.14-r2",
+            "taf-multiqc": "1.35-r2",
+            "taf-samtools": "1.23.1-r1"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "bam",
+            "categories": [
+              "bam",
+              "alignment",
+              "quality-control",
+              "coverage",
+              "workflow"
+            ],
+            "keywords": [
+              "bam-qc-flow",
+              "bam",
+              "samtools",
+              "mosdepth",
+              "multiqc",
+              "coverage",
+              "flagstat",
+              "idxstats",
+              "alignment-qc"
+            ],
+            "summary": "Foundation TAFFISH flow for QC of pre-sorted, indexed BAM files with Samtools, mosdepth, MultiQC, step-scoped advanced arguments, and a standalone HTML report.",
+            "description": "Foundation TAFFISH flow for QC of pre-sorted, indexed BAM files with Samtools, mosdepth, MultiQC, step-scoped advanced arguments, and a standalone HTML report."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-13T15:34:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bam-qc-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "27741bad81874b8762b76545520a40a516b87b34",
+            "html_url": "https://github.com/taffish/bam-qc-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "bam-qc-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/bam-qc-flow",
+            "version": "0.2.0",
             "license": "Apache-2.0"
           }
         }
@@ -17850,9 +17932,9 @@
     },
     "ngs-qc-flow": {
       "name": "ngs-qc-flow",
-      "latest": "0.1.0-r2",
-      "recent_version": "0.1.0-r2",
-      "recent_at": "2026-05-24T11:05:33Z",
+      "latest": "0.2.0-r1",
+      "recent_version": "0.2.0-r1",
+      "recent_at": "2026-06-13T13:14:10Z",
       "repository_url": "https://github.com/taffish/ngs-qc-flow",
       "command": {
         "name": "taf-ngs-qc-flow"
@@ -18021,6 +18103,89 @@
             "type": "taffish-flow",
             "homepage": "https://github.com/taffish/ngs-qc-flow",
             "version": "0.1.0",
+            "license": "Apache-2.0"
+          }
+        },
+        "0.2.0-r1": {
+          "name": "ngs-qc-flow",
+          "kind": "flow",
+          "version": "0.2.0",
+          "release": 1,
+          "version_id": "0.2.0-r1",
+          "tag": "v0.2.0-r1",
+          "published_at": "2026-06-13T13:14:10Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/ngs-qc-flow",
+          "repository_slug": "taffish/ngs-qc-flow",
+          "command": {
+            "name": "taf-ngs-qc-flow"
+          },
+          "runtime": {
+            "pipe": false,
+            "command_mode": false
+          },
+          "dependencies": {
+            "taf-fastp": "1.3.3-r3",
+            "taf-fastqc": "0.12.1-r1",
+            "taf-multiqc": "1.35-r2",
+            "taf-seqkit": "2.13.0-r2"
+          },
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "quality-control",
+              "workflow",
+              "ngs",
+              "preprocessing"
+            ],
+            "keywords": [
+              "ngs-qc-flow",
+              "fastq",
+              "qc",
+              "fastqc",
+              "fastp",
+              "multiqc",
+              "seqkit",
+              "quality-control",
+              "preprocessing"
+            ],
+            "summary": "Foundation TAFFISH flow for single-end and paired-end FASTQ QC, optional fastp cleaning, MultiQC aggregation, and standalone QC reporting.",
+            "description": "Foundation TAFFISH flow for single-end and paired-end FASTQ QC, optional fastp cleaning, MultiQC aggregation, and standalone QC reporting."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": null
+          },
+          "container": null,
+          "smoke": null,
+          "trust": {
+            "status": "not_applicable",
+            "checked_at": "2026-06-13T15:34:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/ngs-qc-flow",
+            "ref": "v0.2.0-r1",
+            "commit": "7521db5229ddcfa28a286bf4096f4788b7d350aa",
+            "html_url": "https://github.com/taffish/ngs-qc-flow/tree/v0.2.0-r1"
+          },
+          "upstream": {
+            "name": "ngs-qc-flow",
+            "type": "taffish-flow",
+            "homepage": "https://github.com/taffish/ngs-qc-flow",
+            "version": "0.2.0",
             "license": "Apache-2.0"
           }
         }
@@ -31133,7 +31298,7 @@
     },
     "taf-bam-qc-flow": {
       "package": "bam-qc-flow",
-      "version": "0.1.0-r1"
+      "version": "0.2.0-r1"
     },
     "taf-bamtools": {
       "package": "bamtools",
@@ -31489,7 +31654,7 @@
     },
     "taf-ngs-qc-flow": {
       "package": "ngs-qc-flow",
-      "version": "0.1.0-r2"
+      "version": "0.2.0-r1"
     },
     "taf-orthofinder": {
       "package": "orthofinder",
