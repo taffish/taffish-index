@@ -1,0 +1,147 @@
+{
+  "name": "mummer4",
+  "latest": "4.0.1-r1",
+  "recent_version": "4.0.1-r1",
+  "recent_at": "2026-06-15T06:57:04Z",
+  "repository_url": "https://github.com/taffish/mummer4",
+  "command": {
+    "name": "taf-mummer4"
+  },
+  "versions": {
+    "4.0.1-r1": {
+      "name": "mummer4",
+      "kind": "tool",
+      "version": "4.0.1",
+      "release": 1,
+      "version_id": "4.0.1-r1",
+      "tag": "v4.0.1-r1",
+      "published_at": "2026-06-15T06:57:04Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/mummer4",
+      "repository_slug": "taffish/mummer4",
+      "command": {
+        "name": "taf-mummer4"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-alignment",
+        "categories": [
+          "genome-alignment",
+          "comparative-genomics",
+          "whole-genome-alignment",
+          "structural-variation",
+          "assembly"
+        ],
+        "keywords": [
+          "mummer",
+          "mummer4",
+          "nucmer",
+          "promer",
+          "dnadiff",
+          "delta-filter",
+          "show-coords",
+          "mummerplot",
+          "whole genome alignment",
+          "fasta",
+          "delta"
+        ],
+        "summary": "MUMmer4 4.0.1 command-line runtime for fast whole-genome nucleotide and translated alignments, delta filtering, coordinate/SNP reporting, dnadiff summaries, and mummerplot dotplots.",
+        "description": "MUMmer4 4.0.1 command-line runtime for fast whole-genome nucleotide and translated alignments, delta filtering, coordinate/SNP reporting, dnadiff summaries, and mummerplot dotplots."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/mummer4:4.0.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.0.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:a64b153cc8fe805bb86807b8f6aa69f8377d55c77e00c2ea382e95d3ea86e22f",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:07db82d3955d8de8fcf0b49b08be5ef987779ab2e197378daac8e1a192db1f89",
+          "linux/arm64": "sha256:cf8871d677e9a766b9d5c34657a843a5aa1c039a875fa87c42154cc73405ed28"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "nucmer",
+          "promer",
+          "dnadiff",
+          "mummer",
+          "delta-filter",
+          "show-coords",
+          "show-snps",
+          "show-diff",
+          "show-aligns",
+          "show-tiling",
+          "mummerplot",
+          "repeat-match",
+          "mgaps",
+          "annotate",
+          "combineMUMs",
+          "gnuplot",
+          "perl",
+          "gawk",
+          "bash",
+          "sed",
+          "grep",
+          "ldd"
+        ],
+        "test": [
+          "nucmer -V 2>&1 | grep -Fx \"4.0.1\" >/dev/null",
+          "nucmer --help 2>&1 | grep -F \"Usage: nucmer\" >/dev/null && promer -h 2>&1 | grep -F \"USAGE: promer\" >/dev/null && dnadiff -h 2>&1 | grep -F \"USAGE: dnadiff\" >/dev/null && delta-filter -h 2>&1 | grep -F \"delta-filter\" >/dev/null && show-coords -h 2>&1 | grep -F \"show-coords\" >/dev/null && mummerplot -h 2>&1 | grep -F \"USAGE: mummerplot\" >/dev/null",
+          "for cmd in nucmer mummer delta-filter show-coords show-snps show-diff show-aligns show-tiling repeat-match mgaps annotate combineMUMs; do ldd \"$(command -v \"$cmd\")\" 2>&1 | grep -F \"not found\" && exit 1 || true; done",
+          "tmp=/tmp/taf-mummer4-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf \">ref\\n\" > ref.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> ref.fa; i=$((i + 1)); done; printf \"\\n\" >> ref.fa; printf \">qry\\n\" > qry.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> qry.fa; i=$((i + 1)); done; printf \"\\n\" >> qry.fa; nucmer -p smoke ref.fa qry.fa >/tmp/taf-mummer4-nucmer.log 2>&1; test -s smoke.delta; delta-filter -m smoke.delta > smoke.m.delta; test -s smoke.m.delta; show-coords -T -H smoke.m.delta > smoke.coords; test -s smoke.coords; mummer -mum -b -c ref.fa qry.fa > smoke.mums; test -s smoke.mums; dnadiff -p diff ref.fa qry.fa >/tmp/taf-mummer4-dnadiff.log 2>&1; test -s diff.report; mummerplot -p plot -t png smoke.delta >/tmp/taf-mummer4-mummerplot.log 2>&1; test -s plot.gp; test -s plot.png; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-15T07:07:09Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-15T07:07:09Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/mummer4",
+        "ref": "v4.0.1-r1",
+        "commit": "df794d0042cf732f9d7c85c7853372ff46cdfdef",
+        "html_url": "https://github.com/taffish/mummer4/tree/v4.0.1-r1"
+      },
+      "upstream": {
+        "name": "MUMmer4",
+        "type": "github",
+        "homepage": "https://github.com/mummer4/mummer",
+        "repository": "mummer4/mummer",
+        "release_url": "https://github.com/mummer4/mummer/releases/tag/v4.0.1",
+        "version": "4.0.1",
+        "license": "Artistic-2.0",
+        "citation": "Marcais et al. 2018, MUMmer4: A fast and versatile genome alignment system",
+        "doi": "10.1371/journal.pcbi.1005944",
+        "pmid": "29373581"
+      }
+    }
+  }
+}
