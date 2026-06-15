@@ -1,0 +1,135 @@
+{
+  "name": "lastz",
+  "latest": "1.04.52-r1",
+  "recent_version": "1.04.52-r1",
+  "recent_at": "2026-06-15T15:25:10Z",
+  "repository_url": "https://github.com/taffish/lastz",
+  "command": {
+    "name": "taf-lastz"
+  },
+  "versions": {
+    "1.04.52-r1": {
+      "name": "lastz",
+      "kind": "tool",
+      "version": "1.04.52",
+      "release": 1,
+      "version_id": "1.04.52-r1",
+      "tag": "v1.04.52-r1",
+      "published_at": "2026-06-15T15:25:10Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/lastz",
+      "repository_slug": "taffish/lastz",
+      "command": {
+        "name": "taf-lastz"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-alignment",
+        "categories": [
+          "genome-alignment",
+          "pairwise-alignment",
+          "comparative-genomics",
+          "whole-genome-alignment"
+        ],
+        "keywords": [
+          "lastz",
+          "blastz",
+          "dna alignment",
+          "pairwise alignment",
+          "lav",
+          "axt",
+          "maf",
+          "sam",
+          "paf",
+          "cigar",
+          "2bit",
+          "nib"
+        ],
+        "summary": "LASTZ 1.04.52 command-line runtime for pairwise DNA sequence alignment, scoring inference, and common genomic alignment output formats.",
+        "description": "LASTZ 1.04.52 command-line runtime for pairwise DNA sequence alignment, scoring inference, and common genomic alignment output formats."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/lastz:1.04.52-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.04.52-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:06b8f4b6739bcd4769b3674ee7db993d12491e90e66801473351535d6063df26",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:68d4947ead7deb22aa13033e81730958750f5d5e7afcba478f708b12589b7ed9",
+          "linux/arm64": "sha256:f0bd9892e81ddee664ab216c572db3048ae6a63d791914682c22aed65b996b5e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "lastz",
+          "lastz_D",
+          "lastz_32",
+          "lastz_40",
+          "lav_sort.py",
+          "maf_sort.py",
+          "python3",
+          "bash",
+          "sed",
+          "grep",
+          "ldd"
+        ],
+        "test": [
+          "lastz --version 2>&1 | grep -F \"lastz (version 1.04.52 released 20250402)\" >/dev/null",
+          "lastz --help 2>&1 | grep -F \"target[[start..end]]\" >/dev/null && lastz --help 2>&1 | grep -F -- \"--format=<type>\" >/dev/null",
+          "for cmd in lastz lastz_D lastz_32 lastz_40; do ldd \"$(command -v \"$cmd\")\" 2>&1 | grep -F \"not found\" && exit 1 || true; done",
+          "python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py",
+          "tmp=/tmp/taf-lastz-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; lastz /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=lav > \"$tmp/out.lav\"; test -s \"$tmp/out.lav\"; grep -F \"#:lav\" \"$tmp/out.lav\" >/dev/null; lastz /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=axt > \"$tmp/out.axt\"; test -s \"$tmp/out.axt\"; lastz /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=maf > \"$tmp/out.maf\"; grep -F \"##maf version=1\" \"$tmp/out.maf\" >/dev/null; lastz_D /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 > \"$tmp/out_D.lav\"; test -s \"$tmp/out_D.lav\"; lastz_32 /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=sam- > \"$tmp/out.sam\"; test -s \"$tmp/out.sam\"; lastz_40 /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=paf > \"$tmp/out.paf\"; test -s \"$tmp/out.paf\"; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-15T15:49:26Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-15T15:49:26Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/lastz",
+        "ref": "v1.04.52-r1",
+        "commit": "f40c93c96bbb69d0c8a06ff09ccb38c27f312be2",
+        "html_url": "https://github.com/taffish/lastz/tree/v1.04.52-r1"
+      },
+      "upstream": {
+        "name": "LASTZ",
+        "type": "github",
+        "homepage": "https://github.com/lastz/lastz",
+        "repository": "lastz/lastz",
+        "release_url": "https://github.com/lastz/lastz/releases/tag/1.04.52",
+        "version": "1.04.52",
+        "license": "MIT",
+        "citation": "Harris RS 2007, Improved pairwise alignment of genomic DNA"
+      }
+    }
+  }
+}
