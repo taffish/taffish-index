@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-16T06:44:11Z",
+  "generated_at": "2026-06-16T07:27:28Z",
   "organization": "taffish",
   "counts": {
-    "packages": 168,
-    "versions": 255,
-    "commands": 168,
-    "repositories": 168,
+    "packages": 169,
+    "versions": 256,
+    "commands": 169,
+    "repositories": 169,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -16165,6 +16165,140 @@
         }
       }
     },
+    "minigraph": {
+      "name": "minigraph",
+      "latest": "0.21-r1",
+      "recent_version": "0.21-r1",
+      "recent_at": "2026-06-16T07:21:24Z",
+      "repository_url": "https://github.com/taffish/minigraph",
+      "command": {
+        "name": "taf-minigraph"
+      },
+      "versions": {
+        "0.21-r1": {
+          "name": "minigraph",
+          "kind": "tool",
+          "version": "0.21",
+          "release": 1,
+          "version_id": "0.21-r1",
+          "tag": "v0.21-r1",
+          "published_at": "2026-06-16T07:21:24Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/minigraph",
+          "repository_slug": "taffish/minigraph",
+          "command": {
+            "name": "taf-minigraph"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "pangenome",
+            "categories": [
+              "pangenome",
+              "sequence-graph",
+              "graph-alignment",
+              "structural-variation",
+              "assembly-to-graph"
+            ],
+            "keywords": [
+              "minigraph",
+              "gfa",
+              "rgfa",
+              "gaf",
+              "paf",
+              "pangenome graph",
+              "sequence-to-graph mapping",
+              "graph generation",
+              "structural variation",
+              "mgutils"
+            ],
+            "summary": "Minigraph 0.21 command-line runtime for sequence-to-graph mapping, reference pangenome graph construction, assembly-to-graph alignment, and minigraph helper scripts.",
+            "description": "Minigraph 0.21 command-line runtime for sequence-to-graph mapping, reference pangenome graph construction, assembly-to-graph alignment, and minigraph helper scripts."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/minigraph:0.21-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.21-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:1810364fc03436bc0d21e0ffebd723fc88016b1fe259d32caaa2cf4381c1c7ed",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ae72623fedc1d5d6dab4b6a487997c8b91af91571361ae7b2cfa2983e156df09",
+              "linux/arm64": "sha256:8be6f7a8228834f5a87fa649a5a62c59889bb80e36b63468365ff0fe3dfb8f32"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "minigraph",
+              "mgutils.js",
+              "mgutils-es6.js",
+              "gafcall.js",
+              "k8",
+              "gzip",
+              "ldd",
+              "sh"
+            ],
+            "test": [
+              "minigraph --version 2>&1 | grep -Fx '0.21-r606' >/dev/null",
+              "{ minigraph 2>&1 || true; } | grep -F 'Usage: minigraph [options] <target.gfa> <query.fa> [...]' >/dev/null && { minigraph 2>&1 || true; } | grep -F -- '-x STR       preset' >/dev/null",
+              "{ mgutils.js 2>&1 || true; } | grep -F 'Usage: mgutils.js <command> [arguments]' >/dev/null && { mgutils-es6.js 2>&1 || true; } | grep -F 'Usage: mgutils-es6.js <command> [arguments]' >/dev/null && gafcall.js version | grep -Fx 'r112' >/dev/null",
+              "ldd \"$(command -v minigraph)\" 2>&1 | grep -F 'not found' && exit 1 || true; ldd \"$(command -v k8)\" 2>&1 | grep -F 'not found' && exit 1 || true",
+              "tmp=/tmp/taf-minigraph-map-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; minigraph /usr/local/share/minigraph/testdata/MT-human.fa /usr/local/share/minigraph/testdata/MT-orangA.fa > out.paf 2> out.log; test -s out.paf; grep -F 'PA#NC_002083.1X' out.paf >/dev/null; gzip -c /usr/local/share/minigraph/testdata/MT-orangA.fa > query.fa.gz; minigraph /usr/local/share/minigraph/testdata/MT-human.fa query.fa.gz > gz.paf 2> gz.log; test -s gz.paf; grep -F 'PA#NC_002083.1X' gz.paf >/dev/null; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-minigraph-ggen-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; minigraph -cxggs -t1 -l10k /usr/local/share/minigraph/testdata/MT.gfa /usr/local/share/minigraph/testdata/MT-chimp.fa /usr/local/share/minigraph/testdata/MT-orangA.fa > out.gfa 2> out.log; test -s out.gfa; grep -F 'SN:Z:MT_human' out.gfa >/dev/null; grep -F 'SR:i:0' out.gfa >/dev/null; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-minigraph-call-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; minigraph -xasm -t1 -l10k --call /usr/local/share/minigraph/testdata/MT.gfa /usr/local/share/minigraph/testdata/MT-orangA.fa > call.bed 2> call.log; test -s call.bed; grep -F 'MT_human' call.bed >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-16T07:27:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-16T07:27:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/minigraph",
+            "ref": "v0.21-r1",
+            "commit": "1a592ae1b9c778e27d09b8bab88b8e5e8b4c5948",
+            "html_url": "https://github.com/taffish/minigraph/tree/v0.21-r1"
+          },
+          "upstream": {
+            "name": "minigraph",
+            "type": "github",
+            "homepage": "https://github.com/lh3/minigraph",
+            "repository": "lh3/minigraph",
+            "release_url": "https://github.com/lh3/minigraph/releases/tag/v0.21",
+            "version": "0.21",
+            "license": "MIT",
+            "citation": "Li, Feng, and Chu 2020, The design and construction of reference pangenome graphs with minigraph",
+            "doi": "10.1186/s13059-020-02168-z"
+          }
+        }
+      }
+    },
     "minimap2": {
       "name": "minimap2",
       "latest": "2.31-r1",
@@ -32151,6 +32285,10 @@
       "package": "metabat2",
       "version": "2.18-r2"
     },
+    "taf-minigraph": {
+      "package": "minigraph",
+      "version": "0.21-r1"
+    },
     "taf-minimap2": {
       "package": "minimap2",
       "version": "2.31-r1"
@@ -32999,6 +33137,12 @@
       "repository": "taffish/metabat2",
       "packages": [
         "metabat2"
+      ]
+    },
+    "taffish/minigraph": {
+      "repository": "taffish/minigraph",
+      "packages": [
+        "minigraph"
       ]
     },
     "taffish/minimap2": {
