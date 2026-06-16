@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-15T15:49:26Z",
+  "generated_at": "2026-06-16T06:05:38Z",
   "organization": "taffish",
   "counts": {
-    "packages": 167,
-    "versions": 254,
-    "commands": 167,
-    "repositories": 167,
+    "packages": 168,
+    "versions": 255,
+    "commands": 168,
+    "repositories": 168,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -21195,6 +21195,157 @@
         }
       }
     },
+    "ragtag": {
+      "name": "ragtag",
+      "latest": "2.1.0-r1",
+      "recent_version": "2.1.0-r1",
+      "recent_at": "2026-06-16T04:46:59Z",
+      "repository_url": "https://github.com/taffish/ragtag",
+      "command": {
+        "name": "taf-ragtag"
+      },
+      "versions": {
+        "2.1.0-r1": {
+          "name": "ragtag",
+          "kind": "tool",
+          "version": "2.1.0",
+          "release": 1,
+          "version_id": "2.1.0-r1",
+          "tag": "v2.1.0-r1",
+          "published_at": "2026-06-16T04:46:59Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/ragtag",
+          "repository_slug": "taffish/ragtag",
+          "command": {
+            "name": "taf-ragtag"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "assembly-scaffolding",
+              "assembly-curation",
+              "comparative-genomics",
+              "reference-guided-assembly"
+            ],
+            "keywords": [
+              "ragtag",
+              "scaffolding",
+              "assembly correction",
+              "assembly patching",
+              "agp",
+              "paf",
+              "delta",
+              "minimap2",
+              "unimap",
+              "nucmer",
+              "mummer"
+            ],
+            "summary": "RagTag 2.1.0 command-line runtime for reference-guided assembly correction, scaffolding, patching, scaffold merging, and AGP/PAF/Delta assembly utilities.",
+            "description": "RagTag 2.1.0 command-line runtime for reference-guided assembly correction, scaffolding, patching, scaffold merging, and AGP/PAF/Delta assembly utilities."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/ragtag:2.1.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.1.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:8826fa1c105cdea7438f956cbe226c80d9b1041159605ad47d4f0efbe5f8753d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:93511ab3ab693abc003ca16f4c14a6b40ec798c4c632eb637922c9cbaef97b81",
+              "linux/arm64": "sha256:92cea4869dbe492a68be30d76d207ab312eb3a3df057c477c889cc6aa256350f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "ragtag.py",
+              "ragtag_correct.py",
+              "ragtag_scaffold.py",
+              "ragtag_patch.py",
+              "ragtag_merge.py",
+              "ragtag_agp2fa.py",
+              "ragtag_agpcheck.py",
+              "ragtag_asmstats.py",
+              "ragtag_delta2paf.py",
+              "ragtag_paf2delta.py",
+              "ragtag_splitasm.py",
+              "ragtag_update_gff.py",
+              "ragtag_rename.py",
+              "ragtag_stats.py",
+              "minimap2",
+              "unimap",
+              "nucmer",
+              "delta-filter",
+              "show-coords",
+              "samtools",
+              "python3",
+              "bash",
+              "grep",
+              "sed",
+              "ldd"
+            ],
+            "test": [
+              "ragtag.py --version | grep -Fx 'v2.1.0' >/dev/null",
+              "ragtag.py --help 2>&1 | grep -F 'Tools for fast and flexible genome assembly scaffolding' >/dev/null && ragtag.py scaffold --help 2>&1 | grep -F 'Homology-based assembly scaffolding' >/dev/null && ragtag.py patch --help 2>&1 | grep -F 'Homology-based assembly patching' >/dev/null",
+              "minimap2 --version | grep -Fx '2.31-r1302' >/dev/null && unimap --version | grep -Fx '0.1-r41' >/dev/null && nucmer -V 2>&1 | grep -Fx '4.0.1' >/dev/null && samtools --version 2>&1 | grep -F 'samtools' >/dev/null",
+              "python3 -c 'import ragtag_utilities, intervaltree, networkx, numpy, pysam; print(\"ok\")' | grep -Fx 'ok' >/dev/null",
+              "for cmd in minimap2 unimap nucmer delta-filter show-coords; do ldd \"$(command -v \"$cmd\")\" 2>&1 | grep -F 'not found' && exit 1 || true; done",
+              "tmp=/tmp/taf-ragtag-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python3 -c 'import random; random.seed(7); seq = \"\".join(random.choice(\"ACGT\") for _ in range(30000)); open(\"ref.fa\", \"w\").write(\">ref\\n\" + seq + \"\\n\"); open(\"query.fa\", \"w\").write(\">ctg1\\n\" + seq + \"\\n\")'; ragtag.py scaffold -f 1000 -t 1 -o mm2 ref.fa query.fa > mm2.log 2>&1 || { cat mm2.log >&2; exit 1; }; test -s mm2/ragtag.scaffold.agp; test -s mm2/ragtag.scaffold.fasta; grep -F 'ctg1' mm2/ragtag.scaffold.agp >/dev/null; ragtag.py agpcheck mm2/ragtag.scaffold.agp > agpcheck.txt 2>&1; grep -F 'complete with no errors' agpcheck.txt >/dev/null; ragtag.py asmstats mm2/ragtag.scaffold.fasta > asmstats.tsv; grep -F 'N50' asmstats.tsv >/dev/null; ragtag.py scaffold --aligner nucmer --nucmer-params '--maxmatch -l 100 -c 500' -f 1000 -o nucmer ref.fa query.fa > nucmer.log 2>&1 || { cat nucmer.log >&2; exit 1; }; test -s nucmer/ragtag.scaffold.agp; unimap -b24 -c ref.fa query.fa > unimap.paf 2> unimap.log || { cat unimap.log >&2; exit 1; }; test -s unimap.paf; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-16T06:05:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-16T06:05:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/ragtag",
+            "ref": "v2.1.0-r1",
+            "commit": "f9e89f4dec71d408722a4448c1fc661e65e07707",
+            "html_url": "https://github.com/taffish/ragtag/tree/v2.1.0-r1"
+          },
+          "upstream": {
+            "name": "RagTag",
+            "type": "github",
+            "homepage": "https://github.com/malonge/RagTag",
+            "repository": "malonge/RagTag",
+            "release_url": "https://github.com/malonge/RagTag/releases/tag/v2.1.0",
+            "version": "2.1.0",
+            "license": "MIT",
+            "citation": "Alonge et al. 2022, Automated assembly scaffolding elevates a new tomato system for high-throughput genome editing",
+            "doi": "10.1186/s13059-022-02823-7"
+          }
+        }
+      }
+    },
     "repeatmasker": {
       "name": "repeatmasker",
       "latest": "4.2.3-r3",
@@ -32096,6 +32247,10 @@
       "package": "racon",
       "version": "1.5.0-r1"
     },
+    "taf-ragtag": {
+      "package": "ragtag",
+      "version": "2.1.0-r1"
+    },
     "taf-repeatmasker": {
       "package": "repeatmasker",
       "version": "4.2.3-r3"
@@ -32988,6 +33143,12 @@
       "repository": "taffish/racon",
       "packages": [
         "racon"
+      ]
+    },
+    "taffish/ragtag": {
+      "repository": "taffish/ragtag",
+      "packages": [
+        "ragtag"
       ]
     },
     "taffish/repeatmasker": {
