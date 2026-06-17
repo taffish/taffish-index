@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-17T06:48:40Z",
+  "generated_at": "2026-06-17T13:56:55Z",
   "organization": "taffish",
   "counts": {
-    "packages": 170,
-    "versions": 257,
-    "commands": 170,
-    "repositories": 170,
+    "packages": 171,
+    "versions": 258,
+    "commands": 171,
+    "repositories": 171,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -8981,6 +8981,143 @@
             "license": "GPL-3.0",
             "citation": "van Kempen et al. 2023; Barrio-Hernandez et al. 2023; Kim et al. 2024",
             "doi": "10.1038/s41587-023-01773-0; 10.1038/s41586-023-06510-w; 10.1101/2024.04.14.589414"
+          }
+        }
+      }
+    },
+    "fpocket": {
+      "name": "fpocket",
+      "latest": "4.2.3-r1",
+      "recent_version": "4.2.3-r1",
+      "recent_at": "2026-06-17T13:53:02Z",
+      "repository_url": "https://github.com/taffish/fpocket",
+      "command": {
+        "name": "taf-fpocket"
+      },
+      "versions": {
+        "4.2.3-r1": {
+          "name": "fpocket",
+          "kind": "tool",
+          "version": "4.2.3",
+          "release": 1,
+          "version_id": "4.2.3-r1",
+          "tag": "v4.2.3-r1",
+          "published_at": "2026-06-17T13:53:02Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/fpocket",
+          "repository_slug": "taffish/fpocket",
+          "command": {
+            "name": "taf-fpocket"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-biology",
+            "categories": [
+              "structural-biology",
+              "protein-structure",
+              "pocket-detection",
+              "drug-discovery",
+              "molecular-dynamics"
+            ],
+            "keywords": [
+              "fpocket",
+              "mdpocket",
+              "dpocket",
+              "tpocket",
+              "protein pocket",
+              "binding site",
+              "cavity detection",
+              "druggability",
+              "voronoi",
+              "qhull",
+              "pdb",
+              "mmcif"
+            ],
+            "summary": "fpocket 4.2.3 protein pocket detection suite with fpocket, mdpocket, dpocket, and tpocket.",
+            "description": "fpocket 4.2.3 protein pocket detection suite with fpocket, mdpocket, dpocket, and tpocket."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/fpocket:4.2.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.2.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:7b388cc75e19340cdef6ef97c9643341fc3ca29d2e5ff09526304d6f9a90e9a2",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:cdf18f105be9d73da48d454add90043a26ccb45e4037c8ece2d33d3155c59289"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "fpocket",
+              "mdpocket",
+              "dpocket",
+              "tpocket",
+              "python3",
+              "bash",
+              "sh",
+              "grep",
+              "sed",
+              "ldd"
+            ],
+            "test": [
+              "grep -Fx \"fpocket 4.2.3\" /opt/fpocket/share/doc/fpocket/source.txt >/dev/null && grep -F \"62b3da6490eeab0db488f0182150d340de2be0be23f4fd1def9d5846ce724ede\" /opt/fpocket/share/doc/fpocket/source.txt >/dev/null",
+              "{ fpocket 2>&1 || true; } | grep -F \"fpocket\" >/dev/null && { mdpocket 2>&1 || true; } | grep -F \"mdpocket\" >/dev/null && { dpocket 2>&1 || true; } | grep -F \"dpocket\" >/dev/null && { tpocket 2>&1 || true; } | grep -F \"tpocket\" >/dev/null",
+              "for cmd in fpocket mdpocket dpocket tpocket; do ldd \"$(command -v \"$cmd\")\" 2>&1 | grep -F \"not found\" && exit 1 || true; done",
+              "tmp=/tmp/taf-fpocket-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/fpocket/share/testdata/1UYD.pdb \"$tmp/\"; cd \"$tmp\"; fpocket -f 1UYD.pdb >/tmp/taf-fpocket-fpocket.log 2>&1; test -s 1UYD_out/1UYD_info.txt; grep -F \"Pocket\" 1UYD_out/1UYD_info.txt >/dev/null; test -s 1UYD_out/1UYD_out.pdb; rm -rf \"$tmp\" /tmp/taf-fpocket-fpocket.log",
+              "tmp=/tmp/taf-fpocket-cif-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/fpocket/share/testdata/1UYD.cif \"$tmp/\"; cd \"$tmp\"; fpocket -f 1UYD.cif >/tmp/taf-fpocket-cif.log 2>&1; test -s 1UYD_out/1UYD_info.txt; rm -rf \"$tmp\" /tmp/taf-fpocket-cif.log",
+              "tmp=/tmp/taf-mdpocket-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/fpocket/share/testdata/mdpocket/*.pdb \"$tmp/\"; sed \"s#^#$tmp/#\" /opt/fpocket/share/testdata/mdpocket/input.txt > \"$tmp/input.txt\"; cd \"$tmp\"; mdpocket --pdb_list input.txt -f 2yex.pdb -o mdpout >/tmp/taf-mdpocket.log 2>&1; test -s mdpout_freq_iso_0_5.pdb; test -s mdpout_dens_iso_8.pdb; rm -rf \"$tmp\" /tmp/taf-mdpocket.log",
+              "tmp=/tmp/taf-dpocket-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/fpocket/share/testdata/3LKF.pdb /opt/fpocket/share/testdata/1ATP.pdb /opt/fpocket/share/testdata/7TAA.pdb \"$tmp/\"; printf \"%s\\t%s\\n\" \"$tmp/3LKF.pdb\" pc \"$tmp/1ATP.pdb\" atp \"$tmp/7TAA.pdb\" abc > \"$tmp/list.txt\"; cd \"$tmp\"; dpocket -f list.txt >/tmp/taf-dpocket.log 2>&1; test -s dpout_explicitp.txt || test -s dpout_fpocketp.txt; rm -rf \"$tmp\" /tmp/taf-dpocket.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-17T13:56:55Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-17T13:56:55Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/fpocket",
+            "ref": "v4.2.3-r1",
+            "commit": "54f39db68ebe68874091c01eedf7f7a31e480ec7",
+            "html_url": "https://github.com/taffish/fpocket/tree/v4.2.3-r1"
+          },
+          "upstream": {
+            "name": "fpocket",
+            "type": "github",
+            "homepage": "https://github.com/Discngine/fpocket",
+            "repository": "Discngine/fpocket",
+            "release_url": "https://github.com/Discngine/fpocket/releases/tag/4.2.3",
+            "version": "4.2.3",
+            "license": "MIT",
+            "citation": "Le Guilloux V, Schmidtke P, Tuffery P. Fpocket: an open source platform for ligand pocket detection. BMC Bioinformatics. 2009;10:168.",
+            "doi": "10.1186/1471-2105-10-168",
+            "pmid": "19486540"
           }
         }
       }
@@ -32297,6 +32434,10 @@
       "package": "foldseek",
       "version": "10-r2"
     },
+    "taf-fpocket": {
+      "package": "fpocket",
+      "version": "4.2.3-r1"
+    },
     "taf-freebayes": {
       "package": "freebayes",
       "version": "1.3.10-r2"
@@ -33083,6 +33224,12 @@
       "repository": "taffish/foldseek",
       "packages": [
         "foldseek"
+      ]
+    },
+    "taffish/fpocket": {
+      "repository": "taffish/fpocket",
+      "packages": [
+        "fpocket"
       ]
     },
     "taffish/freebayes": {
