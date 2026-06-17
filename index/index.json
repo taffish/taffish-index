@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-17T16:18:38Z",
+  "generated_at": "2026-06-17T17:22:01Z",
   "organization": "taffish",
   "counts": {
-    "packages": 173,
-    "versions": 260,
-    "commands": 173,
-    "repositories": 173,
+    "packages": 174,
+    "versions": 261,
+    "commands": 174,
+    "repositories": 174,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -6747,6 +6747,132 @@
             "citation": "Olm, Brown, Brooks, Firek, Baker, Burstein, Soenjoyo, Thomas, Morowitz, and Banfield 2017",
             "doi": "10.1038/ismej.2017.126",
             "pmid": "28742071"
+          }
+        }
+      }
+    },
+    "dssp": {
+      "name": "dssp",
+      "latest": "4.6.1-r1",
+      "recent_version": "4.6.1-r1",
+      "recent_at": "2026-06-17T16:58:52Z",
+      "repository_url": "https://github.com/taffish/dssp",
+      "command": {
+        "name": "taf-dssp"
+      },
+      "versions": {
+        "4.6.1-r1": {
+          "name": "dssp",
+          "kind": "tool",
+          "version": "4.6.1",
+          "release": 1,
+          "version_id": "4.6.1-r1",
+          "tag": "v4.6.1-r1",
+          "published_at": "2026-06-17T16:58:52Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/dssp",
+          "repository_slug": "taffish/dssp",
+          "command": {
+            "name": "taf-dssp"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-biology",
+            "categories": [
+              "structural-biology",
+              "protein-structure",
+              "secondary-structure",
+              "annotation"
+            ],
+            "keywords": [
+              "dssp",
+              "mkdssp",
+              "secondary structure",
+              "protein structure",
+              "pdb",
+              "mmcif",
+              "hydrogen bonds",
+              "accessibility",
+              "ppii"
+            ],
+            "summary": "DSSP 4.6.1 mkdssp command-line runtime for assigning protein secondary structure from atomic coordinates.",
+            "description": "DSSP 4.6.1 mkdssp command-line runtime for assigning protein secondary structure from atomic coordinates."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/dssp:4.6.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.6.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:698c068bd77e64dba00eef39c1892d90a845242692164feb1455b3925ecbd8dd",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:91c9e62e3f8c977387a12f12cf76bcf8f143ccba53abc5ae786dc4fbdecdee58",
+              "linux/arm64": "sha256:674ff9579ca888b84f8d1828e94da30a777a027397a883ad110f6ce2b5a3a050"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "mkdssp",
+              "grep",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "grep -Fx \"DSSP 4.6.1\" /opt/dssp/share/doc/dssp/source.txt >/dev/null && grep -F \"5ddb8274f03ac0338adffcd661989f515fffb95d40afca404cf2677024256ae3\" /opt/dssp/share/doc/dssp/source.txt >/dev/null && grep -F \"ccd_components_cif_sha256=ab05819c85e2b8005dfc1c3e1ba9580cca3b0482aea26e85f5cf9cb595e7895f\" /opt/dssp/share/doc/dssp/source.txt >/dev/null && test -s /opt/dssp/share/libcifpp/mmcif_pdbx.dic && test -s /opt/dssp/share/libcifpp/dssp-extension.dic && test -s /opt/dssp/share/libcifpp/components.cif",
+              "mkdssp --version 2>&1 | grep -F \"mkdssp version 4.6.1\" >/dev/null && mkdssp --help 2>&1 | grep -F \"Usage: mkdssp\" >/dev/null && mkdssp --help 2>&1 | grep -F -- \"--output-format\" >/dev/null",
+              "ldd \"$(command -v mkdssp)\" 2>&1 | grep -F \"not found\" && exit 1 || true",
+              "tmp=/tmp/taf-dssp-mmcif-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; mkdssp /opt/dssp/share/testdata/1cbs.cif.gz \"$tmp/1cbs-annotated.cif\" > \"$tmp/stdout\" 2> \"$tmp/stderr\"; test -s \"$tmp/1cbs-annotated.cif\"; grep -F '_struct_conf.conf_type_id' \"$tmp/1cbs-annotated.cif\" >/dev/null; grep -F '_software.name' \"$tmp/1cbs-annotated.cif\" >/dev/null; if grep -F \"Configuration error\" \"$tmp/stderr\"; then exit 1; fi; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-dssp-legacy-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; mkdssp --output-format=dssp /opt/dssp/share/testdata/pdb1cbs.ent.gz \"$tmp/1cbs.dssp\" > \"$tmp/stdout\" 2> \"$tmp/stderr\"; test -s \"$tmp/1cbs.dssp\"; grep -F \"Secondary Structure Definition by the program DSSP\" \"$tmp/1cbs.dssp\" >/dev/null; grep -F \"TOTAL NUMBER OF RESIDUES\" \"$tmp/1cbs.dssp\" >/dev/null; if grep -F \"Configuration error\" \"$tmp/stderr\"; then exit 1; fi; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-17T17:22:01Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-17T17:22:01Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/dssp",
+            "ref": "v4.6.1-r1",
+            "commit": "42b95ab27b5b7290d9fdebbd3b0d79882f627b41",
+            "html_url": "https://github.com/taffish/dssp/tree/v4.6.1-r1"
+          },
+          "upstream": {
+            "name": "DSSP",
+            "type": "github",
+            "homepage": "https://pdb-redo.eu/dssp",
+            "repository": "PDB-REDO/dssp",
+            "release_url": "https://github.com/PDB-REDO/dssp/tree/v4.6.1",
+            "version": "4.6.1",
+            "license": "BSD-2-Clause",
+            "citation": "Hekkelman ML, Salmoral DA, Perrakis A, Joosten RP. DSSP 4: FAIR annotation of protein secondary structure. Protein Science. 2025;34(8):e70208. Also cite Kabsch W, Sander C. Biopolymers. 1983;22:2577-2637 for the original algorithm.",
+            "doi": "10.1002/pro.70208"
           }
         }
       }
@@ -32654,6 +32780,10 @@
       "package": "drep",
       "version": "3.4.2-r1"
     },
+    "taf-dssp": {
+      "package": "dssp",
+      "version": "4.6.1-r1"
+    },
     "taf-edta": {
       "package": "edta",
       "version": "2.3.0-r2"
@@ -33432,6 +33562,12 @@
       "repository": "taffish/drep",
       "packages": [
         "drep"
+      ]
+    },
+    "taffish/dssp": {
+      "repository": "taffish/dssp",
+      "packages": [
+        "dssp"
       ]
     },
     "taffish/edta": {
