@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-17T15:04:49Z",
+  "generated_at": "2026-06-17T16:18:38Z",
   "organization": "taffish",
   "counts": {
-    "packages": 172,
-    "versions": 259,
-    "commands": 172,
-    "repositories": 172,
+    "packages": 173,
+    "versions": 260,
+    "commands": 173,
+    "repositories": 173,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -9398,6 +9398,134 @@
             "license": "MIT",
             "citation": "Garrison and Marth 2012",
             "doi": "10.48550/arXiv.1207.3907"
+          }
+        }
+      }
+    },
+    "freesasa": {
+      "name": "freesasa",
+      "latest": "2.1.3-r1",
+      "recent_version": "2.1.3-r1",
+      "recent_at": "2026-06-17T15:54:02Z",
+      "repository_url": "https://github.com/taffish/freesasa",
+      "command": {
+        "name": "taf-freesasa"
+      },
+      "versions": {
+        "2.1.3-r1": {
+          "name": "freesasa",
+          "kind": "tool",
+          "version": "2.1.3",
+          "release": 1,
+          "version_id": "2.1.3-r1",
+          "tag": "v2.1.3-r1",
+          "published_at": "2026-06-17T15:54:02Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/freesasa",
+          "repository_slug": "taffish/freesasa",
+          "command": {
+            "name": "taf-freesasa"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-biology",
+            "categories": [
+              "structural-biology",
+              "protein-structure",
+              "surface-area",
+              "solvent-accessibility"
+            ],
+            "keywords": [
+              "freesasa",
+              "sasa",
+              "solvent accessible surface area",
+              "protein structure",
+              "pdb",
+              "mmcif",
+              "rsa",
+              "json",
+              "xml",
+              "lee richards",
+              "shrake rupley"
+            ],
+            "summary": "FreeSASA 2.1.3 command-line runtime and static C library for solvent accessible surface area calculations.",
+            "description": "FreeSASA 2.1.3 command-line runtime and static C library for solvent accessible surface area calculations."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/freesasa:2.1.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.1.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d911ef05e2d712602efd1311feaa77028c28d9472ca47c9a8ac8b2e3357286c1",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e269f3b57ea0ffb398c42f74d53101d7433b051cb0f552fe6d431217ef4f81ff",
+              "linux/arm64": "sha256:ff3ef9c378906a24e5681e525f33365caec83eb308c74b884911dfcf095afab2"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "freesasa",
+              "grep",
+              "sed",
+              "ldd"
+            ],
+            "test": [
+              "grep -Fx \"FreeSASA 2.1.3\" /opt/freesasa/share/doc/freesasa/source.txt >/dev/null && grep -F \"dc4fe377352569299d69329d9ded2f141e527da325960b20d2e30b5335c2b3ff\" /opt/freesasa/share/doc/freesasa/source.txt >/dev/null && test -s /opt/freesasa/include/freesasa.h && test -s /opt/freesasa/lib/libfreesasa.a",
+              "freesasa --version 2>&1 | grep -F \"FreeSASA 2.1.3\" >/dev/null && freesasa --help 2>&1 | grep -F \"Usage: freesasa\" >/dev/null && freesasa --help 2>&1 | grep -F -- \"--format=<log|res|seq|pdb|rsa|cif|xml|json>\" >/dev/null",
+              "ldd \"$(command -v freesasa)\" 2>&1 | grep -F \"not found\" && exit 1 || true",
+              "tmp=/tmp/taf-freesasa-pdb-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; freesasa --format=json --depth=atom -o \"$tmp/1ubq.json\" /opt/freesasa/share/testdata/1ubq.pdb >/dev/null; test -s \"$tmp/1ubq.json\"; grep -F '\"total\"' \"$tmp/1ubq.json\" >/dev/null; freesasa --select='ubiq, chain A' --format=seq -o \"$tmp/select.seq\" /opt/freesasa/share/testdata/1ubq.pdb >/dev/null; test -s \"$tmp/select.seq\"; grep -F 'SEQ A' \"$tmp/select.seq\" >/dev/null; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-freesasa-cif-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; freesasa --cif --format=xml -o \"$tmp/1ubq.xml\" /opt/freesasa/share/testdata/1ubq.cif >/dev/null; test -s \"$tmp/1ubq.xml\"; grep -F '<results xmlns=\"http://freesasa.github.io/\"' \"$tmp/1ubq.xml\" >/dev/null; grep -F '<area total=' \"$tmp/1ubq.xml\" >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-17T16:18:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-17T16:18:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/freesasa",
+            "ref": "v2.1.3-r1",
+            "commit": "e527764ae69ebb46cefb5369358563103e2fa25c",
+            "html_url": "https://github.com/taffish/freesasa/tree/v2.1.3-r1"
+          },
+          "upstream": {
+            "name": "FreeSASA",
+            "type": "github",
+            "homepage": "https://freesasa.github.io/",
+            "repository": "mittinatten/freesasa",
+            "release_url": "https://github.com/mittinatten/freesasa/releases/tag/2.1.3",
+            "version": "2.1.3",
+            "license": "MIT; bundled Gemmi headers are MPL-2.0",
+            "citation": "Mitternacht S. FreeSASA: An open source C library for solvent accessible surface area calculations. F1000Research. 2016;5:189.",
+            "doi": "10.12688/f1000research.7931.1"
           }
         }
       }
@@ -32574,6 +32702,10 @@
       "package": "freebayes",
       "version": "1.3.10-r2"
     },
+    "taf-freesasa": {
+      "package": "freesasa",
+      "version": "2.1.3-r1"
+    },
     "taf-gatk": {
       "package": "gatk",
       "version": "4.6.2.0-r2"
@@ -33372,6 +33504,12 @@
       "repository": "taffish/freebayes",
       "packages": [
         "freebayes"
+      ]
+    },
+    "taffish/freesasa": {
+      "repository": "taffish/freesasa",
+      "packages": [
+        "freesasa"
       ]
     },
     "taffish/gatk": {
