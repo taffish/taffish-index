@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-17T06:28:02Z",
+  "generated_at": "2026-06-17T06:48:40Z",
   "organization": "taffish",
   "counts": {
-    "packages": 169,
-    "versions": 256,
-    "commands": 169,
-    "repositories": 169,
+    "packages": 170,
+    "versions": 257,
+    "commands": 170,
+    "repositories": 170,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -19433,6 +19433,158 @@
         }
       }
     },
+    "pggb": {
+      "name": "pggb",
+      "latest": "0.7.4-r1",
+      "recent_version": "0.7.4-r1",
+      "recent_at": "2026-06-17T06:44:16Z",
+      "repository_url": "https://github.com/taffish/pggb",
+      "command": {
+        "name": "taf-pggb"
+      },
+      "versions": {
+        "0.7.4-r1": {
+          "name": "pggb",
+          "kind": "tool",
+          "version": "0.7.4",
+          "release": 1,
+          "version_id": "0.7.4-r1",
+          "tag": "v0.7.4-r1",
+          "published_at": "2026-06-17T06:44:16Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/pggb",
+          "repository_slug": "taffish/pggb",
+          "command": {
+            "name": "taf-pggb"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "pangenome",
+            "categories": [
+              "pangenome",
+              "sequence-graph",
+              "graph-construction",
+              "structural-variation",
+              "visualization"
+            ],
+            "keywords": [
+              "pggb",
+              "pangenome graph",
+              "variation graph",
+              "gfa",
+              "wfmash",
+              "seqwish",
+              "smoothxg",
+              "odgi",
+              "gfaffix",
+              "vg",
+              "pansn"
+            ],
+            "summary": "PGGB 0.7.4 pangenome graph builder runtime with the upstream pggb pipeline and bundled graph construction, normalization, visualization, and variant-calling dependencies.",
+            "description": "PGGB 0.7.4 pangenome graph builder runtime with the upstream pggb pipeline and bundled graph construction, normalization, visualization, and variant-calling dependencies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/pggb:0.7.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.7.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6c660d8f9dbe75f3fa3a57ee16153cadb2135aa34ef86cf5629e6a7ad586b001",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6ad6efd6d4a676e18aedc34834e6475826a8349b9e6460c74e9cc4d906576a97"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "pggb",
+              "partition-before-pggb",
+              "wfmash",
+              "seqwish",
+              "smoothxg",
+              "odgi",
+              "gfaffix",
+              "vg",
+              "vcfbub",
+              "vcfwave",
+              "bcftools",
+              "samtools",
+              "bgzip",
+              "tabix",
+              "bedtools",
+              "rtg",
+              "nucmer",
+              "mummer",
+              "fastix",
+              "pafplot",
+              "multiqc",
+              "Rscript",
+              "python3",
+              "parallel",
+              "pigz",
+              "time",
+              "bc",
+              "bash"
+            ],
+            "test": [
+              "{ pggb --version 2>&1 || true; } | grep -Fx 'pggb v0.7.4-0-ge25486b' >/dev/null && pggb --help 2>&1 | grep -F 'Use wfmash, seqwish, smoothxg, odgi, gfaffix, and vg' >/dev/null",
+              "{ partition-before-pggb --version 2>&1 || true; } | grep -F 'v0.7.4-0-ge25486b' >/dev/null && partition-before-pggb --help 2>&1 | grep -F 'usage:' >/dev/null",
+              "wfmash --version 2>&1 | grep -E '^[0-9a-f]{7,}$' >/dev/null && seqwish --version 2>&1 | grep -E '^v[0-9]' >/dev/null && smoothxg --version 2>&1 | grep -E '^v[0-9]' >/dev/null && odgi version -v 2>&1 | grep -E '^v[0-9]' >/dev/null && gfaffix --version 2>&1 | grep -F 'impg 0.4.1' >/dev/null",
+              "vg version 2>&1 | grep -F 'vg version' >/dev/null && vcfbub --version 2>&1 | grep -F 'vcfbub' >/dev/null && vcfwave --help 2>&1 | grep -F 'vcfwave' >/dev/null && bcftools --version 2>&1 | grep -F 'bcftools 1.19' >/dev/null && samtools --version 2>&1 | grep -F 'samtools 1.16' >/dev/null",
+              "multiqc --version 2>&1 | grep -F 'multiqc, version' >/dev/null && Rscript --version 2>&1 | grep -F 'Rscript' >/dev/null && python3 --version 2>&1 | grep -F 'Python' >/dev/null && rtg version 2>&1 | grep -F 'RTG' >/dev/null",
+              "tmp=/tmp/taf-pggb-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; { printf '>sampleA#1#ctg1\\n'; i=0; while [ \"$i\" -lt 80 ]; do printf ACGT; i=$((i + 1)); done; printf '\\n>sampleB#1#ctg1\\n'; i=0; while [ \"$i\" -lt 40 ]; do printf ACGT; i=$((i + 1)); done; printf TTGT; i=0; while [ \"$i\" -lt 39 ]; do printf ACGT; i=$((i + 1)); done; printf '\\n'; } > tiny.fa; samtools faidx tiny.fa; pggb -i tiny.fa -o out -n 2 -t 1 -T 1 -s 100 -l 100 -p 70 -k 5 -G 100 -X -v > stdout.log 2> stderr.log; find out -type f -name '*.final.gfa' -print -quit | grep -F '.final.gfa' >/dev/null; find out -type f -name '*.final.og' -print -quit | grep -F '.final.og' >/dev/null; grep -R 'version:            v0.7.4-0-ge25486b' out >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-17T06:48:40Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-17T06:48:40Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/pggb",
+            "ref": "v0.7.4-r1",
+            "commit": "8f3deeba9bfb99796d6f9bb377a4efa12b836b3f",
+            "html_url": "https://github.com/taffish/pggb/tree/v0.7.4-r1"
+          },
+          "upstream": {
+            "name": "pggb",
+            "type": "github",
+            "homepage": "https://github.com/pangenome/pggb",
+            "repository": "pangenome/pggb",
+            "release_url": "https://github.com/pangenome/pggb/releases/tag/v0.7.4",
+            "version": "0.7.4",
+            "license": "MIT",
+            "citation": "Garrison et al. 2024, Building pangenome graphs, Nature Methods",
+            "doi": "10.1038/s41592-024-02430-3"
+          }
+        }
+      }
+    },
     "phylogeny-flow": {
       "name": "phylogeny-flow",
       "latest": "0.2.0-r1",
@@ -32341,6 +32493,10 @@
       "package": "pfam-scan",
       "version": "1.6-r1"
     },
+    "taf-pggb": {
+      "package": "pggb",
+      "version": "0.7.4-r1"
+    },
     "taf-phylogeny-flow": {
       "package": "phylogeny-flow",
       "version": "0.2.0-r1"
@@ -33221,6 +33377,12 @@
       "repository": "taffish/pfam-scan",
       "packages": [
         "pfam-scan"
+      ]
+    },
+    "taffish/pggb": {
+      "repository": "taffish/pggb",
+      "packages": [
+        "pggb"
       ]
     },
     "taffish/phylogeny-flow": {
