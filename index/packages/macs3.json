@@ -1,0 +1,134 @@
+{
+  "name": "macs3",
+  "latest": "3.0.4-r1",
+  "recent_version": "3.0.4-r1",
+  "recent_at": "2026-06-18T15:07:41Z",
+  "repository_url": "https://github.com/taffish/macs3",
+  "command": {
+    "name": "taf-macs3"
+  },
+  "versions": {
+    "3.0.4-r1": {
+      "name": "macs3",
+      "kind": "tool",
+      "version": "3.0.4",
+      "release": 1,
+      "version_id": "3.0.4-r1",
+      "tag": "v3.0.4-r1",
+      "published_at": "2026-06-18T15:07:41Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/macs3",
+      "repository_slug": "taffish/macs3",
+      "command": {
+        "name": "taf-macs3"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "chip-seq",
+        "categories": [
+          "chip-seq",
+          "atac-seq",
+          "peak-calling",
+          "epigenomics",
+          "genomics"
+        ],
+        "keywords": [
+          "macs3",
+          "macs",
+          "chip-seq",
+          "atac-seq",
+          "peak calling",
+          "broad peaks",
+          "bedgraph",
+          "hmmratac",
+          "callpeak",
+          "pileup",
+          "bdgcmp"
+        ],
+        "summary": "MACS3 3.0.4 runtime for ChIP-seq, ATAC-seq, DNA enrichment peak calling, bedGraph operations, and HMMRATAC.",
+        "description": "MACS3 3.0.4 runtime for ChIP-seq, ATAC-seq, DNA enrichment peak calling, bedGraph operations, and HMMRATAC."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/macs3:3.0.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.0.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:0f94bc7e6ffe4d464b497f41683e6367576d266db7ddbae1e31a8b1b9e01b3d5",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:cc29f552e3822eec6a71d6f34eeb1b973a2353c7599e801912171f6f416d1a91",
+          "linux/arm64": "sha256:f3a4ce85d2f992e2a9b67f798caa4a65f4992dc88f351ba2535343d656282936"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "macs3",
+          "python",
+          "python3",
+          "bash",
+          "sh",
+          "grep",
+          "sed",
+          "gzip",
+          "ldd"
+        ],
+        "test": [
+          "set -eu; macs3 --version 2>&1 | grep -F '3.0.4' >/dev/null && macs3 --help 2>&1 | grep -F 'callpeak' >/dev/null && macs3 --help 2>&1 | grep -F 'hmmratac' >/dev/null && macs3 callpeak --help 2>&1 | grep -F 'callpeak' >/dev/null && macs3 bdgpeakcall --help 2>&1 | grep -F 'bdgpeakcall' >/dev/null && macs3 hmmratac --help 2>&1 | grep -F 'hmmratac' >/dev/null",
+          "set -eu; python -c 'import importlib.metadata as md; import MACS3, numpy, scipy, sklearn, hmmlearn, cykhash; assert md.version(\"MACS3\") == \"3.0.4\"; print(\"macs3-runtime-ok\", md.version(\"numpy\"), md.version(\"scipy\"), md.version(\"scikit-learn\"), md.version(\"hmmlearn\"), md.version(\"cykhash\"))' | grep -F 'macs3-runtime-ok' >/dev/null && grep -F 'source_sha256=1c2c9cc219d136b026b5e517dcbc518c3f76b9c864b8b52f00c7902f11070aef' /opt/macs3/share/doc/macs3/source.txt >/dev/null && find /opt/macs3/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > /tmp/taf-macs3-ldd.txt && ! grep -F 'not found' /tmp/taf-macs3-ldd.txt >/dev/null",
+          "set -eu; tmp=/tmp/taf-macs3-callpeak-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/macs3/share/testdata/macs3_smoke.py \"$tmp\"; cd \"$tmp\"; macs3 callpeak -t reads.bed -f BED -g 1000 -n smoke --outdir callpeak --nomodel --extsize 50 --shift 0 --keep-dup all -B --nolambda -p 0.99 > callpeak.log 2>&1; test -s callpeak/smoke_peaks.xls; test -s callpeak/smoke_treat_pileup.bdg; grep -F 'chr1' callpeak/smoke_treat_pileup.bdg >/dev/null; grep -F 'Done!' callpeak.log >/dev/null; rm -rf \"$tmp\"",
+          "set -eu; tmp=/tmp/taf-macs3-bdgpeakcall-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/macs3/share/testdata/macs3_smoke.py \"$tmp\"; cd \"$tmp\"; macs3 bdgpeakcall -i signal.bdg -c 5 -l 20 -g 10 -o peaks.bed > bdgpeakcall.log 2>&1; test -s peaks.bed; grep -F 'chr1' peaks.bed >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-18T16:30:26Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-18T16:30:26Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/macs3",
+        "ref": "v3.0.4-r1",
+        "commit": "88816b78e64a2e72f3f8aef28d600c6a9b14fb27",
+        "html_url": "https://github.com/taffish/macs3/tree/v3.0.4-r1"
+      },
+      "upstream": {
+        "name": "MACS3",
+        "type": "github",
+        "homepage": "https://macs3-project.github.io/MACS/",
+        "repository": "macs3-project/MACS",
+        "release_url": "https://github.com/macs3-project/MACS/releases/tag/v3.0.4",
+        "version": "3.0.4",
+        "license": "BSD-3-Clause",
+        "citation": "Zhang et al. 2008, Model-based Analysis of ChIP-Seq (MACS)",
+        "doi": "10.1186/gb-2008-9-9-r137",
+        "pmid": "18798982"
+      }
+    }
+  }
+}

@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-18T06:11:18Z",
+  "generated_at": "2026-06-18T16:30:26Z",
   "organization": "taffish",
   "counts": {
-    "packages": 174,
-    "versions": 261,
-    "commands": 174,
-    "repositories": 174,
+    "packages": 175,
+    "versions": 264,
+    "commands": 175,
+    "repositories": 175,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -939,9 +939,9 @@
     },
     "bandage-ng": {
       "name": "bandage-ng",
-      "latest": "2026.4.1-r1",
-      "recent_version": "2026.4.1-r1",
-      "recent_at": "2026-05-19T16:25:10Z",
+      "latest": "2026.6.1-r1",
+      "recent_version": "2026.6.1-r1",
+      "recent_at": "2026-06-18T15:50:00Z",
       "repository_url": "https://github.com/taffish/bandage-ng",
       "command": {
         "name": "taf-bandage-ng"
@@ -1068,6 +1068,133 @@
             "repository": "asl/BandageNG",
             "release_url": "https://github.com/asl/BandageNG/releases/tag/v2026.4.1",
             "version": "2026.4.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "BandageNG is a modern fork of Bandage for interactive visualization of de novo assembly graphs. BandageNG upstream currently lists citation as TBD; for the original Bandage publication see Wick et al. 2015, Bioinformatics.",
+            "doi": "10.1093/bioinformatics/btv383",
+            "pmid": "26099265"
+          }
+        },
+        "2026.6.1-r1": {
+          "name": "bandage-ng",
+          "kind": "tool",
+          "version": "2026.6.1",
+          "release": 1,
+          "version_id": "2026.6.1-r1",
+          "tag": "v2026.6.1-r1",
+          "published_at": "2026-06-18T15:50:00Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bandage-ng",
+          "repository_slug": "taffish/bandage-ng",
+          "command": {
+            "name": "taf-bandage-ng"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "assembly",
+              "assembly-graph",
+              "visualization",
+              "viewer"
+            ],
+            "keywords": [
+              "bandage-ng",
+              "bandageng",
+              "bandage",
+              "gfa",
+              "fastg",
+              "assembly-graph",
+              "spades",
+              "megahit",
+              "novnc",
+              "vnc"
+            ],
+            "summary": "BandageNG 2026.6.1 for interactive de novo assembly graph visualization through a browser-accessible noVNC session, with headless graph CLI commands included.",
+            "description": "BandageNG 2026.6.1 for interactive de novo assembly graph visualization through a browser-accessible noVNC session, with headless graph CLI commands included."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bandage-ng:2026.6.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2026.6.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b0847d9e3cd2a4930ad93d64d30992a5a9a9e102ea9c958494c08940c6bd2175",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:aff3f2a94c19d0b22888f48bd0cba516b734391388ee723ed34842b5726b04ff"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "BandageNG",
+              "bandage-ng",
+              "bandage-ng-gui",
+              "Xvfb",
+              "x11vnc",
+              "websockify",
+              "openbox",
+              "makeblastdb",
+              "blastn",
+              "tblastn",
+              "minimap2",
+              "nhmmer",
+              "hmmsearch",
+              "curl",
+              "sh"
+            ],
+            "test": [
+              "BandageNG --version | grep -Fx '2026.6.1' >/dev/null && bandage-ng --version | grep -Fx 'BandageNG 2026.6.1' >/dev/null",
+              "BandageNG --help | grep -F 'BandageNG' >/dev/null && BandageNG info --help | grep -F 'Display information about a graph' >/dev/null && bandage-ng --help | grep -F 'direct launcher for BandageNG 2026.6.1' >/dev/null && bandage-ng-gui --help | grep -F 'browser-accessible noVNC session' >/dev/null",
+              "bandage-ng 2>&1 | grep -F 'no X DISPLAY is available' >/dev/null",
+              "makeblastdb -version 2>&1 | grep -F 'makeblastdb' >/dev/null && blastn -version 2>&1 | grep -F 'blastn' >/dev/null && tblastn -version 2>&1 | grep -F 'tblastn' >/dev/null && minimap2 --version >/dev/null && nhmmer -h 2>&1 | grep -F 'HMMER' >/dev/null && hmmsearch -h 2>&1 | grep -F 'HMMER' >/dev/null",
+              "mkdir -p /tmp/taf-bandage-ng-smoke && cd /tmp/taf-bandage-ng-smoke && printf 'H\\tVN:Z:1.0\\nS\\t1\\tACGTACGT\\nS\\t2\\tTTTT\\nL\\t1\\t+\\t2\\t+\\t0M\\n' > tiny.gfa && bandage-ng info tiny.gfa | grep -F 'Node count:' >/dev/null && bandage-ng image tiny.gfa tiny.svg >/tmp/taf-bandage-ng-image.log 2>&1 && test -s tiny.svg && grep -F '<svg' tiny.svg >/dev/null",
+              "bandage-ng-gui --help >/dev/null && (bandage-ng-gui --geometry 800x600 >/tmp/taf-bandage-ng-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-bandage-ng-gui.log >/dev/null && grep -F 'BandageNG GUI is starting.' /tmp/taf-bandage-ng-gui.log >/dev/null)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-18T16:30:26Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-18T16:30:26Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bandage-ng",
+            "ref": "v2026.6.1-r1",
+            "commit": "48c9615310957395f2edb4ac2c1794b2449ca619",
+            "html_url": "https://github.com/taffish/bandage-ng/tree/v2026.6.1-r1"
+          },
+          "upstream": {
+            "name": "BandageNG",
+            "type": "github",
+            "homepage": "https://github.com/asl/BandageNG/wiki",
+            "repository": "asl/BandageNG",
+            "release_url": "https://github.com/asl/BandageNG/releases/tag/v2026.6.1",
+            "version": "2026.6.1",
             "license": "GPL-3.0-or-later",
             "citation": "BandageNG is a modern fork of Bandage for interactive visualization of de novo assembly graphs. BandageNG upstream currently lists citation as TBD; for the original Bandage publication see Wick et al. 2015, Bioinformatics.",
             "doi": "10.1093/bioinformatics/btv383",
@@ -2884,9 +3011,9 @@
     },
     "busco": {
       "name": "busco",
-      "latest": "6.0.0-r2",
-      "recent_version": "6.0.0-r2",
-      "recent_at": "2026-05-18T06:17:26Z",
+      "latest": "6.1.0-r1",
+      "recent_version": "6.1.0-r1",
+      "recent_at": "2026-06-18T16:25:21Z",
       "repository_url": "https://github.com/taffish/busco",
       "command": {
         "name": "taf-busco"
@@ -3160,6 +3287,145 @@
             "release_url": "https://gitlab.com/ezlab/busco/-/releases/6.0.0",
             "docker_image": "docker.io/ezlabgva/busco:v6.0.0_cv1",
             "version": "6.0.0",
+            "license": "MIT",
+            "citation": "Tegenfeldt et al. 2025",
+            "doi": "10.1093/nar/gkae987",
+            "pmid": "39535043"
+          }
+        },
+        "6.1.0-r1": {
+          "name": "busco",
+          "kind": "tool",
+          "version": "6.1.0",
+          "release": 1,
+          "version_id": "6.1.0-r1",
+          "tag": "v6.1.0-r1",
+          "published_at": "2026-06-18T16:25:21Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/busco",
+          "repository_slug": "taffish/busco",
+          "command": {
+            "name": "taf-busco"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "transcriptomics",
+              "proteomics",
+              "quality-control",
+              "orthology"
+            ],
+            "keywords": [
+              "busco",
+              "orthologs",
+              "genome-completeness",
+              "annotation-completeness",
+              "odb12",
+              "quality-control",
+              "genomics",
+              "transcriptomics",
+              "proteomics"
+            ],
+            "summary": "BUSCO v6 for assessing genome, transcriptome, and protein-set completeness using Benchmarking Universal Single-Copy Orthologs.",
+            "description": "BUSCO v6 for assessing genome, transcriptome, and protein-set completeness using Benchmarking Universal Single-Copy Orthologs."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/busco:6.1.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "6.1.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c22e393d8f1c70e0ba51a94af1fa9e1d09bdf2de006eb6d27a4f8f62fbd100fe",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:cdf16f6861cd08d9b2123eeaeb0e0684d8f5eb6e7ea2c0ffdadfce8bbb459d50"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "busco",
+              "taf-busco-entrypoint",
+              "python3",
+              "hmmsearch",
+              "tblastn",
+              "makeblastdb",
+              "augustus",
+              "prodigal",
+              "metaeuk",
+              "miniprot",
+              "stats.sh",
+              "run_sepp.py",
+              "wget"
+            ],
+            "test": [
+              "taf-busco-entrypoint | grep -F 'taf-busco wraps BUSCO v6.' >/dev/null",
+              "taf-busco-entrypoint --version 2>&1 | grep -F 'BUSCO 6.1.0' >/dev/null",
+              "busco --version 2>&1 | grep -F 'BUSCO 6.1.0' >/dev/null",
+              "busco --help 2>&1 | grep -F 'usage: busco' >/dev/null",
+              "busco --help 2>&1 | grep -F -- '--auto-lineage' >/dev/null",
+              "busco --help 2>&1 | grep -F -- '--datasets_version' >/dev/null",
+              "busco --help 2>&1 | grep -F -- 'odb12.2' >/dev/null",
+              "busco --help 2>&1 | grep -F -- '--offline' >/dev/null",
+              "busco --help 2>&1 | grep -F -- '--plot' >/dev/null",
+              "python3 --version >/dev/null",
+              "hmmsearch -h 2>&1 | grep -F 'HMMER' >/dev/null",
+              "tblastn -version 2>&1 | grep -F 'tblastn' >/dev/null",
+              "makeblastdb -version 2>&1 | grep -F 'makeblastdb' >/dev/null",
+              "augustus --version >/dev/null",
+              "prodigal -v 2>&1 | grep -F 'Prodigal' >/dev/null",
+              "metaeuk -h >/dev/null",
+              "miniprot --version >/dev/null",
+              "stats.sh 2>&1 | grep -F 'basic assembly statistics' >/dev/null",
+              "run_sepp.py --help 2>&1 | grep -F 'run_sepp.py' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-18T16:30:26Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-18T16:30:26Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/busco",
+            "ref": "v6.1.0-r1",
+            "commit": "fd56e40b744eb9d1a19715cc89cf43e5f65fe0fb",
+            "html_url": "https://github.com/taffish/busco/tree/v6.1.0-r1"
+          },
+          "upstream": {
+            "name": "BUSCO",
+            "type": "docker",
+            "url": "https://busco.ezlab.org/",
+            "homepage": "https://busco.ezlab.org/",
+            "repository": "ezlab/busco",
+            "release_url": "https://gitlab.com/ezlab/busco/-/releases/6.1.0",
+            "docker_image": "docker.io/ezlabgva/busco:v6.1.0_cv2",
+            "version": "6.1.0",
             "license": "MIT",
             "citation": "Tegenfeldt et al. 2025",
             "doi": "10.1093/nar/gkae987",
@@ -14514,6 +14780,140 @@
             "citation": "Tareen A and Kinney JB. Logomaker: beautiful sequence logos in Python. Bioinformatics 36(7):2272-2274 (2020).",
             "doi": "10.1093/bioinformatics/btz921",
             "pmid": "31821414"
+          }
+        }
+      }
+    },
+    "macs3": {
+      "name": "macs3",
+      "latest": "3.0.4-r1",
+      "recent_version": "3.0.4-r1",
+      "recent_at": "2026-06-18T15:07:41Z",
+      "repository_url": "https://github.com/taffish/macs3",
+      "command": {
+        "name": "taf-macs3"
+      },
+      "versions": {
+        "3.0.4-r1": {
+          "name": "macs3",
+          "kind": "tool",
+          "version": "3.0.4",
+          "release": 1,
+          "version_id": "3.0.4-r1",
+          "tag": "v3.0.4-r1",
+          "published_at": "2026-06-18T15:07:41Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/macs3",
+          "repository_slug": "taffish/macs3",
+          "command": {
+            "name": "taf-macs3"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "chip-seq",
+            "categories": [
+              "chip-seq",
+              "atac-seq",
+              "peak-calling",
+              "epigenomics",
+              "genomics"
+            ],
+            "keywords": [
+              "macs3",
+              "macs",
+              "chip-seq",
+              "atac-seq",
+              "peak calling",
+              "broad peaks",
+              "bedgraph",
+              "hmmratac",
+              "callpeak",
+              "pileup",
+              "bdgcmp"
+            ],
+            "summary": "MACS3 3.0.4 runtime for ChIP-seq, ATAC-seq, DNA enrichment peak calling, bedGraph operations, and HMMRATAC.",
+            "description": "MACS3 3.0.4 runtime for ChIP-seq, ATAC-seq, DNA enrichment peak calling, bedGraph operations, and HMMRATAC."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/macs3:3.0.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.0.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:0f94bc7e6ffe4d464b497f41683e6367576d266db7ddbae1e31a8b1b9e01b3d5",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:cc29f552e3822eec6a71d6f34eeb1b973a2353c7599e801912171f6f416d1a91",
+              "linux/arm64": "sha256:f3a4ce85d2f992e2a9b67f798caa4a65f4992dc88f351ba2535343d656282936"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "macs3",
+              "python",
+              "python3",
+              "bash",
+              "sh",
+              "grep",
+              "sed",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "set -eu; macs3 --version 2>&1 | grep -F '3.0.4' >/dev/null && macs3 --help 2>&1 | grep -F 'callpeak' >/dev/null && macs3 --help 2>&1 | grep -F 'hmmratac' >/dev/null && macs3 callpeak --help 2>&1 | grep -F 'callpeak' >/dev/null && macs3 bdgpeakcall --help 2>&1 | grep -F 'bdgpeakcall' >/dev/null && macs3 hmmratac --help 2>&1 | grep -F 'hmmratac' >/dev/null",
+              "set -eu; python -c 'import importlib.metadata as md; import MACS3, numpy, scipy, sklearn, hmmlearn, cykhash; assert md.version(\"MACS3\") == \"3.0.4\"; print(\"macs3-runtime-ok\", md.version(\"numpy\"), md.version(\"scipy\"), md.version(\"scikit-learn\"), md.version(\"hmmlearn\"), md.version(\"cykhash\"))' | grep -F 'macs3-runtime-ok' >/dev/null && grep -F 'source_sha256=1c2c9cc219d136b026b5e517dcbc518c3f76b9c864b8b52f00c7902f11070aef' /opt/macs3/share/doc/macs3/source.txt >/dev/null && find /opt/macs3/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > /tmp/taf-macs3-ldd.txt && ! grep -F 'not found' /tmp/taf-macs3-ldd.txt >/dev/null",
+              "set -eu; tmp=/tmp/taf-macs3-callpeak-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/macs3/share/testdata/macs3_smoke.py \"$tmp\"; cd \"$tmp\"; macs3 callpeak -t reads.bed -f BED -g 1000 -n smoke --outdir callpeak --nomodel --extsize 50 --shift 0 --keep-dup all -B --nolambda -p 0.99 > callpeak.log 2>&1; test -s callpeak/smoke_peaks.xls; test -s callpeak/smoke_treat_pileup.bdg; grep -F 'chr1' callpeak/smoke_treat_pileup.bdg >/dev/null; grep -F 'Done!' callpeak.log >/dev/null; rm -rf \"$tmp\"",
+              "set -eu; tmp=/tmp/taf-macs3-bdgpeakcall-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/macs3/share/testdata/macs3_smoke.py \"$tmp\"; cd \"$tmp\"; macs3 bdgpeakcall -i signal.bdg -c 5 -l 20 -g 10 -o peaks.bed > bdgpeakcall.log 2>&1; test -s peaks.bed; grep -F 'chr1' peaks.bed >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-18T16:30:26Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-18T16:30:26Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/macs3",
+            "ref": "v3.0.4-r1",
+            "commit": "88816b78e64a2e72f3f8aef28d600c6a9b14fb27",
+            "html_url": "https://github.com/taffish/macs3/tree/v3.0.4-r1"
+          },
+          "upstream": {
+            "name": "MACS3",
+            "type": "github",
+            "homepage": "https://macs3-project.github.io/MACS/",
+            "repository": "macs3-project/MACS",
+            "release_url": "https://github.com/macs3-project/MACS/releases/tag/v3.0.4",
+            "version": "3.0.4",
+            "license": "BSD-3-Clause",
+            "citation": "Zhang et al. 2008, Model-based Analysis of ChIP-Seq (MACS)",
+            "doi": "10.1186/gb-2008-9-9-r137",
+            "pmid": "18798982"
           }
         }
       }
@@ -32638,7 +33038,7 @@
     },
     "taf-bandage-ng": {
       "package": "bandage-ng",
-      "version": "2026.4.1-r1"
+      "version": "2026.6.1-r1"
     },
     "taf-barrnap": {
       "package": "barrnap",
@@ -32682,7 +33082,7 @@
     },
     "taf-busco": {
       "package": "busco",
-      "version": "6.0.0-r2"
+      "version": "6.1.0-r1"
     },
     "taf-bustools": {
       "package": "bustools",
@@ -32935,6 +33335,10 @@
     "taf-logomaker": {
       "package": "logomaker",
       "version": "0.8.7-r1"
+    },
+    "taf-macs3": {
+      "package": "macs3",
+      "version": "3.0.4-r1"
     },
     "taf-mafft": {
       "package": "mafft",
@@ -33796,6 +34200,12 @@
       "repository": "taffish/logomaker",
       "packages": [
         "logomaker"
+      ]
+    },
+    "taffish/macs3": {
+      "repository": "taffish/macs3",
+      "packages": [
+        "macs3"
       ]
     },
     "taffish/mafft": {
