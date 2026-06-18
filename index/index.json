@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-18T16:56:13Z",
+  "generated_at": "2026-06-18T17:28:55Z",
   "organization": "taffish",
   "counts": {
     "packages": 175,
-    "versions": 265,
+    "versions": 266,
     "commands": 175,
     "repositories": 175,
     "warnings": 0,
@@ -8583,9 +8583,9 @@
     },
     "fastp": {
       "name": "fastp",
-      "latest": "1.3.3-r3",
-      "recent_version": "1.3.3-r3",
-      "recent_at": "2026-05-19T07:36:55Z",
+      "latest": "1.3.4-r1",
+      "recent_version": "1.3.4-r1",
+      "recent_at": "2026-06-18T17:13:46Z",
       "repository_url": "https://github.com/taffish/fastp",
       "command": {
         "name": "taf-fastp"
@@ -8831,6 +8831,129 @@
             "repository": "OpenGene/fastp",
             "release_url": "https://github.com/OpenGene/fastp/releases/tag/v1.3.3",
             "version": "1.3.3",
+            "license": "MIT",
+            "citation": "Chen 2025; Chen 2023; Chen et al. 2018",
+            "doi": "10.1002/imt2.70078; 10.1002/imt2.107; 10.1093/bioinformatics/bty560",
+            "pmid": "41112039; 30423086"
+          }
+        },
+        "1.3.4-r1": {
+          "name": "fastp",
+          "kind": "tool",
+          "version": "1.3.4",
+          "release": 1,
+          "version_id": "1.3.4-r1",
+          "tag": "v1.3.4-r1",
+          "published_at": "2026-06-18T17:13:46Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/fastp",
+          "repository_slug": "taffish/fastp",
+          "command": {
+            "name": "taf-fastp"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "quality-control",
+              "preprocessing",
+              "trimming",
+              "sequencing"
+            ],
+            "keywords": [
+              "fastp",
+              "fastq",
+              "qc",
+              "quality-control",
+              "adapter-trimming",
+              "filtering",
+              "umi",
+              "deduplication",
+              "html-report",
+              "json-report",
+              "illumina",
+              "mgi",
+              "paired-end"
+            ],
+            "summary": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports.",
+            "description": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/fastp:1.3.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:40ccb0d06a61dfe972b19912c27a8e123e6affc22c7b690b725426bf480f7ad3",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:65d8a26071eb1140a7adad3b9605266340fa43aac7cab5b44cd6c702fd86937c",
+              "linux/arm64": "sha256:9c78e7e02739c2383cf714da534bdc612251f61db94243e1242279c9df4c9dc6"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "fastp",
+              "parallel.py",
+              "python",
+              "python3"
+            ],
+            "test": [
+              "fastp --version | grep -Fx 'fastp 1.3.4' >/dev/null",
+              "fastp --help 2>&1 | grep -F 'usage:' >/dev/null",
+              "parallel.py -h 2>&1 | grep -F 'A python script to use fastp' >/dev/null",
+              "ldd $(command -v fastp) | grep -F 'libisal' >/dev/null",
+              "mkdir -p /tmp/taf-fastp-smoke && cd /tmp/taf-fastp-smoke && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nACGTACGTNNNNACGTACGT\\n+\\nFFFFFFFF!!!!FFFFFFFF\\n' > reads.fq && fastp -i reads.fq -o clean.fq -h report.html -j report.json -w 1 >/tmp/taf-fastp-se.log 2>&1 && test -s clean.fq && test -s report.html && test -s report.json && grep -F '\"fastp_version\": \"' report.json >/dev/null && grep -F '@r1' clean.fq >/dev/null",
+              "mkdir -p /tmp/taf-fastp-stdin && cd /tmp/taf-fastp-stdin && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nACGTACGTNNNNACGTACGT\\n+\\nFFFFFFFF!!!!FFFFFFFF\\n' > reads.fq && fastp --stdin --stdout -w 1 < reads.fq > stdout.fq 2>/tmp/taf-fastp-stdin.log && grep -F '@r1' stdout.fq >/dev/null",
+              "mkdir -p /tmp/taf-fastp-pe && cd /tmp/taf-fastp-pe && printf '@p1/1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@p1/2\\nTGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && fastp -i r1.fq -I r2.fq -o out1.fq.gz -O out2.fq.gz -h pe.html -j pe.json -w 1 >/tmp/taf-fastp-pe.log 2>&1 && test -s out1.fq.gz && test -s out2.fq.gz && test -s pe.html && test -s pe.json",
+              "mkdir -p /tmp/taf-fastp-parallel && cd /tmp/taf-fastp-parallel && printf '@p1/1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@p1/2\\nTGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && mkdir -p batch-in batch-out batch-report && cp r1.fq batch-in/sample_R1.fq && cp r2.fq batch-in/sample_R2.fq && parallel.py -i batch-in -o batch-out -r batch-report -p 1 -a '-w 1' >/tmp/taf-fastp-parallel.log && test -s batch-out/sample_R1.clean.fastq.gz && test -s batch-out/sample_R2.clean.fastq.gz && test -s batch-report/sample_pe.fq.html && test -s batch-report/sample_pe.fq.json && test -s batch-report/overall.html"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-18T17:28:55Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-18T17:28:55Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/fastp",
+            "ref": "v1.3.4-r1",
+            "commit": "70d6b3c036219a6190e60a30ac5721e46e84767c",
+            "html_url": "https://github.com/taffish/fastp/tree/v1.3.4-r1"
+          },
+          "upstream": {
+            "name": "fastp",
+            "type": "github",
+            "homepage": "https://github.com/OpenGene/fastp",
+            "repository": "OpenGene/fastp",
+            "release_url": "https://github.com/OpenGene/fastp/releases/tag/v1.3.4",
+            "version": "1.3.4",
             "license": "MIT",
             "citation": "Chen 2025; Chen 2023; Chen et al. 2018",
             "doi": "10.1002/imt2.70078; 10.1002/imt2.107; 10.1093/bioinformatics/bty560",
@@ -33333,7 +33456,7 @@
     },
     "taf-fastp": {
       "package": "fastp",
-      "version": "1.3.3-r3"
+      "version": "1.3.4-r1"
     },
     "taf-fastqc": {
       "package": "fastqc",
