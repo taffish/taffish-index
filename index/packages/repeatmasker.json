@@ -1,8 +1,8 @@
 {
   "name": "repeatmasker",
-  "latest": "4.2.3-r3",
-  "recent_version": "4.2.3-r3",
-  "recent_at": "2026-05-24T01:08:24Z",
+  "latest": "4.2.4-r1",
+  "recent_version": "4.2.4-r1",
+  "recent_at": "2026-06-19T02:40:58Z",
   "repository_url": "https://github.com/taffish/repeatmasker",
   "command": {
     "name": "taf-repeatmasker"
@@ -408,6 +408,143 @@
         "release_url": "https://www.repeatmasker.org/RepeatMasker/",
         "version": "4.2.3",
         "license": "OSL-2.1 with bundled Dfam/FamDB CC0 code/data notices, RMBlast/NCBI components, and UCSC command-line utilities",
+        "citation": "Smit, Hubley, and Green; Dfam Consortium; Camacho et al. 2009 for BLAST+",
+        "doi": "10.1186/1471-2105-10-421",
+        "pmid": "20003500"
+      }
+    },
+    "4.2.4-r1": {
+      "name": "repeatmasker",
+      "kind": "tool",
+      "version": "4.2.4",
+      "release": 1,
+      "version_id": "4.2.4-r1",
+      "tag": "v4.2.4-r1",
+      "published_at": "2026-06-19T02:40:58Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/repeatmasker",
+      "repository_slug": "taffish/repeatmasker",
+      "command": {
+        "name": "taf-repeatmasker"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "repeat-annotation",
+        "categories": [
+          "repeat-annotation",
+          "genome-masking",
+          "genomics",
+          "transposable-elements",
+          "fasta"
+        ],
+        "keywords": [
+          "repeatmasker",
+          "interspersed repeats",
+          "low complexity dna",
+          "dfam",
+          "famdb",
+          "repbase",
+          "rmblast",
+          "trf",
+          "hmmer",
+          "softmask"
+        ],
+        "summary": "RepeatMasker screens DNA sequences for interspersed repeats and low-complexity DNA, producing repeat annotations and masked FASTA output.",
+        "description": "RepeatMasker screens DNA sequences for interspersed repeats and low-complexity DNA, producing repeat annotations and masked FASTA output."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/repeatmasker:4.2.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.2.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:71dc3dcade9a874be250d06d6f82c0d4e6fc666834e950d00471ca86911766c1",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ebf3638b7f614bd5cadcfa36deab6177d873cb6deddfca6d54136b5c4f8b76c0"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "RepeatMasker",
+          "taf-repeatmasker-entrypoint",
+          "ProcessRepeats",
+          "RepeatProteinMask",
+          "famdb.py",
+          "download_dfam.py",
+          "RM2Bed.py",
+          "rmOutToGFF3.pl",
+          "buildSummary.pl",
+          "calcDivergenceFromAlign.pl",
+          "createRepeatLandscape.pl",
+          "rmToTrackHub.pl",
+          "rmblastn",
+          "makeblastdb",
+          "trf",
+          "nhmmer",
+          "hmmsearch",
+          "twoBitInfo",
+          "bedToBigBed",
+          "whereis",
+          "python3",
+          "perl",
+          "curl",
+          "gzip"
+        ],
+        "test": [
+          "RepeatMasker -v 2>&1 | grep -F 'RepeatMasker version 4.2.4' >/dev/null && taf-repeatmasker-entrypoint -v 2>&1 | grep -F 'RepeatMasker version 4.2.4' >/dev/null && rmblastn -version 2>&1 | grep -F 'rmblastn: 2.17.1+' >/dev/null && trf -v 2>&1 | grep -F 'Tandem Repeats Finder, Version 4.09' >/dev/null && nhmmer -h 2>&1 | grep -F 'HMMER' >/dev/null && twoBitInfo 2>&1 | grep -F 'twoBitInfo' >/dev/null && bedToBigBed 2>&1 | grep -F 'bedToBigBed' >/dev/null && test \"${BLAST_USAGE_REPORT}\" = 'false' && test \"${PAGER}\" = 'cat'",
+          "RepeatMasker --help >/tmp/repeatmasker.help 2>&1 && grep -F 'RepeatMasker is a program that screens DNA sequences' /tmp/repeatmasker.help >/dev/null && grep -F -- '-lib' /tmp/repeatmasker.help >/dev/null && ProcessRepeats -help 2>&1 | grep -F 'ProcessRepeats' >/dev/null",
+          "famdb.py --help 2>&1 | grep -F 'This is famdb.py version 3.0.0' >/dev/null && download_dfam.py --help 2>&1 | grep -F 'Download, verify, and decompress FamDB component files from Dfam' >/dev/null && if famdb.py -i /opt/RepeatMasker/Libraries/famdb info >/tmp/taf-repeatmasker-famdb-empty.log 2>&1; then exit 1; fi && grep -F 'No .h5 files found' /tmp/taf-repeatmasker-famdb-empty.log >/dev/null",
+          "grep -F \"'DEFAULT_SEARCH_ENGINE'\" /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F \"rmblast\" /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F '/opt/rmblast/bin' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F '/usr/bin/trf' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F '/usr/bin' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && grep -F \"'FAMDB_DIR'\" /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null && if grep -F '/opt/FamDB' /opt/RepeatMasker/RepeatMaskerConfig.pm >/dev/null; then exit 1; fi && grep -F 'FAMDB_DATA_DIR = /opt/RepeatMasker/Libraries/famdb' /opt/FamDB/famdb.conf >/dev/null",
+          "mkdir -p /tmp/taf-repeatmasker-smoke/out && cd /tmp/taf-repeatmasker-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && taf-repeatmasker-entrypoint -pa 1 -engine rmblast -lib repeats.fa -dir out input.fa >/tmp/taf-repeatmasker-smoke/run.log 2>&1 && test -s out/input.fa.out && test -s out/input.fa.masked && grep -F 'ToyRepeat' out/input.fa.out >/dev/null && grep -F 'seq1' out/input.fa.masked >/dev/null && grep -F 'NNNNN' out/input.fa.masked >/dev/null",
+          "mkdir -p /tmp/taf-repeatmasker-gff-smoke/out && cd /tmp/taf-repeatmasker-gff-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && taf-repeatmasker-entrypoint -pa 1 -engine rmblast -lib repeats.fa -gff -dir out input.fa >/tmp/taf-repeatmasker-gff-smoke/run.log 2>&1 && test -s out/input.fa.out && test -s out/input.fa.out.gff && grep -F 'Target \"Motif:ToyRepeat\"' out/input.fa.out.gff >/dev/null",
+          "mkdir -p /tmp/taf-repeatmasker-utils-smoke/out && cd /tmp/taf-repeatmasker-utils-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && taf-repeatmasker-entrypoint -pa 1 -engine rmblast -lib repeats.fa -dir out input.fa >/tmp/taf-repeatmasker-utils-smoke/run.log 2>&1 && rmOutToGFF3.pl out/input.fa.out > out/input.fa.util.gff && test -s out/input.fa.util.gff && grep -F 'ToyRepeat' out/input.fa.util.gff >/dev/null && buildSummary.pl out/input.fa.out > out/input.fa.summary && test -s out/input.fa.summary && grep -F 'ToyRepeat' out/input.fa.summary >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-19T02:45:30Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-19T02:45:30Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/repeatmasker",
+        "ref": "v4.2.4-r1",
+        "commit": "3befc89bae844fe005bb03e06150b962e6387686",
+        "html_url": "https://github.com/taffish/repeatmasker/tree/v4.2.4-r1"
+      },
+      "upstream": {
+        "name": "RepeatMasker",
+        "type": "official",
+        "url": "https://www.repeatmasker.org/",
+        "homepage": "https://www.repeatmasker.org/",
+        "release_url": "https://www.repeatmasker.org/RepeatMasker/",
+        "version": "4.2.4",
+        "license": "OSL-2.1 with separate FamDB/Dfam CC0 notices, RMBlast/NCBI components, and UCSC command-line utilities",
         "citation": "Smit, Hubley, and Green; Dfam Consortium; Camacho et al. 2009 for BLAST+",
         "doi": "10.1186/1471-2105-10-421",
         "pmid": "20003500"
