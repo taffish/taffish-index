@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-18T17:28:55Z",
+  "generated_at": "2026-06-19T00:35:42Z",
   "organization": "taffish",
   "counts": {
     "packages": 175,
-    "versions": 266,
+    "versions": 267,
     "commands": 175,
     "repositories": 175,
     "warnings": 0,
@@ -12030,9 +12030,9 @@
     },
     "higlass": {
       "name": "higlass",
-      "latest": "2.3.4-r1",
-      "recent_version": "2.3.4-r1",
-      "recent_at": "2026-06-01T09:25:28Z",
+      "latest": "2.3.5-r1",
+      "recent_version": "2.3.5-r1",
+      "recent_at": "2026-06-19T00:26:17Z",
       "repository_url": "https://github.com/taffish/higlass",
       "command": {
         "name": "taf-higlass"
@@ -12378,6 +12378,122 @@
             "repository": "higlass/higlass",
             "release_url": "https://github.com/higlass/higlass/tree/v2.3.4",
             "version": "2.3.4",
+            "license": "MIT",
+            "citation": "Kerpedjiev et al. 2018. HiGlass: web-based visual exploration and analysis of genome interaction maps.",
+            "doi": "10.1186/s13059-018-1486-1",
+            "pmid": "30143029"
+          }
+        },
+        "2.3.5-r1": {
+          "name": "higlass",
+          "kind": "tool",
+          "version": "2.3.5",
+          "release": 1,
+          "version_id": "2.3.5-r1",
+          "tag": "v2.3.5-r1",
+          "published_at": "2026-06-19T00:26:17Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/higlass",
+          "repository_slug": "taffish/higlass",
+          "command": {
+            "name": "taf-higlass"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "visualization",
+              "browser",
+              "hic",
+              "server"
+            ],
+            "keywords": [
+              "higlass",
+              "hi-c",
+              "genome-browser",
+              "contact-map",
+              "tileset",
+              "cooler",
+              "bigwig",
+              "web-service"
+            ],
+            "summary": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks.",
+            "description": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/higlass:2.3.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2f67a21d819d6d37d9dc49bb030b0a5ce620ecd0bfb9fee91820069cb5447739",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7f5825e14efba9199ae993ec440d8d3303354b29e50b3282f83ac30abc6b0c25"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "higlass",
+              "higlass-manage",
+              "supervisord",
+              "nginx",
+              "uwsgi",
+              "python",
+              "curl"
+            ],
+            "test": [
+              "higlass --version | grep -F 'higlass 2.3.5' && higlass -- --version | grep -F 'higlass 2.3.5' && higlass --version | grep -F 'HIGLASS_VERSION: 2.3.5' && higlass --version | grep -F 'HIGLASS_COMMIT: b35461175d6593aaa94147ec4885200c7f1f5e5a' && higlass --version | grep -F 'FRONTEND_BUILD: taffish-vite-viewer' && higlass --version | grep -F 'FRONTEND_SOURCE: higlass v2.3.5' && higlass --version | grep -F 'HIGLASS_DOCKER_SCAFFOLD_VERSION: 0.10.5' && higlass --version | grep -F 'SERVER_VERSION: 1.14.8' && higlass --version | grep -F 'SERVER_COMMIT: cbfe79fe3ae0e844b4c0c78142a83733c8cc66a2' && higlass --version | grep -F 'NUMBA_VERSION: 0.56.4' && higlass --version | grep -F 'LLVMLITE_VERSION: 0.39.1' && higlass --version | grep -F 'PANDAS_VERSION: 1.5.3' && higlass --version | grep -F 'CLODIUS_VERSION: 0.19.0'",
+              "higlass --help | grep -F 'Usage: higlass' && higlass --help | grep -F -- '--startup-timeout'",
+              "higlass-manage help | grep -F 'Available subcommands'",
+              "python -c 'import clodius, cooler, pandas, numba; print(\"ok\")' | grep -Fx ok",
+              "tmp=\"$(mktemp -d /tmp/taf-higlass-smoke.XXXXXX)\" && (higlass --host-port 8888 --startup-timeout 90 --log-file \"$tmp/supervisord.log\" > \"$tmp/higlass.log\" 2>&1 & pid=\"$!\"; ok=0; for i in $(seq 1 90); do if grep -F 'HiGlass is ready.' \"$tmp/higlass.log\" >/dev/null 2>&1 && curl -fsS http://127.0.0.1/api/v1/tilesets/ 2>/dev/null | grep -F '\"count\"' >/dev/null && curl -fsS 'http://127.0.0.1/api/v1/viewconfs/?d=default' 2>/dev/null | grep -F '\"views\"' >/dev/null && curl -fsS http://127.0.0.1/app 2>/dev/null | grep -F 'TAFFISH HiGlass' >/dev/null; then ok=1; break; fi; sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; grep -F 'HiGlass is ready.' \"$tmp/higlass.log\" >/dev/null; grep -F 'http://127.0.0.1:8888/app' \"$tmp/higlass.log\" >/dev/null; test \"$ok\" -eq 1)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-19T00:35:42Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-19T00:35:42Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/higlass",
+            "ref": "v2.3.5-r1",
+            "commit": "0affe776ff920568426ead0a36e683ca9efa713e",
+            "html_url": "https://github.com/taffish/higlass/tree/v2.3.5-r1"
+          },
+          "upstream": {
+            "name": "HiGlass",
+            "type": "github",
+            "homepage": "https://higlass.io/",
+            "repository": "higlass/higlass",
+            "release_url": "https://github.com/higlass/higlass/tree/v2.3.5",
+            "version": "2.3.5",
             "license": "MIT",
             "citation": "Kerpedjiev et al. 2018. HiGlass: web-based visual exploration and analysis of genome interaction maps.",
             "doi": "10.1186/s13059-018-1486-1",
@@ -33524,7 +33640,7 @@
     },
     "taf-higlass": {
       "package": "higlass",
-      "version": "2.3.4-r1"
+      "version": "2.3.5-r1"
     },
     "taf-hisat2": {
       "package": "hisat2",
