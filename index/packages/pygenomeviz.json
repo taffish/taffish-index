@@ -1,8 +1,8 @@
 {
   "name": "pygenomeviz",
-  "latest": "1.6.1-r1",
-  "recent_version": "1.6.1-r1",
-  "recent_at": "2026-06-06T20:28:46Z",
+  "latest": "1.7.0-r1",
+  "recent_version": "1.7.0-r1",
+  "recent_at": "2026-06-19T01:30:39Z",
   "repository_url": "https://github.com/taffish/pygenomeviz",
   "command": {
     "name": "taf-pygenomeviz"
@@ -136,6 +136,138 @@
         "repository": "moshi4/pyGenomeViz",
         "release_url": "https://github.com/moshi4/pyGenomeViz/tree/v1.6.1",
         "version": "1.6.1",
+        "license": "MIT",
+        "citation": "Shimoyama Y. pyGenomeViz: A genome visualization python package for comparative genomics."
+      }
+    },
+    "1.7.0-r1": {
+      "name": "pygenomeviz",
+      "kind": "tool",
+      "version": "1.7.0",
+      "release": 1,
+      "version_id": "1.7.0-r1",
+      "tag": "v1.7.0-r1",
+      "published_at": "2026-06-19T01:30:39Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/pygenomeviz",
+      "repository_slug": "taffish/pygenomeviz",
+      "command": {
+        "name": "taf-pygenomeviz"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "comparative-genomics",
+        "categories": [
+          "comparative-genomics",
+          "visualization",
+          "genome-annotation",
+          "browser",
+          "web-report"
+        ],
+        "keywords": [
+          "pygenomeviz",
+          "genome-visualization",
+          "comparative-genomics",
+          "genbank",
+          "gff",
+          "blast",
+          "mummer",
+          "mmseqs",
+          "progressivemauve",
+          "streamlit"
+        ],
+        "summary": "pyGenomeViz 1.7.0 for comparative genome visualization with Python APIs, pgv-* CLI workflows, static figure/HTML output, and an optional Streamlit browser GUI.",
+        "description": "pyGenomeViz 1.7.0 for comparative genome visualization with Python APIs, pgv-* CLI workflows, static figure/HTML output, and an optional Streamlit browser GUI."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/pygenomeviz:1.7.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.7.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:8205c6e460af48ef710f4fb3ceaf07a984fb42300daadce7987f47be78993418",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ce448114e1a44c6c3594ba206fc089c68a43ed464ea555a4c21618581ca987fc",
+          "linux/arm64": "sha256:09d980deb395b96c4a28f5903c033013b876980db9ef4d179f351757a68146ee"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "pygenomeviz",
+          "pygenomeviz-gui",
+          "pgv-blast",
+          "pgv-mummer",
+          "pgv-mmseqs",
+          "pgv-pmauve",
+          "pgv-download",
+          "pgv-gui",
+          "python",
+          "blastn",
+          "makeblastdb",
+          "nucmer",
+          "promer",
+          "show-coords",
+          "mmseqs",
+          "progressiveMauve",
+          "streamlit",
+          "curl",
+          "sh",
+          "bash"
+        ],
+        "test": [
+          "test \"$(python -c 'import pygenomeviz; print(pygenomeviz.__version__)')\" = '1.7.0' && pygenomeviz --version | grep -Fx 'pyGenomeViz 1.7.0' >/dev/null && pgv-blast --version | grep -Fx 'v1.7.0' >/dev/null && pgv-mummer --version | grep -Fx 'v1.7.0' >/dev/null && pgv-mmseqs --version | grep -Fx 'v1.7.0' >/dev/null && pgv-pmauve --version | grep -Fx 'v1.7.0' >/dev/null",
+          "pygenomeviz --help | grep -F 'pyGenomeViz command suite' >/dev/null && pygenomeviz-gui --help | grep -F 'Start the pyGenomeViz Streamlit GUI' >/dev/null && pygenomeviz-gui --help | grep -F 'Ctrl-C stop instruction' >/dev/null && pgv-blast --help | grep -F 'pyGenomeViz CLI workflow using BLAST' >/dev/null && pgv-mummer --help | grep -F 'pyGenomeViz CLI workflow using MUMmer' >/dev/null && pgv-mmseqs --help | grep -F 'pyGenomeViz CLI workflow using MMseqs' >/dev/null && pgv-pmauve --help | grep -F 'pyGenomeViz CLI workflow using progressiveMauve' >/dev/null && pgv-gui --help | grep -F 'pyGenomeViz CLI for launching Streamlit Web Application' >/dev/null",
+          "python -c 'from pygenomeviz import GenomeViz; gv=GenomeViz(); t1=gv.add_feature_track(\"seq1\", 1000); t2=gv.add_feature_track(\"seq2\", 900); t1.add_feature(100, 300, 1, label=\"geneA\"); t1.add_promoter(400); t1.add_lollipop(500); t1.add_highlight((600, 700)); t2.add_feature(120, 320, -1, label=\"geneB\", fc=\"skyblue\"); gv.add_link((\"seq1\", 100, 300), (\"seq2\", 320, 120), inverted_color=\"red\"); gv.savefig(\"/tmp/taf-pygenomeviz.svg\")' && test -s /tmp/taf-pygenomeviz.svg && grep -F '<svg' /tmp/taf-pygenomeviz.svg >/dev/null && rm -f /tmp/taf-pygenomeviz.svg",
+          "tmp=/tmp/taf-pygenomeviz-pmauve-$$; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>seq1\\nATGCGTACGTAGCTAGCTAGCTACGATCGATCGATCGATCGTACGTAGCTAGCTAGCTA\\n' > a.fa; printf '>seq2\\nATGCGTACGTAGCTAGCTAGTTACGATCGATCGATCGATCGTACGTAGCTAGCTAGCTA\\n' > b.fa; pgv-pmauve a.fa b.fa -o out --formats svg --fig_width 4 --fig_track_height 0.5 >/tmp/taf-pygenomeviz-pmauve.log 2>&1; test -s out/result.svg; test -s out/align_coords.tsv; grep -F '<svg' out/result.svg >/dev/null; rm -rf \"$tmp\" /tmp/taf-pygenomeviz-pmauve.log",
+          "blastn -version 2>&1 | grep -F 'blastn:' >/dev/null && nucmer --version 2>&1 | grep -F 'NUCmer' >/dev/null && mmseqs version >/tmp/taf-pygenomeviz-mmseqs-version.txt && test -s /tmp/taf-pygenomeviz-mmseqs-version.txt && progressiveMauve --version 2>&1 | grep -F 'progressiveMauve' >/dev/null",
+          "tmp=/tmp/taf-pygenomeviz-gui-$$; mkdir -p \"$tmp\"; cd \"$tmp\"; pygenomeviz-gui --port 8501 --host-port 8501 >gui.out 2>&1 & pid=\"$!\"; ok=0; i=0; while [ \"$i\" -lt 60 ]; do if curl -fs http://127.0.0.1:8501/ >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" >/dev/null 2>&1 || true; test \"$ok\" -eq 1; grep -F 'http://127.0.0.1:8501/' gui.out >/dev/null; grep -F 'Press Ctrl-C to stop this GUI session.' gui.out >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-19T01:40:29Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-19T01:40:29Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/pygenomeviz",
+        "ref": "v1.7.0-r1",
+        "commit": "3adb9ba2ede0ee650ce924202f605135d5598a93",
+        "html_url": "https://github.com/taffish/pygenomeviz/tree/v1.7.0-r1"
+      },
+      "upstream": {
+        "name": "pyGenomeViz",
+        "type": "github",
+        "homepage": "https://moshi4.github.io/pyGenomeViz/",
+        "repository": "moshi4/pyGenomeViz",
+        "release_url": "https://github.com/moshi4/pyGenomeViz/releases/tag/v1.7.0",
+        "version": "1.7.0",
         "license": "MIT",
         "citation": "Shimoyama Y. pyGenomeViz: A genome visualization python package for comparative genomics."
       }
