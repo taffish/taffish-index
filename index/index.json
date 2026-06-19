@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-19T00:35:42Z",
+  "generated_at": "2026-06-19T00:59:28Z",
   "organization": "taffish",
   "counts": {
     "packages": 175,
-    "versions": 267,
+    "versions": 268,
     "commands": 175,
     "repositories": 175,
     "warnings": 0,
@@ -13128,9 +13128,9 @@
     },
     "igv": {
       "name": "igv",
-      "latest": "2.19.7-r1",
-      "recent_version": "2.19.7-r1",
-      "recent_at": "2026-05-19T12:09:15Z",
+      "latest": "2.19.8-r1",
+      "recent_version": "2.19.8-r1",
+      "recent_at": "2026-06-19T00:52:26Z",
       "repository_url": "https://github.com/taffish/igv",
       "command": {
         "name": "taf-igv"
@@ -13259,6 +13259,135 @@
             "repository": "igvteam/igv",
             "release_url": "https://github.com/igvteam/igv/tree/v2.19.7",
             "version": "2.19.7",
+            "license": "MIT",
+            "citation": "Thorvaldsdottir, Robinson, and Mesirov. 2013. Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration.",
+            "doi": "10.1093/bib/bbs017",
+            "pmid": "22517427"
+          }
+        },
+        "2.19.8-r1": {
+          "name": "igv",
+          "kind": "tool",
+          "version": "2.19.8",
+          "release": 1,
+          "version_id": "2.19.8-r1",
+          "tag": "v2.19.8-r1",
+          "published_at": "2026-06-19T00:52:26Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/igv",
+          "repository_slug": "taffish/igv",
+          "command": {
+            "name": "taf-igv"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "genome-browser",
+              "variant-review",
+              "visualization",
+              "viewer"
+            ],
+            "keywords": [
+              "igv",
+              "integrative-genomics-viewer",
+              "genome-browser",
+              "bam",
+              "cram",
+              "vcf",
+              "bed",
+              "gff",
+              "bigwig",
+              "novnc",
+              "vnc"
+            ],
+            "summary": "IGV Desktop 2.19.8 for interactive genome browsing and variant review through a browser-accessible noVNC session, with IGVTools utilities included.",
+            "description": "IGV Desktop 2.19.8 for interactive genome browsing and variant review through a browser-accessible noVNC session, with IGVTools utilities included."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/igv:2.19.8-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.19.8-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:eab419acfe3ebec55adc4e35d875718e697e43cfcfa93e78361e5caf95baae42",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:3c2d0b75da8c11091b6f800b4e464b3804f098ee6191e8db3e367e89134edb71",
+              "linux/arm64": "sha256:ef11e3246a7566e94c9d1625489e1f679fc03cc30b475cbe78b01235b42c43a5"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "igv",
+              "igv-gui",
+              "igvtools",
+              "igvtools_gui",
+              "igvtools_gui_hidpi",
+              "java",
+              "Xvfb",
+              "xvfb-run",
+              "x11vnc",
+              "websockify",
+              "openbox",
+              "curl",
+              "unzip",
+              "sh"
+            ],
+            "test": [
+              "igv --version | grep -Fx 'IGV 2.19.8' >/dev/null && java -version 2>&1 | grep -F '21.' >/dev/null && test -s /opt/igv/lib/igv.jar",
+              "igv --help | grep -F 'direct Java launcher for IGV 2.19.8' >/dev/null && igv-gui --help | grep -F 'browser-accessible noVNC session' >/dev/null",
+              "igv 2>&1 | grep -F 'no X DISPLAY is available' >/dev/null",
+              "igvtools version | grep -F 'IGV Version 2.19.8' >/dev/null && igvtools 2>&1 | grep -F 'Usage: igvtools' >/dev/null && igvtools help sort 2>&1 | grep -F 'igvtools  sort' >/dev/null",
+              "mkdir -p /tmp/taf-igv-smoke && cd /tmp/taf-igv-smoke && printf 'chr1\\t10\\t20\\tb\\nchr1\\t1\\t5\\ta\\n' > unsorted.bed && igvtools sort unsorted.bed sorted.bed >/tmp/taf-igvtools-sort.log 2>&1 && printf 'chr1\\t1\\t5\\ta\\nchr1\\t10\\t20\\tb\\n' > expected.bed && cmp expected.bed sorted.bed",
+              "igv-gui --help >/dev/null && (IGV_JAVA_XMX=1024m igv-gui --geometry 800x600 >/tmp/taf-igv-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-igv-gui.log >/dev/null && grep -F 'IGV GUI is starting.' /tmp/taf-igv-gui.log >/dev/null)"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-19T00:59:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-19T00:59:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/igv",
+            "ref": "v2.19.8-r1",
+            "commit": "01009a045d3b54a0109c1af1adfeece3d5c630aa",
+            "html_url": "https://github.com/taffish/igv/tree/v2.19.8-r1"
+          },
+          "upstream": {
+            "name": "Integrative Genomics Viewer",
+            "type": "github",
+            "homepage": "https://igv.org/doc/desktop/",
+            "repository": "igvteam/igv",
+            "release_url": "https://github.com/igvteam/igv/tree/v2.19.8",
+            "version": "2.19.8",
             "license": "MIT",
             "citation": "Thorvaldsdottir, Robinson, and Mesirov. 2013. Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration.",
             "doi": "10.1093/bib/bbs017",
@@ -33652,7 +33781,7 @@
     },
     "taf-igv": {
       "package": "igv",
-      "version": "2.19.7-r1"
+      "version": "2.19.8-r1"
     },
     "taf-interproscan": {
       "package": "interproscan",
