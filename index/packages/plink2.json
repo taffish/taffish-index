@@ -1,0 +1,134 @@
+{
+  "name": "plink2",
+  "latest": "2.0.0-a.7.1-r1",
+  "recent_version": "2.0.0-a.7.1-r1",
+  "recent_at": "2026-06-20T10:07:04Z",
+  "repository_url": "https://github.com/taffish/plink2",
+  "command": {
+    "name": "taf-plink2"
+  },
+  "versions": {
+    "2.0.0-a.7.1-r1": {
+      "name": "plink2",
+      "kind": "tool",
+      "version": "2.0.0-a.7.1",
+      "release": 1,
+      "version_id": "2.0.0-a.7.1-r1",
+      "tag": "v2.0.0-a.7.1-r1",
+      "published_at": "2026-06-20T10:07:04Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/plink2",
+      "repository_slug": "taffish/plink2",
+      "command": {
+        "name": "taf-plink2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "gwas",
+          "population-genetics",
+          "variant",
+          "genotype"
+        ],
+        "keywords": [
+          "plink 2.0",
+          "plink2",
+          "gwas",
+          "pgen",
+          "vcf",
+          "bgen",
+          "genotype",
+          "association",
+          "population genetics"
+        ],
+        "summary": "PLINK 2.0 alpha 7.1 command-line runtime for large-scale genotype data management, statistics, GWAS, PGEN workflows, and VCF sample subsetting.",
+        "description": "PLINK 2.0 alpha 7.1 command-line runtime for large-scale genotype data management, statistics, GWAS, PGEN workflows, and VCF sample subsetting."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/plink2:2.0.0-a.7.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.0.0-a.7.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:b3b978dbe548ca87bc481bcd8f16420c6755613def7a3505e06d91aecad0d0cf",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:1e7bc3a14b3832bb5eede54e7cae118253cb7e623e12dbe7787e1c11226fb4c2",
+          "linux/arm64": "sha256:d21ecf2a6e3f09a60ccc297e9676d3a8eb7dea86f693bb4066ef71517111953b"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "plink2",
+          "vcf_subset",
+          "gzip",
+          "gunzip",
+          "awk",
+          "grep",
+          "sed",
+          "ldd",
+          "sh",
+          "bash"
+        ],
+        "test": [
+          "grep -Fx \"PLINK 2.0 2.0.0-a.7.1\" /opt/plink2/share/doc/plink2/source.txt >/dev/null && grep -F \"19344fa5ed9fac92241c23d5e2b5f73059c8880f8216b590187b7ea5caf79551\" /opt/plink2/share/doc/plink2/source.txt >/dev/null && test -s /opt/plink2/share/licenses/plink2/COPYING && test -s /opt/plink2/share/licenses/plink2/COPYING.LESSER && test -s /opt/plink2/share/licenses/plink2/simde-COPYING && test -s /opt/plink2/share/licenses/plink2/libdeflate-COPYING && test -s /opt/plink2/share/licenses/plink2/zstd-COPYING",
+          "plink2 --version 2>&1 | grep -F \"PLINK v2.0.0-a.7.1\" >/dev/null && plink2 --help 2>&1 | grep -F -- \"--make-pgen\" >/dev/null && plink2 --help 2>&1 | grep -F -- \"--glm\" >/dev/null && vcf_subset --version 2>&1 | grep -F \"vcf_subset v1.0.4\" >/dev/null && vcf_subset --help 2>&1 | grep -F \"Usage: vcf_subset\" >/dev/null",
+          "ldd \"$(command -v plink2)\" > /tmp/taf-plink2-ldd.txt && grep -F \"libopenblas\" /tmp/taf-plink2-ldd.txt >/dev/null && grep -F \"liblapack\" /tmp/taf-plink2-ldd.txt >/dev/null && grep -F \"libz.so\" /tmp/taf-plink2-ldd.txt >/dev/null && if grep -F \"not found\" /tmp/taf-plink2-ldd.txt; then exit 1; fi && ldd \"$(command -v vcf_subset)\" > /tmp/taf-plink2-vcf-subset-ldd.txt && grep -F \"libz.so\" /tmp/taf-plink2-vcf-subset-ldd.txt >/dev/null && if grep -F \"not found\" /tmp/taf-plink2-vcf-subset-ldd.txt; then exit 1; fi",
+          "tmp=/tmp/taf-plink2-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; plink2 --dummy 8 12 --make-pgen --out tiny > dummy.log 2>&1; test -s tiny.pgen && test -s tiny.psam && test -s tiny.pvar; plink2 --pfile tiny --freq --out freq > freq.log 2>&1; test -s freq.afreq; grep -F \"#CHROM\" freq.afreq >/dev/null; plink2 --pfile tiny --hardy --out hardy > hardy.log 2>&1; test -s hardy.hardy; grep -F \"#CHROM\" hardy.hardy >/dev/null; plink2 --pfile tiny --export vcf --out exported > export.log 2>&1; test -s exported.vcf; grep -F \"#CHROM\" exported.vcf >/dev/null; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-plink2-vcf-subset-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\\n' '##fileformat=VCFv4.2' '##contig=<ID=chr1,length=1000>' '##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">' '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ts1\ts2' 'chr1\t10\trs1\tA\tG\t50\tPASS\t.\tGT\t0/0\t0/1' 'chr1\t20\trs2\tC\tT\t60\tPASS\t.\tGT\t0/1\t1/1' > tiny.vcf; vcf_subset --in tiny.vcf --out keep.vcf --indv s2 > vcf_subset.log 2>&1; test -s keep.vcf; grep \"^#CHROM\" keep.vcf | grep -F \"s2\" >/dev/null; if grep \"^#CHROM\" keep.vcf | grep -F \"s1\"; then exit 1; fi; grep -F \"rs1\" keep.vcf >/dev/null; gzip -c tiny.vcf > tiny.vcf.gz; vcf_subset --in tiny.vcf.gz --out no_samples.vcf --no-samples > no_samples.log 2>&1; test -s no_samples.vcf; grep -F \"#CHROM\" no_samples.vcf >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-20T14:14:27Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-20T14:14:27Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/plink2",
+        "ref": "v2.0.0-a.7.1-r1",
+        "commit": "4d78cd7ebf72ec48c9643df1fb63f722ab1bd6c6",
+        "html_url": "https://github.com/taffish/plink2/tree/v2.0.0-a.7.1-r1"
+      },
+      "upstream": {
+        "name": "PLINK 2.0",
+        "type": "github",
+        "homepage": "https://www.cog-genomics.org/plink/2.0/",
+        "repository": "chrchang/plink-ng",
+        "release_url": "https://github.com/chrchang/plink-ng/releases/tag/v2.0.0-a.7.1",
+        "version": "2.0.0-a.7.1",
+        "license": "GPL-3.0-or-later for the PLINK 2.0 main application; LGPL-3.0-or-later for include libraries and vcf_subset; bundled SIMDe/libdeflate/zstd components retain their upstream licenses",
+        "citation": "Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ. Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience. 2015;4:7.",
+        "doi": "10.1186/s13742-015-0047-8",
+        "pmid": "25722852"
+      }
+    }
+  }
+}

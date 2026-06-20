@@ -1,0 +1,153 @@
+{
+  "name": "bedops",
+  "latest": "2.4.42-r1",
+  "recent_version": "2.4.42-r1",
+  "recent_at": "2026-06-20T09:02:09Z",
+  "repository_url": "https://github.com/taffish/bedops",
+  "command": {
+    "name": "taf-bedops"
+  },
+  "versions": {
+    "2.4.42-r1": {
+      "name": "bedops",
+      "kind": "tool",
+      "version": "2.4.42",
+      "release": 1,
+      "version_id": "2.4.42-r1",
+      "tag": "v2.4.42-r1",
+      "published_at": "2026-06-20T09:02:09Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bedops",
+      "repository_slug": "taffish/bedops",
+      "command": {
+        "name": "taf-bedops"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-intervals",
+        "categories": [
+          "genome-intervals",
+          "genomics",
+          "bed",
+          "set-operations",
+          "data-conversion"
+        ],
+        "keywords": [
+          "bedops",
+          "bed",
+          "bedmap",
+          "sort-bed",
+          "starch",
+          "genomic intervals",
+          "set operations",
+          "format conversion"
+        ],
+        "summary": "BEDOPS 2.4.42 command-line runtime for sorted BED set operations, element mapping, Starch archive compression, and common genomic interval format conversion.",
+        "description": "BEDOPS 2.4.42 command-line runtime for sorted BED set operations, element mapping, Starch archive compression, and common genomic interval format conversion."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bedops:2.4.42-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.4.42-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:b36cd2b610643632c60576f2a702c9efe20b1b77c226d6deb26e676037547de4",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:66f9c105f094c48140f5d03f4e76cbc2de8768c6d24fafde857801cfdcc00251",
+          "linux/arm64": "sha256:153445cf95110b805a122573592fae9e74c881d824ff4617975713b1016504f4"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "bedops",
+          "bedmap",
+          "bedextract",
+          "closest-features",
+          "sort-bed",
+          "starch",
+          "unstarch",
+          "starchcat",
+          "starchstrip",
+          "starch-diff",
+          "convert2bed",
+          "gff2bed",
+          "gtf2bed",
+          "gvf2bed",
+          "psl2bed",
+          "rmsk2bed",
+          "sam2bed",
+          "vcf2bed",
+          "wig2bed",
+          "bam2bed",
+          "python3",
+          "perl",
+          "bash",
+          "tcsh",
+          "samtools",
+          "parallel",
+          "grep",
+          "sed",
+          "awk",
+          "find"
+        ],
+        "test": [
+          "grep -Fx \"BEDOPS 2.4.42\" /opt/bedops/share/doc/bedops/source.txt >/dev/null && grep -F \"9daa0c098e37490a07f84664d2c61ff8909689995cf7e1673d259ccd4f1c453c\" /opt/bedops/share/doc/bedops/source.txt >/dev/null",
+          "bedops --version 2>&1 | grep -F \"2.4.42\" >/dev/null && sort-bed --version 2>&1 | grep -F \"2.4.42\" >/dev/null && bedmap --version 2>&1 | grep -F \"2.4.42\" >/dev/null && starch --version 2>&1 | grep -F \"2.4.42\" >/dev/null",
+          "bedops --help 2>&1 | grep -F \"USAGE: bedops\" >/dev/null && bedmap --help 2>&1 | grep -F \"USAGE: bedmap\" >/dev/null && closest-features --help 2>&1 | grep -F \"USAGE: closest-features\" >/dev/null && convert2bed --help 2>&1 | grep -F \"convert2bed\" >/dev/null && bam2bed_gnuParallel --help 2>&1 | grep -F \"GNU Parallel\" >/dev/null",
+          "python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates && starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null",
+          "tmp=/tmp/taf-bedops-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf 'chr1\\t10\\t20\\ta\\nchr1\\t1\\t5\\tb\\nchr2\\t3\\t8\\tc\\n' > \"$tmp/input.bed\"; sort-bed \"$tmp/input.bed\" > \"$tmp/sorted.bed\"; awk 'NR==1 && $1==\"chr1\" && $2==1 && $3==5 && $4==\"b\" {ok=1} END{exit ok?0:1}' \"$tmp/sorted.bed\"; printf 'chr1\\t4\\t12\\tx\\n' | sort-bed - > \"$tmp/ref.bed\"; bedops --intersect \"$tmp/sorted.bed\" \"$tmp/ref.bed\" > \"$tmp/intersect.bed\"; test \"$(wc -l < \"$tmp/intersect.bed\")\" -eq 2; bedmap --echo --count \"$tmp/ref.bed\" \"$tmp/sorted.bed\" > \"$tmp/map.txt\"; grep -F \"chr1\" \"$tmp/map.txt\" >/dev/null; grep -F \"|2\" \"$tmp/map.txt\" >/dev/null; starch \"$tmp/sorted.bed\" > \"$tmp/sorted.starch\"; unstarch \"$tmp/sorted.starch\" > \"$tmp/recovered.bed\"; diff -u \"$tmp/sorted.bed\" \"$tmp/recovered.bed\"; unstarch --list \"$tmp/sorted.starch\" | grep -F \"chr1\" >/dev/null; printf 'chr1\\tsrc\\tgene\\t2\\t10\\t.\\t+\\t.\\tID=g1\\n' | gff2bed --do-not-sort > \"$tmp/gff.bed\"; grep -F \"g1\" \"$tmp/gff.bed\" >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-20T14:14:27Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-20T14:14:27Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bedops",
+        "ref": "v2.4.42-r1",
+        "commit": "f532649b4a36e9e383c16f9cb4d5609ce3c67de8",
+        "html_url": "https://github.com/taffish/bedops/tree/v2.4.42-r1"
+      },
+      "upstream": {
+        "name": "BEDOPS",
+        "type": "github",
+        "homepage": "https://github.com/bedops/bedops",
+        "repository": "bedops/bedops",
+        "release_url": "https://github.com/bedops/bedops/releases/tag/v2.4.42",
+        "version": "2.4.42",
+        "license": "GPL-2.0-or-later; bundled third-party source archives retain their own upstream licenses",
+        "citation": "Neph S, Kuehn MS, Reynolds AP, et al. BEDOPS: high-performance genomic feature operations. Bioinformatics. 2012;28(14):1919-1920.",
+        "doi": "10.1093/bioinformatics/bts277",
+        "pmid": "22576172"
+      }
+    }
+  }
+}
