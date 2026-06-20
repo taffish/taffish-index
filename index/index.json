@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-19T06:31:35Z",
+  "generated_at": "2026-06-20T03:31:15Z",
   "organization": "taffish",
   "counts": {
     "packages": 175,
-    "versions": 273,
+    "versions": 276,
     "commands": 175,
     "repositories": 175,
     "warnings": 0,
@@ -6759,9 +6759,9 @@
     },
     "diamond": {
       "name": "diamond",
-      "latest": "2.2.1-r1",
-      "recent_version": "2.2.1-r1",
-      "recent_at": "2026-05-29T08:02:07Z",
+      "latest": "2.2.2-r1",
+      "recent_version": "2.2.2-r1",
+      "recent_at": "2026-06-20T03:24:40Z",
       "repository_url": "https://github.com/taffish/diamond",
       "command": {
         "name": "taf-diamond"
@@ -6874,6 +6874,119 @@
             "repository": "bbuchfink/diamond",
             "release_url": "https://github.com/bbuchfink/diamond/releases/tag/v2.2.1",
             "version": "2.2.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "Buchfink et al. 2021; Buchfink et al. 2026",
+            "doi": "10.1038/s41592-021-01101-x; 10.1038/s41592-026-03030-z",
+            "pmid": "33828273; 41876643"
+          }
+        },
+        "2.2.2-r1": {
+          "name": "diamond",
+          "kind": "tool",
+          "version": "2.2.2",
+          "release": 1,
+          "version_id": "2.2.2-r1",
+          "tag": "v2.2.2-r1",
+          "published_at": "2026-06-20T03:24:40Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/diamond",
+          "repository_slug": "taffish/diamond",
+          "command": {
+            "name": "taf-diamond"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-alignment",
+            "categories": [
+              "sequence-alignment",
+              "protein-search",
+              "homology-search",
+              "clustering",
+              "annotation"
+            ],
+            "keywords": [
+              "diamond",
+              "blastp",
+              "blastx",
+              "makedb",
+              "protein-alignment",
+              "sequence-search",
+              "dmnd",
+              "daa",
+              "linclust",
+              "deepclust"
+            ],
+            "summary": "DIAMOND 2.2.2 for fast protein sequence search, translated DNA-to-protein search, DIAMOND database creation, DAA viewing, and protein clustering workflows.",
+            "description": "DIAMOND 2.2.2 for fast protein sequence search, translated DNA-to-protein search, DIAMOND database creation, DAA viewing, and protein clustering workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/diamond:2.2.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:a1c4ec7fba0b247588df3f083dc7c87b1ebac469d12c3976f1c1b1cf4d4b74e6",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6a4f9b7e13137b128bffb8eeeb472ecc7882028f9d70409eece71a046a4944c3"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "diamond",
+              "sh"
+            ],
+            "test": [
+              "diamond version | grep -Fx 'diamond version 2.2.2' >/dev/null",
+              "diamond help | grep -F 'Syntax: diamond COMMAND [OPTIONS]' >/dev/null && diamond help | grep -F 'makedb' >/dev/null && diamond help | grep -F 'blastp' >/dev/null && diamond help | grep -F 'linclust' >/dev/null && { diamond blastp 2>&1 || true; } | grep -F 'Missing parameter: database file' >/dev/null && { diamond linclust 2>&1 || true; } | grep -F -- '--cluster-steps' >/dev/null && { diamond view 2>&1 || true; } | grep -F 'requires a DAA' >/dev/null",
+              "mkdir -p /tmp/taf-diamond-blastp && cd /tmp/taf-diamond-blastp && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref2\\nGILGYTEHQVVSSDFNSDTHSLSNISVQGDLNFVVDKDLRDTFQKLTNAK\\n' > ref.faa && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n' > query.faa && diamond makedb --in ref.faa -d ref --threads 1 >/tmp/taf-diamond-makedb.log 2>&1 && test -s ref.dmnd && diamond dbinfo -d ref.dmnd > dbinfo.txt && grep -F 'Database' dbinfo.txt >/dev/null && diamond blastp -d ref -q query.faa -o hits.tsv --threads 1 --max-target-seqs 1 --evalue 100 --outfmt 6 qseqid sseqid pident length evalue bitscore >/tmp/taf-diamond-blastp.log 2>&1 && grep -F 'q1' hits.tsv >/dev/null && grep -F 'ref1' hits.tsv >/dev/null && diamond blastp -d ref -q query.faa -a matches --threads 1 --max-target-seqs 1 --evalue 100 >/tmp/taf-diamond-daa.log 2>&1 && test -s matches.daa && diamond view -a matches.daa -o view.tsv >/tmp/taf-diamond-view.log 2>&1 && grep -F 'q1' view.tsv >/dev/null && grep -F 'ref1' view.tsv >/dev/null",
+              "mkdir -p /tmp/taf-diamond-blastx && cd /tmp/taf-diamond-blastx && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n' > ref.faa && printf '>dna1\\nATGAAAACCGCTTACATTGCTAAACAAAGACAAATTTCCTTCGTGAAATCCCATTTC\\n' > dna.fa && diamond makedb --in ref.faa -d ref --threads 1 >/tmp/taf-diamond-blastx-makedb.log 2>&1 && diamond blastx -d ref -q dna.fa -o blastx.tsv --threads 1 --min-orf 1 --max-target-seqs 1 --evalue 100 --outfmt 6 qseqid sseqid >/tmp/taf-diamond-blastx.log 2>&1 && grep -F 'dna1' blastx.tsv >/dev/null",
+              "mkdir -p /tmp/taf-diamond-linclust && cd /tmp/taf-diamond-linclust && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref1_copy\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref2\\nGILGYTEHQVVSSDFNSDTHSLSNISVQGDLNFVVDKDLRDTFQKLTNAK\\n' > proteins.faa && diamond linclust -d proteins.faa -o clusters.tsv --threads 1 --approx-id 90 -M 128M >/tmp/taf-diamond-linclust.log 2>&1 && test -s clusters.tsv && grep -F 'ref1' clusters.tsv >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-20T03:31:15Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-20T03:31:15Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/diamond",
+            "ref": "v2.2.2-r1",
+            "commit": "b84123d3ebf43221fc9d6922ba34a3cad900a60e",
+            "html_url": "https://github.com/taffish/diamond/tree/v2.2.2-r1"
+          },
+          "upstream": {
+            "name": "DIAMOND",
+            "type": "github",
+            "homepage": "https://github.com/bbuchfink/diamond",
+            "repository": "bbuchfink/diamond",
+            "release_url": "https://github.com/bbuchfink/diamond/releases/tag/v2.2.2",
+            "version": "2.2.2",
             "license": "GPL-3.0-or-later",
             "citation": "Buchfink et al. 2021; Buchfink et al. 2026",
             "doi": "10.1038/s41592-021-01101-x; 10.1038/s41592-026-03030-z",
@@ -13773,9 +13886,9 @@
     },
     "iqtree": {
       "name": "iqtree",
-      "latest": "3.1.2-r1",
-      "recent_version": "3.1.2-r1",
-      "recent_at": "2026-05-28T09:43:52Z",
+      "latest": "3.1.3-r1",
+      "recent_version": "3.1.3-r1",
+      "recent_at": "2026-06-20T03:27:05Z",
       "repository_url": "https://github.com/taffish/iqtree",
       "command": {
         "name": "taf-iqtree"
@@ -13895,6 +14008,125 @@
             "repository": "iqtree/iqtree3",
             "release_url": "https://github.com/iqtree/iqtree3/releases/tag/v3.1.2",
             "version": "3.1.2",
+            "license": "GPL-2.0-only",
+            "citation": "Wong et al. 2025, IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models",
+            "doi": "10.32942/X2P62N"
+          }
+        },
+        "3.1.3-r1": {
+          "name": "iqtree",
+          "kind": "tool",
+          "version": "3.1.3",
+          "release": 1,
+          "version_id": "3.1.3-r1",
+          "tag": "v3.1.3-r1",
+          "published_at": "2026-06-20T03:27:05Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/iqtree",
+          "repository_slug": "taffish/iqtree",
+          "command": {
+            "name": "taf-iqtree"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "phylogenetics",
+            "categories": [
+              "phylogenetics",
+              "molecular-evolution",
+              "model-selection",
+              "tree-inference",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "iq-tree",
+              "iqtree3",
+              "maximum likelihood",
+              "phylogenomics",
+              "modelfinder",
+              "ultrafast bootstrap",
+              "sh-alrt",
+              "alisim",
+              "cmaple",
+              "concordance factor"
+            ],
+            "summary": "IQ-TREE 3.1.3 phylogenomic maximum-likelihood inference suite.",
+            "description": "IQ-TREE 3.1.3 phylogenomic maximum-likelihood inference suite."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/iqtree:3.1.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.1.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5f638070f1f729ac847759fe1991e1c7712ec14f4f2803d2b8a4853432129445",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:675722b53cc9a1e441ca7e55f4f8ff85cb154c28cd0643ec2d2acd71b77b9161",
+              "linux/arm64": "sha256:8dd88be98fb1ba36ad2c5edcea7af1506922952d6b01867b2cb4f120457f7b12"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "iqtree3",
+              "iqtree",
+              "bash",
+              "sh",
+              "grep",
+              "sed",
+              "gzip",
+              "tar"
+            ],
+            "test": [
+              "iqtree3 --version 2>&1 | grep -F 'IQ-TREE version 3.1.3' >/dev/null && iqtree --version 2>&1 | grep -F 'IQ-TREE version 3.1.3' >/dev/null",
+              "iqtree3 --help 2>&1 | grep -F 'Usage: iqtree [-s ALIGNMENT]' >/dev/null && iqtree3 --help 2>&1 | grep -F 'MODEL-FINDER:' >/dev/null && iqtree3 --help 2>&1 | grep -F 'CONCORDANCE FACTOR ANALYSIS:' >/dev/null && iqtree3 --help 2>&1 | grep -F 'ALISIM: ALIGNMENT SIMULATOR' >/dev/null",
+              "set -eu; tmp=/tmp/taf-iqtree-ml-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/iqtree/share/doc/iqtree/examples/example.phy \"$tmp/in.phy\"; iqtree3 -s \"$tmp/in.phy\" -m JC -ninit 2 -n 2 -T 1 --redo --prefix \"$tmp/iqtree-smoke\" >/tmp/taf-iqtree-ml.log 2>&1; test -s \"$tmp/iqtree-smoke.iqtree\"; test -s \"$tmp/iqtree-smoke.treefile\"; test -s \"$tmp/iqtree-smoke.log\"; grep -F 'Model of substitution: JC' \"$tmp/iqtree-smoke.iqtree\" >/dev/null; grep -F 'MAXIMUM LIKELIHOOD TREE' \"$tmp/iqtree-smoke.iqtree\" >/dev/null; rm -rf \"$tmp\" /tmp/taf-iqtree-ml.log",
+              "set -eu; tmp=/tmp/taf-iqtree-alisim-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf \"%s\\n\" \"(A:0.1,B:0.1,C:0.1,D:0.1);\" > \"$tmp/tree.nwk\"; iqtree3 --alisim \"$tmp/sim\" -t \"$tmp/tree.nwk\" -m JC --length 20 --seed 7 -T 1 >/tmp/taf-iqtree-alisim.log 2>&1; test -s \"$tmp/sim.phy\"; grep -F 'A' \"$tmp/sim.phy\" >/dev/null; rm -rf \"$tmp\" /tmp/taf-iqtree-alisim.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-20T03:31:15Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-20T03:31:15Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/iqtree",
+            "ref": "v3.1.3-r1",
+            "commit": "0766e4e9bc07d76cb6cd6a4f1e646f55afa65b9c",
+            "html_url": "https://github.com/taffish/iqtree/tree/v3.1.3-r1"
+          },
+          "upstream": {
+            "name": "IQ-TREE",
+            "type": "github",
+            "homepage": "https://iqtree.github.io/",
+            "repository": "iqtree/iqtree3",
+            "release_url": "https://github.com/iqtree/iqtree3/releases/tag/v3.1.3",
+            "version": "3.1.3",
             "license": "GPL-2.0-only",
             "citation": "Wong et al. 2025, IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models",
             "doi": "10.32942/X2P62N"
@@ -30352,9 +30584,9 @@
     },
     "spades": {
       "name": "spades",
-      "latest": "4.2.0-r1",
-      "recent_version": "4.2.0-r1",
-      "recent_at": "2026-05-29T08:44:20Z",
+      "latest": "4.3.0-r1",
+      "recent_version": "4.3.0-r1",
+      "recent_at": "2026-06-19T16:33:10Z",
       "repository_url": "https://github.com/taffish/spades",
       "command": {
         "name": "taf-spades"
@@ -30494,6 +30726,149 @@
             "repository": "ablab/spades",
             "release_url": "https://github.com/ablab/spades/releases/tag/v4.2.0",
             "version": "4.2.0",
+            "license": "GPL-2.0-only",
+            "citation": "Prjibelski et al. 2020; Bankevich et al. 2012; mode-specific SPAdes publications",
+            "doi": "10.1002/cpbi.102; 10.1089/cmb.2012.0021",
+            "pmid": "32559359; 22506599"
+          }
+        },
+        "4.3.0-r1": {
+          "name": "spades",
+          "kind": "tool",
+          "version": "4.3.0",
+          "release": 1,
+          "version_id": "4.3.0-r1",
+          "tag": "v4.3.0-r1",
+          "published_at": "2026-06-19T16:33:10Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/spades",
+          "repository_slug": "taffish/spades",
+          "command": {
+            "name": "taf-spades"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "metagenomics",
+              "transcriptomics",
+              "de-novo-assembly",
+              "short-read"
+            ],
+            "keywords": [
+              "spades",
+              "metaspades",
+              "plasmidspades",
+              "rnaspades",
+              "metaviralspades",
+              "metaplasmidspades",
+              "coronaspades",
+              "splitter",
+              "binspreader",
+              "pathracer",
+              "spaligner",
+              "illumina",
+              "iontorrent",
+              "hybrid assembly",
+              "assembly graph",
+              "k-mer",
+              "frugal"
+            ],
+            "summary": "SPAdes genome assembler toolkit for isolate, single-cell, metagenomic, transcriptomic, viral, plasmid, biosynthetic, SPlitteR, sequence-to-graph alignment and related short-read assembly workflows.",
+            "description": "SPAdes genome assembler toolkit for isolate, single-cell, metagenomic, transcriptomic, viral, plasmid, biosynthetic, SPlitteR, sequence-to-graph alignment and related short-read assembly workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/spades:4.3.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.3.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6bc6cfbfc65c4bb0c5965f0598677680527134a457477c54c274f11ddabd7047",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:3eb69cc13371c8ca0fc1419aa165ba57c21f3f67ac274287ab8be77581879b96",
+              "linux/arm64": "sha256:c450be3311ecef470f1ea0cb63b77820b8e73abf12cd226c45cab2a16920400e"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "spades.py",
+              "metaspades.py",
+              "plasmidspades.py",
+              "rnaspades.py",
+              "metaviralspades.py",
+              "metaplasmidspades.py",
+              "rnaviralspades.py",
+              "coronaspades.py",
+              "spades-core",
+              "spades-hammer",
+              "spades-kmercount",
+              "spades-gbuilder",
+              "spades-gsimplifier",
+              "binspreader",
+              "pathracer",
+              "pathracer-seq-fs",
+              "spaligner",
+              "splitter",
+              "python3",
+              "bash",
+              "gzip",
+              "bzip2",
+              "xz"
+            ],
+            "test": [
+              "test \"$(cat /opt/spades/share/spades/VERSION)\" = '4.3.0' && spades.py --version 2>&1 | grep -F 'SPAdes genome assembler v4.3.0' >/dev/null",
+              "spades.py --help 2>&1 | grep -F 'SPAdes genome assembler' >/dev/null && spades.py --help 2>&1 | grep -F -- '--isolate' >/dev/null && spades.py --help 2>&1 | grep -F -- '--meta' >/dev/null && spades.py --help 2>&1 | grep -F -- '--frugal' >/dev/null && metaspades.py --help 2>&1 | grep -i 'meta' >/dev/null",
+              "plasmidspades.py --help 2>&1 | grep -i 'plasmid' >/dev/null && rnaspades.py --help 2>&1 | grep -i 'rna' >/dev/null && metaviralspades.py --help 2>&1 | grep -i 'viral' >/dev/null && coronaspades.py --help 2>&1 | grep -i 'corona' >/dev/null && splitter --help 2>&1 | grep -F 'graph (in binary or GFA)' >/dev/null",
+              "for x in spades-core spades-hammer spades-corrector-core spades-ionhammer spades-kmercount spades-kmer-estimating spades-read-filter spades-gbuilder spades-gmapper spades-gsimplifier spades-gfa-split binspreader pathracer pathracer-seq-fs spaligner splitter; do command -v \"$x\" >/dev/null; ! ldd \"$(command -v \"$x\")\" 2>&1 | grep -F 'not found' >/dev/null; done",
+              "rm -rf /tmp/taf-spades-test && mkdir -p /tmp/taf-spades-test && cd /tmp/taf-spades-test && spades.py --test -t 1 > run.log 2>&1 && test -s spades_test/contigs.fasta && test -s spades_test/scaffolds.fasta && grep -F 'TEST PASSED CORRECTLY' run.log >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-20T03:31:15Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-20T03:31:15Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/spades",
+            "ref": "v4.3.0-r1",
+            "commit": "b02d2339e3f60e1f652e8297543cdab8b515897e",
+            "html_url": "https://github.com/taffish/spades/tree/v4.3.0-r1"
+          },
+          "upstream": {
+            "name": "SPAdes",
+            "type": "github",
+            "homepage": "https://ablab.github.io/spades/",
+            "repository": "ablab/spades",
+            "release_url": "https://github.com/ablab/spades/releases/tag/v4.3.0",
+            "version": "4.3.0",
             "license": "GPL-2.0-only",
             "citation": "Prjibelski et al. 2020; Bankevich et al. 2012; mode-specific SPAdes publications",
             "doi": "10.1002/cpbi.102; 10.1089/cmb.2012.0021",
@@ -34312,7 +34687,7 @@
     },
     "taf-diamond": {
       "package": "diamond",
-      "version": "2.2.1-r1"
+      "version": "2.2.2-r1"
     },
     "taf-doubletdetection": {
       "package": "doubletdetection",
@@ -34436,7 +34811,7 @@
     },
     "taf-iqtree": {
       "package": "iqtree",
-      "version": "3.1.2-r1"
+      "version": "3.1.3-r1"
     },
     "taf-jellyfish": {
       "package": "jellyfish",
@@ -34760,7 +35135,7 @@
     },
     "taf-spades": {
       "package": "spades",
-      "version": "4.2.0-r1"
+      "version": "4.3.0-r1"
     },
     "taf-sra-tools": {
       "package": "sra-tools",

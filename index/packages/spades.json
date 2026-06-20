@@ -1,8 +1,8 @@
 {
   "name": "spades",
-  "latest": "4.2.0-r1",
-  "recent_version": "4.2.0-r1",
-  "recent_at": "2026-05-29T08:44:20Z",
+  "latest": "4.3.0-r1",
+  "recent_version": "4.3.0-r1",
+  "recent_at": "2026-06-19T16:33:10Z",
   "repository_url": "https://github.com/taffish/spades",
   "command": {
     "name": "taf-spades"
@@ -142,6 +142,149 @@
         "repository": "ablab/spades",
         "release_url": "https://github.com/ablab/spades/releases/tag/v4.2.0",
         "version": "4.2.0",
+        "license": "GPL-2.0-only",
+        "citation": "Prjibelski et al. 2020; Bankevich et al. 2012; mode-specific SPAdes publications",
+        "doi": "10.1002/cpbi.102; 10.1089/cmb.2012.0021",
+        "pmid": "32559359; 22506599"
+      }
+    },
+    "4.3.0-r1": {
+      "name": "spades",
+      "kind": "tool",
+      "version": "4.3.0",
+      "release": 1,
+      "version_id": "4.3.0-r1",
+      "tag": "v4.3.0-r1",
+      "published_at": "2026-06-19T16:33:10Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/spades",
+      "repository_slug": "taffish/spades",
+      "command": {
+        "name": "taf-spades"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-assembly",
+        "categories": [
+          "genome-assembly",
+          "metagenomics",
+          "transcriptomics",
+          "de-novo-assembly",
+          "short-read"
+        ],
+        "keywords": [
+          "spades",
+          "metaspades",
+          "plasmidspades",
+          "rnaspades",
+          "metaviralspades",
+          "metaplasmidspades",
+          "coronaspades",
+          "splitter",
+          "binspreader",
+          "pathracer",
+          "spaligner",
+          "illumina",
+          "iontorrent",
+          "hybrid assembly",
+          "assembly graph",
+          "k-mer",
+          "frugal"
+        ],
+        "summary": "SPAdes genome assembler toolkit for isolate, single-cell, metagenomic, transcriptomic, viral, plasmid, biosynthetic, SPlitteR, sequence-to-graph alignment and related short-read assembly workflows.",
+        "description": "SPAdes genome assembler toolkit for isolate, single-cell, metagenomic, transcriptomic, viral, plasmid, biosynthetic, SPlitteR, sequence-to-graph alignment and related short-read assembly workflows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/spades:4.3.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.3.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6bc6cfbfc65c4bb0c5965f0598677680527134a457477c54c274f11ddabd7047",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3eb69cc13371c8ca0fc1419aa165ba57c21f3f67ac274287ab8be77581879b96",
+          "linux/arm64": "sha256:c450be3311ecef470f1ea0cb63b77820b8e73abf12cd226c45cab2a16920400e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "spades.py",
+          "metaspades.py",
+          "plasmidspades.py",
+          "rnaspades.py",
+          "metaviralspades.py",
+          "metaplasmidspades.py",
+          "rnaviralspades.py",
+          "coronaspades.py",
+          "spades-core",
+          "spades-hammer",
+          "spades-kmercount",
+          "spades-gbuilder",
+          "spades-gsimplifier",
+          "binspreader",
+          "pathracer",
+          "pathracer-seq-fs",
+          "spaligner",
+          "splitter",
+          "python3",
+          "bash",
+          "gzip",
+          "bzip2",
+          "xz"
+        ],
+        "test": [
+          "test \"$(cat /opt/spades/share/spades/VERSION)\" = '4.3.0' && spades.py --version 2>&1 | grep -F 'SPAdes genome assembler v4.3.0' >/dev/null",
+          "spades.py --help 2>&1 | grep -F 'SPAdes genome assembler' >/dev/null && spades.py --help 2>&1 | grep -F -- '--isolate' >/dev/null && spades.py --help 2>&1 | grep -F -- '--meta' >/dev/null && spades.py --help 2>&1 | grep -F -- '--frugal' >/dev/null && metaspades.py --help 2>&1 | grep -i 'meta' >/dev/null",
+          "plasmidspades.py --help 2>&1 | grep -i 'plasmid' >/dev/null && rnaspades.py --help 2>&1 | grep -i 'rna' >/dev/null && metaviralspades.py --help 2>&1 | grep -i 'viral' >/dev/null && coronaspades.py --help 2>&1 | grep -i 'corona' >/dev/null && splitter --help 2>&1 | grep -F 'graph (in binary or GFA)' >/dev/null",
+          "for x in spades-core spades-hammer spades-corrector-core spades-ionhammer spades-kmercount spades-kmer-estimating spades-read-filter spades-gbuilder spades-gmapper spades-gsimplifier spades-gfa-split binspreader pathracer pathracer-seq-fs spaligner splitter; do command -v \"$x\" >/dev/null; ! ldd \"$(command -v \"$x\")\" 2>&1 | grep -F 'not found' >/dev/null; done",
+          "rm -rf /tmp/taf-spades-test && mkdir -p /tmp/taf-spades-test && cd /tmp/taf-spades-test && spades.py --test -t 1 > run.log 2>&1 && test -s spades_test/contigs.fasta && test -s spades_test/scaffolds.fasta && grep -F 'TEST PASSED CORRECTLY' run.log >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-20T03:31:15Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-20T03:31:15Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/spades",
+        "ref": "v4.3.0-r1",
+        "commit": "b02d2339e3f60e1f652e8297543cdab8b515897e",
+        "html_url": "https://github.com/taffish/spades/tree/v4.3.0-r1"
+      },
+      "upstream": {
+        "name": "SPAdes",
+        "type": "github",
+        "homepage": "https://ablab.github.io/spades/",
+        "repository": "ablab/spades",
+        "release_url": "https://github.com/ablab/spades/releases/tag/v4.3.0",
+        "version": "4.3.0",
         "license": "GPL-2.0-only",
         "citation": "Prjibelski et al. 2020; Bankevich et al. 2012; mode-specific SPAdes publications",
         "doi": "10.1002/cpbi.102; 10.1089/cmb.2012.0021",

@@ -1,8 +1,8 @@
 {
   "name": "iqtree",
-  "latest": "3.1.2-r1",
-  "recent_version": "3.1.2-r1",
-  "recent_at": "2026-05-28T09:43:52Z",
+  "latest": "3.1.3-r1",
+  "recent_version": "3.1.3-r1",
+  "recent_at": "2026-06-20T03:27:05Z",
   "repository_url": "https://github.com/taffish/iqtree",
   "command": {
     "name": "taf-iqtree"
@@ -122,6 +122,125 @@
         "repository": "iqtree/iqtree3",
         "release_url": "https://github.com/iqtree/iqtree3/releases/tag/v3.1.2",
         "version": "3.1.2",
+        "license": "GPL-2.0-only",
+        "citation": "Wong et al. 2025, IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models",
+        "doi": "10.32942/X2P62N"
+      }
+    },
+    "3.1.3-r1": {
+      "name": "iqtree",
+      "kind": "tool",
+      "version": "3.1.3",
+      "release": 1,
+      "version_id": "3.1.3-r1",
+      "tag": "v3.1.3-r1",
+      "published_at": "2026-06-20T03:27:05Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/iqtree",
+      "repository_slug": "taffish/iqtree",
+      "command": {
+        "name": "taf-iqtree"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "phylogenetics",
+        "categories": [
+          "phylogenetics",
+          "molecular-evolution",
+          "model-selection",
+          "tree-inference",
+          "sequence-analysis"
+        ],
+        "keywords": [
+          "iq-tree",
+          "iqtree3",
+          "maximum likelihood",
+          "phylogenomics",
+          "modelfinder",
+          "ultrafast bootstrap",
+          "sh-alrt",
+          "alisim",
+          "cmaple",
+          "concordance factor"
+        ],
+        "summary": "IQ-TREE 3.1.3 phylogenomic maximum-likelihood inference suite.",
+        "description": "IQ-TREE 3.1.3 phylogenomic maximum-likelihood inference suite."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/iqtree:3.1.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.1.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:5f638070f1f729ac847759fe1991e1c7712ec14f4f2803d2b8a4853432129445",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:675722b53cc9a1e441ca7e55f4f8ff85cb154c28cd0643ec2d2acd71b77b9161",
+          "linux/arm64": "sha256:8dd88be98fb1ba36ad2c5edcea7af1506922952d6b01867b2cb4f120457f7b12"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "iqtree3",
+          "iqtree",
+          "bash",
+          "sh",
+          "grep",
+          "sed",
+          "gzip",
+          "tar"
+        ],
+        "test": [
+          "iqtree3 --version 2>&1 | grep -F 'IQ-TREE version 3.1.3' >/dev/null && iqtree --version 2>&1 | grep -F 'IQ-TREE version 3.1.3' >/dev/null",
+          "iqtree3 --help 2>&1 | grep -F 'Usage: iqtree [-s ALIGNMENT]' >/dev/null && iqtree3 --help 2>&1 | grep -F 'MODEL-FINDER:' >/dev/null && iqtree3 --help 2>&1 | grep -F 'CONCORDANCE FACTOR ANALYSIS:' >/dev/null && iqtree3 --help 2>&1 | grep -F 'ALISIM: ALIGNMENT SIMULATOR' >/dev/null",
+          "set -eu; tmp=/tmp/taf-iqtree-ml-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/iqtree/share/doc/iqtree/examples/example.phy \"$tmp/in.phy\"; iqtree3 -s \"$tmp/in.phy\" -m JC -ninit 2 -n 2 -T 1 --redo --prefix \"$tmp/iqtree-smoke\" >/tmp/taf-iqtree-ml.log 2>&1; test -s \"$tmp/iqtree-smoke.iqtree\"; test -s \"$tmp/iqtree-smoke.treefile\"; test -s \"$tmp/iqtree-smoke.log\"; grep -F 'Model of substitution: JC' \"$tmp/iqtree-smoke.iqtree\" >/dev/null; grep -F 'MAXIMUM LIKELIHOOD TREE' \"$tmp/iqtree-smoke.iqtree\" >/dev/null; rm -rf \"$tmp\" /tmp/taf-iqtree-ml.log",
+          "set -eu; tmp=/tmp/taf-iqtree-alisim-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf \"%s\\n\" \"(A:0.1,B:0.1,C:0.1,D:0.1);\" > \"$tmp/tree.nwk\"; iqtree3 --alisim \"$tmp/sim\" -t \"$tmp/tree.nwk\" -m JC --length 20 --seed 7 -T 1 >/tmp/taf-iqtree-alisim.log 2>&1; test -s \"$tmp/sim.phy\"; grep -F 'A' \"$tmp/sim.phy\" >/dev/null; rm -rf \"$tmp\" /tmp/taf-iqtree-alisim.log"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-20T03:31:15Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-20T03:31:15Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/iqtree",
+        "ref": "v3.1.3-r1",
+        "commit": "0766e4e9bc07d76cb6cd6a4f1e646f55afa65b9c",
+        "html_url": "https://github.com/taffish/iqtree/tree/v3.1.3-r1"
+      },
+      "upstream": {
+        "name": "IQ-TREE",
+        "type": "github",
+        "homepage": "https://iqtree.github.io/",
+        "repository": "iqtree/iqtree3",
+        "release_url": "https://github.com/iqtree/iqtree3/releases/tag/v3.1.3",
+        "version": "3.1.3",
         "license": "GPL-2.0-only",
         "citation": "Wong et al. 2025, IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models",
         "doi": "10.32942/X2P62N"
