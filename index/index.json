@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-20T14:14:27Z",
+  "generated_at": "2026-06-20T21:35:11Z",
   "organization": "taffish",
   "counts": {
-    "packages": 178,
-    "versions": 280,
-    "commands": 178,
-    "repositories": 178,
+    "packages": 179,
+    "versions": 281,
+    "commands": 179,
+    "repositories": 179,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -34424,6 +34424,144 @@
         }
       }
     },
+    "vep": {
+      "name": "vep",
+      "latest": "116.0-r1",
+      "recent_version": "116.0-r1",
+      "recent_at": "2026-06-20T21:30:33Z",
+      "repository_url": "https://github.com/taffish/vep",
+      "command": {
+        "name": "taf-vep"
+      },
+      "versions": {
+        "116.0-r1": {
+          "name": "vep",
+          "kind": "tool",
+          "version": "116.0",
+          "release": 1,
+          "version_id": "116.0-r1",
+          "tag": "v116.0-r1",
+          "published_at": "2026-06-20T21:30:33Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/vep",
+          "repository_slug": "taffish/vep",
+          "command": {
+            "name": "taf-vep"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "variant-annotation",
+            "categories": [
+              "variant-annotation",
+              "genomics",
+              "vcf",
+              "variant-effect",
+              "ensembl"
+            ],
+            "keywords": [
+              "vep",
+              "ensembl vep",
+              "variant effect predictor",
+              "variant annotation",
+              "vcf",
+              "csq",
+              "consequence",
+              "haplosaurus",
+              "variant recoder",
+              "filter_vep"
+            ],
+            "summary": "Ensembl Variant Effect Predictor (VEP) 116.0 runtime for annotating sequence variants and running related VEP helper tools.",
+            "description": "Ensembl Variant Effect Predictor (VEP) 116.0 runtime for annotating sequence variants and running related VEP helper tools."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/vep:116.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "116.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5dbdedd3fb265bab0da2156113dc568580942724d5b25e6f09379fb40dacb6b1",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1f014c3d90d1f9d18c4bbb2283d7dce54727063cf56e5fd2294b9f681ff9f851",
+              "linux/arm64": "sha256:11b80ed9ad3d0ab1d632a0b51188f1516b4a2fcaedbcb64694a298a6848aff77"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "vep",
+              "filter_vep",
+              "haplo",
+              "variant_recoder",
+              "INSTALL.pl",
+              "perl",
+              "curl",
+              "bgzip",
+              "tabix",
+              "htsfile",
+              "genesplicer",
+              "python",
+              "python2"
+            ],
+            "test": [
+              "vep --help 2>&1 | grep -F \"ensembl-vep          : 116.0\" >/dev/null && vep --help 2>&1 | grep -F \"ENSEMBL VARIANT EFFECT PREDICTOR\" >/dev/null && haplo --help 2>&1 | grep -F \"HAPLOSAURUS\" >/dev/null && variant_recoder --help 2>&1 | grep -F \"VARIANT RECODER\" >/dev/null",
+              "INSTALL.pl --help 2>&1 | grep -F -- \"--CACHE_VERSION    Set data\" >/dev/null && INSTALL.pl --help 2>&1 | grep -F \"default = 116\" >/dev/null && filter_vep --help 2>&1 | grep -F \"consequence data\" >/dev/null",
+              "perl -MBio::EnsEMBL::VEP::Constants -e 'print $Bio::EnsEMBL::VEP::Constants::VEP_VERSION,qq(\\n)' | grep -Fx \"116\" >/dev/null && perl -MJSON -e 'print qq(JSON ok\\n)' | grep -Fx \"JSON ok\" >/dev/null && perl -MBio::DB::HTS -e 'print qq(HTS ok\\n)' | grep -Fx \"HTS ok\" >/dev/null && tabix --version 2>&1 | grep -F \"htslib\" >/dev/null && bgzip --version 2>&1 | grep -F \"htslib\" >/dev/null",
+              "tmp=/tmp/taf-vep-filter-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/taffish/share/vep/smoke/filter-input.vcf \"$tmp/filter-input.vcf\"; filter_vep --format vcf --filter \"Consequence is missense_variant\" -i \"$tmp/filter-input.vcf\" -o \"$tmp/out.vcf\" --force_overwrite; grep -F \"missense_variant\" \"$tmp/out.vcf\" >/dev/null; if grep -F \"synonymous_variant\" \"$tmp/out.vcf\"; then exit 1; fi; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-vep-gff-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/taffish/share/vep/smoke/ref.fa /opt/taffish/share/vep/smoke/genes.gff3.gz /opt/taffish/share/vep/smoke/genes.gff3.gz.tbi /opt/taffish/share/vep/smoke/input.vcf \"$tmp\"/; vep --gff \"$tmp/genes.gff3.gz\" --fasta \"$tmp/ref.fa\" --format vcf --vcf --force_overwrite --no_stats --species homo_sapiens -i \"$tmp/input.vcf\" -o \"$tmp/out.vcf\" > \"$tmp/run.log\" 2>&1; grep -F \"##VEP=\\\"v116.0\\\"\" \"$tmp/out.vcf\" >/dev/null && grep -F \"missense_variant\" \"$tmp/out.vcf\" >/dev/null && grep -F \"GENE1\" \"$tmp/out.vcf\" >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-20T21:35:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-20T21:35:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/vep",
+            "ref": "v116.0-r1",
+            "commit": "ed56ba53c34169745771f200f7ac1bcec2494d1f",
+            "html_url": "https://github.com/taffish/vep/tree/v116.0-r1"
+          },
+          "upstream": {
+            "name": "Ensembl Variant Effect Predictor (VEP)",
+            "type": "github",
+            "homepage": "https://www.ensembl.org/info/docs/tools/vep/index.html",
+            "repository": "Ensembl/ensembl-vep",
+            "release_url": "https://github.com/Ensembl/ensembl-vep/tree/release/116.0",
+            "version": "116.0",
+            "license": "Apache-2.0",
+            "citation": "McLaren W, Gil L, Hunt SE, Riat HS, Ritchie GRS, Thormann A, Flicek P, Cunningham F. The Ensembl Variant Effect Predictor. Genome Biology. 2016;17:122.",
+            "doi": "10.1186/s13059-016-0974-4",
+            "pmid": "27268795"
+          }
+        }
+      }
+    },
     "verkko": {
       "name": "verkko",
       "latest": "2.3.2-r1",
@@ -35774,6 +35912,10 @@
       "package": "vcftools",
       "version": "0.1.17-r1"
     },
+    "taf-vep": {
+      "package": "vep",
+      "version": "116.0-r1"
+    },
     "taf-verkko": {
       "package": "verkko",
       "version": "2.3.2-r1"
@@ -36832,6 +36974,12 @@
       "repository": "taffish/vcftools",
       "packages": [
         "vcftools"
+      ]
+    },
+    "taffish/vep": {
+      "repository": "taffish/vep",
+      "packages": [
+        "vep"
       ]
     },
     "taffish/verkko": {
