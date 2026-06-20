@@ -1,8 +1,8 @@
 {
   "name": "salmon",
-  "latest": "2.0.1-r1",
-  "recent_version": "2.0.1-r1",
-  "recent_at": "2026-06-19T03:04:59Z",
+  "latest": "2.1.0-r1",
+  "recent_version": "2.1.0-r1",
+  "recent_at": "2026-06-20T04:40:56Z",
   "repository_url": "https://github.com/taffish/salmon",
   "command": {
     "name": "taf-salmon"
@@ -235,6 +235,124 @@
         "repository": "COMBINE-lab/salmon",
         "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.0.1",
         "version": "2.0.1",
+        "license": "BSD-3-Clause",
+        "citation": "Patro et al. 2017, Nature Methods",
+        "doi": "10.1038/nmeth.4197",
+        "pmid": "28263959"
+      }
+    },
+    "2.1.0-r1": {
+      "name": "salmon",
+      "kind": "tool",
+      "version": "2.1.0",
+      "release": 1,
+      "version_id": "2.1.0-r1",
+      "tag": "v2.1.0-r1",
+      "published_at": "2026-06-20T04:40:56Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/salmon",
+      "repository_slug": "taffish/salmon",
+      "command": {
+        "name": "taf-salmon"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "transcriptomics",
+          "quantification",
+          "alignment",
+          "indexing"
+        ],
+        "keywords": [
+          "salmon",
+          "rna-seq",
+          "transcript abundance",
+          "selective alignment",
+          "sketch",
+          "sshash",
+          "piscem",
+          "quant",
+          "quantmerge"
+        ],
+        "summary": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, indexing, selective-alignment and sketch quantification, alignment-based quantification, and quantification merging.",
+        "description": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, indexing, selective-alignment and sketch quantification, alignment-based quantification, and quantification merging."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/salmon:2.1.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.1.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:4e32ac8b791ac551d403d6e9c7253b8ff1721c27efaf7a1117ec36dc2f60a919",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0a5142cea5a6aec54613bdd7e4671777abd41671d985d5f49e719f8aed751fa4",
+          "linux/arm64": "sha256:29ad4c4b703882c00ee6a648bf5ec6d7a8238818307900bc1fb54a6e2ba922e3"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "salmon",
+          "ldd",
+          "locale",
+          "sh"
+        ],
+        "test": [
+          "test \"$(salmon --version)\" = 'salmon 2.1.0' && salmon --help 2>&1 | grep -F 'RNA-seq transcript quantification (Rust port)' >/dev/null && salmon --no-version-check --help 2>&1 | grep -F 'no-op' >/dev/null && ldd $(command -v salmon) | grep -F 'libgcc_s.so' >/dev/null && ldd $(command -v salmon) | grep -F 'libc.so' >/dev/null && ! ldd $(command -v salmon) | grep -F 'not found' >/dev/null",
+          "salmon --no-version-check index --help 2>&1 | grep -F 'Build a salmon index' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'Quantify transcript abundances' >/dev/null && salmon --no-version-check quantmerge --help 2>&1 | grep -F 'Merge a column across multiple samples' >/dev/null && salmon --no-version-check debug-map --help 2>&1 | grep -F 'per-read best-mapping detail' >/dev/null",
+          "rm -rf /tmp/taf-salmon-index && mkdir -p /tmp/taf-salmon-index && cd /tmp/taf-salmon-index && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-index.log 2>&1 && test -s idx/info.json && test -s idx/index.ssi && test -s idx/index.ctab && grep -F '\"salmon_version\": \"2.1.0\"' idx/info.json >/dev/null && grep -F '\"index_version\": 1' idx/info.json >/dev/null && grep -F '\"num_refs\": 2' idx/info.json >/dev/null",
+          "rm -rf /tmp/taf-salmon-quant && mkdir -p /tmp/taf-salmon-quant && cd /tmp/taf-salmon-quant && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-quant-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r3\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o quant -p 1 --quiet >/tmp/taf-salmon-quant.log 2>&1 && test -s quant/quant.sf && grep -F 'Name' quant/quant.sf >/dev/null && grep -F 'tx1' quant/quant.sf >/dev/null && grep -F 'tx2' quant/quant.sf >/dev/null",
+          "rm -rf /tmp/taf-salmon-sketch && mkdir -p /tmp/taf-salmon-sketch && cd /tmp/taf-salmon-sketch && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-sketch-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o sketch_quant -p 1 --sketch --quiet >/tmp/taf-salmon-sketch.log 2>&1 && test -s sketch_quant/quant.sf && grep -F 'tx1' sketch_quant/quant.sf >/dev/null && grep -F 'tx2' sketch_quant/quant.sf >/dev/null",
+          "rm -rf /tmp/taf-salmon-merge && mkdir -p /tmp/taf-salmon-merge/q1 /tmp/taf-salmon-merge/q2 && cd /tmp/taf-salmon-merge && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t100.0\\t2.0\\ntx2\\t40\\t2.432\\t0.0\\t0.0\\n' > q1/quant.sf && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t10.0\\t1.0\\ntx2\\t40\\t2.432\\t90.0\\t9.0\\n' > q2/quant.sf && salmon --no-version-check quantmerge --quants q1 q2 --names s1 s2 --column TPM -o merged.tsv >/tmp/taf-salmon-merge.log 2>&1 && grep -F 'Name' merged.tsv >/dev/null && grep -F 'tx2' merged.tsv >/dev/null && grep -F '90' merged.tsv >/dev/null",
+          "{ salmon --no-version-check alevin > /tmp/taf-salmon-alevin.out 2>&1 && exit 1 || true; } && grep -F 'salmon alevin is not available' /tmp/taf-salmon-alevin.out >/dev/null && grep -F 'alevin-fry' /tmp/taf-salmon-alevin.out >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-20T04:44:14Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-20T04:44:14Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/salmon",
+        "ref": "v2.1.0-r1",
+        "commit": "062bc189b92616cd0237e658310be7dd7477b898",
+        "html_url": "https://github.com/taffish/salmon/tree/v2.1.0-r1"
+      },
+      "upstream": {
+        "name": "Salmon",
+        "type": "github",
+        "homepage": "https://combine-lab.github.io/salmon/",
+        "repository": "COMBINE-lab/salmon",
+        "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.1.0",
+        "version": "2.1.0",
         "license": "BSD-3-Clause",
         "citation": "Patro et al. 2017, Nature Methods",
         "doi": "10.1038/nmeth.4197",
