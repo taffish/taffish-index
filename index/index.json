@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-20T05:44:57Z",
+  "generated_at": "2026-06-20T07:42:48Z",
   "organization": "taffish",
   "counts": {
-    "packages": 175,
-    "versions": 277,
-    "commands": 175,
-    "repositories": 175,
+    "packages": 176,
+    "versions": 278,
+    "commands": 176,
+    "repositories": 176,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -13235,6 +13235,158 @@
             "citation": "Eddy 2008; Eddy 2011",
             "doi": "10.1371/journal.pcbi.1000069; 10.1371/journal.pcbi.1002195",
             "pmid": "18516236; 22039361"
+          }
+        }
+      }
+    },
+    "homer": {
+      "name": "homer",
+      "latest": "5.1-r1",
+      "recent_version": "5.1-r1",
+      "recent_at": "2026-06-20T07:27:48Z",
+      "repository_url": "https://github.com/taffish/homer",
+      "command": {
+        "name": "taf-homer"
+      },
+      "versions": {
+        "5.1-r1": {
+          "name": "homer",
+          "kind": "tool",
+          "version": "5.1",
+          "release": 1,
+          "version_id": "5.1-r1",
+          "tag": "v5.1-r1",
+          "published_at": "2026-06-20T07:27:48Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/homer",
+          "repository_slug": "taffish/homer",
+          "command": {
+            "name": "taf-homer"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "motif-analysis",
+            "categories": [
+              "motif-analysis",
+              "functional-genomics",
+              "chip-seq",
+              "ngs-analysis",
+              "transcription-factor-binding"
+            ],
+            "keywords": [
+              "homer",
+              "homer2",
+              "motif discovery",
+              "findmotifs",
+              "findmotifsgenome",
+              "annotatepeaks",
+              "findpeaks",
+              "maketagdirectory",
+              "chip-seq",
+              "gro-seq",
+              "hi-c"
+            ],
+            "summary": "HOMER 5.1 command-line suite for motif discovery and functional genomics analysis. The image includes the core runtime and bundled motif/ontology data; large external genome, promoter, and organism packages are managed outside the image.",
+            "description": "HOMER 5.1 command-line suite for motif discovery and functional genomics analysis. The image includes the core runtime and bundled motif/ontology data; large external genome, promoter, and organism packages are managed outside the image."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/homer:5.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:8c914f802a3b5cd237adc073fc30cc87893656e57387ff6da8a57a96624b7f6a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1d47cc81fd8a3b26e74c2c422fcf73c66897c6e90810d89f5d77f2af5a13e48b",
+              "linux/arm64": "sha256:7415d6bd7e62e2460a95630a7d0460b769948a72f37cc4a907f0f31084d5a51c"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "homer2",
+              "homer",
+              "findMotifs.pl",
+              "findMotifsGenome.pl",
+              "findKnownMotifs.pl",
+              "compareMotifs.pl",
+              "scanMotifGenomeWide.pl",
+              "annotatePeaks.pl",
+              "makeTagDirectory",
+              "findPeaks",
+              "mergePeaks",
+              "homerTools",
+              "GenomeOntology.pl",
+              "configureHomer.pl",
+              "homer-data-info",
+              "homer-copy-runtime",
+              "perl",
+              "samtools",
+              "wget",
+              "curl",
+              "gzip",
+              "gunzip",
+              "zip",
+              "unzip",
+              "tar",
+              "make",
+              "gcc",
+              "g++"
+            ],
+            "test": [
+              "test -s /opt/homer/share/doc/source.txt && grep -F 'source_sha256=abaa6a1e9a8df902a423fb403dd2d7a85a3cf7706ab4ae099e4a4cfb0e621b12' /opt/homer/share/doc/source.txt >/dev/null && grep -F 'homer' /opt/homer/config.txt >/dev/null && grep -F 'v5.1' /opt/homer/config.txt >/dev/null && test -s /opt/homer/COPYING && perl -I/opt/homer/bin -e 'use HomerConfig; use Statistics; print \"homer perl modules ok\\n\"' | grep -Fx 'homer perl modules ok' >/dev/null",
+              "(homer2 2>&1 || true) | grep -F 'homer2 <command>' >/dev/null && (findMotifs.pl 2>&1 || true) | grep -F 'Usage:  findMotifs.pl' >/dev/null && (findMotifsGenome.pl 2>&1 || true) | grep -F 'Usage: findMotifsGenome.pl' >/dev/null && (annotatePeaks.pl 2>&1 || true) | grep -F 'Usage: annotatePeaks.pl' >/dev/null && (mergePeaks 2>&1 || true) | grep -F 'Usage: mergePeaks' >/dev/null && homer-data-info | grep -F 'HOMER data boundary' >/dev/null && homer-copy-runtime --dry-run /tmp/homer-runtime-smoke | grep -F 'Would copy /opt/homer' >/dev/null",
+              "set -e; tmp=/tmp/taf-homer-merge-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf 'peakA1\\tchr1\\t10\\t40\\t+\\npeakA2\\tchr1\\t80\\t120\\t+\\n' > \"$tmp/a.peaks\"; printf 'peakB1\\tchr1\\t20\\t50\\t+\\npeakB2\\tchr1\\t200\\t240\\t+\\n' > \"$tmp/b.peaks\"; mergePeaks \"$tmp/a.peaks\" \"$tmp/b.peaks\" -d given > \"$tmp/merged.txt\" 2> \"$tmp/merge.log\"; test -s \"$tmp/merged.txt\"; grep -F 'peakA1' \"$tmp/merged.txt\" >/dev/null; grep -F 'peakB1' \"$tmp/merged.txt\" >/dev/null; rm -rf \"$tmp\"",
+              "set -e; tmp=/tmp/taf-homer-find-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>chrSmoke\\nATTGCATCATGGGGATTGCATCAT\\n' > \"$tmp/genome.fa\"; homer2 find -i \"$tmp/genome.fa\" -m /opt/homer/motifs/chop.motif > \"$tmp/sites.txt\" 2> \"$tmp/find.log\"; test -s \"$tmp/sites.txt\"; grep -F 'chrSmoke' \"$tmp/sites.txt\" >/dev/null; grep -F 'ATTGCATCAT' \"$tmp/sites.txt\" >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-20T07:42:48Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-20T07:42:48Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/homer",
+            "ref": "v5.1-r1",
+            "commit": "0d692cffaecad38791c0e6f0a0f9cc508a688460",
+            "html_url": "https://github.com/taffish/homer/tree/v5.1-r1"
+          },
+          "upstream": {
+            "name": "HOMER",
+            "type": "official",
+            "homepage": "http://homer.ucsd.edu/homer/",
+            "release_url": "http://homer.ucsd.edu/homer/changeLog.html",
+            "version": "5.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "Heinz S, Benner C, Spann N, Bertolino E et al. Simple Combinations of Lineage-Determining Transcription Factors Prime cis-Regulatory Elements Required for Macrophage and B Cell Identities. Mol Cell. 2010;38(4):576-589.",
+            "doi": "10.1016/j.molcel.2010.05.004",
+            "pmid": "20513432"
           }
         }
       }
@@ -34919,6 +35071,10 @@
       "package": "hmmer",
       "version": "3.4-r2"
     },
+    "taf-homer": {
+      "package": "homer",
+      "version": "5.1-r1"
+    },
     "taf-igv": {
       "package": "igv",
       "version": "2.19.8-r1"
@@ -35757,6 +35913,12 @@
       "repository": "taffish/hmmer",
       "packages": [
         "hmmer"
+      ]
+    },
+    "taffish/homer": {
+      "repository": "taffish/homer",
+      "packages": [
+        "homer"
       ]
     },
     "taffish/igv": {
