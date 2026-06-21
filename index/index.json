@@ -1,17 +1,158 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-21T06:44:56Z",
+  "generated_at": "2026-06-21T08:41:05Z",
   "organization": "taffish",
   "counts": {
-    "packages": 180,
-    "versions": 285,
-    "commands": 180,
-    "repositories": 180,
+    "packages": 181,
+    "versions": 286,
+    "commands": 181,
+    "repositories": 181,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
   },
   "packages": {
+    "abricate": {
+      "name": "abricate",
+      "latest": "1.4.0-r1",
+      "recent_version": "1.4.0-r1",
+      "recent_at": "2026-06-21T08:24:11Z",
+      "repository_url": "https://github.com/taffish/abricate",
+      "command": {
+        "name": "taf-abricate"
+      },
+      "versions": {
+        "1.4.0-r1": {
+          "name": "abricate",
+          "kind": "tool",
+          "version": "1.4.0",
+          "release": 1,
+          "version_id": "1.4.0-r1",
+          "tag": "v1.4.0-r1",
+          "published_at": "2026-06-21T08:24:11Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/abricate",
+          "repository_slug": "taffish/abricate",
+          "command": {
+            "name": "taf-abricate"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "antimicrobial-resistance",
+            "categories": [
+              "antimicrobial-resistance",
+              "virulence",
+              "genome-annotation",
+              "microbial-genomics",
+              "blast"
+            ],
+            "keywords": [
+              "abricate",
+              "amr",
+              "antimicrobial resistance",
+              "virulence",
+              "blast",
+              "contigs",
+              "resfinder",
+              "card",
+              "ncbi amr",
+              "vfdb",
+              "plasmidfinder"
+            ],
+            "summary": "ABRicate 1.4.0 runtime for screening assembled contigs against bundled antimicrobial resistance and virulence gene databases.",
+            "description": "ABRicate 1.4.0 runtime for screening assembled contigs against bundled antimicrobial resistance and virulence gene databases."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/abricate:1.4.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.4.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:19c44857248fb1f56fed4115867d65edb50f4f12d860156f126504dcdd30ca4d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:dea7f3a720673096eb3df06f8dda9a1ac9b4871c7af81572c7c26dc5d8f3ddb8",
+              "linux/arm64": "sha256:429dce01acd81eacb02ff088b2e240c19ae856826c8b3502cd3841edeca26c31"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "abricate",
+              "abricate-get_db",
+              "blastn",
+              "blastx",
+              "makeblastdb",
+              "blastdbcmd",
+              "any2fasta",
+              "perl",
+              "gzip",
+              "bzip2",
+              "unzip",
+              "git",
+              "bash",
+              "sh",
+              "grep",
+              "sed",
+              "awk"
+            ],
+            "test": [
+              "abricate --version 2>&1 | grep -Fx 'abricate 1.4.0' >/dev/null && abricate --help 2>&1 | grep -F 'Find and collate' >/dev/null && abricate-get_db --help 2>&1 | grep -F 'Download databases for abricate' >/dev/null && abricate --check 2>&1 | grep -F 'OK.' >/dev/null && abricate --list > /tmp/taf-abricate-list-$$.tsv && grep -F 'DATABASE' /tmp/taf-abricate-list-$$.tsv >/dev/null && grep -E '^ncbi[[:space:]]' /tmp/taf-abricate-list-$$.tsv >/dev/null && grep -E '^card[[:space:]]' /tmp/taf-abricate-list-$$.tsv >/dev/null && grep -E '^resfinder[[:space:]]' /tmp/taf-abricate-list-$$.tsv >/dev/null && grep -E '^vfdb[[:space:]]' /tmp/taf-abricate-list-$$.tsv >/dev/null && rm -f /tmp/taf-abricate-list-$$.tsv",
+              "micromamba list -n base | grep -E 'abricate[[:space:]]+1\\.4\\.0[[:space:]]+' >/dev/null && micromamba list -n base | grep -E 'blast[[:space:]]+2\\.16\\.0[[:space:]]+' >/dev/null && blastn -version 2>&1 | grep -F 'blastn: 2.16.0+' >/dev/null && blastx -version 2>&1 | grep -F 'blastx: 2.16.0+' >/dev/null && makeblastdb -version 2>&1 | grep -F 'makeblastdb: 2.16.0+' >/dev/null && blastdbcmd -version 2>&1 | grep -F 'blastdbcmd: 2.16.0+' >/dev/null && command -v any2fasta >/dev/null && { any2fasta -h 2>&1 || true; } | grep -iF 'any2fasta' >/dev/null && perl -MBio::SeqIO -MBio::Seq -MJSON -MPath::Tiny -MList::MoreUtils -MFile::Fetch -MLWP::Protocol::https -e 'print q(perl-deps-ok)' | grep -F 'perl-deps-ok' >/dev/null && gzip --version 2>&1 | grep -F 'gzip' >/dev/null && unzip -v 2>&1 | grep -F 'UnZip' >/dev/null",
+              "tmp=/tmp/taf-abricate-tiny-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp/db/tinyamr\"; cp /opt/abricate/share/testdata/tinyamr/sequences \"$tmp/db/tinyamr/sequences\"; cp /opt/abricate/share/testdata/tinyamr/query.fa \"$tmp/query.fa\"; abricate --setupdb --datadir \"$tmp/db\" > \"$tmp/setup.log\" 2>&1; abricate --datadir \"$tmp/db\" --db tinyamr --minid 90 --mincov 90 \"$tmp/query.fa\" > \"$tmp/out.tsv\" 2> \"$tmp/run.log\"; test -s \"$tmp/out.tsv\"; grep -F '#FILE' \"$tmp/out.tsv\" >/dev/null; grep -F 'tafA' \"$tmp/out.tsv\" >/dev/null; grep -F 'tinyamr' \"$tmp/out.tsv\" >/dev/null; grep -F 'beta_lactam' \"$tmp/out.tsv\" >/dev/null; abricate --summary \"$tmp/out.tsv\" > \"$tmp/summary.tsv\"; grep -F 'NUM_FOUND' \"$tmp/summary.tsv\" >/dev/null; grep -F 'tafA' \"$tmp/summary.tsv\" >/dev/null; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-abricate-fofn-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp/db/tinyamr\"; cp /opt/abricate/share/testdata/tinyamr/sequences \"$tmp/db/tinyamr/sequences\"; cp /opt/abricate/share/testdata/tinyamr/query.fa \"$tmp/query.fa\"; abricate --setupdb --datadir \"$tmp/db\" > \"$tmp/setup.log\" 2>&1; gzip -c \"$tmp/query.fa\" > \"$tmp/query.fa.gz\"; printf '%s\\n' \"$tmp/query.fa.gz\" > \"$tmp/fofn.txt\"; abricate --datadir \"$tmp/db\" --db tinyamr --fofn \"$tmp/fofn.txt\" --csv --nopath > \"$tmp/out.csv\" 2> \"$tmp/run.log\"; test -s \"$tmp/out.csv\"; head -n 1 \"$tmp/out.csv\" | grep -F '#FILE,SEQUENCE,START' >/dev/null; grep -F 'query.fa.gz' \"$tmp/out.csv\" >/dev/null; grep -F 'tafA' \"$tmp/out.csv\" >/dev/null; rm -rf \"$tmp\"",
+              "test -s /opt/abricate/share/doc/abricate/source.txt && test -s /opt/abricate/share/testdata/tinyamr/sequences && test -s /opt/abricate/share/testdata/tinyamr/query.fa && test -e /opt/abricate/db"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-21T08:41:05Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-21T08:41:05Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/abricate",
+            "ref": "v1.4.0-r1",
+            "commit": "edf81d31bd6cb54f04e82fe0c951d5dda74fc98d",
+            "html_url": "https://github.com/taffish/abricate/tree/v1.4.0-r1"
+          },
+          "upstream": {
+            "name": "ABRicate",
+            "type": "github",
+            "homepage": "https://github.com/tseemann/abricate",
+            "repository": "tseemann/abricate",
+            "release_url": "https://github.com/tseemann/abricate/releases/tag/v1.4.0",
+            "version": "1.4.0",
+            "license": "GPL-2.0-only; bundled database snapshots retain their source database terms and citation requirements",
+            "citation": "Seemann T. ABRicate. https://github.com/tseemann/abricate; cite the selected database used with --db according to upstream guidance."
+          }
+        }
+      }
+    },
     "agat": {
       "name": "agat",
       "latest": "1.7.0-r1",
@@ -35738,6 +35879,10 @@
     }
   },
   "commands": {
+    "taf-abricate": {
+      "package": "abricate",
+      "version": "1.4.0-r1"
+    },
     "taf-agat": {
       "package": "agat",
       "version": "1.7.0-r1"
@@ -36460,6 +36605,12 @@
     }
   },
   "repositories": {
+    "taffish/abricate": {
+      "repository": "taffish/abricate",
+      "packages": [
+        "abricate"
+      ]
+    },
     "taffish/agat": {
       "repository": "taffish/agat",
       "packages": [
