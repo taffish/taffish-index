@@ -1,0 +1,140 @@
+{
+  "name": "amrfinderplus",
+  "latest": "4.2.7-r1",
+  "recent_version": "4.2.7-r1",
+  "recent_at": "2026-06-21T04:43:12Z",
+  "repository_url": "https://github.com/taffish/amrfinderplus",
+  "command": {
+    "name": "taf-amrfinderplus"
+  },
+  "versions": {
+    "4.2.7-r1": {
+      "name": "amrfinderplus",
+      "kind": "tool",
+      "version": "4.2.7",
+      "release": 1,
+      "version_id": "4.2.7-r1",
+      "tag": "v4.2.7-r1",
+      "published_at": "2026-06-21T04:43:12Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/amrfinderplus",
+      "repository_slug": "taffish/amrfinderplus",
+      "command": {
+        "name": "taf-amrfinderplus"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "antimicrobial-resistance",
+        "categories": [
+          "antimicrobial-resistance",
+          "bacterial-genomics",
+          "functional-annotation",
+          "pathogen-surveillance",
+          "sequence-analysis"
+        ],
+        "keywords": [
+          "amrfinderplus",
+          "amrfinder",
+          "amr",
+          "antimicrobial-resistance",
+          "resistance-gene",
+          "point-mutation",
+          "stxtyper",
+          "blast",
+          "hmmer",
+          "ncbi"
+        ],
+        "summary": "NCBI AMRFinderPlus 4.2.7 runtime for detecting antimicrobial resistance genes, resistance-associated point mutations, and selected virulence/stress genes with user-managed AMRFinderPlus databases.",
+        "description": "NCBI AMRFinderPlus 4.2.7 runtime for detecting antimicrobial resistance genes, resistance-associated point mutations, and selected virulence/stress genes with user-managed AMRFinderPlus databases."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/amrfinderplus:4.2.7-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.2.7-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:b9508ce4600a0ce17bb02273ac0f84a8f5cfab1841a4dae5f5a40a17d410aa34",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0f5da9a7279e8257f7afae2ba9b2973515d035ec345f8aed7372323546a2215c"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "amrfinder",
+          "amrfinder_update",
+          "amrfinder_index",
+          "amr_report",
+          "stxtyper",
+          "blastn",
+          "blastp",
+          "blastx",
+          "makeblastdb",
+          "hmmsearch",
+          "hmmscan",
+          "hmmpress",
+          "curl",
+          "gzip",
+          "gunzip",
+          "tar",
+          "bash",
+          "sh"
+        ],
+        "test": [
+          "amrfinder --version 2>&1 | grep -Fx '4.2.7' >/dev/null && amrfinder --help 2>&1 | grep -F 'Identify AMR and virulence genes' >/dev/null && { amrfinder_update --help 2>&1 || true; } | grep -F 'amrfinder_update' >/dev/null && { amrfinder_index --help 2>&1 || true; } | grep -F 'amrfinder_index' >/dev/null",
+          "blastn -version 2>&1 | grep -F 'blastn:' >/dev/null && blastp -version 2>&1 | grep -F 'blastp:' >/dev/null && blastx -version 2>&1 | grep -F 'blastx:' >/dev/null && makeblastdb -version 2>&1 | grep -F 'makeblastdb:' >/dev/null && hmmsearch -h 2>&1 | grep -F '# HMMER' >/dev/null && hmmpress -h 2>&1 | grep -F '# HMMER' >/dev/null",
+          "tmp=/tmp/taf-amrfinderplus-stxtyper-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd /opt/amrfinderplus/stx; stxtyper --debug --nucleotide_output \"$tmp/basic.nuc_out\" -n test/basic.fa > \"$tmp/basic.tsv\"; diff -q test/basic.expected \"$tmp/basic.tsv\" >/dev/null; diff -q test/basic.nuc_out.expected \"$tmp/basic.nuc_out\" >/dev/null; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-amrfinderplus-missing-db-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>tiny\\nMKKFFDSRREQQLKELNQ\\n' > \"$tmp/tiny.faa\"; if amrfinder -p \"$tmp/tiny.faa\" --database \"$tmp/no-db\" > \"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; fi; grep -Ei 'database|directory|No such|not found' \"$tmp/run.log\" >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-21T04:45:34Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-21T04:45:34Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/amrfinderplus",
+        "ref": "v4.2.7-r1",
+        "commit": "b9dbacaf781987128cf74dae2eddab49d9b65ee0",
+        "html_url": "https://github.com/taffish/amrfinderplus/tree/v4.2.7-r1"
+      },
+      "upstream": {
+        "name": "NCBI Antimicrobial Resistance Gene Finder Plus (AMRFinderPlus)",
+        "type": "github",
+        "homepage": "https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/",
+        "repository": "ncbi/amr",
+        "release_url": "https://github.com/ncbi/amr/releases/tag/amrfinder_v4.2.7",
+        "version": "4.2.7",
+        "license": "Public Domain / United States Government Work",
+        "citation": "Feldgarden et al. 2021",
+        "doi": "10.1038/s41598-021-91456-0",
+        "pmid": "34135355"
+      }
+    }
+  }
+}
