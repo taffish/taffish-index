@@ -1,0 +1,137 @@
+{
+  "name": "mlst",
+  "latest": "2.35.0-r1",
+  "recent_version": "2.35.0-r1",
+  "recent_at": "2026-06-21T18:20:39Z",
+  "repository_url": "https://github.com/taffish/mlst",
+  "command": {
+    "name": "taf-mlst"
+  },
+  "versions": {
+    "2.35.0-r1": {
+      "name": "mlst",
+      "kind": "tool",
+      "version": "2.35.0",
+      "release": 1,
+      "version_id": "2.35.0-r1",
+      "tag": "v2.35.0-r1",
+      "published_at": "2026-06-21T18:20:39Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/mlst",
+      "repository_slug": "taffish/mlst",
+      "command": {
+        "name": "taf-mlst"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "microbial-genomics",
+        "categories": [
+          "microbial-genomics",
+          "typing",
+          "mlst",
+          "blast"
+        ],
+        "keywords": [
+          "mlst",
+          "pubmlst",
+          "sequence typing",
+          "bacterial typing",
+          "contigs",
+          "blast",
+          "alleles",
+          "sequence type"
+        ],
+        "summary": "mlst 2.35.0 runtime for scanning assemblies against bundled PubMLST typing scheme snapshots.",
+        "description": "mlst 2.35.0 runtime for scanning assemblies against bundled PubMLST typing scheme snapshots."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/mlst:2.35.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.35.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:07ec4cb766be66390e5f8359f8ed8e7455fed25d6a8724578c020f555f18c652",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0709c87c29f48e24c1625592d8e8d97380d51331c8030b59e3c1786f4068e726",
+          "linux/arm64": "sha256:c6dcaa99a34fbf7f910e57ac4f43b5c4c25c0f9b21741649a84b691cda98938b"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "mlst",
+          "mlst-make_blast_db",
+          "blastn",
+          "makeblastdb",
+          "any2fasta",
+          "perl",
+          "gzip",
+          "bzip2",
+          "unzip",
+          "bash",
+          "sh",
+          "grep",
+          "sed",
+          "awk",
+          "find"
+        ],
+        "test": [
+          "mlst --version 2>&1 | grep -Fx 'mlst 2.35.0' >/dev/null && mlst --help 2>&1 | grep -F -- '--scheme' >/dev/null && MLST_DBDIR=/opt/mlst/db mlst --info > /tmp/taf-mlst-info-$$.tsv && grep -F 'LOCII' /tmp/taf-mlst-info-$$.tsv >/dev/null && test $(wc -l < /tmp/taf-mlst-info-$$.tsv) -gt 2 && rm -f /tmp/taf-mlst-info-$$.tsv",
+          "micromamba list -n base | grep -E 'blast[[:space:]]+2\\.16\\.0[[:space:]]+' >/dev/null && micromamba list -n base | grep -E 'any2fasta[[:space:]]+0\\.8\\.1[[:space:]]+' >/dev/null && PERL5LIB=/opt/conda/perl5 perl -MPath::Tiny -MList::MoreUtils -MMoo -MJSON -MMLST::PubMLST -MMLST::Scheme -MMLST::Logger -MMLST::Requirements -e 'print q(perl-deps-ok)' | grep -F 'perl-deps-ok' >/dev/null && blastn -version 2>&1 | grep -F 'blastn: 2.16.0+' >/dev/null && makeblastdb -version 2>&1 | grep -F 'makeblastdb: 2.16.0+' >/dev/null && command -v any2fasta >/dev/null && { any2fasta -h 2>&1 || true; } | grep -iF 'any2fasta' >/dev/null",
+          "tmp=/tmp/taf-mlst-full-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/mlst/share/testdata/fixture.fa \"$tmp/fixture.fa\"; cp /opt/mlst/share/testdata/fixture.expected.tsv \"$tmp/expected.tsv\"; scheme=$(cut -f1 \"$tmp/expected.tsv\"); st=$(cut -f2 \"$tmp/expected.tsv\"); mlst --quiet --scheme \"$scheme\" --full \"$tmp/fixture.fa\" > \"$tmp/out.tsv\"; test -s \"$tmp/out.tsv\"; awk -F '\\t' -v s=\"$scheme\" -v st=\"$st\" 'NR==2 && $2==s && $3==st {ok=1} END{exit !ok}' \"$tmp/out.tsv\"; grep -E 'PERFECT|NOVEL|OK' \"$tmp/out.tsv\" >/dev/null; rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-mlst-csv-gzip-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/mlst/share/testdata/fixture.fa \"$tmp/fixture.fa\"; cp /opt/mlst/share/testdata/fixture.expected.tsv \"$tmp/expected.tsv\"; scheme=$(cut -f1 \"$tmp/expected.tsv\"); st=$(cut -f2 \"$tmp/expected.tsv\"); gzip -c \"$tmp/fixture.fa\" > \"$tmp/fixture.fa.gz\"; mlst --quiet --scheme \"$scheme\" --full --csv --outfile \"$tmp/out.csv\" \"$tmp/fixture.fa.gz\"; test -s \"$tmp/out.csv\"; head -n 1 \"$tmp/out.csv\" | grep -F 'FILE,SCHEME,ST,STATUS,SCORE,ALLELES' >/dev/null; grep -F \"$scheme\" \"$tmp/out.csv\" >/dev/null; grep -F \",$st,\" \"$tmp/out.csv\" >/dev/null; rm -rf \"$tmp\"",
+          "test -d /opt/mlst/db/pubmlst && test -s /opt/mlst/db/blast/mlst.fa.nhr && test -s /opt/mlst/share/doc/mlst/source.txt && test -s /opt/mlst/share/testdata/fixture.fa && test -s /opt/mlst/share/testdata/fixture.expected.tsv && command -v mlst-make_blast_db >/dev/null && command -v find >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-21T18:31:14Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-21T18:31:14Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/mlst",
+        "ref": "v2.35.0-r1",
+        "commit": "b72de6429d0bb7887f9bd5ba101a64a2d9f12a94",
+        "html_url": "https://github.com/taffish/mlst/tree/v2.35.0-r1"
+      },
+      "upstream": {
+        "name": "mlst",
+        "type": "github",
+        "homepage": "https://github.com/tseemann/mlst",
+        "repository": "tseemann/mlst",
+        "release_url": "https://github.com/tseemann/mlst/releases/tag/v2.35.0",
+        "version": "2.35.0",
+        "license": "GPL-2.0-only; bundled PubMLST-derived database snapshots retain their source citation and access-policy requirements",
+        "citation": "Seemann T. mlst. https://github.com/tseemann/mlst; cite PubMLST according to upstream guidance, including Jolley et al. Wellcome Open Res. 2018;3:124. PMID: 30345391.",
+        "doi": "10.12688/wellcomeopenres.14826.1",
+        "pmid": "30345391"
+      }
+    }
+  }
+}
