@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-23T05:15:00Z",
+  "generated_at": "2026-06-23T10:15:15Z",
   "organization": "taffish",
   "counts": {
-    "packages": 183,
-    "versions": 288,
-    "commands": 183,
-    "repositories": 183,
+    "packages": 184,
+    "versions": 289,
+    "commands": 184,
+    "repositories": 184,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -35203,6 +35203,136 @@
         }
       }
     },
+    "vamb": {
+      "name": "vamb",
+      "latest": "5.0.4-r1",
+      "recent_version": "5.0.4-r1",
+      "recent_at": "2026-06-23T10:11:22Z",
+      "repository_url": "https://github.com/taffish/vamb",
+      "command": {
+        "name": "taf-vamb"
+      },
+      "versions": {
+        "5.0.4-r1": {
+          "name": "vamb",
+          "kind": "tool",
+          "version": "5.0.4",
+          "release": 1,
+          "version_id": "5.0.4-r1",
+          "tag": "v5.0.4-r1",
+          "published_at": "2026-06-23T10:11:22Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/vamb",
+          "repository_slug": "taffish/vamb",
+          "command": {
+            "name": "taf-vamb"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "binning",
+              "deep-learning",
+              "taxonomy",
+              "assembly"
+            ],
+            "keywords": [
+              "vamb",
+              "taxvamb",
+              "taxometer",
+              "avamb",
+              "recluster",
+              "metagenomic-binning",
+              "mag",
+              "vae",
+              "abundance",
+              "composition",
+              "pytorch"
+            ],
+            "summary": "Variational autoencoder based metagenomic binning and taxonomy refinement.",
+            "description": "Variational autoencoder based metagenomic binning and taxonomy refinement."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/vamb:5.0.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.0.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5b9d2d76e4ed56265c4546688c1ef407ea6d3dd90779171e06d14072e68efebc",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:147fd2a4808e91a4ce7cd2e510bab9315444f972ec2f9ded1a80e55fc5b1b5e9"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "vamb",
+              "vamb-concatenate",
+              "vamb-merge-aemb",
+              "python",
+              "sh",
+              "grep",
+              "find",
+              "gzip"
+            ],
+            "test": [
+              "python -c 'import importlib.metadata as md; import vamb, torch, pycoverm, pyhmmer, pyrodigal, vambcore, networkx, sklearn, dadaptation, loguru; assert md.version(\"vamb\") == \"5.0.4\"; print(md.version(\"vamb\"))' | grep -Fx '5.0.4' >/dev/null",
+              "vamb --version 2>&1 | grep -F '5.0.4' >/dev/null && vamb --help 2>&1 | grep -F 'bin' >/dev/null && vamb bin --help 2>&1 | grep -F 'default' >/dev/null && vamb bin default --help 2>&1 | grep -F -- '--abundance_tsv' >/dev/null && vamb bin taxvamb --help 2>&1 | grep -F -- '--taxonomy' >/dev/null && vamb bin avamb --help 2>&1 | grep -F -- '--abundance_tsv' >/dev/null && vamb taxometer --help 2>&1 | grep -F -- '--taxonomy' >/dev/null && vamb recluster --help 2>&1 | grep -F -- '--latent_path' >/dev/null",
+              "vamb-concatenate --help 2>&1 | grep -F 'Creates the input FASTA file' >/dev/null && vamb-merge-aemb --help 2>&1 | grep -F 'Merge output files' >/dev/null",
+              "/opt/vamb/share/testdata/vamb-smoke-helpers.sh"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-23T10:15:15Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-23T10:15:15Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/vamb",
+            "ref": "v5.0.4-r1",
+            "commit": "69ef85ae1466de6acd1443971564870f18b8f1af",
+            "html_url": "https://github.com/taffish/vamb/tree/v5.0.4-r1"
+          },
+          "upstream": {
+            "name": "Vamb",
+            "type": "github",
+            "homepage": "https://github.com/RasmussenLab/vamb",
+            "repository": "RasmussenLab/vamb",
+            "release_url": "https://github.com/RasmussenLab/vamb/releases/tag/v5.0.4",
+            "version": "5.0.4",
+            "license": "MIT",
+            "citation": "Nissen et al. 2021, VAMB: Variational Autoencoders for Metagenomic Binning; TaxVamb and Taxometer publications documented upstream",
+            "doi": "10.1038/s41587-020-00777-4; 10.1038/s41587-026-03098-0; 10.1038/s41467-024-52771-y; 10.1038/s42003-023-05452-3"
+          }
+        }
+      }
+    },
     "vcftools": {
       "name": "vcftools",
       "latest": "0.1.17-r1",
@@ -36861,6 +36991,10 @@
       "package": "uniprot-idmapping",
       "version": "0.1.0-r1"
     },
+    "taf-vamb": {
+      "package": "vamb",
+      "version": "5.0.4-r1"
+    },
     "taf-vcftools": {
       "package": "vcftools",
       "version": "0.1.17-r1"
@@ -37945,6 +38079,12 @@
       "repository": "taffish/uniprot-idmapping",
       "packages": [
         "uniprot-idmapping"
+      ]
+    },
+    "taffish/vamb": {
+      "repository": "taffish/vamb",
+      "packages": [
+        "vamb"
       ]
     },
     "taffish/vcftools": {
