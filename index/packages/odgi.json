@@ -1,0 +1,127 @@
+{
+  "name": "odgi",
+  "latest": "0.9.4-r1",
+  "recent_version": "0.9.4-r1",
+  "recent_at": "2026-06-24T07:11:10Z",
+  "repository_url": "https://github.com/taffish/odgi",
+  "command": {
+    "name": "taf-odgi"
+  },
+  "versions": {
+    "0.9.4-r1": {
+      "name": "odgi",
+      "kind": "tool",
+      "version": "0.9.4",
+      "release": 1,
+      "version_id": "0.9.4-r1",
+      "tag": "v0.9.4-r1",
+      "published_at": "2026-06-24T07:11:10Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/odgi",
+      "repository_slug": "taffish/odgi",
+      "command": {
+        "name": "taf-odgi"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "pangenome",
+        "categories": [
+          "pangenome",
+          "sequence-graph",
+          "variation-graph",
+          "graph-analysis",
+          "visualization"
+        ],
+        "keywords": [
+          "odgi",
+          "gfa",
+          "pangenome graph",
+          "variation graph",
+          "graph statistics",
+          "graph layout",
+          "graph visualization",
+          "gfav1"
+        ],
+        "summary": "ODGI 0.9.4 command-line runtime for building, validating, transforming, analyzing, sorting, and visualizing pangenome variation graphs.",
+        "description": "ODGI 0.9.4 command-line runtime for building, validating, transforming, analyzing, sorting, and visualizing pangenome variation graphs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/odgi:0.9.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.9.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:1be250b25e5eb75185d93b2f7feaebfda5312bc5db1772209a492537e925f106",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b62a4710436befa193a6b866bf623f81e6ce60a6a77659a3ae28a88a3d7ee007",
+          "linux/arm64": "sha256:561b8672d94224dce3d6191e2885d2dda96b668c7483994995fd4b4d1ee70f16"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "odgi",
+          "python3",
+          "ldd",
+          "sh",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "odgi version -v 2>&1 | grep -F '0.9.4' >/dev/null && micromamba list -n base | grep -E 'odgi[[:space:]]+0[.]9[.]4' >/dev/null",
+          "odgi 2>&1 | grep -F 'usage: odgi <command> [options]' >/dev/null && odgi build --help 2>&1 | grep -F 'Construct a dynamic succinct variation graph' >/dev/null && odgi stats --help 2>&1 | grep -F 'odgi stats' >/dev/null && odgi viz --help 2>&1 | grep -F 'odgi viz' >/dev/null",
+          "ldd \"$(command -v odgi)\" 2>&1 | grep -F 'not found' && exit 1 || true",
+          "/opt/odgi/share/testdata/odgi-smoke.sh /tmp/taf-odgi-index-smoke-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-24T07:17:52Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-24T07:17:52Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/odgi",
+        "ref": "v0.9.4-r1",
+        "commit": "c7265a53cecad18e1fb677fb488c86215486cb07",
+        "html_url": "https://github.com/taffish/odgi/tree/v0.9.4-r1"
+      },
+      "upstream": {
+        "name": "odgi",
+        "type": "github",
+        "homepage": "https://github.com/pangenome/odgi",
+        "repository": "pangenome/odgi",
+        "release_url": "https://github.com/pangenome/odgi/releases/tag/v0.9.4",
+        "version": "0.9.4",
+        "license": "MIT",
+        "citation": "Guarracino, Heumos, Nahnsen, Prins, and Garrison 2022, ODGI: understanding pangenome graphs, Bioinformatics",
+        "doi": "10.1093/bioinformatics/btac308"
+      }
+    }
+  }
+}
