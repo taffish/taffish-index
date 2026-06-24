@@ -1,0 +1,135 @@
+{
+  "name": "wfmash",
+  "latest": "0.24.2-r1",
+  "recent_version": "0.24.2-r1",
+  "recent_at": "2026-06-24T11:35:48Z",
+  "repository_url": "https://github.com/taffish/wfmash",
+  "command": {
+    "name": "taf-wfmash"
+  },
+  "versions": {
+    "0.24.2-r1": {
+      "name": "wfmash",
+      "kind": "tool",
+      "version": "0.24.2",
+      "release": 1,
+      "version_id": "0.24.2-r1",
+      "tag": "v0.24.2-r1",
+      "published_at": "2026-06-24T11:35:48Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/wfmash",
+      "repository_slug": "taffish/wfmash",
+      "command": {
+        "name": "taf-wfmash"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "pangenome",
+        "categories": [
+          "pangenome",
+          "sequence-alignment",
+          "whole-genome-alignment",
+          "mapping",
+          "comparative-genomics"
+        ],
+        "keywords": [
+          "wfmash",
+          "pangenome",
+          "whole-genome alignment",
+          "pairwise alignment",
+          "paf",
+          "sam",
+          "mashmap",
+          "wfa",
+          "wavefront alignment",
+          "pggb"
+        ],
+        "summary": "wfmash 0.24.2 command-line runtime for pangenome-scale whole-genome pairwise mapping and base-level alignment.",
+        "description": "wfmash 0.24.2 command-line runtime for pangenome-scale whole-genome pairwise mapping and base-level alignment."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/wfmash:0.24.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.24.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:1c124790ecfb65e7484af7c97933d5b20db43958da0c8165995381e87cc6c72f",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:8a3a8fc1a093c847b816098ce2902002a906f7cc8982d5b3da788f7454db0372",
+          "linux/arm64": "sha256:841bfc13f4c0dc03ceb3dc8318e09855713d55576beb9478b2448022e84ba86f"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "wfmash",
+          "samtools",
+          "bgzip",
+          "tabix",
+          "python3",
+          "wfmash-split-approx-mappings",
+          "micromamba",
+          "ldd",
+          "bash",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "wfmash --version 2>&1 | grep -F '0.24.2' >/dev/null && micromamba list -n base | grep -E 'wfmash[[:space:]]+0[.]24[.]2' >/dev/null",
+          "{ wfmash --help 2>&1 || true; } | grep -F 'wfmash [target.fa] [query.fa] {OPTIONS}' >/dev/null && { wfmash --help 2>&1 || true; } | grep -F -- '--approx-mapping' >/dev/null",
+          "samtools --version 2>&1 | grep -F 'samtools 1.21' >/dev/null && bgzip --help 2>&1 | grep -F 'Version: 1.21' >/dev/null && tabix --version 2>&1 | grep -F 'tabix (htslib) 1.21' >/dev/null",
+          "ldd \"$(command -v wfmash)\" > /tmp/taf-wfmash-ldd.txt 2>&1; if grep -F 'not found' /tmp/taf-wfmash-ldd.txt; then exit 1; fi",
+          "/opt/wfmash/share/testdata/wfmash-smoke.sh /tmp/taf-wfmash-index-smoke-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-24T12:23:28Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-24T12:23:28Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/wfmash",
+        "ref": "v0.24.2-r1",
+        "commit": "fe592e42f3af994ba86e6a90bfc09bce57c54402",
+        "html_url": "https://github.com/taffish/wfmash/tree/v0.24.2-r1"
+      },
+      "upstream": {
+        "name": "wfmash",
+        "type": "github",
+        "homepage": "https://github.com/waveygang/wfmash",
+        "repository": "waveygang/wfmash",
+        "release_url": "https://github.com/waveygang/wfmash/releases/tag/v0.24.2",
+        "version": "0.24.2",
+        "license": "MIT",
+        "citation": "Guarracino, Mwaniki, Marco-Sola, and Garrison, wfmash: whole-chromosome pairwise alignment using the hierarchical wavefront algorithm",
+        "doi": "10.5281/zenodo.6949373"
+      }
+    }
+  }
+}
