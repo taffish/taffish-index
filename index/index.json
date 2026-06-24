@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-24T07:17:52Z",
+  "generated_at": "2026-06-24T11:01:44Z",
   "organization": "taffish",
   "counts": {
-    "packages": 188,
-    "versions": 293,
-    "commands": 188,
-    "repositories": 188,
+    "packages": 189,
+    "versions": 294,
+    "commands": 189,
+    "repositories": 189,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -36314,6 +36314,139 @@
         }
       }
     },
+    "vg": {
+      "name": "vg",
+      "latest": "1.75.0-r1",
+      "recent_version": "1.75.0-r1",
+      "recent_at": "2026-06-24T07:58:02Z",
+      "repository_url": "https://github.com/taffish/vg",
+      "command": {
+        "name": "taf-vg"
+      },
+      "versions": {
+        "1.75.0-r1": {
+          "name": "vg",
+          "kind": "tool",
+          "version": "1.75.0",
+          "release": 1,
+          "version_id": "1.75.0-r1",
+          "tag": "v1.75.0-r1",
+          "published_at": "2026-06-24T07:58:02Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/vg",
+          "repository_slug": "taffish/vg",
+          "command": {
+            "name": "taf-vg"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "pangenome",
+            "categories": [
+              "pangenome",
+              "variation-graph",
+              "graph-alignment",
+              "genotyping",
+              "variant-calling"
+            ],
+            "keywords": [
+              "vg",
+              "variation graph",
+              "pangenome graph",
+              "gfa",
+              "gbz",
+              "xg",
+              "gcsa2",
+              "gam",
+              "giraffe",
+              "genotyping",
+              "variant calling",
+              "graph construction"
+            ],
+            "summary": "VG 1.75.0 command-line runtime for constructing, indexing, mapping, genotyping, calling, and converting variation graphs and pangenome graph data.",
+            "description": "VG 1.75.0 command-line runtime for constructing, indexing, mapping, genotyping, calling, and converting variation graphs and pangenome graph data."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/vg:1.75.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.75.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:893356281ccd80e2a358296a6e0ee88540064cdb8bbbc2573f49f30d67f3e955",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:82735f8d650ed93293b36606955a0c751ea59e57ebe2a2407c0be7c6a22bc3e9",
+              "linux/arm64": "sha256:7e025479f902e77c0e495b895ccbb4878a88f68be46d411ad2bbeeb3355bf7ee"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "vg",
+              "samtools",
+              "bgzip",
+              "tabix",
+              "ldd",
+              "bash",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "vg version 2>&1 | grep -F 'vg version v1.75.0' >/dev/null",
+              "{ vg help 2>&1 || true; } | grep -F 'usage: vg <command> [options]' >/dev/null && { vg construct --help 2>&1 || true; } | grep -F 'usage: vg construct' >/dev/null && { vg index --help 2>&1 || true; } | grep -F 'usage: vg index' >/dev/null && { vg stats --help 2>&1 || true; } | grep -F 'usage: vg stats' >/dev/null",
+              "ldd \"$(command -v vg)\" > /tmp/taf-vg-ldd.txt 2>&1 || true; grep -F 'not a dynamic executable' /tmp/taf-vg-ldd.txt >/dev/null",
+              "/opt/vg/share/testdata/vg-smoke.sh /tmp/taf-vg-index-smoke-$$"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-24T11:01:44Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-24T11:01:44Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/vg",
+            "ref": "v1.75.0-r1",
+            "commit": "60ffaa31b9d0c191f8302705c469d112a27a7eae",
+            "html_url": "https://github.com/taffish/vg/tree/v1.75.0-r1"
+          },
+          "upstream": {
+            "name": "vg",
+            "type": "github",
+            "homepage": "https://github.com/vgteam/vg",
+            "repository": "vgteam/vg",
+            "release_url": "https://github.com/vgteam/vg/releases/tag/v1.75.0",
+            "version": "1.75.0",
+            "license": "MIT",
+            "citation": "Garrison et al. 2018, Variation graph toolkit improves read mapping by representing genetic variation in the reference, Nature Biotechnology",
+            "doi": "10.1038/nbt.4227"
+          }
+        }
+      }
+    },
     "weblogo": {
       "name": "weblogo",
       "latest": "3.9.0-r1",
@@ -37575,6 +37708,10 @@
       "package": "verkko",
       "version": "2.3.2-r1"
     },
+    "taf-vg": {
+      "package": "vg",
+      "version": "1.75.0-r1"
+    },
     "taf-weblogo": {
       "package": "weblogo",
       "version": "3.9.0-r1"
@@ -38695,6 +38832,12 @@
       "repository": "taffish/verkko",
       "packages": [
         "verkko"
+      ]
+    },
+    "taffish/vg": {
+      "repository": "taffish/vg",
+      "packages": [
+        "vg"
       ]
     },
     "taffish/weblogo": {
