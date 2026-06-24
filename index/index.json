@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-24T05:12:05Z",
+  "generated_at": "2026-06-24T05:31:11Z",
   "organization": "taffish",
   "counts": {
-    "packages": 185,
-    "versions": 290,
-    "commands": 185,
-    "repositories": 185,
+    "packages": 186,
+    "versions": 291,
+    "commands": 186,
+    "repositories": 186,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -14085,6 +14085,158 @@
             "citation": "Heinz S, Benner C, Spann N, Bertolino E et al. Simple Combinations of Lineage-Determining Transcription Factors Prime cis-Regulatory Elements Required for Macrophage and B Cell Identities. Mol Cell. 2010;38(4):576-589.",
             "doi": "10.1016/j.molcel.2010.05.004",
             "pmid": "20513432"
+          }
+        }
+      }
+    },
+    "humann": {
+      "name": "humann",
+      "latest": "3.9-r1",
+      "recent_version": "3.9-r1",
+      "recent_at": "2026-06-24T05:18:20Z",
+      "repository_url": "https://github.com/taffish/humann",
+      "command": {
+        "name": "taf-humann"
+      },
+      "versions": {
+        "3.9-r1": {
+          "name": "humann",
+          "kind": "tool",
+          "version": "3.9",
+          "release": 1,
+          "version_id": "3.9-r1",
+          "tag": "v3.9-r1",
+          "published_at": "2026-06-24T05:18:20Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/humann",
+          "repository_slug": "taffish/humann",
+          "command": {
+            "name": "taf-humann"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "metatranscriptomics",
+              "functional-profiling",
+              "microbiome",
+              "pathway-analysis"
+            ],
+            "keywords": [
+              "humann",
+              "biobakery",
+              "metagenomic-functional-profiling",
+              "metatranscriptomic-profiling",
+              "chocophlan",
+              "uniref",
+              "metacyc",
+              "diamond",
+              "bowtie2"
+            ],
+            "summary": "Microbial community functional profiling from metagenomic or metatranscriptomic reads.",
+            "description": "Microbial community functional profiling from metagenomic or metatranscriptomic reads."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/humann:3.9-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.9-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e2363ee91f5595c958892f8ed7ebc34e72f8010c32467e1c795afebdaf7f0e52",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1933f3d46edf73e0bfaf7a5c0ef54f70519a30a975d5ab8fbaa4093b286df70f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "humann",
+              "humann3",
+              "humann_config",
+              "humann_databases",
+              "humann3_databases",
+              "humann_join_tables",
+              "humann_reduce_table",
+              "humann_renorm_table",
+              "humann_split_table",
+              "humann_split_stratified_table",
+              "humann_regroup_table",
+              "humann_rename_table",
+              "humann_unpack_pathways",
+              "humann_barplot",
+              "humann_benchmark",
+              "humann_build_custom_database",
+              "humann_expand_cluster",
+              "humann_genefamilies_genus_level",
+              "humann_infer_taxonomy",
+              "humann_test",
+              "metaphlan",
+              "bowtie2",
+              "bowtie2-build",
+              "diamond",
+              "samtools",
+              "glpsol",
+              "python",
+              "python3",
+              "sh",
+              "grep",
+              "gzip",
+              "bzip2"
+            ],
+            "test": [
+              "python -c 'import humann, metaphlan, biom, matplotlib; print(\"humann-import-ok\")' | grep -Fx 'humann-import-ok' >/dev/null",
+              "humann --version 2>&1 | grep -F '3.9' >/dev/null && humann3 --version 2>&1 | grep -F '3.9' >/dev/null && humann --help 2>&1 | grep -F -- '--input' >/dev/null && humann_databases --help 2>&1 | grep -F -- '--download' >/dev/null && humann3_databases --help 2>&1 | grep -F -- '--download' >/dev/null && humann_config --print 2>&1 | grep -F 'database' >/dev/null",
+              "humann_join_tables --help 2>&1 | grep -F -- '--input' >/dev/null && humann_reduce_table --help 2>&1 | grep -F -- '--function' >/dev/null && humann_renorm_table --help 2>&1 | grep -F -- '--units' >/dev/null && humann_split_stratified_table --help 2>&1 | grep -F -- '--output' >/dev/null && humann_barplot --help 2>&1 | grep -F -- '--input' >/dev/null && humann_build_custom_database --help 2>&1 | grep -F -- '--input' >/dev/null && humann_genefamilies_genus_level --help 2>&1 | grep -F -- '--input' >/dev/null",
+              "/opt/humann/share/testdata/humann-smoke.sh"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-24T05:31:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-24T05:31:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/humann",
+            "ref": "v3.9-r1",
+            "commit": "f0b61f064a643099db90e0b7d11372c1e2cf7394",
+            "html_url": "https://github.com/taffish/humann/tree/v3.9-r1"
+          },
+          "upstream": {
+            "name": "HUMAnN",
+            "type": "github",
+            "homepage": "https://huttenhower.sph.harvard.edu/humann",
+            "repository": "biobakery/humann",
+            "release_url": "https://github.com/biobakery/humann/tree/v3.9",
+            "version": "v3.9",
+            "license": "MIT",
+            "citation": "Beghini et al. 2021, eLife, Integrating taxonomic, functional, and strain-level profiling of diverse microbial communities with bioBakery 3",
+            "doi": "10.7554/eLife.65088"
           }
         }
       }
@@ -36723,6 +36875,10 @@
       "package": "homer",
       "version": "5.1-r1"
     },
+    "taf-humann": {
+      "package": "humann",
+      "version": "3.9-r1"
+    },
     "taf-igv": {
       "package": "igv",
       "version": "2.19.8-r1"
@@ -37611,6 +37767,12 @@
       "repository": "taffish/homer",
       "packages": [
         "homer"
+      ]
+    },
+    "taffish/humann": {
+      "repository": "taffish/humann",
+      "packages": [
+        "humann"
       ]
     },
     "taffish/igv": {
