@@ -1,0 +1,131 @@
+{
+  "name": "vsearch",
+  "latest": "2.31.0-r1",
+  "recent_version": "2.31.0-r1",
+  "recent_at": "2026-06-25T17:26:01Z",
+  "repository_url": "https://github.com/taffish/vsearch",
+  "command": {
+    "name": "taf-vsearch"
+  },
+  "versions": {
+    "2.31.0-r1": {
+      "name": "vsearch",
+      "kind": "tool",
+      "version": "2.31.0",
+      "release": 1,
+      "version_id": "2.31.0-r1",
+      "tag": "v2.31.0-r1",
+      "published_at": "2026-06-25T17:26:01Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/vsearch",
+      "repository_slug": "taffish/vsearch",
+      "command": {
+        "name": "taf-vsearch"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "microbiome",
+        "categories": [
+          "microbiome",
+          "amplicon-analysis",
+          "sequence-search",
+          "clustering",
+          "quality-control"
+        ],
+        "keywords": [
+          "vsearch",
+          "microbiome",
+          "amplicon",
+          "otu",
+          "chimera",
+          "clustering",
+          "dereplication",
+          "fastq",
+          "fasta",
+          "usearch"
+        ],
+        "summary": "VSEARCH 2.31.0 command-line runtime for amplicon and metagenomic sequence searching, clustering, dereplication, chimera detection, and FASTA/FASTQ processing.",
+        "description": "VSEARCH 2.31.0 command-line runtime for amplicon and metagenomic sequence searching, clustering, dereplication, chimera detection, and FASTA/FASTQ processing."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/vsearch:2.31.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.31.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:c15d59a6cf442cfb8e9671260a6679260eae9b22a690eda787650d8103c844dc",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:1f823042288c5f09565a7b2c211c2fa0a0b2f55467e2934b80f834d644f507b7",
+          "linux/arm64": "sha256:508ca001c28d0161920aabaf86f8802e43a9de34b543945b43b7190c5056ee37"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "vsearch",
+          "gzip",
+          "bzip2",
+          "ldd",
+          "sh",
+          "bash",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "vsearch --version 2>&1 | grep -F 'vsearch v2.31.0' >/dev/null",
+          "vsearch --help 2>&1 | grep -F -- '--usearch_global' >/dev/null && vsearch --help 2>&1 | grep -F -- '--fastq_mergepairs' >/dev/null && vsearch --help 2>&1 | grep -F -- '--uchime_denovo' >/dev/null",
+          "ldd \"$(command -v vsearch)\" > /tmp/taf-vsearch-ldd.txt 2>&1 || true; if grep -F 'not found' /tmp/taf-vsearch-ldd.txt; then exit 1; fi",
+          "/opt/vsearch/share/testdata/vsearch-smoke.sh /tmp/taf-vsearch-index-smoke-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-25T17:28:32Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-25T17:28:32Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/vsearch",
+        "ref": "v2.31.0-r1",
+        "commit": "945c9288a54f2c25360ecd7bd21b7a7d196fdf66",
+        "html_url": "https://github.com/taffish/vsearch/tree/v2.31.0-r1"
+      },
+      "upstream": {
+        "name": "VSEARCH",
+        "type": "github",
+        "homepage": "https://github.com/torognes/vsearch",
+        "repository": "torognes/vsearch",
+        "release_url": "https://github.com/torognes/vsearch/releases/tag/v2.31.0",
+        "version": "2.31.0",
+        "license": "GPL-3.0-or-later OR BSD-2-Clause",
+        "citation": "Rognes et al. 2016, VSEARCH: a versatile open source tool for metagenomics, PeerJ",
+        "doi": "10.7717/peerj.2584"
+      }
+    }
+  }
+}
