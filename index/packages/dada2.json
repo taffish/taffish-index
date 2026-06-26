@@ -1,0 +1,131 @@
+{
+  "name": "dada2",
+  "latest": "1.40.0-r1",
+  "recent_version": "1.40.0-r1",
+  "recent_at": "2026-06-26T17:56:07Z",
+  "repository_url": "https://github.com/taffish/dada2",
+  "command": {
+    "name": "taf-dada2"
+  },
+  "versions": {
+    "1.40.0-r1": {
+      "name": "dada2",
+      "kind": "tool",
+      "version": "1.40.0",
+      "release": 1,
+      "version_id": "1.40.0-r1",
+      "tag": "v1.40.0-r1",
+      "published_at": "2026-06-26T17:56:07Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/dada2",
+      "repository_slug": "taffish/dada2",
+      "command": {
+        "name": "taf-dada2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "microbiome",
+        "categories": [
+          "microbiome",
+          "amplicon-analysis",
+          "bioconductor",
+          "asv",
+          "taxonomy"
+        ],
+        "keywords": [
+          "dada2",
+          "bioconductor",
+          "r",
+          "amplicon",
+          "asv",
+          "microbiome",
+          "16s",
+          "its",
+          "fastq",
+          "taxonomy",
+          "chimera"
+        ],
+        "summary": "Bioconductor DADA2 1.40.0 R runtime for exact amplicon sequence variant inference, chimera removal, and taxonomy assignment.",
+        "description": "Bioconductor DADA2 1.40.0 R runtime for exact amplicon sequence variant inference, chimera removal, and taxonomy assignment."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/dada2:1.40.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.40.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:5c580b950c17d1a5b14a09dd0d361035c4e27e69cecf9892c5e02dd861796057",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0803e3190a1ce341744aebae2e0f1568699b906f0e3d1cecb4d01c450d5180d3",
+          "linux/arm64": "sha256:2d60fe770416c860f837a2db743020ecdc537974762208c105c609d43b166314"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "R",
+          "Rscript",
+          "dada2-runtime-info",
+          "bash",
+          "grep",
+          "sed",
+          "gzip"
+        ],
+        "test": [
+          "Rscript --version 2>&1 | grep -F 'Rscript (R) version 4.6.0' >/dev/null && Rscript -e 'stopifnot(as.character(BiocManager::version()) == \"3.23\"); stopifnot(as.character(packageVersion(\"dada2\")) == \"1.40.0\")' && dada2-runtime-info | grep -F 'dada2\t1.40.0' >/dev/null",
+          "Rscript -e 'pkgs <- c(\"dada2\",\"Biostrings\",\"ShortRead\",\"Rcpp\",\"RcppParallel\",\"IRanges\",\"XVector\",\"BiocGenerics\",\"ggplot2\",\"reshape2\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly=TRUE)]; if (length(missing)) stop(paste(\"missing\", paste(missing, collapse=\",\")))'",
+          "Rscript -e 'suppressPackageStartupMessages(library(dada2)); fs <- c(\"filterAndTrim\",\"derepFastq\",\"dada\",\"makeSequenceTable\",\"removeBimeraDenovo\",\"assignTaxonomy\"); missing <- fs[!vapply(fs, exists, logical(1), where=asNamespace(\"dada2\"), inherits=FALSE)]; if (length(missing)) stop(paste(\"missing functions\", paste(missing, collapse=\",\")))'",
+          "tmp=/tmp/taf-dada2-index-smoke-$$; rm -rf \"$tmp\"; Rscript /opt/dada2/share/testdata/dada2-smoke.R \"$tmp\" | grep -F 'dada2_smoke_ok' >/dev/null && test -s \"$tmp/sequence_table_nochim.tsv\" && test -s \"$tmp/taxonomy.tsv\" && test -s \"$tmp/filter_track.tsv\" && grep -F 'dada2_version\t1.40.0' \"$tmp/smoke_summary.tsv\" >/dev/null && rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-26T19:55:01Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-26T19:55:01Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/dada2",
+        "ref": "v1.40.0-r1",
+        "commit": "942415067924df029b479e8af95178c36dc33bff",
+        "html_url": "https://github.com/taffish/dada2/tree/v1.40.0-r1"
+      },
+      "upstream": {
+        "name": "DADA2",
+        "type": "official",
+        "homepage": "https://benjjneb.github.io/dada2/",
+        "repository": "benjjneb/dada2",
+        "release_url": "https://bioconductor.org/packages/release/bioc/html/dada2.html",
+        "version": "1.40.0",
+        "license": "LGPL-2",
+        "citation": "Callahan et al. 2016, DADA2: High-resolution sample inference from Illumina amplicon data, Nature Methods",
+        "doi": "10.1038/nmeth.3869"
+      }
+    }
+  }
+}
