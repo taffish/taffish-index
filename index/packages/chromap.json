@@ -1,0 +1,125 @@
+{
+  "name": "chromap",
+  "latest": "0.3.2-r1",
+  "recent_version": "0.3.2-r1",
+  "recent_at": "2026-06-27T17:57:21Z",
+  "repository_url": "https://github.com/taffish/chromap",
+  "command": {
+    "name": "taf-chromap"
+  },
+  "versions": {
+    "0.3.2-r1": {
+      "name": "chromap",
+      "kind": "tool",
+      "version": "0.3.2",
+      "release": 1,
+      "version_id": "0.3.2-r1",
+      "tag": "v0.3.2-r1",
+      "published_at": "2026-06-27T17:57:21Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/chromap",
+      "repository_slug": "taffish/chromap",
+      "command": {
+        "name": "taf-chromap"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "chromatin-profiling",
+        "categories": [
+          "chromatin-profiling",
+          "read-alignment",
+          "atac-seq",
+          "chip-seq",
+          "hi-c",
+          "single-cell"
+        ],
+        "keywords": [
+          "chromap",
+          "atac-seq",
+          "scatac-seq",
+          "chip-seq",
+          "hi-c",
+          "bed",
+          "sam",
+          "pairs",
+          "barcode"
+        ],
+        "summary": "Fast alignment and preprocessing of chromatin profiling reads, including bulk ATAC-seq, single-cell ATAC-seq, ChIP-seq, and Hi-C presets.",
+        "description": "Fast alignment and preprocessing of chromatin profiling reads, including bulk ATAC-seq, single-cell ATAC-seq, ChIP-seq, and Hi-C presets."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/chromap:0.3.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.3.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:a5eabc36c2360408217dc88960d1dc13412a1bd69ca55206ba266c95a9e0baf9",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:1f4a72a5d58adbc25d70df114e58902e3e944ad1fb1bb4d0d9647e6b557248ac"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "chromap",
+          "chromap-smoke.sh",
+          "gzip",
+          "bash"
+        ],
+        "test": [
+          "chromap -v 2>&1 | grep -Fx '0.3.2-r518' >/dev/null",
+          "chromap -h 2>&1 | grep -F 'Fast alignment and preprocessing of chromatin profiles' >/dev/null && chromap -h 2>&1 | grep -F -- '--preset' >/dev/null && chromap -h 2>&1 | grep -F -- '--summary' >/dev/null && chromap -h 2>&1 | grep -F -- '--pairs' >/dev/null",
+          "ldd \"$(command -v chromap)\" | grep -F 'libgomp' >/dev/null && ldd \"$(command -v chromap)\" | grep -F 'libz' >/dev/null",
+          "chromap-smoke.sh"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-27T17:59:20Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-27T17:59:20Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/chromap",
+        "ref": "v0.3.2-r1",
+        "commit": "7d624997c9b3698610d391b45d7682508ccfb546",
+        "html_url": "https://github.com/taffish/chromap/tree/v0.3.2-r1"
+      },
+      "upstream": {
+        "name": "Chromap",
+        "type": "github",
+        "homepage": "https://haowenz.github.io/chromap/",
+        "repository": "haowenz/chromap",
+        "release_url": "https://github.com/haowenz/chromap/releases/tag/v0.3.2",
+        "version": "0.3.2",
+        "license": "MIT",
+        "citation": "Zhang et al. 2021; Ahmed et al. 2025",
+        "doi": "10.1038/s41467-021-26865-w; 10.1101/2025.07.15.664951"
+      }
+    }
+  }
+}
