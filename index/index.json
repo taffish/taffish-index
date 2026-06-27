@@ -1,13 +1,13 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-27T17:59:20Z",
+  "generated_at": "2026-06-27T18:14:46Z",
   "organization": "taffish",
   "counts": {
     "packages": 195,
-    "versions": 300,
+    "versions": 298,
     "commands": 195,
     "repositories": 195,
-    "warnings": 1,
+    "warnings": 0,
     "failed": 0,
     "rejected": 8
   },
@@ -4664,139 +4664,6 @@
             "license": "MIT",
             "citation": "Megill et al. 2021. cellxgene: a performant, scalable exploration platform for high dimensional sparse matrices.",
             "doi": "10.1101/2021.04.05.438318"
-          }
-        }
-      }
-    },
-    "checkm2": {
-      "name": "checkm2",
-      "latest": "1.1.0-r1",
-      "recent_version": "1.1.0-r1",
-      "recent_at": "2026-06-07T05:03:51Z",
-      "repository_url": "https://github.com/taffish/checkm2",
-      "command": {
-        "name": "taf-checkm2"
-      },
-      "versions": {
-        "1.1.0-r1": {
-          "name": "checkm2",
-          "kind": "tool",
-          "version": "1.1.0",
-          "release": 1,
-          "version_id": "1.1.0-r1",
-          "tag": "v1.1.0-r1",
-          "published_at": "2026-06-07T05:03:51Z",
-          "published_at_source": "github-release",
-          "license": "Apache-2.0",
-          "repository_url": "https://github.com/taffish/checkm2",
-          "repository_slug": "taffish/checkm2",
-          "command": {
-            "name": "taf-checkm2"
-          },
-          "runtime": {
-            "pipe": true,
-            "command_mode": true
-          },
-          "dependencies": {},
-          "platform": {
-            "os": [],
-            "arch": [],
-            "container": "optional",
-            "min_cpus": null,
-            "min_memory_mb": null
-          },
-          "meta": {
-            "domain": "bio",
-            "category": "metagenomics",
-            "categories": [
-              "metagenomics",
-              "genome-quality",
-              "mag",
-              "sag",
-              "microbial-genomics",
-              "machine-learning"
-            ],
-            "keywords": [
-              "checkm2",
-              "mag",
-              "sag",
-              "genome quality",
-              "completeness",
-              "contamination",
-              "metagenomics",
-              "diamond",
-              "prodigal",
-              "tensorflow",
-              "lightgbm"
-            ],
-            "summary": "CheckM2 1.1.0 runtime for machine-learning assessment of microbial genome-bin completeness and contamination. The compatible DIAMOND database is external project data.",
-            "description": "CheckM2 1.1.0 runtime for machine-learning assessment of microbial genome-bin completeness and contamination. The compatible DIAMOND database is external project data."
-          },
-          "paths": {
-            "main": "src/main.taf",
-            "help": "docs/help.md",
-            "dockerfile": "docker/Dockerfile"
-          },
-          "container": {
-            "image": "ghcr.io/taffish/checkm2:1.1.0-r1",
-            "dockerfile": "docker/Dockerfile",
-            "image_tag": "1.1.0-r1",
-            "image_tag_matches_version": true,
-            "digest": "sha256:b4970e5f01b199c5d86fcfd5ed2ecc84c36356a556c78a6825cf65f1903efd42",
-            "platforms": [
-              "linux/amd64"
-            ],
-            "platform_digests": {
-              "linux/amd64": "sha256:9f0c608085a8502d3a99368549defb76a69c4eeb589a9ca25d4e24332fdd6176"
-            }
-          },
-          "smoke": {
-            "backend": "docker",
-            "timeout": 600,
-            "exist": [
-              "checkm2",
-              "python",
-              "python3",
-              "diamond",
-              "prodigal",
-              "bash",
-              "gzip",
-              "tar"
-            ],
-            "test": [
-              "checkm2 --version 2>&1 | grep -Fx '1.1.0' >/dev/null && checkm2 -h 2>&1 | grep -F 'CheckM2 v1.1.0' >/dev/null && checkm2 predict -h 2>&1 | grep -F -- '--database_path' >/dev/null && checkm2 database -h 2>&1 | grep -F -- '--no_write_json_db' >/dev/null && checkm2 testrun -h 2>&1 | grep -F -- '--database_path' >/dev/null",
-              "python -c 'from checkm2 import version; from checkm2.versionControl import VersionControl; import tensorflow, lightgbm, sklearn, pandas, numpy, scipy; assert version.__version__ == \"1.1.0\"; db = VersionControl().return_highest_compatible_DB_version(); assert db == (\"3\", \"10.5281/zenodo.14897628\"); assert VersionControl().checksum_test_genomes(); print(\"checkm2 python deps ok\")' >/dev/null",
-              "diamond version 2>&1 | grep -F 'diamond version 2.1.11' >/dev/null && prodigal -v 2>&1 | grep -F 'Prodigal V2.6.3' >/dev/null",
-              "tmp=/tmp/taf-checkm2-db-boundary-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; if checkm2 database --current >\"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; fi; grep -F 'DIAMOND database not found' \"$tmp/run.log\" >/dev/null; rm -rf \"$tmp\"",
-              "tmp=/tmp/taf-checkm2-negative-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp/input\"; printf '>tiny\\nATGAAATAA\\n' > \"$tmp/input/tiny.fna\"; if checkm2 testrun --threads 1 --database_path \"$tmp/missing.dmnd\" >\"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; fi; grep -Ei 'File does not exist|No such file|database|DIAMOND' \"$tmp/run.log\" >/dev/null; rm -rf \"$tmp\""
-            ],
-            "status": "passed",
-            "checked_at": "2026-06-07T05:39:34Z",
-            "backend_used": "docker"
-          },
-          "trust": {
-            "status": "passed",
-            "checked_at": "2026-06-07T05:39:34Z",
-            "policy": "taffish.index/trust-v1",
-            "source": "taffish-index"
-          },
-          "source": {
-            "repository": "taffish/checkm2",
-            "ref": "v1.1.0-r1",
-            "commit": "abbf8b898821188f3ecf9226e727e1980953106f",
-            "html_url": "https://github.com/taffish/checkm2/tree/v1.1.0-r1"
-          },
-          "upstream": {
-            "name": "CheckM2",
-            "type": "github",
-            "homepage": "https://github.com/chklovski/CheckM2",
-            "repository": "chklovski/CheckM2",
-            "release_url": "https://github.com/chklovski/CheckM2/releases/tag/1.1.0",
-            "version": "1.1.0",
-            "license": "GPL-3.0",
-            "citation": "Chklovski et al. 2023",
-            "doi": "10.1038/s41592-023-01940-w",
-            "pmid": "37500759"
           }
         }
       }
@@ -22865,6 +22732,145 @@
         }
       }
     },
+    "pfam-scan": {
+      "name": "pfam-scan",
+      "latest": "1.6-r1",
+      "recent_version": "1.6-r1",
+      "recent_at": "2026-06-03T02:50:33Z",
+      "repository_url": "https://github.com/taffish/pfam-scan",
+      "command": {
+        "name": "taf-pfam-scan"
+      },
+      "versions": {
+        "1.6-r1": {
+          "name": "pfam-scan",
+          "kind": "tool",
+          "version": "1.6",
+          "release": 1,
+          "version_id": "1.6-r1",
+          "tag": "v1.6-r1",
+          "published_at": "2026-06-03T02:50:33Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/pfam-scan",
+          "repository_slug": "taffish/pfam-scan",
+          "command": {
+            "name": "taf-pfam-scan"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "functional-annotation",
+            "categories": [
+              "functional-annotation",
+              "protein-annotation",
+              "domain-annotation",
+              "profile-hmm",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "pfam",
+              "pfam-scan",
+              "pfam_scan",
+              "pfam_scan.pl",
+              "hmmer",
+              "hmmscan",
+              "protein-domain",
+              "active-site",
+              "hmm"
+            ],
+            "summary": "Official PfamScan 1.6 pfam_scan.pl runtime for scanning protein FASTA sequences against user-provided Pfam HMM libraries.",
+            "description": "Official PfamScan 1.6 pfam_scan.pl runtime for scanning protein FASTA sequences against user-provided Pfam HMM libraries."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/pfam-scan:1.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:25c5344acd34f8567b73a6193e08366e8f7e15dd8faebe9b805ec35556329a88",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0f5c4cb66ef3db837526cf41ffa1608416e7c77b8a42963f739e0fb46bd546ef",
+              "linux/arm64": "sha256:8bc2f1899abe7999a817fadd525098e337923c20c1223c32c8c0b9f50e81cc7a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "pfam_scan.pl",
+              "perl",
+              "hmmscan",
+              "hmmalign",
+              "hmmbuild",
+              "hmmpress",
+              "hmmstat",
+              "translate",
+              "gzip",
+              "gunzip",
+              "tar",
+              "awk",
+              "sed",
+              "grep",
+              "sh"
+            ],
+            "test": [
+              "grep -F 'my $VERSION = \"1.6\"' /opt/pfam_scan/pfam_scan.pl >/dev/null && pfam_scan.pl -h 2>&1 | grep -F 'pfam_scan.pl: search a FASTA file against a library of Pfam HMMs' >/dev/null && hmmscan -h 2>&1 | grep -F '# HMMER 3.4' >/dev/null && translate -h 2>&1 | grep -F 'translate' >/dev/null",
+              "perl -I/opt/pfam_scan -MBio::Pfam::Scan::PfamScan -MBio::Seq::RichSeq -MIPC::Run -MJSON -e 'print \"pfam perl deps ok\\n\"' | grep -Fx 'pfam perl deps ok' >/dev/null",
+              "mkdir -p /tmp/taf-pfam-scan-smoke && pfam_scan.pl -fasta /opt/pfam_scan/test-fixtures/query.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -outfile /tmp/taf-pfam-scan-smoke/result.txt >/tmp/taf-pfam-scan-smoke/run.log 2>&1 && test -s /tmp/taf-pfam-scan-smoke/result.txt && grep -F 'pfam_scan.pl' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null && grep -F 'smoke_gene' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null && grep -F 'PF99999.1' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null && grep -F 'PFAMSMOKE' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null",
+              "mkdir -p /tmp/taf-pfam-scan-json && pfam_scan.pl -fasta /opt/pfam_scan/test-fixtures/query.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -json pretty >/tmp/taf-pfam-scan-json/result.json 2>/tmp/taf-pfam-scan-json/run.log && test -s /tmp/taf-pfam-scan-json/result.json && grep -F 'smoke_gene' /tmp/taf-pfam-scan-json/result.json >/dev/null && grep -F 'PF99999.1' /tmp/taf-pfam-scan-json/result.json >/dev/null",
+              "mkdir -p /tmp/taf-pfam-scan-as && pfam_scan.pl -fasta /opt/pfam_scan/test-fixtures/query.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -as -outfile /tmp/taf-pfam-scan-as/result.txt >/tmp/taf-pfam-scan-as/run.log 2>&1 && test -s /tmp/taf-pfam-scan-as/result.txt && grep -F 'PF99999.1' /tmp/taf-pfam-scan-as/result.txt >/dev/null",
+              "mkdir -p /tmp/taf-pfam-scan-translate && cp /opt/pfam_scan/test-fixtures/query_dna.fa /tmp/taf-pfam-scan-translate/query_dna.fa && pfam_scan.pl -fasta /tmp/taf-pfam-scan-translate/query_dna.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -translate all -outfile /tmp/taf-pfam-scan-translate/result.txt >/tmp/taf-pfam-scan-translate/run.log 2>&1 && test -s /tmp/taf-pfam-scan-translate/result.txt && test -s /tmp/taf-pfam-scan-translate/query_dna.fa.translated && grep -F 'translate DNA sequence: all' /tmp/taf-pfam-scan-translate/result.txt >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-27T18:14:46Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-27T18:14:46Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/pfam-scan",
+            "ref": "v1.6-r1",
+            "commit": "6f1d9689a2f9e109c89aee9609067d397cdcb00e",
+            "html_url": "https://github.com/taffish/pfam-scan/tree/v1.6-r1"
+          },
+          "upstream": {
+            "name": "PfamScan",
+            "type": "official",
+            "homepage": "https://pfam-docs.readthedocs.io/en/latest/ftp-site.html",
+            "release_url": "https://ftp.ebi.ac.uk/pub/databases/Pfam/Tools/",
+            "version": "1.6",
+            "license": "GPL-2.0-or-later",
+            "citation": "Paysan-Lafosse et al. 2024; Coggill et al. 2008",
+            "doi": "10.1093/nar/gkae997; 10.1002/0471250953.bi0205s23",
+            "pmid": "39540428"
+          }
+        }
+      }
+    },
     "pggb": {
       "name": "pggb",
       "latest": "0.7.4-r1",
@@ -28469,158 +28475,6 @@
         "name": "taf-rnaseq-report-flow"
       },
       "versions": {
-        "0.1.0-r1": {
-          "name": "rnaseq-report-flow",
-          "kind": "flow",
-          "version": "0.1.0",
-          "release": 1,
-          "version_id": "0.1.0-r1",
-          "tag": "v0.1.0-r1",
-          "published_at": "2026-05-26T05:22:09Z",
-          "published_at_source": "github-release",
-          "license": "Apache-2.0",
-          "repository_url": "https://github.com/taffish/rnaseq-report-flow",
-          "repository_slug": "taffish/rnaseq-report-flow",
-          "command": {
-            "name": "taf-rnaseq-report-flow"
-          },
-          "runtime": {
-            "pipe": false,
-            "command_mode": false
-          },
-          "dependencies": {},
-          "platform": {
-            "os": [],
-            "arch": [],
-            "container": "optional",
-            "min_cpus": null,
-            "min_memory_mb": null
-          },
-          "meta": {
-            "domain": "bio",
-            "category": "rna-seq",
-            "categories": [
-              "rna-seq",
-              "report",
-              "workflow",
-              "transcriptomics",
-              "provenance"
-            ],
-            "keywords": [
-              "rnaseq-report-flow",
-              "rna-seq",
-              "report",
-              "summary",
-              "provenance",
-              "html",
-              "transcriptomics"
-            ],
-            "summary": "TAFFISH RNA-seq report flow that collects upstream RNA-seq flow outputs into a static project report, summaries, methods, versions, commands, and provenance.",
-            "description": "TAFFISH RNA-seq report flow that collects upstream RNA-seq flow outputs into a static project report, summaries, methods, versions, commands, and provenance."
-          },
-          "paths": {
-            "main": "src/main.taf",
-            "help": "docs/help.md",
-            "dockerfile": null
-          },
-          "container": null,
-          "smoke": null,
-          "trust": {
-            "status": "not_applicable",
-            "checked_at": "2026-05-26T05:31:31Z",
-            "policy": "taffish.index/trust-v1",
-            "source": "taffish-index"
-          },
-          "source": {
-            "repository": "taffish/rnaseq-report-flow",
-            "ref": "v0.1.0-r1",
-            "commit": "e48f84e8b568d4ab38b13383ebc99b9897d266d3",
-            "html_url": "https://github.com/taffish/rnaseq-report-flow/tree/v0.1.0-r1"
-          },
-          "upstream": {
-            "name": "rnaseq-report-flow",
-            "type": "taffish-flow",
-            "homepage": "https://github.com/taffish/rnaseq-report-flow",
-            "version": "0.1.0",
-            "license": "Apache-2.0"
-          }
-        },
-        "0.1.0-r2": {
-          "name": "rnaseq-report-flow",
-          "kind": "flow",
-          "version": "0.1.0",
-          "release": 2,
-          "version_id": "0.1.0-r2",
-          "tag": "v0.1.0-r2",
-          "published_at": "2026-05-26T18:45:42Z",
-          "published_at_source": "github-release",
-          "license": "Apache-2.0",
-          "repository_url": "https://github.com/taffish/rnaseq-report-flow",
-          "repository_slug": "taffish/rnaseq-report-flow",
-          "command": {
-            "name": "taf-rnaseq-report-flow"
-          },
-          "runtime": {
-            "pipe": false,
-            "command_mode": false
-          },
-          "dependencies": {},
-          "platform": {
-            "os": [],
-            "arch": [],
-            "container": "optional",
-            "min_cpus": null,
-            "min_memory_mb": null
-          },
-          "meta": {
-            "domain": "bio",
-            "category": "rna-seq",
-            "categories": [
-              "rna-seq",
-              "report",
-              "workflow",
-              "transcriptomics",
-              "provenance"
-            ],
-            "keywords": [
-              "rnaseq-report-flow",
-              "rna-seq",
-              "report",
-              "summary",
-              "provenance",
-              "html",
-              "transcriptomics"
-            ],
-            "summary": "TAFFISH RNA-seq report flow that collects upstream RNA-seq flow outputs into a bilingual branded static HTML project report with workflow sections, summaries, plots, QC report links, tool links, methods, versions, commands, and provenance.",
-            "description": "TAFFISH RNA-seq report flow that collects upstream RNA-seq flow outputs into a bilingual branded static HTML project report with workflow sections, summaries, plots, QC report links, tool links, methods, versions, commands, and provenance."
-          },
-          "paths": {
-            "main": "src/main.taf",
-            "help": "docs/help.md",
-            "dockerfile": null
-          },
-          "container": null,
-          "smoke": null,
-          "trust": {
-            "status": "not_applicable",
-            "checked_at": "2026-05-26T18:46:18Z",
-            "policy": "taffish.index/trust-v1",
-            "source": "taffish-index"
-          },
-          "source": {
-            "repository": "taffish/rnaseq-report-flow",
-            "ref": "v0.1.0-r2",
-            "commit": "5375eb1853fcf281f7359a3d591ed09f935f0814",
-            "html_url": "https://github.com/taffish/rnaseq-report-flow/tree/v0.1.0-r2"
-          },
-          "upstream": {
-            "name": "rnaseq-report-flow",
-            "type": "taffish-flow",
-            "homepage": "https://github.com/taffish/rnaseq-report-flow",
-            "version": "0.1.0",
-            "license": "Apache-2.0"
-          }
-        },
         "0.1.0-r3": {
           "name": "rnaseq-report-flow",
           "kind": "flow",
@@ -37827,10 +37681,6 @@
       "package": "cellxgene",
       "version": "1.3.0-r1"
     },
-    "taf-checkm2": {
-      "package": "checkm2",
-      "version": "1.1.0-r1"
-    },
     "taf-chromap": {
       "package": "chromap",
       "version": "0.3.2-r1"
@@ -38190,6 +38040,10 @@
     "taf-pandepth": {
       "package": "pandepth",
       "version": "2.26-r2"
+    },
+    "taf-pfam-scan": {
+      "package": "pfam-scan",
+      "version": "1.6-r1"
     },
     "taf-pggb": {
       "package": "pggb",
@@ -38661,12 +38515,6 @@
       "repository": "taffish/cellxgene",
       "packages": [
         "cellxgene"
-      ]
-    },
-    "taffish/checkm2": {
-      "repository": "taffish/checkm2",
-      "packages": [
-        "checkm2"
       ]
     },
     "taffish/chromap": {
@@ -39209,6 +39057,12 @@
         "pandepth"
       ]
     },
+    "taffish/pfam-scan": {
+      "repository": "taffish/pfam-scan",
+      "packages": [
+        "pfam-scan"
+      ]
+    },
     "taffish/pggb": {
       "repository": "taffish/pggb",
       "packages": [
@@ -39672,11 +39526,5 @@
       ]
     }
   },
-  "warnings": [
-    {
-      "repository": "taffish/cooltools",
-      "ref": "v0.7.1-r2",
-      "message": "docs/help.md does not exist"
-    }
-  ]
+  "warnings": []
 }

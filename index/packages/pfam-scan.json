@@ -1,0 +1,139 @@
+{
+  "name": "pfam-scan",
+  "latest": "1.6-r1",
+  "recent_version": "1.6-r1",
+  "recent_at": "2026-06-03T02:50:33Z",
+  "repository_url": "https://github.com/taffish/pfam-scan",
+  "command": {
+    "name": "taf-pfam-scan"
+  },
+  "versions": {
+    "1.6-r1": {
+      "name": "pfam-scan",
+      "kind": "tool",
+      "version": "1.6",
+      "release": 1,
+      "version_id": "1.6-r1",
+      "tag": "v1.6-r1",
+      "published_at": "2026-06-03T02:50:33Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/pfam-scan",
+      "repository_slug": "taffish/pfam-scan",
+      "command": {
+        "name": "taf-pfam-scan"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "functional-annotation",
+        "categories": [
+          "functional-annotation",
+          "protein-annotation",
+          "domain-annotation",
+          "profile-hmm",
+          "sequence-analysis"
+        ],
+        "keywords": [
+          "pfam",
+          "pfam-scan",
+          "pfam_scan",
+          "pfam_scan.pl",
+          "hmmer",
+          "hmmscan",
+          "protein-domain",
+          "active-site",
+          "hmm"
+        ],
+        "summary": "Official PfamScan 1.6 pfam_scan.pl runtime for scanning protein FASTA sequences against user-provided Pfam HMM libraries.",
+        "description": "Official PfamScan 1.6 pfam_scan.pl runtime for scanning protein FASTA sequences against user-provided Pfam HMM libraries."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/pfam-scan:1.6-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.6-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:25c5344acd34f8567b73a6193e08366e8f7e15dd8faebe9b805ec35556329a88",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0f5c4cb66ef3db837526cf41ffa1608416e7c77b8a42963f739e0fb46bd546ef",
+          "linux/arm64": "sha256:8bc2f1899abe7999a817fadd525098e337923c20c1223c32c8c0b9f50e81cc7a"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "pfam_scan.pl",
+          "perl",
+          "hmmscan",
+          "hmmalign",
+          "hmmbuild",
+          "hmmpress",
+          "hmmstat",
+          "translate",
+          "gzip",
+          "gunzip",
+          "tar",
+          "awk",
+          "sed",
+          "grep",
+          "sh"
+        ],
+        "test": [
+          "grep -F 'my $VERSION = \"1.6\"' /opt/pfam_scan/pfam_scan.pl >/dev/null && pfam_scan.pl -h 2>&1 | grep -F 'pfam_scan.pl: search a FASTA file against a library of Pfam HMMs' >/dev/null && hmmscan -h 2>&1 | grep -F '# HMMER 3.4' >/dev/null && translate -h 2>&1 | grep -F 'translate' >/dev/null",
+          "perl -I/opt/pfam_scan -MBio::Pfam::Scan::PfamScan -MBio::Seq::RichSeq -MIPC::Run -MJSON -e 'print \"pfam perl deps ok\\n\"' | grep -Fx 'pfam perl deps ok' >/dev/null",
+          "mkdir -p /tmp/taf-pfam-scan-smoke && pfam_scan.pl -fasta /opt/pfam_scan/test-fixtures/query.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -outfile /tmp/taf-pfam-scan-smoke/result.txt >/tmp/taf-pfam-scan-smoke/run.log 2>&1 && test -s /tmp/taf-pfam-scan-smoke/result.txt && grep -F 'pfam_scan.pl' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null && grep -F 'smoke_gene' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null && grep -F 'PF99999.1' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null && grep -F 'PFAMSMOKE' /tmp/taf-pfam-scan-smoke/result.txt >/dev/null",
+          "mkdir -p /tmp/taf-pfam-scan-json && pfam_scan.pl -fasta /opt/pfam_scan/test-fixtures/query.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -json pretty >/tmp/taf-pfam-scan-json/result.json 2>/tmp/taf-pfam-scan-json/run.log && test -s /tmp/taf-pfam-scan-json/result.json && grep -F 'smoke_gene' /tmp/taf-pfam-scan-json/result.json >/dev/null && grep -F 'PF99999.1' /tmp/taf-pfam-scan-json/result.json >/dev/null",
+          "mkdir -p /tmp/taf-pfam-scan-as && pfam_scan.pl -fasta /opt/pfam_scan/test-fixtures/query.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -as -outfile /tmp/taf-pfam-scan-as/result.txt >/tmp/taf-pfam-scan-as/run.log 2>&1 && test -s /tmp/taf-pfam-scan-as/result.txt && grep -F 'PF99999.1' /tmp/taf-pfam-scan-as/result.txt >/dev/null",
+          "mkdir -p /tmp/taf-pfam-scan-translate && cp /opt/pfam_scan/test-fixtures/query_dna.fa /tmp/taf-pfam-scan-translate/query_dna.fa && pfam_scan.pl -fasta /tmp/taf-pfam-scan-translate/query_dna.fa -dir /opt/pfam_scan/test-fixtures/pfamdb -cpu 1 -translate all -outfile /tmp/taf-pfam-scan-translate/result.txt >/tmp/taf-pfam-scan-translate/run.log 2>&1 && test -s /tmp/taf-pfam-scan-translate/result.txt && test -s /tmp/taf-pfam-scan-translate/query_dna.fa.translated && grep -F 'translate DNA sequence: all' /tmp/taf-pfam-scan-translate/result.txt >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-27T18:14:46Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-27T18:14:46Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/pfam-scan",
+        "ref": "v1.6-r1",
+        "commit": "6f1d9689a2f9e109c89aee9609067d397cdcb00e",
+        "html_url": "https://github.com/taffish/pfam-scan/tree/v1.6-r1"
+      },
+      "upstream": {
+        "name": "PfamScan",
+        "type": "official",
+        "homepage": "https://pfam-docs.readthedocs.io/en/latest/ftp-site.html",
+        "release_url": "https://ftp.ebi.ac.uk/pub/databases/Pfam/Tools/",
+        "version": "1.6",
+        "license": "GPL-2.0-or-later",
+        "citation": "Paysan-Lafosse et al. 2024; Coggill et al. 2008",
+        "doi": "10.1093/nar/gkae997; 10.1002/0471250953.bi0205s23",
+        "pmid": "39540428"
+      }
+    }
+  }
+}
