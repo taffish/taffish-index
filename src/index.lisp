@@ -507,30 +507,33 @@
       (setf (gethash (record-cache-key record) table) t))
     table))
 
-(defun warning-repository-set (warnings)
-  (let ((table (make-hash-table :test #'equal)))
-    (dolist (warning warnings)
-      (let ((repository (plist-ref warning :repository)))
-        (unless (blank-string-p repository)
-          (setf (gethash (normalize-slug repository) table) t))))
-    table))
+(defun missing-record-warning (record)
+  (warning-record
+   (or (plist-ref record :source-repository)
+       (plist-ref record :repository-slug)
+       "unknown")
+   (plist-ref record :source-ref)
+   (format nil
+           "previous index record ~A is missing from the current scan; preserved until explicitly rejected"
+           (or (plist-ref record :version-id) "unknown"))))
 
-(defun preserve-warning-repository-records (records previous-records warnings)
+(defun preserve-missing-previous-records (records previous-records warnings rejected-map)
   (let ((current-keys (record-key-set records))
-        (warning-repositories (warning-repository-set warnings))
-        (preserved nil))
+        (preserved nil)
+        (new-warnings nil))
     (dolist (record previous-records)
       (let ((key (record-cache-key record)))
-        (when (and (gethash (record-source-repository record)
-                            warning-repositories)
-                   (not (gethash key current-keys)))
+        (unless (gethash key current-keys)
           (setf (gethash key current-keys) t)
-          (push record preserved))))
+          (push record preserved)
+          (unless (rejected-release-for-record record rejected-map)
+            (push (missing-record-warning record) new-warnings)))))
     (when preserved
-      (format t "[taffish-index] preserved ~D cached records from warning repositories~%"
+      (format t "[taffish-index] preserved ~D cached records missing from current scan~%"
               (length preserved))
       (finish-output))
-    (append records (nreverse preserved))))
+    (values (append records (nreverse preserved))
+            (append warnings (nreverse new-warnings)))))
 
 (defun meta-override-key (repository version-id)
   (format nil "~A|~A" (normalize-slug repository) version-id))
@@ -1084,9 +1087,11 @@
         (setf records (append github-records records)
               warnings (append github-warnings warnings))))
     (setf records (apply-metadata-overrides-to-records records metadata-overrides))
-    (setf records (preserve-warning-repository-records records
-                                                       previous-records
-                                                       warnings))
+    (multiple-value-setq (records warnings)
+      (preserve-missing-previous-records records
+                                         previous-records
+                                         warnings
+                                         rejected-releases))
     (multiple-value-bind (accepted-records failures rejected)
         (process-records (nreverse records) previous-map
                          :rejected-map rejected-releases

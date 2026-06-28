@@ -152,6 +152,10 @@ For each `repository + version_id`, the builder checks the previous
   trust gate.
 - If a release tag changes commit, the version is rejected and reported instead
   of silently replacing the previous record.
+- If a previously indexed version is missing from the current scan, the builder
+  preserves the previous record by default and writes a warning. The version is
+  removed from the main index only after it is explicitly listed in
+  `rejected-releases.toml`.
 
 For containerized apps, the trust gate currently:
 
@@ -164,7 +168,11 @@ Docker/Podman smoke runs use `--network none`, do not mount the repository, and
 do not pass GitHub tokens or secrets into the container. Apptainer smoke uses a
 clean contained environment when that backend is available.
 
-The main index keeps passed or previously accepted versions. Gate failures are
+The main index keeps passed or previously accepted versions. It is not a
+destructive mirror of the current GitHub scan; it is an append-oriented stable
+ledger. If a version disappears from a scan because of transient GitHub raw/API
+failures, repository visibility issues, or accidental deletion, the previous
+record is preserved and reported for maintainer review. Gate failures are
 written to `index/reports/latest.json` and timestamped report files. Known-bad
 immutable releases listed in `rejected-releases.toml` are skipped and reported
 under `rejected` instead of being re-smoked on every run. `taf update` and
