@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-28T06:25:47Z",
+  "generated_at": "2026-06-28T14:49:09Z",
   "organization": "taffish",
   "counts": {
-    "packages": 196,
-    "versions": 301,
-    "commands": 196,
-    "repositories": 196,
+    "packages": 197,
+    "versions": 302,
+    "commands": 197,
+    "repositories": 197,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -3158,6 +3158,141 @@
             "ref": "v0.3.0-r1",
             "commit": "d947d850f05f0127f75be0b7f4693a4462e97a64",
             "html_url": "https://github.com/taffish/blast-flow/tree/v0.3.0-r1"
+          }
+        }
+      }
+    },
+    "blobtoolkit": {
+      "name": "blobtoolkit",
+      "latest": "4.5.3-r1",
+      "recent_version": "4.5.3-r1",
+      "recent_at": "2026-06-28T14:43:20Z",
+      "repository_url": "https://github.com/taffish/blobtoolkit",
+      "command": {
+        "name": "taf-blobtoolkit"
+      },
+      "versions": {
+        "4.5.3-r1": {
+          "name": "blobtoolkit",
+          "kind": "tool",
+          "version": "4.5.3",
+          "release": 1,
+          "version_id": "4.5.3-r1",
+          "tag": "v4.5.3-r1",
+          "published_at": "2026-06-28T14:43:20Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/blobtoolkit",
+          "repository_slug": "taffish/blobtoolkit",
+          "command": {
+            "name": "taf-blobtoolkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-assembly",
+            "categories": [
+              "genome-assembly",
+              "assembly-qc",
+              "contamination",
+              "blobdir",
+              "visualization"
+            ],
+            "keywords": [
+              "blobtoolkit",
+              "blobtools2",
+              "blobtools",
+              "blobdir",
+              "assembly qc",
+              "contamination",
+              "cobiont",
+              "snail plot",
+              "genome assembly"
+            ],
+            "summary": "BlobToolKit BlobTools2 command-line runtime for genome assembly QC, BlobDir creation/filtering/validation, and local viewer assets.",
+            "description": "BlobToolKit BlobTools2 command-line runtime for genome assembly QC, BlobDir creation/filtering/validation, and local viewer assets."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/blobtoolkit:4.5.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.5.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9042c52aaee4cb1c7cc7b347802cfbba48eab4f78aee3e93c4af75f0bb8fa198",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:bc84446ee26528ad445c9277819d9566f7b533a0723318ec63550d11df7fe4f6"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "blobtools",
+              "btk",
+              "blobtoolkit-api",
+              "blobtoolkit-viewer",
+              "firefox",
+              "geckodriver",
+              "Xvfb",
+              "python",
+              "python3",
+              "sh",
+              "grep",
+              "cat",
+              "gzip"
+            ],
+            "test": [
+              "blobtools --version 2>&1 | grep -Fx 'blobtoolkit v4.5.3' >/dev/null && btk --version 2>&1 | grep -Fx 'blobtoolkit v4.5.3' >/dev/null",
+              "blobtools --help 2>&1 | grep -F 'BlobTools2 - assembly exploration' >/dev/null && { btk 2>&1 || true; } | grep -F 'BlobToolKit - assembly exploration' >/dev/null",
+              "blobtools create --help 2>&1 | grep -F 'Add data to a BlobDir' >/dev/null && blobtools filter --help 2>&1 | grep -F 'Filter a BlobDir' >/dev/null && blobtools validate --help 2>&1 | grep -F 'Validate a BlobDir' >/dev/null && blobtools view --help 2>&1 | grep -F 'Generate plots using BlobToolKit Viewer' >/dev/null && blobtools host --help 2>&1 | grep -F 'Deprecated. Host a collection of BlobDirs' >/dev/null",
+              "python -c 'import importlib.metadata as md; import blobtools, btk, selenium, pyvirtualdisplay, ujson, yaml; from blobtoolkit_host import host; assert md.version(\"blobtoolkit\") == \"4.5.3\"; assert md.version(\"blobtoolkit-host\") == \"4.5.0\"; print(blobtools.__version__)' | grep -Fx 'blobtoolkit v4.5.3' >/dev/null",
+              "test -x /usr/local/bin/blobtoolkit-api && test -x /usr/local/bin/blobtoolkit-viewer && test -x \"$(command -v firefox)\" && geckodriver --version 2>&1 | grep -iF 'geckodriver' >/dev/null && test -x \"$(command -v Xvfb)\"",
+              "/opt/blobtoolkit/share/testdata/blobtoolkit-smoke-blobdir.sh"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-28T14:49:09Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-28T14:49:09Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/blobtoolkit",
+            "ref": "v4.5.3-r1",
+            "commit": "48e7d25cbc9660f018f709cd452c498b8a36b901",
+            "html_url": "https://github.com/taffish/blobtoolkit/tree/v4.5.3-r1"
+          },
+          "upstream": {
+            "name": "BlobToolKit",
+            "type": "github",
+            "homepage": "https://blobtoolkit.genomehubs.org/",
+            "repository": "genomehubs/blobtoolkit",
+            "release_url": "https://github.com/genomehubs/blobtoolkit/tree/4.5.3",
+            "version": "4.5.3",
+            "license": "MIT",
+            "citation": "Challis et al. 2020, BlobToolKit: Interactive quality assessment of genome assemblies; Challis and Blaxter 2025, Snail plots are badges of genome assembly quality",
+            "doi": "10.1534/g3.119.400908; 10.1101/2025.11.20.689594"
           }
         }
       }
@@ -37934,6 +38069,10 @@
       "package": "blast-flow",
       "version": "0.3.0-r1"
     },
+    "taf-blobtoolkit": {
+      "package": "blobtoolkit",
+      "version": "4.5.3-r1"
+    },
     "taf-bowtie2": {
       "package": "bowtie2",
       "version": "2.5.5-r1"
@@ -38756,6 +38895,12 @@
       "repository": "taffish/blast-flow",
       "packages": [
         "blast-flow"
+      ]
+    },
+    "taffish/blobtoolkit": {
+      "repository": "taffish/blobtoolkit",
+      "packages": [
+        "blobtoolkit"
       ]
     },
     "taffish/bowtie2": {
