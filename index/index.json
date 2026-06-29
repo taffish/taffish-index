@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-29T08:24:07Z",
+  "generated_at": "2026-06-29T09:18:17Z",
   "organization": "taffish",
   "counts": {
-    "packages": 199,
-    "versions": 304,
-    "commands": 199,
-    "repositories": 199,
+    "packages": 200,
+    "versions": 305,
+    "commands": 200,
+    "repositories": 200,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -26709,6 +26709,152 @@
         }
       }
     },
+    "repeatmodeler": {
+      "name": "repeatmodeler",
+      "latest": "2.0.9-r1",
+      "recent_version": "2.0.9-r1",
+      "recent_at": "2026-06-29T09:16:04Z",
+      "repository_url": "https://github.com/taffish/repeatmodeler",
+      "command": {
+        "name": "taf-repeatmodeler"
+      },
+      "versions": {
+        "2.0.9-r1": {
+          "name": "repeatmodeler",
+          "kind": "tool",
+          "version": "2.0.9",
+          "release": 1,
+          "version_id": "2.0.9-r1",
+          "tag": "v2.0.9-r1",
+          "published_at": "2026-06-29T09:16:04Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/repeatmodeler",
+          "repository_slug": "taffish/repeatmodeler",
+          "command": {
+            "name": "taf-repeatmodeler"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "repeat-annotation",
+              "transposable-elements",
+              "repeat-library",
+              "fasta"
+            ],
+            "keywords": [
+              "repeatmodeler",
+              "builddatabase",
+              "repeatclassifier",
+              "repeatmasker",
+              "dfam",
+              "famdb",
+              "rmblast",
+              "repeatscout",
+              "recon",
+              "ltr_retriever",
+              "transposable elements"
+            ],
+            "summary": "RepeatModeler de novo transposable element family discovery and library construction runtime packaged from the official Dfam TETools environment.",
+            "description": "RepeatModeler de novo transposable element family discovery and library construction runtime packaged from the official Dfam TETools environment."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/repeatmodeler:2.0.9-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.0.9-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:50e95e96255323972902d75e8e1ac9885a1e7fceece0246a685da015801faefe",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:bafcc0e87dc8236ea0258add6798883151e508b8148d34c047da5f7c924f1f7c"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "RepeatModeler",
+              "BuildDatabase",
+              "RepeatClassifier",
+              "LTRPipeline",
+              "Refiner",
+              "TRFMask",
+              "RepeatMasker",
+              "rmblastn",
+              "makeblastdb",
+              "trf",
+              "famdb.py",
+              "gt",
+              "LTR_retriever",
+              "mafft",
+              "RepeatScout",
+              "cd-hit-est",
+              "run_recon.sh",
+              "RAMExtend",
+              "faToTwoBit",
+              "twoBitInfo",
+              "twoBitToFa",
+              "python3",
+              "perl",
+              "sh"
+            ],
+            "test": [
+              "RepeatModeler -version 2>&1 | grep -Fx 'RepeatModeler version 2.0.9' >/dev/null && RepeatMasker -v 2>&1 | grep -Fx 'RepeatMasker version 4.2.4' >/dev/null && rmblastn -version 2>&1 | grep -F 'rmblastn: 2.17.1+' >/dev/null && trf -v 2>&1 | grep -F 'Tandem Repeats Finder, Version 4.09' >/dev/null && test \"${BLAST_USAGE_REPORT}\" = 'false' && test \"${PAGER}\" = 'cat'",
+              "RepeatModeler -help 2>&1 | grep -F -- '-database' >/dev/null && RepeatModeler -help 2>&1 | grep -F -- '-LTRStruct' >/dev/null && BuildDatabase -help 2>&1 | grep -F 'Format FASTA files for use with RepeatModeler' >/dev/null && RepeatClassifier -help 2>&1 | grep -F 'Classify Repeat Models' >/dev/null",
+              "perl -c /opt/RepeatModeler/RepModelConfig.pm && grep -F \"'value' => '/opt/FamDB-Dfam-4.0'\" /opt/RepeatModeler/RepModelConfig.pm >/dev/null && grep -F \"'value' => '/opt/RepeatMasker'\" /opt/RepeatModeler/RepModelConfig.pm >/dev/null && grep -F \"'value' => '/opt/rmblast/bin'\" /opt/RepeatModeler/RepModelConfig.pm >/dev/null && grep -F \"'value' => '/opt/LTR_retriever'\" /opt/RepeatModeler/RepModelConfig.pm >/dev/null && grep -F \"'value' => '/opt/genometools/bin'\" /opt/RepeatModeler/RepModelConfig.pm >/dev/null && grep -F \"'value' => '/opt/mafft/bin'\" /opt/RepeatModeler/RepModelConfig.pm >/dev/null",
+              "famdb.py --help 2>&1 | grep -F 'famdb.py' >/dev/null && gt -version 2>&1 | grep -F 'GenomeTools' >/dev/null && mafft --version 2>&1 | grep -F 'v7.471' >/dev/null && LTR_retriever -h 2>&1 | grep -F 'LTR_retriever' >/dev/null && RepeatScout 2>&1 | grep -F 'RepeatScout Version 1.0.7' >/dev/null && cd-hit-est -h 2>&1 | grep -F 'CD-HIT' >/dev/null && faToTwoBit 2>&1 | grep -F 'faToTwoBit' >/dev/null",
+              "set -e; tmp=/tmp/taf-repeatmodeler-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>seq1\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n>seq2\\nTGCATGCATGCATGCATGCATGCATGCATGCA\\n' > tiny.fa; BuildDatabase -name tiny tiny.fa >/tmp/taf-repeatmodeler-builddb.log 2>&1; test -s tiny.nin; test -s tiny.nsq; test -s tiny.translation; grep -F 'Number of sequences' /tmp/taf-repeatmodeler-builddb.log >/dev/null; rm -rf \"$tmp\" /tmp/taf-repeatmodeler-builddb.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-29T09:18:17Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-29T09:18:17Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/repeatmodeler",
+            "ref": "v2.0.9-r1",
+            "commit": "92c46e180314de9f1b93522af239fff6565f832b",
+            "html_url": "https://github.com/taffish/repeatmodeler/tree/v2.0.9-r1"
+          },
+          "upstream": {
+            "name": "RepeatModeler",
+            "type": "github",
+            "homepage": "https://github.com/Dfam-consortium/RepeatModeler",
+            "repository": "Dfam-consortium/RepeatModeler",
+            "release_url": "https://github.com/Dfam-consortium/RepeatModeler/releases/tag/2.0.9",
+            "version": "2.0.9",
+            "license": "OSL-2.1; official Dfam TETools runtime bundles dependencies and Dfam/FamDB data under their own notices",
+            "citation": "Hubley and Smit, RepeatModeler; Dfam Consortium TETools; Bao and Eddy for RECON; Price et al. for RepeatScout; Benson for TRF; Ou and Jiang for LTR_retriever; Camacho et al. 2009 for BLAST+"
+          }
+        }
+      }
+    },
     "rmblast": {
       "name": "rmblast",
       "latest": "2.17.1-r2",
@@ -38819,6 +38965,10 @@
       "package": "repeatmasker",
       "version": "4.2.4-r1"
     },
+    "taf-repeatmodeler": {
+      "package": "repeatmodeler",
+      "version": "2.0.9-r1"
+    },
     "taf-rmblast": {
       "package": "rmblast",
       "version": "2.17.1-r2"
@@ -39889,6 +40039,12 @@
       "repository": "taffish/repeatmasker",
       "packages": [
         "repeatmasker"
+      ]
+    },
+    "taffish/repeatmodeler": {
+      "repository": "taffish/repeatmodeler",
+      "packages": [
+        "repeatmodeler"
       ]
     },
     "taffish/rmblast": {
