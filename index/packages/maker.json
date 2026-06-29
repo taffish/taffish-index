@@ -1,0 +1,141 @@
+{
+  "name": "maker",
+  "latest": "3.01.04-r1",
+  "recent_version": "3.01.04-r1",
+  "recent_at": "2026-06-29T08:19:06Z",
+  "repository_url": "https://github.com/taffish/maker",
+  "command": {
+    "name": "taf-maker"
+  },
+  "versions": {
+    "3.01.04-r1": {
+      "name": "maker",
+      "kind": "tool",
+      "version": "3.01.04",
+      "release": 1,
+      "version_id": "3.01.04-r1",
+      "tag": "v3.01.04-r1",
+      "published_at": "2026-06-29T08:19:06Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/maker",
+      "repository_slug": "taffish/maker",
+      "command": {
+        "name": "taf-maker"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "gene-prediction",
+          "genome-annotation",
+          "eukaryotic-annotation"
+        ],
+        "keywords": [
+          "maker",
+          "genome annotation",
+          "gff3",
+          "evidence-based annotation",
+          "repeatmasker",
+          "snap",
+          "augustus",
+          "exonerate",
+          "blast"
+        ],
+        "summary": "MAKER 3 genome annotation pipeline runtime packaged from Bioconda with core helper tools for evidence-based eukaryotic genome annotation.",
+        "description": "MAKER 3 genome annotation pipeline runtime packaged from Bioconda with core helper tools for evidence-based eukaryotic genome annotation."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/maker:3.01.04-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.01.04-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:b27ed136fdb30646ac0db46b8d6b482e3fcaac4d968cc3ed7d734ed4b030957a",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a64b018c756915ce7d07689755c184def03e765ffcab9bac75d218ce5b7209eb"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "maker",
+          "maker2zff",
+          "fasta_merge",
+          "gff3_merge",
+          "maker_map_ids",
+          "maker_functional_fasta",
+          "maker_functional_gff",
+          "ipr_update_gff",
+          "maker2eval_gtf",
+          "maker2jbrowse",
+          "perl",
+          "mpiexec",
+          "blastn",
+          "makeblastdb",
+          "exonerate",
+          "RepeatMasker",
+          "rmblastn",
+          "snap",
+          "augustus",
+          "etraining"
+        ],
+        "test": [
+          "maker -version 2>&1 | grep -Fx '3.01.04' >/dev/null",
+          "maker -help 2>&1 | grep -F 'MAKER is a program that produces gene annotations' >/dev/null && maker -help 2>&1 | grep -F -- '-CTL' >/dev/null",
+          "set -e; tmp=/tmp/taf-maker-ctl-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; maker -CTL >/tmp/taf-maker-ctl.log 2>&1; test -s maker_opts.ctl; test -s maker_bopts.ctl; test -s maker_exe.ctl; grep -F 'genome=' maker_opts.ctl >/dev/null; grep -F 'protein=' maker_opts.ctl >/dev/null; grep -F 'blastn=' maker_exe.ctl >/dev/null; grep -F 'exonerate=' maker_exe.ctl >/dev/null; rm -rf \"$tmp\" /tmp/taf-maker-ctl.log",
+          "mpiexec --version 2>&1 | grep -Ei 'HYDRA|MPICH|Open MPI' >/dev/null && blastn -version 2>&1 | grep -F 'blastn: 2.14.1+' >/dev/null && makeblastdb -version 2>&1 | grep -F 'makeblastdb: 2.14.1+' >/dev/null && { exonerate --version 2>&1 || true; } | grep -Ei 'exonerate|version' >/dev/null && { RepeatMasker -version 2>&1 || true; } | grep -Ei 'RepeatMasker|version' >/dev/null && rmblastn -version 2>&1 | grep -F 'rmblastn: 2.14.1+' >/dev/null && { snap 2>&1 || true; } | grep -F 'usage:' >/dev/null && { augustus --version 2>&1 || true; } | grep -Ei 'AUGUSTUS|version' >/dev/null",
+          "set -e; tmp=/tmp/taf-maker-blast-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>ctg1\\nACGTTGCAAGTCGATCGTACGATGCTAGCTAGGATCCGTTACGATCGATCGTAGCTAGCATCGGATCGAACGTAGC\\n' > tiny.fa; makeblastdb -in tiny.fa -dbtype nucl -out tinydb >/tmp/taf-maker-makeblastdb.log 2>&1; blastn -query tiny.fa -db tinydb -out blast.out -outfmt 6 -dust no -word_size 7 >/tmp/taf-maker-blastn.log 2>&1; test -s blast.out; grep -F 'ctg1' blast.out >/dev/null; rm -rf \"$tmp\" /tmp/taf-maker-makeblastdb.log /tmp/taf-maker-blastn.log"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-29T08:24:07Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-29T08:24:07Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/maker",
+        "ref": "v3.01.04-r1",
+        "commit": "6944bf539581c85f4e3879d3e820d8fc9dd4c8a2",
+        "html_url": "https://github.com/taffish/maker/tree/v3.01.04-r1"
+      },
+      "upstream": {
+        "name": "MAKER",
+        "type": "github",
+        "homepage": "https://github.com/Yandell-Lab/maker",
+        "repository": "Yandell-Lab/maker",
+        "release_url": "https://github.com/Yandell-Lab/maker/tree/Version_3.01.04",
+        "version": "3.01.04",
+        "license": "Academic/non-commercial MAKER terms; Artistic-2.0 or GPL terms stated upstream; commercial use requires a separate upstream license; bundled dependencies keep their own licenses",
+        "citation": "Cantarel et al. 2008, MAKER; Holt and Yandell 2011, MAKER2",
+        "doi": "10.1101/gr.6743907; 10.1186/1471-2105-12-491",
+        "pmid": "18025269; 22192575"
+      }
+    }
+  }
+}
