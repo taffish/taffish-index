@@ -1,0 +1,137 @@
+{
+  "name": "braker3",
+  "latest": "3.0.8-r1",
+  "recent_version": "3.0.8-r1",
+  "recent_at": "2026-06-29T05:44:46Z",
+  "repository_url": "https://github.com/taffish/braker3",
+  "command": {
+    "name": "taf-braker3"
+  },
+  "versions": {
+    "3.0.8-r1": {
+      "name": "braker3",
+      "kind": "tool",
+      "version": "3.0.8",
+      "release": 1,
+      "version_id": "3.0.8-r1",
+      "tag": "v3.0.8-r1",
+      "published_at": "2026-06-29T05:44:46Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/braker3",
+      "repository_slug": "taffish/braker3",
+      "command": {
+        "name": "taf-braker3"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "gene-prediction",
+          "genome-annotation",
+          "eukaryotic-annotation"
+        ],
+        "keywords": [
+          "braker3",
+          "braker.pl",
+          "genemark-etp",
+          "augustus",
+          "tsebra",
+          "prothint",
+          "rna-seq",
+          "protein evidence",
+          "eukaryotic genome annotation"
+        ],
+        "summary": "Legacy BRAKER3 braker.pl runtime for automated eukaryotic gene prediction with RNA-seq and protein evidence. Upstream marks BRAKER as deprecated and recommends BRAKER4 for new workflows.",
+        "description": "Legacy BRAKER3 braker.pl runtime for automated eukaryotic gene prediction with RNA-seq and protein evidence. Upstream marks BRAKER as deprecated and recommends BRAKER4 for new workflows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/braker3:3.0.8-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.0.8-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:edefa92211d2185bb8a7fe0c32d0362652b4cfc875e4cac057b433c8dfcd933c",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a83b1afc5399f0a97b73512feb65276e7bdc1bf1f59e85c6671b2b36c733ab31"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "braker.pl",
+          "augustus",
+          "etraining",
+          "prothint.py",
+          "gmetp.pl",
+          "tsebra.py",
+          "samtools",
+          "bamtools",
+          "diamond",
+          "hisat2",
+          "stringtie",
+          "gffread",
+          "cdbfasta",
+          "cdbyank",
+          "perl",
+          "python3",
+          "bash"
+        ],
+        "test": [
+          "braker.pl --version 2>&1 | grep -Fx 'braker.pl version 3.0.8' >/dev/null",
+          "(braker.pl --help 2>&1 || true) | grep -F 'Pipeline for predicting genes with GeneMark-EX and AUGUSTUS' >/dev/null && (braker.pl --help 2>&1 || true) | grep -F -- '--genome=genome.fa' >/dev/null && (braker.pl --help 2>&1 || true) | grep -F -- '--prot_seq=prot.fa' >/dev/null",
+          "prothint.py --version 2>&1 | grep -F 'prothint.py 2.6.0' >/dev/null && augustus --version 2>&1 | grep -F 'AUGUSTUS' >/dev/null && (tsebra.py --help 2>&1 || true) | grep -F 'usage' >/dev/null",
+          "samtools --version 2>&1 | grep -F 'samtools' >/dev/null && bamtools --version 2>&1 | grep -F 'bamtools' >/dev/null && diamond version 2>&1 | grep -F 'diamond version 2.0.15' >/dev/null && hisat2 --version 2>&1 | grep -F 'hisat2-align-s version 2.2.1' >/dev/null && stringtie --version 2>&1 | grep -Fx '2.2.1' >/dev/null && gffread --version 2>&1 | grep -Fx '0.12.7' >/dev/null",
+          "set -e; tmp=/tmp/taf-braker3-cdb-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>ctg1\\nATGAAATAG\\n' > \"$tmp/tiny.fa\"; cdbfasta \"$tmp/tiny.fa\" >/dev/null; cdbyank \"$tmp/tiny.fa.cidx\" -a ctg1 > \"$tmp/out.fa\"; grep -F '>ctg1' \"$tmp/out.fa\" >/dev/null; grep -F 'ATGAAATAG' \"$tmp/out.fa\" >/dev/null; rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-29T06:06:56Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-29T06:06:56Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/braker3",
+        "ref": "v3.0.8-r1",
+        "commit": "c66b5bf3beb24846ffb2833f2e552c8b569f741a",
+        "html_url": "https://github.com/taffish/braker3/tree/v3.0.8-r1"
+      },
+      "upstream": {
+        "name": "BRAKER",
+        "type": "github",
+        "homepage": "https://github.com/Gaius-Augustus/BRAKER",
+        "repository": "Gaius-Augustus/BRAKER",
+        "release_url": "https://github.com/Gaius-Augustus/BRAKER/releases/tag/v3.0.8",
+        "version": "3.0.8",
+        "license": "BRAKER scripts: Artistic License; GeneMark-ETP: CC BY-NC-SA 4.0; bundled third-party tools keep their own licenses; GeneMark commercial use requires a separate license",
+        "citation": "Gabriel et al. 2024, BRAKER3; Bruna et al. 2024, GeneMark-ETP; Stanke et al. 2006/2008, AUGUSTUS",
+        "doi": "10.1101/gr.278090.123; 10.1101/gr.278373.123; 10.1093/bioinformatics/btn013"
+      }
+    }
+  }
+}
