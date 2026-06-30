@@ -145,7 +145,7 @@
 
 (defun meta-token-char-p (char)
   (or (platform-token-char-p char)
-      (char= char #\+)))
+      (member char '(#\+ #\&) :test #'char=)))
 
 (defun keyword-token-char-p (char)
   (or (meta-token-char-p char)
