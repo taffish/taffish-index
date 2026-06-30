@@ -1,8 +1,8 @@
 {
   "name": "gromacs",
-  "latest": "2026.2-r2",
-  "recent_version": "2026.2-r2",
-  "recent_at": "2026-05-19T07:37:43Z",
+  "latest": "2026.3-r1",
+  "recent_version": "2026.3-r1",
+  "recent_at": "2026-06-30T08:24:40Z",
   "repository_url": "https://github.com/taffish/gromacs",
   "command": {
     "name": "taf-gromacs"
@@ -221,6 +221,115 @@
         "repository": "gromacs/gromacs",
         "release_url": "https://manual.gromacs.org/2026.2/release-notes/index.html",
         "version": "2026.2",
+        "license": "LGPL-2.1-or-later",
+        "citation": "GROMACS development team 2026; Abraham et al. 2015",
+        "doi": "10.5281/zenodo.20037885; 10.1016/j.softx.2015.06.001"
+      }
+    },
+    "2026.3-r1": {
+      "name": "gromacs",
+      "kind": "tool",
+      "version": "2026.3",
+      "release": 1,
+      "version_id": "2026.3-r1",
+      "tag": "v2026.3-r1",
+      "published_at": "2026-06-30T08:24:40Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/gromacs",
+      "repository_slug": "taffish/gromacs",
+      "command": {
+        "name": "taf-gromacs"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "molecular-dynamics",
+        "categories": [
+          "molecular-dynamics",
+          "molecular-simulation",
+          "structural-biology",
+          "computational-chemistry"
+        ],
+        "keywords": [
+          "gromacs",
+          "gmx",
+          "molecular-dynamics",
+          "simulation",
+          "mdrun",
+          "grompp",
+          "pdb2gmx",
+          "trajectory-analysis"
+        ],
+        "summary": "CPU-only GROMACS molecular dynamics simulation and analysis suite, including the gmx command-line tool, built-in force-field data, preparation commands, mdrun, and analysis subcommands.",
+        "description": "CPU-only GROMACS molecular dynamics simulation and analysis suite, including the gmx command-line tool, built-in force-field data, preparation commands, mdrun, and analysis subcommands."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/gromacs:2026.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2026.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:4059ea2ce0b6596001c18c8a199216f5d427366219512320f406074319595ec0",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:36815afc43b642c6e817788477c0319e62dce22640aa5dba869923fef0017009",
+          "linux/arm64": "sha256:739a466ee1e76b88a8bf67f31df62d5ffacdbec38249fef40d9637be177e9318"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "gmx"
+        ],
+        "test": [
+          "gmx --version | grep -F 'GROMACS version:' >/dev/null && gmx --version | grep -F '2026.3' >/dev/null",
+          "gmx help commands | grep -F 'mdrun' >/dev/null && gmx help commands | grep -F 'pdb2gmx' >/dev/null && gmx mdrun -h 2>&1 | grep -F 'GROMACS' >/dev/null",
+          "mkdir -p /tmp/taf-gromacs-editconf && cd /tmp/taf-gromacs-editconf && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && gmx editconf -f water.gro -o water.pdb >/dev/null 2>&1 && grep -F 'ATOM' water.pdb >/dev/null",
+          "mkdir -p /tmp/taf-gromacs-mdrun && cd /tmp/taf-gromacs-mdrun && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && printf '#include \"oplsaa.ff/forcefield.itp\"\\n#include \"oplsaa.ff/tip3p.itp\"\\n\\n[ system ]\\nTiny water\\n\\n[ molecules ]\\nSOL 1\\n' > topol.top && printf 'integrator = md\\nnsteps = 0\\ndt = 0.001\\nnstlist = 1\\ncutoff-scheme = Verlet\\nrlist = 0.4\\nverlet-buffer-tolerance = -1\\ncoulombtype = Cut-off\\nrcoulomb = 0.4\\nrvdw = 0.4\\npbc = xyz\\nconstraints = none\\ncontinuation = yes\\n' > mini.mdp && gmx grompp -f mini.mdp -c water.gro -p topol.top -o mini.tpr >/dev/null 2>&1 && test -s mini.tpr && gmx mdrun -deffnm mini -ntmpi 1 -ntomp 1 >/dev/null 2>&1 && test -s mini.log"
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-30T10:54:25Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-30T10:54:25Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/gromacs",
+        "ref": "v2026.3-r1",
+        "commit": "8af115df44dbdc54f111eced1fa77c049b80e10f",
+        "html_url": "https://github.com/taffish/gromacs/tree/v2026.3-r1"
+      },
+      "upstream": {
+        "name": "GROMACS",
+        "type": "gitlab",
+        "homepage": "https://www.gromacs.org/",
+        "repository": "gromacs/gromacs",
+        "release_url": "https://manual.gromacs.org/2026.3/release-notes/2026/2026.3.html",
+        "version": "2026.3",
         "license": "LGPL-2.1-or-later",
         "citation": "GROMACS development team 2026; Abraham et al. 2015",
         "doi": "10.5281/zenodo.20037885; 10.1016/j.softx.2015.06.001"

@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-06-30T05:54:52Z",
+  "generated_at": "2026-06-30T10:54:25Z",
   "organization": "taffish",
   "counts": {
     "packages": 202,
-    "versions": 307,
+    "versions": 314,
     "commands": 202,
     "repositories": 202,
     "warnings": 0,
@@ -9799,9 +9799,9 @@
     },
     "fastp": {
       "name": "fastp",
-      "latest": "1.3.5-r1",
-      "recent_version": "1.3.5-r1",
-      "recent_at": "2026-06-21T05:33:01Z",
+      "latest": "1.3.6-r1",
+      "recent_version": "1.3.6-r1",
+      "recent_at": "2026-06-30T07:32:14Z",
       "repository_url": "https://github.com/taffish/fastp",
       "command": {
         "name": "taf-fastp"
@@ -10293,6 +10293,130 @@
             "repository": "OpenGene/fastp",
             "release_url": "https://github.com/OpenGene/fastp/releases/tag/v1.3.5",
             "version": "1.3.5",
+            "license": "MIT",
+            "citation": "Chen 2025; Chen 2023; Chen et al. 2018",
+            "doi": "10.1002/imt2.70078; 10.1002/imt2.107; 10.1093/bioinformatics/bty560",
+            "pmid": "41112039; 30423086"
+          }
+        },
+        "1.3.6-r1": {
+          "name": "fastp",
+          "kind": "tool",
+          "version": "1.3.6",
+          "release": 1,
+          "version_id": "1.3.6-r1",
+          "tag": "v1.3.6-r1",
+          "published_at": "2026-06-30T07:32:14Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/fastp",
+          "repository_slug": "taffish/fastp",
+          "command": {
+            "name": "taf-fastp"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "quality-control",
+              "preprocessing",
+              "trimming",
+              "sequencing"
+            ],
+            "keywords": [
+              "fastp",
+              "fastq",
+              "qc",
+              "quality-control",
+              "adapter-trimming",
+              "filtering",
+              "umi",
+              "deduplication",
+              "html-report",
+              "json-report",
+              "illumina",
+              "mgi",
+              "paired-end"
+            ],
+            "summary": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports.",
+            "description": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/fastp:1.3.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c25ffd0432babd07fc9e0da025e1268a46893ef80bdc66bebc393245aa0c5ded",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e977cba5765950047c8a737eebd6560e6888be035baca1fdf398100f045b0a62",
+              "linux/arm64": "sha256:2cf8360b833698396f7fbb97433de4dc42b084bf645fcb3db7afefc6cc9e3381"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "fastp",
+              "parallel.py",
+              "python",
+              "python3"
+            ],
+            "test": [
+              "fastp --version | grep -Fx 'fastp 1.3.6' >/dev/null",
+              "fastp --help 2>&1 | grep -F 'usage:' >/dev/null",
+              "parallel.py -h 2>&1 | grep -F 'A python script to use fastp' >/dev/null",
+              "ldd $(command -v fastp) | grep -F 'libisal' >/dev/null",
+              "mkdir -p /tmp/taf-fastp-smoke && cd /tmp/taf-fastp-smoke && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nACGTACGTNNNNACGTACGT\\n+\\nFFFFFFFF!!!!FFFFFFFF\\n' > reads.fq && fastp -i reads.fq -o clean.fq -h report.html -j report.json -w 1 >/tmp/taf-fastp-se.log 2>&1 && test -s clean.fq && test -s report.html && test -s report.json && grep -F '\"fastp_version\": \"' report.json >/dev/null && grep -F '@r1' clean.fq >/dev/null",
+              "mkdir -p /tmp/taf-fastp-thread && cd /tmp/taf-fastp-thread && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && fastp -i reads.fq -o thread.fq -w 9999 >/tmp/taf-fastp-thread.log 2>&1 && grep -F 'Reduce worker threads to ' /tmp/taf-fastp-thread.log >/dev/null && test -s thread.fq",
+              "mkdir -p /tmp/taf-fastp-stdin && cd /tmp/taf-fastp-stdin && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nACGTACGTNNNNACGTACGT\\n+\\nFFFFFFFF!!!!FFFFFFFF\\n' > reads.fq && fastp --stdin --stdout -w 1 < reads.fq > stdout.fq 2>/tmp/taf-fastp-stdin.log && grep -F '@r1' stdout.fq >/dev/null",
+              "mkdir -p /tmp/taf-fastp-pe && cd /tmp/taf-fastp-pe && printf '@p1/1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@p1/2\\nTGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && fastp -i r1.fq -I r2.fq -o out1.fq.gz -O out2.fq.gz -h pe.html -j pe.json -w 1 >/tmp/taf-fastp-pe.log 2>&1 && test -s out1.fq.gz && test -s out2.fq.gz && test -s pe.html && test -s pe.json",
+              "mkdir -p /tmp/taf-fastp-parallel && cd /tmp/taf-fastp-parallel && printf '@p1/1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@p1/2\\nTGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && mkdir -p batch-in batch-out batch-report && cp r1.fq batch-in/sample_R1.fq && cp r2.fq batch-in/sample_R2.fq && parallel.py -i batch-in -o batch-out -r batch-report -p 1 -a '-w 1' >/tmp/taf-fastp-parallel.log && test -s batch-out/sample_R1.clean.fastq.gz && test -s batch-out/sample_R2.clean.fastq.gz && test -s batch-report/sample_pe.fq.html && test -s batch-report/sample_pe.fq.json && test -s batch-report/overall.html"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/fastp",
+            "ref": "v1.3.6-r1",
+            "commit": "0571f60d0476006a73b0fa575e42412b20a5a39e",
+            "html_url": "https://github.com/taffish/fastp/tree/v1.3.6-r1"
+          },
+          "upstream": {
+            "name": "fastp",
+            "type": "github",
+            "homepage": "https://github.com/OpenGene/fastp",
+            "repository": "OpenGene/fastp",
+            "release_url": "https://github.com/OpenGene/fastp/releases/tag/v1.3.6",
+            "version": "1.3.6",
             "license": "MIT",
             "citation": "Chen 2025; Chen 2023; Chen et al. 2018",
             "doi": "10.1002/imt2.70078; 10.1002/imt2.107; 10.1093/bioinformatics/bty560",
@@ -12281,9 +12405,9 @@
     },
     "gromacs": {
       "name": "gromacs",
-      "latest": "2026.2-r2",
-      "recent_version": "2026.2-r2",
-      "recent_at": "2026-05-19T07:37:43Z",
+      "latest": "2026.3-r1",
+      "recent_version": "2026.3-r1",
+      "recent_at": "2026-06-30T08:24:40Z",
       "repository_url": "https://github.com/taffish/gromacs",
       "command": {
         "name": "taf-gromacs"
@@ -12502,6 +12626,115 @@
             "repository": "gromacs/gromacs",
             "release_url": "https://manual.gromacs.org/2026.2/release-notes/index.html",
             "version": "2026.2",
+            "license": "LGPL-2.1-or-later",
+            "citation": "GROMACS development team 2026; Abraham et al. 2015",
+            "doi": "10.5281/zenodo.20037885; 10.1016/j.softx.2015.06.001"
+          }
+        },
+        "2026.3-r1": {
+          "name": "gromacs",
+          "kind": "tool",
+          "version": "2026.3",
+          "release": 1,
+          "version_id": "2026.3-r1",
+          "tag": "v2026.3-r1",
+          "published_at": "2026-06-30T08:24:40Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/gromacs",
+          "repository_slug": "taffish/gromacs",
+          "command": {
+            "name": "taf-gromacs"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "molecular-dynamics",
+            "categories": [
+              "molecular-dynamics",
+              "molecular-simulation",
+              "structural-biology",
+              "computational-chemistry"
+            ],
+            "keywords": [
+              "gromacs",
+              "gmx",
+              "molecular-dynamics",
+              "simulation",
+              "mdrun",
+              "grompp",
+              "pdb2gmx",
+              "trajectory-analysis"
+            ],
+            "summary": "CPU-only GROMACS molecular dynamics simulation and analysis suite, including the gmx command-line tool, built-in force-field data, preparation commands, mdrun, and analysis subcommands.",
+            "description": "CPU-only GROMACS molecular dynamics simulation and analysis suite, including the gmx command-line tool, built-in force-field data, preparation commands, mdrun, and analysis subcommands."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/gromacs:2026.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2026.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4059ea2ce0b6596001c18c8a199216f5d427366219512320f406074319595ec0",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:36815afc43b642c6e817788477c0319e62dce22640aa5dba869923fef0017009",
+              "linux/arm64": "sha256:739a466ee1e76b88a8bf67f31df62d5ffacdbec38249fef40d9637be177e9318"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "gmx"
+            ],
+            "test": [
+              "gmx --version | grep -F 'GROMACS version:' >/dev/null && gmx --version | grep -F '2026.3' >/dev/null",
+              "gmx help commands | grep -F 'mdrun' >/dev/null && gmx help commands | grep -F 'pdb2gmx' >/dev/null && gmx mdrun -h 2>&1 | grep -F 'GROMACS' >/dev/null",
+              "mkdir -p /tmp/taf-gromacs-editconf && cd /tmp/taf-gromacs-editconf && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && gmx editconf -f water.gro -o water.pdb >/dev/null 2>&1 && grep -F 'ATOM' water.pdb >/dev/null",
+              "mkdir -p /tmp/taf-gromacs-mdrun && cd /tmp/taf-gromacs-mdrun && printf 'Tiny water\\n    3\\n    1SOL     OW    1   0.000   0.000   0.000\\n    1SOL    HW1    2   0.095   0.000   0.000\\n    1SOL    HW2    3  -0.032   0.090   0.000\\n   1.00000   1.00000   1.00000\\n' > water.gro && printf '#include \"oplsaa.ff/forcefield.itp\"\\n#include \"oplsaa.ff/tip3p.itp\"\\n\\n[ system ]\\nTiny water\\n\\n[ molecules ]\\nSOL 1\\n' > topol.top && printf 'integrator = md\\nnsteps = 0\\ndt = 0.001\\nnstlist = 1\\ncutoff-scheme = Verlet\\nrlist = 0.4\\nverlet-buffer-tolerance = -1\\ncoulombtype = Cut-off\\nrcoulomb = 0.4\\nrvdw = 0.4\\npbc = xyz\\nconstraints = none\\ncontinuation = yes\\n' > mini.mdp && gmx grompp -f mini.mdp -c water.gro -p topol.top -o mini.tpr >/dev/null 2>&1 && test -s mini.tpr && gmx mdrun -deffnm mini -ntmpi 1 -ntomp 1 >/dev/null 2>&1 && test -s mini.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/gromacs",
+            "ref": "v2026.3-r1",
+            "commit": "8af115df44dbdc54f111eced1fa77c049b80e10f",
+            "html_url": "https://github.com/taffish/gromacs/tree/v2026.3-r1"
+          },
+          "upstream": {
+            "name": "GROMACS",
+            "type": "gitlab",
+            "homepage": "https://www.gromacs.org/",
+            "repository": "gromacs/gromacs",
+            "release_url": "https://manual.gromacs.org/2026.3/release-notes/2026/2026.3.html",
+            "version": "2026.3",
             "license": "LGPL-2.1-or-later",
             "citation": "GROMACS development team 2026; Abraham et al. 2015",
             "doi": "10.5281/zenodo.20037885; 10.1016/j.softx.2015.06.001"
@@ -31281,9 +31514,9 @@
     },
     "salmon": {
       "name": "salmon",
-      "latest": "2.1.1-r1",
-      "recent_version": "2.1.1-r1",
-      "recent_at": "2026-06-21T04:42:36Z",
+      "latest": "2.2.1-r1",
+      "recent_version": "2.2.1-r1",
+      "recent_at": "2026-06-30T08:36:42Z",
       "repository_url": "https://github.com/taffish/salmon",
       "command": {
         "name": "taf-salmon"
@@ -31757,6 +31990,124 @@
             "doi": "10.1038/nmeth.4197",
             "pmid": "28263959"
           }
+        },
+        "2.2.1-r1": {
+          "name": "salmon",
+          "kind": "tool",
+          "version": "2.2.1",
+          "release": 1,
+          "version_id": "2.2.1-r1",
+          "tag": "v2.2.1-r1",
+          "published_at": "2026-06-30T08:36:42Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/salmon",
+          "repository_slug": "taffish/salmon",
+          "command": {
+            "name": "taf-salmon"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "quantification",
+              "alignment",
+              "indexing"
+            ],
+            "keywords": [
+              "salmon",
+              "rna-seq",
+              "transcript abundance",
+              "selective alignment",
+              "sketch",
+              "sshash",
+              "piscem",
+              "quant",
+              "quantmerge"
+            ],
+            "summary": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, indexing, selective-alignment and sketch quantification, alignment-based quantification, and quantification merging.",
+            "description": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, indexing, selective-alignment and sketch quantification, alignment-based quantification, and quantification merging."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/salmon:2.2.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c89433e4e9da247f8cd12af9751dc4a53d4032968ae654a191e00214cd1012b5",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f8a68a61ca4b56603dd16e581faa9f623ec2d27e4f60e8ef5da0e40ed4046612",
+              "linux/arm64": "sha256:296d4ba8794416ba5721db5dfc2cf28a4d32fa4b811002abc695ae2f51e32148"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "salmon",
+              "ldd",
+              "locale",
+              "sh"
+            ],
+            "test": [
+              "test \"$(salmon --version)\" = 'salmon 2.2.1' && salmon --help 2>&1 | grep -F 'RNA-seq transcript quantification (Rust port)' >/dev/null && salmon --no-version-check --help 2>&1 | grep -F 'no-op' >/dev/null && ldd $(command -v salmon) | grep -F 'libgcc_s.so' >/dev/null && ldd $(command -v salmon) | grep -F 'libc.so' >/dev/null && ! ldd $(command -v salmon) | grep -F 'not found' >/dev/null",
+              "salmon --no-version-check index --help 2>&1 | grep -F 'Build a salmon index' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'Quantify transcript abundances' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'writeRad' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'deterministic' >/dev/null && salmon --no-version-check quantmerge --help 2>&1 | grep -F 'Merge a column across multiple samples' >/dev/null && salmon --no-version-check debug-map --help 2>&1 | grep -F 'per-read best-mapping detail' >/dev/null",
+              "rm -rf /tmp/taf-salmon-index && mkdir -p /tmp/taf-salmon-index && cd /tmp/taf-salmon-index && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-index.log 2>&1 && test -s idx/info.json && test -s idx/index.ssi && test -s idx/index.ctab && grep -F '\"salmon_version\": \"2.2.1\"' idx/info.json >/dev/null && grep -F '\"index_version\": 1' idx/info.json >/dev/null && grep -F '\"num_refs\": 2' idx/info.json >/dev/null",
+              "rm -rf /tmp/taf-salmon-quant && mkdir -p /tmp/taf-salmon-quant && cd /tmp/taf-salmon-quant && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-quant-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r3\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o quant -p 1 --quiet >/tmp/taf-salmon-quant.log 2>&1 && test -s quant/quant.sf && grep -F 'Name' quant/quant.sf >/dev/null && grep -F 'tx1' quant/quant.sf >/dev/null && grep -F 'tx2' quant/quant.sf >/dev/null",
+              "rm -rf /tmp/taf-salmon-sketch && mkdir -p /tmp/taf-salmon-sketch && cd /tmp/taf-salmon-sketch && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-sketch-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o sketch_quant -p 1 --sketch --quiet >/tmp/taf-salmon-sketch.log 2>&1 && test -s sketch_quant/quant.sf && grep -F 'tx1' sketch_quant/quant.sf >/dev/null && grep -F 'tx2' sketch_quant/quant.sf >/dev/null",
+              "rm -rf /tmp/taf-salmon-merge && mkdir -p /tmp/taf-salmon-merge/q1 /tmp/taf-salmon-merge/q2 && cd /tmp/taf-salmon-merge && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t100.0\\t2.0\\ntx2\\t40\\t2.432\\t0.0\\t0.0\\n' > q1/quant.sf && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t10.0\\t1.0\\ntx2\\t40\\t2.432\\t90.0\\t9.0\\n' > q2/quant.sf && salmon --no-version-check quantmerge --quants q1 q2 --names s1 s2 --column TPM -o merged.tsv >/tmp/taf-salmon-merge.log 2>&1 && grep -F 'Name' merged.tsv >/dev/null && grep -F 'tx2' merged.tsv >/dev/null && grep -F '90' merged.tsv >/dev/null",
+              "{ salmon --no-version-check alevin > /tmp/taf-salmon-alevin.out 2>&1 && exit 1 || true; } && grep -F 'salmon alevin is not available' /tmp/taf-salmon-alevin.out >/dev/null && grep -F 'alevin-fry' /tmp/taf-salmon-alevin.out >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/salmon",
+            "ref": "v2.2.1-r1",
+            "commit": "37b3285c9e37939872ac83299dde81731d0d0d77",
+            "html_url": "https://github.com/taffish/salmon/tree/v2.2.1-r1"
+          },
+          "upstream": {
+            "name": "Salmon",
+            "type": "github",
+            "homepage": "https://combine-lab.github.io/salmon/",
+            "repository": "COMBINE-lab/salmon",
+            "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.2.1",
+            "version": "2.2.1",
+            "license": "BSD-3-Clause",
+            "citation": "Patro et al. 2017, Nature Methods",
+            "doi": "10.1038/nmeth.4197",
+            "pmid": "28263959"
+          }
         }
       }
     },
@@ -32022,9 +32373,9 @@
     },
     "scanpy": {
       "name": "scanpy",
-      "latest": "1.12.1-r1",
-      "recent_version": "1.12.1-r1",
-      "recent_at": "2026-06-04T06:40:43Z",
+      "latest": "1.12.2-r1",
+      "recent_version": "1.12.2-r1",
+      "recent_at": "2026-06-30T09:10:47Z",
       "repository_url": "https://github.com/taffish/scanpy",
       "command": {
         "name": "taf-scanpy"
@@ -32138,6 +32489,120 @@
             "repository": "https://github.com/scverse/scanpy",
             "release_url": "https://github.com/scverse/scanpy/releases/tag/1.12.1",
             "version": "1.12.1",
+            "license": "BSD-3-Clause",
+            "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
+            "doi": "10.1186/s13059-017-1382-0",
+            "pmid": "29409532"
+          }
+        },
+        "1.12.2-r1": {
+          "name": "scanpy",
+          "kind": "tool",
+          "version": "1.12.2",
+          "release": 1,
+          "version_id": "1.12.2-r1",
+          "tag": "v1.12.2-r1",
+          "published_at": "2026-06-30T09:10:47Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/scanpy",
+          "repository_slug": "taffish/scanpy",
+          "command": {
+            "name": "taf-scanpy"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "transcriptomics",
+              "python",
+              "scverse",
+              "visualization"
+            ],
+            "keywords": [
+              "scanpy",
+              "single-cell",
+              "scrna-seq",
+              "anndata",
+              "h5ad",
+              "leiden",
+              "umap",
+              "pca"
+            ],
+            "summary": "Scanpy 1.12.2 Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, and plotting support.",
+            "description": "Scanpy 1.12.2 Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, and plotting support."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/scanpy:1.12.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.12.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:48f1a8369a53a54ca50edf1b47620feff8e2e3238678742510852558fc41aa23",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:73a03e96db02899e5afe302714af88ff8e3f10ed511de90b10e5395d0edb1e0c",
+              "linux/arm64": "sha256:64930e8bae37d47fff0ada6d8d16b7bc4ddc71928569e135be2004219d388bca"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "scanpy",
+              "python",
+              "python3",
+              "pip",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata as md; print(md.version(\"scanpy\"))')\" = '1.12.2' && python -c 'import importlib.metadata as md; import scanpy as sc, anndata, h5py, igraph, leidenalg, matplotlib, natsort, networkx, numba, numpy, pandas, pynndescent, scipy, seaborn, sklearn, statsmodels, umap; from skmisc.loess import loess; print(md.version(\"scanpy\"))' | grep -Fx '1.12.2' >/dev/null && scanpy --help 2>&1 | grep -E 'usage:|Usage:' >/dev/null",
+              "tmp=/tmp/taf-scanpy-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/scanpy/share/testdata/scanpy_smoke.py \"$tmp/out\" && test -s \"$tmp/out/scanpy_smoke.h5ad\" && test -s \"$tmp/out/pca.png\" && test -s \"$tmp/out/markers.tsv\" && test -s \"$tmp/out/versions.tsv\" && grep -F 'gene' \"$tmp/out/markers.tsv\" >/dev/null && grep -F 'scanpy' \"$tmp/out/versions.tsv\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/scanpy",
+            "ref": "v1.12.2-r1",
+            "commit": "b174c9b12fbdc7c0cf4262341db43948568ba9f7",
+            "html_url": "https://github.com/taffish/scanpy/tree/v1.12.2-r1"
+          },
+          "upstream": {
+            "name": "Scanpy",
+            "type": "github",
+            "homepage": "https://scanpy.readthedocs.io/",
+            "repository": "https://github.com/scverse/scanpy",
+            "release_url": "https://github.com/scverse/scanpy/releases/tag/1.12.2",
+            "version": "1.12.2",
             "license": "BSD-3-Clause",
             "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
             "doi": "10.1186/s13059-017-1382-0",
@@ -33317,9 +33782,9 @@
     },
     "seurat": {
       "name": "seurat",
-      "latest": "5.5.0-r1",
-      "recent_version": "5.5.0-r1",
-      "recent_at": "2026-06-04T13:47:42Z",
+      "latest": "5.5.1-r1",
+      "recent_version": "5.5.1-r1",
+      "recent_at": "2026-06-30T09:48:46Z",
       "repository_url": "https://github.com/taffish/seurat",
       "command": {
         "name": "taf-seurat"
@@ -33432,6 +33897,118 @@
             "repository": "https://github.com/satijalab/seurat",
             "release_url": "https://github.com/satijalab/seurat/releases/tag/v5.5.0",
             "version": "5.5.0",
+            "license": "MIT + file LICENSE",
+            "citation": "Hao et al. Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nature Biotechnology (2023) [Seurat v5].",
+            "doi": "10.1038/s41587-023-01767-y"
+          }
+        },
+        "5.5.1-r1": {
+          "name": "seurat",
+          "kind": "tool",
+          "version": "5.5.1",
+          "release": 1,
+          "version_id": "5.5.1-r1",
+          "tag": "v5.5.1-r1",
+          "published_at": "2026-06-30T09:48:46Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/seurat",
+          "repository_slug": "taffish/seurat",
+          "command": {
+            "name": "taf-seurat"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "scrna-seq",
+              "r",
+              "seurat",
+              "visualization"
+            ],
+            "keywords": [
+              "seurat",
+              "single-cell",
+              "scrna-seq",
+              "r",
+              "seuratobject",
+              "umap",
+              "pca",
+              "clustering",
+              "markers"
+            ],
+            "summary": "Seurat 5.5.1 R runtime for single-cell analysis with SeuratObject, normalization, variable features, PCA, clustering, UMAP, marker testing, and plotting support.",
+            "description": "Seurat 5.5.1 R runtime for single-cell analysis with SeuratObject, normalization, variable features, PCA, clustering, UMAP, marker testing, and plotting support."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/seurat:5.5.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.5.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e4e48b78ca9ba7f238b0a6b5c942efa7d39deff386cfb95683211a1d6f5c71f0",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:dd3f93c253cb39af89ccdfc6a8686a837bcf00b9a68d6dd94f20f4c64031e67d"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "R",
+              "Rscript",
+              "seurat-runtime-info",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "Rscript -e 'stopifnot(as.character(getRversion()) == \"4.5.2\"); stopifnot(as.character(packageVersion(\"Seurat\")) == \"5.5.1\"); stopifnot(as.character(packageVersion(\"SeuratObject\")) == \"5.4.0\")' && seurat-runtime-info --version | grep -Fx 'seurat-runtime-info 5.5.1-r1' >/dev/null && seurat-runtime-info | grep -F \"$(printf 'Seurat\\t5.5.1')\" >/dev/null && seurat-runtime-info | grep -F \"$(printf 'hdf5r\\t')\" >/dev/null && seurat-runtime-info | grep -F \"$(printf 'BPCells\\t')\" >/dev/null",
+              "Rscript -e 'pkgs <- c(\"Seurat\",\"SeuratObject\",\"Matrix\",\"ggplot2\",\"patchwork\",\"future\",\"sctransform\",\"uwot\",\"RANN\",\"RcppAnnoy\",\"RcppHNSW\",\"RSpectra\",\"hdf5r\",\"BPCells\",\"glmGamPoi\",\"MAST\",\"SingleCellExperiment\",\"harmony\",\"leidenbase\",\"SeuratData\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly=TRUE)]; if (length(missing)) stop(paste(\"missing\", paste(missing, collapse=\",\")))' && seurat-runtime-info | grep -F \"$(printf 'Signac\\tMISSING')\" >/dev/null && seurat-runtime-info | grep -F \"$(printf 'Azimuth\\tMISSING')\" >/dev/null && seurat-runtime-info | grep -F \"$(printf 'SeuratData\\t0.2.2.9002')\" >/dev/null",
+              "tmp=/tmp/taf-seurat-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; Rscript /opt/seurat/share/testdata/seurat_smoke.R \"$tmp/out\" && test -s \"$tmp/out/seurat_smoke.rds\" && test -s \"$tmp/out/markers.tsv\" && test -s \"$tmp/out/clusters.tsv\" && test -s \"$tmp/out/plots/umap.png\" && test -s \"$tmp/out/plots/umap.pdf\" && test -s \"$tmp/out/plots/qc_violin.png\" && test -s \"$tmp/out/plots/qc_violin.pdf\" && grep -F 'Seurat' \"$tmp/out/versions.tsv\" >/dev/null && grep -F 'Gene' \"$tmp/out/markers.tsv\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/seurat",
+            "ref": "v5.5.1-r1",
+            "commit": "363d6656f1d469c3e0e04e709922a10f047acbe2",
+            "html_url": "https://github.com/taffish/seurat/tree/v5.5.1-r1"
+          },
+          "upstream": {
+            "name": "Seurat",
+            "type": "github",
+            "homepage": "https://satijalab.org/seurat/",
+            "repository": "https://github.com/satijalab/seurat",
+            "release_url": "https://github.com/satijalab/seurat/releases/tag/v5.5.1",
+            "version": "5.5.1",
             "license": "MIT + file LICENSE",
             "citation": "Hao et al. Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nature Biotechnology (2023) [Seurat v5].",
             "doi": "10.1038/s41587-023-01767-y"
@@ -36212,9 +36789,9 @@
     },
     "trimgalore": {
       "name": "trimgalore",
-      "latest": "2.2.0-r1",
-      "recent_version": "2.2.0-r1",
-      "recent_at": "2026-05-20T03:41:45Z",
+      "latest": "2.3.0-r1",
+      "recent_version": "2.3.0-r1",
+      "recent_at": "2026-06-30T10:33:18Z",
       "repository_url": "https://github.com/taffish/trimgalore",
       "command": {
         "name": "taf-trimgalore"
@@ -36335,6 +36912,129 @@
             "repository": "FelixKrueger/TrimGalore",
             "release_url": "https://github.com/FelixKrueger/TrimGalore/releases/tag/v2.2.0",
             "version": "2.2.0",
+            "license": "GPL-3.0-only",
+            "citation": "Krueger F. Trim Galore: consistent quality and adapter trimming for next-generation sequencing data. Babraham Institute."
+          }
+        },
+        "2.3.0-r1": {
+          "name": "trimgalore",
+          "kind": "tool",
+          "version": "2.3.0",
+          "release": 1,
+          "version_id": "2.3.0-r1",
+          "tag": "v2.3.0-r1",
+          "published_at": "2026-06-30T10:33:18Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trimgalore",
+          "repository_slug": "taffish/trimgalore",
+          "command": {
+            "name": "taf-trimgalore"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "adapter-trimming",
+              "quality-control",
+              "sequencing",
+              "rrbs"
+            ],
+            "keywords": [
+              "trim-galore",
+              "trimgalore",
+              "trim_galore",
+              "fastq",
+              "adapter trimming",
+              "quality trimming",
+              "rrbs",
+              "fastqc",
+              "multiqc",
+              "poly-g",
+              "poly-a",
+              "clumpify"
+            ],
+            "summary": "Consistent quality and adapter trimming for next-generation sequencing FASTQ data, with RRBS handling and built-in FastQC-compatible reports.",
+            "description": "Consistent quality and adapter trimming for next-generation sequencing FASTQ data, with RRBS handling and built-in FastQC-compatible reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trimgalore:2.3.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:0fd567d8681e2e5825cea6dbd12616cede04f02a8a36eddcb96304c57df4792c",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6394775f540b26a0233a6e6fe149da86bc3cb64d57769507e63e230ddb2cd4a2",
+              "linux/arm64": "sha256:a9cbddaa8b3abb5c292f03227c68927d9f2f4dda2308d34ae5ef65560e49e81f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "trim_galore",
+              "bash",
+              "gzip",
+              "unzip",
+              "ldd",
+              "head",
+              "od",
+              "tr"
+            ],
+            "test": [
+              "trim_galore --version 2>&1 | grep -F 'trim_galore 2.3.0' >/dev/null && trim_galore --version 2>&1 | grep -F 'c6528e5' >/dev/null && trim_galore --help 2>&1 | grep -F 'Trim Galore: A fast, single-pass' >/dev/null && trim_galore --help 2>&1 | grep -F 'built in via the bundled fastqc-rust library' >/dev/null && trim_galore --help 2>&1 | grep -F 'output-format' >/dev/null && trim_galore --help 2>&1 | grep -F 'passthrough' >/dev/null && ! ldd /opt/trimgalore/bin/trim_galore | grep -F 'not found' >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-single && cd /tmp/taf-trimgalore-single && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --dont_gzip --length 5 -o out reads.fq >/tmp/taf-trimgalore-single.log 2>&1 && test -s out/reads_trimmed.fq && grep -F 'ACGTACGT' out/reads_trimmed.fq >/dev/null && grep -F 'Reads with adapters:' out/reads.fq_trimming_report.txt >/dev/null && grep -F '\"total_reads\": 1' out/reads.fq_trimming_report.json >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-paired && cd /tmp/taf-trimgalore-paired && printf '@r1/1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@r1/2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && trim_galore --paired --dont_gzip --length 5 -o out r1.fq r2.fq >/tmp/taf-trimgalore-paired.log 2>&1 && test -s out/r1_val_1.fq && test -s out/r2_val_2.fq && grep -F 'ACGTACGT' out/r1_val_1.fq >/dev/null && grep -F 'TGCATGCA' out/r2_val_2.fq >/dev/null && grep -F 'Pairs analyzed:' /tmp/taf-trimgalore-paired.log >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-fastqc && cd /tmp/taf-trimgalore-fastqc && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --fastqc --dont_gzip --length 5 -o out reads.fq >/tmp/taf-trimgalore-fastqc.log 2>&1 && test -s out/reads_trimmed_fastqc.html && test -s out/reads_trimmed_fastqc.zip && unzip -p out/reads_trimmed_fastqc.zip reads_trimmed_fastqc/summary.txt | grep -F 'Basic Statistics' >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-rrbs && cd /tmp/taf-trimgalore-rrbs && printf '@r1\\nCGGACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --rrbs --dont_gzip --length 3 -o out reads.fq >/tmp/taf-trimgalore-rrbs.log 2>&1 && test -s out/reads_trimmed.fq && grep -F 'CGGAC' out/reads_trimmed.fq >/dev/null && grep -F 'RRBS trimmed' /tmp/taf-trimgalore-rrbs.log >/dev/null && grep -F '\"rrbs\": true' out/reads.fq_trimming_report.json >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-clumpify && cd /tmp/taf-trimgalore-clumpify && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && trim_galore --clumpify --cores 2 --length 5 -o out reads.fq.gz >/tmp/taf-trimgalore-clumpify.log 2>&1 && test -s out/reads_trimmed.fq.gz && gzip -cd out/reads_trimmed.fq.gz | grep -F 'ACGTACGT' >/dev/null && grep -F 'clumpify:' /tmp/taf-trimgalore-clumpify.log >/dev/null",
+              "mkdir -p /tmp/taf-trimgalore-ubam && cd /tmp/taf-trimgalore-ubam && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && trim_galore --output-format ubam --length 5 -o out reads.fq >/tmp/taf-trimgalore-ubam.log 2>&1 && test -s out/reads_trimmed.bam && gzip -cd out/reads_trimmed.bam | head -c 4 | od -An -tx1 | tr -d ' \\n' | grep -Fx '42414d01' >/dev/null && grep -F '\"trim_galore_version\": \"2.3.0\"' out/reads.fq_trimming_report.json >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trimgalore",
+            "ref": "v2.3.0-r1",
+            "commit": "74737bb041be11db9379b5d2e620698382fed28d",
+            "html_url": "https://github.com/taffish/trimgalore/tree/v2.3.0-r1"
+          },
+          "upstream": {
+            "name": "Trim Galore",
+            "type": "github",
+            "homepage": "https://www.trimgalore.com/",
+            "repository": "FelixKrueger/TrimGalore",
+            "release_url": "https://github.com/FelixKrueger/TrimGalore/releases/tag/v2.3.0",
+            "version": "2.3.0",
             "license": "GPL-3.0-only",
             "citation": "Krueger F. Trim Galore: consistent quality and adapter trimming for next-generation sequencing data. Babraham Institute."
           }
@@ -37756,9 +38456,9 @@
     },
     "vg": {
       "name": "vg",
-      "latest": "1.75.0-r1",
-      "recent_version": "1.75.0-r1",
-      "recent_at": "2026-06-24T07:58:02Z",
+      "latest": "1.75.1-r1",
+      "recent_version": "1.75.1-r1",
+      "recent_at": "2026-06-30T10:46:47Z",
       "repository_url": "https://github.com/taffish/vg",
       "command": {
         "name": "taf-vg"
@@ -37880,6 +38580,127 @@
             "repository": "vgteam/vg",
             "release_url": "https://github.com/vgteam/vg/releases/tag/v1.75.0",
             "version": "1.75.0",
+            "license": "MIT",
+            "citation": "Garrison et al. 2018, Variation graph toolkit improves read mapping by representing genetic variation in the reference, Nature Biotechnology",
+            "doi": "10.1038/nbt.4227"
+          }
+        },
+        "1.75.1-r1": {
+          "name": "vg",
+          "kind": "tool",
+          "version": "1.75.1",
+          "release": 1,
+          "version_id": "1.75.1-r1",
+          "tag": "v1.75.1-r1",
+          "published_at": "2026-06-30T10:46:47Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/vg",
+          "repository_slug": "taffish/vg",
+          "command": {
+            "name": "taf-vg"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "pangenome",
+            "categories": [
+              "pangenome",
+              "variation-graph",
+              "graph-alignment",
+              "genotyping",
+              "variant-calling"
+            ],
+            "keywords": [
+              "vg",
+              "variation graph",
+              "pangenome graph",
+              "gfa",
+              "gbz",
+              "xg",
+              "gcsa2",
+              "gam",
+              "giraffe",
+              "genotyping",
+              "variant calling",
+              "graph construction"
+            ],
+            "summary": "VG 1.75.1 command-line runtime for constructing, indexing, mapping, genotyping, calling, and converting variation graphs and pangenome graph data.",
+            "description": "VG 1.75.1 command-line runtime for constructing, indexing, mapping, genotyping, calling, and converting variation graphs and pangenome graph data."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/vg:1.75.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.75.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4e26325d29710ccb3a83b11c7f22f05b02a6daf01bd9a300bedc7559d8294c8a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:bec168c995fd5c1c709517c50a40808d236bba0290a81ede31bfc493893e4fa3",
+              "linux/arm64": "sha256:8662cde69acdef9a4e810abeccef0ec55bc12d50cf7d2db5fb5d2d4187cce125"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "vg",
+              "samtools",
+              "bgzip",
+              "tabix",
+              "ldd",
+              "bash",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "vg version 2>&1 | grep -F 'vg version v1.75.1' >/dev/null",
+              "{ vg help 2>&1 || true; } | grep -F 'usage: vg <command> [options]' >/dev/null && { vg construct --help 2>&1 || true; } | grep -F 'usage: vg construct' >/dev/null && { vg index --help 2>&1 || true; } | grep -F 'usage: vg index' >/dev/null && { vg stats --help 2>&1 || true; } | grep -F 'usage: vg stats' >/dev/null",
+              "ldd \"$(command -v vg)\" > /tmp/taf-vg-ldd.txt 2>&1 || true; grep -F 'not a dynamic executable' /tmp/taf-vg-ldd.txt >/dev/null",
+              "/opt/vg/share/testdata/vg-smoke.sh /tmp/taf-vg-index-smoke-$$"
+            ],
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-06-30T10:54:25Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/vg",
+            "ref": "v1.75.1-r1",
+            "commit": "9933e338c3d2902ca9a65227ccc7e56354879915",
+            "html_url": "https://github.com/taffish/vg/tree/v1.75.1-r1"
+          },
+          "upstream": {
+            "name": "vg",
+            "type": "github",
+            "homepage": "https://github.com/vgteam/vg",
+            "repository": "vgteam/vg",
+            "release_url": "https://github.com/vgteam/vg/releases/tag/v1.75.1",
+            "version": "1.75.1",
             "license": "MIT",
             "citation": "Garrison et al. 2018, Variation graph toolkit improves read mapping by representing genetic variation in the reference, Nature Biotechnology",
             "doi": "10.1038/nbt.4227"
@@ -38908,7 +39729,7 @@
     },
     "taf-fastp": {
       "package": "fastp",
-      "version": "1.3.5-r1"
+      "version": "1.3.6-r1"
     },
     "taf-fastqc": {
       "package": "fastqc",
@@ -38960,7 +39781,7 @@
     },
     "taf-gromacs": {
       "package": "gromacs",
-      "version": "2026.2-r2"
+      "version": "2026.3-r1"
     },
     "taf-gtdbtk": {
       "package": "gtdbtk",
@@ -39304,7 +40125,7 @@
     },
     "taf-salmon": {
       "package": "salmon",
-      "version": "2.1.1-r1"
+      "version": "2.2.1-r1"
     },
     "taf-samblaster": {
       "package": "samblaster",
@@ -39316,7 +40137,7 @@
     },
     "taf-scanpy": {
       "package": "scanpy",
-      "version": "1.12.1-r1"
+      "version": "1.12.2-r1"
     },
     "taf-scrnaseq-python": {
       "package": "scrnaseq-python",
@@ -39352,7 +40173,7 @@
     },
     "taf-seurat": {
       "package": "seurat",
-      "version": "5.5.0-r1"
+      "version": "5.5.1-r1"
     },
     "taf-sniffles": {
       "package": "sniffles",
@@ -39420,7 +40241,7 @@
     },
     "taf-trimgalore": {
       "package": "trimgalore",
-      "version": "2.2.0-r1"
+      "version": "2.3.0-r1"
     },
     "taf-trinity": {
       "package": "trinity",
@@ -39460,7 +40281,7 @@
     },
     "taf-vg": {
       "package": "vg",
-      "version": "1.75.0-r1"
+      "version": "1.75.1-r1"
     },
     "taf-vsearch": {
       "package": "vsearch",

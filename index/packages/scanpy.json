@@ -1,8 +1,8 @@
 {
   "name": "scanpy",
-  "latest": "1.12.1-r1",
-  "recent_version": "1.12.1-r1",
-  "recent_at": "2026-06-04T06:40:43Z",
+  "latest": "1.12.2-r1",
+  "recent_version": "1.12.2-r1",
+  "recent_at": "2026-06-30T09:10:47Z",
   "repository_url": "https://github.com/taffish/scanpy",
   "command": {
     "name": "taf-scanpy"
@@ -116,6 +116,120 @@
         "repository": "https://github.com/scverse/scanpy",
         "release_url": "https://github.com/scverse/scanpy/releases/tag/1.12.1",
         "version": "1.12.1",
+        "license": "BSD-3-Clause",
+        "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
+        "doi": "10.1186/s13059-017-1382-0",
+        "pmid": "29409532"
+      }
+    },
+    "1.12.2-r1": {
+      "name": "scanpy",
+      "kind": "tool",
+      "version": "1.12.2",
+      "release": 1,
+      "version_id": "1.12.2-r1",
+      "tag": "v1.12.2-r1",
+      "published_at": "2026-06-30T09:10:47Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/scanpy",
+      "repository_slug": "taffish/scanpy",
+      "command": {
+        "name": "taf-scanpy"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "single-cell",
+        "categories": [
+          "single-cell",
+          "transcriptomics",
+          "python",
+          "scverse",
+          "visualization"
+        ],
+        "keywords": [
+          "scanpy",
+          "single-cell",
+          "scrna-seq",
+          "anndata",
+          "h5ad",
+          "leiden",
+          "umap",
+          "pca"
+        ],
+        "summary": "Scanpy 1.12.2 Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, and plotting support.",
+        "description": "Scanpy 1.12.2 Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, and plotting support."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/scanpy:1.12.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.12.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:48f1a8369a53a54ca50edf1b47620feff8e2e3238678742510852558fc41aa23",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:73a03e96db02899e5afe302714af88ff8e3f10ed511de90b10e5395d0edb1e0c",
+          "linux/arm64": "sha256:64930e8bae37d47fff0ada6d8d16b7bc4ddc71928569e135be2004219d388bca"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "scanpy",
+          "python",
+          "python3",
+          "pip",
+          "bash",
+          "sh"
+        ],
+        "test": [
+          "test \"$(python -c 'import importlib.metadata as md; print(md.version(\"scanpy\"))')\" = '1.12.2' && python -c 'import importlib.metadata as md; import scanpy as sc, anndata, h5py, igraph, leidenalg, matplotlib, natsort, networkx, numba, numpy, pandas, pynndescent, scipy, seaborn, sklearn, statsmodels, umap; from skmisc.loess import loess; print(md.version(\"scanpy\"))' | grep -Fx '1.12.2' >/dev/null && scanpy --help 2>&1 | grep -E 'usage:|Usage:' >/dev/null",
+          "tmp=/tmp/taf-scanpy-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/scanpy/share/testdata/scanpy_smoke.py \"$tmp/out\" && test -s \"$tmp/out/scanpy_smoke.h5ad\" && test -s \"$tmp/out/pca.png\" && test -s \"$tmp/out/markers.tsv\" && test -s \"$tmp/out/versions.tsv\" && grep -F 'gene' \"$tmp/out/markers.tsv\" >/dev/null && grep -F 'scanpy' \"$tmp/out/versions.tsv\" >/dev/null && rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-06-30T10:54:25Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-06-30T10:54:25Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/scanpy",
+        "ref": "v1.12.2-r1",
+        "commit": "b174c9b12fbdc7c0cf4262341db43948568ba9f7",
+        "html_url": "https://github.com/taffish/scanpy/tree/v1.12.2-r1"
+      },
+      "upstream": {
+        "name": "Scanpy",
+        "type": "github",
+        "homepage": "https://scanpy.readthedocs.io/",
+        "repository": "https://github.com/scverse/scanpy",
+        "release_url": "https://github.com/scverse/scanpy/releases/tag/1.12.2",
+        "version": "1.12.2",
         "license": "BSD-3-Clause",
         "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
         "doi": "10.1186/s13059-017-1382-0",
