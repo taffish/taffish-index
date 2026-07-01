@@ -1,0 +1,128 @@
+{
+  "name": "csvtk",
+  "latest": "0.37.0-r1",
+  "recent_version": "0.37.0-r1",
+  "recent_at": "2026-06-30T17:47:23Z",
+  "repository_url": "https://github.com/taffish/csvtk",
+  "command": {
+    "name": "taf-csvtk"
+  },
+  "versions": {
+    "0.37.0-r1": {
+      "name": "csvtk",
+      "kind": "tool",
+      "version": "0.37.0",
+      "release": 1,
+      "version_id": "0.37.0-r1",
+      "tag": "v0.37.0-r1",
+      "published_at": "2026-06-30T17:47:23Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/csvtk",
+      "repository_slug": "taffish/csvtk",
+      "command": {
+        "name": "taf-csvtk"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "table-processing",
+        "categories": [
+          "table-processing",
+          "csv",
+          "tsv",
+          "data-wrangling",
+          "reporting"
+        ],
+        "keywords": [
+          "csvtk",
+          "csv",
+          "tsv",
+          "xlsx",
+          "json",
+          "markdown",
+          "join",
+          "filter",
+          "summary",
+          "plot",
+          "compression"
+        ],
+        "summary": "csvtk command-line toolkit for reproducible CSV/TSV table processing.",
+        "description": "csvtk command-line toolkit for reproducible CSV/TSV table processing."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/csvtk:0.37.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.37.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:a5a4996ab4e8f40b7475a3c0841dee770a265afc883427652d7b1be92c8aec72",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3dac8b491d1b7bc75c006811ee546f33f842d778a0f0179013215594c758c993",
+          "linux/arm64": "sha256:71ea19ec616d395e8498e6faf8359db63895675b87842f17fe892307f4bca948"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "csvtk",
+          "sh",
+          "grep",
+          "ldd"
+        ],
+        "test": [
+          "csvtk --version 2>&1 | grep -Fx 'csvtk v0.37.0' >/dev/null && csvtk --help 2>&1 | grep -F 'CSV/TSV toolkit' >/dev/null && csvtk summary --help 2>&1 | grep -F 'summary statistics' >/dev/null && csvtk join --help 2>&1 | grep -F 'join files by selected fields' >/dev/null && csvtk csv2xlsx --help 2>&1 | grep -F 'convert CSV/TSV files to XLSX file' >/dev/null && csvtk plot --help 2>&1 | grep -F 'plot common figures' >/dev/null && { ldd $(command -v csvtk) 2>&1 || true; } | grep -E '(not a dynamic executable|statically linked)' >/dev/null",
+          "tmp=/tmp/taf-csvtk-basic-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; trap 'rm -rf \"$tmp\"' EXIT; cd \"$tmp\"; printf 'sample,group,count\\ns1,A,10\\ns2,A,12\\ns3,B,7\\ns4,B,9\\n' > table.csv; csvtk dim table.csv > dim.txt; grep -F 'table.csv' dim.txt >/dev/null; grep -F 'num_rows' dim.txt >/dev/null; csvtk cut -f sample,count table.csv > cut.csv; grep -F 'sample,count' cut.csv >/dev/null; csvtk filter2 -f '$count >= 10' table.csv > filtered.csv; grep -F 's2,A,12' filtered.csv >/dev/null; csvtk summary -f count:sum -g group table.csv > summary.csv; grep -F 'A,22.00' summary.csv >/dev/null",
+          "tmp=/tmp/taf-csvtk-transform-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; trap 'rm -rf \"$tmp\"' EXIT; cd \"$tmp\"; printf 'id,name,score\\n1,Alice,8\\n2,Bob,11\\n3,Carol,9\\n' > meta.csv; csvtk csv2tab meta.csv > meta.tsv; grep -F 'id\tname\tscore' meta.tsv >/dev/null; csvtk -t tab2csv meta.tsv > round.csv; grep -F '2,Bob,11' round.csv >/dev/null; csvtk csv2json meta.csv > meta.json; grep -F '\"name\": \"Alice\"' meta.json >/dev/null; csvtk csv2md meta.csv > meta.md; grep -F '|1  |Alice|8' meta.md >/dev/null",
+          "tmp=/tmp/taf-csvtk-join-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; trap 'rm -rf \"$tmp\"' EXIT; cd \"$tmp\"; printf 'id,sample\\n1,s1\\n2,s2\\n3,s3\\n' > samples.csv; printf 'id,value\\n1,10\\n2,20\\n4,40\\n' > values.csv; csvtk join -f id samples.csv values.csv > joined.csv; grep -F '1,s1,10' joined.csv >/dev/null; csvtk freq -f id joined.csv > freq.csv; grep -F '1,1' freq.csv >/dev/null; csvtk pretty joined.csv > pretty.txt; grep -F 'sample' pretty.txt >/dev/null",
+          "tmp=/tmp/taf-csvtk-compress-xlsx-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; trap 'rm -rf \"$tmp\"' EXIT; cd \"$tmp\"; printf 'id,value\\n1,10\\n2,20\\n' > data.csv; csvtk csv2xlsx data.csv -o data.xlsx; test -s data.xlsx; csvtk xlsx2csv data.xlsx > from_xlsx.csv; grep -F '2,20' from_xlsx.csv >/dev/null; csvtk csv2tab data.csv | csvtk -t csv2xlsx -o data-tsv.xlsx; test -s data-tsv.xlsx; csvtk cat data.csv -o data.csv.lz4; test -s data.csv.lz4; csvtk headers data.csv.lz4 > headers.txt; grep -F 'value' headers.txt >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-01T02:35:52Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-01T02:35:52Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/csvtk",
+        "ref": "v0.37.0-r1",
+        "commit": "3a8e1f8581e9f6fde43ddc82ee5ae00715d2daad",
+        "html_url": "https://github.com/taffish/csvtk/tree/v0.37.0-r1"
+      },
+      "upstream": {
+        "name": "csvtk",
+        "type": "github",
+        "homepage": "https://bioinf.shenwei.me/csvtk/",
+        "repository": "shenwei356/csvtk",
+        "release_url": "https://github.com/shenwei356/csvtk/releases/tag/v0.37.0",
+        "version": "0.37.0",
+        "license": "MIT",
+        "citation": "No dedicated csvtk paper was found in the upstream README; cite the upstream project and version."
+      }
+    }
+  }
+}
