@@ -1,0 +1,128 @@
+{
+  "name": "bioawk",
+  "latest": "1.0-r1",
+  "recent_version": "1.0-r1",
+  "recent_at": "2026-07-01T04:08:52Z",
+  "repository_url": "https://github.com/taffish/bioawk",
+  "command": {
+    "name": "taf-bioawk"
+  },
+  "versions": {
+    "1.0-r1": {
+      "name": "bioawk",
+      "kind": "tool",
+      "version": "1.0",
+      "release": 1,
+      "version_id": "1.0-r1",
+      "tag": "v1.0-r1",
+      "published_at": "2026-07-01T04:08:52Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bioawk",
+      "repository_slug": "taffish/bioawk",
+      "command": {
+        "name": "taf-bioawk"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "bioinformatics",
+        "categories": [
+          "bioinformatics",
+          "sequence-analysis",
+          "text-processing",
+          "genomics"
+        ],
+        "keywords": [
+          "bioawk",
+          "awk",
+          "fasta",
+          "fastq",
+          "sam",
+          "vcf",
+          "bed",
+          "gff",
+          "gzip"
+        ],
+        "summary": "Bioawk v1.0 command-line runtime for awk-style processing of common biological text formats.",
+        "description": "Bioawk v1.0 command-line runtime for awk-style processing of common biological text formats."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bioawk:1.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:2378ba5461d569607f07847552861a58a633677ed72039878ae5bb79b5155b29",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:c4a79596c3fef6712f5a23bf716531b04702498d8f52f0dd690cd80ea2fac831",
+          "linux/arm64": "sha256:f9f74d3cc3f7b7869a4c4d059bb6f7ed045efc37ec542f2a229b0c752214c608"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "bioawk",
+          "sh",
+          "grep",
+          "gzip",
+          "ldd"
+        ],
+        "test": [
+          "grep -F 'source_sha256=5cbef3f39b085daba45510ff450afcf943cfdfdd483a546c8a509d3075ff51b5' /opt/bioawk/share/doc/bioawk/source.txt >/dev/null",
+          "bioawk --version 2>&1 | grep -Fx 'awk version 20110810' >/dev/null && { bioawk -c help 2>&1 || true; } | grep -F 'fastx:' >/dev/null && { bioawk -c help 2>&1 || true; } | grep -F 'sam:' >/dev/null",
+          "ldd \"$(command -v bioawk)\" 2>&1 | grep -F 'not found' && exit 1 || true",
+          "tmp=/tmp/taf-bioawk-fastx-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; trap 'rm -rf \"$tmp\"' EXIT; cd \"$tmp\"; printf '>seq1 comment one\\nACGTN\\n>seq2\\nNNAA\\n' > seq.fa; printf '{print $name\":\"length($seq)\":\"revcomp($seq)}\\n' > fastx.awk; bioawk -c fastx -f fastx.awk seq.fa > fastx.txt; grep -Fx 'seq1:5:NACGT' fastx.txt >/dev/null; grep -Fx 'seq2:4:TTNN' fastx.txt >/dev/null; gzip -c seq.fa > seq.fa.gz; printf '{print $name}\\n' > names.awk; bioawk -c fastx -f names.awk seq.fa.gz > gz.txt; grep -Fx 'seq2' gz.txt >/dev/null",
+          "tmp=/tmp/taf-bioawk-fastq-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; trap 'rm -rf \"$tmp\"' EXIT; cd \"$tmp\"; printf '@r1 some comment\\nACGT\\n+\\nIIII\\n@r2\\nTTAA\\n+\\nHHHH\\n' > reads.fq; printf '{print $name\":\"$seq\":\"length($qual)}\\n' > reads.awk; bioawk -c fastx -f reads.awk reads.fq > reads.txt; grep -Fx 'r1:ACGT:4' reads.txt >/dev/null; grep -Fx 'r2:TTAA:4' reads.txt >/dev/null",
+          "tmp=/tmp/taf-bioawk-sam-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; trap 'rm -rf \"$tmp\"' EXIT; cd \"$tmp\"; printf '@HD\\tVN:1.6\\n@SQ\\tSN:chr1\\tLN:100\\nr001\\t0\\tchr1\\t7\\t60\\t4M\\t*\\t0\\t0\\tACGT\\tIIII\\n' > aln.sam; printf '{print $qname\":\"$rname\":\"$pos\":\"$seq}\\n' > sam.awk; bioawk -c sam -f sam.awk aln.sam > sam.txt; grep -Fx 'r001:chr1:7:ACGT' sam.txt >/dev/null",
+          "tmp=/tmp/taf-bioawk-vcf-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; trap 'rm -rf \"$tmp\"' EXIT; cd \"$tmp\"; printf '##fileformat=VCFv4.2\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\tfoo\\tbar\\nchr1\\t12\\t.\\tA\\tG\\t.\\tPASS\\t.\\t0/1\\t1/1\\n' > in.vcf; printf '{print $chrom\":\"$pos\":\"$ref\">\"$alt}\\n' > vcf.awk; bioawk -c vcf -f vcf.awk in.vcf > vcf.txt; grep -Fx 'chr1:12:A>G' vcf.txt >/dev/null; printf '{print $_CHROM\":\"$POS\":\"$foo\":\"$bar}\\n' > hdr.awk; grep -v '^##' in.vcf | bioawk -tc hdr -f hdr.awk > hdr.txt; grep -Fx 'chr1:12:0/1:1/1' hdr.txt >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-01T04:36:12Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-01T04:36:12Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bioawk",
+        "ref": "v1.0-r1",
+        "commit": "cfd78f88447c7dc31c4d9c62d7d8e9207f2f915f",
+        "html_url": "https://github.com/taffish/bioawk/tree/v1.0-r1"
+      },
+      "upstream": {
+        "name": "bioawk",
+        "type": "github",
+        "homepage": "https://github.com/lh3/bioawk",
+        "repository": "lh3/bioawk",
+        "release_url": "https://github.com/lh3/bioawk/releases/tag/v1.0",
+        "version": "1.0",
+        "license": "Lucent permissive license in bundled BWK awk source; upstream repository has no separate SPDX LICENSE file",
+        "citation": "No dedicated bioawk paper is listed upstream; cite the upstream project and version."
+      }
+    }
+  }
+}
