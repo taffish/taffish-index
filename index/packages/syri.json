@@ -1,8 +1,8 @@
 {
   "name": "syri",
-  "latest": "1.8.0-r1",
-  "recent_version": "1.8.0-r1",
-  "recent_at": "2026-06-01T03:47:32Z",
+  "latest": "1.8.2-r1",
+  "recent_version": "1.8.2-r1",
+  "recent_at": "2026-07-02T22:09:30Z",
   "repository_url": "https://github.com/taffish/syri",
   "command": {
     "name": "taf-syri"
@@ -245,6 +245,127 @@
         "repository": "schneebergerlab/syri",
         "release_url": "https://github.com/schneebergerlab/syri/releases/tag/v1.8.0",
         "version": "1.8.0",
+        "license": "MIT",
+        "citation": "Goel et al. 2019, SyRI: finding genomic rearrangements and local sequence differences from whole-genome assemblies",
+        "doi": "10.1186/s13059-019-1911-0"
+      }
+    },
+    "1.8.2-r1": {
+      "name": "syri",
+      "kind": "tool",
+      "version": "1.8.2",
+      "release": 1,
+      "version_id": "1.8.2-r1",
+      "tag": "v1.8.2-r1",
+      "published_at": "2026-07-02T22:09:30Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/syri",
+      "repository_slug": "taffish/syri",
+      "command": {
+        "name": "taf-syri"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "comparative-genomics",
+          "structural-variation",
+          "synteny",
+          "whole-genome-alignment"
+        ],
+        "keywords": [
+          "syri",
+          "synteny",
+          "rearrangement",
+          "structural-variation",
+          "whole-genome-alignment",
+          "chroder",
+          "show-snps",
+          "mummer",
+          "minimap2",
+          "samtools"
+        ],
+        "summary": "SyRI identifies synteny, structural rearrangements, local variants, and unaligned regions from whole-genome assembly alignments.",
+        "description": "SyRI identifies synteny, structural rearrangements, local variants, and unaligned regions from whole-genome assembly alignments."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/syri:1.8.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.8.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:705ac0b0c50c0679d7830440c785adb545035006ce44ddaac945b13e0409ac07",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0d48d2d815a83abfe70273ced40f70465b1e5fdc86f84ddac40e1d42806fea9a",
+          "linux/arm64": "sha256:580f1c2e446f7f11de0360dd38ba397c5bc6cb46ed0dbfff22a668bf64dfc5a5"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "syri",
+          "chroder",
+          "show-snps",
+          "nucmer",
+          "minimap2",
+          "samtools",
+          "python3"
+        ],
+        "test": [
+          "syri --version | grep -Fx '1.8.2' >/dev/null",
+          "chroder --version | grep -Fx '1.8.2' >/dev/null",
+          "syri -h 2>&1 | grep -F 'Input Files' >/dev/null && chroder -h 2>&1 | grep -F 'coords' >/dev/null",
+          "python3 -c 'import syri, numpy, pandas, scipy, psutil, igraph, pysam, longestrunsubsequence; assert syri.__version__ == \"1.8.2\"'",
+          "command -v show-snps >/dev/null && command -v nucmer >/dev/null && minimap2 --version >/dev/null && samtools --version >/dev/null",
+          "rm -rf /tmp/taf-syri-smoke /tmp/taf-syri-smoke.log && mkdir -p /tmp/taf-syri-smoke && cd /tmp/taf-syri-smoke && printf '1\\t240\\t1\\t240\\t240\\t240\\t99.9\\t1\\t1\\tChrA\\tChrA\\n' > coords.tsv && syri -c coords.tsv -F T --nosv --nosnp --novcf -k --prefix smoke. >/tmp/taf-syri-smoke.log 2>&1 && test -s smoke.synOut.txt && python3 -c 'from pathlib import Path; lines = Path(\"smoke.synOut.txt\").read_text().splitlines(); assert lines[0].startswith(\"#\\tChrA\\t1\\t240\\t\"); assert lines[1] == \"1\\t240\\t1\\t240\"' && rm -rf /tmp/taf-syri-smoke /tmp/taf-syri-smoke.log",
+          "rm -rf /tmp/taf-chroder-smoke && mkdir -p /tmp/taf-chroder-smoke && cd /tmp/taf-chroder-smoke && printf '1\\t240\\t1\\t240\\t240\\t240\\t99.9\\t1\\t1\\tChrA\\tChrA\\n' > coords.tsv && python3 -c 'print(\">ChrA\"); print(\"ACGT\" * 60)' > ref.fa && cp ref.fa qry.fa && chroder coords.tsv ref.fa qry.fa -F T -o smoke_chroder >/tmp/taf-chroder-smoke.log 2>&1 && test -s smoke_chroder.qry.fasta && test -s smoke_chroder.anno && rm -rf /tmp/taf-chroder-smoke /tmp/taf-chroder-smoke.log"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-02T22:52:38Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-02T22:52:38Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/syri",
+        "ref": "v1.8.2-r1",
+        "commit": "47149860e42dc3f6bb4fbc0f71180e8c2c3c0c71",
+        "html_url": "https://github.com/taffish/syri/tree/v1.8.2-r1"
+      },
+      "upstream": {
+        "name": "SyRI",
+        "type": "github",
+        "homepage": "https://schneebergerlab.github.io/syri/",
+        "repository": "schneebergerlab/syri",
+        "release_url": "https://github.com/schneebergerlab/syri/releases/tag/v1.8.2",
+        "version": "1.8.2",
         "license": "MIT",
         "citation": "Goel et al. 2019, SyRI: finding genomic rearrangements and local sequence differences from whole-genome assemblies",
         "doi": "10.1186/s13059-019-1911-0"

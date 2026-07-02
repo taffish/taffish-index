@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-02T05:10:17Z",
+  "generated_at": "2026-07-02T22:52:38Z",
   "organization": "taffish",
   "counts": {
-    "packages": 205,
-    "versions": 317,
-    "commands": 205,
-    "repositories": 205,
+    "packages": 206,
+    "versions": 320,
+    "commands": 206,
+    "repositories": 206,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -4666,6 +4666,134 @@
             "citation": "Li and Durbin 2009",
             "doi": "10.1093/bioinformatics/btp324",
             "pmid": "19451168"
+          }
+        }
+      }
+    },
+    "bwa-mem2": {
+      "name": "bwa-mem2",
+      "latest": "2.3-r1",
+      "recent_version": "2.3-r1",
+      "recent_at": "2026-07-02T16:30:25Z",
+      "repository_url": "https://github.com/taffish/bwa-mem2",
+      "command": {
+        "name": "taf-bwa-mem2"
+      },
+      "versions": {
+        "2.3-r1": {
+          "name": "bwa-mem2",
+          "kind": "tool",
+          "version": "2.3",
+          "release": 1,
+          "version_id": "2.3-r1",
+          "tag": "v2.3-r1",
+          "published_at": "2026-07-02T16:30:25Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bwa-mem2",
+          "repository_slug": "taffish/bwa-mem2",
+          "command": {
+            "name": "taf-bwa-mem2"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "alignment",
+              "sequence-alignment",
+              "short-read-alignment",
+              "ngs"
+            ],
+            "keywords": [
+              "bwa-mem2",
+              "bwa-mem",
+              "alignment",
+              "short-read",
+              "fastq",
+              "sam",
+              "indexing",
+              "burrows-wheeler",
+              "simd",
+              "ngs"
+            ],
+            "summary": "BWA-MEM2, the next version of BWA-MEM for fast short-read alignment.",
+            "description": "BWA-MEM2, the next version of BWA-MEM for fast short-read alignment."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bwa-mem2:2.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:09caf817f66195575c708aeb15c1843a6959b3e8890a0199d76c98af9163c6da",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f70544a0ddc8d12de81915299afc86b34d904123d6a0bb883cad7071c7ac6116"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "bwa-mem2",
+              "bwa-mem2.sse41",
+              "bwa-mem2.sse42",
+              "bwa-mem2.avx",
+              "bwa-mem2.avx2",
+              "bwa-mem2.avx512bw"
+            ],
+            "test": [
+              "{ bwa-mem2 2>&1 || true; } | grep -F 'Usage: bwa-mem2 <command> <arguments>' >/dev/null",
+              "bwa-mem2 version 2>&1 | grep -Fx '2.2.1' >/dev/null",
+              "{ bwa-mem2 index 2>&1 || true; } | grep -F 'Usage: bwa-mem2 index [-p prefix] <in.fasta>' >/dev/null",
+              "{ bwa-mem2 mem 2>&1 || true; } | grep -F 'Usage: bwa-mem2 mem [options] <idxbase> <in1.fq> [in2.fq]' >/dev/null",
+              "find /usr/local/bin -maxdepth 1 -type f -name 'bwa-mem2*' -print0 | xargs -0 ldd > /tmp/taf-bwa-mem2-ldd.txt && if grep -F 'not found' /tmp/taf-bwa-mem2-ldd.txt; then exit 1; fi",
+              "tmp=/tmp/taf-bwa-mem2-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa; printf '@read1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq; bwa-mem2 index ref.fa >/tmp/taf-bwa-mem2-index.log 2>&1; bwa-mem2 mem ref.fa reads.fq > aln.sam 2>/tmp/taf-bwa-mem2-mem.log; grep -F '@SQ' aln.sam >/dev/null; grep -F 'read1' aln.sam >/dev/null; rm -rf \"$tmp\" /tmp/taf-bwa-mem2-index.log /tmp/taf-bwa-mem2-mem.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-02T22:52:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-02T22:52:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bwa-mem2",
+            "ref": "v2.3-r1",
+            "commit": "0c9d5956a08802963e78b8f5953482a83c91ebab",
+            "html_url": "https://github.com/taffish/bwa-mem2/tree/v2.3-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://github.com/bwa-mem2/bwa-mem2",
+            "repository": "bwa-mem2/bwa-mem2",
+            "release_url": "https://github.com/bwa-mem2/bwa-mem2/releases/tag/v2.3",
+            "version": "2.3",
+            "license": "MIT",
+            "citation": "Vasimuddin Md, Sanchit Misra, Heng Li, Srinivas Aluru. Efficient Architecture-Aware Acceleration of BWA-MEM for Multicore Systems. IEEE IPDPS, 2019.",
+            "doi": "10.1109/IPDPS.2019.00041"
           }
         }
       }
@@ -31897,9 +32025,9 @@
     },
     "salmon": {
       "name": "salmon",
-      "latest": "2.2.1-r1",
-      "recent_version": "2.2.1-r1",
-      "recent_at": "2026-06-30T08:36:42Z",
+      "latest": "2.3.1-r1",
+      "recent_version": "2.3.1-r1",
+      "recent_at": "2026-07-02T16:33:27Z",
       "repository_url": "https://github.com/taffish/salmon",
       "command": {
         "name": "taf-salmon"
@@ -32486,6 +32614,124 @@
             "repository": "COMBINE-lab/salmon",
             "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.2.1",
             "version": "2.2.1",
+            "license": "BSD-3-Clause",
+            "citation": "Patro et al. 2017, Nature Methods",
+            "doi": "10.1038/nmeth.4197",
+            "pmid": "28263959"
+          }
+        },
+        "2.3.1-r1": {
+          "name": "salmon",
+          "kind": "tool",
+          "version": "2.3.1",
+          "release": 1,
+          "version_id": "2.3.1-r1",
+          "tag": "v2.3.1-r1",
+          "published_at": "2026-07-02T16:33:27Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/salmon",
+          "repository_slug": "taffish/salmon",
+          "command": {
+            "name": "taf-salmon"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "quantification",
+              "alignment",
+              "indexing"
+            ],
+            "keywords": [
+              "salmon",
+              "rna-seq",
+              "transcript abundance",
+              "selective alignment",
+              "sketch",
+              "sshash",
+              "piscem",
+              "quant",
+              "quantmerge"
+            ],
+            "summary": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, indexing, selective-alignment and sketch quantification, alignment-based quantification, and quantification merging.",
+            "description": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, indexing, selective-alignment and sketch quantification, alignment-based quantification, and quantification merging."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/salmon:2.3.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2096ec8acfa42b53ede3a70dbd9c794e1e1ef8f74f30a715a981d75ec4afac51",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1f2de35c71f4f4bcb384e00b9a9904345f67af9312c5a1c989f68302e81d47d0",
+              "linux/arm64": "sha256:d97acac07c22d12b88dbe2cc12aeef9fd08f0e50c68653e5ec5d6d0b6dd61918"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "salmon",
+              "ldd",
+              "locale",
+              "sh"
+            ],
+            "test": [
+              "test \"$(salmon --version)\" = 'salmon 2.3.1' && salmon --help 2>&1 | grep -F 'RNA-seq transcript quantification (Rust port)' >/dev/null && salmon --no-version-check --help 2>&1 | grep -F 'no-op' >/dev/null && ldd $(command -v salmon) | grep -F 'libgcc_s.so' >/dev/null && ldd $(command -v salmon) | grep -F 'libc.so' >/dev/null && ! ldd $(command -v salmon) | grep -F 'not found' >/dev/null",
+              "salmon --no-version-check index --help 2>&1 | grep -F 'Build a salmon index' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'Quantify transcript abundances' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'writeRad' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'deterministic' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'annotation' >/dev/null && salmon --no-version-check quantmerge --help 2>&1 | grep -F 'Merge a column across multiple samples' >/dev/null && salmon --no-version-check debug-map --help 2>&1 | grep -F 'per-read best-mapping detail' >/dev/null",
+              "rm -rf /tmp/taf-salmon-index && mkdir -p /tmp/taf-salmon-index && cd /tmp/taf-salmon-index && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-index.log 2>&1 && test -s idx/info.json && test -s idx/index.ssi && test -s idx/index.ctab && grep -F '\"salmon_version\": \"2.3.1\"' idx/info.json >/dev/null && grep -F '\"index_version\": 1' idx/info.json >/dev/null && grep -F '\"num_refs\": 2' idx/info.json >/dev/null",
+              "rm -rf /tmp/taf-salmon-quant && mkdir -p /tmp/taf-salmon-quant && cd /tmp/taf-salmon-quant && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-quant-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r3\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o quant -p 1 --quiet >/tmp/taf-salmon-quant.log 2>&1 && test -s quant/quant.sf && grep -F 'Name' quant/quant.sf >/dev/null && grep -F 'tx1' quant/quant.sf >/dev/null && grep -F 'tx2' quant/quant.sf >/dev/null",
+              "rm -rf /tmp/taf-salmon-sketch && mkdir -p /tmp/taf-salmon-sketch && cd /tmp/taf-salmon-sketch && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-sketch-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o sketch_quant -p 1 --sketch --quiet >/tmp/taf-salmon-sketch.log 2>&1 && test -s sketch_quant/quant.sf && grep -F 'tx1' sketch_quant/quant.sf >/dev/null && grep -F 'tx2' sketch_quant/quant.sf >/dev/null",
+              "rm -rf /tmp/taf-salmon-merge && mkdir -p /tmp/taf-salmon-merge/q1 /tmp/taf-salmon-merge/q2 && cd /tmp/taf-salmon-merge && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t100.0\\t2.0\\ntx2\\t40\\t2.432\\t0.0\\t0.0\\n' > q1/quant.sf && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t10.0\\t1.0\\ntx2\\t40\\t2.432\\t90.0\\t9.0\\n' > q2/quant.sf && salmon --no-version-check quantmerge --quants q1 q2 --names s1 s2 --column TPM -o merged.tsv >/tmp/taf-salmon-merge.log 2>&1 && grep -F 'Name' merged.tsv >/dev/null && grep -F 'tx2' merged.tsv >/dev/null && grep -F '90' merged.tsv >/dev/null",
+              "{ salmon --no-version-check alevin > /tmp/taf-salmon-alevin.out 2>&1 && exit 1 || true; } && grep -F 'salmon alevin is not available' /tmp/taf-salmon-alevin.out >/dev/null && grep -F 'alevin-fry' /tmp/taf-salmon-alevin.out >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-02T22:52:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-02T22:52:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/salmon",
+            "ref": "v2.3.1-r1",
+            "commit": "b9aa328f3ce8a650e1b8e106ffd5374ec816a738",
+            "html_url": "https://github.com/taffish/salmon/tree/v2.3.1-r1"
+          },
+          "upstream": {
+            "name": "Salmon",
+            "type": "github",
+            "homepage": "https://combine-lab.github.io/salmon/",
+            "repository": "COMBINE-lab/salmon",
+            "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.3.1",
+            "version": "2.3.1",
             "license": "BSD-3-Clause",
             "citation": "Patro et al. 2017, Nature Methods",
             "doi": "10.1038/nmeth.4197",
@@ -36286,9 +36532,9 @@
     },
     "syri": {
       "name": "syri",
-      "latest": "1.8.0-r1",
-      "recent_version": "1.8.0-r1",
-      "recent_at": "2026-06-01T03:47:32Z",
+      "latest": "1.8.2-r1",
+      "recent_version": "1.8.2-r1",
+      "recent_at": "2026-07-02T22:09:30Z",
       "repository_url": "https://github.com/taffish/syri",
       "command": {
         "name": "taf-syri"
@@ -36531,6 +36777,127 @@
             "repository": "schneebergerlab/syri",
             "release_url": "https://github.com/schneebergerlab/syri/releases/tag/v1.8.0",
             "version": "1.8.0",
+            "license": "MIT",
+            "citation": "Goel et al. 2019, SyRI: finding genomic rearrangements and local sequence differences from whole-genome assemblies",
+            "doi": "10.1186/s13059-019-1911-0"
+          }
+        },
+        "1.8.2-r1": {
+          "name": "syri",
+          "kind": "tool",
+          "version": "1.8.2",
+          "release": 1,
+          "version_id": "1.8.2-r1",
+          "tag": "v1.8.2-r1",
+          "published_at": "2026-07-02T22:09:30Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/syri",
+          "repository_slug": "taffish/syri",
+          "command": {
+            "name": "taf-syri"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "comparative-genomics",
+              "structural-variation",
+              "synteny",
+              "whole-genome-alignment"
+            ],
+            "keywords": [
+              "syri",
+              "synteny",
+              "rearrangement",
+              "structural-variation",
+              "whole-genome-alignment",
+              "chroder",
+              "show-snps",
+              "mummer",
+              "minimap2",
+              "samtools"
+            ],
+            "summary": "SyRI identifies synteny, structural rearrangements, local variants, and unaligned regions from whole-genome assembly alignments.",
+            "description": "SyRI identifies synteny, structural rearrangements, local variants, and unaligned regions from whole-genome assembly alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/syri:1.8.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.8.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:705ac0b0c50c0679d7830440c785adb545035006ce44ddaac945b13e0409ac07",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0d48d2d815a83abfe70273ced40f70465b1e5fdc86f84ddac40e1d42806fea9a",
+              "linux/arm64": "sha256:580f1c2e446f7f11de0360dd38ba397c5bc6cb46ed0dbfff22a668bf64dfc5a5"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "syri",
+              "chroder",
+              "show-snps",
+              "nucmer",
+              "minimap2",
+              "samtools",
+              "python3"
+            ],
+            "test": [
+              "syri --version | grep -Fx '1.8.2' >/dev/null",
+              "chroder --version | grep -Fx '1.8.2' >/dev/null",
+              "syri -h 2>&1 | grep -F 'Input Files' >/dev/null && chroder -h 2>&1 | grep -F 'coords' >/dev/null",
+              "python3 -c 'import syri, numpy, pandas, scipy, psutil, igraph, pysam, longestrunsubsequence; assert syri.__version__ == \"1.8.2\"'",
+              "command -v show-snps >/dev/null && command -v nucmer >/dev/null && minimap2 --version >/dev/null && samtools --version >/dev/null",
+              "rm -rf /tmp/taf-syri-smoke /tmp/taf-syri-smoke.log && mkdir -p /tmp/taf-syri-smoke && cd /tmp/taf-syri-smoke && printf '1\\t240\\t1\\t240\\t240\\t240\\t99.9\\t1\\t1\\tChrA\\tChrA\\n' > coords.tsv && syri -c coords.tsv -F T --nosv --nosnp --novcf -k --prefix smoke. >/tmp/taf-syri-smoke.log 2>&1 && test -s smoke.synOut.txt && python3 -c 'from pathlib import Path; lines = Path(\"smoke.synOut.txt\").read_text().splitlines(); assert lines[0].startswith(\"#\\tChrA\\t1\\t240\\t\"); assert lines[1] == \"1\\t240\\t1\\t240\"' && rm -rf /tmp/taf-syri-smoke /tmp/taf-syri-smoke.log",
+              "rm -rf /tmp/taf-chroder-smoke && mkdir -p /tmp/taf-chroder-smoke && cd /tmp/taf-chroder-smoke && printf '1\\t240\\t1\\t240\\t240\\t240\\t99.9\\t1\\t1\\tChrA\\tChrA\\n' > coords.tsv && python3 -c 'print(\">ChrA\"); print(\"ACGT\" * 60)' > ref.fa && cp ref.fa qry.fa && chroder coords.tsv ref.fa qry.fa -F T -o smoke_chroder >/tmp/taf-chroder-smoke.log 2>&1 && test -s smoke_chroder.qry.fasta && test -s smoke_chroder.anno && rm -rf /tmp/taf-chroder-smoke /tmp/taf-chroder-smoke.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-02T22:52:38Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-02T22:52:38Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/syri",
+            "ref": "v1.8.2-r1",
+            "commit": "47149860e42dc3f6bb4fbc0f71180e8c2c3c0c71",
+            "html_url": "https://github.com/taffish/syri/tree/v1.8.2-r1"
+          },
+          "upstream": {
+            "name": "SyRI",
+            "type": "github",
+            "homepage": "https://schneebergerlab.github.io/syri/",
+            "repository": "schneebergerlab/syri",
+            "release_url": "https://github.com/schneebergerlab/syri/releases/tag/v1.8.2",
+            "version": "1.8.2",
             "license": "MIT",
             "citation": "Goel et al. 2019, SyRI: finding genomic rearrangements and local sequence differences from whole-genome assemblies",
             "doi": "10.1186/s13059-019-1911-0"
@@ -39990,6 +40357,10 @@
       "package": "bwa",
       "version": "0.7.19-r1"
     },
+    "taf-bwa-mem2": {
+      "package": "bwa-mem2",
+      "version": "2.3-r1"
+    },
     "taf-cdhit": {
       "package": "cdhit",
       "version": "4.8.1-r1"
@@ -40520,7 +40891,7 @@
     },
     "taf-salmon": {
       "package": "salmon",
-      "version": "2.2.1-r1"
+      "version": "2.3.1-r1"
     },
     "taf-samblaster": {
       "package": "samblaster",
@@ -40612,7 +40983,7 @@
     },
     "taf-syri": {
       "package": "syri",
-      "version": "1.8.0-r1"
+      "version": "1.8.2-r1"
     },
     "taf-taffish-report-render": {
       "package": "taffish-report-render",
@@ -40864,6 +41235,12 @@
       "repository": "taffish/bwa",
       "packages": [
         "bwa"
+      ]
+    },
+    "taffish/bwa-mem2": {
+      "repository": "taffish/bwa-mem2",
+      "packages": [
+        "bwa-mem2"
       ]
     },
     "taffish/cdhit": {

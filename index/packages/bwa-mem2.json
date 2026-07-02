@@ -1,0 +1,128 @@
+{
+  "name": "bwa-mem2",
+  "latest": "2.3-r1",
+  "recent_version": "2.3-r1",
+  "recent_at": "2026-07-02T16:30:25Z",
+  "repository_url": "https://github.com/taffish/bwa-mem2",
+  "command": {
+    "name": "taf-bwa-mem2"
+  },
+  "versions": {
+    "2.3-r1": {
+      "name": "bwa-mem2",
+      "kind": "tool",
+      "version": "2.3",
+      "release": 1,
+      "version_id": "2.3-r1",
+      "tag": "v2.3-r1",
+      "published_at": "2026-07-02T16:30:25Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bwa-mem2",
+      "repository_slug": "taffish/bwa-mem2",
+      "command": {
+        "name": "taf-bwa-mem2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "alignment",
+          "sequence-alignment",
+          "short-read-alignment",
+          "ngs"
+        ],
+        "keywords": [
+          "bwa-mem2",
+          "bwa-mem",
+          "alignment",
+          "short-read",
+          "fastq",
+          "sam",
+          "indexing",
+          "burrows-wheeler",
+          "simd",
+          "ngs"
+        ],
+        "summary": "BWA-MEM2, the next version of BWA-MEM for fast short-read alignment.",
+        "description": "BWA-MEM2, the next version of BWA-MEM for fast short-read alignment."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bwa-mem2:2.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:09caf817f66195575c708aeb15c1843a6959b3e8890a0199d76c98af9163c6da",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:f70544a0ddc8d12de81915299afc86b34d904123d6a0bb883cad7071c7ac6116"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "bwa-mem2",
+          "bwa-mem2.sse41",
+          "bwa-mem2.sse42",
+          "bwa-mem2.avx",
+          "bwa-mem2.avx2",
+          "bwa-mem2.avx512bw"
+        ],
+        "test": [
+          "{ bwa-mem2 2>&1 || true; } | grep -F 'Usage: bwa-mem2 <command> <arguments>' >/dev/null",
+          "bwa-mem2 version 2>&1 | grep -Fx '2.2.1' >/dev/null",
+          "{ bwa-mem2 index 2>&1 || true; } | grep -F 'Usage: bwa-mem2 index [-p prefix] <in.fasta>' >/dev/null",
+          "{ bwa-mem2 mem 2>&1 || true; } | grep -F 'Usage: bwa-mem2 mem [options] <idxbase> <in1.fq> [in2.fq]' >/dev/null",
+          "find /usr/local/bin -maxdepth 1 -type f -name 'bwa-mem2*' -print0 | xargs -0 ldd > /tmp/taf-bwa-mem2-ldd.txt && if grep -F 'not found' /tmp/taf-bwa-mem2-ldd.txt; then exit 1; fi",
+          "tmp=/tmp/taf-bwa-mem2-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa; printf '@read1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq; bwa-mem2 index ref.fa >/tmp/taf-bwa-mem2-index.log 2>&1; bwa-mem2 mem ref.fa reads.fq > aln.sam 2>/tmp/taf-bwa-mem2-mem.log; grep -F '@SQ' aln.sam >/dev/null; grep -F 'read1' aln.sam >/dev/null; rm -rf \"$tmp\" /tmp/taf-bwa-mem2-index.log /tmp/taf-bwa-mem2-mem.log"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-02T22:52:38Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-02T22:52:38Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bwa-mem2",
+        "ref": "v2.3-r1",
+        "commit": "0c9d5956a08802963e78b8f5953482a83c91ebab",
+        "html_url": "https://github.com/taffish/bwa-mem2/tree/v2.3-r1"
+      },
+      "upstream": {
+        "type": "github",
+        "homepage": "https://github.com/bwa-mem2/bwa-mem2",
+        "repository": "bwa-mem2/bwa-mem2",
+        "release_url": "https://github.com/bwa-mem2/bwa-mem2/releases/tag/v2.3",
+        "version": "2.3",
+        "license": "MIT",
+        "citation": "Vasimuddin Md, Sanchit Misra, Heng Li, Srinivas Aluru. Efficient Architecture-Aware Acceleration of BWA-MEM for Multicore Systems. IEEE IPDPS, 2019.",
+        "doi": "10.1109/IPDPS.2019.00041"
+      }
+    }
+  }
+}
