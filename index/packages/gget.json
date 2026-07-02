@@ -1,0 +1,127 @@
+{
+  "name": "gget",
+  "latest": "0.30.8-r1",
+  "recent_version": "0.30.8-r1",
+  "recent_at": "2026-07-02T02:52:51Z",
+  "repository_url": "https://github.com/taffish/gget",
+  "command": {
+    "name": "taf-gget"
+  },
+  "versions": {
+    "0.30.8-r1": {
+      "name": "gget",
+      "kind": "tool",
+      "version": "0.30.8",
+      "release": 1,
+      "version_id": "0.30.8-r1",
+      "tag": "v0.30.8-r1",
+      "published_at": "2026-07-02T02:52:51Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/gget",
+      "repository_slug": "taffish/gget",
+      "command": {
+        "name": "taf-gget"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "database-query",
+          "annotation",
+          "reference"
+        ],
+        "keywords": [
+          "gget",
+          "scverse",
+          "ensembl",
+          "uniprot",
+          "ncbi",
+          "enrichr",
+          "opentargets",
+          "cellxgene"
+        ],
+        "summary": "Efficient querying of genomic reference databases from the gget command-line tool and Python package.",
+        "description": "Efficient querying of genomic reference databases from the gget command-line tool and Python package."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/gget:0.30.8-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.30.8-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:cd5c6d1952fb01a34e790099ffdc63ac143e073def4ec9608a5e2964f61fb9e0",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:371949d57bdc18599e771ef833b6108c6a9451c77cfa23dbdc913bbd795ff077"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "gget",
+          "python",
+          "python3",
+          "curl",
+          "git",
+          "grep",
+          "ldd"
+        ],
+        "test": [
+          "gget --version 2>&1 | grep -Fx 'gget version: 0.30.8' >/dev/null",
+          "gget --help 2>&1 | grep -F \"Subparser 'opentargets'\" >/dev/null && gget setup --help 2>&1 | grep -F 'alphafold' >/dev/null && gget mutate --help 2>&1 | grep -F 'Mutate nucleotide sequences' >/dev/null",
+          "python -c 'import importlib.metadata as md; import gget, pandas, numpy, requests, bs4, lxml, mysql.connector, matplotlib; assert md.version(\"gget\") == \"0.30.8\"; print(gget.__version__)' | grep -Fx '0.30.8' >/dev/null",
+          "/opt/gget/share/testdata/gget-smoke.sh muscle",
+          "/opt/gget/share/testdata/gget-smoke.sh diamond",
+          "/opt/gget/share/testdata/gget-smoke.sh binaries"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-02T02:56:06Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-02T02:56:06Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/gget",
+        "ref": "v0.30.8-r1",
+        "commit": "22a63b001f7b5192283d9e3c3b7c698cf749b346",
+        "html_url": "https://github.com/taffish/gget/tree/v0.30.8-r1"
+      },
+      "upstream": {
+        "name": "gget",
+        "type": "github",
+        "homepage": "https://pachterlab.github.io/gget",
+        "repository": "scverse/gget",
+        "release_url": "https://github.com/scverse/gget/releases/tag/v0.30.8",
+        "version": "0.30.8",
+        "license": "BSD-2-Clause; bundled third-party binaries and AlphaFold support files keep their upstream notices",
+        "citation": "Luebbert L, Pachter L. Efficient querying of genomic reference databases with gget. Bioinformatics. 2023. doi:10.1093/bioinformatics/btac836",
+        "doi": "10.1093/bioinformatics/btac836"
+      }
+    }
+  }
+}
