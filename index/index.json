@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-03T05:00:33Z",
+  "generated_at": "2026-07-03T22:36:05Z",
   "organization": "taffish",
   "counts": {
-    "packages": 206,
-    "versions": 320,
-    "commands": 206,
-    "repositories": 206,
+    "packages": 207,
+    "versions": 321,
+    "commands": 207,
+    "repositories": 207,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -38775,6 +38775,156 @@
         }
       }
     },
+    "vcflib": {
+      "name": "vcflib",
+      "latest": "1.0.15-r1",
+      "recent_version": "1.0.15-r1",
+      "recent_at": "2026-07-03T17:57:14Z",
+      "repository_url": "https://github.com/taffish/vcflib",
+      "command": {
+        "name": "taf-vcflib"
+      },
+      "versions": {
+        "1.0.15-r1": {
+          "name": "vcflib",
+          "kind": "tool",
+          "version": "1.0.15",
+          "release": 1,
+          "version_id": "1.0.15-r1",
+          "tag": "v1.0.15-r1",
+          "published_at": "2026-07-03T17:57:14Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/vcflib",
+          "repository_slug": "taffish/vcflib",
+          "command": {
+            "name": "taf-vcflib"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "variant",
+              "vcf",
+              "population-genetics",
+              "pangenome"
+            ],
+            "keywords": [
+              "vcflib",
+              "vcf",
+              "variant filtering",
+              "variant transformation",
+              "vcfwave",
+              "vcfcreatemulti",
+              "wfa",
+              "tabix"
+            ],
+            "summary": "C++ library and command-line toolkit for filtering, transforming, decomposing, and summarizing VCF variant files.",
+            "description": "C++ library and command-line toolkit for filtering, transforming, decomposing, and summarizing VCF variant files."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/vcflib:1.0.15-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.0.15-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2a6d09b32524bc1c1275cb8151068c515768407c8b5642feb339c4de60b5e78c",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b9d663807ba4e8fc8aaa7c9edd716d3f4fb351b662eb361f0b86b748fa3b58f0",
+              "linux/arm64": "sha256:2f633745def84f6ee74f90b9e726300ccd27db8c73359ba35a2066bac6d08b8b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "vcffilter",
+              "vcfstats",
+              "vcfwave",
+              "vcfcreatemulti",
+              "vcfallelicprimitives",
+              "vcf2tsv",
+              "vcfuniq",
+              "vcfstreamsort",
+              "vcfcheck",
+              "vcfintersect",
+              "vcfcombine",
+              "vcfoverlay",
+              "vcfleftalign",
+              "vcfbreakmulti",
+              "vcfcat",
+              "vcfclassify",
+              "vcfsnps",
+              "vcfindels",
+              "vcfsort",
+              "vcf2bed.py",
+              "vcf2sqlite.py",
+              "bgziptabix",
+              "python3",
+              "perl",
+              "Rscript",
+              "bgzip",
+              "tabix",
+              "bash"
+            ],
+            "test": [
+              "vcfcheck --version | grep -F \"$(printf 'vcflib\\t')\" | grep -F '1.0.15' >/dev/null && vcffilter --help 2>&1 | grep -F 'vcflib filter the specified vcf file' >/dev/null && vcfwave --help 2>&1 | grep -F 'Realign reference and alternate alleles with WFA' >/dev/null && vcfcreatemulti --help 2>&1 | grep -F 'vcfcreatemulti' >/dev/null && grep -F 'source_sha256=178e8c27fffc5324ac73f1c4b35f407184271b57f82aedc2efb9703df6ee3d49' /opt/vcflib/share/doc/vcflib/source.txt >/dev/null && python3 -c 'import pyvcflib' && Rscript --version >/dev/null 2>&1",
+              "/opt/vcflib/share/testdata/vcflib-smoke.sh filter-stats",
+              "/opt/vcflib/share/testdata/vcflib-smoke.sh wave-multi",
+              "/opt/vcflib/share/testdata/vcflib-smoke.sh scripts"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-03T22:36:05Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-03T22:36:05Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/vcflib",
+            "ref": "v1.0.15-r1",
+            "commit": "81ca4747e5ba90122e6e6f16174286183a57b03a",
+            "html_url": "https://github.com/taffish/vcflib/tree/v1.0.15-r1"
+          },
+          "upstream": {
+            "name": "vcflib",
+            "type": "github",
+            "homepage": "https://github.com/vcflib/vcflib",
+            "repository": "vcflib/vcflib",
+            "release_url": "https://github.com/vcflib/vcflib/releases/tag/v1.0.15",
+            "version": "1.0.15",
+            "license": "MIT",
+            "citation": "Garrison et al. 2022, A spectrum of free software tools for processing the VCF variant call format",
+            "doi": "10.1371/journal.pcbi.1009123",
+            "pmid": "35613049"
+          }
+        }
+      }
+    },
     "vcftools": {
       "name": "vcftools",
       "latest": "0.1.17-r1",
@@ -41033,6 +41183,10 @@
       "package": "vamb",
       "version": "5.0.4-r1"
     },
+    "taf-vcflib": {
+      "package": "vcflib",
+      "version": "1.0.15-r1"
+    },
     "taf-vcftools": {
       "package": "vcftools",
       "version": "0.1.17-r1"
@@ -42249,6 +42403,12 @@
       "repository": "taffish/vamb",
       "packages": [
         "vamb"
+      ]
+    },
+    "taffish/vcflib": {
+      "repository": "taffish/vcflib",
+      "packages": [
+        "vcflib"
       ]
     },
     "taffish/vcftools": {
