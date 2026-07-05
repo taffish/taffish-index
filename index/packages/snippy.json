@@ -1,0 +1,143 @@
+{
+  "name": "snippy",
+  "latest": "4.6.0-r1",
+  "recent_version": "4.6.0-r1",
+  "recent_at": "2026-07-05T00:36:12Z",
+  "repository_url": "https://github.com/taffish/snippy",
+  "command": {
+    "name": "taf-snippy"
+  },
+  "versions": {
+    "4.6.0-r1": {
+      "name": "snippy",
+      "kind": "tool",
+      "version": "4.6.0",
+      "release": 1,
+      "version_id": "4.6.0-r1",
+      "tag": "v4.6.0-r1",
+      "published_at": "2026-07-05T00:36:12Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/snippy",
+      "repository_slug": "taffish/snippy",
+      "command": {
+        "name": "taf-snippy"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "microbial-genomics",
+        "categories": [
+          "microbial-genomics",
+          "variant-calling",
+          "snp",
+          "core-genome",
+          "alignment"
+        ],
+        "keywords": [
+          "snippy",
+          "haploid variant calling",
+          "snp",
+          "core genome alignment",
+          "bacterial genomics",
+          "freebayes",
+          "bwa",
+          "snippy-core",
+          "snippy-multi"
+        ],
+        "summary": "Snippy 4.6.0 runtime for rapid haploid SNP/indel calling and core genome alignment from Snippy outputs.",
+        "description": "Snippy 4.6.0 runtime for rapid haploid SNP/indel calling and core genome alignment from Snippy outputs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/snippy:4.6.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.6.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:490420914d64eba19683419798e2759337104590eac5e83f462764ba224ccb0b",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:e76e1b40e1ccc947829884bd2eb4d15e31aad050faac1aabe7815eea9ff1d0f3"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "snippy",
+          "snippy-core",
+          "snippy-multi",
+          "snippy-clean_full_aln",
+          "snippy-vcf_report",
+          "snippy-vcf_to_tab",
+          "bwa",
+          "samtools",
+          "bcftools",
+          "java",
+          "snpEff",
+          "samclip",
+          "seqtk",
+          "parallel",
+          "freebayes",
+          "freebayes-parallel",
+          "fasta_generate_regions.py",
+          "vcfstreamsort",
+          "vcfuniq",
+          "vcffirstheader",
+          "vt",
+          "minimap2",
+          "bedtools",
+          "snp-sites",
+          "any2fasta"
+        ],
+        "test": [
+          "snippy --version 2>&1 | grep -Fx 'snippy 4.6.0' >/dev/null",
+          "snippy --check 2>&1 | grep -F 'Dependences look good' >/dev/null",
+          "/opt/snippy/share/testdata/snippy-smoke.sh helpers",
+          "/opt/snippy/share/testdata/snippy-smoke.sh ctgs",
+          "/opt/snippy/share/testdata/snippy-smoke.sh core"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-05T00:38:57Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-05T00:38:57Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/snippy",
+        "ref": "v4.6.0-r1",
+        "commit": "e6269211112df6f302cfd63c8b447069fe1876be",
+        "html_url": "https://github.com/taffish/snippy/tree/v4.6.0-r1"
+      },
+      "upstream": {
+        "name": "Snippy",
+        "type": "github",
+        "homepage": "https://github.com/tseemann/snippy",
+        "repository": "tseemann/snippy",
+        "version": "4.6.0",
+        "license": "GPL-2.0-only"
+      }
+    }
+  }
+}
