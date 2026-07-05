@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-05T05:10:48Z",
+  "generated_at": "2026-07-05T22:06:49Z",
   "organization": "taffish",
   "counts": {
-    "packages": 208,
-    "versions": 322,
-    "commands": 208,
-    "repositories": 208,
+    "packages": 209,
+    "versions": 323,
+    "commands": 209,
+    "repositories": 209,
     "warnings": 0,
     "failed": 0,
     "rejected": 8
@@ -5589,6 +5589,143 @@
             "citation": "Krzywinski et al. 2009",
             "doi": "10.1101/gr.092759.109",
             "pmid": "19541911"
+          }
+        }
+      }
+    },
+    "clair3": {
+      "name": "clair3",
+      "latest": "2.0.2-r1",
+      "recent_version": "2.0.2-r1",
+      "recent_at": "2026-07-05T21:54:24Z",
+      "repository_url": "https://github.com/taffish/clair3",
+      "command": {
+        "name": "taf-clair3"
+      },
+      "versions": {
+        "2.0.2-r1": {
+          "name": "clair3",
+          "kind": "tool",
+          "version": "2.0.2",
+          "release": 1,
+          "version_id": "2.0.2-r1",
+          "tag": "v2.0.2-r1",
+          "published_at": "2026-07-05T21:54:24Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/clair3",
+          "repository_slug": "taffish/clair3",
+          "command": {
+            "name": "taf-clair3"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "variant-calling",
+            "categories": [
+              "variant-calling",
+              "long-read",
+              "deep-learning",
+              "vcf",
+              "bam",
+              "genomics"
+            ],
+            "keywords": [
+              "clair3",
+              "long-read variant calling",
+              "small variants",
+              "germline",
+              "ont",
+              "pacbio hifi",
+              "illumina",
+              "pytorch",
+              "pileup",
+              "full-alignment",
+              "dwell time",
+              "bam",
+              "vcf",
+              "gvcf"
+            ],
+            "summary": "Clair3 2.0.2 CPU runtime with bundled pre-trained PyTorch models for long-read germline small-variant calling.",
+            "description": "Clair3 2.0.2 CPU runtime with bundled pre-trained PyTorch models for long-read germline small-variant calling."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/clair3:2.0.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.0.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e76836552b1de6a8af6b46360c508c728f53ad0e9fbddd294792eaef59a84f09",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:4d781ff82fb17ef89f83ae80b597404f83cec49ef9dcbdf405ad42611b9d64e0"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "run_clair3.sh",
+              "python3",
+              "pypy3",
+              "samtools",
+              "whatshap",
+              "longphase",
+              "parallel",
+              "pigz",
+              "bgzip",
+              "tabix",
+              "bash"
+            ],
+            "test": [
+              "run_clair3.sh -v 2>&1 | grep -Fx 'Clair3 v2.0.2' >/dev/null",
+              "run_clair3.sh --help 2>&1 | grep -F -- '--bam_fn' >/dev/null && run_clair3.sh --help 2>&1 | grep -F -- '--model_path' >/dev/null && run_clair3.sh --help 2>&1 | grep -F -- '--enable_dwell_time' >/dev/null",
+              "/opt/clair3/share/testdata/clair3-smoke.sh helpers",
+              "/opt/clair3/share/testdata/clair3-smoke.sh models",
+              "/opt/clair3/share/testdata/clair3-smoke.sh empty-call"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-05T22:06:49Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-05T22:06:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/clair3",
+            "ref": "v2.0.2-r1",
+            "commit": "0ce3e45d14e5508745be1c40949e1869b1e1c198",
+            "html_url": "https://github.com/taffish/clair3/tree/v2.0.2-r1"
+          },
+          "upstream": {
+            "name": "Clair3",
+            "type": "github",
+            "homepage": "https://github.com/HKU-BAL/Clair3",
+            "repository": "HKU-BAL/Clair3",
+            "release_url": "https://github.com/HKU-BAL/Clair3/releases/tag/v2.0.2",
+            "version": "2.0.2",
+            "license": "BSD-3-Clause",
+            "citation": "Zheng et al., Symphonizing pileup and full-alignment for deep learning-based long-read variant calling; Clair3 v2 documentation also cites the 2026 GPU and signal-aware papers."
           }
         }
       }
@@ -40678,6 +40815,10 @@
       "package": "circos",
       "version": "0.69-10-r1"
     },
+    "taf-clair3": {
+      "package": "clair3",
+      "version": "2.0.2-r1"
+    },
     "taf-clinker": {
       "package": "clinker",
       "version": "0.0.32-r1"
@@ -41578,6 +41719,12 @@
       "repository": "taffish/circos",
       "packages": [
         "circos"
+      ]
+    },
+    "taffish/clair3": {
+      "repository": "taffish/clair3",
+      "packages": [
+        "clair3"
       ]
     },
     "taffish/clinker": {
