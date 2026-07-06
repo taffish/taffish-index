@@ -1,0 +1,125 @@
+{
+  "name": "dorado",
+  "latest": "2.0.1-r1",
+  "recent_version": "2.0.1-r1",
+  "recent_at": "2026-07-06T17:02:10Z",
+  "repository_url": "https://github.com/taffish/dorado",
+  "command": {
+    "name": "taf-dorado"
+  },
+  "versions": {
+    "2.0.1-r1": {
+      "name": "dorado",
+      "kind": "tool",
+      "version": "2.0.1",
+      "release": 1,
+      "version_id": "2.0.1-r1",
+      "tag": "v2.0.1-r1",
+      "published_at": "2026-07-06T17:02:10Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/dorado",
+      "repository_slug": "taffish/dorado",
+      "command": {
+        "name": "taf-dorado"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "nanopore",
+        "categories": [
+          "nanopore",
+          "basecalling",
+          "long-read",
+          "alignment",
+          "variant-calling"
+        ],
+        "keywords": [
+          "dorado",
+          "nanopore",
+          "ont",
+          "pod5",
+          "basecalling",
+          "duplex",
+          "modified-bases",
+          "barcoding",
+          "polish",
+          "smallvar"
+        ],
+        "summary": "Oxford Nanopore Dorado analysis engine and basecaller.",
+        "description": "Oxford Nanopore Dorado analysis engine and basecaller."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/dorado:2.0.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.0.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:7e91af4d5d4ef4f6b29efdf7277e2fd1a53c2b94a9f020f1bba67c3ba113d97d",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:39417d0ed45a29f9bd634edec92f6edc3303b31a90096b8cd18912280c969006"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "dorado",
+          "bash",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "dorado --version 2>&1 | grep -Fx '2.0.1+bf630305' >/dev/null",
+          "dorado --help 2>&1 | grep -F 'basecaller' >/dev/null && dorado --help 2>&1 | grep -F 'download' >/dev/null",
+          "dorado basecaller --help 2>&1 | grep -F -- '--device' >/dev/null && dorado download --help 2>&1 | grep -F -- '--model' >/dev/null",
+          "/opt/dorado/share/testdata/dorado-smoke.sh help",
+          "/opt/dorado/share/testdata/dorado-smoke.sh trim",
+          "/opt/dorado/share/testdata/dorado-smoke.sh aligner"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-06T17:14:59Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-06T17:14:59Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/dorado",
+        "ref": "v2.0.1-r1",
+        "commit": "ca75c0390df8a9bebdef328d31cd7de3d660ec5d",
+        "html_url": "https://github.com/taffish/dorado/tree/v2.0.1-r1"
+      },
+      "upstream": {
+        "type": "github",
+        "homepage": "https://github.com/nanoporetech/dorado",
+        "repository": "nanoporetech/dorado",
+        "release_url": "https://github.com/nanoporetech/dorado/releases/tag/v2.0.1",
+        "version": "2.0.1",
+        "license": "Oxford Nanopore Technologies PLC Public License v1.0",
+        "citation": "Oxford Nanopore Technologies. Dorado: Oxford Nanopore's basecaller. https://github.com/nanoporetech/dorado"
+      }
+    }
+  }
+}
