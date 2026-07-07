@@ -1,8 +1,8 @@
 {
   "name": "merqury",
-  "latest": "1.3-r2",
-  "recent_version": "1.3-r2",
-  "recent_at": "2026-05-24T01:04:39Z",
+  "latest": "1.4.1-r1",
+  "recent_version": "1.4.1-r1",
+  "recent_at": "2026-07-07T16:13:50Z",
   "repository_url": "https://github.com/taffish/merqury",
   "command": {
     "name": "taf-merqury"
@@ -262,6 +262,141 @@
         "repository": "marbl/merqury",
         "release_url": "https://github.com/marbl/merqury/releases/tag/v1.3",
         "version": "1.3",
+        "license": "Public Domain",
+        "citation": "Rhie et al. 2020",
+        "doi": "10.1186/s13059-020-02134-9",
+        "pmid": "32928274"
+      }
+    },
+    "1.4.1-r1": {
+      "name": "merqury",
+      "kind": "tool",
+      "version": "1.4.1",
+      "release": 1,
+      "version_id": "1.4.1-r1",
+      "tag": "v1.4.1-r1",
+      "published_at": "2026-07-07T16:13:50Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/merqury",
+      "repository_slug": "taffish/merqury",
+      "command": {
+        "name": "taf-merqury"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-assembly",
+        "categories": [
+          "genome-assembly",
+          "quality-control",
+          "phasing",
+          "kmer",
+          "visualization"
+        ],
+        "keywords": [
+          "merqury",
+          "meryl",
+          "k-mer",
+          "assembly-evaluation",
+          "qv",
+          "completeness",
+          "hap-mer",
+          "phasing",
+          "spectra-cn",
+          "mash"
+        ],
+        "summary": "Merqury evaluates genome assemblies with k-mer spectra, QV, completeness, and phasing statistics.",
+        "description": "Merqury evaluates genome assemblies with k-mer spectra, QV, completeness, and phasing statistics."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/merqury:1.4.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.4.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6c3184718969348b54b8f295162265439d7895543202dba30403d20f1de4c79a",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d50fe042ba5ec29f0808cd1e799bb71369b0d95ab38e2e64bda83d096712aee1"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "merqury.sh",
+          "merqury",
+          "merqury-mash.sh",
+          "best_k.sh",
+          "qv.sh",
+          "spectra-cn.sh",
+          "plot_spectra_cn.R",
+          "meryl",
+          "meryl-lookup",
+          "mash",
+          "Rscript",
+          "java",
+          "bedtools",
+          "samtools",
+          "pigz",
+          "bash"
+        ],
+        "test": [
+          "test \"$(cat /usr/local/share/doc/merqury/VERSION)\" = '1.4.1'",
+          "test \"$(cat /usr/local/share/doc/merqury/MERYL_VERSION)\" = '1.4.1'",
+          "test \"$MERQURY\" = '/opt/merqury' && test -x \"$MERQURY/merqury.sh\"",
+          "merqury.sh 2>&1 | grep -F 'Usage: merqury.sh' >/dev/null && merqury.sh 2>&1 | grep -F '[-c]' >/dev/null",
+          "merqury-mash.sh 2>&1 | grep -F 'fast version of QV estimates using mash' >/dev/null",
+          "best_k.sh 1000000 2>&1 | grep -E '^14\\.' >/dev/null",
+          "meryl -h 2>&1 | grep -F 'COMMANDS:' >/dev/null",
+          "meryl-lookup 2>&1 | grep -F 'usage:' >/dev/null",
+          "mash --version 2>&1 | grep -E '^2\\.3' >/dev/null",
+          "Rscript -e 'library(argparse); library(ggplot2); library(scales)'",
+          "plot_spectra_cn.R --help 2>&1 | grep -F 'spectra-cn plots' >/dev/null",
+          "java -version >/dev/null 2>&1 && bedtools --version >/dev/null && samtools --version >/dev/null && pigz --version >/dev/null",
+          "mkdir -p /tmp/taf-merqury-smoke && cd /tmp/taf-merqury-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > asm.fa && meryl k=21 memory=0.1 count asm.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && merqury.sh read.meryl asm.fa out > run.out 2> run.err && test -s out.qv && test -s out.completeness.stats && test -s out.asm.spectra-cn.ln.png && test -s out.spectra-asm.ln.png && test -e asm_only.wig && grep -F 'asm_only.wig generated.' logs/out.spectra-cn.log >/dev/null && grep -F 'Done!' logs/out.spectra-cn.log >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-07T16:22:21Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-07T16:22:21Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/merqury",
+        "ref": "v1.4.1-r1",
+        "commit": "fe51efa55a3440dfc442dbc1d6709a66783b1136",
+        "html_url": "https://github.com/taffish/merqury/tree/v1.4.1-r1"
+      },
+      "upstream": {
+        "name": "Merqury",
+        "type": "github",
+        "homepage": "https://github.com/marbl/merqury",
+        "repository": "marbl/merqury",
+        "release_url": "https://github.com/marbl/merqury/releases/tag/v1.4.1",
+        "version": "1.4.1",
         "license": "Public Domain",
         "citation": "Rhie et al. 2020",
         "doi": "10.1186/s13059-020-02134-9",
