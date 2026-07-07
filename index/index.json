@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-07T05:09:50Z",
+  "generated_at": "2026-07-07T14:52:17Z",
   "organization": "taffish",
   "counts": {
     "packages": 210,
-    "versions": 324,
+    "versions": 325,
     "commands": 210,
     "repositories": 210,
     "warnings": 0,
@@ -38500,9 +38500,9 @@
     },
     "trnascan-se": {
       "name": "trnascan-se",
-      "latest": "2.0.12-r1",
-      "recent_version": "2.0.12-r1",
-      "recent_at": "2026-05-20T04:08:44Z",
+      "latest": "2.0.13-r1",
+      "recent_version": "2.0.13-r1",
+      "recent_at": "2026-07-07T14:25:17Z",
       "repository_url": "https://github.com/taffish/trnascan-se",
       "command": {
         "name": "taf-trnascan-se"
@@ -38630,6 +38630,134 @@
             "repository": "UCSC-LoweLab/tRNAscan-SE",
             "release_url": "https://github.com/UCSC-LoweLab/tRNAscan-SE/releases/tag/v2.0.12",
             "version": "2.0.12",
+            "license": "GPL-3.0-or-later",
+            "citation": "Chan et al. 2021, tRNAscan-SE 2.0: improved detection and functional classification of transfer RNA genes",
+            "doi": "10.1093/nar/gkab688",
+            "pmid": "34417604"
+          }
+        },
+        "2.0.13-r1": {
+          "name": "trnascan-se",
+          "kind": "tool",
+          "version": "2.0.13",
+          "release": 1,
+          "version_id": "2.0.13-r1",
+          "tag": "v2.0.13-r1",
+          "published_at": "2026-07-07T14:25:17Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trnascan-se",
+          "repository_slug": "taffish/trnascan-se",
+          "command": {
+            "name": "taf-trnascan-se"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "annotation",
+              "rna",
+              "noncoding-rna",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "trnascan-se",
+              "trna",
+              "transfer-rna",
+              "annotation",
+              "infernal",
+              "covariance-model",
+              "eufindtrna",
+              "cove"
+            ],
+            "summary": "tRNAscan-SE detects and functionally classifies transfer RNA genes in genomic or transcript FASTA sequences.",
+            "description": "tRNAscan-SE detects and functionally classifies transfer RNA genes in genomic or transcript FASTA sequences."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trnascan-se:2.0.13-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.0.13-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:3af98d166245ce261cfbca66f4fe8e539a3f07d4f9301c8c2a73995fc9c6083a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ff25cf171400268ce7fc9c1144fdff566e7e497c0fd23c1afe8dd5f43dbd9a8c",
+              "linux/arm64": "sha256:83680002c2c50bbeaba5af9da54f6aa3f7020165c1219508f9354d2131202f39"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "tRNAscan-SE",
+              "EukHighConfidenceFilter",
+              "MitoHighConfidenceFilter",
+              "fasta2gsi",
+              "sstofa",
+              "eufindtRNA",
+              "trnascan-1.4",
+              "covels-SE",
+              "coves-SE",
+              "cmsearch",
+              "cmscan",
+              "cmalign",
+              "perl",
+              "hostname",
+              "ps"
+            ],
+            "test": [
+              "tRNAscan-SE -h 2>&1 | grep -F 'tRNAscan-SE 2.0.13' >/dev/null",
+              "cmsearch -h 2>&1 | grep -F 'INFERNAL 1.1.5' >/dev/null && cmscan -h 2>&1 | grep -F 'INFERNAL 1.1.5' >/dev/null && cmalign -h 2>&1 | grep -F 'INFERNAL 1.1.5' >/dev/null",
+              "EukHighConfidenceFilter -h 2>&1 | grep -F 'Usage: EukHighConfidenceFilter' >/dev/null && MitoHighConfidenceFilter -h 2>&1 | grep -F 'Usage: MitoHighConfidenceFilter' >/dev/null",
+              "command -v fasta2gsi >/dev/null && command -v sstofa >/dev/null && command -v eufindtRNA >/dev/null && command -v trnascan-1.4 >/dev/null && command -v covels-SE >/dev/null && command -v coves-SE >/dev/null",
+              "rm -rf /tmp/taf-trnascan-se-smoke && mkdir -p /tmp/taf-trnascan-se-smoke && cd /tmp/taf-trnascan-se-smoke && cp /opt/trnascan-se/share/doc/tRNAscan-SE/Demo/Example1.fa . && tRNAscan-SE -q -Q --thread 1 --detail -H -o result.out -f result.ss -s result.iso -m result.stats -b result.bed -j result.gff -a result.fa Example1.fa >/tmp/taf-trnascan-se-smoke.log 2>&1 && test -s result.out && test -s result.ss && test -s result.iso && test -s result.stats && test -s result.bed && test -s result.gff && test -s result.fa && grep -F 'Sequence' result.out >/dev/null && grep -F 'Inf' result.out >/dev/null && grep -F 'Seq:' result.ss >/dev/null && grep -F 'Str:' result.ss >/dev/null && grep -F 'ID=CELF22B7.trna' result.gff >/dev/null && rm -rf /tmp/taf-trnascan-se-smoke /tmp/taf-trnascan-se-smoke.log",
+              "rm -rf /tmp/taf-trnascan-se-filter && mkdir -p /tmp/taf-trnascan-se-filter && cd /tmp/taf-trnascan-se-filter && cp /opt/trnascan-se/share/doc/tRNAscan-SE/Demo/Example1.fa . && tRNAscan-SE -q -Q --thread 1 --detail -H -o result.out -f result.ss Example1.fa >/tmp/taf-trnascan-se-filter-scan.log 2>&1 && EukHighConfidenceFilter -i result.out -s result.ss -o euk-filter -p euk >/tmp/taf-trnascan-se-filter.log 2>&1 && test -s euk-filter/euk.out && test -s euk-filter/euk.ss && test -s euk-filter/euk.log && rm -rf /tmp/taf-trnascan-se-filter /tmp/taf-trnascan-se-filter-scan.log /tmp/taf-trnascan-se-filter.log",
+              "rm -rf /tmp/taf-trnascan-se-legacy && mkdir -p /tmp/taf-trnascan-se-legacy && cd /tmp/taf-trnascan-se-legacy && cp /opt/trnascan-se/share/doc/tRNAscan-SE/Demo/Example1.fa . && tRNAscan-SE -q -Q -L -o legacy.out Example1.fa >/tmp/taf-trnascan-se-legacy.log 2>&1 && test -s legacy.out && grep -F 'Sequence' legacy.out >/dev/null && rm -rf /tmp/taf-trnascan-se-legacy /tmp/taf-trnascan-se-legacy.log"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-07T14:52:17Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-07T14:52:17Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trnascan-se",
+            "ref": "v2.0.13-r1",
+            "commit": "eaeb2910d5a43ee293a03369bb33f1721a5dcb5f",
+            "html_url": "https://github.com/taffish/trnascan-se/tree/v2.0.13-r1"
+          },
+          "upstream": {
+            "name": "tRNAscan-SE",
+            "type": "github",
+            "homepage": "https://trna.ucsc.edu/tRNAscan-SE/",
+            "repository": "UCSC-LoweLab/tRNAscan-SE",
+            "release_url": "https://github.com/UCSC-LoweLab/tRNAscan-SE/releases/tag/v2.0.13",
+            "version": "2.0.13",
             "license": "GPL-3.0-or-later",
             "citation": "Chan et al. 2021, tRNAscan-SE 2.0: improved detection and functional classification of transfer RNA genes",
             "doi": "10.1093/nar/gkab688",
@@ -41582,7 +41710,7 @@
     },
     "taf-trnascan-se": {
       "package": "trnascan-se",
-      "version": "2.0.12-r1"
+      "version": "2.0.13-r1"
     },
     "taf-truvari": {
       "package": "truvari",
