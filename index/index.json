@@ -1,15 +1,15 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-08T04:35:09Z",
+  "generated_at": "2026-07-08T11:11:12Z",
   "organization": "taffish",
   "counts": {
     "packages": 210,
-    "versions": 327,
+    "versions": 328,
     "commands": 210,
     "repositories": 210,
     "warnings": 0,
     "failed": 0,
-    "rejected": 8
+    "rejected": 9
   },
   "packages": {
     "abricate": {
@@ -6754,9 +6754,9 @@
     },
     "coverm": {
       "name": "coverm",
-      "latest": "0.7.0-r1",
-      "recent_version": "0.7.0-r1",
-      "recent_at": "2026-06-22T03:27:48Z",
+      "latest": "0.8.0-r2",
+      "recent_version": "0.8.0-r2",
+      "recent_at": "2026-07-08T10:40:56Z",
       "repository_url": "https://github.com/taffish/coverm",
       "command": {
         "name": "taf-coverm"
@@ -6886,6 +6886,140 @@
             "repository": "wwood/CoverM",
             "release_url": "https://github.com/wwood/CoverM/releases/tag/v0.7.0",
             "version": "0.7.0",
+            "license": "GPL-3.0-or-later",
+            "citation": "Aroney et al. 2025, CoverM: Read alignment statistics for metagenomics, Bioinformatics 41:4",
+            "doi": "10.1093/bioinformatics/btaf147"
+          }
+        },
+        "0.8.0-r2": {
+          "name": "coverm",
+          "kind": "tool",
+          "version": "0.8.0",
+          "release": 2,
+          "version_id": "0.8.0-r2",
+          "tag": "v0.8.0-r2",
+          "published_at": "2026-07-08T10:40:56Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/coverm",
+          "repository_slug": "taffish/coverm",
+          "command": {
+            "name": "taf-coverm"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "coverage",
+              "abundance",
+              "alignment",
+              "bam",
+              "genome-binning"
+            ],
+            "keywords": [
+              "coverm",
+              "coverage",
+              "relative-abundance",
+              "metagenomics",
+              "mag",
+              "contig",
+              "genome",
+              "bam",
+              "minimap2",
+              "samtools",
+              "skani",
+              "fastani",
+              "minibwa",
+              "anir",
+              "makedb"
+            ],
+            "summary": "DNA read coverage and relative-abundance calculation for contigs, genomes, and metagenomic assemblies.",
+            "description": "DNA read coverage and relative-abundance calculation for contigs, genomes, and metagenomic assemblies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/coverm:0.8.0-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.8.0-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:68003eaa1275e5e6b64cdc51efab87af9f9240825d3d2f6ae5cda17dda24ea52",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7a008d2874889b08e83b31e5680098f3b508d2477561879b1775638fa1c84559",
+              "linux/arm64": "sha256:e1ec2fd0b61283bfc312ea9ef9331158729a0df6e4e79acb0f150cfce568bff5"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "coverm",
+              "samtools",
+              "minimap2",
+              "bwa",
+              "bwa-mem2",
+              "minibwa",
+              "strobealign",
+              "fastANI",
+              "skani",
+              "starcode",
+              "man",
+              "tee",
+              "sh",
+              "grep",
+              "find"
+            ],
+            "test": [
+              "coverm --version 2>&1 | grep -Fx 'coverm 0.8.0' >/dev/null",
+              "coverm --help 2>&1 | grep -F 'Calculate coverage' >/dev/null && coverm genome --help 2>&1 | grep -F 'coverm genome' >/dev/null && coverm contig --help 2>&1 | grep -F 'coverm contig' >/dev/null && coverm make --help 2>&1 | grep -F 'coverm make' >/dev/null && coverm makedb --help 2>&1 | grep -F 'coverm makedb' >/dev/null && coverm filter --help 2>&1 | grep -F 'coverm filter' >/dev/null && coverm cluster --help 2>&1 | grep -iF 'cluster' >/dev/null",
+              "coverm contig --full-help-roff 2>&1 | grep -F 'anir' >/dev/null && coverm filter --full-help-roff 2>&1 | grep -F 'min\\-mapq' >/dev/null && coverm makedb --help 2>&1 | grep -F 'minimap2-sr' >/dev/null",
+              "samtools --version 2>&1 | grep -F 'samtools' >/dev/null && minimap2 --version >/dev/null && { bwa 2>&1 || true; } | grep -iF 'bwa' >/dev/null && command -v bwa-mem2 >/dev/null && command -v minibwa >/dev/null && command -v strobealign >/dev/null && command -v fastANI >/dev/null && { skani --version 2>&1 || true; } | grep -iF 'skani' >/dev/null",
+              "/opt/coverm/share/testdata/coverm-smoke-bam.sh",
+              "/opt/coverm/share/testdata/coverm-smoke-map.sh"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-08T11:11:12Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-08T11:11:12Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/coverm",
+            "ref": "v0.8.0-r2",
+            "commit": "2b2d2385bd6d341e8554d73d75a273c94b6fbd50",
+            "html_url": "https://github.com/taffish/coverm/tree/v0.8.0-r2"
+          },
+          "upstream": {
+            "name": "CoverM",
+            "type": "github",
+            "homepage": "https://github.com/wwood/CoverM",
+            "repository": "wwood/CoverM",
+            "release_url": "https://github.com/wwood/CoverM/releases/tag/v0.8.0",
+            "version": "0.8.0",
             "license": "GPL-3.0-or-later",
             "citation": "Aroney et al. 2025, CoverM: Read alignment statistics for metagenomics, Bioinformatics 41:4",
             "doi": "10.1093/bioinformatics/btaf147"
@@ -41346,7 +41480,7 @@
     },
     "taf-coverm": {
       "package": "coverm",
-      "version": "0.7.0-r1"
+      "version": "0.8.0-r2"
     },
     "taf-cpc2": {
       "package": "cpc2",
