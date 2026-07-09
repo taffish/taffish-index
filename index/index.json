@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-08T11:11:12Z",
+  "generated_at": "2026-07-09T05:10:28Z",
   "organization": "taffish",
   "counts": {
-    "packages": 210,
-    "versions": 328,
-    "commands": 210,
-    "repositories": 210,
+    "packages": 211,
+    "versions": 329,
+    "commands": 211,
+    "repositories": 211,
     "warnings": 0,
     "failed": 0,
     "rejected": 9
@@ -23454,6 +23454,134 @@
         }
       }
     },
+    "nanoplot": {
+      "name": "nanoplot",
+      "latest": "1.47.1-r1",
+      "recent_version": "1.47.1-r1",
+      "recent_at": "2026-07-09T04:42:01Z",
+      "repository_url": "https://github.com/taffish/nanoplot",
+      "command": {
+        "name": "taf-nanoplot"
+      },
+      "versions": {
+        "1.47.1-r1": {
+          "name": "nanoplot",
+          "kind": "tool",
+          "version": "1.47.1",
+          "release": 1,
+          "version_id": "1.47.1-r1",
+          "tag": "v1.47.1-r1",
+          "published_at": "2026-07-09T04:42:01Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/nanoplot",
+          "repository_slug": "taffish/nanoplot",
+          "command": {
+            "name": "taf-nanoplot"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "nanopore",
+            "categories": [
+              "nanopore",
+              "long-read",
+              "quality-control",
+              "visualization"
+            ],
+            "keywords": [
+              "nanoplot",
+              "nanopore",
+              "long-read",
+              "fastq",
+              "bam",
+              "cram",
+              "sequencing-summary",
+              "quality-control",
+              "plots"
+            ],
+            "summary": "Plotting and summary reports for Oxford Nanopore and other long-read sequencing data.",
+            "description": "Plotting and summary reports for Oxford Nanopore and other long-read sequencing data."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/nanoplot:1.47.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.47.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:8804478962bd4b58d4b17b39287394d2e6551543a5378d76cd91a2c2ffdef466",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b257875299ba845c6c3334d283760512f43f0ac8d0b8720a37784acbb8ab4ad0"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "NanoPlot",
+              "python",
+              "python3",
+              "chromium",
+              "gzip",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "NanoPlot --version 2>&1 | grep -Fx 'NanoPlot 1.47.1' >/dev/null",
+              "NanoPlot --help 2>&1 | grep -F 'CREATES VARIOUS PLOTS' >/dev/null && NanoPlot --listcolors 2>&1 | grep -F 'aliceblue' >/dev/null",
+              "python -c 'import importlib.metadata as md; import nanoplot, nanoget, pysam, pandas, numpy, scipy, pyarrow, plotly, kaleido, PIL; assert md.version(\"nanoplot\") == \"1.47.1\"; print(nanoplot.__version__)' | grep -Fx '1.47.1' >/dev/null",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh fastq",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh bam",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh image"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-09T05:10:28Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-09T05:10:28Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/nanoplot",
+            "ref": "v1.47.1-r1",
+            "commit": "c3cf3114b8044e3ef6c8f7549b37db3f23d9f5d4",
+            "html_url": "https://github.com/taffish/nanoplot/tree/v1.47.1-r1"
+          },
+          "upstream": {
+            "name": "NanoPlot",
+            "type": "github",
+            "homepage": "https://github.com/wdecoster/NanoPlot",
+            "repository": "wdecoster/NanoPlot",
+            "release_url": "https://github.com/wdecoster/NanoPlot/releases/tag/v1.47.1",
+            "version": "1.47.1",
+            "license": "MIT",
+            "citation": "De Coster W, Rademakers R. NanoPack2: population-scale evaluation of long-read sequencing data. Bioinformatics. 2023;39(5):btad311.",
+            "doi": "10.1093/bioinformatics/btad311"
+          }
+        }
+      }
+    },
     "ngenomesyn": {
       "name": "ngenomesyn",
       "latest": "1.43-r1",
@@ -41798,6 +41926,10 @@
       "package": "muscle",
       "version": "5.3-r4"
     },
+    "taf-nanoplot": {
+      "package": "nanoplot",
+      "version": "1.47.1-r1"
+    },
     "taf-ngenomesyn": {
       "package": "ngenomesyn",
       "version": "1.43-r1"
@@ -42880,6 +43012,12 @@
       "repository": "taffish/muscle",
       "packages": [
         "muscle"
+      ]
+    },
+    "taffish/nanoplot": {
+      "repository": "taffish/nanoplot",
+      "packages": [
+        "nanoplot"
       ]
     },
     "taffish/ngenomesyn": {
