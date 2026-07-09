@@ -1,21 +1,21 @@
 {
   "name": "nanoplot",
-  "latest": "1.47.1-r1",
-  "recent_version": "1.47.1-r1",
-  "recent_at": "2026-07-09T04:42:01Z",
+  "latest": "1.47.1-r2",
+  "recent_version": "1.47.1-r2",
+  "recent_at": "2026-07-09T05:36:09Z",
   "repository_url": "https://github.com/taffish/nanoplot",
   "command": {
     "name": "taf-nanoplot"
   },
   "versions": {
-    "1.47.1-r1": {
+    "1.47.1-r2": {
       "name": "nanoplot",
       "kind": "tool",
       "version": "1.47.1",
-      "release": 1,
-      "version_id": "1.47.1-r1",
-      "tag": "v1.47.1-r1",
-      "published_at": "2026-07-09T04:42:01Z",
+      "release": 2,
+      "version_id": "1.47.1-r2",
+      "tag": "v1.47.1-r2",
+      "published_at": "2026-07-09T05:36:09Z",
       "published_at_source": "github-release",
       "license": "Apache-2.0",
       "repository_url": "https://github.com/taffish/nanoplot",
@@ -64,16 +64,18 @@
         "dockerfile": "docker/Dockerfile"
       },
       "container": {
-        "image": "ghcr.io/taffish/nanoplot:1.47.1-r1",
+        "image": "ghcr.io/taffish/nanoplot:1.47.1-r2",
         "dockerfile": "docker/Dockerfile",
-        "image_tag": "1.47.1-r1",
+        "image_tag": "1.47.1-r2",
         "image_tag_matches_version": true,
-        "digest": "sha256:8804478962bd4b58d4b17b39287394d2e6551543a5378d76cd91a2c2ffdef466",
+        "digest": "sha256:e4b48b8b201be6bb2c73d1ba8648a67ab40851554e1e7d0301c08d9f938b191f",
         "platforms": [
-          "linux/amd64"
+          "linux/amd64",
+          "linux/arm64"
         ],
         "platform_digests": {
-          "linux/amd64": "sha256:b257875299ba845c6c3334d283760512f43f0ac8d0b8720a37784acbb8ab4ad0"
+          "linux/amd64": "sha256:64990ad5d5a86ed1d6aa72d807c551a906cf172851d71c9855dd3d73d8a31161",
+          "linux/arm64": "sha256:4b1cf60db0fbbba244c9aa78df30ec7db89cbd412b6ace7f3e018bc08df6a1cd"
         }
       },
       "smoke": {
@@ -97,20 +99,20 @@
           "/opt/nanoplot/share/testdata/nanoplot-smoke.sh image"
         ],
         "status": "passed",
-        "checked_at": "2026-07-09T05:10:28Z",
+        "checked_at": "2026-07-09T05:51:28Z",
         "backend_used": "docker"
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-09T05:10:28Z",
+        "checked_at": "2026-07-09T05:51:28Z",
         "policy": "taffish.index/trust-v1",
         "source": "taffish-index"
       },
       "source": {
         "repository": "taffish/nanoplot",
-        "ref": "v1.47.1-r1",
-        "commit": "c3cf3114b8044e3ef6c8f7549b37db3f23d9f5d4",
-        "html_url": "https://github.com/taffish/nanoplot/tree/v1.47.1-r1"
+        "ref": "v1.47.1-r2",
+        "commit": "df41126320b46178e0f0164aec283cda62feb169",
+        "html_url": "https://github.com/taffish/nanoplot/tree/v1.47.1-r2"
       },
       "upstream": {
         "name": "NanoPlot",

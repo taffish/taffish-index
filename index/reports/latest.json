@@ -1,14 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-07-09T05:10:28Z",
+  "generated_at": "2026-07-09T05:51:28Z",
   "organization": "taffish",
   "counts": {
     "failed": 0,
-    "rejected": 9,
+    "rejected": 10,
     "warnings": 0
   },
   "failed": [],
   "rejected": [
+    {
+      "repository": "taffish/nanoplot",
+      "ref": "v1.47.1-r1",
+      "version_id": "1.47.1-r1",
+      "reason": "Immutable release failed index validation and should not be added to the main index; fixed by v1.47.1-r2.",
+      "replacement": "1.47.1-r2",
+      "image": "ghcr.io/taffish/nanoplot:1.47.1-r1"
+    },
     {
       "repository": "taffish/coverm",
       "ref": "v0.8.0-r1",
