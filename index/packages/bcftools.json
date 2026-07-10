@@ -1,8 +1,8 @@
 {
   "name": "bcftools",
-  "latest": "1.23.1-r2",
-  "recent_version": "1.23.1-r2",
-  "recent_at": "2026-05-24T01:00:53Z",
+  "latest": "1.24-r1",
+  "recent_version": "1.24-r1",
+  "recent_at": "2026-07-09T22:31:13Z",
   "repository_url": "https://github.com/taffish/bcftools",
   "command": {
     "name": "taf-bcftools"
@@ -236,6 +236,147 @@
         "repository": "samtools/bcftools",
         "release_url": "https://github.com/samtools/bcftools/releases/tag/1.23.1",
         "version": "1.23.1",
+        "license": "MIT/Expat or GPL",
+        "citation": "Danecek et al. 2021",
+        "doi": "10.1093/gigascience/giab008",
+        "pmid": "33590861"
+      }
+    },
+    "1.24-r1": {
+      "name": "bcftools",
+      "kind": "tool",
+      "version": "1.24",
+      "release": 1,
+      "version_id": "1.24-r1",
+      "tag": "v1.24-r1",
+      "published_at": "2026-07-09T22:31:13Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bcftools",
+      "repository_slug": "taffish/bcftools",
+      "command": {
+        "name": "taf-bcftools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "variant-calling",
+          "vcf-bcf"
+        ],
+        "keywords": [
+          "vcf",
+          "bcf",
+          "variant",
+          "genotype",
+          "annotation",
+          "htslib",
+          "bgzip",
+          "tabix"
+        ],
+        "summary": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files.",
+        "description": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bcftools:1.24-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.24-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:dcf13babbd3b52e806593cb3ee41542aa337a27c20dfe7223974a184a51163e8",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ca76cc9757f34053956e6290355848f6119a9b474cadfcdca940e385b99dbd39",
+          "linux/arm64": "sha256:8848c308b241d4b5780cf00ac00ca71dc822823bbcb984aad19c6a7c8f156378"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "bcftools",
+          "bgzip",
+          "tabix",
+          "htsfile",
+          "annot-tsv",
+          "ref-cache",
+          "plot-vcfstats",
+          "plot-roh.py",
+          "roh-viz",
+          "run-roh.pl",
+          "color-chrs.pl",
+          "gff2gff",
+          "gff2gff.py",
+          "guess-ploidy.py",
+          "vcfutils.pl",
+          "vrfs-variances",
+          "python",
+          "python3",
+          "perl",
+          "bash",
+          "gzip",
+          "gunzip",
+          "wget"
+        ],
+        "test": [
+          "bcftools --help 2>&1 | grep -F 'Program: bcftools' >/dev/null",
+          "bcftools --version 2>&1 | grep -Fx 'bcftools 1.24' >/dev/null && bcftools --version 2>&1 | grep -Fx 'Using htslib 1.24' >/dev/null",
+          "bcftools polysomy -h 2>&1 | grep -F 'bcftools polysomy' >/dev/null && bcftools cnv -h 2>&1 | grep -F 'bcftools cnv' >/dev/null",
+          "bcftools norm -h 2>&1 | grep -F -- '--no-realign' >/dev/null && bcftools csq -h 2>&1 | grep -F -- '--greedy' >/dev/null",
+          "bcftools plugin -l | grep -Fx 'trio-dnm3' >/dev/null && if bcftools plugin -l | grep -Fx 'trio-dnm2' >/dev/null; then exit 1; fi",
+          "set -eu; d=/tmp/taf-bcftools-plugin-$$; mkdir -p \"$d\"; printf '##fileformat=VCFv4.2\n##contig=<ID=chr1,length=100>\n##FORMAT=<ID=GT,Number=1,Type=String,Description=Genotype>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tS1\nchr1\t10\t.\tA\tG\t50\tPASS\t.\tGT\t0/1\n' > \"$d/in.vcf\"; bcftools +fill-tags \"$d/in.vcf\" -Ou -- -t AC,AN | bcftools query -f '%INFO/AC\t%INFO/AN\n' > \"$d/out.tsv\"; test \"$(cat \"$d/out.tsv\")\" = \"$(printf '1\t2')\"; rm -rf \"$d\"",
+          "set -eu; d=/tmp/taf-bcftools-index-$$; mkdir -p \"$d\"; printf '##fileformat=VCFv4.2\n##contig=<ID=chr1,length=100>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr1\t10\t.\tA\tG\t50\tPASS\t.\n' > \"$d/in.vcf\"; bgzip -c \"$d/in.vcf\" > \"$d/in.vcf.gz\"; tabix -p vcf \"$d/in.vcf.gz\"; bcftools view -H \"$d/in.vcf.gz\" | grep -F 'chr1' >/dev/null; test -s \"$d/in.vcf.gz.tbi\"; rm -rf \"$d\"",
+          "set -eu; d=/tmp/taf-bcftools-plot-$$; mkdir -p \"$d\"; printf '##fileformat=VCFv4.2\n##contig=<ID=chr1,length=100>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr1\t10\t.\tA\tG\t50\tPASS\t.\n' > \"$d/in.vcf\"; bcftools stats \"$d/in.vcf\" > \"$d/stats.vchk\"; plot-vcfstats -P -p \"$d/plots\" \"$d/stats.vchk\"; test -s \"$d/plots/plot.py\"; find \"$d/plots\" -type f -name '*.png' -size +0c | grep -q .; rm -rf \"$d\"",
+          "python -c 'import gffutils, matplotlib, numpy'",
+          "{ roh-viz -h 2>&1 || true; } | grep -F 'HTML/JavaScript visualization' >/dev/null && { run-roh.pl -h 2>&1 || true; } | grep -F 'convenience wrapper' >/dev/null",
+          "set -eu; d=/tmp/taf-bcftools-roh-$$; mkdir -p \"$d\"; printf '##fileformat=VCFv4.2\n##contig=<ID=chr1,length=500000>\n##FORMAT=<ID=GT,Number=1,Type=String,Description=Genotype>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tS1\nchr1\t100\t.\tA\tG\t50\tPASS\t.\tGT\t0/1\nchr1\t200000\t.\tC\tT\t50\tPASS\t.\tGT\t1/1\n' > \"$d/in.vcf\"; printf '# The command line was: bcftools roh\nRG\tS1\tchr1\t1\t250000\t249999\t2\t50\n' > \"$d/roh.txt\"; roh-viz -c 1 -i \"$d/roh.txt\" -v \"$d/in.vcf\" -l 0 -o \"$d/out.html\"; test -s \"$d/out.html\"; grep -F '<!DOCTYPE html>' \"$d/out.html\" >/dev/null; rm -rf \"$d\"",
+          "printf 'ok\n' | gzip -c | gunzip -c | grep -Fx 'ok' >/dev/null",
+          "bgzip --help >/dev/null && tabix --help >/dev/null && htsfile --help >/dev/null",
+          "annot-tsv --help 2>&1 | grep -Fx 'Version: 1.24' >/dev/null && ref-cache 2>&1 | grep -F 'ref-cache [options]' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-10T00:21:23Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-10T00:21:23Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bcftools",
+        "ref": "v1.24-r1",
+        "commit": "6f0e3ddc841884727f7308a3a137ef5919f84b4a",
+        "html_url": "https://github.com/taffish/bcftools/tree/v1.24-r1"
+      },
+      "upstream": {
+        "name": "BCFtools",
+        "type": "github",
+        "homepage": "https://www.htslib.org/",
+        "repository": "samtools/bcftools",
+        "release_url": "https://github.com/samtools/bcftools/releases/tag/1.24",
+        "version": "1.24",
         "license": "MIT/Expat or GPL",
         "citation": "Danecek et al. 2021",
         "doi": "10.1093/gigascience/giab008",

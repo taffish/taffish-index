@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-09T10:14:57Z",
+  "generated_at": "2026-07-10T00:21:23Z",
   "organization": "taffish",
   "counts": {
     "packages": 211,
-    "versions": 330,
+    "versions": 332,
     "commands": 211,
     "repositories": 211,
     "warnings": 0,
@@ -1633,9 +1633,9 @@
     },
     "bcftools": {
       "name": "bcftools",
-      "latest": "1.23.1-r2",
-      "recent_version": "1.23.1-r2",
-      "recent_at": "2026-05-24T01:00:53Z",
+      "latest": "1.24-r1",
+      "recent_version": "1.24-r1",
+      "recent_at": "2026-07-09T22:31:13Z",
       "repository_url": "https://github.com/taffish/bcftools",
       "command": {
         "name": "taf-bcftools"
@@ -1869,6 +1869,147 @@
             "repository": "samtools/bcftools",
             "release_url": "https://github.com/samtools/bcftools/releases/tag/1.23.1",
             "version": "1.23.1",
+            "license": "MIT/Expat or GPL",
+            "citation": "Danecek et al. 2021",
+            "doi": "10.1093/gigascience/giab008",
+            "pmid": "33590861"
+          }
+        },
+        "1.24-r1": {
+          "name": "bcftools",
+          "kind": "tool",
+          "version": "1.24",
+          "release": 1,
+          "version_id": "1.24-r1",
+          "tag": "v1.24-r1",
+          "published_at": "2026-07-09T22:31:13Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bcftools",
+          "repository_slug": "taffish/bcftools",
+          "command": {
+            "name": "taf-bcftools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "variant-calling",
+              "vcf-bcf"
+            ],
+            "keywords": [
+              "vcf",
+              "bcf",
+              "variant",
+              "genotype",
+              "annotation",
+              "htslib",
+              "bgzip",
+              "tabix"
+            ],
+            "summary": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files.",
+            "description": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bcftools:1.24-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.24-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:dcf13babbd3b52e806593cb3ee41542aa337a27c20dfe7223974a184a51163e8",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ca76cc9757f34053956e6290355848f6119a9b474cadfcdca940e385b99dbd39",
+              "linux/arm64": "sha256:8848c308b241d4b5780cf00ac00ca71dc822823bbcb984aad19c6a7c8f156378"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "bcftools",
+              "bgzip",
+              "tabix",
+              "htsfile",
+              "annot-tsv",
+              "ref-cache",
+              "plot-vcfstats",
+              "plot-roh.py",
+              "roh-viz",
+              "run-roh.pl",
+              "color-chrs.pl",
+              "gff2gff",
+              "gff2gff.py",
+              "guess-ploidy.py",
+              "vcfutils.pl",
+              "vrfs-variances",
+              "python",
+              "python3",
+              "perl",
+              "bash",
+              "gzip",
+              "gunzip",
+              "wget"
+            ],
+            "test": [
+              "bcftools --help 2>&1 | grep -F 'Program: bcftools' >/dev/null",
+              "bcftools --version 2>&1 | grep -Fx 'bcftools 1.24' >/dev/null && bcftools --version 2>&1 | grep -Fx 'Using htslib 1.24' >/dev/null",
+              "bcftools polysomy -h 2>&1 | grep -F 'bcftools polysomy' >/dev/null && bcftools cnv -h 2>&1 | grep -F 'bcftools cnv' >/dev/null",
+              "bcftools norm -h 2>&1 | grep -F -- '--no-realign' >/dev/null && bcftools csq -h 2>&1 | grep -F -- '--greedy' >/dev/null",
+              "bcftools plugin -l | grep -Fx 'trio-dnm3' >/dev/null && if bcftools plugin -l | grep -Fx 'trio-dnm2' >/dev/null; then exit 1; fi",
+              "set -eu; d=/tmp/taf-bcftools-plugin-$$; mkdir -p \"$d\"; printf '##fileformat=VCFv4.2\n##contig=<ID=chr1,length=100>\n##FORMAT=<ID=GT,Number=1,Type=String,Description=Genotype>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tS1\nchr1\t10\t.\tA\tG\t50\tPASS\t.\tGT\t0/1\n' > \"$d/in.vcf\"; bcftools +fill-tags \"$d/in.vcf\" -Ou -- -t AC,AN | bcftools query -f '%INFO/AC\t%INFO/AN\n' > \"$d/out.tsv\"; test \"$(cat \"$d/out.tsv\")\" = \"$(printf '1\t2')\"; rm -rf \"$d\"",
+              "set -eu; d=/tmp/taf-bcftools-index-$$; mkdir -p \"$d\"; printf '##fileformat=VCFv4.2\n##contig=<ID=chr1,length=100>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr1\t10\t.\tA\tG\t50\tPASS\t.\n' > \"$d/in.vcf\"; bgzip -c \"$d/in.vcf\" > \"$d/in.vcf.gz\"; tabix -p vcf \"$d/in.vcf.gz\"; bcftools view -H \"$d/in.vcf.gz\" | grep -F 'chr1' >/dev/null; test -s \"$d/in.vcf.gz.tbi\"; rm -rf \"$d\"",
+              "set -eu; d=/tmp/taf-bcftools-plot-$$; mkdir -p \"$d\"; printf '##fileformat=VCFv4.2\n##contig=<ID=chr1,length=100>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr1\t10\t.\tA\tG\t50\tPASS\t.\n' > \"$d/in.vcf\"; bcftools stats \"$d/in.vcf\" > \"$d/stats.vchk\"; plot-vcfstats -P -p \"$d/plots\" \"$d/stats.vchk\"; test -s \"$d/plots/plot.py\"; find \"$d/plots\" -type f -name '*.png' -size +0c | grep -q .; rm -rf \"$d\"",
+              "python -c 'import gffutils, matplotlib, numpy'",
+              "{ roh-viz -h 2>&1 || true; } | grep -F 'HTML/JavaScript visualization' >/dev/null && { run-roh.pl -h 2>&1 || true; } | grep -F 'convenience wrapper' >/dev/null",
+              "set -eu; d=/tmp/taf-bcftools-roh-$$; mkdir -p \"$d\"; printf '##fileformat=VCFv4.2\n##contig=<ID=chr1,length=500000>\n##FORMAT=<ID=GT,Number=1,Type=String,Description=Genotype>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tS1\nchr1\t100\t.\tA\tG\t50\tPASS\t.\tGT\t0/1\nchr1\t200000\t.\tC\tT\t50\tPASS\t.\tGT\t1/1\n' > \"$d/in.vcf\"; printf '# The command line was: bcftools roh\nRG\tS1\tchr1\t1\t250000\t249999\t2\t50\n' > \"$d/roh.txt\"; roh-viz -c 1 -i \"$d/roh.txt\" -v \"$d/in.vcf\" -l 0 -o \"$d/out.html\"; test -s \"$d/out.html\"; grep -F '<!DOCTYPE html>' \"$d/out.html\" >/dev/null; rm -rf \"$d\"",
+              "printf 'ok\n' | gzip -c | gunzip -c | grep -Fx 'ok' >/dev/null",
+              "bgzip --help >/dev/null && tabix --help >/dev/null && htsfile --help >/dev/null",
+              "annot-tsv --help 2>&1 | grep -Fx 'Version: 1.24' >/dev/null && ref-cache 2>&1 | grep -F 'ref-cache [options]' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-10T00:21:23Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-10T00:21:23Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bcftools",
+            "ref": "v1.24-r1",
+            "commit": "6f0e3ddc841884727f7308a3a137ef5919f84b4a",
+            "html_url": "https://github.com/taffish/bcftools/tree/v1.24-r1"
+          },
+          "upstream": {
+            "name": "BCFtools",
+            "type": "github",
+            "homepage": "https://www.htslib.org/",
+            "repository": "samtools/bcftools",
+            "release_url": "https://github.com/samtools/bcftools/releases/tag/1.24",
+            "version": "1.24",
             "license": "MIT/Expat or GPL",
             "citation": "Danecek et al. 2021",
             "doi": "10.1093/gigascience/giab008",
@@ -33760,9 +33901,9 @@
     },
     "samtools": {
       "name": "samtools",
-      "latest": "1.23.1-r1",
-      "recent_version": "1.23.1-r1",
-      "recent_at": "2026-05-13T07:31:07Z",
+      "latest": "1.24-r1",
+      "recent_version": "1.24-r1",
+      "recent_at": "2026-07-09T23:46:16Z",
       "repository_url": "https://github.com/taffish/samtools",
       "command": {
         "name": "taf-samtools"
@@ -33884,6 +34025,156 @@
           "upstream": {
             "type": "github",
             "repository": "samtools/samtools",
+            "license": "MIT/Expat",
+            "citation": "Danecek et al. 2021",
+            "doi": "10.1093/gigascience/giab008",
+            "pmid": "33590861"
+          }
+        },
+        "1.24-r1": {
+          "name": "samtools",
+          "kind": "tool",
+          "version": "1.24",
+          "release": 1,
+          "version_id": "1.24-r1",
+          "tag": "v1.24-r1",
+          "published_at": "2026-07-09T23:46:16Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/samtools",
+          "repository_slug": "taffish/samtools",
+          "command": {
+            "name": "taf-samtools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "alignment",
+              "sam-bam-cram"
+            ],
+            "keywords": [
+              "sam",
+              "bam",
+              "cram",
+              "alignment",
+              "htslib",
+              "bgzip",
+              "tabix",
+              "ngs"
+            ],
+            "summary": "Toolkit for reading, writing, editing, indexing, viewing, and summarizing SAM/BAM/CRAM alignment files.",
+            "description": "Toolkit for reading, writing, editing, indexing, viewing, and summarizing SAM/BAM/CRAM alignment files."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/samtools:1.24-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.24-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6457cb3c9f4849f906222535ac16603172e5bdde812554fc58ce3eac6ca11e69",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2e29c3c9cb75c717eac8692798ebf371b61a8896cd477d95da903b72831a11d8",
+              "linux/arm64": "sha256:21d1dc18486cddba4c9d9691308595322bcdc0f6865e291a0c8db02154f1ee67"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "samtools",
+              "bgzip",
+              "tabix",
+              "htsfile",
+              "annot-tsv",
+              "ref-cache",
+              "ace2sam",
+              "maq2sam-long",
+              "maq2sam-short",
+              "md5fa",
+              "md5sum-lite",
+              "wgsim",
+              "blast2sam.pl",
+              "bowtie2sam.pl",
+              "export2sam.pl",
+              "fasta-sanitize.pl",
+              "interpolate_sam.pl",
+              "novo2sam.pl",
+              "plot-ampliconstats",
+              "plot-bamstats",
+              "psl2sam.pl",
+              "sam2vcf.pl",
+              "samtools.pl",
+              "seq_cache_populate.pl",
+              "seq_cache_populate.py",
+              "soap2sam.pl",
+              "wgsim_eval.pl",
+              "zoom2sam.pl",
+              "gnuplot",
+              "convert",
+              "python3",
+              "perl",
+              "gzip",
+              "gunzip"
+            ],
+            "test": [
+              "samtools --help 2>&1 | grep -F 'Program: samtools' >/dev/null && samtools --version 2>&1 | grep -Fx 'samtools 1.24' >/dev/null && samtools --version 2>&1 | grep -Fx 'Using htslib 1.24' >/dev/null",
+              "samtools view --help 2>&1 | grep -F 'Usage: samtools view' >/dev/null && samtools sort --help 2>&1 | grep -F 'Usage: samtools sort' >/dev/null && samtools quickcheck --help 2>&1 | grep -F 'Usage: samtools quickcheck' >/dev/null && samtools tview --help 2>&1 | grep -F 'Usage: samtools tview' >/dev/null",
+              "samtools markdup --help 2>&1 | grep -F -- '--move-umi-to-tag' >/dev/null && samtools stats --help 2>&1 | grep -F -- '--customized-index' >/dev/null",
+              "work=/tmp/taf-samtools-core; mkdir -p $work; printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t1\\t60\\t10M\\t*\\t0\\t0\\tAAAAAAAAAA\\tFFFFFFFFFF\\nr2\\t0\\tchr1\\t21\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAC\\tFFFFFFFFFF\\nr3\\t0\\tchr1\\t41\\t60\\t10M\\t*\\t0\\t0\\tGCGCGCGCGC\\tFFFFFFFFFF\\n' > $work/in.sam; samtools view -b -o $work/in.bam $work/in.sam; samtools sort -o $work/sorted.bam $work/in.bam; samtools index $work/sorted.bam; samtools quickcheck $work/sorted.bam; test \"$(samtools view -c $work/sorted.bam)\" -eq 3; samtools flagstat $work/sorted.bam | grep -F '3 + 0 in total' >/dev/null; samtools stats $work/sorted.bam | grep -F 'raw total sequences:' >/dev/null; samtools idxstats $work/sorted.bam | grep -F 'chr1' >/dev/null",
+              "work=/tmp/taf-samtools-htslib; mkdir -p $work; printf 'chr1\\t0\\t10\\tgeneA\\nchr1\\t20\\t30\\tgeneB\\n' > $work/regions.bed; bgzip -c $work/regions.bed > $work/regions.bed.gz; tabix -p bed $work/regions.bed.gz; tabix $work/regions.bed.gz chr1:1-10 | grep -F 'geneA' >/dev/null; htsfile $work/regions.bed.gz | grep -iF 'BED' >/dev/null; printf 'chr1\\t1\\t10\\tgeneA\\n' > $work/source.tsv; printf 'chr1\\t5\\t5\\t.\\n' > $work/target.tsv; annot-tsv -s $work/source.tsv -t $work/target.tsv -c 1,2,3:1,2,3 -f 4:4 | grep -F 'geneA' >/dev/null",
+              "work=/tmp/taf-samtools-plot; mkdir -p $work/plots; printf '@HD\\tVN:1.6\\tSO:unsorted\\n@SQ\\tSN:chr1\\tLN:100\\nr1\\t0\\tchr1\\t1\\t60\\t10M\\t*\\t0\\t0\\tAAAAAAAAAA\\tFFFFFFFFFF\\nr2\\t0\\tchr1\\t21\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAC\\tFFFFFFFFFF\\nr3\\t0\\tchr1\\t41\\t60\\t10M\\t*\\t0\\t0\\tGCGCGCGCGC\\tFFFFFFFFFF\\n' > $work/in.sam; samtools view -b -o $work/in.bam $work/in.sam; samtools sort -o $work/sorted.bam $work/in.bam; samtools stats $work/sorted.bam > $work/stats.txt; plot-bamstats -p $work/plots/ $work/stats.txt; find $work/plots -type f -name '*.png' -size +0c | grep -q .; convert $work/plots/gc-content.png -scale 50% $work/thumbnail.png; test -s $work/thumbnail.png",
+              "work=/tmp/taf-samtools-refcache; mkdir -p $work; printf '>chr1\\nACGTACGTACGT\\n' > $work/ref.fa; seq_cache_populate.py -root $work/cache $work/ref.fa; find $work/cache -type f -size +0c | grep -q .",
+              "work=/tmp/taf-samtools-wgsim; mkdir -p $work; printf '>chr1\\n' > $work/ref.fa; head -c 1000 /dev/zero | tr '\\000' A >> $work/ref.fa; printf '\\n' >> $work/ref.fa; wgsim -N 2 -1 20 -2 20 -d 100 -s 10 -e 0 -r 0 -R 0 -X 0 $work/ref.fa $work/read1.fq $work/read2.fq; test \"$(wc -l < $work/read1.fq)\" -eq 8; test \"$(wc -l < $work/read2.fq)\" -eq 8",
+              "printf '>chr,1\\nACGT\\n' | fasta-sanitize.pl | grep -Fx '>chr_1' >/dev/null && samtools.pl 2>&1 | grep -F 'Program: samtools.pl' >/dev/null",
+              "annot-tsv --help 2>&1 | grep -Fx 'Version: 1.24' >/dev/null && ref-cache 2>&1 | grep -F 'ref-cache [options]' >/dev/null && plot-bamstats -h 2>&1 | grep -F 'Usage: plot-bamstats' >/dev/null && plot-ampliconstats -help 2>&1 | grep -F 'Usage: plot-ampliconstats' >/dev/null && seq_cache_populate.py --help 2>&1 | grep -F 'Directory to create the refcache dir' >/dev/null",
+              "perl -MURI::Escape -e 'print uri_escape(qq(ok))' | grep -Fx ok >/dev/null && gnuplot --version >/dev/null && convert -version 2>&1 | grep -F ImageMagick >/dev/null && printf 'ok\\n' | gzip -c | gunzip -c | grep -Fx ok >/dev/null",
+              "test -s /opt/samtools/share/licenses/samtools/LICENSE && test -s /opt/samtools/share/licenses/htslib/LICENSE"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-10T00:21:23Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-10T00:21:23Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/samtools",
+            "ref": "v1.24-r1",
+            "commit": "6bb4b79d44e55ddaf3e075d4a67156adeb1a8461",
+            "html_url": "https://github.com/taffish/samtools/tree/v1.24-r1"
+          },
+          "upstream": {
+            "name": "SAMtools",
+            "type": "github",
+            "homepage": "https://www.htslib.org/",
+            "repository": "samtools/samtools",
+            "release_url": "https://github.com/samtools/samtools/releases/tag/1.24",
+            "version": "1.24",
             "license": "MIT/Expat",
             "citation": "Danecek et al. 2021",
             "doi": "10.1093/gigascience/giab008",
@@ -41608,7 +41899,7 @@
     },
     "taf-bcftools": {
       "package": "bcftools",
-      "version": "1.23.1-r2"
+      "version": "1.24-r1"
     },
     "taf-bedops": {
       "package": "bedops",
@@ -42224,7 +42515,7 @@
     },
     "taf-samtools": {
       "package": "samtools",
-      "version": "1.23.1-r1"
+      "version": "1.24-r1"
     },
     "taf-scanpy": {
       "package": "scanpy",
