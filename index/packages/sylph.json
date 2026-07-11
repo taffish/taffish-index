@@ -1,0 +1,134 @@
+{
+  "name": "sylph",
+  "latest": "0.9.0-r1",
+  "recent_version": "0.9.0-r1",
+  "recent_at": "2026-07-11T22:51:02Z",
+  "repository_url": "https://github.com/taffish/sylph",
+  "command": {
+    "name": "taf-sylph"
+  },
+  "versions": {
+    "0.9.0-r1": {
+      "name": "sylph",
+      "kind": "tool",
+      "version": "0.9.0",
+      "release": 1,
+      "version_id": "0.9.0-r1",
+      "tag": "v0.9.0-r1",
+      "published_at": "2026-07-11T22:51:02Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/sylph",
+      "repository_slug": "taffish/sylph",
+      "command": {
+        "name": "taf-sylph"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "taxonomic-profiling",
+          "microbiome",
+          "ani",
+          "sketching"
+        ],
+        "keywords": [
+          "sylph",
+          "metagenomics",
+          "taxonomic profiling",
+          "containment ani",
+          "average nucleotide identity",
+          "minhash",
+          "k-mer",
+          "syldb",
+          "sylsp",
+          "gtdb"
+        ],
+        "summary": "Sylph 0.9.0 runtime for ultrafast species-level metagenomic profiling and containment ANI querying.",
+        "description": "Sylph 0.9.0 runtime for ultrafast species-level metagenomic profiling and containment ANI querying."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/sylph:0.9.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.9.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:bbb1a154883499c0e2d92650e87068ef1fc723866ae537327303fecc9e316030",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:1f157831e839a13b01ef843ad09d6d36d6ec46d44458ff921355325ace75f7f5",
+          "linux/arm64": "sha256:552921e47ae597e703ec5947fba50c539943152f6b15fc54b94238d734bc7da6"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "sylph",
+          "sh",
+          "awk",
+          "gzip",
+          "grep",
+          "head",
+          "mkdir",
+          "rm",
+          "ldd"
+        ],
+        "test": [
+          "grep -F 'source_sha256=c11fbe5720500c43e7102a359dd9ec59b09b93a15a8ce6f6a3bb917430c3059e' /opt/sylph/share/doc/sylph/source.txt >/dev/null && grep -F 'upstream_commit=9e0e48c389fe0998b0c1c3fa0321eb93b8b36394' /opt/sylph/share/doc/sylph/source.txt >/dev/null",
+          "/opt/sylph/share/testdata/sylph-smoke.sh interfaces /tmp/taf-sylph-index-interfaces-$$",
+          "/opt/sylph/share/testdata/sylph-smoke.sh buildtime /tmp/taf-sylph-index-buildtime-$$",
+          "/opt/sylph/share/testdata/sylph-smoke.sh profile /tmp/taf-sylph-index-profile-$$",
+          "/opt/sylph/share/testdata/sylph-smoke.sh paired /tmp/taf-sylph-index-paired-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-11T23:17:00Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-11T23:17:00Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/sylph",
+        "ref": "v0.9.0-r1",
+        "commit": "9ce9986f2daa0e20a536506e67fa18328328738b",
+        "html_url": "https://github.com/taffish/sylph/tree/v0.9.0-r1"
+      },
+      "upstream": {
+        "name": "sylph",
+        "type": "github",
+        "homepage": "https://sylph-docs.github.io/",
+        "repository": "bluenote-1577/sylph",
+        "release_url": "https://github.com/bluenote-1577/sylph/releases/tag/v0.9.0",
+        "version": "0.9.0",
+        "license": "MIT OR Apache-2.0",
+        "citation": "Shaw and Yu 2025, Rapid species-level metagenome profiling and containment estimation with sylph, Nature Biotechnology 43:1348-1359",
+        "doi": "10.1038/s41587-024-02412-y",
+        "pmid": "39379646"
+      }
+    }
+  }
+}
