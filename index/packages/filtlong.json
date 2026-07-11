@@ -1,0 +1,126 @@
+{
+  "name": "filtlong",
+  "latest": "0.3.1-r1",
+  "recent_version": "0.3.1-r1",
+  "recent_at": "2026-07-11T03:17:22Z",
+  "repository_url": "https://github.com/taffish/filtlong",
+  "command": {
+    "name": "taf-filtlong"
+  },
+  "versions": {
+    "0.3.1-r1": {
+      "name": "filtlong",
+      "kind": "tool",
+      "version": "0.3.1",
+      "release": 1,
+      "version_id": "0.3.1-r1",
+      "tag": "v0.3.1-r1",
+      "published_at": "2026-07-11T03:17:22Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/filtlong",
+      "repository_slug": "taffish/filtlong",
+      "command": {
+        "name": "taf-filtlong"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "long-read",
+        "categories": [
+          "long-read",
+          "quality-control",
+          "filtering",
+          "nanopore",
+          "pacbio"
+        ],
+        "keywords": [
+          "filtlong",
+          "long reads",
+          "nanopore",
+          "pacbio",
+          "fastq",
+          "fasta",
+          "quality filtering",
+          "read trimming",
+          "read splitting"
+        ],
+        "summary": "Filtlong 0.3.1 long-read quality filtering runtime for Nanopore and PacBio FASTQ/FASTA workflows.",
+        "description": "Filtlong 0.3.1 long-read quality filtering runtime for Nanopore and PacBio FASTQ/FASTA workflows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/filtlong:0.3.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.3.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:ea8082e2329ac81d08d1feb72cb35de574acbad5d9a13adfb85a88dba19c6e56",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b860ad1bb528f5fe3c7daede783beafb9dd7fdfbf0379d722c701e61e3509b54",
+          "linux/arm64": "sha256:4c65f9bd302241c05ad281ba611589aa4566976be1b280b6848d854b4ce7c607"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "filtlong",
+          "gzip",
+          "grep",
+          "ldd",
+          "sh"
+        ],
+        "test": [
+          "grep -F 'source_sha256=09b43a0c9e2c6b40cd29e3025de8ff39302c0b5eabbf660a47c9c26bdf9dd35e' /opt/filtlong/share/doc/filtlong/source.txt >/dev/null",
+          "filtlong --version 2>&1 | grep -Fx 'Filtlong v0.3.1' >/dev/null && filtlong --help 2>&1 | grep -F -- '--target_bases' >/dev/null && filtlong --help 2>&1 | grep -F -- '--assembly' >/dev/null && filtlong --help 2>&1 | grep -F -- '--version' >/dev/null",
+          "ldd \"$(command -v filtlong)\" > /tmp/taf-filtlong-ldd.txt 2>&1 || true; if grep -F 'not found' /tmp/taf-filtlong-ldd.txt; then exit 1; fi",
+          "/opt/filtlong/share/testdata/filtlong-smoke.sh /tmp/taf-filtlong-index-smoke-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-11T03:27:26Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-11T03:27:26Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/filtlong",
+        "ref": "v0.3.1-r1",
+        "commit": "acd149e0a9f749d255ffdecb2f8d08fed71586a9",
+        "html_url": "https://github.com/taffish/filtlong/tree/v0.3.1-r1"
+      },
+      "upstream": {
+        "name": "Filtlong",
+        "type": "github",
+        "homepage": "https://github.com/rrwick/Filtlong",
+        "repository": "rrwick/Filtlong",
+        "release_url": "https://github.com/rrwick/Filtlong/tree/v0.3.1",
+        "version": "0.3.1",
+        "license": "GPL-3.0-or-later",
+        "citation": "No dedicated paper or formal citation is listed in the upstream Filtlong README; cite the upstream GitHub project when needed."
+      }
+    }
+  }
+}
