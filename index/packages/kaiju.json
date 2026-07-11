@@ -1,0 +1,164 @@
+{
+  "name": "kaiju",
+  "latest": "1.10.2-r1",
+  "recent_version": "1.10.2-r1",
+  "recent_at": "2026-07-11T21:28:30Z",
+  "repository_url": "https://github.com/taffish/kaiju",
+  "command": {
+    "name": "taf-kaiju"
+  },
+  "versions": {
+    "1.10.2-r1": {
+      "name": "kaiju",
+      "kind": "tool",
+      "version": "1.10.2",
+      "release": 1,
+      "version_id": "1.10.2-r1",
+      "tag": "v1.10.2-r1",
+      "published_at": "2026-07-11T21:28:30Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/kaiju",
+      "repository_slug": "taffish/kaiju",
+      "command": {
+        "name": "taf-kaiju"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "taxonomy-classification",
+          "microbiome",
+          "protein-search",
+          "database-indexing"
+        ],
+        "keywords": [
+          "kaiju",
+          "metagenomics",
+          "metatranscriptomics",
+          "taxonomic classification",
+          "protein database",
+          "fm-index",
+          "ncbi taxonomy",
+          "kaijup",
+          "kaijux",
+          "krona"
+        ],
+        "summary": "Kaiju 1.10.2 runtime for protein-level taxonomic classification, database construction, and taxonomy-aware result conversion.",
+        "description": "Kaiju 1.10.2 runtime for protein-level taxonomic classification, database construction, and taxonomy-aware result conversion."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/kaiju:1.10.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.10.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:54824b3f3ff6073047c9746166e9110081c73cecb12d9b87616178403ca3989e",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:75b699d4c1ce9d04e1727871e40f9ce2b8d9e9d005d7884474ddf10fec22ffa4",
+          "linux/arm64": "sha256:d1e28e1bad3d6c627107833a936e0fb560df05d73fb2983c974ec9fa606dde62"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "kaiju",
+          "kaiju-multi",
+          "kaijup",
+          "kaijux",
+          "kaiju2krona",
+          "kaiju2table",
+          "kaiju-addTaxonNames",
+          "kaiju-mergeOutputs",
+          "kaiju-convertNR",
+          "kaiju-convertRefSeq",
+          "kaiju-mkbwt",
+          "kaiju-mkfmi",
+          "kaiju-makedb",
+          "kaiju-gbk2faa.pl",
+          "perl",
+          "curl",
+          "wget",
+          "awk",
+          "xargs",
+          "tar",
+          "gzip",
+          "gunzip",
+          "bzip2",
+          "bunzip2",
+          "xz",
+          "unxz",
+          "find",
+          "dirname",
+          "mkdir",
+          "cat",
+          "wc",
+          "seq",
+          "grep",
+          "sed",
+          "sort",
+          "sh",
+          "ldd"
+        ],
+        "test": [
+          "grep -F 'source_sha256=8d6d10c583799b040b77f28907c6b554363199e912681b3007b93ae7d817d172' /opt/kaiju/share/doc/kaiju/source.txt >/dev/null && grep -F 'upstream_commit=9b70819cf119b0874ab9b0100ed36b1fff41b7ea' /opt/kaiju/share/doc/kaiju/source.txt >/dev/null && grep -F 'runtime_banner_version=1.10.1' /opt/kaiju/share/doc/kaiju/source.txt >/dev/null",
+          "/opt/kaiju/share/testdata/kaiju-smoke.sh interfaces /tmp/taf-kaiju-index-interfaces-$$",
+          "/opt/kaiju/share/testdata/kaiju-smoke.sh buildtime /tmp/taf-kaiju-index-buildtime-$$",
+          "/opt/kaiju/share/testdata/kaiju-smoke.sh classify /tmp/taf-kaiju-index-classify-$$",
+          "/opt/kaiju/share/testdata/kaiju-smoke.sh postprocess /tmp/taf-kaiju-index-postprocess-$$",
+          "/opt/kaiju/share/testdata/kaiju-smoke.sh index /tmp/taf-kaiju-index-build-$$",
+          "/opt/kaiju/share/testdata/kaiju-smoke.sh gbk /tmp/taf-kaiju-index-gbk-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-11T21:36:17Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-11T21:36:17Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/kaiju",
+        "ref": "v1.10.2-r1",
+        "commit": "5bb6246b1d8695b2b38f523c10c021c502ae1400",
+        "html_url": "https://github.com/taffish/kaiju/tree/v1.10.2-r1"
+      },
+      "upstream": {
+        "name": "Kaiju",
+        "type": "github",
+        "homepage": "https://bioinformatics-centre.github.io/kaiju/",
+        "repository": "bioinformatics-centre/kaiju",
+        "release_url": "https://github.com/bioinformatics-centre/kaiju/releases/tag/v1.10.2",
+        "version": "1.10.2",
+        "license": "GPL-3.0-or-later",
+        "citation": "Menzel, Ng, and Krogh 2016, Fast and sensitive taxonomic classification for metagenomics with Kaiju, Nature Communications 7:11257",
+        "doi": "10.1038/ncomms11257",
+        "pmid": "27071849"
+      }
+    }
+  }
+}
