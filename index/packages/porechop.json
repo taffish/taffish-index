@@ -1,0 +1,133 @@
+{
+  "name": "porechop",
+  "latest": "0.2.4-r1",
+  "recent_version": "0.2.4-r1",
+  "recent_at": "2026-07-11T12:37:52Z",
+  "repository_url": "https://github.com/taffish/porechop",
+  "command": {
+    "name": "taf-porechop"
+  },
+  "versions": {
+    "0.2.4-r1": {
+      "name": "porechop",
+      "kind": "tool",
+      "version": "0.2.4",
+      "release": 1,
+      "version_id": "0.2.4-r1",
+      "tag": "v0.2.4-r1",
+      "published_at": "2026-07-11T12:37:52Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/porechop",
+      "repository_slug": "taffish/porechop",
+      "command": {
+        "name": "taf-porechop"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "long-read",
+        "categories": [
+          "long-read",
+          "adapter-trimming",
+          "demultiplexing",
+          "nanopore",
+          "quality-control"
+        ],
+        "keywords": [
+          "porechop",
+          "oxford nanopore",
+          "ont",
+          "long reads",
+          "adapter trimming",
+          "chimera splitting",
+          "barcode demultiplexing",
+          "fastq",
+          "fasta"
+        ],
+        "summary": "Porechop 0.2.4 runtime for trimming adapters, splitting adapter-containing Nanopore reads, and legacy barcode demultiplexing.",
+        "description": "Porechop 0.2.4 runtime for trimming adapters, splitting adapter-containing Nanopore reads, and legacy barcode demultiplexing."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/porechop:0.2.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.2.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:b76a9b9f25447e1bbcf5da39a798f8faa3278737374fb551b9c6522a58fbffc3",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0815e5c1fca4646e50d1e4542072206844709e778de23cc46ad401b7d045ebd9",
+          "linux/arm64": "sha256:517bdd001b6081c44d801745351575ccbb52bd48e3b6fa6c2aa68d54bd8ea379"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "porechop",
+          "python3",
+          "gzip",
+          "pigz",
+          "grep",
+          "ldd",
+          "sh"
+        ],
+        "test": [
+          "grep -F 'source_sha256=44b499157d933be43f702cec198d1d693dcb9276e3c545669be63c2612493299' /opt/porechop/share/doc/porechop/source.txt >/dev/null",
+          "porechop --version 2>&1 | grep -Fx '0.2.4' >/dev/null && porechop --help 2>&1 | grep -F -- '--barcode_dir' >/dev/null && porechop --help 2>&1 | grep -F -- '--discard_middle' >/dev/null && porechop --help 2>&1 | grep -F -- '--version' >/dev/null",
+          "python3 -c 'from porechop.version import __version__; from porechop.cpp_function_wrappers import adapter_alignment; assert __version__ == \"0.2.4\"; assert float(adapter_alignment(\"ACGTACGT\", \"ACGTACGT\", (3, -6, -5, -2)).split(\",\")[-1]) == 100.0' && ldd /opt/porechop/python/porechop/cpp_functions.so > /tmp/taf-porechop-ldd.txt 2>&1 && if grep -F 'not found' /tmp/taf-porechop-ldd.txt; then exit 1; fi",
+          "/opt/porechop/share/testdata/porechop-smoke.sh buildtime /tmp/taf-porechop-index-buildtime-$$",
+          "/opt/porechop/share/testdata/porechop-smoke.sh trim /tmp/taf-porechop-index-trim-$$",
+          "/opt/porechop/share/testdata/porechop-smoke.sh gzip /tmp/taf-porechop-index-gzip-$$",
+          "/opt/porechop/share/testdata/porechop-smoke.sh barcode /tmp/taf-porechop-index-barcode-$$",
+          "/opt/porechop/share/testdata/porechop-smoke.sh albacore /tmp/taf-porechop-index-albacore-$$",
+          "/opt/porechop/share/testdata/porechop-smoke.sh fasta /tmp/taf-porechop-index-fasta-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-11T12:46:01Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-11T12:46:01Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/porechop",
+        "ref": "v0.2.4-r1",
+        "commit": "585148602afb129295efef72d376609cec7493e4",
+        "html_url": "https://github.com/taffish/porechop/tree/v0.2.4-r1"
+      },
+      "upstream": {
+        "name": "Porechop",
+        "type": "github",
+        "homepage": "https://github.com/rrwick/Porechop",
+        "repository": "rrwick/Porechop",
+        "release_url": "https://github.com/rrwick/Porechop/tree/v0.2.4",
+        "version": "0.2.4",
+        "license": "GPL-3.0-or-later",
+        "citation": "No dedicated paper or formal citation is listed in the upstream Porechop README; cite the upstream GitHub project when needed."
+      }
+    }
+  }
+}

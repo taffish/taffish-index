@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-11T04:31:43Z",
+  "generated_at": "2026-07-11T12:46:01Z",
   "organization": "taffish",
   "counts": {
-    "packages": 212,
-    "versions": 333,
-    "commands": 212,
-    "repositories": 212,
+    "packages": 213,
+    "versions": 336,
+    "commands": 213,
+    "repositories": 213,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -5998,9 +5998,9 @@
     },
     "clipkit": {
       "name": "clipkit",
-      "latest": "2.12.0-r1",
-      "recent_version": "2.12.0-r1",
-      "recent_at": "2026-05-26T06:58:35Z",
+      "latest": "2.12.2-r1",
+      "recent_version": "2.12.2-r1",
+      "recent_at": "2026-07-11T09:22:42Z",
       "repository_url": "https://github.com/taffish/clipkit",
       "command": {
         "name": "taf-clipkit"
@@ -6117,6 +6117,123 @@
             "repository": "JLSteenwyk/ClipKIT",
             "release_url": "https://github.com/JLSteenwyk/ClipKIT/releases/tag/v2.12.0",
             "version": "2.12.0",
+            "license": "MIT",
+            "citation": "Steenwyk et al. 2020, ClipKIT: a multiple sequence alignment trimming software for accurate phylogenomic inference",
+            "doi": "10.1371/journal.pbio.3001007"
+          }
+        },
+        "2.12.2-r1": {
+          "name": "clipkit",
+          "kind": "tool",
+          "version": "2.12.2",
+          "release": 1,
+          "version_id": "2.12.2-r1",
+          "tag": "v2.12.2-r1",
+          "published_at": "2026-07-11T09:22:42Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/clipkit",
+          "repository_slug": "taffish/clipkit",
+          "command": {
+            "name": "taf-clipkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "multiple-sequence-alignment",
+            "categories": [
+              "multiple-sequence-alignment",
+              "alignment-trimming",
+              "phylogenetics",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "clipkit",
+              "msa",
+              "alignment trimming",
+              "smart-gap",
+              "gappy",
+              "kpic",
+              "phylogenomics",
+              "ecomp"
+            ],
+            "summary": "Alignment trimming software for phylogenetics and phylogenomics.",
+            "description": "Alignment trimming software for phylogenetics and phylogenomics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/clipkit:2.12.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.12.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:fe2975e365a9559d3858d8f5b6eebb11748708bcd7b04d710d1cd7977151b897",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1f0cb3c4fc647c5dc176e1f9b6ed052c38aba85764456548a2434ed1510c6d9a",
+              "linux/arm64": "sha256:ff093cffa8c56e097d880bb66089af7184d8b310bd293278e1a531d01a95c448"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "clipkit",
+              "python",
+              "python3",
+              "bash",
+              "grep",
+              "sed",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "clipkit --version | grep -Fx 'clipkit 2.12.2' >/dev/null && clipkit --help 2>&1 | grep -F 'Usage: clipkit <input>' >/dev/null && clipkit --help 2>&1 | grep -F 'smart-gap' >/dev/null && python -c 'import Bio, clipkit, numpy, zstandard; from clipkit.version import __version__; assert __version__ == \"2.12.2\"' && grep -F 'commit=fa656cb6532aa3fb4c22ecef3b44721c658e283d' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'wheel_sha256=b9074ba75ef0a1217b2c4c7aed36ca927c3664117d59f28a9844cc539c6c0630' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'source_sha256=bdc1e7f0d8da34e8a8622715de7203edf51da47d8163cc78799b923a7be0e2b4' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'ecomp_sha256=f9f9b2a1084757586a797708a5198156347164516393462a04a5cd624d568065' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && find /opt/clipkit/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > /tmp/taf-clipkit-ldd.txt && ! grep -F 'not found' /tmp/taf-clipkit-ldd.txt >/dev/null",
+              "tmp=/tmp/taf-clipkit-trim-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>s1\nACGTACGT\n>s2\nACGTA-GT\n>s3\nACGTA-GT\n>s4\nACGTA-GT\n' > in.fa && clipkit in.fa -m gappy -g 0.5 -o out.fa -of fasta -l -c --report_json report.json --plot_trim_report report.html > run.log 2>&1 && test -s out.fa && test -s out.fa.log && test -s out.fa.complement && test -s report.json && test -s report.html && grep -F '>s1' out.fa >/dev/null && grep -F 'Trimmed alignment: out.fa' run.log >/dev/null && python -c 'import json; data=json.load(open(\"report.json\")); assert data[\"status\"] == \"completed\"; assert data[\"mode\"] == \"gappy\"' && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-clipkit-validate-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>s1\nACGTACGTACGT\n>s2\nACGTACGTACGT\n>s3\nACGTA-GTACGT\n' > in.fa && clipkit in.fa --validate_only --report_json validate.json > validate.log 2>&1 && test -s validate.json && grep -F 'Validation successful' validate.log >/dev/null && python -c 'import json; data=json.load(open(\"validate.json\")); assert data[\"status\"] == \"validated\"; assert data[\"validate_only\"] is True' && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-clipkit-ecomp-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; cp /opt/clipkit/share/doc/clipkit/test.ecomp in.ecomp && clipkit in.ecomp -o out.fa -of fasta --report_json ecomp.json -q && test -s out.fa && test -s ecomp.json && python -c 'import json; data=json.load(open(\"ecomp.json\")); assert data[\"status\"] == \"completed\"; assert data[\"output_file_format\"] == \"fasta\"' && rm -rf \"$tmp\"",
+              "python -c 'import numpy as np; from clipkit.msa import MSA; n=1024; records=np.full((n,n), \"A\", dtype=\"U1\"); records[:512,0]=\"-\"; records[512:768,0]=\"C\"; msa=MSA([{\"id\":str(i)} for i in range(n)], records, gap_chars=[\"-\"]); assert records.size > 1000000; assert msa.site_gappyness[0] == 0.5; assert msa.site_entropy[0] == 1.0; assert msa.site_composition_bias[0] == 0.0; assert msa.column_character_frequencies[0] == {\"A\":256, \"C\":256}'"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-11T12:46:01Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-11T12:46:01Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/clipkit",
+            "ref": "v2.12.2-r1",
+            "commit": "a0b024fa1a8d4a9a862f0a0cc12ea3faebf4c146",
+            "html_url": "https://github.com/taffish/clipkit/tree/v2.12.2-r1"
+          },
+          "upstream": {
+            "name": "ClipKIT",
+            "type": "github",
+            "homepage": "https://jlsteenwyk.com/ClipKIT/",
+            "repository": "JLSteenwyk/ClipKIT",
+            "release_url": "https://github.com/JLSteenwyk/ClipKIT/releases/tag/v2.12.2",
+            "version": "2.12.2",
             "license": "MIT",
             "citation": "Steenwyk et al. 2020, ClipKIT: a multiple sequence alignment trimming software for accurate phylogenomic inference",
             "doi": "10.1371/journal.pbio.3001007"
@@ -26306,6 +26423,139 @@
         }
       }
     },
+    "porechop": {
+      "name": "porechop",
+      "latest": "0.2.4-r1",
+      "recent_version": "0.2.4-r1",
+      "recent_at": "2026-07-11T12:37:52Z",
+      "repository_url": "https://github.com/taffish/porechop",
+      "command": {
+        "name": "taf-porechop"
+      },
+      "versions": {
+        "0.2.4-r1": {
+          "name": "porechop",
+          "kind": "tool",
+          "version": "0.2.4",
+          "release": 1,
+          "version_id": "0.2.4-r1",
+          "tag": "v0.2.4-r1",
+          "published_at": "2026-07-11T12:37:52Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/porechop",
+          "repository_slug": "taffish/porechop",
+          "command": {
+            "name": "taf-porechop"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "long-read",
+            "categories": [
+              "long-read",
+              "adapter-trimming",
+              "demultiplexing",
+              "nanopore",
+              "quality-control"
+            ],
+            "keywords": [
+              "porechop",
+              "oxford nanopore",
+              "ont",
+              "long reads",
+              "adapter trimming",
+              "chimera splitting",
+              "barcode demultiplexing",
+              "fastq",
+              "fasta"
+            ],
+            "summary": "Porechop 0.2.4 runtime for trimming adapters, splitting adapter-containing Nanopore reads, and legacy barcode demultiplexing.",
+            "description": "Porechop 0.2.4 runtime for trimming adapters, splitting adapter-containing Nanopore reads, and legacy barcode demultiplexing."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/porechop:0.2.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.2.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b76a9b9f25447e1bbcf5da39a798f8faa3278737374fb551b9c6522a58fbffc3",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0815e5c1fca4646e50d1e4542072206844709e778de23cc46ad401b7d045ebd9",
+              "linux/arm64": "sha256:517bdd001b6081c44d801745351575ccbb52bd48e3b6fa6c2aa68d54bd8ea379"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "porechop",
+              "python3",
+              "gzip",
+              "pigz",
+              "grep",
+              "ldd",
+              "sh"
+            ],
+            "test": [
+              "grep -F 'source_sha256=44b499157d933be43f702cec198d1d693dcb9276e3c545669be63c2612493299' /opt/porechop/share/doc/porechop/source.txt >/dev/null",
+              "porechop --version 2>&1 | grep -Fx '0.2.4' >/dev/null && porechop --help 2>&1 | grep -F -- '--barcode_dir' >/dev/null && porechop --help 2>&1 | grep -F -- '--discard_middle' >/dev/null && porechop --help 2>&1 | grep -F -- '--version' >/dev/null",
+              "python3 -c 'from porechop.version import __version__; from porechop.cpp_function_wrappers import adapter_alignment; assert __version__ == \"0.2.4\"; assert float(adapter_alignment(\"ACGTACGT\", \"ACGTACGT\", (3, -6, -5, -2)).split(\",\")[-1]) == 100.0' && ldd /opt/porechop/python/porechop/cpp_functions.so > /tmp/taf-porechop-ldd.txt 2>&1 && if grep -F 'not found' /tmp/taf-porechop-ldd.txt; then exit 1; fi",
+              "/opt/porechop/share/testdata/porechop-smoke.sh buildtime /tmp/taf-porechop-index-buildtime-$$",
+              "/opt/porechop/share/testdata/porechop-smoke.sh trim /tmp/taf-porechop-index-trim-$$",
+              "/opt/porechop/share/testdata/porechop-smoke.sh gzip /tmp/taf-porechop-index-gzip-$$",
+              "/opt/porechop/share/testdata/porechop-smoke.sh barcode /tmp/taf-porechop-index-barcode-$$",
+              "/opt/porechop/share/testdata/porechop-smoke.sh albacore /tmp/taf-porechop-index-albacore-$$",
+              "/opt/porechop/share/testdata/porechop-smoke.sh fasta /tmp/taf-porechop-index-fasta-$$"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-11T12:46:01Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-11T12:46:01Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/porechop",
+            "ref": "v0.2.4-r1",
+            "commit": "585148602afb129295efef72d376609cec7493e4",
+            "html_url": "https://github.com/taffish/porechop/tree/v0.2.4-r1"
+          },
+          "upstream": {
+            "name": "Porechop",
+            "type": "github",
+            "homepage": "https://github.com/rrwick/Porechop",
+            "repository": "rrwick/Porechop",
+            "release_url": "https://github.com/rrwick/Porechop/tree/v0.2.4",
+            "version": "0.2.4",
+            "license": "GPL-3.0-or-later",
+            "citation": "No dedicated paper or formal citation is listed in the upstream Porechop README; cite the upstream GitHub project when needed."
+          }
+        }
+      }
+    },
     "prodigal": {
       "name": "prodigal",
       "latest": "2.6.3-r1",
@@ -33066,9 +33316,9 @@
     },
     "salmon": {
       "name": "salmon",
-      "latest": "2.3.2-r1",
-      "recent_version": "2.3.2-r1",
-      "recent_at": "2026-07-09T09:43:31Z",
+      "latest": "2.3.3-r1",
+      "recent_version": "2.3.3-r1",
+      "recent_at": "2026-07-11T12:37:37Z",
       "repository_url": "https://github.com/taffish/salmon",
       "command": {
         "name": "taf-salmon"
@@ -33891,6 +34141,125 @@
             "repository": "COMBINE-lab/salmon",
             "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.3.2",
             "version": "2.3.2",
+            "license": "BSD-3-Clause",
+            "citation": "Patro et al. 2017, Nature Methods",
+            "doi": "10.1038/nmeth.4197",
+            "pmid": "28263959"
+          }
+        },
+        "2.3.3-r1": {
+          "name": "salmon",
+          "kind": "tool",
+          "version": "2.3.3",
+          "release": 1,
+          "version_id": "2.3.3-r1",
+          "tag": "v2.3.3-r1",
+          "published_at": "2026-07-11T12:37:37Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/salmon",
+          "repository_slug": "taffish/salmon",
+          "command": {
+            "name": "taf-salmon"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "quantification",
+              "alignment",
+              "indexing"
+            ],
+            "keywords": [
+              "salmon",
+              "rna-seq",
+              "transcript abundance",
+              "selective alignment",
+              "sketch",
+              "sshash",
+              "piscem",
+              "quant",
+              "quantmerge"
+            ],
+            "summary": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, indexing, selective-alignment and sketch quantification, alignment-based quantification, and quantification merging.",
+            "description": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, indexing, selective-alignment and sketch quantification, alignment-based quantification, and quantification merging."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/salmon:2.3.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:bd44d35317835bb917295ac4cc1e7b0afb0bababf5b1780e23d8fb2b03087866",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7c3af18d1770b2e19a03ebe6479ea33f2c66fe7be92cea5dc9ded8a469e380db",
+              "linux/arm64": "sha256:60d9f83db768095aa511a75e13ac5653fa51850f9b90e3cb9c0ccd067b1dd8b4"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "salmon",
+              "ldd",
+              "locale",
+              "sh"
+            ],
+            "test": [
+              "test \"$(salmon --version)\" = 'salmon 2.3.3' && salmon --help 2>&1 | grep -F 'RNA-seq transcript quantification' >/dev/null && ! salmon --help 2>&1 | grep -F '(Rust port)' >/dev/null && ! salmon --help 2>&1 | grep -F 'alevin' >/dev/null && salmon --no-version-check --help 2>&1 | grep -F 'no-op' >/dev/null && ldd $(command -v salmon) | grep -F 'libgcc_s.so' >/dev/null && ldd $(command -v salmon) | grep -F 'libc.so' >/dev/null && ! ldd $(command -v salmon) | grep -F 'not found' >/dev/null",
+              "salmon --no-version-check index --help 2>&1 | grep -F 'Build a salmon index' >/dev/null && salmon --no-version-check index --help 2>&1 | grep -F 'sshashTmpDir' >/dev/null && salmon --no-version-check index --help 2>&1 | grep -F 'ramLimit' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'Quantify transcript abundances' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'writeRad' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'deterministic' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'annotation' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'emAccel' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'squarem' >/dev/null && salmon --no-version-check quant --help 2>&1 | grep -F 'daarem' >/dev/null && salmon --no-version-check quantmerge --help 2>&1 | grep -F 'Merge a column across multiple samples' >/dev/null && salmon --no-version-check debug-map --help 2>&1 | grep -F 'per-read best-mapping detail' >/dev/null",
+              "rm -rf /tmp/taf-salmon-index && mkdir -p /tmp/taf-salmon-index && cd /tmp/taf-salmon-index && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-index.log 2>&1 && test -s idx/info.json && test -s idx/index.ssi && test -s idx/index.ctab && grep -F '\"salmon_version\": \"2.3.3\"' idx/info.json >/dev/null && grep -F '\"index_version\": 1' idx/info.json >/dev/null && grep -F '\"num_refs\": 2' idx/info.json >/dev/null",
+              "rm -rf /tmp/taf-salmon-quant && mkdir -p /tmp/taf-salmon-quant && cd /tmp/taf-salmon-quant && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-quant-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r3\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o quant -p 1 --quiet >/tmp/taf-salmon-quant.log 2>&1 && test -s quant/quant.sf && grep -F 'Name' quant/quant.sf >/dev/null && grep -F 'tx1' quant/quant.sf >/dev/null && grep -F 'tx2' quant/quant.sf >/dev/null",
+              "rm -rf /tmp/taf-salmon-sketch && mkdir -p /tmp/taf-salmon-sketch && cd /tmp/taf-salmon-sketch && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-sketch-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o sketch_quant -p 1 --sketch --quiet >/tmp/taf-salmon-sketch.log 2>&1 && test -s sketch_quant/quant.sf && grep -F 'tx1' sketch_quant/quant.sf >/dev/null && grep -F 'tx2' sketch_quant/quant.sf >/dev/null",
+              "rm -rf /tmp/taf-salmon-merge && mkdir -p /tmp/taf-salmon-merge/q1 /tmp/taf-salmon-merge/q2 && cd /tmp/taf-salmon-merge && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t100.0\\t2.0\\ntx2\\t40\\t2.432\\t0.0\\t0.0\\n' > q1/quant.sf && printf 'Name\\tLength\\tEffectiveLength\\tTPM\\tNumReads\\ntx1\\t40\\t2.432\\t10.0\\t1.0\\ntx2\\t40\\t2.432\\t90.0\\t9.0\\n' > q2/quant.sf && salmon --no-version-check quantmerge --quants q1 q2 --names s1 s2 --column TPM -o merged.tsv >/tmp/taf-salmon-merge.log 2>&1 && grep -F 'Name' merged.tsv >/dev/null && grep -F 'tx2' merged.tsv >/dev/null && grep -F '90' merged.tsv >/dev/null",
+              "{ salmon --no-version-check alevin > /tmp/taf-salmon-alevin.out 2>&1 && exit 1 || true; } && grep -F 'salmon alevin is not available' /tmp/taf-salmon-alevin.out >/dev/null && grep -F 'alevin-fry' /tmp/taf-salmon-alevin.out >/dev/null",
+              "rm -rf /tmp/taf-salmon-accel && mkdir -p /tmp/taf-salmon-accel && cd /tmp/taf-salmon-accel && printf '>tx1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n>tx2\\nTTTTGGGGCCCCAAAATTTTGGGGCCCCAAAATTTTGGGG\\n' > transcripts.fa && salmon --no-version-check index -t transcripts.fa -i idx -k 15 -p 1 --quiet >/tmp/taf-salmon-accel-index.log 2>&1 && printf '@r1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTTTTGGGGCCCCAAAATTTT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n@r3\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && salmon --no-version-check quant -i idx -l A -r reads.fq -o squarem -p 1 --emAccel squarem --quiet >/tmp/taf-salmon-squarem.log 2>&1 && salmon --no-version-check quant -i idx -l A -r reads.fq -o daarem -p 1 --emAccel daarem --quiet >/tmp/taf-salmon-daarem.log 2>&1 && test -s squarem/quant.sf && test -s daarem/quant.sf && grep -F 'tx1' squarem/quant.sf >/dev/null && grep -F 'tx2' daarem/quant.sf >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-11T12:46:01Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-11T12:46:01Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/salmon",
+            "ref": "v2.3.3-r1",
+            "commit": "dfe200a0125baa8f9170bc23ab1c98beef07702b",
+            "html_url": "https://github.com/taffish/salmon/tree/v2.3.3-r1"
+          },
+          "upstream": {
+            "name": "Salmon",
+            "type": "github",
+            "homepage": "https://combine-lab.github.io/salmon/",
+            "repository": "COMBINE-lab/salmon",
+            "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.3.3",
+            "version": "2.3.3",
             "license": "BSD-3-Clause",
             "citation": "Patro et al. 2017, Nature Methods",
             "doi": "10.1038/nmeth.4197",
@@ -42125,7 +42494,7 @@
     },
     "taf-clipkit": {
       "package": "clipkit",
-      "version": "2.12.0-r1"
+      "version": "2.12.2-r1"
     },
     "taf-clustal-omega": {
       "package": "clustal-omega",
@@ -42523,6 +42892,10 @@
       "package": "plotsr",
       "version": "1.1.1-r3"
     },
+    "taf-porechop": {
+      "package": "porechop",
+      "version": "0.2.4-r1"
+    },
     "taf-prodigal": {
       "package": "prodigal",
       "version": "2.6.3-r1"
@@ -42637,7 +43010,7 @@
     },
     "taf-salmon": {
       "package": "salmon",
-      "version": "2.3.2-r1"
+      "version": "2.3.3-r1"
     },
     "taf-samblaster": {
       "package": "samblaster",
@@ -43643,6 +44016,12 @@
       "repository": "taffish/plotsr",
       "packages": [
         "plotsr"
+      ]
+    },
+    "taffish/porechop": {
+      "repository": "taffish/porechop",
+      "packages": [
+        "porechop"
       ]
     },
     "taffish/prodigal": {
