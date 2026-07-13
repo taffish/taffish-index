@@ -1,0 +1,146 @@
+{
+  "name": "openbabel",
+  "latest": "3.2.1-r1",
+  "recent_version": "3.2.1-r1",
+  "recent_at": "2026-07-13T06:24:31Z",
+  "repository_url": "https://github.com/taffish/openbabel",
+  "command": {
+    "name": "taf-openbabel"
+  },
+  "versions": {
+    "3.2.1-r1": {
+      "name": "openbabel",
+      "kind": "tool",
+      "version": "3.2.1",
+      "release": 1,
+      "version_id": "3.2.1-r1",
+      "tag": "v3.2.1-r1",
+      "published_at": "2026-07-13T06:24:31Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/openbabel",
+      "repository_slug": "taffish/openbabel",
+      "command": {
+        "name": "taf-openbabel"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "cheminformatics",
+        "categories": [
+          "cheminformatics",
+          "molecular-informatics",
+          "format-conversion",
+          "structural-biology"
+        ],
+        "keywords": [
+          "open babel",
+          "obabel",
+          "smiles",
+          "sdf",
+          "pdb",
+          "inchi",
+          "smarts",
+          "molecular fingerprints",
+          "force fields",
+          "coordinate generation",
+          "chemical file conversion",
+          "pybel"
+        ],
+        "summary": "Open Babel 3.2.1 CLI and Python cheminformatics runtime with full format plugins, molecular conversion, search, fingerprints, depiction, coordinate generation, and force-field tools.",
+        "description": "Open Babel 3.2.1 CLI and Python cheminformatics runtime with full format plugins, molecular conversion, search, fingerprints, depiction, coordinate generation, and force-field tools."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/openbabel:3.2.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.2.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:0a0760af0dadeeb01234e19ba2923550c4d0e678beadb4e0751b0cdafec00115",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ca7ad07676a3457b9c2cd1588cc8ed0123bdb6b923cc7e6cb352f5f5dd366058",
+          "linux/arm64": "sha256:a942da76385972b8a89ac6790c658ea8b1e9f10daa62f0f539fa6eb2cee83bc7"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "obabel",
+          "obconformer",
+          "obdistgen",
+          "obenergy",
+          "obfit",
+          "obfitall",
+          "obgen",
+          "obgrep",
+          "obminimize",
+          "obmm",
+          "obprobe",
+          "obprop",
+          "obrms",
+          "obrotamer",
+          "obrotate",
+          "obspectrophore",
+          "obsym",
+          "obtautomer",
+          "obthermo",
+          "python3"
+        ],
+        "test": [
+          "/opt/openbabel/share/testdata/openbabel-smoke.sh identity",
+          "/opt/openbabel/share/testdata/openbabel-smoke.sh plugins",
+          "/opt/openbabel/share/testdata/openbabel-smoke.sh conversion",
+          "/opt/openbabel/share/testdata/openbabel-smoke.sh python",
+          "/opt/openbabel/share/testdata/openbabel-smoke.sh advanced"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-13T07:13:58Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-13T07:13:58Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/openbabel",
+        "ref": "v3.2.1-r1",
+        "commit": "67e43c5557e437df4e0940bf051db4aaf638f954",
+        "html_url": "https://github.com/taffish/openbabel/tree/v3.2.1-r1"
+      },
+      "upstream": {
+        "name": "Open Babel",
+        "type": "github",
+        "homepage": "https://openbabel.org/",
+        "repository": "OpenBabel/openbabel",
+        "release_url": "https://github.com/OpenBabel/openbabel/releases/tag/openbabel-3-2-1",
+        "version": "3.2.1",
+        "license": "GPL-2.0-only",
+        "citation": "O'Boyle NM et al. Open Babel: An open chemical toolbox. Journal of Cheminformatics. 2011;3:33.",
+        "doi": "10.1186/1758-2946-3-33",
+        "pmid": "21982300"
+      }
+    }
+  }
+}
