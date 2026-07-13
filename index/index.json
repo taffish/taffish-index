@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-12T04:42:31Z",
+  "generated_at": "2026-07-13T02:23:24Z",
   "organization": "taffish",
   "counts": {
-    "packages": 215,
-    "versions": 338,
-    "commands": 215,
-    "repositories": 215,
+    "packages": 216,
+    "versions": 339,
+    "commands": 216,
+    "repositories": 216,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -28480,6 +28480,128 @@
         }
       }
     },
+    "rdkit": {
+      "name": "rdkit",
+      "latest": "2026.03.4-r1",
+      "recent_version": "2026.03.4-r1",
+      "recent_at": "2026-07-13T01:59:39Z",
+      "repository_url": "https://github.com/taffish/rdkit",
+      "command": {
+        "name": "taf-rdkit"
+      },
+      "versions": {
+        "2026.03.4-r1": {
+          "name": "rdkit",
+          "kind": "tool",
+          "version": "2026.03.4",
+          "release": 1,
+          "version_id": "2026.03.4-r1",
+          "tag": "v2026.03.4-r1",
+          "published_at": "2026-07-13T01:59:39Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rdkit",
+          "repository_slug": "taffish/rdkit",
+          "command": {
+            "name": "taf-rdkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "cheminformatics",
+            "categories": [
+              "cheminformatics",
+              "molecular-informatics",
+              "molecular-descriptors",
+              "machine-learning"
+            ],
+            "keywords": [
+              "rdkit",
+              "smiles",
+              "sdf",
+              "molecular fingerprints",
+              "molecular descriptors",
+              "substructure search",
+              "cheminformatics",
+              "molecule drawing"
+            ],
+            "summary": "RDKit 2026.03.4 Python cheminformatics runtime with native amd64/arm64 builds, core shared libraries, runtime data, upstream Contrib files, and scientific Python dependencies.",
+            "description": "RDKit 2026.03.4 Python cheminformatics runtime with native amd64/arm64 builds, core shared libraries, runtime data, upstream Contrib files, and scientific Python dependencies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rdkit:2026.03.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2026.03.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:3fa5f5f7789a7f3a36057273b504ba4d2c4b294fb503b85c9151d7ab2b245fbd",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:d5dd340b49a3861661039772feeb47cf1378d8959ae8cfc2a8e50410c57aeb10",
+              "linux/arm64": "sha256:f306e7ea31161e8ae2cd088d5c8984b10092e86373073272ab16c1c6027103de"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "python",
+              "python3",
+              "rdkit-runtime-info"
+            ],
+            "test": [
+              "rdkit-runtime-info --json | grep -F '\"rdkit\": \"2026.03.4\"' >/dev/null && rdkit-runtime-info --json | grep -F '\"inchi\": \"available\"' >/dev/null && python -c 'import rdkit; from rdkit import Avalon, Chem, DataManip, Dbase, DistanceGeometry, ForceField, Geometry, ML, Numerics, SimDivFilters, VLib; from rdkit.Chem import AllChem, Draw, PandasTools, inchi, rdCoordGen, rdFreeSASA, rdMolDescriptors; assert rdkit.__version__ == \"2026.03.4\"; print(rdkit.__version__)' | grep -Fx '2026.03.4' >/dev/null",
+              "python --help 2>&1 | grep -F 'usage: python' >/dev/null && python -m rdkit.Chem.ChemUtils.SDFToCSV --help 2>&1 | grep -F 'Convert SDF file to CSV' >/dev/null && rdkit-runtime-info --help 2>&1 | grep -F 'runtime versions' >/dev/null",
+              "tmp=/tmp/taf-rdkit-smoke-$$; rm -rf \"$tmp\"; python /opt/rdkit/share/testdata/rdkit-smoke.py \"$tmp\" && test -s \"$tmp/molecules.sdf\" && test -s \"$tmp/molecule.svg\" && test -s \"$tmp/molecule.png\" && test -s \"$tmp/summary.tsv\" && grep -F 'rdkit_version' \"$tmp/summary.tsv\" | grep -F '2026.03.4' >/dev/null && python -m rdkit.Chem.ChemUtils.SDFToCSV \"$tmp/molecules.sdf\" \"$tmp/molecules.csv\" && test -s \"$tmp/molecules.csv\" && grep -F 'SMILES' \"$tmp/molecules.csv\" >/dev/null && grep -F 'aspirin' \"$tmp/molecules.csv\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-13T02:23:24Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-13T02:23:24Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rdkit",
+            "ref": "v2026.03.4-r1",
+            "commit": "9b3a2ad56a3964e0c4d6a7cafa7d5fde239bdabd",
+            "html_url": "https://github.com/taffish/rdkit/tree/v2026.03.4-r1"
+          },
+          "upstream": {
+            "name": "RDKit",
+            "type": "github",
+            "homepage": "https://www.rdkit.org/",
+            "repository": "rdkit/rdkit",
+            "release_url": "https://github.com/rdkit/rdkit/releases/tag/Release_2026_03_4",
+            "version": "2026.03.4",
+            "license": "BSD-3-Clause",
+            "citation": "RDKit: Open-source cheminformatics. https://www.rdkit.org",
+            "doi": "10.5281/zenodo.591637"
+          }
+        }
+      }
+    },
     "repeatmasker": {
       "name": "repeatmasker",
       "latest": "4.2.4-r1",
@@ -43234,6 +43356,10 @@
       "package": "ragtag",
       "version": "2.1.0-r1"
     },
+    "taf-rdkit": {
+      "package": "rdkit",
+      "version": "2026.03.4-r1"
+    },
     "taf-repeatmasker": {
       "package": "repeatmasker",
       "version": "4.2.4-r1"
@@ -44388,6 +44514,12 @@
       "repository": "taffish/ragtag",
       "packages": [
         "ragtag"
+      ]
+    },
+    "taffish/rdkit": {
+      "repository": "taffish/rdkit",
+      "packages": [
+        "rdkit"
       ]
     },
     "taffish/repeatmasker": {
