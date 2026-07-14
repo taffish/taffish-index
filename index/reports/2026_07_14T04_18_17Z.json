@@ -1,13 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-07-13T07:13:58Z",
+  "generated_at": "2026-07-14T04:18:17Z",
   "organization": "taffish",
   "counts": {
-    "failed": 0,
+    "failed": 1,
     "rejected": 10,
     "warnings": 0
   },
-  "failed": [],
+  "failed": [
+    {
+      "repository": "taffish/bismark",
+      "ref": "v3.1.0-r1",
+      "version_id": "3.1.0-r1",
+      "stage": "digest",
+      "message": "failed to inspect image ghcr.io/taffish/bismark:3.1.0-r1: ERROR: ghcr.io/taffish/bismark:3.1.0-r1: not found\n (exit 1)",
+      "image": "ghcr.io/taffish/bismark:3.1.0-r1"
+    }
+  ],
   "rejected": [
     {
       "repository": "taffish/nanoplot",
