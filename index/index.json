@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-14T10:10:05Z",
+  "generated_at": "2026-07-15T02:56:43Z",
   "organization": "taffish",
   "counts": {
-    "packages": 218,
-    "versions": 343,
-    "commands": 218,
-    "repositories": 218,
+    "packages": 219,
+    "versions": 344,
+    "commands": 219,
+    "repositories": 219,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -22061,6 +22061,134 @@
         }
       }
     },
+    "methyldackel": {
+      "name": "methyldackel",
+      "latest": "0.6.1-r1",
+      "recent_version": "0.6.1-r1",
+      "recent_at": "2026-07-14T20:58:28Z",
+      "repository_url": "https://github.com/taffish/methyldackel",
+      "command": {
+        "name": "taf-methyldackel"
+      },
+      "versions": {
+        "0.6.1-r1": {
+          "name": "methyldackel",
+          "kind": "tool",
+          "version": "0.6.1",
+          "release": 1,
+          "version_id": "0.6.1-r1",
+          "tag": "v0.6.1-r1",
+          "published_at": "2026-07-14T20:58:28Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/methyldackel",
+          "repository_slug": "taffish/methyldackel",
+          "command": {
+            "name": "taf-methyldackel"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "epigenomics",
+            "categories": [
+              "epigenomics",
+              "bisulfite-sequencing",
+              "methylation",
+              "alignment-processing"
+            ],
+            "keywords": [
+              "methyldackel",
+              "bisulfite sequencing",
+              "bs-seq",
+              "wgbs",
+              "rrbs",
+              "dna methylation",
+              "bam",
+              "cram",
+              "bedgraph",
+              "methylation bias"
+            ],
+            "summary": "MethylDackel 0.6.1 runtime for methylation extraction, methylation-bias diagnostics, context merging, and per-read summaries from bisulfite-sequencing alignments.",
+            "description": "MethylDackel 0.6.1 runtime for methylation extraction, methylation-bias diagnostics, context merging, and per-read summaries from bisulfite-sequencing alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/methyldackel:0.6.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.6.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:70d6058131d2793fa6696a80b1f4a20b762ca4f9f628587a27193d16a92e8c0b",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:25ddc743b502333fcb7270680efba0b6d881623dab7ee145a01922229448f32a",
+              "linux/arm64": "sha256:cba08b56ca43b87ba44047a11b4ebd05d2c7e0f29ec85d349e78a33d805715e9"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "MethylDackel",
+              "sh",
+              "grep",
+              "sed",
+              "wc",
+              "ldd"
+            ],
+            "test": [
+              "/opt/methyldackel/share/testdata/methyldackel-smoke.sh identity",
+              "/opt/methyldackel/share/testdata/methyldackel-smoke.sh extract",
+              "/opt/methyldackel/share/testdata/methyldackel-smoke.sh mbias",
+              "/opt/methyldackel/share/testdata/methyldackel-smoke.sh merge-context",
+              "/opt/methyldackel/share/testdata/methyldackel-smoke.sh per-read"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-15T02:56:43Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-15T02:56:43Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/methyldackel",
+            "ref": "v0.6.1-r1",
+            "commit": "07364e92c076284b141a312cd2a818010cdfb32c",
+            "html_url": "https://github.com/taffish/methyldackel/tree/v0.6.1-r1"
+          },
+          "upstream": {
+            "name": "MethylDackel",
+            "type": "github",
+            "homepage": "https://github.com/dpryan79/MethylDackel",
+            "repository": "dpryan79/MethylDackel",
+            "release_url": "https://github.com/dpryan79/MethylDackel/releases/tag/0.6.1",
+            "version": "0.6.1",
+            "license": "MIT",
+            "citation": "MethylDackel has no dedicated upstream publication; cite the versioned MethylDackel GitHub repository as requested by upstream."
+          }
+        }
+      }
+    },
     "minigraph": {
       "name": "minigraph",
       "latest": "0.21-r1",
@@ -43751,6 +43879,10 @@
       "package": "metaphlan",
       "version": "4.2.4-r1"
     },
+    "taf-methyldackel": {
+      "package": "methyldackel",
+      "version": "0.6.1-r1"
+    },
     "taf-minigraph": {
       "package": "minigraph",
       "version": "0.21-r1"
@@ -44851,6 +44983,12 @@
       "repository": "taffish/metaphlan",
       "packages": [
         "metaphlan"
+      ]
+    },
+    "taffish/methyldackel": {
+      "repository": "taffish/methyldackel",
+      "packages": [
+        "methyldackel"
       ]
     },
     "taffish/minigraph": {
