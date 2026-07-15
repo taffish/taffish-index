@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-15T04:18:31Z",
+  "generated_at": "2026-07-15T11:29:02Z",
   "organization": "taffish",
   "counts": {
     "packages": 219,
-    "versions": 344,
+    "versions": 345,
     "commands": 219,
     "repositories": 219,
     "warnings": 0,
@@ -6151,9 +6151,9 @@
     },
     "clipkit": {
       "name": "clipkit",
-      "latest": "2.12.2-r1",
-      "recent_version": "2.12.2-r1",
-      "recent_at": "2026-07-11T09:22:42Z",
+      "latest": "2.13.0-r1",
+      "recent_version": "2.13.0-r1",
+      "recent_at": "2026-07-15T11:14:15Z",
       "repository_url": "https://github.com/taffish/clipkit",
       "command": {
         "name": "taf-clipkit"
@@ -6387,6 +6387,127 @@
             "repository": "JLSteenwyk/ClipKIT",
             "release_url": "https://github.com/JLSteenwyk/ClipKIT/releases/tag/v2.12.2",
             "version": "2.12.2",
+            "license": "MIT",
+            "citation": "Steenwyk et al. 2020, ClipKIT: a multiple sequence alignment trimming software for accurate phylogenomic inference",
+            "doi": "10.1371/journal.pbio.3001007"
+          }
+        },
+        "2.13.0-r1": {
+          "name": "clipkit",
+          "kind": "tool",
+          "version": "2.13.0",
+          "release": 1,
+          "version_id": "2.13.0-r1",
+          "tag": "v2.13.0-r1",
+          "published_at": "2026-07-15T11:14:15Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/clipkit",
+          "repository_slug": "taffish/clipkit",
+          "command": {
+            "name": "taf-clipkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "multiple-sequence-alignment",
+            "categories": [
+              "multiple-sequence-alignment",
+              "alignment-trimming",
+              "phylogenetics",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "clipkit",
+              "msa",
+              "alignment trimming",
+              "smart-gap",
+              "gappy",
+              "kpic",
+              "phylogenomics",
+              "ecomp",
+              "stop-codon masking",
+              "codon-aware"
+            ],
+            "summary": "Alignment trimming software for phylogenetics and phylogenomics.",
+            "description": "Alignment trimming software for phylogenetics and phylogenomics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/clipkit:2.13.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.13.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:1406bf414f7f0efbdc6faf77cfb56c9880dec3613a09c74186c9e3a682d31f15",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c6ae09af4a9b660f9b835399f24beadd0b9c07e9d99080a5bca5f0d0e5d98b71",
+              "linux/arm64": "sha256:baede088e1a388feabe0b9f5c7eb5e9a336465876d5f7b601506c6bb28213fdc"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "clipkit",
+              "python",
+              "python3",
+              "bash",
+              "grep",
+              "sed",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "clipkit --version | grep -Fx 'clipkit 2.13.0' >/dev/null && clipkit --help 2>&1 | grep -F 'Usage: clipkit <input>' >/dev/null && clipkit --help 2>&1 | grep -F 'smart-gap' >/dev/null && clipkit --help 2>&1 | grep -F 'remove_stop_codons' >/dev/null && python -c 'import Bio, clipkit, numpy, zstandard; from clipkit.version import __version__; assert __version__ == \"2.13.0\"' && python -c 'assert open(\"/opt/clipkit/share/doc/clipkit/python-packages.txt\").read().splitlines() == [\"biopython==1.87\", \"clipkit==2.13.0\", \"numpy==1.26.4\", \"zstandard==0.25.0\"]' && grep -F 'commit=fb95e1b0d376cf3d03550666b550e704d253540a' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'wheel_sha256=4b52400df748d6d0ee7bb5e133465bd8ae5c7cc1fb95698896bce5e323ca4495' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'source_sha256=a766e67e04d495ec17f635cf9904a802b6a552f2a6b09586252539ed9f862c56' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'ecomp_sha256=f9f9b2a1084757586a797708a5198156347164516393462a04a5cd624d568065' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && find /opt/clipkit/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > /tmp/taf-clipkit-ldd.txt && ! grep -F 'not found' /tmp/taf-clipkit-ldd.txt >/dev/null",
+              "tmp=/tmp/taf-clipkit-stop-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>stop\nATGTAATGA\n>control\nATGCAACAA\n' > in.fa && clipkit in.fa --mode gappy --gaps 0.9 --sequence_type nt --codon --remove_stop_codons all --output out.fa --output_file_format fasta --log --report_json report.json > run.log 2>&1 && test -s out.fa && test -s out.fa.log && test -s report.json && grep -F 'ATG------' out.fa >/dev/null && grep -F 'Stop codon masking mode: all' run.log >/dev/null && python -c 'import json; data=json.load(open(\"report.json\")); assert data[\"stop_codon_masking\"] == {\"mode\": \"all\", \"terminal_masked\": 1, \"internal_masked\": 1, \"total_masked\": 2}' && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-clipkit-trim-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>s1\nACGTACGT\n>s2\nACGTA-GT\n>s3\nACGTA-GT\n>s4\nACGTA-GT\n' > in.fa && clipkit in.fa -m gappy -g 0.5 -o out.fa -of fasta -l -c --report_json report.json --plot_trim_report report.html > run.log 2>&1 && test -s out.fa && test -s out.fa.log && test -s out.fa.complement && test -s report.json && test -s report.html && grep -F '>s1' out.fa >/dev/null && grep -F 'Trimmed alignment: out.fa' run.log >/dev/null && python -c 'import json; data=json.load(open(\"report.json\")); assert data[\"status\"] == \"completed\"; assert data[\"mode\"] == \"gappy\"' && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-clipkit-validate-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>s1\nACGTACGTACGT\n>s2\nACGTACGTACGT\n>s3\nACGTA-GTACGT\n' > in.fa && clipkit in.fa --validate_only --report_json validate.json > validate.log 2>&1 && test -s validate.json && grep -F 'Validation successful' validate.log >/dev/null && python -c 'import json; data=json.load(open(\"validate.json\")); assert data[\"status\"] == \"validated\"; assert data[\"validate_only\"] is True' && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-clipkit-ecomp-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; cp /opt/clipkit/share/doc/clipkit/test.ecomp in.ecomp && clipkit in.ecomp -o out.fa -of fasta --report_json ecomp.json -q && test -s out.fa && test -s ecomp.json && python -c 'import json; data=json.load(open(\"ecomp.json\")); assert data[\"status\"] == \"completed\"; assert data[\"output_file_format\"] == \"fasta\"' && rm -rf \"$tmp\"",
+              "python -c 'import numpy as np; from clipkit.msa import MSA; n=1024; records=np.full((n,n), \"A\", dtype=\"U1\"); records[:512,0]=\"-\"; records[512:768,0]=\"C\"; msa=MSA([{\"id\":str(i)} for i in range(n)], records, gap_chars=[\"-\"]); assert records.size > 1000000; assert msa.site_gappyness[0] == 0.5; assert msa.site_entropy[0] == 1.0; assert msa.site_composition_bias[0] == 0.0; assert msa.column_character_frequencies[0] == {\"A\":256, \"C\":256}'",
+              "python -c 'from clipkit import clipkit; run, stats = clipkit(raw_alignment=\">stop\\nATGTAAACCTGA\\n>control\\nATGCAAACCCAA\\n\", mode=\"gappy\", gaps=0.9, sequence_type=\"nt\", codon=True, remove_stop_codons=\"all\"); assert str(run.trimmed[0].seq) == \"ATG---ACC---\"; assert run.stop_codon_masking.summary == {\"mode\": \"all\", \"terminal_masked\": 1, \"internal_masked\": 1, \"total_masked\": 2}; assert stats.output_length == 12'"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-15T11:29:02Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-15T11:29:02Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/clipkit",
+            "ref": "v2.13.0-r1",
+            "commit": "a64e85fae31ce558358bb978fb3164b0e1b9c13c",
+            "html_url": "https://github.com/taffish/clipkit/tree/v2.13.0-r1"
+          },
+          "upstream": {
+            "name": "ClipKIT",
+            "type": "github",
+            "homepage": "https://jlsteenwyk.com/ClipKIT/",
+            "repository": "JLSteenwyk/ClipKIT",
+            "release_url": "https://github.com/JLSteenwyk/ClipKIT/releases/tag/v2.13.0",
+            "version": "2.13.0",
             "license": "MIT",
             "citation": "Steenwyk et al. 2020, ClipKIT: a multiple sequence alignment trimming software for accurate phylogenomic inference",
             "doi": "10.1371/journal.pbio.3001007"
@@ -43573,7 +43694,7 @@
     },
     "taf-clipkit": {
       "package": "clipkit",
-      "version": "2.12.2-r1"
+      "version": "2.13.0-r1"
     },
     "taf-clustal-omega": {
       "package": "clustal-omega",
