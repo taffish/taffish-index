@@ -1,8 +1,8 @@
 {
   "name": "metaphlan",
-  "latest": "4.2.4-r1",
-  "recent_version": "4.2.4-r1",
-  "recent_at": "2026-06-23T13:35:39Z",
+  "latest": "4.2.5-r1",
+  "recent_version": "4.2.5-r1",
+  "recent_at": "2026-07-15T19:01:06Z",
   "repository_url": "https://github.com/taffish/metaphlan",
   "command": {
     "name": "taf-metaphlan"
@@ -131,6 +131,162 @@
         "repository": "biobakery/MetaPhlAn",
         "release_url": "https://github.com/biobakery/MetaPhlAn/releases/tag/4.2.4",
         "version": "4.2.4",
+        "license": "MIT",
+        "citation": "Blanco-Miguez et al. 2023, Nature Biotechnology; Truong et al. 2017, Genome Research; Segata et al. 2012, Nature Methods",
+        "doi": "10.1038/s41587-023-01688-w; 10.1101/gr.216242.116; 10.1038/nmeth.2066"
+      }
+    },
+    "4.2.5-r1": {
+      "name": "metaphlan",
+      "kind": "tool",
+      "version": "4.2.5",
+      "release": 1,
+      "version_id": "4.2.5-r1",
+      "tag": "v4.2.5-r1",
+      "published_at": "2026-07-15T19:01:06Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/metaphlan",
+      "repository_slug": "taffish/metaphlan",
+      "command": {
+        "name": "taf-metaphlan"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "taxonomy",
+          "profiling",
+          "microbiome",
+          "strain-profiling"
+        ],
+        "keywords": [
+          "metaphlan",
+          "strainphlan",
+          "metagenomic-profiling",
+          "taxonomic-profiling",
+          "sgb",
+          "marker-genes",
+          "bowtie2",
+          "minimap2",
+          "chocophlan"
+        ],
+        "summary": "Species-level metagenomic taxonomic profiling and strain-level population genomics.",
+        "description": "Species-level metagenomic taxonomic profiling and strain-level population genomics."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/metaphlan:4.2.5-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.2.5-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:54e5a134c421c25cd83a6926862beec878ed99474703a0afdf1ef052c41100dd",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:e653b4656e52f63c4facfe48428c2dfbbd5b7f21571f20d63698865d7b74462e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "metaphlan",
+          "strainphlan",
+          "add_metadata_tree.py",
+          "calculate_diversity.R",
+          "create_toy_database.py",
+          "extract_markers.py",
+          "fix_relab_mpa4.py",
+          "merge_metaphlan_tables.py",
+          "merge_vsc_tables.py",
+          "metaphlan2krona.py",
+          "plot_tree_graphlan.py",
+          "read_fastx.py",
+          "run_treeshrink.py",
+          "sample2markers.py",
+          "sgb_to_gtdb_profile.py",
+          "strain_transmission.py",
+          "treeshrink.py",
+          "graphlan.py",
+          "graphlan_annotate.py",
+          "bowtie2",
+          "bowtie2-build",
+          "bowtie2-inspect",
+          "minimap2",
+          "samtools",
+          "blastn",
+          "makeblastdb",
+          "phylophlan",
+          "phylophlan_write_config_file",
+          "diamond",
+          "fasttree",
+          "iqtree",
+          "mafft",
+          "mash",
+          "muscle",
+          "raxmlHPC",
+          "skani",
+          "trimal",
+          "Rscript",
+          "python",
+          "python3",
+          "sh",
+          "grep",
+          "gzip",
+          "bzip2"
+        ],
+        "test": [
+          "python -c 'import importlib.metadata as md; from metaphlan import metaphlan as m; import Bio, biom, dendropy, h5py, numpy, pandas, pysam, scipy; assert m.__version__ == \"4.2.5\"; assert md.version(\"metaphlan\") == \"4.2.5\"; assert md.version(\"graphlan\") == \"1.1.3.1\"; print(m.__version__)' | grep -Fx '4.2.5' >/dev/null",
+          "python -m pip check >/dev/null",
+          "graphlan.py --version 2>&1 | grep -F '1.1.4' >/dev/null && graphlan_annotate.py --version 2>&1 | grep -F '1.1.4' >/dev/null",
+          "metaphlan --version 2>&1 | grep -F '4.2.5' >/dev/null && metaphlan --help 2>&1 | grep -F -- '--db_dir' >/dev/null && metaphlan --help 2>&1 | grep -F -- '--long_reads' >/dev/null && metaphlan --help 2>&1 | grep -F -- '--no_map' >/dev/null",
+          "strainphlan --help 2>&1 | grep -F -- '--sample_list' >/dev/null && strainphlan --help 2>&1 | grep -F -- '--reference_list' >/dev/null && sample2markers.py --help 2>&1 | grep -F 'usage' >/dev/null",
+          "sgb_to_gtdb_profile.py --help 2>&1 | grep -F -- '--merged_profiles' >/dev/null && sgb_to_gtdb_profile.py --help 2>&1 | grep -F -- '--gtdb_assignment_file' >/dev/null && merge_metaphlan_tables.py -h 2>&1 | grep -F 'usage' >/dev/null",
+          "Rscript -e 'stopifnot(requireNamespace(\"optparse\", quietly=TRUE), requireNamespace(\"ape\", quietly=TRUE), requireNamespace(\"rbiom\", quietly=TRUE), packageVersion(\"rbiom\") >= \"3.1.0\", requireNamespace(\"compositions\", quietly=TRUE), requireNamespace(\"BiocManager\", quietly=TRUE), requireNamespace(\"microbiome\", quietly=TRUE))'",
+          "/opt/metaphlan/share/testdata/metaphlan-smoke.sh"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-15T19:06:28Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-15T19:06:28Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/metaphlan",
+        "ref": "v4.2.5-r1",
+        "commit": "8fa3247032c95d6b04fbbd2baac1615e74557db2",
+        "html_url": "https://github.com/taffish/metaphlan/tree/v4.2.5-r1"
+      },
+      "upstream": {
+        "name": "MetaPhlAn",
+        "type": "github",
+        "homepage": "https://github.com/biobakery/MetaPhlAn",
+        "repository": "biobakery/MetaPhlAn",
+        "release_url": "https://github.com/biobakery/MetaPhlAn/releases/tag/4.2.5",
+        "version": "4.2.5",
         "license": "MIT",
         "citation": "Blanco-Miguez et al. 2023, Nature Biotechnology; Truong et al. 2017, Genome Research; Segata et al. 2012, Nature Methods",
         "doi": "10.1038/s41587-023-01688-w; 10.1101/gr.216242.116; 10.1038/nmeth.2066"
