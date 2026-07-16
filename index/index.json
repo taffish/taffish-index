@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-15T19:06:28Z",
+  "generated_at": "2026-07-16T03:33:57Z",
   "organization": "taffish",
   "counts": {
-    "packages": 219,
-    "versions": 346,
-    "commands": 219,
-    "repositories": 219,
+    "packages": 220,
+    "versions": 347,
+    "commands": 220,
+    "repositories": 220,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -22466,6 +22466,159 @@
         }
       }
     },
+    "methylpy": {
+      "name": "methylpy",
+      "latest": "1.4.7-r1",
+      "recent_version": "1.4.7-r1",
+      "recent_at": "2026-07-16T03:20:19Z",
+      "repository_url": "https://github.com/taffish/methylpy",
+      "command": {
+        "name": "taf-methylpy"
+      },
+      "versions": {
+        "1.4.7-r1": {
+          "name": "methylpy",
+          "kind": "tool",
+          "version": "1.4.7",
+          "release": 1,
+          "version_id": "1.4.7-r1",
+          "tag": "v1.4.7-r1",
+          "published_at": "2026-07-16T03:20:19Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/methylpy",
+          "repository_slug": "taffish/methylpy",
+          "command": {
+            "name": "taf-methylpy"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "epigenomics",
+            "categories": [
+              "epigenomics",
+              "bisulfite-sequencing",
+              "dna-methylation",
+              "dmr",
+              "nome-seq"
+            ],
+            "keywords": [
+              "methylpy",
+              "wgbs",
+              "methylc-seq",
+              "bisulfite sequencing",
+              "dna methylation",
+              "nome-seq",
+              "dmr",
+              "allc",
+              "bowtie",
+              "bowtie 2",
+              "minimap2",
+              "picard"
+            ],
+            "summary": "Complete methylpy 1.4.7 runtime for bisulfite/NOMe-seq alignment, methylation calling, allc processing, BigWig export, and DMR discovery.",
+            "description": "Complete methylpy 1.4.7 runtime for bisulfite/NOMe-seq alignment, methylation calling, allc processing, BigWig export, and DMR discovery."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/methylpy:1.4.7-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.4.7-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:7f2b3601ac72e98318e40914af2dde8f48bfc7b1fc55254f06ab7a919cb56e2e",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f1cbf5a8b2cb5fdc017cea85c2a1c289a0d0e18bb45229fb62618db71fd87027",
+              "linux/arm64": "sha256:a785153856565e6b521f8f2f3b1e2a86586676364bc05f091b18aa34966200df"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "methylpy",
+              "python",
+              "python3",
+              "cutadapt",
+              "bowtie",
+              "bowtie-build",
+              "bowtie2",
+              "bowtie2-build",
+              "minimap2",
+              "samtools",
+              "bgzip",
+              "tabix",
+              "java",
+              "wigToBigWig",
+              "sh",
+              "grep",
+              "gzip",
+              "sort",
+              "wc",
+              "ldd"
+            ],
+            "test": [
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh identity",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh build-reference-bowtie1",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh build-reference-bowtie2",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh build-reference-minimap2",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh allc",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh bigwig",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh picard",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh trim",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh pipeline-se",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh pipeline-pe",
+              "/opt/methylpy/share/testdata/methylpy-smoke.sh dmr"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-16T03:33:57Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-16T03:33:57Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/methylpy",
+            "ref": "v1.4.7-r1",
+            "commit": "36a686e8af12fe797aee64841f2e3d4ba08d1922",
+            "html_url": "https://github.com/taffish/methylpy/tree/v1.4.7-r1"
+          },
+          "upstream": {
+            "name": "methylpy",
+            "type": "pypi",
+            "homepage": "https://github.com/yupenghe/methylpy",
+            "repository": "yupenghe/methylpy",
+            "release_url": "https://pypi.org/project/methylpy/1.4.7/",
+            "version": "1.4.7",
+            "license": "Apache-2.0",
+            "citation": "Schultz MD, He Y, Whitaker JW, et al. Human body epigenome maps reveal noncanonical DNA methylation variation. Nature. 2015;523:212-216.",
+            "doi": "10.1038/nature14465",
+            "pmid": "26030523"
+          }
+        }
+      }
+    },
     "minigraph": {
       "name": "minigraph",
       "latest": "0.21-r1",
@@ -44160,6 +44313,10 @@
       "package": "methyldackel",
       "version": "0.6.1-r1"
     },
+    "taf-methylpy": {
+      "package": "methylpy",
+      "version": "1.4.7-r1"
+    },
     "taf-minigraph": {
       "package": "minigraph",
       "version": "0.21-r1"
@@ -45266,6 +45423,12 @@
       "repository": "taffish/methyldackel",
       "packages": [
         "methyldackel"
+      ]
+    },
+    "taffish/methylpy": {
+      "repository": "taffish/methylpy",
+      "packages": [
+        "methylpy"
       ]
     },
     "taffish/minigraph": {
