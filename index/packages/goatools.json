@@ -1,0 +1,141 @@
+{
+  "name": "goatools",
+  "latest": "1.6.5-r1",
+  "recent_version": "1.6.5-r1",
+  "recent_at": "2026-07-17T02:25:14Z",
+  "repository_url": "https://github.com/taffish/goatools",
+  "command": {
+    "name": "taf-goatools"
+  },
+  "versions": {
+    "1.6.5-r1": {
+      "name": "goatools",
+      "kind": "tool",
+      "version": "1.6.5",
+      "release": 1,
+      "version_id": "1.6.5-r1",
+      "tag": "v1.6.5-r1",
+      "published_at": "2026-07-17T02:25:14Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/goatools",
+      "repository_slug": "taffish/goatools",
+      "command": {
+        "name": "taf-goatools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "functional-genomics",
+        "categories": [
+          "functional-genomics",
+          "gene-ontology",
+          "enrichment-analysis",
+          "bioinformatics-utilities"
+        ],
+        "keywords": [
+          "goatools",
+          "gene ontology",
+          "go enrichment",
+          "goea",
+          "go dag",
+          "go slim",
+          "gaf",
+          "gpad",
+          "gene2go",
+          "cytoscape",
+          "networkx",
+          "pydot",
+          "pygraphviz"
+        ],
+        "summary": "GOATOOLS 1.6.5 command-line and Python runtime for Gene Ontology enrichment, ontology DAG analysis, GO slim mapping, annotation parsing, reporting, and Graphviz visualization.",
+        "description": "GOATOOLS 1.6.5 command-line and Python runtime for Gene Ontology enrichment, ontology DAG analysis, GO slim mapping, annotation parsing, reporting, and Graphviz visualization."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/goatools:1.6.5-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.6.5-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:dd0a6584cc238f7ab213a227843ffe9d5629095369f09a51d0ca44f1e6099554",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:581798c1e0d5f93583e38b55e7792b0626198e1a58d2da6a26bc5d4b7ad0bc7e",
+          "linux/arm64": "sha256:d1b571079c52be027916c2176744ea3c07b287d6604283a7f719ef67495efffc"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "goatools",
+          "find_enrichment.py",
+          "go_plot.py",
+          "map_to_slim.py",
+          "wr_hier.py",
+          "plot_go_term.py",
+          "ncbi_gene_results_to_python.py",
+          "python",
+          "dot",
+          "curl",
+          "gzip",
+          "sh",
+          "grep",
+          "ldd"
+        ],
+        "test": [
+          "/opt/goatools/share/testdata/goatools-smoke.sh identity",
+          "/opt/goatools/share/testdata/goatools-smoke.sh goea",
+          "/opt/goatools/share/testdata/goatools-smoke.sh spreadsheet",
+          "/opt/goatools/share/testdata/goatools-smoke.sh slim",
+          "/opt/goatools/share/testdata/goatools-smoke.sh graphics"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-17T02:45:43Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-17T02:45:43Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/goatools",
+        "ref": "v1.6.5-r1",
+        "commit": "0f2e8dea8e024b00255dea3d297538856d558304",
+        "html_url": "https://github.com/taffish/goatools/tree/v1.6.5-r1"
+      },
+      "upstream": {
+        "name": "GOATOOLS",
+        "type": "github",
+        "homepage": "https://github.com/tanghaibao/goatools",
+        "repository": "tanghaibao/goatools",
+        "release_url": "https://github.com/tanghaibao/goatools/tree/v1.6.5",
+        "version": "1.6.5",
+        "license": "BSD-2-Clause",
+        "citation": "Klopfenstein DV et al. GOATOOLS: A Python library for Gene Ontology analyses. Scientific Reports. 2018;8:10872.",
+        "doi": "10.1038/s41598-018-28948-z",
+        "pmid": "30022098"
+      }
+    }
+  }
+}

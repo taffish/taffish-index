@@ -1,0 +1,144 @@
+{
+  "name": "jcvi",
+  "latest": "1.6.6-r1",
+  "recent_version": "1.6.6-r1",
+  "recent_at": "2026-07-16T21:27:54Z",
+  "repository_url": "https://github.com/taffish/jcvi",
+  "command": {
+    "name": "taf-jcvi"
+  },
+  "versions": {
+    "1.6.6-r1": {
+      "name": "jcvi",
+      "kind": "tool",
+      "version": "1.6.6",
+      "release": 1,
+      "version_id": "1.6.6-r1",
+      "tag": "v1.6.6-r1",
+      "published_at": "2026-07-16T21:27:54Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/jcvi",
+      "repository_slug": "taffish/jcvi",
+      "command": {
+        "name": "taf-jcvi"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "comparative-genomics",
+        "categories": [
+          "comparative-genomics",
+          "genome-assembly",
+          "genome-annotation",
+          "synteny",
+          "bioinformatics-utilities"
+        ],
+        "keywords": [
+          "jcvi",
+          "mcscan",
+          "allmaps",
+          "synteny",
+          "comparative genomics",
+          "genome assembly",
+          "genome annotation",
+          "fasta",
+          "bed",
+          "gff",
+          "genomics graphics"
+        ],
+        "summary": "JCVI 1.6.6 Python toolkit for genome assembly, annotation, comparative genomics, file-format manipulation, synteny analysis, and genomics graphics.",
+        "description": "JCVI 1.6.6 Python toolkit for genome assembly, annotation, comparative genomics, file-format manipulation, synteny analysis, and genomics graphics."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/jcvi:1.6.6-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.6.6-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:8482abfc446c60e8f2050dccdc107af18d8bea6c407fe49465481f4e99b78019",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:068cba79fc4c31bd4b14395d86c5ced338d0b07083856d3b64cce7e2c4d72695",
+          "linux/arm64": "sha256:0f5b52e6b62096e67d86b0b394aef6b7fcda24f8682b153306467ab68187530a"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "jcvi",
+          "python",
+          "bedtools",
+          "convert",
+          "identify",
+          "dot",
+          "tesseract",
+          "Rscript",
+          "embossversion",
+          "needle",
+          "samtools",
+          "bgzip",
+          "tabix",
+          "bash",
+          "grep",
+          "sed",
+          "ldd"
+        ],
+        "test": [
+          "jcvi --version 2>&1 | grep -Fx 'jcvi 1.6.6' >/dev/null && jcvi --help 2>&1 | grep -F 'Run jcvi modules' >/dev/null",
+          "jcvi formats.fasta 2>&1 | grep -F 'Remove irregular chars in FASTA seqs' >/dev/null && jcvi formats.bed 2>&1 | grep -F 'Summarize the lengths of the intervals' >/dev/null && jcvi compara.synteny 2>&1 | grep -F 'Get anchor list using single-linkage algorithm' >/dev/null",
+          "/opt/jcvi/share/testdata/jcvi-smoke.sh identity",
+          "/opt/jcvi/share/testdata/jcvi-smoke.sh fasta",
+          "/opt/jcvi/share/testdata/jcvi-smoke.sh bedtools",
+          "/opt/jcvi/share/testdata/jcvi-smoke.sh graphics",
+          "/opt/jcvi/share/testdata/jcvi-smoke.sh helpers"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-17T02:45:43Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-17T02:45:43Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/jcvi",
+        "ref": "v1.6.6-r1",
+        "commit": "649106c12cf592e81e0930721d3822d455c7dbf2",
+        "html_url": "https://github.com/taffish/jcvi/tree/v1.6.6-r1"
+      },
+      "upstream": {
+        "name": "JCVI",
+        "type": "github",
+        "homepage": "https://github.com/tanghaibao/jcvi",
+        "repository": "tanghaibao/jcvi",
+        "release_url": "https://github.com/tanghaibao/jcvi/tree/v1.6.6",
+        "version": "1.6.6",
+        "license": "BSD-2-Clause",
+        "citation": "Tang et al. 2024, JCVI: A versatile toolkit for comparative genomics analysis",
+        "doi": "10.1002/imt2.211"
+      }
+    }
+  }
+}
