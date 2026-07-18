@@ -1,0 +1,138 @@
+{
+  "name": "plip",
+  "latest": "3.0.1-r1",
+  "recent_version": "3.0.1-r1",
+  "recent_at": "2026-07-18T13:25:08Z",
+  "repository_url": "https://github.com/taffish/plip",
+  "command": {
+    "name": "taf-plip"
+  },
+  "versions": {
+    "3.0.1-r1": {
+      "name": "plip",
+      "kind": "tool",
+      "version": "3.0.1",
+      "release": 1,
+      "version_id": "3.0.1-r1",
+      "tag": "v3.0.1-r1",
+      "published_at": "2026-07-18T13:25:08Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/plip",
+      "repository_slug": "taffish/plip",
+      "command": {
+        "name": "taf-plip"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "structural-biology",
+        "categories": [
+          "structural-biology",
+          "molecular-interactions",
+          "cheminformatics",
+          "drug-discovery"
+        ],
+        "keywords": [
+          "plip",
+          "protein-ligand interactions",
+          "protein-protein interactions",
+          "pdb",
+          "open babel",
+          "pymol",
+          "hydrogen bonds",
+          "hydrophobic contacts",
+          "salt bridges",
+          "pi stacking",
+          "water bridges",
+          "halogen bonds",
+          "metal complexes"
+        ],
+        "summary": "PLIP 3.0.1 runtime for automated protein-ligand and protein-protein interaction profiling, structured reports, Python analysis, and PyMOL/ImageMagick visualization.",
+        "description": "PLIP 3.0.1 runtime for automated protein-ligand and protein-protein interaction profiling, structured reports, Python analysis, and PyMOL/ImageMagick visualization."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/plip:3.0.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.0.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:56f4fd1469c475c5e31ae0beb948a0240bc2014e6dbdf8f2617441b094cc33bc",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a31857505b5f0d71d79edab428800c81002536129b60bef0053d2b413cd3f8ca",
+          "linux/arm64": "sha256:8596105d38fd763179a55ea8fc5e6ea78bc0b5bc9863efc664df80a8adfce5ec"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "plip",
+          "python3",
+          "obabel",
+          "pymol",
+          "magick",
+          "bash",
+          "grep",
+          "sha256sum",
+          "ldd"
+        ],
+        "test": [
+          "/opt/plip/share/testdata/plip-smoke.sh identity",
+          "/opt/plip/share/testdata/plip-smoke.sh interfaces",
+          "/opt/plip/share/testdata/plip-smoke.sh reports",
+          "/opt/plip/share/testdata/plip-smoke.sh stdin",
+          "/opt/plip/share/testdata/plip-smoke.sh python",
+          "/opt/plip/share/testdata/plip-smoke.sh ppi",
+          "/opt/plip/share/testdata/plip-smoke.sh visualization"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-18T14:22:20Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-18T14:22:20Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/plip",
+        "ref": "v3.0.1-r1",
+        "commit": "752aebdf6dab09496317eed091cbe96114d5ba89",
+        "html_url": "https://github.com/taffish/plip/tree/v3.0.1-r1"
+      },
+      "upstream": {
+        "name": "PLIP",
+        "type": "github",
+        "homepage": "https://github.com/pharmai/plip",
+        "repository": "pharmai/plip",
+        "release_url": "https://github.com/pharmai/plip/releases/tag/v3.0.1",
+        "version": "3.0.1",
+        "license": "GPL-2.0-only",
+        "citation": "Schake P, Bolz SN, Linnemann K, Schroeder M. PLIP 2025: introducing protein-protein interactions to the protein-ligand interaction profiler. Nucleic Acids Research. 2025;53(W1):W463-W465.",
+        "doi": "10.1093/nar/gkaf361",
+        "pmid": "40347107"
+      }
+    }
+  }
+}
