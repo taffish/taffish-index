@@ -1,0 +1,128 @@
+{
+  "name": "pdbe-arpeggio",
+  "latest": "1.4.4-r1",
+  "recent_version": "1.4.4-r1",
+  "recent_at": "2026-07-18T16:40:14Z",
+  "repository_url": "https://github.com/taffish/pdbe-arpeggio",
+  "command": {
+    "name": "taf-pdbe-arpeggio"
+  },
+  "versions": {
+    "1.4.4-r1": {
+      "name": "pdbe-arpeggio",
+      "kind": "tool",
+      "version": "1.4.4",
+      "release": 1,
+      "version_id": "1.4.4-r1",
+      "tag": "v1.4.4-r1",
+      "published_at": "2026-07-18T16:40:14Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/pdbe-arpeggio",
+      "repository_slug": "taffish/pdbe-arpeggio",
+      "command": {
+        "name": "taf-pdbe-arpeggio"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "structural-biology",
+        "categories": [
+          "structural-biology",
+          "molecular-interactions",
+          "cheminformatics",
+          "protein-structure"
+        ],
+        "keywords": [
+          "pdbe arpeggio",
+          "arpeggio",
+          "mmcif",
+          "interatomic contacts",
+          "protein structure",
+          "protein ligand",
+          "credo",
+          "open babel",
+          "gemmi",
+          "biopython",
+          "python api"
+        ],
+        "summary": "PDBe Arpeggio 1.4.4 command-line program and Python API for calculating interatomic interactions in mmCIF macromolecular structures.",
+        "description": "PDBe Arpeggio 1.4.4 command-line program and Python API for calculating interatomic interactions in mmCIF macromolecular structures."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/pdbe-arpeggio:1.4.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.4.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:010d75c1bb798ff727a853402172b179b6de6473f5355a34e2a4f8ab1bba46a3",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:2bcb7200eae4bf5fb78dca1421413a6b427a3b4843c3a808a3dbf091feae3f40",
+          "linux/arm64": "sha256:78a8425d98e9aa892a152537bac828783ea128cc9027e90b1593b210b67e6799"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "pdbe-arpeggio",
+          "python3",
+          "obabel"
+        ],
+        "test": [
+          "/opt/pdbe-arpeggio/share/testdata/pdbe-arpeggio-smoke.sh identity",
+          "/opt/pdbe-arpeggio/share/testdata/pdbe-arpeggio-smoke.sh interfaces",
+          "/opt/pdbe-arpeggio/share/testdata/pdbe-arpeggio-smoke.sh contacts",
+          "/opt/pdbe-arpeggio/share/testdata/pdbe-arpeggio-smoke.sh selection",
+          "/opt/pdbe-arpeggio/share/testdata/pdbe-arpeggio-smoke.sh hydrogens",
+          "/opt/pdbe-arpeggio/share/testdata/pdbe-arpeggio-smoke.sh python"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-18T21:05:22Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-18T21:05:22Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/pdbe-arpeggio",
+        "ref": "v1.4.4-r1",
+        "commit": "4edd555af1caad5c2efb7324d98ba5b1712b6cfd",
+        "html_url": "https://github.com/taffish/pdbe-arpeggio/tree/v1.4.4-r1"
+      },
+      "upstream": {
+        "name": "PDBe Arpeggio",
+        "type": "github",
+        "homepage": "https://github.com/PDBeurope/arpeggio",
+        "repository": "PDBeurope/arpeggio",
+        "release_url": "https://github.com/PDBeurope/arpeggio/releases/tag/v1.4.4",
+        "version": "1.4.4",
+        "license": "GPL-3.0-only",
+        "citation": "Jubb HC, Higueruelo AP, Ochoa-Montano B, Pitt WR, Ascher DB, Blundell TL. Arpeggio: A Web Server for Calculating and Visualising Interatomic Interactions in Protein Structures. Journal of Molecular Biology. 2017;429(3):365-371.",
+        "doi": "10.1016/j.jmb.2016.12.004"
+      }
+    }
+  }
+}

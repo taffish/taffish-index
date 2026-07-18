@@ -1,8 +1,8 @@
 {
   "name": "semibin2",
-  "latest": "2.3.0-r1",
-  "recent_version": "2.3.0-r1",
-  "recent_at": "2026-06-24T06:00:30Z",
+  "latest": "2.4.0-r1",
+  "recent_version": "2.4.0-r1",
+  "recent_at": "2026-07-18T16:39:23Z",
   "repository_url": "https://github.com/taffish/semibin2",
   "command": {
     "name": "taf-semibin2"
@@ -124,6 +124,129 @@
         "repository": "BigDataBiology/SemiBin",
         "release_url": "https://github.com/BigDataBiology/SemiBin/releases/tag/v2.3.0",
         "version": "2.3.0",
+        "license": "MIT",
+        "citation": "Pan et al. 2022, SemiBin: metagenomic binning through contrastive learning; Pan et al. 2023, SemiBin2: self-supervised contrastive learning leads to better MAGs",
+        "doi": "10.1038/s41467-022-29843-y; 10.1093/bioinformatics/btad209"
+      }
+    },
+    "2.4.0-r1": {
+      "name": "semibin2",
+      "kind": "tool",
+      "version": "2.4.0",
+      "release": 1,
+      "version_id": "2.4.0-r1",
+      "tag": "v2.4.0-r1",
+      "published_at": "2026-07-18T16:39:23Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/semibin2",
+      "repository_slug": "taffish/semibin2",
+      "command": {
+        "name": "taf-semibin2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "binning",
+          "mag",
+          "assembly",
+          "deep-learning"
+        ],
+        "keywords": [
+          "semibin",
+          "semibin2",
+          "metagenomic-binning",
+          "mag",
+          "binning",
+          "pytorch",
+          "abundance",
+          "contigs",
+          "self-supervised-learning"
+        ],
+        "summary": "Semi-supervised and self-supervised metagenomic binning with SemiBin2.",
+        "description": "Semi-supervised and self-supervised metagenomic binning with SemiBin2."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/semibin2:2.4.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.4.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:ea8eaa627158c7ec3c2b844e081da3e5e8176775e502b2816dc71a15792a5f64",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:c5191d06336b81b3379f26290183943737d9484edf08820b4a548249143b8f73"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "SemiBin2",
+          "python",
+          "python3",
+          "samtools",
+          "bedtools",
+          "hmmsearch",
+          "hmmscan",
+          "hmmpress",
+          "prodigal",
+          "sh",
+          "grep",
+          "gzip"
+        ],
+        "test": [
+          "python -c 'import importlib.metadata as md; import SemiBin, torch, numpy, pandas, sklearn, igraph, requests, safetensors, tqdm, numexpr; assert md.version(\"SemiBin\") == \"2.4.0\"; print(md.version(\"SemiBin\"))' | grep -Fx '2.4.0' >/dev/null",
+          "python -c 'from pathlib import Path; import SemiBin; expected = {\"built_environment_model.pt\", \"cat_gut_model.pt\", \"chicken_caecum_model.pt\", \"dog_gut_model.pt\", \"global_model.pt\", \"human_gut_model.pt\", \"human_oral_model.pt\", \"mouse_gut_model.pt\", \"ocean_model.pt\", \"pig_gut_model.pt\", \"soil_model.pt\", \"wastewater_model.pt\"}; found = {path.name for path in (Path(next(iter(SemiBin.__path__))) / \"models\").glob(\"*.pt\")}; assert found == expected; print(len(found))' | grep -Fx '12' >/dev/null",
+          "SemiBin2 --version 2>&1 | grep -Fx '2.4.0' >/dev/null && SemiBin2 --help 2>&1 | grep -F 'single_easy_bin' >/dev/null && SemiBin2 --help 2>&1 | grep -F 'concatenate_fasta' >/dev/null && SemiBin2 --help 2>&1 | grep -F 'install-skills' >/dev/null",
+          "SemiBin2 single_easy_bin --help 2>&1 | grep -F -- '--environment' >/dev/null && SemiBin2 multi_easy_bin --help 2>&1 | grep -F -- '--input-fasta' >/dev/null && SemiBin2 concatenate_fasta --help 2>&1 | grep -F -- '--input-fasta' >/dev/null && SemiBin2 install-skills --help 2>&1 | grep -F -- '--skills-dir' >/dev/null && SemiBin2 check_install --help 2>&1 | grep -F 'check' >/dev/null",
+          "SemiBin2 check_install 2>&1 | grep -F 'Installation OK' >/dev/null",
+          "/opt/semibin2/share/testdata/semibin2-smoke-concat.sh",
+          "/opt/semibin2/share/testdata/semibin2-smoke-install-skills.sh"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-18T21:05:22Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-18T21:05:22Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/semibin2",
+        "ref": "v2.4.0-r1",
+        "commit": "6ffc1c991430ffcb2d9d0142998b532288e72497",
+        "html_url": "https://github.com/taffish/semibin2/tree/v2.4.0-r1"
+      },
+      "upstream": {
+        "name": "SemiBin",
+        "type": "github",
+        "homepage": "https://semibin.readthedocs.io/",
+        "repository": "BigDataBiology/SemiBin",
+        "release_url": "https://github.com/BigDataBiology/SemiBin/releases/tag/v2.4.0",
+        "version": "2.4.0",
         "license": "MIT",
         "citation": "Pan et al. 2022, SemiBin: metagenomic binning through contrastive learning; Pan et al. 2023, SemiBin2: self-supervised contrastive learning leads to better MAGs",
         "doi": "10.1038/s41467-022-29843-y; 10.1093/bioinformatics/btad209"
