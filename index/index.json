@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-18T08:01:12Z",
+  "generated_at": "2026-07-18T11:10:35Z",
   "organization": "taffish",
   "counts": {
-    "packages": 224,
-    "versions": 353,
-    "commands": 224,
-    "repositories": 224,
+    "packages": 225,
+    "versions": 354,
+    "commands": 225,
+    "repositories": 225,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -34753,6 +34753,211 @@
         }
       }
     },
+    "rnastructure": {
+      "name": "rnastructure",
+      "latest": "6.6-r1",
+      "recent_version": "6.6-r1",
+      "recent_at": "2026-07-18T10:59:51Z",
+      "repository_url": "https://github.com/taffish/rnastructure",
+      "command": {
+        "name": "taf-rnastructure"
+      },
+      "versions": {
+        "6.6-r1": {
+          "name": "rnastructure",
+          "kind": "tool",
+          "version": "6.6",
+          "release": 1,
+          "version_id": "6.6-r1",
+          "tag": "v6.6-r1",
+          "published_at": "2026-07-18T10:59:51Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rnastructure",
+          "repository_slug": "taffish/rnastructure",
+          "command": {
+            "name": "taf-rnastructure"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-analysis",
+            "categories": [
+              "rna-analysis",
+              "secondary-structure",
+              "structural-biology",
+              "sequence-analysis",
+              "thermodynamics"
+            ],
+            "keywords": [
+              "rnastructure",
+              "fold",
+              "partition",
+              "probknot",
+              "maxexpect",
+              "rna secondary structure",
+              "dna secondary structure",
+              "shape",
+              "dms",
+              "chemical probing",
+              "dot-bracket",
+              "ct",
+              "partition function"
+            ],
+            "summary": "RNAstructure 6.6 command-line suite with 73 standard serial/SMP programs and complete thermodynamic parameter tables for RNA/DNA secondary-structure prediction and analysis.",
+            "description": "RNAstructure 6.6 command-line suite with 73 standard serial/SMP programs and complete thermodynamic parameter tables for RNA/DNA secondary-structure prediction and analysis."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rnastructure:6.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "6.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:fc03e9dea708e8d28d05109242e1ab68352e3b4f6d75453bb286c5f6cbd50cd2",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0c51201bb3300208211a336b0761d780d3498d9e592b5fee6f87bf41cdbeebcd",
+              "linux/arm64": "sha256:bd44e780ca203dea86bced357691eeb5d1ac5758951dbea479685e6cb2b1c7a9"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "AccessFold",
+              "AlignmentFold",
+              "AlignmentFold-smp",
+              "AlignmentPartition",
+              "AlignmentPartition-smp",
+              "AllSub",
+              "CircleCompare",
+              "CycleFold",
+              "DistanceMatrix",
+              "DuplexFold",
+              "DuplexFold-smp",
+              "DynalignDotPlot",
+              "EDcalculator",
+              "EDcalculator-smp",
+              "ETEcalculator",
+              "ETEcalculator-smp",
+              "EnergyPlot",
+              "EnsembleEnergy",
+              "Fold",
+              "Fold-smp",
+              "MaxExpect",
+              "MaxExpect-smp",
+              "NAPSS",
+              "OligoWalk",
+              "PARTS",
+              "ProbKnot",
+              "ProbKnot-smp",
+              "ProbScan",
+              "ProbabilityPlot",
+              "ProbablePair",
+              "ProbablePair-smp",
+              "RemovePseudoknots",
+              "RemovePseudoknots-smp",
+              "Rsample",
+              "Rsample-smp",
+              "Shannon",
+              "ShapeKnots",
+              "ShapeKnots-smp",
+              "StructureProb",
+              "StructureProb-smp",
+              "SymmetryTester",
+              "TurboFold",
+              "TurboFold-smp",
+              "TurboHomology",
+              "bifold",
+              "bifold-smp",
+              "bipartition",
+              "bipartition-smp",
+              "ct2dot",
+              "design",
+              "design-smp",
+              "dot2ct",
+              "draw",
+              "dynalign",
+              "dynalign-smp",
+              "dynalign_ii",
+              "dynalign_ii-smp",
+              "efn2",
+              "efn2-smp",
+              "multilign",
+              "multilign-smp",
+              "oligoscreen",
+              "oligoscreen-smp",
+              "orega",
+              "orega-smp",
+              "partition",
+              "partition-smp",
+              "phmm",
+              "refold",
+              "scorer",
+              "stochastic",
+              "stochastic-smp",
+              "validate",
+              "bash",
+              "grep",
+              "sha256sum",
+              "ldd"
+            ],
+            "test": [
+              "/opt/rnastructure/share/testdata/rnastructure-smoke.sh identity",
+              "/opt/rnastructure/share/testdata/rnastructure-smoke.sh interfaces",
+              "/opt/rnastructure/share/testdata/rnastructure-smoke.sh fold",
+              "/opt/rnastructure/share/testdata/rnastructure-smoke.sh smp",
+              "/opt/rnastructure/share/testdata/rnastructure-smoke.sh partition",
+              "/opt/rnastructure/share/testdata/rnastructure-smoke.sh conversion"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-18T11:10:35Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-18T11:10:35Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rnastructure",
+            "ref": "v6.6-r1",
+            "commit": "e13dcc1439207dc062f824d40a237036efc29589",
+            "html_url": "https://github.com/taffish/rnastructure/tree/v6.6-r1"
+          },
+          "upstream": {
+            "name": "RNAstructure",
+            "type": "official",
+            "homepage": "https://rna.urmc.rochester.edu/RNAstructure.html",
+            "release_url": "https://rna.urmc.rochester.edu/Overview/Updates.html",
+            "version": "6.6",
+            "license": "GPL-2.0-only",
+            "citation": "Reuter JS, Mathews DH. RNAstructure: software for RNA secondary structure prediction and analysis. BMC Bioinformatics. 2010;11:129.",
+            "doi": "10.1186/1471-2105-11-129",
+            "pmid": "20230624"
+          }
+        }
+      }
+    },
     "rsem": {
       "name": "rsem",
       "latest": "1.3.3-r2",
@@ -45327,6 +45532,10 @@
       "package": "rnaseqc",
       "version": "2.4.2-r1"
     },
+    "taf-rnastructure": {
+      "package": "rnastructure",
+      "version": "6.6-r1"
+    },
     "taf-rsem": {
       "package": "rsem",
       "version": "1.3.3-r2"
@@ -46569,6 +46778,12 @@
       "repository": "taffish/rnaseqc",
       "packages": [
         "rnaseqc"
+      ]
+    },
+    "taffish/rnastructure": {
+      "repository": "taffish/rnastructure",
+      "packages": [
+        "rnastructure"
       ]
     },
     "taffish/rsem": {
