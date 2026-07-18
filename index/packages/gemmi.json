@@ -1,0 +1,125 @@
+{
+  "name": "gemmi",
+  "latest": "0.7.5-r1",
+  "recent_version": "0.7.5-r1",
+  "recent_at": "2026-07-18T00:06:14Z",
+  "repository_url": "https://github.com/taffish/gemmi",
+  "command": {
+    "name": "taf-gemmi"
+  },
+  "versions": {
+    "0.7.5-r1": {
+      "name": "gemmi",
+      "kind": "tool",
+      "version": "0.7.5",
+      "release": 1,
+      "version_id": "0.7.5-r1",
+      "tag": "v0.7.5-r1",
+      "published_at": "2026-07-18T00:06:14Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/gemmi",
+      "repository_slug": "taffish/gemmi",
+      "command": {
+        "name": "taf-gemmi"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "structural-biology",
+        "categories": [
+          "structural-biology",
+          "crystallography",
+          "format-conversion",
+          "molecular-structure"
+        ],
+        "keywords": [
+          "gemmi",
+          "pdb",
+          "mmcif",
+          "cif",
+          "mmjson",
+          "mtz",
+          "ccp4",
+          "mrc",
+          "crystallography",
+          "structural biology",
+          "python bindings"
+        ],
+        "summary": "Gemmi 0.7.5 command-line program and Python API for macromolecular models, CIF data, crystallographic reflections, density maps, and symmetry operations.",
+        "description": "Gemmi 0.7.5 command-line program and Python API for macromolecular models, CIF data, crystallographic reflections, density maps, and symmetry operations."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/gemmi:0.7.5-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.7.5-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:d754ef801a966c9abb4119ff8c71591a86f408c5c91df862c0791a392cc4f956",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:68e89c91ead08d66efc085f23eb994d840ac1f37be07f50af6549ca58dc7b79f",
+          "linux/arm64": "sha256:138c433b8c20366d3ab1304796383abd1529df58b671eab423e20737ec8b175e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "gemmi",
+          "python3"
+        ],
+        "test": [
+          "/opt/gemmi/share/testdata/gemmi-smoke.sh identity",
+          "/opt/gemmi/share/testdata/gemmi-smoke.sh model",
+          "/opt/gemmi/share/testdata/gemmi-smoke.sh cif",
+          "/opt/gemmi/share/testdata/gemmi-smoke.sh python"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-18T01:46:38Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-18T01:46:38Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/gemmi",
+        "ref": "v0.7.5-r1",
+        "commit": "c8df306b41f50db72a5f6e566e1a30d1ba263623",
+        "html_url": "https://github.com/taffish/gemmi/tree/v0.7.5-r1"
+      },
+      "upstream": {
+        "name": "Gemmi",
+        "type": "github",
+        "homepage": "https://github.com/project-gemmi/gemmi",
+        "repository": "project-gemmi/gemmi",
+        "release_url": "https://github.com/project-gemmi/gemmi/releases/tag/v0.7.5",
+        "version": "0.7.5",
+        "license": "MPL-2.0 OR LGPL-3.0-only",
+        "citation": "Wojdyr M. Gemmi: A library for structural biology. Journal of Open Source Software. 2022;7(73):4200.",
+        "doi": "10.21105/joss.04200"
+      }
+    }
+  }
+}
