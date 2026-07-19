@@ -1,0 +1,148 @@
+{
+  "name": "protenix",
+  "latest": "2.0.0-r1",
+  "recent_version": "2.0.0-r1",
+  "recent_at": "2026-07-19T22:11:03Z",
+  "repository_url": "https://github.com/taffish/protenix",
+  "command": {
+    "name": "taf-protenix"
+  },
+  "versions": {
+    "2.0.0-r1": {
+      "name": "protenix",
+      "kind": "tool",
+      "version": "2.0.0",
+      "release": 1,
+      "version_id": "2.0.0-r1",
+      "tag": "v2.0.0-r1",
+      "published_at": "2026-07-19T22:11:03Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/protenix",
+      "repository_slug": "taffish/protenix",
+      "command": {
+        "name": "taf-protenix"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "structural-biology",
+        "categories": [
+          "structural-biology",
+          "structure-prediction",
+          "deep-learning",
+          "protein",
+          "rna",
+          "protein-ligand"
+        ],
+        "keywords": [
+          "protenix",
+          "protenix-v2",
+          "biomolecular structure prediction",
+          "protein structure",
+          "protein complex",
+          "protein ligand",
+          "rna",
+          "msa",
+          "template search",
+          "pytorch",
+          "cuda",
+          "gpu"
+        ],
+        "summary": "Protenix 2.0.0 inference and preprocessing runtime for biomolecular structure prediction, with explicit model-cache helpers and NVIDIA GPU support.",
+        "description": "Protenix 2.0.0 inference and preprocessing runtime for biomolecular structure prediction, with explicit model-cache helpers and NVIDIA GPU support."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/protenix:2.0.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.0.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:8bb06968ae339db38ab46c175be37b592f8d7886eef1adcd11f7e1b03aa4ede0",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d0dc801d15d5787b0706692665efb02ac3620b166cdc3e8fc15787e7f39a9bcd"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "protenix",
+          "protenix-upstream",
+          "protenix-download-assets",
+          "protenix-check-assets",
+          "python",
+          "python3",
+          "torchrun",
+          "deepspeed",
+          "curl",
+          "hmmsearch",
+          "hmmbuild",
+          "jackhmmer",
+          "nhmmer",
+          "hmmalign",
+          "kalign"
+        ],
+        "test": [
+          "protenix --version 2>&1 | grep -F '2.0.0' >/dev/null",
+          "protenix --help 2>&1 | grep -F 'pred' >/dev/null && protenix --help 2>&1 | grep -F 'json' >/dev/null && protenix --help 2>&1 | grep -F 'prep' >/dev/null",
+          "protenix pred --help 2>&1 | grep -F -- '--model_name' >/dev/null && protenix pred --help 2>&1 | grep -F -- '--use_msa' >/dev/null",
+          "protenix json --help 2>&1 | grep -F -- '--out_dir' >/dev/null",
+          "protenix msa --help 2>&1 | grep -F -- '--msa_server_mode' >/dev/null",
+          "protenix mt --help 2>&1 | grep -F -- '--seqres_database_path' >/dev/null",
+          "protenix prep --help 2>&1 | grep -F -- '--rna_central_database_path' >/dev/null",
+          "python -c 'import importlib.metadata as md; import torch, rdkit, biotite, gemmi, Bio, deepspeed, triton; assert md.version(\"protenix\") == \"2.0.0\"; assert torch.__version__.startswith(\"2.7.1\"); assert md.version(\"cuequivariance-torch\") == \"0.8.0\"; assert md.version(\"cuequivariance-ops-torch-cu12\") == \"0.8.0\"; dist = md.distribution(\"cuequivariance-ops-cu12\"); assert dist.version == \"0.8.0\"; assert any(str(path).endswith(\"cuequivariance_ops/lib/libcue_ops.so\") for path in dist.files)'",
+          "for command in hmmsearch hmmbuild jackhmmer nhmmer hmmalign; do \"$command\" -h 2>&1 | grep -F 'HMMER' >/dev/null || exit 1; done; kalign --version 2>&1 | grep -E '[0-9]+\\.[0-9]+' >/dev/null",
+          "protenix-download-assets --help 2>&1 | grep -F 'Download Protenix model and common assets' >/dev/null && protenix-download-assets --dry-run 2>&1 | grep -F 'checkpoint/protenix_base_default_v1.0.0.pt' >/dev/null && protenix-download-assets --list-models 2>&1 | grep -F 'protenix-v2' >/dev/null",
+          "tmp=/tmp/taf-protenix-assets-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; if protenix-check-assets --data-root \"$tmp\" >\"$tmp/check.log\" 2>&1; then cat \"$tmp/check.log\" >&2; rm -rf \"$tmp\"; exit 1; fi; grep -F 'Protenix asset cache is incomplete' \"$tmp/check.log\" >/dev/null; status=$?; rm -rf \"$tmp\"; exit \"$status\"",
+          "tmp=/tmp/taf-protenix-guard-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; if PROTENIX_ROOT_DIR=\"$tmp\" protenix pred -i \"$tmp/missing.json\" -o \"$tmp/out\" >\"$tmp/pred.log\" 2>&1; then cat \"$tmp/pred.log\" >&2; rm -rf \"$tmp\"; exit 1; fi; grep -F 'refusing an implicit network download' \"$tmp/pred.log\" >/dev/null; status=$?; rm -rf \"$tmp\"; exit \"$status\"",
+          "tmp=/tmp/taf-protenix-json-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; PROTENIX_ROOT_DIR=/opt/protenix/share/testdata protenix json --input /opt/protenix/share/testdata/tiny.pdb --out_dir \"$tmp\"; test -s \"$tmp/tiny.json\"; python -c 'import json, sys; data = json.load(open(sys.argv[1])); assert data[0][\"name\"] == \"tiny\"; assert data[0][\"sequences\"][0][\"ligand\"][\"ligand\"] == \"CCD_GLY\"' \"$tmp/tiny.json\"; status=$?; rm -rf \"$tmp\"; exit \"$status\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-19T22:21:32Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-19T22:21:32Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/protenix",
+        "ref": "v2.0.0-r1",
+        "commit": "156837ed71cf9d47f4b9e9775298dad6ed65adc2",
+        "html_url": "https://github.com/taffish/protenix/tree/v2.0.0-r1"
+      },
+      "upstream": {
+        "name": "Protenix",
+        "type": "github",
+        "homepage": "https://github.com/bytedance/Protenix",
+        "repository": "bytedance/Protenix",
+        "release_url": "https://github.com/bytedance/Protenix/releases/tag/v2.0.0",
+        "version": "2.0.0",
+        "license": "Apache-2.0",
+        "citation": "Zhang Y, Gong C, Sun J, Guan J, Ren M, Xue S, Zhang H, Ma W, Liu Z, Chen X, Xiao W. Protenix-v2: Broadening the Reach of Structure Prediction and Biomolecular Design. bioRxiv. 2026.",
+        "doi": "10.64898/2026.04.10.717613"
+      }
+    }
+  }
+}
