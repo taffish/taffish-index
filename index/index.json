@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-21T04:35:31Z",
+  "generated_at": "2026-07-21T14:52:42Z",
   "organization": "taffish",
   "counts": {
-    "packages": 228,
-    "versions": 359,
-    "commands": 228,
-    "repositories": 228,
+    "packages": 229,
+    "versions": 360,
+    "commands": 229,
+    "repositories": 229,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -2022,7 +2022,7 @@
       "name": "bedops",
       "latest": "2.4.42-r1",
       "recent_version": "2.4.42-r1",
-      "recent_at": "2026-06-20T09:02:09Z",
+      "recent_at": "2026-06-20T09:02:03Z",
       "repository_url": "https://github.com/taffish/bedops",
       "command": {
         "name": "taf-bedops"
@@ -2035,8 +2035,8 @@
           "release": 1,
           "version_id": "2.4.42-r1",
           "tag": "v2.4.42-r1",
-          "published_at": "2026-06-20T09:02:09Z",
-          "published_at_source": "github-release",
+          "published_at": "2026-06-20T09:02:03Z",
+          "published_at_source": "git-commit",
           "license": "Apache-2.0",
           "repository_url": "https://github.com/taffish/bedops",
           "repository_slug": "taffish/bedops",
@@ -3715,6 +3715,149 @@
             "license": "MIT",
             "citation": "Challis et al. 2020, BlobToolKit: Interactive quality assessment of genome assemblies; Challis and Blaxter 2025, Snail plots are badges of genome assembly quality",
             "doi": "10.1534/g3.119.400908; 10.1101/2025.11.20.689594"
+          }
+        }
+      }
+    },
+    "boltz": {
+      "name": "boltz",
+      "latest": "2.2.1-r1",
+      "recent_version": "2.2.1-r1",
+      "recent_at": "2026-07-21T10:06:43Z",
+      "repository_url": "https://github.com/taffish/boltz",
+      "command": {
+        "name": "taf-boltz"
+      },
+      "versions": {
+        "2.2.1-r1": {
+          "name": "boltz",
+          "kind": "tool",
+          "version": "2.2.1",
+          "release": 1,
+          "version_id": "2.2.1-r1",
+          "tag": "v2.2.1-r1",
+          "published_at": "2026-07-21T10:06:43Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/boltz",
+          "repository_slug": "taffish/boltz",
+          "command": {
+            "name": "taf-boltz"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-biology",
+            "categories": [
+              "structural-biology",
+              "structure-prediction",
+              "binding-affinity",
+              "deep-learning",
+              "protein",
+              "dna",
+              "rna",
+              "ligand"
+            ],
+            "keywords": [
+              "boltz",
+              "boltz-2",
+              "boltz-1",
+              "biomolecular structure prediction",
+              "binding affinity",
+              "protein",
+              "dna",
+              "rna",
+              "ligand",
+              "complex",
+              "pytorch",
+              "cuda",
+              "gpu"
+            ],
+            "summary": "Boltz 2.2.1 structure and affinity prediction runtime with pinned external model-cache helpers, NVIDIA GPU support on amd64, and native arm64 CPU support.",
+            "description": "Boltz 2.2.1 structure and affinity prediction runtime with pinned external model-cache helpers, NVIDIA GPU support on amd64, and native arm64 CPU support."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/boltz:2.2.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:70a01745fb3090aa68816d64e797e871c20f31f6a671ee36426c1a25b903323c",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f479483b05b321cfc78bae2b15c38c6f0e165e76f41d792a38504d3919be7932",
+              "linux/arm64": "sha256:66b931e017e09914a6ccf90b232eda0858b80643f78ed3a2bafcac0c4e229db3"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 1200,
+            "exist": [
+              "boltz",
+              "boltz-upstream",
+              "boltz-download-assets",
+              "boltz-check-assets",
+              "python",
+              "python3",
+              "torchrun",
+              "curl"
+            ],
+            "test": [
+              "python -c 'import importlib.metadata as md; assert md.version(\"boltz\") == \"2.2.1\"'",
+              "boltz --help 2>&1 | grep -F 'predict' >/dev/null",
+              "boltz predict --help 2>&1 | grep -F -- '--accelerator' >/dev/null && boltz predict --help 2>&1 | grep -F -- '--model' >/dev/null && boltz predict --help 2>&1 | grep -F -- '--use_msa_server' >/dev/null && boltz predict --help 2>&1 | grep -F -- '--no_kernels' >/dev/null",
+              "python -c 'import importlib.metadata as md; import torch, numpy, pandas, scipy, numba, gemmi, rdkit, Bio, pytorch_lightning; from rdkit import Chem; from rdkit.Chem.Draw import rdMolDraw2D; drawer = rdMolDraw2D.MolDraw2DSVG(100, 100); drawer.DrawMolecule(Chem.MolFromSmiles(\"CCO\")); drawer.FinishDrawing(); assert \"<svg\" in drawer.GetDrawingText(); assert md.version(\"boltz\") == \"2.2.1\"; assert torch.__version__.startswith(\"2.7.1\")'",
+              "if [ \"$(dpkg --print-architecture)\" = amd64 ]; then python -c 'import importlib.metadata as md; assert md.version(\"cuequivariance-torch\") == \"0.8.0\"; assert md.version(\"cuequivariance-ops-torch-cu12\") == \"0.8.0\"; dist = md.distribution(\"cuequivariance-ops-cu12\"); assert dist.version == \"0.8.0\"; assert any(str(path).endswith(\"cuequivariance_ops/lib/libcue_ops.so\") for path in dist.files)'; else python -c 'import platform; assert platform.machine().lower() in {\"aarch64\", \"arm64\"}'; fi",
+              "boltz-download-assets --help 2>&1 | grep -F 'Download pinned Boltz model and CCD assets' >/dev/null && boltz-download-assets --dry-run 2>&1 | grep -F 'boltz2_conf.ckpt' >/dev/null && boltz-download-assets --list-models 2>&1 | grep -F 'boltz1' >/dev/null",
+              "tmp=/tmp/taf-boltz-assets-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; if BOLTZ_CACHE=\"$tmp\" boltz-check-assets --quick >\"$tmp/check.log\" 2>&1; then cat \"$tmp/check.log\" >&2; rm -rf \"$tmp\"; exit 1; fi; grep -F 'Boltz asset cache is incomplete or invalid' \"$tmp/check.log\" >/dev/null; status=$?; rm -rf \"$tmp\"; exit \"$status\"",
+              "tmp=/tmp/taf-boltz-guard-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; if BOLTZ_CACHE=\"$tmp\" boltz predict /opt/boltz/share/testdata/tiny.yaml >\"$tmp/predict.log\" 2>&1; then cat \"$tmp/predict.log\" >&2; rm -rf \"$tmp\"; exit 1; fi; grep -F 'refusing an implicit network download' \"$tmp/predict.log\" >/dev/null; status=$?; rm -rf \"$tmp\"; exit \"$status\"",
+              "python -c 'from pathlib import Path; from boltz.main import check_inputs; paths = check_inputs(Path(\"/opt/boltz/share/testdata/tiny.yaml\")); assert paths == [Path(\"/opt/boltz/share/testdata/tiny.yaml\")]'",
+              "python -c 'import torch; from boltz.model.layers.triangular_mult import TriangleMultiplicationOutgoing; layer = TriangleMultiplicationOutgoing(8); out = layer(torch.zeros(1, 3, 3, 8), torch.ones(1, 3, 3), use_kernels=False); assert out.shape == (1, 3, 3, 8)'"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-21T14:52:42Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-21T14:52:42Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/boltz",
+            "ref": "v2.2.1-r1",
+            "commit": "3d6f10fb6d92812b178c25a84b78ca05a40a1c3b",
+            "html_url": "https://github.com/taffish/boltz/tree/v2.2.1-r1"
+          },
+          "upstream": {
+            "name": "Boltz",
+            "type": "github",
+            "homepage": "https://github.com/jwohlwend/boltz",
+            "repository": "jwohlwend/boltz",
+            "release_url": "https://github.com/jwohlwend/boltz/releases/tag/v2.2.1",
+            "version": "2.2.1",
+            "license": "MIT",
+            "citation": "Passaro S, Wohlwend J, Corso G, Vahdat A, Stärk H, Barzilay R, Jaakkola T. Boltz-2: Towards Accurate and Efficient Binding Affinity Prediction. bioRxiv. 2025.",
+            "doi": "10.1101/2025.06.14.659707"
           }
         }
       }
@@ -9760,7 +9903,7 @@
       "name": "dorado",
       "latest": "2.1.0-r1",
       "recent_version": "2.1.0-r1",
-      "recent_at": "2026-07-14T10:03:27Z",
+      "recent_at": "2026-07-14T10:03:21Z",
       "repository_url": "https://github.com/taffish/dorado",
       "command": {
         "name": "taf-dorado"
@@ -9773,8 +9916,8 @@
           "release": 1,
           "version_id": "2.0.1-r1",
           "tag": "v2.0.1-r1",
-          "published_at": "2026-07-06T17:02:10Z",
-          "published_at_source": "github-release",
+          "published_at": "2026-07-06T17:02:03Z",
+          "published_at_source": "git-commit",
           "license": "Apache-2.0",
           "repository_url": "https://github.com/taffish/dorado",
           "repository_slug": "taffish/dorado",
@@ -9886,8 +10029,8 @@
           "release": 1,
           "version_id": "2.1.0-r1",
           "tag": "v2.1.0-r1",
-          "published_at": "2026-07-14T10:03:27Z",
-          "published_at_source": "github-release",
+          "published_at": "2026-07-14T10:03:21Z",
+          "published_at_source": "git-commit",
           "license": "Apache-2.0",
           "repository_url": "https://github.com/taffish/dorado",
           "repository_slug": "taffish/dorado",
@@ -23411,7 +23554,7 @@
       "name": "minimap2",
       "latest": "2.31-r1",
       "recent_version": "2.31-r1",
-      "recent_at": "2026-05-20T09:28:11Z",
+      "recent_at": "2026-05-20T09:27:58Z",
       "repository_url": "https://github.com/taffish/minimap2",
       "command": {
         "name": "taf-minimap2"
@@ -23424,8 +23567,8 @@
           "release": 1,
           "version_id": "2.30-r1",
           "tag": "v2.30-r1",
-          "published_at": "2026-05-18T16:08:54Z",
-          "published_at_source": "github-release",
+          "published_at": "2026-05-18T16:08:47Z",
+          "published_at_source": "git-commit",
           "license": "Apache-2.0",
           "repository_url": "https://github.com/taffish/minimap2",
           "repository_slug": "taffish/minimap2",
@@ -23546,8 +23689,8 @@
           "release": 1,
           "version_id": "2.31-r1",
           "tag": "v2.31-r1",
-          "published_at": "2026-05-20T09:28:11Z",
-          "published_at_source": "github-release",
+          "published_at": "2026-05-20T09:27:58Z",
+          "published_at_source": "git-commit",
           "license": "Apache-2.0",
           "repository_url": "https://github.com/taffish/minimap2",
           "repository_slug": "taffish/minimap2",
@@ -24845,7 +24988,7 @@
       "name": "multiqc",
       "latest": "1.35-r2",
       "recent_version": "1.35-r2",
-      "recent_at": "2026-05-19T15:39:04Z",
+      "recent_at": "2026-05-19T15:38:55Z",
       "repository_url": "https://github.com/taffish/multiqc",
       "command": {
         "name": "taf-multiqc"
@@ -24858,8 +25001,8 @@
           "release": 1,
           "version_id": "1.35-r1",
           "tag": "v1.35-r1",
-          "published_at": "2026-05-19T15:03:13Z",
-          "published_at_source": "github-release",
+          "published_at": "2026-05-19T15:03:00Z",
+          "published_at_source": "git-commit",
           "license": "Apache-2.0",
           "repository_url": "https://github.com/taffish/multiqc",
           "repository_slug": "taffish/multiqc",
@@ -24970,8 +25113,8 @@
           "release": 2,
           "version_id": "1.35-r2",
           "tag": "v1.35-r2",
-          "published_at": "2026-05-19T15:39:04Z",
-          "published_at_source": "github-release",
+          "published_at": "2026-05-19T15:38:55Z",
+          "published_at_source": "git-commit",
           "license": "Apache-2.0",
           "repository_url": "https://github.com/taffish/multiqc",
           "repository_slug": "taffish/multiqc",
@@ -32659,7 +32802,7 @@
       "name": "rnaseq-denovo-annotation-flow",
       "latest": "0.2.0-r1",
       "recent_version": "0.2.0-r1",
-      "recent_at": "2026-06-12T07:30:06Z",
+      "recent_at": "2026-06-12T07:30:00Z",
       "repository_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
       "command": {
         "name": "taf-rnaseq-denovo-annotation-flow"
@@ -32672,8 +32815,8 @@
           "release": 1,
           "version_id": "0.1.0-r1",
           "tag": "v0.1.0-r1",
-          "published_at": "2026-05-30T03:58:19Z",
-          "published_at_source": "github-release",
+          "published_at": "2026-05-30T03:51:14Z",
+          "published_at_source": "git-commit",
           "license": "Apache-2.0",
           "repository_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
           "repository_slug": "taffish/rnaseq-denovo-annotation-flow",
@@ -32753,8 +32896,8 @@
           "release": 1,
           "version_id": "0.2.0-r1",
           "tag": "v0.2.0-r1",
-          "published_at": "2026-06-12T07:30:06Z",
-          "published_at_source": "github-release",
+          "published_at": "2026-06-12T07:30:00Z",
+          "published_at_source": "git-commit",
           "license": "Apache-2.0",
           "repository_url": "https://github.com/taffish/rnaseq-denovo-annotation-flow",
           "repository_slug": "taffish/rnaseq-denovo-annotation-flow",
@@ -45587,6 +45730,10 @@
       "package": "blobtoolkit",
       "version": "4.5.3-r1"
     },
+    "taf-boltz": {
+      "package": "boltz",
+      "version": "2.2.1-r1"
+    },
     "taf-bowtie2": {
       "package": "bowtie2",
       "version": "2.5.5-r1"
@@ -46543,6 +46690,12 @@
       "repository": "taffish/blobtoolkit",
       "packages": [
         "blobtoolkit"
+      ]
+    },
+    "taffish/boltz": {
+      "repository": "taffish/boltz",
+      "packages": [
+        "boltz"
       ]
     },
     "taffish/bowtie2": {
