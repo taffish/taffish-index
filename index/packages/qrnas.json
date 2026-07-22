@@ -1,0 +1,121 @@
+{
+  "name": "qrnas",
+  "latest": "0.3.2-r1",
+  "recent_version": "0.3.2-r1",
+  "recent_at": "2026-07-22T16:53:05Z",
+  "repository_url": "https://github.com/taffish/qrnas",
+  "command": {
+    "name": "taf-qrnas"
+  },
+  "versions": {
+    "0.3.2-r1": {
+      "name": "qrnas",
+      "kind": "tool",
+      "version": "0.3.2",
+      "release": 1,
+      "version_id": "0.3.2-r1",
+      "tag": "v0.3.2-r1",
+      "published_at": "2026-07-22T16:53:05Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/qrnas",
+      "repository_slug": "taffish/qrnas",
+      "command": {
+        "name": "taf-qrnas"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "structural-biology",
+        "categories": [
+          "structural-biology",
+          "nucleic-acids",
+          "structure-refinement",
+          "molecular-modeling"
+        ],
+        "keywords": [
+          "qrnas",
+          "qrna",
+          "rna",
+          "dna",
+          "nucleic acid",
+          "structure refinement",
+          "amber",
+          "modified nucleotides",
+          "pdb",
+          "restraints"
+        ],
+        "summary": "QRNAS 0.3.2 runtime for fine-grained RNA, DNA, hybrid, and modified-nucleotide structure refinement.",
+        "description": "QRNAS 0.3.2 runtime for fine-grained RNA, DNA, hybrid, and modified-nucleotide structure refinement."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/qrnas:0.3.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.3.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:78a63fe98011ebb7c443e78e4d2f6408e737f66528ef2f1880152d78ad7b2967",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:e6e40352c5f765d0ab91371b140bb03d4b163a9712420d74f26f3c90053213da",
+          "linux/arm64": "sha256:0d5def32ed6e5c517f7c59dc1d7443be57b0c424c758dc76d5264e371e9fa6ba"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "QRNA"
+        ],
+        "test": [
+          "/opt/qrnas/share/testdata/qrnas-smoke.sh identity",
+          "/opt/qrnas/share/testdata/qrnas-smoke.sh refinement"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-22T17:00:44Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-22T17:00:44Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/qrnas",
+        "ref": "v0.3.2-r1",
+        "commit": "7b11f17658e4a1a03bff6f00fa6dd718ffa8df0a",
+        "html_url": "https://github.com/taffish/qrnas/tree/v0.3.2-r1"
+      },
+      "upstream": {
+        "name": "QRNAS",
+        "type": "github",
+        "homepage": "https://genesilico.pl/index.php/software/stand-alone/qrnas",
+        "repository": "sunandanmukherjee/QRNAS",
+        "release_url": "https://github.com/sunandanmukherjee/QRNAS/releases/tag/v0.3.2",
+        "version": "0.3.2",
+        "license": "GPL-3.0-or-later",
+        "citation": "Stasiewicz J, Mukherjee S, Nithin C, Bujnicki JM. QRNAS: software tool for refinement of nucleic acid structures. BMC Structural Biology. 2019;19:5.",
+        "doi": "10.1186/s12900-019-0103-1"
+      }
+    }
+  }
+}
