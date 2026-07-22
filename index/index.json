@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-22T04:38:01Z",
+  "generated_at": "2026-07-22T07:30:53Z",
   "organization": "taffish",
   "counts": {
-    "packages": 229,
-    "versions": 361,
-    "commands": 229,
-    "repositories": 229,
+    "packages": 230,
+    "versions": 362,
+    "commands": 230,
+    "repositories": 230,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -26983,6 +26983,140 @@
         }
       }
     },
+    "oxdna": {
+      "name": "oxdna",
+      "latest": "3.7.0-r1",
+      "recent_version": "3.7.0-r1",
+      "recent_at": "2026-07-22T06:23:44Z",
+      "repository_url": "https://github.com/taffish/oxdna",
+      "command": {
+        "name": "taf-oxdna"
+      },
+      "versions": {
+        "3.7.0-r1": {
+          "name": "oxdna",
+          "kind": "tool",
+          "version": "3.7.0",
+          "release": 1,
+          "version_id": "3.7.0-r1",
+          "tag": "v3.7.0-r1",
+          "published_at": "2026-07-22T06:23:44Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/oxdna",
+          "repository_slug": "taffish/oxdna",
+          "command": {
+            "name": "taf-oxdna"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "molecular-dynamics",
+            "categories": [
+              "molecular-dynamics",
+              "nucleic-acids",
+              "structural-biology",
+              "simulation",
+              "trajectory-analysis"
+            ],
+            "keywords": [
+              "oxdna",
+              "oxrna",
+              "coarse-grained simulation",
+              "molecular dynamics",
+              "monte carlo",
+              "oxpy",
+              "oat",
+              "dna nanotechnology",
+              "rna nanotechnology",
+              "mpi"
+            ],
+            "summary": "oxDNA 3.7.0 CPU and MPI simulation runtime with oxpy bindings and the OAT 2.5.0 trajectory-analysis and structure-conversion suite.",
+            "description": "oxDNA 3.7.0 CPU and MPI simulation runtime with oxpy bindings and the OAT 2.5.0 trajectory-analysis and structure-conversion suite."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/oxdna:3.7.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.7.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c5784b57477651d375cf5b3055f9fc7a4c7658b3deb439f33e4d262782fce454",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:041609d2c779bbe276caf0cf23eb37e4a6c7e3547befc16c0d48fb5bff0a4d50",
+              "linux/arm64": "sha256:d5d5b4bd9ad301c2ed3f1381dd9e5822938f2362008b8a2892beb23f7f12ba0a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "oxDNA",
+              "DNAnalysis",
+              "confGenerator",
+              "oxDNA_mpi",
+              "oxdna-python",
+              "oat",
+              "oxdna-generate-sa",
+              "oxdna-convert-topology",
+              "mpirun"
+            ],
+            "test": [
+              "/opt/oxdna/share/testdata/oxdna-smoke.sh identity",
+              "/opt/oxdna/share/testdata/oxdna-smoke.sh simulation",
+              "/opt/oxdna/share/testdata/oxdna-smoke.sh mpi",
+              "/opt/oxdna/share/testdata/oxdna-smoke.sh oxpy",
+              "/opt/oxdna/share/testdata/oxdna-smoke.sh oat",
+              "/opt/oxdna/share/testdata/oxdna-smoke.sh structure"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-22T07:30:53Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-22T07:30:53Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/oxdna",
+            "ref": "v3.7.0-r1",
+            "commit": "34d528cda6304c4b0d58072047bf2b8254e0ab2e",
+            "html_url": "https://github.com/taffish/oxdna/tree/v3.7.0-r1"
+          },
+          "upstream": {
+            "name": "oxDNA",
+            "type": "github",
+            "homepage": "https://lorenzo-rovigatti.github.io/oxDNA/",
+            "repository": "lorenzo-rovigatti/oxDNA",
+            "release_url": "https://github.com/lorenzo-rovigatti/oxDNA/releases/tag/v3.7.0",
+            "version": "3.7.0",
+            "license": "GPL-3.0-only",
+            "citation": "Poppleton E, Matthies M, Mandal D, Romano F, Sulc P, Rovigatti L. oxDNA: coarse-grained simulations of nucleic acids made simple. Journal of Open Source Software. 2023;8(81):4693.",
+            "doi": "10.21105/joss.04693"
+          }
+        }
+      }
+    },
     "p2rank": {
       "name": "p2rank",
       "latest": "2.5.1-r1",
@@ -46318,6 +46452,10 @@
       "package": "orthofinder",
       "version": "3.1.5-r2"
     },
+    "taf-oxdna": {
+      "package": "oxdna",
+      "version": "3.7.0-r1"
+    },
     "taf-p2rank": {
       "package": "p2rank",
       "version": "2.5.1-r1"
@@ -47506,6 +47644,12 @@
       "repository": "taffish/orthofinder",
       "packages": [
         "orthofinder"
+      ]
+    },
+    "taffish/oxdna": {
+      "repository": "taffish/oxdna",
+      "packages": [
+        "oxdna"
       ]
     },
     "taffish/p2rank": {
