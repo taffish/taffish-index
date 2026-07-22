@@ -1,8 +1,8 @@
 {
   "name": "meryl",
-  "latest": "1.4.1-r3",
-  "recent_version": "1.4.1-r3",
-  "recent_at": "2026-05-24T01:05:28Z",
+  "latest": "1.4.2-r1",
+  "recent_version": "1.4.2-r1",
+  "recent_at": "2026-07-22T02:10:49Z",
   "repository_url": "https://github.com/taffish/meryl",
   "command": {
     "name": "taf-meryl"
@@ -369,6 +369,138 @@
         "release_url": "https://github.com/marbl/meryl/releases/tag/v1.4.1",
         "version": "1.4.1",
         "license": "Public Domain",
+        "citation": "Rhie et al. 2020",
+        "doi": "10.1186/s13059-020-02134-9",
+        "pmid": "32928274"
+      }
+    },
+    "1.4.2-r1": {
+      "name": "meryl",
+      "kind": "tool",
+      "version": "1.4.2",
+      "release": 1,
+      "version_id": "1.4.2-r1",
+      "tag": "v1.4.2-r1",
+      "published_at": "2026-07-22T02:10:49Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/meryl",
+      "repository_slug": "taffish/meryl",
+      "command": {
+        "name": "taf-meryl"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "kmer",
+        "categories": [
+          "kmer",
+          "genome-assembly",
+          "quality-control",
+          "sequence-analysis"
+        ],
+        "keywords": [
+          "meryl",
+          "k-mer",
+          "kmer",
+          "histogram",
+          "counting",
+          "meryl-lookup",
+          "merqury",
+          "assembly-evaluation",
+          "sam",
+          "bam",
+          "cram",
+          "ploidy"
+        ],
+        "summary": "Meryl is a genomic k-mer counter and sequence utility used by Merqury and related assembly-evaluation workflows.",
+        "description": "Meryl is a genomic k-mer counter and sequence utility used by Merqury and related assembly-evaluation workflows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/meryl:1.4.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.4.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:47efd3e1eb869eea4f948a2ccd67a1ae5e0f2209e55186910239a4fb09472a5b",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3b343123ca3414d3c80fb5cef1eafdf679d6dc5427e855ae223ef96130839f3c",
+          "linux/arm64": "sha256:524d00243428e44bc2736960f237bf7cc2b738f55de93a639dd5d11a1c79af44"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "meryl",
+          "meryl-lookup",
+          "meryl-import",
+          "meryl-analyze",
+          "meryl-simple",
+          "position-lookup",
+          "gzip",
+          "bzip2",
+          "lzip",
+          "xz",
+          "zstd",
+          "bash",
+          "sh",
+          "grep"
+        ],
+        "test": [
+          "test \"$(cat /usr/local/share/doc/meryl/VERSION)\" = '1.4.2' && grep -Fx 'upstream_commit=dbacc3d0fd26bcd4247dcaf5b7e70ffdf5f69831' /usr/local/share/doc/meryl/SOURCE >/dev/null && grep -Fx 'meryl_utility_commit=f800fc4dada365a701122b5ac1ecb946eb402cb4' /usr/local/share/doc/meryl/SOURCE >/dev/null",
+          "meryl --version 2>&1 | grep -Fx 'meryl 1.4.2' >/dev/null",
+          "meryl -h 2>&1 | grep -F 'COMMANDS:' >/dev/null && meryl -h 2>&1 | grep -F 'ploidy' >/dev/null",
+          "meryl-lookup 2>&1 | grep -F 'usage:' >/dev/null && meryl-import 2>&1 | grep -F 'usage:' >/dev/null && meryl-simple 2>&1 | grep -F 'usage:' >/dev/null && meryl-analyze 2>&1 | grep -F -- '-gt' >/dev/null",
+          "if ldd \"$(command -v meryl)\" | grep -F 'not found'; then exit 1; fi; ldd \"$(command -v meryl)\" | grep -F 'libgomp' >/dev/null && ldd \"$(command -v meryl)\" | grep -F 'libcurl' >/dev/null",
+          "tmp=/tmp/taf-meryl-count-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa; meryl k=21 memory=0.1 threads=1 count seq.fa output seq.meryl >/dev/null 2>meryl.log; test -d seq.meryl; meryl histogram seq.meryl > seq.hist; grep -E '^6[[:space:]]+2$' seq.hist >/dev/null; meryl statistics seq.meryl > seq.stats; grep -F 'distinct                    2' seq.stats >/dev/null; meryl print seq.meryl > seq.print; grep -F 'ACGTACGTACGTACGTACGTA' seq.print >/dev/null",
+          "tmp=/tmp/taf-meryl-compress-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa; gzip -c seq.fa > seq.fa.gz; bzip2 -c seq.fa > seq.fa.bz2; lzip -c seq.fa > seq.fa.lz; xz -c seq.fa > seq.fa.xz; zstd -q -c seq.fa > seq.fa.zst; for ext in gz bz2 lz xz zst; do meryl k=21 memory=0.1 threads=1 count \"seq.fa.$ext\" output \"seq-$ext.meryl\" >/dev/null 2>\"$ext.log\"; meryl histogram \"seq-$ext.meryl\" | grep -E '^6[[:space:]]+2$' >/dev/null; done",
+          "tmp=/tmp/taf-meryl-sam-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@HD\\tVN:1.6\\n@SQ\\tSN:toy\\tLN:32\\nr1\\t4\\t*\\t0\\t0\\t*\\t*\\t0\\t0\\tACGTACGTACGTACGTACGTACGTACGTACGT\\tIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > seq.sam; meryl k=21 memory=0.1 threads=1 count seq.sam output seq.meryl >/dev/null 2>meryl.log; test -d seq.meryl; meryl histogram seq.meryl | grep -E '^6[[:space:]]+2$' >/dev/null",
+          "tmp=/tmp/taf-meryl-analyze-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa; meryl k=7 memory=0.1 threads=1 count seq.fa output seq.meryl >/dev/null 2>meryl.log; meryl-analyze -mers seq.meryl -prefix motif -gt >/dev/null 2>analyze.log; test -s motif.GT.hist; test -s motif.AC.hist; test -s motif.GT_AC.hist"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-22T04:38:01Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-22T04:38:01Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/meryl",
+        "ref": "v1.4.2-r1",
+        "commit": "47a86c5104d32009a9891ed88b495edaab6b8173",
+        "html_url": "https://github.com/taffish/meryl/tree/v1.4.2-r1"
+      },
+      "upstream": {
+        "name": "Meryl",
+        "type": "github",
+        "homepage": "https://github.com/marbl/meryl",
+        "repository": "marbl/meryl",
+        "release_url": "https://github.com/marbl/meryl/tree/v1.4.2",
+        "version": "1.4.2",
+        "license": "Public Domain with bundled third-party notices",
         "citation": "Rhie et al. 2020",
         "doi": "10.1186/s13059-020-02134-9",
         "pmid": "32928274"
