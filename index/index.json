@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-23T04:39:16Z",
+  "generated_at": "2026-07-24T01:35:00Z",
   "organization": "taffish",
   "counts": {
-    "packages": 231,
-    "versions": 363,
-    "commands": 231,
-    "repositories": 231,
+    "packages": 232,
+    "versions": 364,
+    "commands": 232,
+    "repositories": 232,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -26000,6 +26000,132 @@
         }
       }
     },
+    "ncbi-datasets": {
+      "name": "ncbi-datasets",
+      "latest": "18.33.1-r1",
+      "recent_version": "18.33.1-r1",
+      "recent_at": "2026-07-24T01:08:45Z",
+      "repository_url": "https://github.com/taffish/ncbi-datasets",
+      "command": {
+        "name": "taf-ncbi-datasets"
+      },
+      "versions": {
+        "18.33.1-r1": {
+          "name": "ncbi-datasets",
+          "kind": "tool",
+          "version": "18.33.1",
+          "release": 1,
+          "version_id": "18.33.1-r1",
+          "tag": "v18.33.1-r1",
+          "published_at": "2026-07-24T01:08:45Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/ncbi-datasets",
+          "repository_slug": "taffish/ncbi-datasets",
+          "command": {
+            "name": "taf-ncbi-datasets"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "data-retrieval",
+              "database-query",
+              "metadata"
+            ],
+            "keywords": [
+              "ncbi datasets",
+              "datasets",
+              "dataformat",
+              "ncbi",
+              "genome",
+              "gene",
+              "taxonomy",
+              "virus",
+              "metadata",
+              "data package"
+            ],
+            "summary": "NCBI Datasets 18.33.1 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata.",
+            "description": "NCBI Datasets 18.33.1 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/ncbi-datasets:18.33.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "18.33.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e1957c711224d4d2a3fec9a786aae30ab4e8a2ab902c3c2165ce1dea99249519",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ae4b6dd746612420e7e16f2415d0917a6b17c73a738929eebdb83a281daaf907",
+              "linux/arm64": "sha256:c1a50d1138e139e26f879a6cff3adabea265b0d5c27fb256031146bc196fd06e"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "datasets",
+              "dataformat",
+              "sh",
+              "grep"
+            ],
+            "test": [
+              "datasets --version 2>&1 | grep -Fx 'datasets version: 18.33.1' >/dev/null && dataformat version 2>&1 | grep -Fx 'undefined' >/dev/null && grep -Fx 'upstream_version=18.33.1' /opt/ncbi-datasets/share/doc/ncbi-datasets/source.txt >/dev/null && test -s /etc/ssl/certs/ca-certificates.crt",
+              "datasets --help 2>&1 | grep -F 'Data Retrieval Commands' >/dev/null && datasets summary genome accession --help 2>&1 | grep -F -- '--as-json-lines' >/dev/null && datasets download genome accession --help 2>&1 | grep -F -- '--dehydrated' >/dev/null && datasets rehydrate --help 2>&1 | grep -F -- '--directory' >/dev/null && dataformat --help 2>&1 | grep -F 'Formatting Commands' >/dev/null && dataformat tsv genome --help 2>&1 | grep -F -- '--fields' >/dev/null && dataformat excel genome --help 2>&1 | grep -F -- '--outputfile' >/dev/null",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh tsv",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh excel"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-24T01:35:00Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-24T01:35:00Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/ncbi-datasets",
+            "ref": "v18.33.1-r1",
+            "commit": "945b3d17d8fee57cff87924d18a76d2b6d92cd0b",
+            "html_url": "https://github.com/taffish/ncbi-datasets/tree/v18.33.1-r1"
+          },
+          "upstream": {
+            "name": "NCBI Datasets",
+            "type": "github",
+            "homepage": "https://www.ncbi.nlm.nih.gov/datasets/",
+            "repository": "ncbi/datasets",
+            "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.33.1",
+            "version": "18.33.1",
+            "license": "Public Domain / United States Government Work",
+            "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
+            "doi": "10.1038/s41597-024-03571-y"
+          }
+        }
+      }
+    },
     "ngenomesyn": {
       "name": "ngenomesyn",
       "latest": "1.43-r1",
@@ -46553,6 +46679,10 @@
       "package": "nanoplot",
       "version": "1.47.1-r2"
     },
+    "taf-ncbi-datasets": {
+      "package": "ncbi-datasets",
+      "version": "18.33.1-r1"
+    },
     "taf-ngenomesyn": {
       "package": "ngenomesyn",
       "version": "1.43-r1"
@@ -47739,6 +47869,12 @@
       "repository": "taffish/nanoplot",
       "packages": [
         "nanoplot"
+      ]
+    },
+    "taffish/ncbi-datasets": {
+      "repository": "taffish/ncbi-datasets",
+      "packages": [
+        "ncbi-datasets"
       ]
     },
     "taffish/ngenomesyn": {
