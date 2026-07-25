@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-25T04:32:12Z",
+  "generated_at": "2026-07-25T08:51:23Z",
   "organization": "taffish",
   "counts": {
-    "packages": 235,
-    "versions": 367,
-    "commands": 235,
-    "repositories": 235,
+    "packages": 236,
+    "versions": 368,
+    "commands": 236,
+    "repositories": 236,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -43033,6 +43033,140 @@
         }
       }
     },
+    "theripper": {
+      "name": "theripper",
+      "latest": "2020.12.14-r1",
+      "recent_version": "2020.12.14-r1",
+      "recent_at": "2026-07-25T08:45:23Z",
+      "repository_url": "https://github.com/taffish/theripper",
+      "command": {
+        "name": "taf-theripper"
+      },
+      "versions": {
+        "2020.12.14-r1": {
+          "name": "theripper",
+          "kind": "tool",
+          "version": "2020.12.14",
+          "release": 1,
+          "version_id": "2020.12.14-r1",
+          "tag": "v2020.12.14-r1",
+          "published_at": "2026-07-25T08:45:23Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/theripper",
+          "repository_slug": "taffish/theripper",
+          "command": {
+            "name": "taf-theripper"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "fungal-genomics",
+              "repeat-analysis",
+              "web-service"
+            ],
+            "keywords": [
+              "theripper",
+              "rip",
+              "repeat-induced-point-mutation",
+              "lrar",
+              "fungi",
+              "fasta",
+              "gff3"
+            ],
+            "summary": "TheRIPper CLI and optional Web service for genome-wide quantification of Repeat-Induced Point mutations.",
+            "description": "TheRIPper CLI and optional Web service for genome-wide quantification of Repeat-Induced Point mutations."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/theripper:2020.12.14-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2020.12.14-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:05c160479cdf68832c59fc1d21ff90536116023a2ed3b247abfaab5ab341936e",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:fe9a965821916f54383f57173011b741fbe92a5ffa43bbb702e2ce0577ae15da",
+              "linux/arm64": "sha256:07cf8c77445c0354fb7e294b5737357d6bc28029be4db3b23c5124a971a3afee"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "theripper",
+              "theripper-cli",
+              "theripper-web",
+              "theripper-smoke",
+              "dotnet",
+              "curl",
+              "awk",
+              "grep",
+              "cmp",
+              "wc",
+              "tr",
+              "find",
+              "sha256sum",
+              "ldd"
+            ],
+            "test": [
+              "theripper-smoke identity",
+              "theripper-smoke cli",
+              "theripper-smoke web",
+              "theripper-smoke apptainer"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-25T08:51:23Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-25T08:51:23Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/theripper",
+            "ref": "v2020.12.14-r1",
+            "commit": "37c0c54abca264ef27886c0ff2144f62a2ebe950",
+            "html_url": "https://github.com/taffish/theripper/tree/v2020.12.14-r1"
+          },
+          "upstream": {
+            "name": "TheRIPper",
+            "type": "github",
+            "homepage": "https://theripper.hawk.rocks/",
+            "repository": "TheRIPper-Fungi/TheRIPper",
+            "release_url": "https://github.com/TheRIPper-Fungi/TheRIPper/commit/6b4600476f8cac5e2bb1cecc23dbbe8958e91a9b",
+            "version": "6b4600476f8cac5e2bb1cecc23dbbe8958e91a9b",
+            "license": "GPL-3.0",
+            "citation": "van Wyk et al. 2019. The RIPper, a web-based tool for genome-wide quantification of Repeat-Induced Point (RIP) mutations.",
+            "doi": "10.7717/peerj.7447",
+            "pmid": "31523495"
+          }
+        }
+      }
+    },
     "tmbed": {
       "name": "tmbed",
       "latest": "1.0.2-r1",
@@ -47400,6 +47534,10 @@
       "package": "tgsgapcloser",
       "version": "1.2.1-r1"
     },
+    "taf-theripper": {
+      "package": "theripper",
+      "version": "2020.12.14-r1"
+    },
     "taf-tmbed": {
       "package": "tmbed",
       "version": "1.0.2-r1"
@@ -48766,6 +48904,12 @@
       "repository": "taffish/tgsgapcloser",
       "packages": [
         "tgsgapcloser"
+      ]
+    },
+    "taffish/theripper": {
+      "repository": "taffish/theripper",
+      "packages": [
+        "theripper"
       ]
     },
     "taffish/tmbed": {
