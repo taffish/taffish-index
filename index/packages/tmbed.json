@@ -1,0 +1,125 @@
+{
+  "name": "tmbed",
+  "latest": "1.0.2-r1",
+  "recent_version": "1.0.2-r1",
+  "recent_at": "2026-07-25T01:52:39Z",
+  "repository_url": "https://github.com/taffish/tmbed",
+  "command": {
+    "name": "taf-tmbed"
+  },
+  "versions": {
+    "1.0.2-r1": {
+      "name": "tmbed",
+      "kind": "tool",
+      "version": "1.0.2",
+      "release": 1,
+      "version_id": "1.0.2-r1",
+      "tag": "v1.0.2-r1",
+      "published_at": "2026-07-25T01:52:39Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/tmbed",
+      "repository_slug": "taffish/tmbed",
+      "command": {
+        "name": "taf-tmbed"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "protein",
+        "categories": [
+          "protein",
+          "transmembrane-protein",
+          "topology-prediction",
+          "deep-learning"
+        ],
+        "keywords": [
+          "tmbed",
+          "transmembrane protein",
+          "alpha helix",
+          "beta barrel",
+          "signal peptide",
+          "protein topology",
+          "prott5",
+          "protein language model",
+          "pytorch"
+        ],
+        "summary": "TMbed 1.0.2 runtime for transmembrane alpha-helix, beta-barrel, topology, and signal-peptide prediction using external ProtT5 embeddings.",
+        "description": "TMbed 1.0.2 runtime for transmembrane alpha-helix, beta-barrel, topology, and signal-peptide prediction using external ProtT5 embeddings."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/tmbed:1.0.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.0.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:9df0103456d6b9c41f69948b4e8148dbf3aff488e82981f8f28f78261e0f7686",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:cbd8941611be083c99cf59f76089199f0ceb2f0cdf4edc9cf8f6d229bfd815c0",
+          "linux/arm64": "sha256:76520614667b94dcde77a4f709cc8d1a32194232280e3ada1997c00914f46e92"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "tmbed",
+          "python",
+          "python3"
+        ],
+        "test": [
+          "python /opt/tmbed/share/testdata/tmbed-smoke.py identity",
+          "tmbed --help 2>&1 | grep -F 'Transmembrane protein predictor using embeddings' >/dev/null && tmbed download --help 2>&1 | grep -F -- '--model-dir' >/dev/null && tmbed embed --help 2>&1 | grep -F -- '--embeddings' >/dev/null && tmbed predict --help 2>&1 | grep -F -- '--out-format' >/dev/null && tmbed predict --help 2>&1 | grep -F -- '--cpu-fallback' >/dev/null",
+          "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python /opt/tmbed/share/testdata/tmbed-smoke.py predict",
+          "HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python /opt/tmbed/share/testdata/tmbed-smoke.py embed"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-25T02:18:25Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-25T02:18:25Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/tmbed",
+        "ref": "v1.0.2-r1",
+        "commit": "04d88927bc4563f42eae1646db70268769ad1f3c",
+        "html_url": "https://github.com/taffish/tmbed/tree/v1.0.2-r1"
+      },
+      "upstream": {
+        "name": "TMbed",
+        "type": "github",
+        "homepage": "https://github.com/BernhoferM/TMbed",
+        "repository": "BernhoferM/TMbed",
+        "release_url": "https://github.com/BernhoferM/TMbed/releases/tag/v1.0.2",
+        "version": "1.0.2",
+        "license": "Apache-2.0",
+        "citation": "Bernhofer M, Rost B. TMbed: transmembrane proteins predicted through language model embeddings. BMC Bioinformatics. 2022;23:326.",
+        "doi": "10.1186/s12859-022-04873-x",
+        "pmid": "35941534"
+      }
+    }
+  }
+}

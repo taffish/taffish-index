@@ -1,0 +1,137 @@
+{
+  "name": "occultercut",
+  "latest": "1.1-r1",
+  "recent_version": "1.1-r1",
+  "recent_at": "2026-07-24T13:16:27Z",
+  "repository_url": "https://github.com/taffish/occultercut",
+  "command": {
+    "name": "taf-occultercut"
+  },
+  "versions": {
+    "1.1-r1": {
+      "name": "occultercut",
+      "kind": "tool",
+      "version": "1.1",
+      "release": 1,
+      "version_id": "1.1-r1",
+      "tag": "v1.1-r1",
+      "published_at": "2026-07-24T13:16:27Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/occultercut",
+      "repository_slug": "taffish/occultercut",
+      "command": {
+        "name": "taf-occultercut"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "fungal-genomics",
+          "genome-composition",
+          "genome-segmentation",
+          "annotation"
+        ],
+        "keywords": [
+          "occultercut",
+          "at-rich regions",
+          "gc content",
+          "two-speed genome",
+          "fungal genome",
+          "genome segmentation",
+          "jensen-shannon divergence",
+          "rip",
+          "mitochondrial filtering"
+        ],
+        "summary": "OcculterCut 1.1 runtime for genome GC-content segmentation, AT-rich region analysis, gene-context reporting, and optional mitochondrial-scaffold filtering.",
+        "description": "OcculterCut 1.1 runtime for genome GC-content segmentation, AT-rich region analysis, gene-context reporting, and optional mitochondrial-scaffold filtering."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/occultercut:1.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:29bd90af875be731f1ad46aa331bf01a61c033f7420de38d3ebbe62359e83398",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:111529932a5c7adc1ea816df9368e2694e56207a32be83ca6718c9b7aaf90dad",
+          "linux/arm64": "sha256:97081a886046fa8eda2a3fa3382d4e52f06099f5734561268c2c7da1ea7664c0"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "OcculterCut",
+          "occultercut-mito-filter",
+          "mito_filter.sh",
+          "blastn",
+          "makeblastdb",
+          "bedtools",
+          "gnuplot",
+          "bash",
+          "sh",
+          "awk",
+          "grep",
+          "sort",
+          "comm",
+          "sha256sum",
+          "ldd"
+        ],
+        "test": [
+          "/opt/occultercut/share/testdata/occultercut-smoke.sh identity",
+          "/opt/occultercut/share/testdata/occultercut-smoke.sh main",
+          "/opt/occultercut/share/testdata/occultercut-smoke.sh mito",
+          "/opt/occultercut/share/testdata/occultercut-smoke.sh plot"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-25T02:18:25Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-25T02:18:25Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/occultercut",
+        "ref": "v1.1-r1",
+        "commit": "28bc0ec99e172288c9129c5de82493d4029230a5",
+        "html_url": "https://github.com/taffish/occultercut/tree/v1.1-r1"
+      },
+      "upstream": {
+        "name": "OcculterCut",
+        "type": "official",
+        "homepage": "https://sourceforge.net/projects/occultercut/",
+        "release_url": "https://sourceforge.net/projects/occultercut/files/",
+        "version": "1.1",
+        "license": "GPL-3.0-or-later",
+        "citation": "Testa AC, Oliver RP, Hane JK. OcculterCut: A Comprehensive Survey of AT-Rich Regions in Fungal Genomes. Genome Biology and Evolution. 2016;8(6):2044-2064.",
+        "doi": "10.1093/gbe/evw121",
+        "pmid": "27289099"
+      }
+    }
+  }
+}
