@@ -1,8 +1,8 @@
 {
   "name": "compleasm",
-  "latest": "0.2.8-r1",
-  "recent_version": "0.2.8-r1",
-  "recent_at": "2026-06-18T16:52:54Z",
+  "latest": "0.2.9-r1",
+  "recent_version": "0.2.9-r1",
+  "recent_at": "2026-07-25T11:54:07Z",
   "repository_url": "https://github.com/taffish/compleasm",
   "command": {
     "name": "taf-compleasm"
@@ -373,6 +373,132 @@
         "repository": "huangnengCSU/compleasm",
         "release_url": "https://github.com/huangnengCSU/compleasm/releases/tag/v0.2.8",
         "version": "0.2.8",
+        "license": "Apache-2.0 AND LicenseRef-BUSCO",
+        "citation": "Huang and Li 2023",
+        "doi": "10.1093/bioinformatics/btad595",
+        "pmid": "37758247"
+      }
+    },
+    "0.2.9-r1": {
+      "name": "compleasm",
+      "kind": "tool",
+      "version": "0.2.9",
+      "release": 1,
+      "version_id": "0.2.9-r1",
+      "tag": "v0.2.9-r1",
+      "published_at": "2026-07-25T11:54:07Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/compleasm",
+      "repository_slug": "taffish/compleasm",
+      "command": {
+        "name": "taf-compleasm"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "assembly-quality",
+          "completeness",
+          "busco",
+          "annotation"
+        ],
+        "keywords": [
+          "compleasm",
+          "busco",
+          "genome-completeness",
+          "miniprot",
+          "hmmer",
+          "sepp",
+          "odb10",
+          "odb12",
+          "odb12.2",
+          "orthologs",
+          "assembly-quality"
+        ],
+        "summary": "Fast genome and protein completeness assessment based on BUSCO marker genes and miniprot.",
+        "description": "Fast genome and protein completeness assessment based on BUSCO marker genes and miniprot."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/compleasm:0.2.9-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.2.9-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:73b659df0a26ba25af715ef18d28ad30a19b140a35963a0172411a3fbd5982ce",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:8cac14c7b8357920e761da83ad4f0e21725c3f5e3007f0a9c2f123fd9920b721",
+          "linux/arm64": "sha256:e8642200070ed0de424b6f185049f1b70ac4dd904c44bc1cf967ba2c72229c83"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "compleasm",
+          "miniprot",
+          "hmmsearch",
+          "hmmbuild",
+          "hmmalign",
+          "run_sepp.py",
+          "pplacer",
+          "guppy",
+          "java",
+          "python"
+        ],
+        "test": [
+          "compleasm --version 2>&1 | grep -Fx 'compleasm 0.2.9' >/dev/null",
+          "test \"$(grep -F 'upstream_commit=' /opt/compleasm/share/doc/compleasm/SOURCE)\" = 'upstream_commit=65414e3b207d40398cb9be5d58c9c0959200c9cf' && python -c 'from importlib.metadata import version; import compleasm, dendropy, pandas, sepp; assert version(\"compleasm\") == \"0.2.9\"; assert version(\"sepp\") == \"4.5.6\"; assert version(\"DendroPy\") == \"5.0.8\"; assert version(\"pandas\") == \"2.2.3\"'",
+          "compleasm --help 2>&1 | grep -F 'Compleasm modules help' >/dev/null && compleasm run --help 2>&1 | grep -F -- '--odb' >/dev/null && compleasm analyze --help 2>&1 | grep -F 'usage: compleasm analyze' >/dev/null && compleasm download --help 2>&1 | grep -F 'usage: compleasm download' >/dev/null && compleasm list --help 2>&1 | grep -F 'usage: compleasm list' >/dev/null && compleasm miniprot --help 2>&1 | grep -F 'usage: compleasm miniprot' >/dev/null && compleasm protein --help 2>&1 | grep -F 'usage: compleasm protein' >/dev/null",
+          "miniprot --version 2>&1 | grep -F '0.18' >/dev/null && hmmsearch -h 2>&1 | grep -F 'HMMER 3.4' >/dev/null && run_sepp.py -h 2>&1 | grep -F 'usage: run_sepp.py' >/dev/null && command -v pplacer >/dev/null && command -v guppy >/dev/null && java --version >/dev/null 2>&1 && { java -jar /opt/conda/bin/seppJsonMerger.jar 2>&1 || true; } | grep -F 'Usage: merge.jar' >/dev/null",
+          "tmp=/tmp/taf-compleasm-odb-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp/library\"; printf 'geneat1 type 2 100\\n' > \"$tmp/odb10.lengths\"; printf 'gene 100 5\\n' > \"$tmp/odb12.2.lengths\"; python -c 'from compleasm import load_length_cutoff; import sys; a=load_length_cutoff(sys.argv[1], \"odb10\"); b=load_length_cutoff(sys.argv[2], \"odb12.2\"); assert a[\"geneat1\"] == {\"length\": 100.0, \"sigma\": 2.0}; assert b[\"gene\"] == {\"length\": 100.0, \"sigma\": 5.0}' \"$tmp/odb10.lengths\" \"$tmp/odb12.2.lengths\"; touch \"$tmp/library/eukaryota_odb10.done\"; compleasm list --local --odb odb10 -L \"$tmp/library\" | grep -Fx 'eukaryota' >/dev/null",
+          "tmp=/tmp/taf-compleasm-hmmer-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '# STOCKHOLM 1.0\\nseq1 MKTAYIAK\\nseq2 MKTAYIAK\\n//\\n' > toy.sto; hmmbuild toy.hmm toy.sto >/dev/null; printf '>target\\nMKTAYIAK\\n' > target.fa; hmmsearch --tblout hits.tsv toy.hmm target.fa >/dev/null; test -s hits.tsv; grep -F 'target' hits.tsv >/dev/null",
+          "tmp=/tmp/taf-compleasm-miniprot-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nATGAAAACCGCTTACATTGCTAAACAACGTCAAATTTCTTTTGTTAAATCTCATTTTTCTCGTCAACTGGAAGAACGTCTGGGTCTGATTGAAGTTCAAGCTAATAAT\\n' > genome.fa; printf '>prot1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > proteins.faa; compleasm miniprot -a genome.fa -p proteins.faa -o miniprot-out -t 1 >/dev/null; test -s miniprot-out/miniprot_output.gff; test -e miniprot-out/miniprot.done"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-25T17:23:37Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-25T17:23:37Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/compleasm",
+        "ref": "v0.2.9-r1",
+        "commit": "b36e50e402706672c15b5e5e9e6ccf926fc19655",
+        "html_url": "https://github.com/taffish/compleasm/tree/v0.2.9-r1"
+      },
+      "upstream": {
+        "name": "Compleasm",
+        "type": "github",
+        "homepage": "https://github.com/huangnengCSU/compleasm",
+        "repository": "huangnengCSU/compleasm",
+        "release_url": "https://github.com/huangnengCSU/compleasm/releases/tag/v0.2.9",
+        "version": "0.2.9",
         "license": "Apache-2.0 AND LicenseRef-BUSCO",
         "citation": "Huang and Li 2023",
         "doi": "10.1093/bioinformatics/btad595",

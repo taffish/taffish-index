@@ -1,0 +1,134 @@
+{
+  "name": "lightdock",
+  "latest": "0.9.4-r1",
+  "recent_version": "0.9.4-r1",
+  "recent_at": "2026-07-25T16:36:19Z",
+  "repository_url": "https://github.com/taffish/lightdock",
+  "command": {
+    "name": "taf-lightdock"
+  },
+  "versions": {
+    "0.9.4-r1": {
+      "name": "lightdock",
+      "kind": "tool",
+      "version": "0.9.4",
+      "release": 1,
+      "version_id": "0.9.4-r1",
+      "tag": "v0.9.4-r1",
+      "published_at": "2026-07-25T16:36:19Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/lightdock",
+      "repository_slug": "taffish/lightdock",
+      "command": {
+        "name": "taf-lightdock"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "structural-biology",
+        "categories": [
+          "structural-biology",
+          "molecular-docking",
+          "protein-interactions",
+          "computational-chemistry"
+        ],
+        "keywords": [
+          "lightdock",
+          "macromolecular docking",
+          "protein-protein docking",
+          "protein-peptide docking",
+          "protein-dna docking",
+          "protein-rna docking",
+          "gso",
+          "glowworm swarm optimization",
+          "anm",
+          "restraints",
+          "mpi"
+        ],
+        "summary": "LightDock 0.9.4 macromolecular docking framework with setup, simulation, scoring, clustering, ranking, conformation generation, multiprocessing, and MPI interfaces.",
+        "description": "LightDock 0.9.4 macromolecular docking framework with setup, simulation, scoring, clustering, ranking, conformation generation, multiprocessing, and MPI interfaces."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/lightdock:0.9.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.9.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:2de680ad877e35c8e53f56efa731e8d134d69654c7046b685b37f756e88f5ebd",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:026793b7d24a96502884b1934b783689254331b5fe0f5f66c4ce5b2e3505ee6f",
+          "linux/arm64": "sha256:13d6f05c6cc86e17b8fb8ac716799effc3e2ef58f231d0657bebb090a133831a"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "lightdock3.py",
+          "lightdock3_setup.py",
+          "lgd_generate_conformations.py",
+          "lgd_cluster_bsas.py",
+          "lgd_rank.py",
+          "lgd_top.py",
+          "python3",
+          "mpirun"
+        ],
+        "test": [
+          "/opt/lightdock/share/testdata/lightdock-smoke.sh identity",
+          "/opt/lightdock/share/testdata/lightdock-smoke.sh interfaces",
+          "/opt/lightdock/share/testdata/lightdock-smoke.sh setup",
+          "/opt/lightdock/share/testdata/lightdock-smoke.sh docking",
+          "/opt/lightdock/share/testdata/lightdock-smoke.sh postprocess",
+          "/opt/lightdock/share/testdata/lightdock-smoke.sh mpi"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-25T17:23:37Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-25T17:23:37Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/lightdock",
+        "ref": "v0.9.4-r1",
+        "commit": "1abc6d1818c8bb02e62e011cf3b97c5d5de9a7f4",
+        "html_url": "https://github.com/taffish/lightdock/tree/v0.9.4-r1"
+      },
+      "upstream": {
+        "name": "LightDock",
+        "type": "github",
+        "homepage": "https://lightdock.org/",
+        "repository": "lightdock/lightdock",
+        "release_url": "https://github.com/lightdock/lightdock/releases/tag/0.9.4",
+        "version": "0.9.4",
+        "license": "GPL-3.0-only",
+        "citation": "Jimenez-Garcia B, Roel-Touris J, Romero-Durana M, Vidal M, Jimenez-Gonzalez D, Fernandez-Recio J. LightDock: a new multi-scale approach to protein-protein docking. Bioinformatics. 2018;34(1):49-55.",
+        "doi": "10.1093/bioinformatics/btx555",
+        "pmid": "28968719"
+      }
+    }
+  }
+}
