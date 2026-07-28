@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-28T04:30:38Z",
+  "generated_at": "2026-07-28T09:26:08Z",
   "organization": "taffish",
   "counts": {
     "packages": 239,
-    "versions": 373,
+    "versions": 374,
     "commands": 239,
     "repositories": 239,
     "warnings": 0,
@@ -37086,9 +37086,9 @@
     },
     "rseqc": {
       "name": "rseqc",
-      "latest": "5.0.4-r2",
-      "recent_version": "5.0.4-r2",
-      "recent_at": "2026-05-21T13:31:05Z",
+      "latest": "5.0.5-r1",
+      "recent_version": "5.0.5-r1",
+      "recent_at": "2026-07-28T08:59:30Z",
       "repository_url": "https://github.com/taffish/rseqc",
       "command": {
         "name": "taf-rseqc"
@@ -37394,6 +37394,164 @@
             "homepage": "https://rseqc.sourceforge.net/",
             "release_url": "https://pypi.org/project/RSeQC/5.0.4/",
             "version": "5.0.4",
+            "license": "GPL-3.0-or-later",
+            "citation": "Wang, Wang and Li 2012; Wang et al. 2016",
+            "doi": "10.1093/bioinformatics/bts356; 10.1186/s12859-016-0922-z",
+            "pmid": "22743226"
+          }
+        },
+        "5.0.5-r1": {
+          "name": "rseqc",
+          "kind": "tool",
+          "version": "5.0.5",
+          "release": 1,
+          "version_id": "5.0.5-r1",
+          "tag": "v5.0.5-r1",
+          "published_at": "2026-07-28T08:59:30Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rseqc",
+          "repository_slug": "taffish/rseqc",
+          "command": {
+            "name": "taf-rseqc"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "quality-control",
+              "bam",
+              "sam",
+              "transcriptomics",
+              "single-cell"
+            ],
+            "keywords": [
+              "rseqc",
+              "rna-seq",
+              "qc",
+              "bam",
+              "sam",
+              "bed",
+              "gene body coverage",
+              "strandness",
+              "tin",
+              "single-cell rna-seq"
+            ],
+            "summary": "RSeQC 5.0.5 command suite for RNA-seq quality-control metrics from SAM/BAM alignments and BED/GTF annotations.",
+            "description": "RSeQC 5.0.5 command suite for RNA-seq quality-control metrics from SAM/BAM alignments and BED/GTF annotations."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rseqc:5.0.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.0.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c1615d2940dea72d85b040e172621445a41ee2eb1bba75c6108e1fff86939a8c",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:3b3f27fddee9310843d378a750696f1f4030672af9ba4cd99941a0712d6f8d7f",
+              "linux/arm64": "sha256:4a2d1ec1fae228a9af386aaa2f7d9b8f8fa436efc90deea434837ca2b3eb51ed"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "bam_stat.py",
+              "infer_experiment.py",
+              "read_distribution.py",
+              "geneBody_coverage.py",
+              "geneBody_coverage2.py",
+              "tin.py",
+              "read_GC.py",
+              "read_NVC.py",
+              "read_quality.py",
+              "read_duplication.py",
+              "read_hexamer.py",
+              "FPKM_count.py",
+              "FPKM-UQ.py",
+              "RPKM_saturation.py",
+              "RNA_fragment_size.py",
+              "junction_annotation.py",
+              "junction_saturation.py",
+              "inner_distance.py",
+              "clipping_profile.py",
+              "deletion_profile.py",
+              "insertion_profile.py",
+              "mismatch_profile.py",
+              "bam2fq.py",
+              "bam2wig.py",
+              "divide_bam.py",
+              "split_bam.py",
+              "split_paired_bam.py",
+              "normalize_bigwig.py",
+              "overlay_bigwig.py",
+              "sc_bamStat.py",
+              "sc_editMatrix.py",
+              "sc_seqLogo.py",
+              "sc_seqQual.py",
+              "python",
+              "python3",
+              "Rscript",
+              "htseq-count",
+              "awk",
+              "gzip",
+              "bash",
+              "ldd",
+              "tee",
+              "wc",
+              "rm"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata; print(importlib.metadata.version(\"RSeQC\"))')\" = '5.0.5' && bam_stat.py --version 2>&1 | grep -Fx 'bam_stat.py 5.0.5' >/dev/null && infer_experiment.py --version 2>&1 | grep -Fx 'infer_experiment.py 5.05' >/dev/null && bam_stat.py --help 2>&1 | grep -F 'Summarize mapping statistics' >/dev/null && infer_experiment.py --help 2>&1 | grep -F 'Input alignment file in SAM or BAM format' >/dev/null && geneBody_coverage.py --help 2>&1 | grep -F 'Reference gene model in BED12 format' >/dev/null && sc_seqLogo.py --help 2>&1 | grep -F 'DNA sequence logo' >/dev/null && sc_seqQual.py --help 2>&1 | grep -F -- '--skip-heatmap' >/dev/null && FPKM-UQ.py --help 2>&1 | grep -F -- '--print-htseq-command' >/dev/null && htseq-count --help 2>&1 | grep -F 'htseq-count' >/dev/null && Rscript --version 2>&1 | grep -F 'Rscript' >/dev/null && Rscript -e 'stopifnot(requireNamespace(\"pheatmap\", quietly=TRUE))' && awk --version 2>&1 | grep -F 'GNU Awk' >/dev/null && python -m pip check && python -c 'import qcmodule, pysam, bx, numpy, pyBigWig, logomaker, matplotlib' && grep -F 'source_sha256=c3f757e5f384004678c10cbc830355e841f5d5db850fc5b131c2e872afe9d516' /opt/rseqc/share/doc/rseqc/source.txt >/dev/null && grep -F 'git_tag_commit=0d2e017723c5c4b41eb3b938e1631692d187de1f' /opt/rseqc/share/doc/rseqc/source.txt >/dev/null && test -z \"$(find /opt/rseqc -xdev -uid +65535 -print -quit)\" && test -z \"$(find /opt/rseqc -xdev -gid +65535 -print -quit)\" && export LD_LIBRARY_PATH='/opt/rseqc/venv/lib/python3.11/site-packages/numpy.libs:/opt/rseqc/venv/lib/python3.11/site-packages/pillow.libs' && python -c 'import importlib.util; names=(\"pysam.libchtslib\",\"bx.intervals.intersection\",\"numpy.core._multiarray_umath\",\"pyBigWig\",\"pandas._libs.algos\",\"PIL._imaging\"); [print(importlib.util.find_spec(name).origin) for name in names]' > /tmp/taf-rseqc-native-libs.txt && test \"$(wc -l < /tmp/taf-rseqc-native-libs.txt)\" -eq 6 && : > /tmp/taf-rseqc-ldd.txt && while IFS= read -r lib; do test -s \"$lib\"; ldd \"$lib\" >> /tmp/taf-rseqc-ldd.txt; done < /tmp/taf-rseqc-native-libs.txt && grep -F 'libc.so' /tmp/taf-rseqc-ldd.txt >/dev/null && if grep -F 'not found' /tmp/taf-rseqc-ldd.txt; then exit 1; fi",
+              "tmp=/tmp/taf-rseqc-core-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python -c 'import pysam; header={\"HD\":{\"VN\":\"1.6\",\"SO\":\"coordinate\"},\"SQ\":[{\"SN\":\"chr1\",\"LN\":1000}]}; out=pysam.AlignmentFile(\"tiny.bam\",\"wb\",header=header); a=pysam.AlignedSegment(); a.query_name=\"r1\"; a.query_sequence=\"ACGT\"*12+\"AC\"; a.flag=0; a.reference_id=0; a.reference_start=100; a.mapping_quality=60; a.cigar=[(0,50)]; a.query_qualities=pysam.qualitystring_to_array(\"I\"*50); out.write(a); out.close(); pysam.index(\"tiny.bam\")' && printf 'chr1\\t90\\t220\\tgene1\\t0\\t+\\t90\\t220\\t0\\t1\\t130\\t0\\n' > genes.bed && bam_stat.py -i tiny.bam > bam_stat.out && grep -F 'Total records:' bam_stat.out >/dev/null && grep -F 'mapq >= mapq_cut (unique):' bam_stat.out >/dev/null && infer_experiment.py -i tiny.bam -r genes.bed -s 10 > infer.out 2>&1 && grep -E 'This is SingleEnd Data|Unknown Data type' infer.out >/dev/null && read_distribution.py -i tiny.bam -r genes.bed > distribution.out && grep -F 'Total Reads' distribution.out >/dev/null && printf 'chr1\\ttaf\\texon\\t91\\t220\\t.\\t+\\t.\\tgene_id \"gene1\"; transcript_id \"tx1\";\\n' > genes.gtf && printf 'gene_id\\tsymbol\\tchrom\\tstart\\tend\\tstrand\\ttype\\tc8\\tc9\\tc10\\texon_length\\ngene1\\tGENE1\\tchr1\\t91\\t220\\t+\\tprotein_coding\\t.\\t.\\t.\\t130\\n' > genes.info && FPKM-UQ.py --bam tiny.bam --gtf genes.gtf --info genes.info -o fpkm > fpkm.log 2>&1 && test -s fpkm.htseq.counts.txt && test -s fpkm.FPKM-UQ.txt && grep -F 'gene1' fpkm.htseq.counts.txt >/dev/null && grep -F 'gene1' fpkm.FPKM-UQ.txt >/dev/null && cd / && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-rseqc-plot-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python -c 'import pysam; header={\"HD\":{\"VN\":\"1.6\",\"SO\":\"coordinate\"},\"SQ\":[{\"SN\":\"chr1\",\"LN\":1000}]}; out=pysam.AlignmentFile(\"tiny.bam\",\"wb\",header=header); a=pysam.AlignedSegment(); a.query_name=\"r1\"; a.query_sequence=\"ACGT\"*12+\"AC\"; a.flag=0; a.reference_id=0; a.reference_start=100; a.mapping_quality=60; a.cigar=[(0,50)]; a.query_qualities=pysam.qualitystring_to_array(\"I\"*50); out.write(a); out.close(); pysam.index(\"tiny.bam\")' && read_GC.py -i tiny.bam -o gc > gc.out 2>&1 && test -s gc.GC.xls && test -s gc.GC_plot.r && test -s gc.GC_plot.pdf && grep -F 'pdf(' gc.GC_plot.r >/dev/null && cd / && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-rseqc-logo-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n@r2\\nACGTTCGT\\n+\\nIIIIIIII\\n' > reads.fq && sc_seqLogo.py -i reads.fq --iformat fq --oformat png --font-name 'DejaVu Sans' -n 2 -o logo > logo.out 2>&1 && test -s logo.count_matrix.csv && test -s logo.logo.png && test -s logo.logo.mean_centered.png && cd / && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-rseqc-qual-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n@r2\\nACGTTCGT\\n+\\nHHHHIIII\\n@r3\\nACGTGCGT\\n+\\nGGGGHHHH\\n@r4\\nACGTCCGT\\n+\\nFFFFGGGG\\n' > reads.fq && sc_seqQual.py -i reads.fq -o qual --file-type png --no-num > qual.out 2>&1 && test -s qual.qual_count.csv && test -s qual.qual_percent.csv && test -s qual.qual_heatmap.png && grep -F 'Index' qual.qual_count.csv >/dev/null && python -c 'import pysam; header={\"HD\":{\"VN\":\"1.6\",\"SO\":\"coordinate\"},\"SQ\":[{\"SN\":\"chr1\",\"LN\":1000}]}; out=pysam.AlignmentFile(\"edits.bam\",\"wb\",header=header); a=pysam.AlignedSegment(); a.query_name=\"edit1\"; a.query_sequence=\"ACGTACGT\"; a.flag=0; a.reference_id=0; a.reference_start=100; a.mapping_quality=60; a.cigar=[(0,8)]; a.query_qualities=pysam.qualitystring_to_array(\"I\"*8); a.set_tags([(\"CR\",\"AAAA\"),(\"CB\",\"AACA\"),(\"UR\",\"TTTT\"),(\"UB\",\"TTGT\"),(\"RE\",\"E\"),(\"TX\",\"tx1\"),(\"xf\",1)]); out.write(a); out.close(); pysam.index(\"edits.bam\")' && sc_editMatrix.py -i edits.bam -o edits --skip-heatmap > edits.out 2>&1 && test -s edits.CB_edits_count.csv && test -s edits.UMI_edits_count.csv && test ! -e edits.CB_edits_heatmap.png && test ! -e edits.UMI_edits_heatmap.png && sc_bamStat.py -i edits.bam > scbam.out 2> scbam.err && grep -F 'Total_mapped_reads:' scbam.out >/dev/null && grep -F 'Confidently_mapped_reads:' scbam.out >/dev/null && test -s All_reads_uniqID.txt && test -s confident_reads_uniqID.txt && test ! -e chr1.all_reads_id.txt && test ! -e chr1.confident_reads_id.txt && cd / && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-28T09:26:08Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-28T09:26:08Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rseqc",
+            "ref": "v5.0.5-r1",
+            "commit": "df943fb6104a576fc49c57c7dc7d4847340b5605",
+            "html_url": "https://github.com/taffish/rseqc/tree/v5.0.5-r1"
+          },
+          "upstream": {
+            "name": "RSeQC",
+            "type": "pypi",
+            "homepage": "https://rseqc.sourceforge.net/",
+            "repository": "https://github.com/liguowang/RSeQC",
+            "release_url": "https://pypi.org/project/RSeQC/5.0.5/",
+            "version": "5.0.5",
             "license": "GPL-3.0-or-later",
             "citation": "Wang, Wang and Li 2012; Wang et al. 2016",
             "doi": "10.1093/bioinformatics/bts356; 10.1186/s12859-016-0922-z",
@@ -48075,7 +48233,7 @@
     },
     "taf-rseqc": {
       "package": "rseqc",
-      "version": "5.0.4-r2"
+      "version": "5.0.5-r1"
     },
     "taf-salmon": {
       "package": "salmon",
