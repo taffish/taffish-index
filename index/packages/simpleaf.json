@@ -1,0 +1,143 @@
+{
+  "name": "simpleaf",
+  "latest": "0.26.2-r1",
+  "recent_version": "0.26.2-r1",
+  "recent_at": "2026-07-27T16:13:30Z",
+  "repository_url": "https://github.com/taffish/simpleaf",
+  "command": {
+    "name": "taf-simpleaf"
+  },
+  "versions": {
+    "0.26.2-r1": {
+      "name": "simpleaf",
+      "kind": "tool",
+      "version": "0.26.2",
+      "release": 1,
+      "version_id": "0.26.2-r1",
+      "tag": "v0.26.2-r1",
+      "published_at": "2026-07-27T16:13:30Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/simpleaf",
+      "repository_slug": "taffish/simpleaf",
+      "command": {
+        "name": "taf-simpleaf"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "single-cell",
+        "categories": [
+          "single-cell",
+          "single-nucleus",
+          "transcriptomics",
+          "chromatin-accessibility",
+          "workflow"
+        ],
+        "keywords": [
+          "simpleaf",
+          "piscem",
+          "alevin-fry",
+          "macs3",
+          "scrna-seq",
+          "snrna-seq",
+          "scatac-seq",
+          "10x",
+          "barcode",
+          "umi",
+          "quantification",
+          "multiplex"
+        ],
+        "summary": "Simpleaf 0.26.2 with pinned piscem, alevin-fry, MACS3, chemistry definitions, and workflow registry for single-cell RNA-seq and ATAC-seq processing.",
+        "description": "Simpleaf 0.26.2 with pinned piscem, alevin-fry, MACS3, chemistry definitions, and workflow registry for single-cell RNA-seq and ATAC-seq processing."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/simpleaf:0.26.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.26.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:a8e5cd1fd709a6e0eb71ca87c6bbb264b0dc1ad25a34f045be60cc717445ce9a",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ed3067c0b46523a1563589f86b46b5f172e806b1223def12054627ff232eb55c",
+          "linux/arm64": "sha256:baad2a2cfc4d88217b21e4d96a4afb328203926becb8a87559bc363ccee85695"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "simpleaf",
+          "piscem",
+          "alevin-fry",
+          "macs3",
+          "python",
+          "python3",
+          "bash",
+          "sh",
+          "awk",
+          "grep",
+          "sed",
+          "gzip",
+          "gunzip",
+          "unzip",
+          "wget",
+          "curl",
+          "ldd"
+        ],
+        "test": [
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh identity",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh interfaces",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh registry",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh index",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh quant",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh workflow",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh macs"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-28T02:00:12Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-28T02:00:12Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/simpleaf",
+        "ref": "v0.26.2-r1",
+        "commit": "b87fe83fcedc3346d7bdac812b5b4e97298a202f",
+        "html_url": "https://github.com/taffish/simpleaf/tree/v0.26.2-r1"
+      },
+      "upstream": {
+        "name": "simpleaf",
+        "type": "github",
+        "homepage": "https://simpleaf.readthedocs.io/en/latest/",
+        "repository": "COMBINE-lab/simpleaf",
+        "release_url": "https://github.com/COMBINE-lab/simpleaf/releases/tag/v0.26.2",
+        "version": "0.26.2",
+        "license": "BSD-3-Clause"
+      }
+    }
+  }
+}
