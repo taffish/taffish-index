@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-28T09:26:08Z",
+  "generated_at": "2026-07-28T14:02:57Z",
   "organization": "taffish",
   "counts": {
     "packages": 239,
-    "versions": 374,
+    "versions": 375,
     "commands": 239,
     "repositories": 239,
     "warnings": 0,
@@ -29418,9 +29418,9 @@
     },
     "plotsr": {
       "name": "plotsr",
-      "latest": "1.1.1-r3",
-      "recent_version": "1.1.1-r3",
-      "recent_at": "2026-05-24T01:07:12Z",
+      "latest": "1.2.0-r1",
+      "recent_version": "1.2.0-r1",
+      "recent_at": "2026-07-28T13:35:35Z",
       "repository_url": "https://github.com/taffish/plotsr",
       "command": {
         "name": "taf-plotsr"
@@ -29777,6 +29777,131 @@
             "repository": "schneebergerlab/plotsr",
             "release_url": "https://github.com/schneebergerlab/plotsr/releases/tag/v1.1.1",
             "version": "1.1.1",
+            "license": "MIT",
+            "citation": "Goel and Schneeberger 2022",
+            "doi": "10.1093/bioinformatics/btac196",
+            "pmid": "35561173"
+          }
+        },
+        "1.2.0-r1": {
+          "name": "plotsr",
+          "kind": "tool",
+          "version": "1.2.0",
+          "release": 1,
+          "version_id": "1.2.0-r1",
+          "tag": "v1.2.0-r1",
+          "published_at": "2026-07-28T13:35:35Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/plotsr",
+          "repository_slug": "taffish/plotsr",
+          "command": {
+            "name": "taf-plotsr"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "comparative-genomics",
+            "categories": [
+              "comparative-genomics",
+              "synteny",
+              "structural-variation",
+              "visualization"
+            ],
+            "keywords": [
+              "plotsr",
+              "synteny",
+              "structural rearrangements",
+              "structural variation",
+              "deletions",
+              "syri",
+              "bedpe",
+              "bed9",
+              "chromosome painting",
+              "genome visualization",
+              "matplotlib"
+            ],
+            "summary": "plotsr 1.2.0 visualizes synteny, rearrangements, deletions, and chromosome features between genome assemblies.",
+            "description": "plotsr 1.2.0 visualizes synteny, rearrangements, deletions, and chromosome features between genome assemblies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/plotsr:1.2.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.2.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:47070dd6d473d9b5239b7e62bd19584ae6c0773827b12f741f9ee2de241c88f1",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:396a96354b4657b485ba73cab0af8569f038c76e8b6a8a660bf781f6dc45c97f",
+              "linux/arm64": "sha256:2d7da8cba41e7a98ba11f6791483a35f4da5e9ee8bb5a861ac3044b4332cc802"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "plotsr",
+              "python",
+              "python3",
+              "fc-list",
+              "file",
+              "gzip",
+              "sh",
+              "grep",
+              "cmp",
+              "ldd"
+            ],
+            "test": [
+              "test \"$(cat /opt/plotsr/share/doc/plotsr/VERSION)\" = '1.2.0' && grep -Fx 'tag=v1.2.0' /opt/plotsr/share/doc/plotsr/source.txt >/dev/null && grep -Fx 'tag_commit=d2da00875c96a34dd758487f3967fa223228843d' /opt/plotsr/share/doc/plotsr/source.txt >/dev/null && plotsr --version | grep -Fx '1.2.0' >/dev/null",
+              "plotsr -h 2>&1 | grep -F 'Plotting structural rearrangements between genomes' >/dev/null && plotsr -h 2>&1 | grep -F -- '--genomes' >/dev/null && plotsr -h 2>&1 | grep -F -- '--nodel' >/dev/null && plotsr -h 2>&1 | grep -F 'Matplotlib backend' >/dev/null",
+              "python -m pip check && python -c 'import importlib.metadata as md, matplotlib, numpy, packaging, pandas, plotsr; assert md.version(\"plotsr\") == \"1.2.0\"; assert plotsr.__version__ == \"1.2.0\"; assert numpy.__version__ == \"2.2.4\"; assert pandas.__version__ == \"2.2.3\"; assert matplotlib.__version__ == \"3.10.1\"; assert matplotlib.get_backend().lower() == \"agg\"; assert hasattr(matplotlib.backends, \"backend_registry\")' && python -c 'import importlib.util; names=(\"numpy._core._multiarray_umath\",\"pandas._libs.algos\",\"matplotlib._path\",\"PIL._imaging\"); [print(importlib.util.find_spec(name).origin) for name in names]' > /tmp/taf-plotsr-native-libs.txt && test \"$(wc -l < /tmp/taf-plotsr-native-libs.txt)\" -eq 4 && : > /tmp/taf-plotsr-ldd.txt && while IFS= read -r lib; do test -s \"$lib\"; ldd \"$lib\" >> /tmp/taf-plotsr-ldd.txt; done < /tmp/taf-plotsr-native-libs.txt && grep -F 'libc.so' /tmp/taf-plotsr-ldd.txt >/dev/null && if grep -F 'not found' /tmp/taf-plotsr-ldd.txt; then exit 1; fi",
+              "test -f /usr/local/share/doc/plotsr/README.md && test -f /usr/local/share/doc/plotsr/pyproject.toml && test -f /usr/local/share/doc/plotsr/config/base.cfg && test -f /usr/local/share/doc/plotsr/config/marker_point_type.txt && test -f /opt/plotsr/share/licenses/plotsr/LICENSE && grep -F 'large upstream example and test datasets are not runtime dependencies' /usr/local/share/doc/plotsr/source.txt >/dev/null",
+              "tmp=/tmp/taf-plotsr-bedpe-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf 'chr1\\t1000\\n' > A.chrlen; printf 'chr1\\t1000\\n' > B.chrlen; printf 'chr1\\t0\\t500\\tleft\\t0\\t+\\t0\\t500\\t255,0,0\\nchr1\\t500\\t1000\\tright\\t0\\t+\\t500\\t1000\\t0,0,255\\n' > A.paint.bed; printf 'chr1\\t0\\t500\\tleft\\t0\\t+\\t0\\t500\\t0,128,0\\nchr1\\t500\\t1000\\tright\\t0\\t+\\t500\\t1000\\t255,215,0\\n' > B.paint.bed; printf 'A.chrlen\\tA\\tft:cl;lw:1.2;pf:A.paint.bed;ph:0.12\\nB.chrlen\\tB\\tft:cl;lw:1.2;pf:B.paint.bed;ph:0.12\\n' > genomes.txt; printf 'chr1\\t0\\t1000\\tchr1\\t0\\t1000\\tSYN\\t-\\nchr1\\t200\\t350\\tchr1\\t220\\t370\\tINV\\tcl:red;lw:2\\nchr1\\t500\\t650\\tchr1\\t500\\t650\\tDEL\\tcl:purple;lw:2\\n' > ab.bedpe; printf 'chr1\\t100\\t180\\nchr1\\t700\\t850\\n' > feats.bed; printf 'feats.bed\\tFeatures\\tft:bed;bw:100;ti:1;tt:l;lc:blue\\n' > tracks.txt; printf 'chr1\\t250\\t251\\tA\\tmt:o;mc:black;ms:3;tt:marker;tp:0.02;ts:6;tc:black\\n' > markers.bed; printf 'legend:F\\ngenname:F\\n' > base.cfg; plotsr --bp ab.bedpe --genomes genomes.txt --tracks tracks.txt --markers markers.bed --cfg base.cfg -s 1 -o with-del.png -W 3 -H 2 -f 6 -d 80 --lf with-del.log >/dev/null 2> with-del.err && plotsr --bp ab.bedpe --genomes genomes.txt --tracks tracks.txt --markers markers.bed --cfg base.cfg -s 1 --nodel -o without-del.png -W 3 -H 2 -f 6 -d 80 --lf without-del.log >/dev/null 2> without-del.err && test -s with-del.png && test -s without-del.png && file with-del.png | grep -F 'PNG image data' >/dev/null && if cmp -s with-del.png without-del.png; then exit 1; fi && cd / && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-plotsr-syri-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf 'chr1\\t1000\\n' > A.chrlen; printf 'chr1\\t1000\\n' > B.chrlen; printf 'A.chrlen\\tA\\tft:cl;lw:1.2\\nB.chrlen\\tB\\tft:cl;lw:1.2\\n' > genomes.txt; printf 'chr1\\t1\\t1000\\t-\\t-\\tchr1\\t1\\t1000\\tSYN1\\t-\\tSYN\\t-\\nchr1\\t200\\t350\\t-\\t-\\tchr1\\t220\\t370\\tINV1\\t-\\tINV\\t-\\n' > ab.syri.out; plotsr --sr ab.syri.out --genomes genomes.txt --chr chr1 -s 1 -o out.svg -W 3 -H 2 -f 6 -d 80 --lf syri-svg.log >/dev/null 2> syri-svg.err && plotsr --sr ab.syri.out --genomes genomes.txt --chr chr1 -s 1 -o out.pdf -W 3 -H 2 -f 6 -d 80 --lf syri-pdf.log >/dev/null 2> syri-pdf.err && test -s out.svg && grep -F '<svg' out.svg >/dev/null && test -s out.pdf && file out.pdf | grep -F 'PDF document' >/dev/null && cd / && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-plotsr-gzip-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nAAAAAAAAAAAAAAAAAAAA\\n' | gzip -c > A.fa.gz; printf '>chr1\\nAAAAAAAAAAAAAAAAAAAA\\n' | gzip -c > B.fa.gz; printf 'A.fa.gz\\tA\\tft:fa\\nB.fa.gz\\tB\\tft:fa\\n' > genomes.txt; printf 'chr1\\t0\\t20\\tchr1\\t0\\t20\\tSYN\\t-\\n' > ab.bedpe; plotsr --bp ab.bedpe --genomes genomes.txt -s 1 -o out.png -W 3 -H 2 -f 6 -d 80 --lf out.log >/dev/null 2> out.err && test -s out.png && file out.png | grep -F 'PNG image data' >/dev/null && cd / && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-28T14:02:57Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-28T14:02:57Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/plotsr",
+            "ref": "v1.2.0-r1",
+            "commit": "d16da91dcfe6ff0412c4a6ca2f508c62544768b9",
+            "html_url": "https://github.com/taffish/plotsr/tree/v1.2.0-r1"
+          },
+          "upstream": {
+            "name": "plotsr",
+            "type": "github",
+            "homepage": "https://github.com/schneebergerlab/plotsr",
+            "repository": "schneebergerlab/plotsr",
+            "release_url": "https://github.com/schneebergerlab/plotsr/releases/tag/v1.2.0",
+            "version": "1.2.0",
             "license": "MIT",
             "citation": "Goel and Schneeberger 2022",
             "doi": "10.1093/bioinformatics/btac196",
@@ -48097,7 +48222,7 @@
     },
     "taf-plotsr": {
       "package": "plotsr",
-      "version": "1.1.1-r3"
+      "version": "1.2.0-r1"
     },
     "taf-porechop": {
       "package": "porechop",
