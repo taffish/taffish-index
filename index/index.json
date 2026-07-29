@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-29T10:11:44Z",
+  "generated_at": "2026-07-29T12:13:02Z",
   "organization": "taffish",
   "counts": {
     "packages": 240,
-    "versions": 379,
+    "versions": 380,
     "commands": 240,
     "repositories": 240,
     "warnings": 0,
@@ -25792,9 +25792,9 @@
     },
     "mothur": {
       "name": "mothur",
-      "latest": "1.48.5-r1",
-      "recent_version": "1.48.5-r1",
-      "recent_at": "2026-06-27T06:10:28Z",
+      "latest": "1.48.6-r1",
+      "recent_version": "1.48.6-r1",
+      "recent_at": "2026-07-29T11:50:09Z",
       "repository_url": "https://github.com/taffish/mothur",
       "command": {
         "name": "taf-mothur"
@@ -25918,6 +25918,129 @@
             "repository": "mothur/mothur",
             "release_url": "https://github.com/mothur/mothur/releases/tag/v1.48.5",
             "version": "1.48.5",
+            "license": "GPL-3.0-only",
+            "citation": "Schloss et al. 2009, Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities, Applied and Environmental Microbiology",
+            "doi": "10.1128/AEM.01541-09"
+          }
+        },
+        "1.48.6-r1": {
+          "name": "mothur",
+          "kind": "tool",
+          "version": "1.48.6",
+          "release": 1,
+          "version_id": "1.48.6-r1",
+          "tag": "v1.48.6-r1",
+          "published_at": "2026-07-29T11:50:09Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/mothur",
+          "repository_slug": "taffish/mothur",
+          "command": {
+            "name": "taf-mothur"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": false
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "microbiome",
+            "categories": [
+              "microbiome",
+              "amplicon-analysis",
+              "community-ecology",
+              "sequence-processing"
+            ],
+            "keywords": [
+              "mothur",
+              "microbiome",
+              "amplicon",
+              "otu",
+              "asv",
+              "16s",
+              "its",
+              "chimera",
+              "community ecology",
+              "vsearch",
+              "uchime"
+            ],
+            "summary": "mothur 1.48.6 command-line runtime for microbial community sequence processing, amplicon analysis, OTU/ASV workflows, and ecological summaries.",
+            "description": "mothur 1.48.6 command-line runtime for microbial community sequence processing, amplicon analysis, OTU/ASV workflows, and ecological summaries."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/mothur:1.48.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.48.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:54563292d234b47fe34163e0b71287c51e85263575531610482632f0992eba6d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:77ba81b04b3e581db0b610fe3f2a88a44c5628cc0997a28b525c83233beca019",
+              "linux/arm64": "sha256:f6ca45a782588fb00fa5db1af14e4edcf119c1a5677296e29ec9af139fb95985"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "mothur",
+              "taf-mothur-entrypoint",
+              "vsearch",
+              "uchime",
+              "bash",
+              "sh",
+              "grep",
+              "sed",
+              "ldd",
+              "gzip",
+              "bzip2"
+            ],
+            "test": [
+              "taf-mothur-entrypoint --run get.current 2>&1 | grep -F \"mothur v.1.48.6\" >/dev/null && grep -Fx \"upstream_tag=v1.48.6\" /opt/mothur/share/doc/mothur/source.txt >/dev/null && grep -Fx \"upstream_tag_commit=262b8cbe0c2976b06132ed26eb141468bc3019d7\" /opt/mothur/share/doc/mothur/source.txt >/dev/null",
+              "taf-mothur-entrypoint --run summary.seqs help 2>&1 | grep -F \"summary.seqs\" >/dev/null",
+              "vsearch --version 2>&1 | grep -F \"vsearch\" >/dev/null && uchime --help 2>&1 | grep -E \"UCHIME|uchime|Usage\" >/dev/null",
+              "for cmd in mothur vsearch uchime; do ldd \"$(command -v \"$cmd\")\" 2>&1 | grep -F \"not found\" && exit 1 || true; done",
+              "/opt/mothur/share/testdata/mothur-smoke.sh /tmp/taf-mothur-index-smoke-$$"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-29T12:13:02Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-29T12:13:02Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/mothur",
+            "ref": "v1.48.6-r1",
+            "commit": "6549b7ee5c814ae331e816ffd0b730e035e09132",
+            "html_url": "https://github.com/taffish/mothur/tree/v1.48.6-r1"
+          },
+          "upstream": {
+            "name": "mothur",
+            "type": "github",
+            "homepage": "https://mothur.org/",
+            "repository": "mothur/mothur",
+            "release_url": "https://github.com/mothur/mothur/releases/tag/v1.48.6",
+            "version": "1.48.6",
             "license": "GPL-3.0-only",
             "citation": "Schloss et al. 2009, Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities, Applied and Environmental Microbiology",
             "doi": "10.1128/AEM.01541-09"
@@ -48670,7 +48793,7 @@
     },
     "taf-mothur": {
       "package": "mothur",
-      "version": "1.48.5-r1"
+      "version": "1.48.6-r1"
     },
     "taf-multiqc": {
       "package": "multiqc",
