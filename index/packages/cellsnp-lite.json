@@ -1,0 +1,132 @@
+{
+  "name": "cellsnp-lite",
+  "latest": "1.2.4-r1",
+  "recent_version": "1.2.4-r1",
+  "recent_at": "2026-07-28T17:10:19Z",
+  "repository_url": "https://github.com/taffish/cellsnp-lite",
+  "command": {
+    "name": "taf-cellsnp-lite"
+  },
+  "versions": {
+    "1.2.4-r1": {
+      "name": "cellsnp-lite",
+      "kind": "tool",
+      "version": "1.2.4",
+      "release": 1,
+      "version_id": "1.2.4-r1",
+      "tag": "v1.2.4-r1",
+      "published_at": "2026-07-28T17:10:19Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/cellsnp-lite",
+      "repository_slug": "taffish/cellsnp-lite",
+      "command": {
+        "name": "taf-cellsnp-lite"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "single-cell",
+        "categories": [
+          "single-cell",
+          "genotyping",
+          "variant-analysis",
+          "alignment-processing"
+        ],
+        "keywords": [
+          "cellsnp-lite",
+          "single-cell genotyping",
+          "snp pileup",
+          "cell barcode",
+          "umi",
+          "bam",
+          "cram",
+          "vcf",
+          "rna-seq",
+          "atac-seq"
+        ],
+        "summary": "Cellsnp-lite 1.2.4 runtime for bi-allelic SNP pileup and genotyping from single-cell or bulk BAM/CRAM alignments.",
+        "description": "Cellsnp-lite 1.2.4 runtime for bi-allelic SNP pileup and genotyping from single-cell or bulk BAM/CRAM alignments."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/cellsnp-lite:1.2.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.2.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6318bbc7b1bbff3ffe2a363bbab54977497394327e9f0afc6e25cb867c13bf52",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:26c1146cb297784e7294150f252621c6f1c7e0221a191d4bdf856682e32dbc5c",
+          "linux/arm64": "sha256:b3fc3c2fbabedb71c0829f93e740815d69d2d6803fc4c73add99a7f571a4cefe"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "cellsnp-lite",
+          "sh",
+          "awk",
+          "gzip",
+          "grep",
+          "ldd",
+          "mktemp",
+          "sed"
+        ],
+        "test": [
+          "grep -F 'source_sha256=a502d2e1181f482f357c86bb0f80a94719eedb65073e68a2f7ba227b8ce2933b' /opt/cellsnp-lite/share/doc/cellsnp-lite/source.txt >/dev/null && grep -F 'upstream_commit=d291b4a9d1101edec88dc8deea236cca7927cd48' /opt/cellsnp-lite/share/doc/cellsnp-lite/source.txt >/dev/null",
+          "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh identity",
+          "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh cell",
+          "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh bulk",
+          "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh discovery",
+          "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh cram"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-29T01:47:43Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-29T01:47:43Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/cellsnp-lite",
+        "ref": "v1.2.4-r1",
+        "commit": "8d0b738a3c228226d317a7229b9c272f7b32bf67",
+        "html_url": "https://github.com/taffish/cellsnp-lite/tree/v1.2.4-r1"
+      },
+      "upstream": {
+        "name": "cellsnp-lite",
+        "type": "github",
+        "homepage": "https://cellsnp-lite.readthedocs.io/en/latest/",
+        "repository": "single-cell-genetics/cellsnp-lite",
+        "release_url": "https://github.com/single-cell-genetics/cellsnp-lite/releases/tag/v1.2.4",
+        "version": "1.2.4",
+        "license": "Apache-2.0",
+        "citation": "Huang X and Huang Y. Cellsnp-lite: an efficient tool for genotyping single cells. Bioinformatics. 2021;37(23):4569-4571.",
+        "doi": "10.1093/bioinformatics/btab358"
+      }
+    }
+  }
+}

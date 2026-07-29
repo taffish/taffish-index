@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-28T16:22:24Z",
+  "generated_at": "2026-07-29T01:47:43Z",
   "organization": "taffish",
   "counts": {
-    "packages": 239,
-    "versions": 376,
-    "commands": 239,
-    "repositories": 239,
+    "packages": 240,
+    "versions": 378,
+    "commands": 240,
+    "repositories": 240,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -5506,6 +5506,138 @@
             "citation": "Li and Godzik 2006",
             "doi": "10.1093/bioinformatics/btl158",
             "pmid": "16731699"
+          }
+        }
+      }
+    },
+    "cellsnp-lite": {
+      "name": "cellsnp-lite",
+      "latest": "1.2.4-r1",
+      "recent_version": "1.2.4-r1",
+      "recent_at": "2026-07-28T17:10:19Z",
+      "repository_url": "https://github.com/taffish/cellsnp-lite",
+      "command": {
+        "name": "taf-cellsnp-lite"
+      },
+      "versions": {
+        "1.2.4-r1": {
+          "name": "cellsnp-lite",
+          "kind": "tool",
+          "version": "1.2.4",
+          "release": 1,
+          "version_id": "1.2.4-r1",
+          "tag": "v1.2.4-r1",
+          "published_at": "2026-07-28T17:10:19Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/cellsnp-lite",
+          "repository_slug": "taffish/cellsnp-lite",
+          "command": {
+            "name": "taf-cellsnp-lite"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "genotyping",
+              "variant-analysis",
+              "alignment-processing"
+            ],
+            "keywords": [
+              "cellsnp-lite",
+              "single-cell genotyping",
+              "snp pileup",
+              "cell barcode",
+              "umi",
+              "bam",
+              "cram",
+              "vcf",
+              "rna-seq",
+              "atac-seq"
+            ],
+            "summary": "Cellsnp-lite 1.2.4 runtime for bi-allelic SNP pileup and genotyping from single-cell or bulk BAM/CRAM alignments.",
+            "description": "Cellsnp-lite 1.2.4 runtime for bi-allelic SNP pileup and genotyping from single-cell or bulk BAM/CRAM alignments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/cellsnp-lite:1.2.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.2.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6318bbc7b1bbff3ffe2a363bbab54977497394327e9f0afc6e25cb867c13bf52",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:26c1146cb297784e7294150f252621c6f1c7e0221a191d4bdf856682e32dbc5c",
+              "linux/arm64": "sha256:b3fc3c2fbabedb71c0829f93e740815d69d2d6803fc4c73add99a7f571a4cefe"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "cellsnp-lite",
+              "sh",
+              "awk",
+              "gzip",
+              "grep",
+              "ldd",
+              "mktemp",
+              "sed"
+            ],
+            "test": [
+              "grep -F 'source_sha256=a502d2e1181f482f357c86bb0f80a94719eedb65073e68a2f7ba227b8ce2933b' /opt/cellsnp-lite/share/doc/cellsnp-lite/source.txt >/dev/null && grep -F 'upstream_commit=d291b4a9d1101edec88dc8deea236cca7927cd48' /opt/cellsnp-lite/share/doc/cellsnp-lite/source.txt >/dev/null",
+              "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh identity",
+              "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh cell",
+              "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh bulk",
+              "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh discovery",
+              "/opt/cellsnp-lite/share/testdata/cellsnp-lite-smoke.sh cram"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-29T01:47:43Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-29T01:47:43Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/cellsnp-lite",
+            "ref": "v1.2.4-r1",
+            "commit": "8d0b738a3c228226d317a7229b9c272f7b32bf67",
+            "html_url": "https://github.com/taffish/cellsnp-lite/tree/v1.2.4-r1"
+          },
+          "upstream": {
+            "name": "cellsnp-lite",
+            "type": "github",
+            "homepage": "https://cellsnp-lite.readthedocs.io/en/latest/",
+            "repository": "single-cell-genetics/cellsnp-lite",
+            "release_url": "https://github.com/single-cell-genetics/cellsnp-lite/releases/tag/v1.2.4",
+            "version": "1.2.4",
+            "license": "Apache-2.0",
+            "citation": "Huang X and Huang Y. Cellsnp-lite: an efficient tool for genotyping single cells. Bioinformatics. 2021;37(23):4569-4571.",
+            "doi": "10.1093/bioinformatics/btab358"
           }
         }
       }
@@ -23494,9 +23626,9 @@
     },
     "metaphlan": {
       "name": "metaphlan",
-      "latest": "4.2.5-r1",
-      "recent_version": "4.2.5-r1",
-      "recent_at": "2026-07-15T19:01:06Z",
+      "latest": "4.2.6-r1",
+      "recent_version": "4.2.6-r1",
+      "recent_at": "2026-07-29T01:30:20Z",
       "repository_url": "https://github.com/taffish/metaphlan",
       "command": {
         "name": "taf-metaphlan"
@@ -23781,6 +23913,162 @@
             "repository": "biobakery/MetaPhlAn",
             "release_url": "https://github.com/biobakery/MetaPhlAn/releases/tag/4.2.5",
             "version": "4.2.5",
+            "license": "MIT",
+            "citation": "Blanco-Miguez et al. 2023, Nature Biotechnology; Truong et al. 2017, Genome Research; Segata et al. 2012, Nature Methods",
+            "doi": "10.1038/s41587-023-01688-w; 10.1101/gr.216242.116; 10.1038/nmeth.2066"
+          }
+        },
+        "4.2.6-r1": {
+          "name": "metaphlan",
+          "kind": "tool",
+          "version": "4.2.6",
+          "release": 1,
+          "version_id": "4.2.6-r1",
+          "tag": "v4.2.6-r1",
+          "published_at": "2026-07-29T01:30:20Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/metaphlan",
+          "repository_slug": "taffish/metaphlan",
+          "command": {
+            "name": "taf-metaphlan"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "taxonomy",
+              "profiling",
+              "microbiome",
+              "strain-profiling"
+            ],
+            "keywords": [
+              "metaphlan",
+              "strainphlan",
+              "metagenomic-profiling",
+              "taxonomic-profiling",
+              "sgb",
+              "marker-genes",
+              "bowtie2",
+              "minimap2",
+              "chocophlan"
+            ],
+            "summary": "Species-level metagenomic taxonomic profiling and strain-level population genomics.",
+            "description": "Species-level metagenomic taxonomic profiling and strain-level population genomics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/metaphlan:4.2.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.2.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:00ce84d010950ed7025a0f2b845ac18c6a7bbe990f823ef0903bb0a6bb7a6a79",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:40b365ebd75c380850de7a1c9467bb6bd9fb61e9683a7d4741f7c9fa60590349"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "metaphlan",
+              "strainphlan",
+              "add_metadata_tree.py",
+              "calculate_diversity.R",
+              "create_toy_database.py",
+              "extract_markers.py",
+              "fix_relab_mpa4.py",
+              "merge_metaphlan_tables.py",
+              "merge_vsc_tables.py",
+              "metaphlan2krona.py",
+              "plot_tree_graphlan.py",
+              "read_fastx.py",
+              "run_treeshrink.py",
+              "sample2markers.py",
+              "sgb_to_gtdb_profile.py",
+              "strain_transmission.py",
+              "treeshrink.py",
+              "graphlan.py",
+              "graphlan_annotate.py",
+              "bowtie2",
+              "bowtie2-build",
+              "bowtie2-inspect",
+              "minimap2",
+              "samtools",
+              "blastn",
+              "makeblastdb",
+              "phylophlan",
+              "phylophlan_write_config_file",
+              "diamond",
+              "fasttree",
+              "iqtree",
+              "mafft",
+              "mash",
+              "muscle",
+              "raxmlHPC",
+              "skani",
+              "trimal",
+              "Rscript",
+              "python",
+              "python3",
+              "sh",
+              "grep",
+              "gzip",
+              "bzip2"
+            ],
+            "test": [
+              "python -c 'import importlib.metadata as md; from metaphlan import metaphlan as m; import Bio, biom, dendropy, h5py, numpy, pandas, pysam, scipy; assert m.__version__ == \"4.2.6\"; assert md.version(\"metaphlan\") == \"4.2.6\"; assert md.version(\"graphlan\") == \"1.1.3.1\"; print(m.__version__)' | grep -Fx '4.2.6' >/dev/null",
+              "python -m pip check >/dev/null",
+              "graphlan.py --version 2>&1 | grep -F '1.1.4' >/dev/null && graphlan_annotate.py --version 2>&1 | grep -F '1.1.4' >/dev/null",
+              "metaphlan --version 2>&1 | grep -F '4.2.6' >/dev/null && metaphlan --help 2>&1 | grep -F -- '--db_dir' >/dev/null && metaphlan --help 2>&1 | grep -F -- '--long_reads' >/dev/null && metaphlan --help 2>&1 | grep -F -- '--no_map' >/dev/null",
+              "strainphlan --help 2>&1 | grep -F -- '--sample_list' >/dev/null && strainphlan --help 2>&1 | grep -F -- '--reference_list' >/dev/null && sample2markers.py --help 2>&1 | grep -F 'usage' >/dev/null",
+              "sgb_to_gtdb_profile.py --help 2>&1 | grep -F -- '--merged_profiles' >/dev/null && sgb_to_gtdb_profile.py --help 2>&1 | grep -F -- '--gtdb_assignment_file' >/dev/null && merge_metaphlan_tables.py -h 2>&1 | grep -F 'usage' >/dev/null",
+              "Rscript -e 'stopifnot(requireNamespace(\"optparse\", quietly=TRUE), requireNamespace(\"ape\", quietly=TRUE), requireNamespace(\"rbiom\", quietly=TRUE), packageVersion(\"rbiom\") >= \"3.1.0\", requireNamespace(\"compositions\", quietly=TRUE), requireNamespace(\"BiocManager\", quietly=TRUE), requireNamespace(\"microbiome\", quietly=TRUE))'",
+              "/opt/metaphlan/share/testdata/metaphlan-smoke.sh"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-29T01:47:43Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-29T01:47:43Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/metaphlan",
+            "ref": "v4.2.6-r1",
+            "commit": "3b02d97d169d7c255c0c0508d20183e3b695cba0",
+            "html_url": "https://github.com/taffish/metaphlan/tree/v4.2.6-r1"
+          },
+          "upstream": {
+            "name": "MetaPhlAn",
+            "type": "github",
+            "homepage": "https://github.com/biobakery/MetaPhlAn",
+            "repository": "biobakery/MetaPhlAn",
+            "release_url": "https://github.com/biobakery/MetaPhlAn/releases/tag/4.2.6",
+            "version": "4.2.6",
             "license": "MIT",
             "citation": "Blanco-Miguez et al. 2023, Nature Biotechnology; Truong et al. 2017, Genome Research; Segata et al. 2012, Nature Methods",
             "doi": "10.1038/s41587-023-01688-w; 10.1101/gr.216242.116; 10.1038/nmeth.2066"
@@ -47864,6 +48152,10 @@
       "package": "cdhit",
       "version": "4.8.1-r1"
     },
+    "taf-cellsnp-lite": {
+      "package": "cellsnp-lite",
+      "version": "1.2.4-r1"
+    },
     "taf-celltypist": {
       "package": "celltypist",
       "version": "1.7.1-r1"
@@ -48218,7 +48510,7 @@
     },
     "taf-metaphlan": {
       "package": "metaphlan",
-      "version": "4.2.5-r1"
+      "version": "4.2.6-r1"
     },
     "taf-methyldackel": {
       "package": "methyldackel",
@@ -48884,6 +49176,12 @@
       "repository": "taffish/cdhit",
       "packages": [
         "cdhit"
+      ]
+    },
+    "taffish/cellsnp-lite": {
+      "repository": "taffish/cellsnp-lite",
+      "packages": [
+        "cellsnp-lite"
       ]
     },
     "taffish/celltypist": {
