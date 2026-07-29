@@ -1,8 +1,8 @@
 {
   "name": "vg",
-  "latest": "1.76.0-r1",
-  "recent_version": "1.76.0-r1",
-  "recent_at": "2026-07-28T16:20:06Z",
+  "latest": "1.76.1-r1",
+  "recent_version": "1.76.1-r1",
+  "recent_at": "2026-07-29T09:50:28Z",
   "repository_url": "https://github.com/taffish/vg",
   "command": {
     "name": "taf-vg"
@@ -369,6 +369,130 @@
         "repository": "vgteam/vg",
         "release_url": "https://github.com/vgteam/vg/releases/tag/v1.76.0",
         "version": "1.76.0",
+        "license": "MIT",
+        "citation": "Garrison et al. 2018, Variation graph toolkit improves read mapping by representing genetic variation in the reference, Nature Biotechnology",
+        "doi": "10.1038/nbt.4227"
+      }
+    },
+    "1.76.1-r1": {
+      "name": "vg",
+      "kind": "tool",
+      "version": "1.76.1",
+      "release": 1,
+      "version_id": "1.76.1-r1",
+      "tag": "v1.76.1-r1",
+      "published_at": "2026-07-29T09:50:28Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/vg",
+      "repository_slug": "taffish/vg",
+      "command": {
+        "name": "taf-vg"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "pangenome",
+        "categories": [
+          "pangenome",
+          "variation-graph",
+          "graph-alignment",
+          "genotyping",
+          "variant-calling"
+        ],
+        "keywords": [
+          "vg",
+          "variation graph",
+          "pangenome graph",
+          "gfa",
+          "gbz",
+          "xg",
+          "gcsa2",
+          "gam",
+          "giraffe",
+          "genotyping",
+          "variant calling",
+          "graph construction"
+        ],
+        "summary": "VG 1.76.1 command-line runtime for constructing, indexing, mapping, genotyping, calling, and converting variation graphs and pangenome graph data.",
+        "description": "VG 1.76.1 command-line runtime for constructing, indexing, mapping, genotyping, calling, and converting variation graphs and pangenome graph data."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/vg:1.76.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.76.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:10ff4c42d9612befad25bb43f1f68b86eccd8be821d31f68ced5681ee6c85509",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:f4d9badd362af23b23cb5b29667f1f280d508d9dd3195e6739c650b62cbdb1ee",
+          "linux/arm64": "sha256:e584fddeda0b4891c37d7068a80fd7223735e145b448a996b68e638306882299"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "vg",
+          "samtools",
+          "bgzip",
+          "tabix",
+          "ldd",
+          "bash",
+          "grep",
+          "sed",
+          "sha256sum"
+        ],
+        "test": [
+          "test \"$(vg version 2>&1 | sed -n '1p')\" = 'vg version v1.76.1' && grep -Fx 'tag=v1.76.1' /opt/vg/share/doc/vg/source.txt >/dev/null && grep -Fx 'tag_commit=d828cc372a8b7ee5c34e0e11d37ad63164313702' /opt/vg/share/doc/vg/source.txt >/dev/null && grep -Fx 'upstream_manifest=sha256:e62d087d6ee64a302f1703046bc556892b530163b0dc44824b291571e8f11d9b' /opt/vg/share/doc/vg/source.txt >/dev/null && grep -Fx 'github_release_prerelease_at_packaging=true' /opt/vg/share/doc/vg/source.txt >/dev/null && grep -Fx 'upstream_license_sha256=7c3fe1c48ef0594c8d6728353d9325b5f4335eceea5bda3734820d7478bdeaef' /opt/vg/share/doc/vg/source.txt >/dev/null && printf '%s  %s\n' '7c3fe1c48ef0594c8d6728353d9325b5f4335eceea5bda3734820d7478bdeaef' /opt/vg/share/licenses/vg/LICENSE | sha256sum -c - >/dev/null",
+          "{ vg help 2>&1 || true; } | grep -F 'usage: vg <command> [options]' >/dev/null && { vg convert --help 2>&1 || true; } | grep -F 'GFAZ format' >/dev/null && { vg deconstruct --help 2>&1 || true; } | grep -F -- '--cluster-min-len' >/dev/null",
+          "for cmd in sift join; do if vg \"$cmd\" --help > /tmp/taf-vg-removed-command.txt 2>&1; then exit 1; fi; grep -F \"command $cmd not found\" /tmp/taf-vg-removed-command.txt >/dev/null; done; for cmd in explode msga; do if vg \"$cmd\" --help > /tmp/taf-vg-removed-command.txt 2>&1; then exit 1; fi; grep -F \"$cmd has been removed\" /tmp/taf-vg-removed-command.txt >/dev/null; done",
+          "samtools --version 2>&1 | grep -F 'samtools 1.22.1' >/dev/null && { ldd \"$(command -v vg)\" > /tmp/taf-vg-ldd.txt 2>&1 || true; } && grep -F 'not a dynamic executable' /tmp/taf-vg-ldd.txt >/dev/null",
+          "/opt/vg/share/testdata/vg-smoke.sh /tmp/taf-vg-index-smoke-$$",
+          "/opt/vg/share/testdata/vg-gfaz-smoke.sh /tmp/taf-vg-gfaz-smoke-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-29T10:11:44Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-29T10:11:44Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/vg",
+        "ref": "v1.76.1-r1",
+        "commit": "4735ebab2394214d066f3cb41bddd14fc120452e",
+        "html_url": "https://github.com/taffish/vg/tree/v1.76.1-r1"
+      },
+      "upstream": {
+        "name": "vg",
+        "type": "github",
+        "homepage": "https://github.com/vgteam/vg",
+        "repository": "vgteam/vg",
+        "release_url": "https://github.com/vgteam/vg/releases/tag/v1.76.1",
+        "version": "1.76.1",
         "license": "MIT",
         "citation": "Garrison et al. 2018, Variation graph toolkit improves read mapping by representing genetic variation in the reference, Nature Biotechnology",
         "doi": "10.1038/nbt.4227"
