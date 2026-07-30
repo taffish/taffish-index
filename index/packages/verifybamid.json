@@ -1,0 +1,141 @@
+{
+  "name": "verifybamid",
+  "latest": "2.0.3-r1",
+  "recent_version": "2.0.3-r1",
+  "recent_at": "2026-07-30T03:33:35Z",
+  "repository_url": "https://github.com/taffish/verifybamid",
+  "command": {
+    "name": "taf-verifybamid"
+  },
+  "versions": {
+    "2.0.3-r1": {
+      "name": "verifybamid",
+      "kind": "tool",
+      "version": "2.0.3",
+      "release": 1,
+      "version_id": "2.0.3-r1",
+      "tag": "v2.0.3-r1",
+      "published_at": "2026-07-30T03:33:35Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/verifybamid",
+      "repository_slug": "taffish/verifybamid",
+      "command": {
+        "name": "taf-verifybamid"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "quality-control",
+        "categories": [
+          "quality-control",
+          "contamination",
+          "alignment-processing",
+          "population-genetics"
+        ],
+        "keywords": [
+          "verifybamid2",
+          "verifybamid",
+          "sample contamination",
+          "bam",
+          "cram",
+          "pileup",
+          "ancestry",
+          "svd",
+          "sequencing quality control"
+        ],
+        "summary": "VerifyBamID2 2.0.3 runtime for ancestry-aware DNA sample contamination estimation from BAM, CRAM, or pileup data.",
+        "description": "VerifyBamID2 2.0.3 runtime for ancestry-aware DNA sample contamination estimation from BAM, CRAM, or pileup data."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/verifybamid:2.0.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.0.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:54bdd2255c1a2e83ae7f8817d4e51a3983582052b2f3284c1f9e24c985bbdbc8",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:c5245ebb7f0523a0056e171ac1c376bd337e141bdce07ae616d8850b26ec41bb",
+          "linux/arm64": "sha256:847c416a0348208d2ba0b69ccefd1ee3205d60a23126d231539f23b3a8c3457e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "VerifyBamID",
+          "run.plot.sh",
+          "Rscript",
+          "sh",
+          "awk",
+          "grep",
+          "ldd",
+          "mktemp",
+          "sed"
+        ],
+        "test": [
+          "grep -F 'source_sha256=ac0189793e85eb1982f7ce7e801957b540d85caa3d7de07dcbca3f9f819e0ea6' /opt/verifybamid/share/doc/verifybamid/source.txt >/dev/null && grep -F 'upstream_commit=1f6e1f35d0164f0b1d8fea322cbf0fdf4786b5f8' /opt/verifybamid/share/doc/verifybamid/source.txt >/dev/null && grep -F 'phone_home=disabled-by-taffish-build-patch' /opt/verifybamid/share/doc/verifybamid/source.txt >/dev/null",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh identity",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh bam",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh cram",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh pileup",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh long-pileup",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh legacy-paths",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh within-ancestry",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh fix-pc",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh fix-alpha",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh known-af",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh svd",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh gram-svd",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh plot-1000g",
+          "/opt/verifybamid/share/testdata/verifybamid-smoke.sh plot-hgdp"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-30T04:23:39Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-30T04:23:39Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/verifybamid",
+        "ref": "v2.0.3-r1",
+        "commit": "c2f46f825bb936781c66b8493e0e534204935558",
+        "html_url": "https://github.com/taffish/verifybamid/tree/v2.0.3-r1"
+      },
+      "upstream": {
+        "name": "VerifyBamID2",
+        "type": "github",
+        "homepage": "https://griffan.github.io/VerifyBamID/",
+        "repository": "Griffan/VerifyBamID",
+        "release_url": "https://github.com/Griffan/VerifyBamID/releases/tag/v2.0.3",
+        "version": "2.0.3",
+        "license": "MIT project declaration with bundled GPL-3.0-or-later, BSD, MPL-2.0, and additional source notices",
+        "citation": "Zhang F, Flickinger M, Taliun SAG, et al. Ancestry-agnostic estimation of DNA sample contamination from sequence reads. Genome Research. 2020;30(2):185-194.",
+        "doi": "10.1101/gr.246934.118"
+      }
+    }
+  }
+}
