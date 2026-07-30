@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-30T04:33:48Z",
+  "generated_at": "2026-07-30T17:18:24Z",
   "organization": "taffish",
   "counts": {
-    "packages": 242,
-    "versions": 384,
-    "commands": 242,
-    "repositories": 242,
+    "packages": 243,
+    "versions": 385,
+    "commands": 243,
+    "repositories": 243,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -42549,6 +42549,144 @@
         }
       }
     },
+    "somalier": {
+      "name": "somalier",
+      "latest": "0.3.3-r1",
+      "recent_version": "0.3.3-r1",
+      "recent_at": "2026-07-30T16:04:57Z",
+      "repository_url": "https://github.com/taffish/somalier",
+      "command": {
+        "name": "taf-somalier"
+      },
+      "versions": {
+        "0.3.3-r1": {
+          "name": "somalier",
+          "kind": "tool",
+          "version": "0.3.3",
+          "release": 1,
+          "version_id": "0.3.3-r1",
+          "tag": "v0.3.3-r1",
+          "published_at": "2026-07-30T16:04:57Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/somalier",
+          "repository_slug": "taffish/somalier",
+          "command": {
+            "name": "taf-somalier"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "quality-control",
+            "categories": [
+              "quality-control",
+              "sample-identity",
+              "relatedness",
+              "population-genetics"
+            ],
+            "keywords": [
+              "somalier",
+              "sample swap",
+              "sample identity",
+              "relatedness",
+              "pedigree",
+              "ancestry",
+              "contamination",
+              "bam",
+              "cram",
+              "vcf",
+              "gvcf"
+            ],
+            "summary": "Somalier 0.3.3 runtime for extracting compact genome sketches and checking sample identity, relatedness, ancestry, and contamination.",
+            "description": "Somalier 0.3.3 runtime for extracting compact genome sketches and checking sample identity, relatedness, ancestry, and contamination."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/somalier:0.3.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.3.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:60691adb0a5b7714e106e19553610979a63f72e4e0fb88a1b69b100c3a622725",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:d2d52051b9e8d1f58455d6cc43341866e54afe89c30723d83a3a7c209d708cba",
+              "linux/arm64": "sha256:97b6be737a5f0a4654e0d550478fe9a2b2fc5a2d99bba01faf83cf256b694739"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "somalier",
+              "sh",
+              "awk",
+              "grep",
+              "gzip",
+              "ldd",
+              "mktemp",
+              "sed"
+            ],
+            "test": [
+              "grep -F 'source_sha256=bad542343514373f4f3dcf40d814754dba02afda4cbf4bb24a44297c777a2afe' /opt/somalier/share/doc/somalier/source.txt >/dev/null && grep -F 'upstream_commit=210980f31c27546e064c8af253deafed4fb5af43' /opt/somalier/share/doc/somalier/source.txt >/dev/null",
+              "/opt/somalier/share/testdata/somalier-smoke.sh identity",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-vcf",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-bam",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-cram",
+              "/opt/somalier/share/testdata/somalier-smoke.sh relate",
+              "/opt/somalier/share/testdata/somalier-smoke.sh ab-plot",
+              "/opt/somalier/share/testdata/somalier-smoke.sh contamination",
+              "/opt/somalier/share/testdata/somalier-smoke.sh find-sites",
+              "/opt/somalier/share/testdata/somalier-smoke.sh pedrel",
+              "/opt/somalier/share/testdata/somalier-smoke.sh ancestry"
+            ],
+            "status": "passed",
+            "checked_at": "2026-07-30T17:18:24Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-07-30T17:18:24Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/somalier",
+            "ref": "v0.3.3-r1",
+            "commit": "6d945ee33e8ec22da5aa3572b6a3f89fc8695c28",
+            "html_url": "https://github.com/taffish/somalier/tree/v0.3.3-r1"
+          },
+          "upstream": {
+            "name": "Somalier",
+            "type": "github",
+            "homepage": "https://github.com/brentp/somalier",
+            "repository": "brentp/somalier",
+            "release_url": "https://github.com/brentp/somalier/releases/tag/v0.3.3",
+            "version": "0.3.3",
+            "license": "MIT",
+            "citation": "Pedersen BS, Bhetariya PJ, Brown J, et al. Somalier: rapid relatedness estimation for cancer and germline studies using efficient genome sketches. Genome Medicine. 2020;12:62.",
+            "doi": "10.1186/s13073-020-00761-2"
+          }
+        }
+      }
+    },
     "sourmash": {
       "name": "sourmash",
       "latest": "4.9.4-r1",
@@ -49636,6 +49774,10 @@
       "package": "soapnuke",
       "version": "2.1.9-r1"
     },
+    "taf-somalier": {
+      "package": "somalier",
+      "version": "0.3.3-r1"
+    },
     "taf-sourmash": {
       "package": "sourmash",
       "version": "4.9.4-r1"
@@ -51018,6 +51160,12 @@
       "repository": "taffish/soapnuke",
       "packages": [
         "soapnuke"
+      ]
+    },
+    "taffish/somalier": {
+      "repository": "taffish/somalier",
+      "packages": [
+        "somalier"
       ]
     },
     "taffish/sourmash": {
