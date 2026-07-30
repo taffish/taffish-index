@@ -1,0 +1,147 @@
+{
+  "name": "cnvkit",
+  "latest": "0.9.14-r1",
+  "recent_version": "0.9.14-r1",
+  "recent_at": "2026-07-30T01:26:04Z",
+  "repository_url": "https://github.com/taffish/cnvkit",
+  "command": {
+    "name": "taf-cnvkit"
+  },
+  "versions": {
+    "0.9.14-r1": {
+      "name": "cnvkit",
+      "kind": "tool",
+      "version": "0.9.14",
+      "release": 1,
+      "version_id": "0.9.14-r1",
+      "tag": "v0.9.14-r1",
+      "published_at": "2026-07-30T01:26:04Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/cnvkit",
+      "repository_slug": "taffish/cnvkit",
+      "command": {
+        "name": "taf-cnvkit"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "copy-number-variation",
+        "categories": [
+          "copy-number-variation",
+          "cancer-genomics",
+          "variant-calling",
+          "visualization"
+        ],
+        "keywords": [
+          "cnvkit",
+          "copy number",
+          "cnv",
+          "cna",
+          "tumor",
+          "targeted sequencing",
+          "exome",
+          "wgs",
+          "cbs",
+          "dnacopy",
+          "rna copy number"
+        ],
+        "summary": "CNVkit 0.9.14 toolkit for copy-number analysis from targeted, exome, whole-genome, and RNA sequencing data.",
+        "description": "CNVkit 0.9.14 toolkit for copy-number analysis from targeted, exome, whole-genome, and RNA sequencing data."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/cnvkit:0.9.14-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.9.14-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6b28a9b54f6b132417c75faafe4d5538229747912c686cf5f1696e04c648eadf",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d391fc728c537fe82a201207891a68402acfc3727edbcfc82c51cad46d78fd95",
+          "linux/arm64": "sha256:2113783b6e7a4bf207ddd0d4971a3c3fa3b5744892831bf9e776e6661397eeca"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "cnvkit.py",
+          "cnv_annotate.py",
+          "cnv_expression_correlate.py",
+          "cnv_gene_info.py",
+          "cnv_updater.py",
+          "genome_instability_index.py",
+          "guess_baits.py",
+          "reference2targets.py",
+          "skg_convert.py",
+          "snpfilter.sh",
+          "python",
+          "Rscript",
+          "samtools",
+          "bcftools",
+          "bgzip",
+          "tabix",
+          "bash",
+          "grep",
+          "sed",
+          "ldd"
+        ],
+        "test": [
+          "cnvkit.py version 2>&1 | grep -Fx '0.9.14' >/dev/null",
+          "cnvkit.py --help 2>&1 | grep -F 'batch' >/dev/null && cnvkit.py segment --help 2>&1 | grep -F -- '--rscript-path' >/dev/null && cnvkit.py purity --help 2>&1 | grep -F 'purity' >/dev/null",
+          "/opt/cnvkit/share/testdata/cnvkit-smoke.sh identity",
+          "/opt/cnvkit/share/testdata/cnvkit-smoke.sh segments",
+          "/opt/cnvkit/share/testdata/cnvkit-smoke.sh batch",
+          "/opt/cnvkit/share/testdata/cnvkit-smoke.sh helpers",
+          "/opt/cnvkit/share/testdata/cnvkit-smoke.sh rna"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-30T01:47:46Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-30T01:47:46Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/cnvkit",
+        "ref": "v0.9.14-r1",
+        "commit": "b62c16d39a022ad9dfe8390b075b4b74204e8b6e",
+        "html_url": "https://github.com/taffish/cnvkit/tree/v0.9.14-r1"
+      },
+      "upstream": {
+        "name": "CNVkit",
+        "type": "github",
+        "homepage": "https://cnvkit.readthedocs.io/en/stable/",
+        "repository": "etal/cnvkit",
+        "release_url": "https://github.com/etal/cnvkit/releases/tag/v0.9.14",
+        "version": "0.9.14",
+        "license": "Apache-2.0",
+        "citation": "Talevich E, Shain AH, Botton T, Bastian BC. CNVkit: Genome-Wide Copy Number Detection and Visualization from Targeted DNA Sequencing. PLoS Comput Biol. 2016;12(4):e1004873.",
+        "doi": "10.1371/journal.pcbi.1004873",
+        "pmid": "27100738"
+      }
+    }
+  }
+}
