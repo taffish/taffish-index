@@ -1,8 +1,8 @@
 {
   "name": "ncbi-datasets",
-  "latest": "18.33.1-r1",
-  "recent_version": "18.33.1-r1",
-  "recent_at": "2026-07-24T01:08:45Z",
+  "latest": "18.34.0-r1",
+  "recent_version": "18.34.0-r1",
+  "recent_at": "2026-07-31T16:08:55Z",
   "repository_url": "https://github.com/taffish/ncbi-datasets",
   "command": {
     "name": "taf-ncbi-datasets"
@@ -117,6 +117,120 @@
         "repository": "ncbi/datasets",
         "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.33.1",
         "version": "18.33.1",
+        "license": "Public Domain / United States Government Work",
+        "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
+        "doi": "10.1038/s41597-024-03571-y"
+      }
+    },
+    "18.34.0-r1": {
+      "name": "ncbi-datasets",
+      "kind": "tool",
+      "version": "18.34.0",
+      "release": 1,
+      "version_id": "18.34.0-r1",
+      "tag": "v18.34.0-r1",
+      "published_at": "2026-07-31T16:08:55Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/ncbi-datasets",
+      "repository_slug": "taffish/ncbi-datasets",
+      "command": {
+        "name": "taf-ncbi-datasets"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "data-retrieval",
+          "database-query",
+          "metadata"
+        ],
+        "keywords": [
+          "ncbi datasets",
+          "datasets",
+          "dataformat",
+          "ncbi",
+          "genome",
+          "gene",
+          "taxonomy",
+          "virus",
+          "metadata",
+          "data package"
+        ],
+        "summary": "NCBI Datasets 18.34.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata.",
+        "description": "NCBI Datasets 18.34.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/ncbi-datasets:18.34.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "18.34.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:bd19c805ed3f30c0068091042deb417ca07420411b2f7985c6f612536c895a82",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b44b84b0f1847ce6ea8fcb7d76825e5298a7e22c367d3ed80fa5c1ac52149a64",
+          "linux/arm64": "sha256:c69f6ec5ecba4ba1ac0a6747d35df5cff9a90b993ae80a26fec9b1f08de20131"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "datasets",
+          "dataformat",
+          "sh",
+          "grep"
+        ],
+        "test": [
+          "datasets --version 2>&1 | grep -Fx 'datasets version: 18.34.0' >/dev/null && dataformat version 2>&1 | grep -Fx 'undefined' >/dev/null && grep -Fx 'upstream_version=18.34.0' /opt/ncbi-datasets/share/doc/ncbi-datasets/source.txt >/dev/null && test -s /etc/ssl/certs/ca-certificates.crt",
+          "datasets --help 2>&1 | grep -F 'Data Retrieval Commands' >/dev/null && datasets summary genome accession --help 2>&1 | grep -F -- '--as-json-lines' >/dev/null && datasets download genome accession --help 2>&1 | grep -F -- '--dehydrated' >/dev/null && datasets download gene gene-id --help 2>&1 | grep -F 'include all file types' >/dev/null && datasets download virus genome taxon --help 2>&1 | grep -F 'include all reports and sequence data' >/dev/null && datasets rehydrate --help 2>&1 | grep -F -- '--directory' >/dev/null && dataformat --help 2>&1 | grep -F 'Formatting Commands' >/dev/null && dataformat tsv genome --help 2>&1 | grep -F -- '--fields' >/dev/null && dataformat excel genome --help 2>&1 | grep -F -- '--outputfile' >/dev/null",
+          "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh tsv",
+          "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh excel"
+        ],
+        "status": "passed",
+        "checked_at": "2026-07-31T17:55:02Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-07-31T17:55:02Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/ncbi-datasets",
+        "ref": "v18.34.0-r1",
+        "commit": "606b27c96aa2eceb0bfe90b2556a25fe28a415af",
+        "html_url": "https://github.com/taffish/ncbi-datasets/tree/v18.34.0-r1"
+      },
+      "upstream": {
+        "name": "NCBI Datasets",
+        "type": "github",
+        "homepage": "https://www.ncbi.nlm.nih.gov/datasets/",
+        "repository": "ncbi/datasets",
+        "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.34.0",
+        "version": "18.34.0",
         "license": "Public Domain / United States Government Work",
         "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
         "doi": "10.1038/s41597-024-03571-y"
