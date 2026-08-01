@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-07-31T17:55:02Z",
+  "generated_at": "2026-08-01T01:27:00Z",
   "organization": "taffish",
   "counts": {
-    "packages": 243,
-    "versions": 388,
-    "commands": 243,
-    "repositories": 243,
+    "packages": 244,
+    "versions": 389,
+    "commands": 244,
+    "repositories": 244,
     "warnings": 0,
     "failed": 0,
     "rejected": 10
@@ -10095,6 +10095,144 @@
             "citation": "Poplin et al. 2018",
             "doi": "10.1038/nbt.4235",
             "pmid": "30247488"
+          }
+        }
+      }
+    },
+    "delly": {
+      "name": "delly",
+      "latest": "2.5.1-r1",
+      "recent_version": "2.5.1-r1",
+      "recent_at": "2026-08-01T01:24:20Z",
+      "repository_url": "https://github.com/taffish/delly",
+      "command": {
+        "name": "taf-delly"
+      },
+      "versions": {
+        "2.5.1-r1": {
+          "name": "delly",
+          "kind": "tool",
+          "version": "2.5.1",
+          "release": 1,
+          "version_id": "2.5.1-r1",
+          "tag": "v2.5.1-r1",
+          "published_at": "2026-08-01T01:24:20Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/delly",
+          "repository_slug": "taffish/delly",
+          "command": {
+            "name": "taf-delly"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-variation",
+            "categories": [
+              "structural-variation",
+              "copy-number-variation",
+              "variant-calling",
+              "short-read",
+              "long-read",
+              "genomics"
+            ],
+            "keywords": [
+              "delly",
+              "structural variant",
+              "copy-number variant",
+              "sv",
+              "cnv",
+              "short-read",
+              "long-read",
+              "assembly",
+              "germline",
+              "somatic",
+              "bam",
+              "cram",
+              "bcf"
+            ],
+            "summary": "Delly 2.5.1 runtime for integrated short-read, long-read, and assembly-based structural-variant discovery plus read-depth CNV analysis.",
+            "description": "Delly 2.5.1 runtime for integrated short-read, long-read, and assembly-based structural-variant discovery plus read-depth CNV analysis."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/delly:2.5.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.5.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:75e6c4e89baea13ed3d58b3757f82a1d0e32c9fc34c35a439e3fa987da1f1fba",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:99f58684cc07a0bbe212b0ad02a3d5a2863c2a50953d2c75756b841ad4c7f9fd",
+              "linux/arm64": "sha256:93e99f98ef9a9e8d524de52aa6249a8a9d2961e940640960a006878f4fcecef1"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "delly",
+              "sh",
+              "awk",
+              "grep",
+              "gzip",
+              "mktemp",
+              "sed",
+              "sha256sum"
+            ],
+            "test": [
+              "/opt/delly/share/testdata/delly-smoke.sh identity",
+              "/opt/delly/share/testdata/delly-smoke.sh sr",
+              "/opt/delly/share/testdata/delly-smoke.sh lr",
+              "/opt/delly/share/testdata/delly-smoke.sh asm",
+              "/opt/delly/share/testdata/delly-smoke.sh cnv",
+              "/opt/delly/share/testdata/delly-smoke.sh merge",
+              "/opt/delly/share/testdata/delly-smoke.sh filter"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-01T01:27:00Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-01T01:27:00Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/delly",
+            "ref": "v2.5.1-r1",
+            "commit": "69fdf60c471d0374279473e0a5868917ee9ef140",
+            "html_url": "https://github.com/taffish/delly/tree/v2.5.1-r1"
+          },
+          "upstream": {
+            "name": "Delly",
+            "type": "github",
+            "homepage": "https://github.com/dellytools/delly",
+            "repository": "dellytools/delly",
+            "release_url": "https://github.com/dellytools/delly/releases/tag/v2.5.1",
+            "version": "2.5.1",
+            "license": "BSD-3-Clause",
+            "citation": "Rausch T, Zichner T, Schlattl A, Stutz AM, Benes V, Korbel JO. DELLY: structural variant discovery by integrated paired-end and split-read analysis. Bioinformatics. 2012;28(18):i333-i339.",
+            "doi": "10.1093/bioinformatics/bts378"
           }
         }
       }
@@ -49533,6 +49671,10 @@
       "package": "deepvariant",
       "version": "1.10.0-r2"
     },
+    "taf-delly": {
+      "package": "delly",
+      "version": "2.5.1-r1"
+    },
     "taf-diamond": {
       "package": "diamond",
       "version": "2.2.4-r1"
@@ -50619,6 +50761,12 @@
       "repository": "taffish/deepvariant",
       "packages": [
         "deepvariant"
+      ]
+    },
+    "taffish/delly": {
+      "repository": "taffish/delly",
+      "packages": [
+        "delly"
       ]
     },
     "taffish/diamond": {
