@@ -1,13 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-08-02T01:26:54Z",
+  "generated_at": "2026-08-02T04:43:26Z",
   "organization": "taffish",
   "counts": {
-    "failed": 0,
+    "failed": 1,
     "rejected": 10,
     "warnings": 0
   },
-  "failed": [],
+  "failed": [
+    {
+      "repository": "taffish/signac",
+      "ref": "v1.17.1-r1",
+      "version_id": "1.17.1-r1",
+      "stage": "digest",
+      "message": "failed to inspect image ghcr.io/taffish/signac:1.17.1-r1: ERROR: ghcr.io/taffish/signac:1.17.1-r1: not found\n (exit 1)",
+      "image": "ghcr.io/taffish/signac:1.17.1-r1"
+    }
+  ],
   "rejected": [
     {
       "repository": "taffish/nanoplot",
