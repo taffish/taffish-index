@@ -1,8 +1,8 @@
 {
   "name": "hisat2",
-  "latest": "2.2.2-r2",
-  "recent_version": "2.2.2-r2",
-  "recent_at": "2026-05-19T07:36:24Z",
+  "latest": "2.2.3-r1",
+  "recent_version": "2.2.3-r1",
+  "recent_at": "2026-08-01T16:30:13Z",
   "repository_url": "https://github.com/taffish/hisat2",
   "command": {
     "name": "taf-hisat2"
@@ -284,6 +284,154 @@
         "license": "GPL-3.0-or-later",
         "citation": "Kim et al. 2015; Kim et al. 2019",
         "doi": "10.1038/nmeth.3317; 10.1038/s41587-019-0201-4"
+      }
+    },
+    "2.2.3-r1": {
+      "name": "hisat2",
+      "kind": "tool",
+      "version": "2.2.3",
+      "release": 1,
+      "version_id": "2.2.3-r1",
+      "tag": "v2.2.3-r1",
+      "published_at": "2026-08-01T16:30:13Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/hisat2",
+      "repository_slug": "taffish/hisat2",
+      "command": {
+        "name": "taf-hisat2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "alignment",
+          "rna-seq",
+          "short-read",
+          "spliced-alignment"
+        ],
+        "keywords": [
+          "hisat2",
+          "rna-seq",
+          "spliced-alignment",
+          "read-alignment",
+          "short-read-alignment",
+          "fastq",
+          "sam",
+          "indexing",
+          "graph-index",
+          "ngs"
+        ],
+        "summary": "Fast and sensitive graph-based aligner for DNA and RNA sequencing reads, with HISAT2 index building and inspection utilities.",
+        "description": "Fast and sensitive graph-based aligner for DNA and RNA sequencing reads, with HISAT2 index building and inspection utilities."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/hisat2:2.2.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.2.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:4e502ebb4089dfc82b2d5efecca9bfa83a14caaf2e8fcd69f1a9efaf1b975820",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d8cba0584945ed4c0f5c37475939c4f8833c0b834aae3d7f4586c57f4dfd461c",
+          "linux/arm64": "sha256:60c7a20bf2397dda19fd0213ad89ba9edd0b85dff13bee38269f9f5410cd64fb"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "hisat2",
+          "hisat2-build",
+          "hisat2-inspect",
+          "hisat2-align-s",
+          "hisat2-align-l",
+          "hisat2-build-s",
+          "hisat2-build-l",
+          "hisat2-inspect-s",
+          "hisat2-inspect-l",
+          "hisat2-repeat",
+          "hisat2_extract_splice_sites.py",
+          "hisat2_extract_exons.py",
+          "hisat2_extract_snps_haplotypes_UCSC.py",
+          "hisat2_extract_snps_haplotypes_VCF.py",
+          "hisat2_simulate_reads.py",
+          "hisat2_read_statistics.py",
+          "extract_splice_sites.py",
+          "extract_exons.py",
+          "python",
+          "python3",
+          "perl",
+          "gzip",
+          "bzip2",
+          "samtools",
+          "curl",
+          "which",
+          "tar",
+          "awk",
+          "bash"
+        ],
+        "test": [
+          "hisat2 --version 2>&1 | grep -F 'version 2.2.3' >/dev/null && grep -Fx 'upstream_version=2.2.3' /opt/hisat2/doc/TAFFISH-SOURCE.txt >/dev/null && grep -Fx 'upstream_commit=0d244324f98de541bce04d45c75e83bc3522f7f4' /opt/hisat2/doc/TAFFISH-SOURCE.txt >/dev/null && grep -Fx 'portability_patch_sha256=934f593c062ccf85371f8849561cb33466f954cb50ef75eca6a0d7d4443667ab' /opt/hisat2/doc/TAFFISH-SOURCE.txt >/dev/null && grep -Fx 'vcf_python3_patch_sha256=31b7f50abef7e2822c8b10c920bb951a0f3a2a54db342c278384439f2f681f64' /opt/hisat2/doc/TAFFISH-SOURCE.txt >/dev/null && grep -F 'sse2neon.h' /opt/hisat2/doc/THIRD_PARTY.md >/dev/null && grep -F 'MIT License' /opt/hisat2/doc/SSE2NEON-LICENSE.txt >/dev/null",
+          "hisat2-build --version 2>&1 | grep -F 'version 2.2.3' >/dev/null && hisat2-inspect --version 2>&1 | grep -F 'version 2.2.3' >/dev/null",
+          "hisat2 --help 2>&1 | grep -F 'Usage:' >/dev/null && hisat2-build --help 2>&1 | grep -F 'Usage:' >/dev/null && hisat2-inspect --help 2>&1 | grep -F 'Usage:' >/dev/null",
+          "python --version >/dev/null && python3 --version >/dev/null && perl -v >/dev/null && gzip --version >/dev/null && bzip2 --help >/dev/null 2>&1 && samtools --version >/dev/null && curl --version >/dev/null && test -s /etc/ssl/certs/ca-certificates.crt",
+          "hisat2_extract_splice_sites.py --help | grep -F 'Extract splice junctions' >/dev/null && hisat2_extract_exons.py --help | grep -F 'Extract exons' >/dev/null && hisat2_extract_snps_haplotypes_UCSC.py --help | grep -F 'Extract SNPs and haplotypes' >/dev/null && hisat2_extract_snps_haplotypes_VCF.py --help | grep -F 'Extract SNPs and haplotypes' >/dev/null && hisat2_simulate_reads.py --help | grep -F 'Simulate reads' >/dev/null",
+          "{ hisat2-repeat --help 2>&1 || true; } | grep -F 'Usage: hisat2-repeat' >/dev/null",
+          "mkdir -p /tmp/taf-hisat2-read-stats-smoke && cd /tmp/taf-hisat2-read-stats-smoke && printf '@r1\\nACGT\\n+\\nIIII\\n' > reads.fq && hisat2_read_statistics.py reads.fq | grep -Fx '1 4 4 4 4' >/dev/null",
+          "mkdir -p /tmp/taf-hisat2-smoke && cd /tmp/taf-hisat2-smoke && printf '>ref\\nACGTACGTTGCAAGTCGATCGTACGATCGTTAACCGGTTAACCGGTT\\n' > ref.fa && hisat2-build ref.fa ref >/dev/null && printf '@r1\\nTGCAAGTCGATCGTACGATCGTTAACCGGTTA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && bzip2 -c reads.fq > reads.fq.bz2 && hisat2 -x ref -U reads.fq.gz -S gz.sam --quiet --no-spliced-alignment && grep -v '^@' gz.sam | cut -f3 | grep -Fx ref >/dev/null && hisat2 -x ref -U reads.fq.bz2 -S bz2.sam --quiet --no-spliced-alignment && grep -v '^@' bz2.sam | cut -f3 | grep -Fx ref >/dev/null && hisat2-inspect -n ref | grep -Fx ref >/dev/null",
+          "mkdir -p /tmp/taf-hisat2-large-smoke && cd /tmp/taf-hisat2-large-smoke && printf '>ref\\nACGTACGTTGCAAGTCGATCGTACGATCGTTAACCGGTTAACCGGTT\\n' > ref.fa && hisat2-build --large-index ref.fa ref_large >/dev/null && test -s ref_large.1.ht2l && hisat2-inspect --large-index -n ref_large | grep -Fx ref >/dev/null",
+          "mkdir -p /tmp/taf-hisat2-gtf-smoke && cd /tmp/taf-hisat2-gtf-smoke && printf 'chr1\\tsrc\\texon\\t1\\t10\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\nchr1\\tsrc\\texon\\t21\\t30\\t.\\t+\\t.\\tgene_id \"g1\"; transcript_id \"t1\";\\n' > genes.gtf && hisat2_extract_splice_sites.py genes.gtf | grep -F 'chr1' >/dev/null && hisat2_extract_exons.py genes.gtf | grep -F 'chr1' >/dev/null",
+          "mkdir -p /tmp/taf-hisat2-vcf-smoke && cd /tmp/taf-hisat2-vcf-smoke && printf '>chr1\\n' > genome.fa && awk 'BEGIN { for (i = 0; i < 400; i++) printf \"A\"; printf \"\\n\" }' >> genome.fa && printf '##fileformat=VCFv4.2\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\nchr1\\t150\\trs1\\tA\\tC\\t.\\tPASS\\tGENE1;CLNSIG=5\\n' > genotype.vcf && hisat2_extract_snps_haplotypes_VCF.py --reference-type chromosome --genotype-vcf genotype.vcf --genotype-gene-list GENE1 --extra-files genome.fa /dev/null out && grep -F 'rs1' out.clnsig >/dev/null && grep -F 'Pathogenic' out.clnsig >/dev/null && grep -F 'GENE1' out.ref >/dev/null && grep -F '>chr1' out_backbone.fa >/dev/null && test -s genome.fa.fai"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-02T01:26:54Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-02T01:26:54Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/hisat2",
+        "ref": "v2.2.3-r1",
+        "commit": "7f950657c6a5a0ae250c1aef95f3ace3fec40464",
+        "html_url": "https://github.com/taffish/hisat2/tree/v2.2.3-r1"
+      },
+      "upstream": {
+        "name": "HISAT2",
+        "type": "github",
+        "homepage": "https://daehwankimlab.github.io/hisat2/",
+        "repository": "DaehwanKimLab/hisat2",
+        "release_url": "https://github.com/DaehwanKimLab/hisat2/releases/tag/v2.2.3",
+        "version": "2.2.3",
+        "license": "GPL-3.0-or-later; bundled SSE2NEON under MIT",
+        "citation": "Kim et al. 2015; Kim et al. 2019",
+        "doi": "10.1038/nmeth.3317; 10.1038/s41587-019-0201-4",
+        "pmid": "25751142; 31375807"
       }
     }
   }
