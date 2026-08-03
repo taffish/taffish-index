@@ -1,0 +1,140 @@
+{
+  "name": "signac",
+  "latest": "1.17.1-r2",
+  "recent_version": "1.17.1-r2",
+  "recent_at": "2026-08-03T03:29:11Z",
+  "repository_url": "https://github.com/taffish/signac",
+  "command": {
+    "name": "taf-signac"
+  },
+  "versions": {
+    "1.17.1-r2": {
+      "name": "signac",
+      "kind": "tool",
+      "version": "1.17.1",
+      "release": 2,
+      "version_id": "1.17.1-r2",
+      "tag": "v1.17.1-r2",
+      "published_at": "2026-08-03T03:29:11Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/signac",
+      "repository_slug": "taffish/signac",
+      "command": {
+        "name": "taf-signac"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "single-cell",
+        "categories": [
+          "single-cell",
+          "scatac-seq",
+          "epigenomics",
+          "chromatin",
+          "r"
+        ],
+        "keywords": [
+          "signac",
+          "scatac-seq",
+          "single-cell",
+          "chromatin accessibility",
+          "seurat",
+          "r",
+          "macs3",
+          "fragtk",
+          "motif analysis"
+        ],
+        "summary": "Signac 1.17.1 R runtime for single-cell chromatin analysis with Seurat, MACS3 peak calling, fragtk QC, motif analysis, and visualization support.",
+        "description": "Signac 1.17.1 R runtime for single-cell chromatin analysis with Seurat, MACS3 peak calling, fragtk QC, motif analysis, and visualization support."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/signac:1.17.1-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.17.1-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:fa9cdde4336053f8bd92f4a0a5fcbeefaaa77721e714092910c9dcc37204b29b",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ea0e68ebca4bbbe788a500c8998375be994da75be3ac9ed337d7d1d1a19ab8c4",
+          "linux/arm64": "sha256:e69defc9e75981daa556dbc9ced1a6c5463970791d325b837fdcbca7a6fde0ce"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 1200,
+        "exist": [
+          "R",
+          "Rscript",
+          "signac-runtime-info",
+          "macs2",
+          "macs3",
+          "fragtk",
+          "bgzip",
+          "tabix",
+          "python",
+          "python3",
+          "bash",
+          "grep",
+          "gzip",
+          "ldd"
+        ],
+        "test": [
+          "Rscript /opt/signac/share/testdata/signac-smoke.R identity | grep -Fx 'signac_identity_ok' >/dev/null",
+          "Rscript /opt/signac/share/testdata/signac-smoke.R runtime | grep -Fx 'signac_runtime_ok' >/dev/null",
+          "Rscript /opt/signac/share/testdata/signac-smoke.R core | grep -Fx 'signac_core_ok' >/dev/null",
+          "Rscript /opt/signac/share/testdata/signac-smoke.R fragments | grep -Fx 'signac_fragments_ok' >/dev/null",
+          "Rscript /opt/signac/share/testdata/signac-smoke.R peaks | grep -Fx 'signac_peaks_ok' >/dev/null",
+          "Rscript /opt/signac/share/testdata/signac-smoke.R qc | grep -Fx 'signac_qc_ok' >/dev/null",
+          "Rscript /opt/signac/share/testdata/signac-smoke.R plot | grep -Fx 'signac_plot_ok' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-03T12:17:23Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-03T12:17:23Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/signac",
+        "ref": "v1.17.1-r2",
+        "commit": "19d3b305a17308ab326b1c396b4a529f2560e524",
+        "html_url": "https://github.com/taffish/signac/tree/v1.17.1-r2"
+      },
+      "upstream": {
+        "name": "Signac",
+        "type": "github",
+        "homepage": "https://stuartlab.org/signac/",
+        "repository": "stuart-lab/signac",
+        "release_url": "https://github.com/stuart-lab/signac/releases/tag/1.17.1",
+        "version": "1.17.1",
+        "license": "MIT",
+        "citation": "Stuart et al. 2021, Single-cell chromatin state analysis with Signac, Nature Methods",
+        "doi": "10.1038/s41592-021-01282-5",
+        "pmid": "34725479"
+      }
+    }
+  }
+}
