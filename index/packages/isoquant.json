@@ -1,0 +1,138 @@
+{
+  "name": "isoquant",
+  "latest": "4.0.0-r1",
+  "recent_version": "4.0.0-r1",
+  "recent_at": "2026-08-04T02:22:02Z",
+  "repository_url": "https://github.com/taffish/isoquant",
+  "command": {
+    "name": "taf-isoquant"
+  },
+  "versions": {
+    "4.0.0-r1": {
+      "name": "isoquant",
+      "kind": "tool",
+      "version": "4.0.0",
+      "release": 1,
+      "version_id": "4.0.0-r1",
+      "tag": "v4.0.0-r1",
+      "published_at": "2026-08-04T02:22:02Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/isoquant",
+      "repository_slug": "taffish/isoquant",
+      "command": {
+        "name": "taf-isoquant"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "transcriptomics",
+        "categories": [
+          "transcriptomics",
+          "long-read",
+          "isoform-discovery",
+          "quantification",
+          "single-cell"
+        ],
+        "keywords": [
+          "isoquant",
+          "long-read-rna-seq",
+          "nanopore",
+          "pacbio",
+          "isoform",
+          "transcript-discovery",
+          "transcript-quantification",
+          "single-cell",
+          "spatial-transcriptomics",
+          "fusion"
+        ],
+        "summary": "Transcript discovery, quantification, barcode processing, and visualization for long-read RNA sequencing.",
+        "description": "Transcript discovery, quantification, barcode processing, and visualization for long-read RNA sequencing."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/isoquant:4.0.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.0.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:cdbe20675d455ea8d387182a29ef7dde53b87a72c0e55e0e6310f7c431ebb4b2",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:fae2238042ccb26ad86fb8bdd2a94a25fa3e414b0b836ecf812d8f1c8db912c5",
+          "linux/arm64": "sha256:0c4ff097f9e28ed537317cfa9871787b23d3659a8a2cf8b6487248c8a23f612e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "isoquant",
+          "isoquant-detect-barcodes",
+          "isoquant-visualize",
+          "python",
+          "python3",
+          "minimap2",
+          "samtools",
+          "STAR",
+          "STARlong",
+          "gzip",
+          "zcat",
+          "find",
+          "grep",
+          "sed",
+          "sh"
+        ],
+        "test": [
+          "/opt/isoquant/share/testdata/isoquant-smoke.sh identity",
+          "/opt/isoquant/share/testdata/isoquant-smoke.sh modules",
+          "/opt/isoquant/share/testdata/isoquant-smoke.sh pipeline"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-04T04:32:57Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-04T04:32:57Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/isoquant",
+        "ref": "v4.0.0-r1",
+        "commit": "ccc31fbfb655d0239487298f3582d819a841f78e",
+        "html_url": "https://github.com/taffish/isoquant/tree/v4.0.0-r1"
+      },
+      "upstream": {
+        "name": "IsoQuant",
+        "type": "github",
+        "homepage": "https://ablab.github.io/IsoQuant/",
+        "repository": "ablab/IsoQuant",
+        "release_url": "https://github.com/ablab/IsoQuant/releases/tag/v4.0.0",
+        "version": "4.0.0",
+        "license": "GPL-2.0-only",
+        "citation": "Prjibelski AD, Mikheenko A, Joglekar A, et al. Accurate isoform discovery with IsoQuant using long reads. Nature Biotechnology. 2023;41:915-918.",
+        "doi": "10.1038/s41587-022-01565-y",
+        "pmid": "36593406"
+      }
+    }
+  }
+}
