@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-06T04:32:27Z",
+  "generated_at": "2026-08-06T09:05:11Z",
   "organization": "taffish",
   "counts": {
     "packages": 246,
-    "versions": 394,
+    "versions": 397,
     "commands": 246,
     "repositories": 246,
     "warnings": 0,
@@ -10239,9 +10239,9 @@
     },
     "diamond": {
       "name": "diamond",
-      "latest": "2.2.4-r1",
-      "recent_version": "2.2.4-r1",
-      "recent_at": "2026-07-14T08:10:11Z",
+      "latest": "2.2.5-r1",
+      "recent_version": "2.2.5-r1",
+      "recent_at": "2026-08-06T06:36:02Z",
       "repository_url": "https://github.com/taffish/diamond",
       "command": {
         "name": "taf-diamond"
@@ -10694,6 +10694,120 @@
             "repository": "bbuchfink/diamond",
             "release_url": "https://github.com/bbuchfink/diamond/releases/tag/v2.2.4",
             "version": "2.2.4",
+            "license": "GPL-3.0-or-later",
+            "citation": "Buchfink et al. 2021; Buchfink et al. 2026",
+            "doi": "10.1038/s41592-021-01101-x; 10.1038/s41592-026-03030-z",
+            "pmid": "33828273; 41876643"
+          }
+        },
+        "2.2.5-r1": {
+          "name": "diamond",
+          "kind": "tool",
+          "version": "2.2.5",
+          "release": 1,
+          "version_id": "2.2.5-r1",
+          "tag": "v2.2.5-r1",
+          "published_at": "2026-08-06T06:36:02Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/diamond",
+          "repository_slug": "taffish/diamond",
+          "command": {
+            "name": "taf-diamond"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "sequence-alignment",
+            "categories": [
+              "sequence-alignment",
+              "protein-search",
+              "homology-search",
+              "clustering",
+              "annotation"
+            ],
+            "keywords": [
+              "diamond",
+              "blastp",
+              "blastx",
+              "makedb",
+              "protein-alignment",
+              "sequence-search",
+              "dmnd",
+              "daa",
+              "linclust",
+              "deepclust"
+            ],
+            "summary": "DIAMOND 2.2.5 for fast protein sequence search, translated DNA-to-protein search, DIAMOND database creation, DAA viewing, and protein clustering workflows.",
+            "description": "DIAMOND 2.2.5 for fast protein sequence search, translated DNA-to-protein search, DIAMOND database creation, DAA viewing, and protein clustering workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/diamond:2.2.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:7532e5a1fcee637ac45d3d81024a5fc3acd3d92f3b00513675144b9084c672e2",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6d49d5f38d2bcb34ac2d9b1acd01b1eb300c92d2955821bc7a10b92bf8cf10ad"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "diamond",
+              "sh"
+            ],
+            "test": [
+              "diamond version | grep -Fx 'diamond version 2.2.5' >/dev/null && diamond help | grep -F 'diamond v2.2.5.185' >/dev/null",
+              "diamond help | grep -F 'Syntax: diamond COMMAND [OPTIONS]' >/dev/null && diamond help | grep -F 'makedb' >/dev/null && diamond help | grep -F 'blastp' >/dev/null && diamond help | grep -F 'linclust' >/dev/null && { diamond blastp 2>&1 || true; } | grep -F 'Missing parameter: database file' >/dev/null && { diamond blastp 2>&1 || true; } | grep -F -- '--self' >/dev/null && { diamond blastp 2>&1 || true; } | grep -F -- '--reseek-diags' >/dev/null && { diamond blastp 2>&1 || true; } | grep -F -- '--reseek-xdrop' >/dev/null && { diamond blastp 2>&1 || true; } | grep -F -- '--word-threshold' >/dev/null && { diamond blastp 2>&1 || true; } | grep -F -- '--double-hit-window' >/dev/null && { diamond linclust 2>&1 || true; } | grep -F -- '--cluster-steps' >/dev/null && { diamond linclust 2>&1 || true; } | grep -F -- '--reps' >/dev/null && { diamond linclust 2>&1 || true; } | grep -F -- '--single-step' >/dev/null && { diamond view 2>&1 || true; } | grep -F 'requires a DAA' >/dev/null",
+              "mkdir -p /tmp/taf-diamond-blastp && cd /tmp/taf-diamond-blastp && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref2\\nGILGYTEHQVVSSDFNSDTHSLSNISVQGDLNFVVDKDLRDTFQKLTNAK\\n' > ref.faa && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n' > query.faa && diamond makedb --in ref.faa -d ref --threads 1 >/tmp/taf-diamond-makedb.log 2>&1 && test -s ref.dmnd && diamond dbinfo -d ref.dmnd > dbinfo.txt && grep -F 'Database' dbinfo.txt >/dev/null && diamond blastp -d ref -q query.faa -o hits.tsv --threads 1 --max-target-seqs 1 --evalue 100 --outfmt 6 qseqid sseqid pident length evalue bitscore >/tmp/taf-diamond-blastp.log 2>&1 && grep -F 'q1' hits.tsv >/dev/null && grep -F 'ref1' hits.tsv >/dev/null && diamond blastp -d ref -q query.faa -o hits-reseek.tsv --threads 1 --max-target-seqs 1 --evalue 100 --reseek-diags --reseek-xdrop 20 --word-threshold 10 --double-hit-window 40 --outfmt 6 qseqid sseqid >/tmp/taf-diamond-reseek.log 2>&1 && grep -F 'q1' hits-reseek.tsv >/dev/null && grep -F 'ref1' hits-reseek.tsv >/dev/null && diamond blastp -d ref -q query.faa -o hits-zstd.tsv.zst --compress zstd --threads 1 --max-target-seqs 1 --evalue 100 --outfmt 6 qseqid sseqid >/tmp/taf-diamond-zstd.log 2>&1 && test -s hits-zstd.tsv.zst && diamond blastp -d ref -q query.faa -a matches --threads 1 --max-target-seqs 1 --evalue 100 >/tmp/taf-diamond-daa.log 2>&1 && test -s matches.daa && diamond view -a matches.daa -o view.tsv >/tmp/taf-diamond-view.log 2>&1 && grep -F 'q1' view.tsv >/dev/null && grep -F 'ref1' view.tsv >/dev/null",
+              "mkdir -p /tmp/taf-diamond-blastx && cd /tmp/taf-diamond-blastx && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n' > ref.faa && printf '>dna1\\nATGAAAACCGCTTACATTGCTAAACAAAGACAAATTTCCTTCGTGAAATCCCATTTC\\n' > dna.fa && printf '@dna_fastq descriptive title\\nATGAAAACCGCTTACATTGCTAAACAAAGACAAATTTCCTTCGTGAAATCCCATTTC\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > dna.fastq && diamond makedb --in ref.faa -d ref --threads 1 >/tmp/taf-diamond-blastx-makedb.log 2>&1 && diamond blastx -d ref -q dna.fa -o blastx.tsv --threads 1 --min-orf 1 --max-target-seqs 1 --evalue 100 --outfmt 6 qseqid sseqid >/tmp/taf-diamond-blastx.log 2>&1 && grep -F 'dna1' blastx.tsv >/dev/null && diamond blastx -d ref -q dna.fastq -o qtitle.tsv --threads 1 --min-orf 1 --max-target-seqs 1 --evalue 100 --outfmt 6 qseqid qtitle sseqid >/tmp/taf-diamond-qtitle.log 2>&1 && grep -F 'dna_fastq' qtitle.tsv >/dev/null && grep -F 'dna_fastq descriptive title' qtitle.tsv >/dev/null && grep -c '^' qtitle.tsv | grep -Fx '1' >/dev/null",
+              "mkdir -p /tmp/taf-diamond-linclust && cd /tmp/taf-diamond-linclust && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref1_copy\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref2\\nGILGYTEHQVVSSDFNSDTHSLSNISVQGDLNFVVDKDLRDTFQKLTNAK\\n' > proteins.faa && diamond linclust -d proteins.faa -o clusters.tsv --reps reps.faa --threads 1 --approx-id 90 -M 128M >/tmp/taf-diamond-linclust.log 2>&1 && test -s clusters.tsv && test -s reps.faa && grep -F 'ref1' clusters.tsv >/dev/null && grep -F '>ref1' reps.faa >/dev/null",
+              "mkdir -p /tmp/taf-diamond-self && cd /tmp/taf-diamond-self && printf '>ref1\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref1_copy\\nMKTAYIAKQRQISFVKSHFSRQDILDLWIYHTQGYFPDWQNYTPGPGIRYPL\\n>ref2\\nGILGYTEHQVVSSDFNSDTHSLSNISVQGDLNFVVDKDLRDTFQKLTNAK\\n' > proteins.faa && diamond makedb --in proteins.faa -d proteins --threads 1 >/tmp/taf-diamond-self-makedb.log 2>&1 && diamond blastp -d proteins --self -o self.tsv --threads 1 --max-target-seqs 1 --evalue 100 --outfmt 6 qseqid sseqid >/tmp/taf-diamond-self.log 2>&1 && test -s self.tsv && grep -F 'ref1' self.tsv >/dev/null && grep -F 'ref1_copy' self.tsv >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-06T09:05:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-06T09:05:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/diamond",
+            "ref": "v2.2.5-r1",
+            "commit": "a0016ad8b7411dce344832c343261fddbb7cdecf",
+            "html_url": "https://github.com/taffish/diamond/tree/v2.2.5-r1"
+          },
+          "upstream": {
+            "name": "DIAMOND",
+            "type": "github",
+            "homepage": "https://github.com/bbuchfink/diamond",
+            "repository": "bbuchfink/diamond",
+            "release_url": "https://github.com/bbuchfink/diamond/releases/tag/v2.2.5",
+            "version": "2.2.5",
             "license": "GPL-3.0-or-later",
             "citation": "Buchfink et al. 2021; Buchfink et al. 2026",
             "doi": "10.1038/s41592-021-01101-x; 10.1038/s41592-026-03030-z",
@@ -41751,9 +41865,9 @@
     },
     "semibin2": {
       "name": "semibin2",
-      "latest": "2.4.0-r1",
-      "recent_version": "2.4.0-r1",
-      "recent_at": "2026-07-18T16:39:23Z",
+      "latest": "2.4.1-r1",
+      "recent_version": "2.4.1-r1",
+      "recent_at": "2026-08-06T06:04:10Z",
       "repository_url": "https://github.com/taffish/semibin2",
       "command": {
         "name": "taf-semibin2"
@@ -41998,6 +42112,130 @@
             "repository": "BigDataBiology/SemiBin",
             "release_url": "https://github.com/BigDataBiology/SemiBin/releases/tag/v2.4.0",
             "version": "2.4.0",
+            "license": "MIT",
+            "citation": "Pan et al. 2022, SemiBin: metagenomic binning through contrastive learning; Pan et al. 2023, SemiBin2: self-supervised contrastive learning leads to better MAGs",
+            "doi": "10.1038/s41467-022-29843-y; 10.1093/bioinformatics/btad209"
+          }
+        },
+        "2.4.1-r1": {
+          "name": "semibin2",
+          "kind": "tool",
+          "version": "2.4.1",
+          "release": 1,
+          "version_id": "2.4.1-r1",
+          "tag": "v2.4.1-r1",
+          "published_at": "2026-08-06T06:04:10Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/semibin2",
+          "repository_slug": "taffish/semibin2",
+          "command": {
+            "name": "taf-semibin2"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "binning",
+              "mag",
+              "assembly",
+              "deep-learning"
+            ],
+            "keywords": [
+              "semibin",
+              "semibin2",
+              "metagenomic-binning",
+              "mag",
+              "binning",
+              "pytorch",
+              "abundance",
+              "contigs",
+              "self-supervised-learning"
+            ],
+            "summary": "Semi-supervised and self-supervised metagenomic binning with SemiBin2.",
+            "description": "Semi-supervised and self-supervised metagenomic binning with SemiBin2."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/semibin2:2.4.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.4.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:88a7b7ee93ed77d85ba296423655cd9a208147b41689daf05477f41e474e0b59",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1e8d507b279b7fae515579a9158c02b4dccaacd00bbce64287163f7b9d063791"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "SemiBin2",
+              "python",
+              "python3",
+              "samtools",
+              "bedtools",
+              "hmmsearch",
+              "hmmscan",
+              "hmmpress",
+              "prodigal",
+              "sh",
+              "grep",
+              "gzip"
+            ],
+            "test": [
+              "python -c 'import importlib.metadata as md; import SemiBin, torch, numpy, pandas, sklearn, igraph, requests, safetensors, tqdm, numexpr; assert md.version(\"SemiBin\") == \"2.4.1\"; print(md.version(\"SemiBin\"))' | grep -Fx '2.4.1' >/dev/null",
+              "python -c 'from pathlib import Path; import SemiBin; expected = {\"built_environment_model.pt\", \"cat_gut_model.pt\", \"chicken_caecum_model.pt\", \"dog_gut_model.pt\", \"global_model.pt\", \"human_gut_model.pt\", \"human_oral_model.pt\", \"mouse_gut_model.pt\", \"ocean_model.pt\", \"pig_gut_model.pt\", \"soil_model.pt\", \"wastewater_model.pt\"}; found = {path.name for path in (Path(next(iter(SemiBin.__path__))) / \"models\").glob(\"*.pt\")}; assert found == expected; print(len(found))' | grep -Fx '12' >/dev/null",
+              "SemiBin2 --version 2>&1 | grep -Fx '2.4.1' >/dev/null && SemiBin2 --help 2>&1 | grep -F 'single_easy_bin' >/dev/null && SemiBin2 --help 2>&1 | grep -F 'concatenate_fasta' >/dev/null && SemiBin2 --help 2>&1 | grep -F 'install-skills' >/dev/null",
+              "SemiBin2 single_easy_bin --help 2>&1 | grep -F -- '--environment' >/dev/null && SemiBin2 multi_easy_bin --help 2>&1 | grep -F -- '--input-fasta' >/dev/null && SemiBin2 concatenate_fasta --help 2>&1 | grep -F -- '--input-fasta' >/dev/null && SemiBin2 install-skills --help 2>&1 | grep -F -- '--skills-dir' >/dev/null && SemiBin2 check_install --help 2>&1 | grep -F 'check' >/dev/null",
+              "SemiBin2 check_install 2>&1 | grep -F 'Installation OK' >/dev/null",
+              "/opt/semibin2/share/testdata/semibin2-smoke-concat.sh",
+              "/opt/semibin2/share/testdata/semibin2-smoke-install-skills.sh",
+              "/opt/semibin2/share/testdata/semibin2-smoke-short-contigs.sh"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-06T09:05:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-06T09:05:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/semibin2",
+            "ref": "v2.4.1-r1",
+            "commit": "949c46622f432db8d608714b36d7bfd4873550b7",
+            "html_url": "https://github.com/taffish/semibin2/tree/v2.4.1-r1"
+          },
+          "upstream": {
+            "name": "SemiBin",
+            "type": "github",
+            "homepage": "https://semibin.readthedocs.io/",
+            "repository": "BigDataBiology/SemiBin",
+            "release_url": "https://github.com/BigDataBiology/SemiBin/releases/tag/v2.4.1",
+            "version": "2.4.1",
             "license": "MIT",
             "citation": "Pan et al. 2022, SemiBin: metagenomic binning through contrastive learning; Pan et al. 2023, SemiBin2: self-supervised contrastive learning leads to better MAGs",
             "doi": "10.1038/s41467-022-29843-y; 10.1093/bioinformatics/btad209"
@@ -48397,9 +48635,9 @@
     },
     "vep": {
       "name": "vep",
-      "latest": "116.0-r1",
-      "recent_version": "116.0-r1",
-      "recent_at": "2026-06-20T21:30:33Z",
+      "latest": "116.1-r1",
+      "recent_version": "116.1-r1",
+      "recent_at": "2026-08-06T08:10:04Z",
       "repository_url": "https://github.com/taffish/vep",
       "command": {
         "name": "taf-vep"
@@ -48525,6 +48763,132 @@
             "repository": "Ensembl/ensembl-vep",
             "release_url": "https://github.com/Ensembl/ensembl-vep/tree/release/116.0",
             "version": "116.0",
+            "license": "Apache-2.0",
+            "citation": "McLaren W, Gil L, Hunt SE, Riat HS, Ritchie GRS, Thormann A, Flicek P, Cunningham F. The Ensembl Variant Effect Predictor. Genome Biology. 2016;17:122.",
+            "doi": "10.1186/s13059-016-0974-4",
+            "pmid": "27268795"
+          }
+        },
+        "116.1-r1": {
+          "name": "vep",
+          "kind": "tool",
+          "version": "116.1",
+          "release": 1,
+          "version_id": "116.1-r1",
+          "tag": "v116.1-r1",
+          "published_at": "2026-08-06T08:10:04Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/vep",
+          "repository_slug": "taffish/vep",
+          "command": {
+            "name": "taf-vep"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "variant-annotation",
+            "categories": [
+              "variant-annotation",
+              "genomics",
+              "vcf",
+              "variant-effect",
+              "ensembl"
+            ],
+            "keywords": [
+              "vep",
+              "ensembl vep",
+              "variant effect predictor",
+              "variant annotation",
+              "vcf",
+              "csq",
+              "consequence",
+              "haplosaurus",
+              "variant recoder",
+              "filter_vep"
+            ],
+            "summary": "Ensembl Variant Effect Predictor (VEP) 116.1 runtime for annotating sequence variants and running related VEP helper tools.",
+            "description": "Ensembl Variant Effect Predictor (VEP) 116.1 runtime for annotating sequence variants and running related VEP helper tools."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/vep:116.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "116.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f6fe6b4545d107ae44d8908a78a0d4927f4604ac95ae5d78e1e1d32b904fddcd",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:8ca2500bcc9644cc216f509bb732fb5c80ce9e4391b43969859fd25e30380962",
+              "linux/arm64": "sha256:804746a13188192ee17849dbf8f06e7a4441e85f0785b4179142cb2a38591482"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "vep",
+              "filter_vep",
+              "haplo",
+              "variant_recoder",
+              "INSTALL.pl",
+              "perl",
+              "curl",
+              "bgzip",
+              "tabix",
+              "htsfile",
+              "genesplicer",
+              "python",
+              "python2"
+            ],
+            "test": [
+              "vep --help 2>&1 | grep -F \"ensembl-vep          : 116.1\" >/dev/null && vep --help 2>&1 | grep -F \"ENSEMBL VARIANT EFFECT PREDICTOR\" >/dev/null && haplo --help 2>&1 | grep -F \"HAPLOSAURUS\" >/dev/null && variant_recoder --help 2>&1 | grep -F \"VARIANT RECODER\" >/dev/null",
+              "INSTALL.pl --help 2>&1 | grep -F -- \"--CACHE_VERSION    Set data\" >/dev/null && INSTALL.pl --help 2>&1 | grep -F \"default = 116\" >/dev/null && filter_vep --help 2>&1 | grep -F \"consequence data\" >/dev/null",
+              "perl -MBio::EnsEMBL::VEP::Constants -e 'print join(qq(.), $Bio::EnsEMBL::VEP::Constants::VEP_VERSION, $Bio::EnsEMBL::VEP::Constants::VEP_SUB_VERSION), qq(\\n)' | grep -Fx \"116.1\" >/dev/null && perl -MJSON -e 'print qq(JSON ok\\n)' | grep -Fx \"JSON ok\" >/dev/null && perl -MBio::DB::HTS -e 'print qq(HTS ok\\n)' | grep -Fx \"HTS ok\" >/dev/null && perl -MBio::DB::BigFile -e 'print qq(BigFile ok\\n)' | grep -Fx \"BigFile ok\" >/dev/null && tabix --version 2>&1 | grep -F \"htslib\" >/dev/null && bgzip --version 2>&1 | grep -F \"htslib\" >/dev/null && test -s /plugins/CADD.pm && test -s /plugins/AlphaMissense.pm",
+              "tmp=/tmp/taf-vep-filter-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/taffish/share/vep/smoke/filter-input.vcf \"$tmp/filter-input.vcf\"; filter_vep --format vcf --filter \"Consequence is missense_variant\" -i \"$tmp/filter-input.vcf\" -o \"$tmp/out.vcf\" --force_overwrite; grep -F \"missense_variant\" \"$tmp/out.vcf\" >/dev/null; if grep -F \"synonymous_variant\" \"$tmp/out.vcf\"; then exit 1; fi; rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-vep-gff-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/taffish/share/vep/smoke/ref.fa /opt/taffish/share/vep/smoke/genes.gff3.gz /opt/taffish/share/vep/smoke/genes.gff3.gz.tbi /opt/taffish/share/vep/smoke/input.vcf \"$tmp\"/; vep --gff \"$tmp/genes.gff3.gz\" --fasta \"$tmp/ref.fa\" --format vcf --vcf --force_overwrite --no_stats --species homo_sapiens -i \"$tmp/input.vcf\" -o \"$tmp/out.vcf\" > \"$tmp/run.log\" 2>&1; grep -F \"##VEP=\\\"v116.1\\\"\" \"$tmp/out.vcf\" >/dev/null && grep -F \"missense_variant\" \"$tmp/out.vcf\" >/dev/null && grep -F \"GENE1\" \"$tmp/out.vcf\" >/dev/null; rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-06T09:05:11Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-06T09:05:11Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/vep",
+            "ref": "v116.1-r1",
+            "commit": "84fa6e088c99a08843a3554a50f5f96d350523ca",
+            "html_url": "https://github.com/taffish/vep/tree/v116.1-r1"
+          },
+          "upstream": {
+            "name": "Ensembl Variant Effect Predictor (VEP)",
+            "type": "github",
+            "homepage": "https://www.ensembl.org/info/docs/tools/vep/index.html",
+            "repository": "Ensembl/ensembl-vep",
+            "release_url": "https://github.com/Ensembl/ensembl-vep/tree/release/116.1",
+            "version": "116.1",
             "license": "Apache-2.0",
             "citation": "McLaren W, Gil L, Hunt SE, Riat HS, Ritchie GRS, Thormann A, Flicek P, Cunningham F. The Ensembl Variant Effect Predictor. Genome Biology. 2016;17:122.",
             "doi": "10.1186/s13059-016-0974-4",
@@ -50334,7 +50698,7 @@
     },
     "taf-diamond": {
       "package": "diamond",
-      "version": "2.2.4-r1"
+      "version": "2.2.5-r1"
     },
     "taf-dorado": {
       "package": "dorado",
@@ -50898,7 +51262,7 @@
     },
     "taf-semibin2": {
       "package": "semibin2",
-      "version": "2.4.0-r1"
+      "version": "2.4.1-r1"
     },
     "taf-seqkit": {
       "package": "seqkit",
@@ -51046,7 +51410,7 @@
     },
     "taf-vep": {
       "package": "vep",
-      "version": "116.0-r1"
+      "version": "116.1-r1"
     },
     "taf-verifybamid": {
       "package": "verifybamid",
