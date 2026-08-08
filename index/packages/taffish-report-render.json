@@ -1,8 +1,8 @@
 {
   "name": "taffish-report-render",
-  "latest": "0.2.0-r1",
-  "recent_version": "0.2.0-r1",
-  "recent_at": "2026-08-07T10:30:41Z",
+  "latest": "0.3.0-r1",
+  "recent_version": "0.3.0-r1",
+  "recent_at": "2026-08-08T12:52:45Z",
   "repository_url": "https://github.com/taffish/taffish-report-render",
   "command": {
     "name": "taf-taffish-report-render"
@@ -180,6 +180,96 @@
         "ref": "v0.2.0-r1",
         "commit": "db6278dc9342c57cc65d2181ba5b7e26f9d0d2b4",
         "html_url": "https://github.com/taffish/taffish-report-render/tree/v0.2.0-r1"
+      }
+    },
+    "0.3.0-r1": {
+      "name": "taffish-report-render",
+      "kind": "tool",
+      "version": "0.3.0",
+      "release": 1,
+      "version_id": "0.3.0-r1",
+      "tag": "v0.3.0-r1",
+      "published_at": "2026-08-08T12:52:45Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/taffish-report-render",
+      "repository_slug": "taffish/taffish-report-render",
+      "command": {
+        "name": "taf-taffish-report-render"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": false
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": null,
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/taffish-report-render:0.3.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.3.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:88c579d3ad7a4864e75c53ce1901b7f81ec4249e87e4b4ec7b9b039a75503416",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:1a0c774d5583e4b1b67095abc68fe4ad8419685005bf7e52b66e59efebd4acca",
+          "linux/arm64": "sha256:29904c2c8ff56b518edd6119e37e53eb9ca4ad60bf4e372de53fda3564188a22"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 60,
+        "exist": [
+          "report-render",
+          "python3"
+        ],
+        "test": [
+          "report-render --version | grep -Fx 'taffish-report-render 0.3.0-r1' >/dev/null",
+          "report-render components | grep -F native_subreport >/dev/null",
+          "report-render components | grep -F native_subreport_collection >/dev/null",
+          "report-render components | grep -F structure_viewer >/dev/null",
+          "report-render components | grep -F tree_viewer >/dev/null",
+          "report-render components | grep -F sequence_alignment >/dev/null",
+          "report-render components | grep -F genome_browser >/dev/null",
+          "report-render schema | grep -F '\"native_subreport_collection\"' >/dev/null",
+          "report-render schema | grep -F '\"structure_viewer\"' >/dev/null",
+          "report-render schema | grep -F '\"tree_viewer\"' >/dev/null",
+          "report-render schema | grep -F '\"sequence_alignment\"' >/dev/null",
+          "report-render schema | grep -F '\"genome_browser\"' >/dev/null",
+          "report-render schema | grep -F '\"media_image_ratio\"' >/dev/null",
+          "report-render schema | grep -F '\"note_items\"' >/dev/null",
+          "report-render schema | grep -F '\"boundary\"' >/dev/null",
+          "tmp=\"$(mktemp -d)\"; report-render new --outdir \"$tmp/example\" --force >/dev/null; report-render render --spec \"$tmp/example/report.toml\" --root \"$tmp/example\" --out \"$tmp/example/04_reports/report.html\" --force --validate >/dev/null; test -s \"$tmp/example/04_reports/report.html\"; grep -F 'data-template=\"taffish-flow-report\"' \"$tmp/example/04_reports/report.html\" >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-08T13:05:44Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-08T13:05:44Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/taffish-report-render",
+        "ref": "v0.3.0-r1",
+        "commit": "28e6ce2d5b246ec737569dd6749a8c5f31275e99",
+        "html_url": "https://github.com/taffish/taffish-report-render/tree/v0.3.0-r1"
       }
     }
   }
