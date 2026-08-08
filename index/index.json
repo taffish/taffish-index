@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-08T03:01:02Z",
+  "generated_at": "2026-08-08T05:37:35Z",
   "organization": "taffish",
   "counts": {
-    "packages": 246,
-    "versions": 402,
-    "commands": 246,
-    "repositories": 246,
+    "packages": 247,
+    "versions": 403,
+    "commands": 247,
+    "repositories": 247,
     "warnings": 0,
     "failed": 0,
     "rejected": 11
@@ -44996,6 +44996,167 @@
         }
       }
     },
+    "sqanti3": {
+      "name": "sqanti3",
+      "latest": "6.0.2-r1",
+      "recent_version": "6.0.2-r1",
+      "recent_at": "2026-08-08T03:02:01Z",
+      "repository_url": "https://github.com/taffish/sqanti3",
+      "command": {
+        "name": "taf-sqanti3"
+      },
+      "versions": {
+        "6.0.2-r1": {
+          "name": "sqanti3",
+          "kind": "tool",
+          "version": "6.0.2",
+          "release": 1,
+          "version_id": "6.0.2-r1",
+          "tag": "v6.0.2-r1",
+          "published_at": "2026-08-08T03:02:01Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/sqanti3",
+          "repository_slug": "taffish/sqanti3",
+          "command": {
+            "name": "taf-sqanti3"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "transcriptomics",
+            "categories": [
+              "transcriptomics",
+              "long-read",
+              "isoform-quality-control",
+              "annotation",
+              "filtering"
+            ],
+            "keywords": [
+              "sqanti3",
+              "long-read rna-seq",
+              "isoform classification",
+              "transcriptome qc",
+              "isoform filtering",
+              "transcript rescue",
+              "sqanti-reads",
+              "pacbio",
+              "nanopore"
+            ],
+            "summary": "SQANTI3 6.0.2 runtime for long-read transcriptome quality control, isoform classification, filtering, rescue, reporting, and SQANTI-reads analysis.",
+            "description": "SQANTI3 6.0.2 runtime for long-read transcriptome quality control, isoform classification, filtering, rescue, reporting, and SQANTI-reads analysis."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/sqanti3:6.0.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "6.0.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d46a6aed84bb75ef5b4dc8919c7bacd9a4552a1ed8f665732054c61302e0aa34",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6e8d95c97226a2d8740fbbabcb72bb442c1bf7db93878b79eba5467174522224",
+              "linux/arm64": "sha256:6e71b8e62484406cbf523f3e2d54c1e1081fca85c58ed6995a8ed0b58ccffc48"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 1200,
+            "exist": [
+              "sqanti3",
+              "sqanti3_qc.py",
+              "sqanti3_filter.py",
+              "sqanti3_rescue.py",
+              "sqanti3_reads.py",
+              "python",
+              "python3",
+              "R",
+              "Rscript",
+              "gffread",
+              "gtfToGenePred",
+              "gtftools",
+              "bedtools",
+              "gmap",
+              "gmap_build",
+              "deSALT",
+              "uLTRA",
+              "minimap2",
+              "STAR",
+              "kallisto",
+              "samtools",
+              "seqtk",
+              "TD2.LongOrfs",
+              "TD2.Predict",
+              "pandoc",
+              "perl",
+              "awk",
+              "sed",
+              "grep",
+              "gzip",
+              "bash",
+              "sh",
+              "cut",
+              "sort",
+              "uniq",
+              "paste",
+              "tr",
+              "cat",
+              "mv",
+              "ldd"
+            ],
+            "test": [
+              "/opt/sqanti3/share/testdata/sqanti3-smoke.sh identity | grep -Fx 'sqanti3_identity_ok' >/dev/null",
+              "/opt/sqanti3/share/testdata/sqanti3-smoke.sh modules | grep -Fx 'sqanti3_modules_ok' >/dev/null",
+              "/opt/sqanti3/share/testdata/sqanti3-smoke.sh pipeline | grep -Fx 'sqanti3_pipeline_ok' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-08T05:37:35Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-08T05:37:35Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/sqanti3",
+            "ref": "v6.0.2-r1",
+            "commit": "e6b01a9357fa8b9044f9b40f4c7b2b3e8ff88705",
+            "html_url": "https://github.com/taffish/sqanti3/tree/v6.0.2-r1"
+          },
+          "upstream": {
+            "name": "SQANTI3",
+            "type": "github",
+            "homepage": "https://github.com/ConesaLab/SQANTI3",
+            "repository": "ConesaLab/SQANTI3",
+            "release_url": "https://github.com/ConesaLab/SQANTI3/releases/tag/v6.0.2",
+            "version": "6.0.2",
+            "license": "GPL-3.0-only",
+            "citation": "Pardo-Palacios FJ, et al. SQANTI3: curation of long-read transcriptomes for accurate identification of known and novel isoforms. Nature Methods. 2024.",
+            "doi": "10.1038/s41592-024-02229-2"
+          }
+        }
+      }
+    },
     "sra-tools": {
       "name": "sra-tools",
       "latest": "3.4.1-r1",
@@ -51900,6 +52061,10 @@
       "package": "spades",
       "version": "4.3.0-r1"
     },
+    "taf-sqanti3": {
+      "package": "sqanti3",
+      "version": "6.0.2-r1"
+    },
     "taf-sra-tools": {
       "package": "sra-tools",
       "version": "3.4.1-r1"
@@ -53310,6 +53475,12 @@
       "repository": "taffish/spades",
       "packages": [
         "spades"
+      ]
+    },
+    "taffish/sqanti3": {
+      "repository": "taffish/sqanti3",
+      "packages": [
+        "sqanti3"
       ]
     },
     "taffish/sra-tools": {
