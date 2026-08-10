@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-10T03:19:36Z",
+  "generated_at": "2026-08-10T10:37:16Z",
   "organization": "taffish",
   "counts": {
-    "packages": 248,
-    "versions": 409,
-    "commands": 248,
-    "repositories": 248,
+    "packages": 249,
+    "versions": 410,
+    "commands": 249,
+    "repositories": 249,
     "warnings": 0,
     "failed": 0,
     "rejected": 11
@@ -19368,6 +19368,137 @@
             "license": "MIT",
             "citation": "Beghini et al. 2021, eLife, Integrating taxonomic, functional, and strain-level profiling of diverse microbial communities with bioBakery 3",
             "doi": "10.7554/eLife.65088"
+          }
+        }
+      }
+    },
+    "idr": {
+      "name": "idr",
+      "latest": "2.0.3-r1",
+      "recent_version": "2.0.3-r1",
+      "recent_at": "2026-08-10T10:09:33Z",
+      "repository_url": "https://github.com/taffish/idr",
+      "command": {
+        "name": "taf-idr"
+      },
+      "versions": {
+        "2.0.3-r1": {
+          "name": "idr",
+          "kind": "tool",
+          "version": "2.0.3",
+          "release": 1,
+          "version_id": "2.0.3-r1",
+          "tag": "v2.0.3-r1",
+          "published_at": "2026-08-10T10:09:33Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/idr",
+          "repository_slug": "taffish/idr",
+          "command": {
+            "name": "taf-idr"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "reproducibility",
+            "categories": [
+              "reproducibility",
+              "quality-control",
+              "chip-seq",
+              "peak-analysis",
+              "statistics"
+            ],
+            "keywords": [
+              "idr",
+              "irreproducible discovery rate",
+              "reproducibility",
+              "replicate",
+              "chip-seq",
+              "peak",
+              "narrowpeak",
+              "broadpeak",
+              "bed",
+              "gff",
+              "encode"
+            ],
+            "summary": "IDR 2.0.3 runtime for measuring reproducibility between two ranked peak lists from replicate experiments.",
+            "description": "IDR 2.0.3 runtime for measuring reproducibility between two ranked peak lists from replicate experiments."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/idr:2.0.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.0.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5bc87ad6abd9be3e31222f7879f76e277343bd018711151a2fdcdad337bae463",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:43d7089929160e184ff1e4f3d4734063118d16da86c7d25c7d724b54b5c8e18d",
+              "linux/arm64": "sha256:292f319f15ffbb359834521f42d44929f7f79f58b18ca7c4888ce703294bcd59"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "idr",
+              "python",
+              "python3",
+              "sh",
+              "grep",
+              "sha256sum"
+            ],
+            "test": [
+              "idr --version 2>&1 | grep -Fx 'IDR 2.0.3' >/dev/null && idr --help 2>&1 | grep -F 'Irreproducible Discovery Rate' >/dev/null && python -c 'import importlib.metadata as md; assert md.version(\"idr\") == \"2.0.3\"; import idr, idr.inv_cdf, matplotlib, numpy, scipy; assert numpy.__version__ == \"1.23.5\"; assert scipy.__version__ == \"1.10.1\"; assert matplotlib.__version__ == \"3.7.5\"; print(\"idr-runtime-ok\")' | grep -Fx 'idr-runtime-ok' >/dev/null",
+              "set -eu; tmp=/tmp/taf-idr-core-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; cp /opt/idr/share/testdata/peak1_sub.narrowPeak \"$tmp/peak1.narrowPeak\"; cp /opt/idr/share/testdata/peak2_sub.narrowPeak \"$tmp/peak2.narrowPeak\"; idr --samples \"$tmp/peak1.narrowPeak\" \"$tmp/peak2.narrowPeak\" --input-file-type narrowPeak --output-file \"$tmp/idr.txt\" > \"$tmp/run.log\" 2>&1; test -s \"$tmp/idr.txt\"; test \"$(wc -l < \"$tmp/idr.txt\")\" -eq 71; grep -F 'Number of reported peaks - 71/71' \"$tmp/run.log\" >/dev/null",
+              "set -eu; tmp=/tmp/taf-idr-plot-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; cp /opt/idr/share/testdata/peak1_sub.narrowPeak \"$tmp/peak1.narrowPeak\"; cp /opt/idr/share/testdata/peak2_sub.narrowPeak \"$tmp/peak2.narrowPeak\"; idr --samples \"$tmp/peak1.narrowPeak\" \"$tmp/peak2.narrowPeak\" --input-file-type narrowPeak --output-file \"$tmp/idr.txt\" --plot --quiet; test -s \"$tmp/idr.txt.png\"; python -c 'import struct,sys; data=open(sys.argv[1],\"rb\").read(24); assert data[:8] == b\"\\x89PNG\\r\\n\\x1a\\n\"; width,height=struct.unpack(\">II\",data[16:24]); assert width > 100 and height > 100' \"$tmp/idr.txt.png\"",
+              "set -eu; tmp=/tmp/taf-idr-gzip-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; python -c 'import gzip,shutil,sys; [shutil.copyfileobj(open(src,\"rb\"),gzip.open(dst,\"wb\")) for src,dst in ((sys.argv[1],sys.argv[2]),(sys.argv[3],sys.argv[4]))]' /opt/idr/share/testdata/peak1_sub.narrowPeak \"$tmp/peak1.narrowPeak.gz\" /opt/idr/share/testdata/peak2_sub.narrowPeak \"$tmp/peak2.narrowPeak.gz\"; idr --samples \"$tmp/peak1.narrowPeak.gz\" \"$tmp/peak2.narrowPeak.gz\" --input-file-type narrowPeak --output-file \"$tmp/idr.txt\" --quiet; test -s \"$tmp/idr.txt\"; test \"$(wc -l < \"$tmp/idr.txt\")\" -eq 71",
+              "test -s /opt/idr/share/doc/idr/README.md && test -s /opt/idr/share/doc/idr/requirements.freeze.txt && test -s /opt/idr/share/doc/idr/source.txt && test -s /opt/idr/share/licenses/idr/LICENSE && test -s /opt/idr/share/testdata/peak1_sub.narrowPeak && test -s /opt/idr/share/testdata/peak2_sub.narrowPeak && echo '63e3be099b2deadfa8c7ccc3ab83659afe683f6a35bd41b2319c6ad58ca74de6  /opt/idr/share/source/idr/idr-2.0.3.tar.gz' | sha256sum -c -"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-10T10:37:16Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-10T10:37:16Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/idr",
+            "ref": "v2.0.3-r1",
+            "commit": "ad5b4cdbe7def6c821cd609c5f7c605e46a2f3a6",
+            "html_url": "https://github.com/taffish/idr/tree/v2.0.3-r1"
+          },
+          "upstream": {
+            "name": "IDR",
+            "type": "github",
+            "homepage": "https://github.com/nboley/idr",
+            "repository": "nboley/idr",
+            "release_url": "https://github.com/nboley/idr/releases/tag/2.0.3",
+            "version": "2.0.3",
+            "license": "GPL-2.0",
+            "citation": "Li Q, Brown JB, Huang H, Bickel PJ. Measuring reproducibility of high-throughput experiments. Annals of Applied Statistics 5(3), 2011.",
+            "doi": "10.1214/11-AOAS466"
           }
         }
       }
@@ -52298,6 +52429,10 @@
       "package": "humann",
       "version": "3.9-r1"
     },
+    "taf-idr": {
+      "package": "idr",
+      "version": "2.0.3-r1"
+    },
     "taf-igv": {
       "package": "igv",
       "version": "2.19.8-r1"
@@ -53482,6 +53617,12 @@
       "repository": "taffish/humann",
       "packages": [
         "humann"
+      ]
+    },
+    "taffish/idr": {
+      "repository": "taffish/idr",
+      "packages": [
+        "idr"
       ]
     },
     "taffish/igv": {
