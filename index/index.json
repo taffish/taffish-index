@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-10T10:37:16Z",
+  "generated_at": "2026-08-10T16:40:45Z",
   "organization": "taffish",
   "counts": {
-    "packages": 249,
-    "versions": 410,
-    "commands": 249,
-    "repositories": 249,
+    "packages": 251,
+    "versions": 412,
+    "commands": 251,
+    "repositories": 251,
     "warnings": 0,
     "failed": 0,
     "rejected": 11
@@ -681,6 +681,149 @@
             "citation": "Blin et al. 2025, antiSMASH 8.0",
             "doi": "10.1093/nar/gkaf334",
             "pmid": "40276974"
+          }
+        }
+      }
+    },
+    "ataqv": {
+      "name": "ataqv",
+      "latest": "1.3.1-r1",
+      "recent_version": "1.3.1-r1",
+      "recent_at": "2026-08-10T16:29:35Z",
+      "repository_url": "https://github.com/taffish/ataqv",
+      "command": {
+        "name": "taf-ataqv"
+      },
+      "versions": {
+        "1.3.1-r1": {
+          "name": "ataqv",
+          "kind": "tool",
+          "version": "1.3.1",
+          "release": 1,
+          "version_id": "1.3.1-r1",
+          "tag": "v1.3.1-r1",
+          "published_at": "2026-08-10T16:29:35Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/ataqv",
+          "repository_slug": "taffish/ataqv",
+          "command": {
+            "name": "taf-ataqv"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "quality-control",
+            "categories": [
+              "quality-control",
+              "atac-seq",
+              "chromatin-accessibility",
+              "visualization"
+            ],
+            "keywords": [
+              "ataqv",
+              "atac-seq",
+              "quality control",
+              "bam",
+              "peaks",
+              "tss enrichment",
+              "fragment length",
+              "mapping quality",
+              "mkarv",
+              "srvarv",
+              "web viewer"
+            ],
+            "summary": "ataqv 1.3.1 for ATAC-seq alignment QC, peak and TSS metrics, and offline interactive result visualization.",
+            "description": "ataqv 1.3.1 for ATAC-seq alignment QC, peak and TSS metrics, and offline interactive result visualization."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/ataqv:1.3.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:22bc072e8d35782eab400db01963c18c70c33427898dadd432f667742f024a09",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:03e363c4591619d65653949b098bb14bcb0eb4763d9f3b8cb5b3ae1dfa89bce4",
+              "linux/arm64": "sha256:16380371f5951f619a935f6de6285e4442352c5fe7a7c29a487034f3b9da0fbc"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "ataqv",
+              "mkarv",
+              "srvarv",
+              "ataqv-viewer",
+              "python",
+              "python3",
+              "bash",
+              "sh",
+              "grep",
+              "gzip",
+              "find",
+              "ldd",
+              "sha256sum"
+            ],
+            "test": [
+              "{ ataqv --version 2>&1 || true; } | grep -Fx '1.3.1' >/dev/null && { ataqv --help 2>&1 || true; } | grep -F 'QC metrics for ATAC-seq data' >/dev/null && mkarv --version | grep -Fx '1.3.1' >/dev/null && mkarv --help | grep -F 'Given one or more ataqv metrics files' >/dev/null && srvarv --help | grep -F 'serve an instance of the ataqv web results viewer' >/dev/null && ataqv-viewer --help | grep -F 'foreground browser service' >/dev/null && python -c 'import argparse,collections,csv,decimal,functools,gzip,http.server,json,multiprocessing,shutil,socketserver' && ! ldd $(command -v ataqv) | grep -F 'not found'",
+              "set -eu; tmp=/tmp/taf-ataqv-core-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; cp /opt/ataqv/share/testdata/test.bam /opt/ataqv/share/testdata/test.peaks.gz \"$tmp/\"; cd \"$tmp\"; ataqv --ignore-read-groups --name smoke-core --peak-file test.peaks.gz --metrics-file metrics.json human test.bam > summary.txt; python -c 'import json,sys; d=json.load(open(sys.argv[1])); assert len(d)==1; m=d[0][\"metrics\"]; assert m[\"name\"]==\"smoke-core\"; assert m[\"total_reads\"]==1040; assert m[\"hqaa\"]==400; assert m[\"total_peaks\"]==37430; assert m[\"hqaa_in_peaks\"]==120' metrics.json; test -s summary.txt",
+              "set -eu; tmp=/tmp/taf-ataqv-tss-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; cp /opt/ataqv/share/testdata/test.bam /opt/ataqv/share/testdata/test.bam.bai /opt/ataqv/share/testdata/test.peaks.gz /opt/ataqv/share/testdata/hg19.tss.refseq.bed.gz /opt/ataqv/share/testdata/exclude.dac.bed.gz /opt/ataqv/share/testdata/exclude.duke.bed.gz \"$tmp/\"; cd \"$tmp\"; ataqv --threads 2 --peak-file test.peaks.gz --tss-file hg19.tss.refseq.bed.gz --excluded-region-file exclude.dac.bed.gz --excluded-region-file exclude.duke.bed.gz --metrics-file metrics.json.gz human test.bam > summary.txt; gzip -t metrics.json.gz; python -c 'import gzip,json,sys; d=json.load(gzip.open(sys.argv[1],\"rt\")); assert len(d)==2; vals=[x[\"metrics\"][\"tss_enrichment\"] for x in d]; assert all(v is not None for v in vals); assert any(abs(v-6.0)<1e-9 for v in vals)' metrics.json.gz; test -s summary.txt",
+              "set -eu; tmp=/tmp/taf-ataqv-custom-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; cp /opt/ataqv/share/testdata/test.bam \"$tmp/\"; cd \"$tmp\"; printf 'chr1\\nchr2\\n' > autosomes.txt; ataqv --ignore-read-groups --name smoke-custom --autosomal-reference-file autosomes.txt --mitochondrial-reference-name chrM --log-problematic-reads --less-redundant --metrics-file custom.json human test.bam > summary.txt; python -c 'import json,sys; d=json.load(open(sys.argv[1])); m=d[0][\"metrics\"]; assert m[\"name\"]==\"smoke-custom\"; assert m[\"total_autosomal_reads\"]==435; assert m[\"total_mitochondrial_reads\"]==369' custom.json; find . -type f -name '*.problems' -size +0c -print -quit | grep -q .",
+              "set -eu; tmp=/tmp/taf-ataqv-mkarv-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; mkarv --less-redundant --description 'TAFFISH smoke viewer' \"$tmp/viewer\" /opt/ataqv/share/testdata/smoke-basic.ataqv.json.gz > \"$tmp/mkarv.log\" 2>&1; test -s \"$tmp/viewer/index.html\"; test -s \"$tmp/viewer/js/configuration.js\"; test -s \"$tmp/viewer/css/ataqv.css\"; grep -F 'TAFFISH smoke viewer' \"$tmp/viewer/js/configuration.js\" >/dev/null; find \"$tmp/viewer/data\" -type f -name '*.json.gz' -size +0c -print -quit | grep -q .",
+              "set -eu; tmp=/tmp/taf-ataqv-srvarv-$$; pid=; trap 'test -z \"$pid\" || kill \"$pid\" 2>/dev/null || true; rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp/viewer\"; printf 'ataqv-srvarv-ok\\n' > \"$tmp/viewer/index.html\"; PYTHONUNBUFFERED=1 srvarv -p 8765 \"$tmp/viewer\" > \"$tmp/server.log\" 2>&1 & pid=$!; i=0; until python -c 'import urllib.request; assert urllib.request.urlopen(\"http://127.0.0.1:8765/\", timeout=1).read()==b\"ataqv-srvarv-ok\\n\"' 2>/dev/null; do i=$((i+1)); test \"$i\" -lt 30; sleep 1; done; kill -TERM \"$pid\"; wait \"$pid\" 2>/dev/null || true; pid=; grep -F 'Serving ataqv web viewer instance' \"$tmp/server.log\" >/dev/null",
+              "set -eu; tmp=/tmp/taf-ataqv-error-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; if ataqv human \"$tmp/missing.bam\" > \"$tmp/error.txt\" 2>&1; then exit 1; fi; grep -F 'The specified alignment file does not exist.' \"$tmp/error.txt\" >/dev/null",
+              "test -s /opt/ataqv/share/doc/ataqv/README.rst && test -s /opt/ataqv/share/licenses/ataqv/LICENSE && test -s /opt/ataqv/share/licenses/ataqv/COPYRIGHT && test -s /opt/ataqv/share/provenance/debian-packages.tsv && grep -Fx 'upstream_commit=15686234e707c3d779a8e45f39a390c29a8691f5' /opt/ataqv/share/provenance/source.txt >/dev/null && echo 'e286d521919d8117aad8b6aaf91d0539212d8c5fcc1bd33be26d435ef8b58dd3  /opt/ataqv/share/source/ataqv/ataqv-1.3.1.tar.gz' | sha256sum -c -",
+              "set -eu; tmp=/tmp/taf-ataqv-viewer-$$; pid=; trap 'test -z \"$pid\" || kill \"$pid\" 2>/dev/null || true; rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; mkarv --less-redundant --description 'TAFFISH service smoke' \"$tmp/viewer\" /opt/ataqv/share/testdata/smoke-basic.ataqv.json.gz > \"$tmp/mkarv.log\" 2>&1; test -s \"$tmp/viewer/index.html\"; ataqv-viewer --port 8765 --host-port 18765 --url-host 127.0.0.1 --bind-address 127.0.0.1 --startup-timeout 20 --log-file \"$tmp/http.log\" \"$tmp/viewer\" > \"$tmp/user.log\" 2>&1 & pid=$!; i=0; until python -c 'import urllib.request; page=urllib.request.urlopen(\"http://127.0.0.1:8765/\", timeout=1).read(); assert b\"ataqv results viewer\" in page' 2>/dev/null && grep -F 'ataqv viewer is ready.' \"$tmp/user.log\" >/dev/null; do i=$((i+1)); test \"$i\" -lt 30; sleep 1; done; grep -F 'http://127.0.0.1:18765/' \"$tmp/user.log\" >/dev/null; grep -F 'ssh -N -L 18765:127.0.0.1:18765 user@server' \"$tmp/user.log\" >/dev/null; grep -F 'Press Ctrl-C to stop this viewer session.' \"$tmp/user.log\" >/dev/null; grep -F 'ataqv viewer is ready.' \"$tmp/user.log\" >/dev/null; ! grep -F '\"GET / HTTP' \"$tmp/user.log\" >/dev/null; grep -F '\"GET / HTTP' \"$tmp/http.log\" >/dev/null; kill -TERM \"$pid\"; status=0; wait \"$pid\" || status=$?; pid=; test \"$status\" -eq 143",
+              "set -eu; tmp=/tmp/taf-ataqv-viewer-input-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp/empty\"; status=0; ataqv-viewer \"$tmp/missing\" > \"$tmp/missing.log\" 2>&1 || status=$?; test \"$status\" -eq 2; grep -F 'viewer directory does not exist' \"$tmp/missing.log\" >/dev/null; grep -F 'mkarv VIEWER_DIRECTORY METRICS.json[.gz] [...]' \"$tmp/missing.log\" >/dev/null; status=0; ataqv-viewer \"$tmp/empty\" > \"$tmp/empty.log\" 2>&1 || status=$?; test \"$status\" -eq 2; grep -F 'viewer directory has no nonempty index.html' \"$tmp/empty.log\" >/dev/null; grep -F 'mkarv VIEWER_DIRECTORY METRICS.json[.gz] [...]' \"$tmp/empty.log\" >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-10T16:40:45Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-10T16:40:45Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/ataqv",
+            "ref": "v1.3.1-r1",
+            "commit": "19b31a6ab3a91fd944b2eefc0ff8a387bef2411d",
+            "html_url": "https://github.com/taffish/ataqv/tree/v1.3.1-r1"
+          },
+          "upstream": {
+            "name": "ataqv",
+            "type": "github",
+            "homepage": "https://github.com/ParkerLab/ataqv",
+            "repository": "ParkerLab/ataqv",
+            "release_url": "https://github.com/ParkerLab/ataqv/releases/tag/1.3.1",
+            "version": "1.3.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "Orchard P et al. Quantification, Dynamic Visualization, and Validation of Bias in ATAC-Seq Data with ataqv. Cell Systems 10(3), 2020.",
+            "doi": "10.1016/j.cels.2020.02.009",
+            "pmid": "32213349"
           }
         }
       }
@@ -30961,6 +31104,151 @@
         }
       }
     },
+    "phantompeakqualtools": {
+      "name": "phantompeakqualtools",
+      "latest": "1.2.2-r1",
+      "recent_version": "1.2.2-r1",
+      "recent_at": "2026-08-10T16:29:06Z",
+      "repository_url": "https://github.com/taffish/phantompeakqualtools",
+      "command": {
+        "name": "taf-phantompeakqualtools"
+      },
+      "versions": {
+        "1.2.2-r1": {
+          "name": "phantompeakqualtools",
+          "kind": "tool",
+          "version": "1.2.2",
+          "release": 1,
+          "version_id": "1.2.2-r1",
+          "tag": "v1.2.2-r1",
+          "published_at": "2026-08-10T16:29:06Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/phantompeakqualtools",
+          "repository_slug": "taffish/phantompeakqualtools",
+          "command": {
+            "name": "taf-phantompeakqualtools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "quality-control",
+            "categories": [
+              "quality-control",
+              "chip-seq",
+              "peak-calling",
+              "signal-analysis"
+            ],
+            "keywords": [
+              "phantompeakqualtools",
+              "spp",
+              "cross-correlation",
+              "nsc",
+              "rsc",
+              "qtag",
+              "fragment length",
+              "chip-seq",
+              "dnase-seq",
+              "faire-seq",
+              "mnase-seq",
+              "tagalign",
+              "bam",
+              "narrowpeak",
+              "regionpeak",
+              "encode"
+            ],
+            "summary": "phantompeakqualtools 1.2.2 for strand cross-correlation QC, fragment-length estimation, and SPP peak calling.",
+            "description": "phantompeakqualtools 1.2.2 for strand cross-correlation QC, fragment-length estimation, and SPP peak calling."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/phantompeakqualtools:1.2.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.2.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:71afbe08394ed72609b875e5409ff03d515b581604ab5e9392bdc197dabec9c7",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:291112855cae9dd572dc595b4dcc388e650d1a9728f5d004aba869d176f7120f",
+              "linux/arm64": "sha256:11670c8e442be3f07da030659b049b2bfe2b2f6a6090e234f8fb46cc58407270"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "run_spp.R",
+              "Rscript",
+              "samtools",
+              "gawk",
+              "awk",
+              "gzip",
+              "gunzip",
+              "wget",
+              "zip",
+              "rm",
+              "bash",
+              "sh",
+              "grep",
+              "sha256sum"
+            ],
+            "test": [
+              "Rscript -e 'pkgs <- c(\"spp\",\"caTools\",\"snow\",\"snowfall\",\"bitops\",\"Rsamtools\"); stopifnot(all(vapply(pkgs, requireNamespace, logical(1), quietly=TRUE))); stopifnot(as.character(packageVersion(\"spp\")) == \"1.14\"); cat(\"phantompeakqualtools-runtime-ok\\n\")' | grep -Fx 'phantompeakqualtools-runtime-ok' >/dev/null && { run_spp.R 2>&1 || true; } | grep -F 'Usage: Rscript run_spp.R <options>' >/dev/null",
+              "set -eu; tmp=/tmp/taf-ppqt-tagalign-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; /opt/phantompeakqualtools/share/testdata/make-smoke-fixtures.sh tagalign \"$tmp\"; cd \"$tmp\"; run_spp.R -c=chip.tagAlign -s=-100:5:300 -x=10:60 -out=metrics.tsv -savp=crosscorr.pdf -savd=crosscorr.RData -rf >run.log 2>&1; test \"$(gawk -F '\\t' 'NR==1 {print NF}' metrics.tsv)\" -eq 11; test \"$(head -c 4 crosscorr.pdf)\" = '%PDF'; test -s crosscorr.RData; grep -F 'Calculating peak characteristics' run.log >/dev/null",
+              "set -eu; tmp=/tmp/taf-ppqt-gzip-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; /opt/phantompeakqualtools/share/testdata/make-smoke-fixtures.sh gzip \"$tmp\"; cd \"$tmp\"; run_spp.R -c=chip.tagAlign.gz -s=-100:5:300 -x=10:60 -p=2 -out=parallel.tsv -rf >run.log 2>&1; test \"$(gawk -F '\\t' 'NR==1 {print NF}' parallel.tsv)\" -eq 11; grep -F 'Decompressing ChIP file' run.log >/dev/null; grep -F 'num parallel nodes: 2' run.log >/dev/null",
+              "set -eu; tmp=/tmp/taf-ppqt-bamgz-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; /opt/phantompeakqualtools/share/testdata/make-smoke-fixtures.sh bam \"$tmp\"; cd \"$tmp\"; run_spp.R -c=chip.bam.gz -s=-100:5:300 -x=10:60 -out=bam.tsv -rf >run.log 2>&1; test \"$(gawk -F '\\t' 'NR==1 {print NF}' bam.tsv)\" -eq 11; grep -F 'Decompressing ChIP file' run.log >/dev/null; grep -F 'Reading ChIP tagAlign/BAM file chip.bam.gz' run.log >/dev/null",
+              "set -eu; tmp=/tmp/taf-ppqt-peaks-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; /opt/phantompeakqualtools/share/testdata/make-smoke-fixtures.sh peaks \"$tmp\"; cd \"$tmp\"; run_spp.R -c=chip.tagAlign -i=control.tagAlign -s=-100:5:300 -x=10:60 -npeak=10 -savn=peaks.narrowPeak -savr=regions.regionPeak -rf >run.log 2>&1; gzip -t peaks.narrowPeak.gz; gzip -t regions.regionPeak.gz; test \"$(gzip -cd peaks.narrowPeak.gz | gawk -F '\\t' 'NR==1 {print NF}')\" -eq 10; test \"$(gzip -cd regions.regionPeak.gz | gawk -F '\\t' 'NR==1 {print NF}')\" -eq 10; grep -F 'Detected ' run.log >/dev/null",
+              "set -eu; tmp=/tmp/taf-ppqt-writewig-$$; trap 'rm -rf \"$tmp\"' 0 1 2 3; mkdir -p \"$tmp\"; Rscript -e 'library(spp); dat <- list(chr1=data.frame(x=c(100,130,200), y=c(1.2,4.0,2.3))); out <- writewig(dat, file.path(commandArgs(TRUE)[1],\"track.wig\"), \"tiny\", zip=TRUE); stopifnot(file.exists(out))' \"$tmp\"; test -s \"$tmp/track.wig.zip\"; test ! -e \"$tmp/track.wig\"; zip -T \"$tmp/track.wig.zip\" >/dev/null",
+              "test -s /opt/phantompeakqualtools/share/doc/phantompeakqualtools/README.md && test -s /opt/phantompeakqualtools/share/licenses/phantompeakqualtools/LICENSE && test -s /opt/phantompeakqualtools/share/licenses/spp/GPL-2 && test -s /opt/phantompeakqualtools/share/patches/spp-gcc12.sed && test -s /opt/phantompeakqualtools/share/provenance/debian-packages.tsv && test -s /opt/phantompeakqualtools/share/provenance/r-packages.tsv && echo 'b31263b64aefe97bdc4d7fae138f515a7d7a60cd05031d38dd89a10f9ee10cd1  /opt/phantompeakqualtools/share/source/phantompeakqualtools/phantompeakqualtools-1.2.2.tar.gz' | sha256sum -c -"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-10T16:40:45Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-10T16:40:45Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/phantompeakqualtools",
+            "ref": "v1.2.2-r1",
+            "commit": "887ff44f0e31cd94137df9dc5e18d88871b2a494",
+            "html_url": "https://github.com/taffish/phantompeakqualtools/tree/v1.2.2-r1"
+          },
+          "upstream": {
+            "name": "phantompeakqualtools",
+            "type": "github",
+            "homepage": "https://github.com/kundajelab/phantompeakqualtools",
+            "repository": "kundajelab/phantompeakqualtools",
+            "release_url": "https://github.com/kundajelab/phantompeakqualtools/releases/tag/1.2.2",
+            "version": "1.2.2",
+            "license": "BSD-3-Clause",
+            "citation": "Landt SG et al. ChIP-seq guidelines and practices of the ENCODE and modENCODE consortia. Genome Research 22(9), 2012.",
+            "doi": "10.1101/gr.136184.111"
+          }
+        }
+      }
+    },
     "phylogeny-flow": {
       "name": "phylogeny-flow",
       "latest": "0.2.0-r1",
@@ -52065,6 +52353,10 @@
       "package": "antismash",
       "version": "8.0.4-r2"
     },
+    "taf-ataqv": {
+      "package": "ataqv",
+      "version": "1.3.1-r1"
+    },
     "taf-augustus": {
       "package": "augustus",
       "version": "3.5.0-r1"
@@ -52661,6 +52953,10 @@
       "package": "pggb",
       "version": "0.7.4-r1"
     },
+    "taf-phantompeakqualtools": {
+      "package": "phantompeakqualtools",
+      "version": "1.2.2-r1"
+    },
     "taf-phylogeny-flow": {
       "package": "phylogeny-flow",
       "version": "0.2.0-r1"
@@ -53071,6 +53367,12 @@
       "repository": "taffish/antismash",
       "packages": [
         "antismash"
+      ]
+    },
+    "taffish/ataqv": {
+      "repository": "taffish/ataqv",
+      "packages": [
+        "ataqv"
       ]
     },
     "taffish/augustus": {
@@ -53965,6 +54267,12 @@
       "repository": "taffish/pggb",
       "packages": [
         "pggb"
+      ]
+    },
+    "taffish/phantompeakqualtools": {
+      "repository": "taffish/phantompeakqualtools",
+      "packages": [
+        "phantompeakqualtools"
       ]
     },
     "taffish/phylogeny-flow": {
