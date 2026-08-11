@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-10T20:29:57Z",
+  "generated_at": "2026-08-11T03:12:20Z",
   "organization": "taffish",
   "counts": {
     "packages": 251,
-    "versions": 413,
+    "versions": 415,
     "commands": 251,
     "repositories": 251,
     "warnings": 0,
@@ -285,9 +285,9 @@
     },
     "alevin-fry": {
       "name": "alevin-fry",
-      "latest": "0.16.2-r1",
-      "recent_version": "0.16.2-r1",
-      "recent_at": "2026-07-27T00:57:04Z",
+      "latest": "0.17.0-r1",
+      "recent_version": "0.17.0-r1",
+      "recent_at": "2026-08-10T21:17:38Z",
       "repository_url": "https://github.com/taffish/alevin-fry",
       "command": {
         "name": "taf-alevin-fry"
@@ -405,6 +405,124 @@
             "repository": "COMBINE-lab/alevin-fry",
             "release_url": "https://github.com/COMBINE-lab/alevin-fry/releases/tag/v0.16.2",
             "version": "0.16.2",
+            "license": "BSD-3-Clause",
+            "citation": "He D, Zakeri M, Sarkar H, Soneson C, Srivastava A, Patro R. Alevin-fry unlocks rapid, accurate and memory-frugal quantification of single-cell RNA-seq data. Nature Methods. 2022;19:316-322.",
+            "doi": "10.1038/s41592-022-01408-3",
+            "pmid": "35277707"
+          }
+        },
+        "0.17.0-r1": {
+          "name": "alevin-fry",
+          "kind": "tool",
+          "version": "0.17.0",
+          "release": 1,
+          "version_id": "0.17.0-r1",
+          "tag": "v0.17.0-r1",
+          "published_at": "2026-08-10T21:17:38Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/alevin-fry",
+          "repository_slug": "taffish/alevin-fry",
+          "command": {
+            "name": "taf-alevin-fry"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "single-nucleus",
+              "transcriptomics",
+              "gene-expression",
+              "chromatin-accessibility"
+            ],
+            "keywords": [
+              "alevin-fry",
+              "scrna-seq",
+              "snrna-seq",
+              "scatac-seq",
+              "rad",
+              "cell barcode",
+              "umi",
+              "usa mode",
+              "rna velocity",
+              "quantification"
+            ],
+            "summary": "Alevin-fry 0.17.0 for barcode permit lists, RAD collation, sc/snRNA-seq quantification, direct quant-to-infer equivalence-class processing, SAM/BAM conversion, RAD viewing, and supported scATAC-seq RAD processing.",
+            "description": "Alevin-fry 0.17.0 for barcode permit lists, RAD collation, sc/snRNA-seq quantification, direct quant-to-infer equivalence-class processing, SAM/BAM conversion, RAD viewing, and supported scATAC-seq RAD processing."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/alevin-fry:0.17.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.17.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:120d0cdc7992b57fc8e0c0206fc088e54152d833a9f63277ba0cfdfb8797204e",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:60f75dbdf1e02925f108bee318ba26889a5dd5869e26d343a7d0e074cac4e61e",
+              "linux/arm64": "sha256:687a3e80ffbd84bde54fa57546964cfac402f270ab3e091cc71a805d84fa50f0"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "alevin-fry",
+              "sh",
+              "grep",
+              "gzip",
+              "ldd"
+            ],
+            "test": [
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh identity",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh interfaces",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh rad",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh rna",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh infer"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-11T03:12:20Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-11T03:12:20Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/alevin-fry",
+            "ref": "v0.17.0-r1",
+            "commit": "e9cc664a15edd870e0ea20dd3ad838d79e796964",
+            "html_url": "https://github.com/taffish/alevin-fry/tree/v0.17.0-r1"
+          },
+          "upstream": {
+            "name": "alevin-fry",
+            "type": "github",
+            "homepage": "https://github.com/COMBINE-lab/alevin-fry",
+            "repository": "COMBINE-lab/alevin-fry",
+            "release_url": "https://github.com/COMBINE-lab/alevin-fry/releases/tag/v0.17.0",
+            "version": "0.17.0",
             "license": "BSD-3-Clause",
             "citation": "He D, Zakeri M, Sarkar H, Soneson C, Srivastava A, Patro R. Alevin-fry unlocks rapid, accurate and memory-frugal quantification of single-cell RNA-seq data. Nature Methods. 2022;19:316-322.",
             "doi": "10.1038/s41592-022-01408-3",
@@ -28692,9 +28810,9 @@
     },
     "ncbi-datasets": {
       "name": "ncbi-datasets",
-      "latest": "18.34.0-r1",
-      "recent_version": "18.34.0-r1",
-      "recent_at": "2026-07-31T16:08:55Z",
+      "latest": "18.35.0-r1",
+      "recent_version": "18.35.0-r1",
+      "recent_at": "2026-08-10T22:01:33Z",
       "repository_url": "https://github.com/taffish/ncbi-datasets",
       "command": {
         "name": "taf-ncbi-datasets"
@@ -28923,6 +29041,128 @@
             "repository": "ncbi/datasets",
             "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.34.0",
             "version": "18.34.0",
+            "license": "Public Domain / United States Government Work",
+            "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
+            "doi": "10.1038/s41597-024-03571-y"
+          }
+        },
+        "18.35.0-r1": {
+          "name": "ncbi-datasets",
+          "kind": "tool",
+          "version": "18.35.0",
+          "release": 1,
+          "version_id": "18.35.0-r1",
+          "tag": "v18.35.0-r1",
+          "published_at": "2026-08-10T22:01:33Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/ncbi-datasets",
+          "repository_slug": "taffish/ncbi-datasets",
+          "command": {
+            "name": "taf-ncbi-datasets"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "data-retrieval",
+              "database-query",
+              "metadata"
+            ],
+            "keywords": [
+              "ncbi datasets",
+              "datasets",
+              "dataformat",
+              "ncbi",
+              "genome",
+              "gene",
+              "taxonomy",
+              "virus",
+              "metadata",
+              "data package"
+            ],
+            "summary": "NCBI Datasets 18.35.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata.",
+            "description": "NCBI Datasets 18.35.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/ncbi-datasets:18.35.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "18.35.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:1f0c290df35b7780c19b70142c33b111f6aae87c490dae0c126280e360d112f9",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:80147a7305a495417764ae6daeda545db50275d4a8b8504012987a286eed97c0",
+              "linux/arm64": "sha256:e92f4e43df150a4c4f17bdeffa0cb9777d88e5f3e657c665fdf7b67430d249e5"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "datasets",
+              "dataformat",
+              "sh",
+              "grep",
+              "sed",
+              "wc",
+              "tr",
+              "head",
+              "cut",
+              "mkdir",
+              "rm"
+            ],
+            "test": [
+              "datasets --version 2>&1 | grep -Fx 'datasets version: 18.35.0' >/dev/null && dataformat version 2>&1 | grep -Fx 'undefined' >/dev/null && grep -Fx 'upstream_version=18.35.0' /opt/ncbi-datasets/share/doc/ncbi-datasets/source.txt >/dev/null && test -s /etc/ssl/certs/ca-certificates.crt",
+              "datasets --help 2>&1 | grep -F 'Data Retrieval Commands' >/dev/null && datasets summary genome accession --help 2>&1 | grep -F -- '--as-json-lines' >/dev/null && datasets download genome accession --help 2>&1 | grep -F -- '--dehydrated' >/dev/null && datasets download gene gene-id --help 2>&1 | grep -F 'include all file types' >/dev/null && datasets download virus genome taxon --help 2>&1 | grep -F 'include all reports and sequence data' >/dev/null && datasets rehydrate --help 2>&1 | grep -F -- '--directory' >/dev/null && dataformat --help 2>&1 | grep -F 'Formatting Commands' >/dev/null && dataformat tsv genome --help 2>&1 | grep -F -- '--fields' >/dev/null && dataformat tsv sequence --help 2>&1 | grep -F -- '--list-templates' >/dev/null && dataformat tsv sequence --list-templates 2>&1 | grep -F 'summary-no-query' >/dev/null && dataformat excel genome --help 2>&1 | grep -F -- '--outputfile' >/dev/null",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh tsv",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh sequence",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh excel"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-11T03:12:20Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-11T03:12:20Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/ncbi-datasets",
+            "ref": "v18.35.0-r1",
+            "commit": "de306574d3014d7ab84ed51953021bca888b4fe3",
+            "html_url": "https://github.com/taffish/ncbi-datasets/tree/v18.35.0-r1"
+          },
+          "upstream": {
+            "name": "NCBI Datasets",
+            "type": "github",
+            "homepage": "https://www.ncbi.nlm.nih.gov/datasets/",
+            "repository": "ncbi/datasets",
+            "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.35.0",
+            "version": "18.35.0",
             "license": "Public Domain / United States Government Work",
             "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
             "doi": "10.1038/s41597-024-03571-y"
@@ -52471,7 +52711,7 @@
     },
     "taf-alevin-fry": {
       "package": "alevin-fry",
-      "version": "0.16.2-r1"
+      "version": "0.17.0-r1"
     },
     "taf-amrfinderplus": {
       "package": "amrfinderplus",
@@ -53027,7 +53267,7 @@
     },
     "taf-ncbi-datasets": {
       "package": "ncbi-datasets",
-      "version": "18.34.0-r1"
+      "version": "18.35.0-r1"
     },
     "taf-ngenomesyn": {
       "package": "ngenomesyn",
