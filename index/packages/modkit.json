@@ -1,0 +1,135 @@
+{
+  "name": "modkit",
+  "latest": "0.6.4-r1",
+  "recent_version": "0.6.4-r1",
+  "recent_at": "2026-08-11T04:52:30Z",
+  "repository_url": "https://github.com/taffish/modkit",
+  "command": {
+    "name": "taf-modkit"
+  },
+  "versions": {
+    "0.6.4-r1": {
+      "name": "modkit",
+      "kind": "tool",
+      "version": "0.6.4",
+      "release": 1,
+      "version_id": "0.6.4-r1",
+      "tag": "v0.6.4-r1",
+      "published_at": "2026-08-11T04:52:30Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/modkit",
+      "repository_slug": "taffish/modkit",
+      "command": {
+        "name": "taf-modkit"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "nanopore",
+        "categories": [
+          "nanopore",
+          "epigenomics",
+          "modified-bases",
+          "methylation",
+          "long-read"
+        ],
+        "keywords": [
+          "modkit",
+          "nanopore",
+          "ont",
+          "modbam",
+          "bedmethyl",
+          "mm tags",
+          "ml tags",
+          "modified bases",
+          "methylation",
+          "dmr",
+          "open chromatin"
+        ],
+        "summary": "Oxford Nanopore modkit 0.6.4 for modBAM manipulation, bedMethyl generation, modified-base statistics, DMR analysis, motif analysis, and CPU open-chromatin prediction.",
+        "description": "Oxford Nanopore modkit 0.6.4 for modBAM manipulation, bedMethyl generation, modified-base statistics, DMR analysis, motif analysis, and CPU open-chromatin prediction."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/modkit:0.6.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.6.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:dcef8784156e749d6c2889dac3f6e8bc762c9474981cff4fb71ff1dc4c96247b",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:71723e899f0334cc10424d2dba5d21785301bb977b393b4f731f508abd9a57ed",
+          "linux/arm64": "sha256:19bf499838aad86bb910732911994e4aad094e779ea3c4512b7591e65899b8a2"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "modkit",
+          "sh",
+          "awk",
+          "cmp",
+          "grep",
+          "head",
+          "ldd",
+          "mktemp",
+          "wc"
+        ],
+        "test": [
+          "/opt/modkit/share/testdata/modkit-smoke.sh identity /tmp/taf-modkit-index-identity-$$",
+          "/opt/modkit/share/testdata/modkit-smoke.sh interfaces /tmp/taf-modkit-index-interfaces-$$",
+          "/opt/modkit/share/testdata/modkit-smoke.sh pileup /tmp/taf-modkit-index-pileup-$$",
+          "/opt/modkit/share/testdata/modkit-smoke.sh extract /tmp/taf-modkit-index-extract-$$",
+          "/opt/modkit/share/testdata/modkit-smoke.sh modbam /tmp/taf-modkit-index-modbam-$$",
+          "/opt/modkit/share/testdata/modkit-smoke.sh bedmethyl /tmp/taf-modkit-index-bedmethyl-$$",
+          "/opt/modkit/share/testdata/modkit-smoke.sh open-chromatin /tmp/taf-modkit-index-open-chromatin-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-11T12:04:13Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-11T12:04:13Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/modkit",
+        "ref": "v0.6.4-r1",
+        "commit": "990d9dd39c0bbd535fb2f313df0bbeb686f3555a",
+        "html_url": "https://github.com/taffish/modkit/tree/v0.6.4-r1"
+      },
+      "upstream": {
+        "name": "modkit",
+        "type": "github",
+        "homepage": "https://nanoporetech.github.io/modkit/",
+        "repository": "nanoporetech/modkit",
+        "release_url": "https://github.com/nanoporetech/modkit/releases/tag/v0.6.4",
+        "version": "0.6.4",
+        "license": "Oxford Nanopore Technologies PLC Public License v1.0",
+        "citation": "Oxford Nanopore Technologies. Modkit: a bioinformatics tool for working with modified bases. https://github.com/nanoporetech/modkit"
+      }
+    }
+  }
+}
