@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-11T03:12:20Z",
+  "generated_at": "2026-08-11T04:12:37Z",
   "organization": "taffish",
   "counts": {
-    "packages": 251,
-    "versions": 415,
-    "commands": 251,
-    "repositories": 251,
+    "packages": 252,
+    "versions": 416,
+    "commands": 252,
+    "repositories": 252,
     "warnings": 0,
     "failed": 0,
     "rejected": 11
@@ -48796,6 +48796,151 @@
         }
       }
     },
+    "tobias": {
+      "name": "tobias",
+      "latest": "0.17.5-r1",
+      "recent_version": "0.17.5-r1",
+      "recent_at": "2026-08-11T03:33:22Z",
+      "repository_url": "https://github.com/taffish/tobias",
+      "command": {
+        "name": "taf-tobias"
+      },
+      "versions": {
+        "0.17.5-r1": {
+          "name": "tobias",
+          "kind": "tool",
+          "version": "0.17.5",
+          "release": 1,
+          "version_id": "0.17.5-r1",
+          "tag": "v0.17.5-r1",
+          "published_at": "2026-08-11T03:33:22Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/tobias",
+          "repository_slug": "taffish/tobias",
+          "command": {
+            "name": "taf-tobias"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "atac-seq",
+            "categories": [
+              "atac-seq",
+              "footprinting",
+              "transcription-factors",
+              "epigenomics",
+              "visualization"
+            ],
+            "keywords": [
+              "tobias",
+              "atac-seq",
+              "footprinting",
+              "tn5-bias",
+              "tfbs",
+              "bindetect",
+              "motifs",
+              "bigwig"
+            ],
+            "summary": "TOBIAS 0.17.5 toolkit for ATAC-seq bias correction, footprint scoring, TF binding inference, motif analysis, and visualization.",
+            "description": "TOBIAS 0.17.5 toolkit for ATAC-seq bias correction, footprint scoring, TF binding inference, motif analysis, and visualization."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/tobias:0.17.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.17.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:78bcfd99eaf7630cd500a028478bdee323167a9483a7fcb96ae498bbe62b5f25",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:13d48c855996a90857d750ce566511c771d93eee4d1715477d26daa4ff119965",
+              "linux/arm64": "sha256:52872e73f07d62addb28dd6d59b623465ee0672f142b6b39f15fde77d4eb5f46"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "TOBIAS",
+              "filter_important_factors.py",
+              "cluster_sites_by_overlap.py",
+              "tobias-smoke",
+              "python",
+              "python3",
+              "bash",
+              "sh",
+              "samtools",
+              "bedtools",
+              "gs",
+              "convert",
+              "sed",
+              "sort",
+              "uniq",
+              "grep",
+              "find"
+            ],
+            "test": [
+              "tobias-smoke identity",
+              "tobias-smoke helps",
+              "tobias-smoke motifs",
+              "tobias-smoke signal",
+              "tobias-smoke bam",
+              "tobias-smoke atacorrect",
+              "tobias-smoke bindetect",
+              "tobias-smoke plottracks",
+              "tobias-smoke utilities",
+              "tobias-smoke secondary",
+              "tobias-smoke boundaries"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-11T04:12:37Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-11T04:12:37Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/tobias",
+            "ref": "v0.17.5-r1",
+            "commit": "4de3f8e0d088672cf7b570389c32296c60e24a8d",
+            "html_url": "https://github.com/taffish/tobias/tree/v0.17.5-r1"
+          },
+          "upstream": {
+            "name": "TOBIAS",
+            "type": "github",
+            "homepage": "https://github.com/loosolab/TOBIAS",
+            "repository": "loosolab/TOBIAS",
+            "release_url": "https://github.com/loosolab/TOBIAS/tree/v0.17.5",
+            "version": "0.17.5",
+            "license": "MIT",
+            "citation": "Bentsen et al. 2020, ATAC-seq footprinting unravels kinetics of transcription factor binding during zygotic genome activation",
+            "doi": "10.1038/s41467-020-18035-1"
+          }
+        }
+      }
+    },
     "transdecoder": {
       "name": "transdecoder",
       "latest": "6.0.0-r1",
@@ -53617,6 +53762,10 @@
       "package": "tmbed",
       "version": "1.0.2-r1"
     },
+    "taf-tobias": {
+      "package": "tobias",
+      "version": "0.17.5-r1"
+    },
     "taf-transdecoder": {
       "package": "transdecoder",
       "version": "6.0.0-r1"
@@ -55079,6 +55228,12 @@
       "repository": "taffish/tmbed",
       "packages": [
         "tmbed"
+      ]
+    },
+    "taffish/tobias": {
+      "repository": "taffish/tobias",
+      "packages": [
+        "tobias"
       ]
     },
     "taffish/transdecoder": {
