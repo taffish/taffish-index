@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-12T04:39:17Z",
+  "generated_at": "2026-08-12T10:51:51Z",
   "organization": "taffish",
   "counts": {
-    "packages": 255,
-    "versions": 422,
-    "commands": 255,
-    "repositories": 255,
+    "packages": 256,
+    "versions": 423,
+    "commands": 256,
+    "repositories": 256,
     "warnings": 0,
     "failed": 0,
     "rejected": 11
@@ -31240,6 +31240,169 @@
         }
       }
     },
+    "panaroo": {
+      "name": "panaroo",
+      "latest": "1.8.0-r1",
+      "recent_version": "1.8.0-r1",
+      "recent_at": "2026-08-12T08:43:47Z",
+      "repository_url": "https://github.com/taffish/panaroo",
+      "command": {
+        "name": "taf-panaroo"
+      },
+      "versions": {
+        "1.8.0-r1": {
+          "name": "panaroo",
+          "kind": "tool",
+          "version": "1.8.0",
+          "release": 1,
+          "version_id": "1.8.0-r1",
+          "tag": "v1.8.0-r1",
+          "published_at": "2026-08-12T08:43:47Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/panaroo",
+          "repository_slug": "taffish/panaroo",
+          "command": {
+            "name": "taf-panaroo"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "pangenomics",
+            "categories": [
+              "pangenomics",
+              "comparative-genomics",
+              "genome-annotation",
+              "quality-control"
+            ],
+            "keywords": [
+              "panaroo",
+              "bacterial pangenome",
+              "gff3",
+              "genbank",
+              "prokka",
+              "bakta",
+              "cd-hit",
+              "mash",
+              "mafft",
+              "prank",
+              "clustal omega",
+              "muscle",
+              "famsa"
+            ],
+            "summary": "Panaroo 1.8.0 for bacterial pangenome graph construction, cleaning, alignment, QC, integration, and downstream export.",
+            "description": "Panaroo 1.8.0 for bacterial pangenome graph construction, cleaning, alignment, QC, integration, and downstream export."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/panaroo:1.8.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.8.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d813b2f3a5a21597ddd35a07fa2494ea03253d8468a78c50b4d9c0f334d5d5d6",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a975f2f8c0be6cefd7f0529f06ce2636bc90beb4b4aa07726f610867d8d37d9e",
+              "linux/arm64": "sha256:a4d19a4a23d1f22986319d4eff52c4847625c735600fbb26345fa9d0c30cec18"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "panaroo",
+              "run_prokka",
+              "panaroo-qc",
+              "panaroo-merge",
+              "panaroo-plot-abundance",
+              "panaroo-spydrpick",
+              "panaroo-img",
+              "panaroo-fmg",
+              "panaroo-msa",
+              "panaroo-gene-neighbourhood",
+              "panaroo-integrate",
+              "panaroo-filter-pa",
+              "panaroo-generate-gffs",
+              "panaroo-extract-gene",
+              "panaroo-convert-bakta-to-prokka-gff",
+              "panaroo-smoke",
+              "cd-hit",
+              "cd-hit-est",
+              "mafft",
+              "prank",
+              "clustalo",
+              "muscle",
+              "famsa",
+              "mash",
+              "prokka",
+              "prodigal",
+              "barrnap",
+              "minced",
+              "python3",
+              "bash",
+              "sh",
+              "grep",
+              "sed",
+              "sha256sum"
+            ],
+            "test": [
+              "panaroo-smoke identity",
+              "panaroo-smoke interfaces",
+              "panaroo-smoke core",
+              "panaroo-smoke aligners",
+              "panaroo-smoke formats",
+              "panaroo-smoke qc",
+              "panaroo-smoke prokka"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-12T10:51:51Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-12T10:51:51Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/panaroo",
+            "ref": "v1.8.0-r1",
+            "commit": "66dc710e295394f0b869e039bbc9a4d06a1c5083",
+            "html_url": "https://github.com/taffish/panaroo/tree/v1.8.0-r1"
+          },
+          "upstream": {
+            "name": "Panaroo",
+            "type": "github",
+            "homepage": "https://gtonkinhill.github.io/panaroo/",
+            "repository": "gtonkinhill/panaroo",
+            "release_url": "https://github.com/gtonkinhill/panaroo/releases/tag/v1.8.0",
+            "version": "1.8.0",
+            "license": "MIT",
+            "citation": "Tonkin-Hill G et al. Producing polished prokaryotic pangenomes with the Panaroo pipeline. Genome Biology 21, 180 (2020).",
+            "doi": "10.1186/s13059-020-02090-4",
+            "pmid": "32698896"
+          }
+        }
+      }
+    },
     "pandepth": {
       "name": "pandepth",
       "latest": "2.26-r2",
@@ -54275,6 +54438,10 @@
       "package": "pairtools",
       "version": "1.1.3-r1"
     },
+    "taf-panaroo": {
+      "package": "panaroo",
+      "version": "1.8.0-r1"
+    },
     "taf-pandepth": {
       "package": "pandepth",
       "version": "2.26-r2"
@@ -55603,6 +55770,12 @@
       "repository": "taffish/pairtools",
       "packages": [
         "pairtools"
+      ]
+    },
+    "taffish/panaroo": {
+      "repository": "taffish/panaroo",
+      "packages": [
+        "panaroo"
       ]
     },
     "taffish/pandepth": {
