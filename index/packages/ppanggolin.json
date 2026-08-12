@@ -1,0 +1,141 @@
+{
+  "name": "ppanggolin",
+  "latest": "2.3.1-r1",
+  "recent_version": "2.3.1-r1",
+  "recent_at": "2026-08-12T12:32:04Z",
+  "repository_url": "https://github.com/taffish/ppanggolin",
+  "command": {
+    "name": "taf-ppanggolin"
+  },
+  "versions": {
+    "2.3.1-r1": {
+      "name": "ppanggolin",
+      "kind": "tool",
+      "version": "2.3.1",
+      "release": 1,
+      "version_id": "2.3.1-r1",
+      "tag": "v2.3.1-r1",
+      "published_at": "2026-08-12T12:32:04Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/ppanggolin",
+      "repository_slug": "taffish/ppanggolin",
+      "command": {
+        "name": "taf-ppanggolin"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "pangenomics",
+        "categories": [
+          "pangenomics",
+          "comparative-genomics",
+          "genome-annotation",
+          "visualization"
+        ],
+        "keywords": [
+          "ppanggolin",
+          "bacterial pangenome",
+          "partitioned pangenome graph",
+          "rgp",
+          "panrgp",
+          "panmodule",
+          "mmseqs2",
+          "mafft",
+          "infernal",
+          "aragorn",
+          "graph-tool",
+          "plotly",
+          "bokeh"
+        ],
+        "summary": "PPanGGOLiN 2.3.1 for prokaryotic pangenome construction, partitioning, RGP/module analysis, projection, export, and interactive HTML visualization.",
+        "description": "PPanGGOLiN 2.3.1 for prokaryotic pangenome construction, partitioning, RGP/module analysis, projection, export, and interactive HTML visualization."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/ppanggolin:2.3.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.3.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:7493c4749bdeeca8ee3f436d87344a5cb45f4f66d9b3fd470381e1ee26959dff",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:9dfa2bfb98cce0a198498172f3d6ddc297dd1b0bbb5d5594889e71e3254bb738",
+          "linux/arm64": "sha256:ea175a006ea824fcc23221bd1c8faf806c8932033cb237f8fa0b69bfd3372587"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 1200,
+        "exist": [
+          "ppanggolin",
+          "ppanggolin-smoke",
+          "ppanggolin-smoke-fixtures.py",
+          "python",
+          "mmseqs",
+          "mafft",
+          "aragorn",
+          "cmscan",
+          "cmpress",
+          "bash",
+          "sh",
+          "grep",
+          "sha256sum"
+        ],
+        "test": [
+          "ppanggolin-smoke identity",
+          "ppanggolin-smoke interfaces",
+          "ppanggolin-smoke annotation",
+          "ppanggolin-smoke workflow",
+          "ppanggolin-smoke artifacts",
+          "ppanggolin-smoke all"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-12T12:52:12Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-12T12:52:12Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/ppanggolin",
+        "ref": "v2.3.1-r1",
+        "commit": "bb3c13950d9f3e9cdd3a3234bdb94b0682d3775c",
+        "html_url": "https://github.com/taffish/ppanggolin/tree/v2.3.1-r1"
+      },
+      "upstream": {
+        "name": "PPanGGOLiN",
+        "type": "github",
+        "homepage": "https://labgem.genoscope.cns.fr/2023/04/27/ppanggolin/",
+        "repository": "labgem/PPanGGOLiN",
+        "release_url": "https://github.com/labgem/PPanGGOLiN/releases/tag/2.3.1",
+        "version": "2.3.1",
+        "license": "CeCILL-2.1",
+        "citation": "Gautreau G et al. PPanGGOLiN: Depicting microbial diversity via a partitioned pangenome graph. PLOS Computational Biology 16(3):e1007732 (2020).",
+        "doi": "10.1371/journal.pcbi.1007732",
+        "pmid": "32191703"
+      }
+    }
+  }
+}
