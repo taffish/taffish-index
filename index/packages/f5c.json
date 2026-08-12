@@ -1,0 +1,139 @@
+{
+  "name": "f5c",
+  "latest": "1.6-r1",
+  "recent_version": "1.6-r1",
+  "recent_at": "2026-08-11T16:24:27Z",
+  "repository_url": "https://github.com/taffish/f5c",
+  "command": {
+    "name": "taf-f5c"
+  },
+  "versions": {
+    "1.6-r1": {
+      "name": "f5c",
+      "kind": "tool",
+      "version": "1.6",
+      "release": 1,
+      "version_id": "1.6-r1",
+      "tag": "v1.6-r1",
+      "published_at": "2026-08-11T16:24:27Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/f5c",
+      "repository_slug": "taffish/f5c",
+      "command": {
+        "name": "taf-f5c"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "nanopore",
+        "categories": [
+          "nanopore",
+          "epigenomics",
+          "methylation",
+          "signal-processing",
+          "long-read"
+        ],
+        "keywords": [
+          "f5c",
+          "oxford nanopore",
+          "fast5",
+          "slow5",
+          "blow5",
+          "methylation",
+          "eventalign",
+          "resquiggle",
+          "m6anet",
+          "r9",
+          "r10",
+          "rna004"
+        ],
+        "summary": "f5c 1.6 CPU toolkit for nanopore signal indexing, methylation calling, event alignment, resquiggling, and methylation-frequency aggregation.",
+        "description": "f5c 1.6 CPU toolkit for nanopore signal indexing, methylation calling, event alignment, resquiggling, and methylation-frequency aggregation."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/f5c:1.6-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.6-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:12121ddc15b19ba16e1576e7d691c8d1d04205c772e62d2226be30e3217e56ea",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b63b3af87eafd6c3d0fbb07fbb504cb0c7b96817509d49e9d4287bb219a3cdf6",
+          "linux/arm64": "sha256:bb15f610c5335ec8fdfbf415ac4f9b3f2f41522f0dbdce57decab05a814aaef6"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "f5c",
+          "sh",
+          "awk",
+          "grep",
+          "head",
+          "ldd",
+          "mktemp",
+          "wc"
+        ],
+        "test": [
+          "/opt/f5c/share/testdata/f5c-smoke.sh identity /tmp/taf-f5c-index-identity-$$",
+          "/opt/f5c/share/testdata/f5c-smoke.sh interfaces /tmp/taf-f5c-index-interfaces-$$",
+          "/opt/f5c/share/testdata/f5c-smoke.sh index /tmp/taf-f5c-index-index-$$",
+          "/opt/f5c/share/testdata/f5c-smoke.sh call-methylation /tmp/taf-f5c-index-methylation-$$",
+          "/opt/f5c/share/testdata/f5c-smoke.sh eventalign /tmp/taf-f5c-index-eventalign-$$",
+          "/opt/f5c/share/testdata/f5c-smoke.sh resquiggle /tmp/taf-f5c-index-resquiggle-$$",
+          "/opt/f5c/share/testdata/f5c-smoke.sh meth-freq /tmp/taf-f5c-index-meth-freq-$$",
+          "/opt/f5c/share/testdata/f5c-smoke.sh freq-merge /tmp/taf-f5c-index-freq-merge-$$",
+          "/opt/f5c/share/testdata/f5c-smoke.sh fast5 /tmp/taf-f5c-index-fast5-$$",
+          "/opt/f5c/share/testdata/f5c-smoke.sh vbz /tmp/taf-f5c-index-vbz-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-12T03:30:02Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-12T03:30:02Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/f5c",
+        "ref": "v1.6-r1",
+        "commit": "484b72b922474890697da4a2fe2430dc550d2398",
+        "html_url": "https://github.com/taffish/f5c/tree/v1.6-r1"
+      },
+      "upstream": {
+        "name": "f5c",
+        "type": "github",
+        "homepage": "https://hasindu2008.github.io/f5c/",
+        "repository": "hasindu2008/f5c",
+        "release_url": "https://github.com/hasindu2008/f5c/releases/tag/v1.6",
+        "version": "1.6",
+        "license": "MIT; bundled Scrappie-derived code and VBZ plugin components under MPL-2.0",
+        "citation": "Gamaarachchi H et al. GPU accelerated adaptive banded event alignment for rapid comparative nanopore signal analysis. BMC Bioinformatics 21, 343 (2020).",
+        "doi": "10.1186/s12859-020-03697-x"
+      }
+    }
+  }
+}
