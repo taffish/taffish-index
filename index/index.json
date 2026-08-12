@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-12T03:30:02Z",
+  "generated_at": "2026-08-12T04:39:17Z",
   "organization": "taffish",
   "counts": {
-    "packages": 254,
-    "versions": 421,
-    "commands": 254,
-    "repositories": 254,
+    "packages": 255,
+    "versions": 422,
+    "commands": 255,
+    "repositories": 255,
     "warnings": 0,
     "failed": 0,
     "rejected": 11
@@ -10419,6 +10419,163 @@
             "license": "LGPL-2",
             "citation": "Callahan et al. 2016, DADA2: High-resolution sample inference from Illumina amplicon data, Nature Methods",
             "doi": "10.1038/nmeth.3869"
+          }
+        }
+      }
+    },
+    "das_tool": {
+      "name": "das_tool",
+      "latest": "1.1.7-r1",
+      "recent_version": "1.1.7-r1",
+      "recent_at": "2026-08-12T04:30:19Z",
+      "repository_url": "https://github.com/taffish/das-tool",
+      "command": {
+        "name": "taf-das_tool"
+      },
+      "versions": {
+        "1.1.7-r1": {
+          "name": "das_tool",
+          "kind": "tool",
+          "version": "1.1.7",
+          "release": 1,
+          "version_id": "1.1.7-r1",
+          "tag": "v1.1.7-r1",
+          "published_at": "2026-08-12T04:30:19Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/das-tool",
+          "repository_slug": "taffish/das-tool",
+          "command": {
+            "name": "taf-das_tool"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "genome-binning",
+              "dereplication",
+              "quality-assessment"
+            ],
+            "keywords": [
+              "das tool",
+              "metagenome-assembled genomes",
+              "mag",
+              "binning",
+              "dereplication",
+              "aggregation",
+              "single-copy genes",
+              "diamond",
+              "blast",
+              "prodigal"
+            ],
+            "summary": "DAS Tool 1.1.7 for scoring and selecting an optimized non-redundant set of metagenomic bins.",
+            "description": "DAS Tool 1.1.7 for scoring and selecting an optimized non-redundant set of metagenomic bins."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/das-tool:1.1.7-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.1.7-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:46131066a41825cd00126da5c51e1fe2c9b66199a77661ef4d8572ecbce08f48",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e0930b875c8148890dce10529f0fdd0e47c31c56fdd742156521c2e5fd8c2d1e",
+              "linux/arm64": "sha256:31c753364507bd2494308eee32edf0e8d046432d9b7094ce57bb143c8392a8eb"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "DAS_Tool",
+              "Fasta_to_Contig2Bin.sh",
+              "Contigs2Bin_to_Fasta.sh",
+              "das-tool-smoke",
+              "Rscript",
+              "ruby",
+              "prodigal",
+              "pullseq",
+              "diamond",
+              "blastp",
+              "makeblastdb",
+              "bash",
+              "sh",
+              "perl",
+              "gawk",
+              "awk",
+              "grep",
+              "sed",
+              "sort",
+              "tr",
+              "shuf",
+              "split",
+              "wc",
+              "unzip",
+              "tee",
+              "mv",
+              "rm",
+              "mkdir",
+              "readlink",
+              "dirname",
+              "basename",
+              "cat"
+            ],
+            "test": [
+              "das-tool-smoke identity",
+              "das-tool-smoke helpers",
+              "das-tool-smoke pipeline",
+              "das-tool-smoke blast",
+              "das-tool-smoke resume",
+              "das-tool-smoke provenance"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-12T04:39:17Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-12T04:39:17Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/das-tool",
+            "ref": "v1.1.7-r1",
+            "commit": "36bdb6fec194289b307e889efdec9254bc6931a6",
+            "html_url": "https://github.com/taffish/das-tool/tree/v1.1.7-r1"
+          },
+          "upstream": {
+            "name": "DAS Tool",
+            "type": "github",
+            "homepage": "https://github.com/cmks/DAS_Tool",
+            "repository": "cmks/DAS_Tool",
+            "release_url": "https://github.com/cmks/DAS_Tool/releases/tag/1.1.7",
+            "version": "1.1.7",
+            "license": "BSD-3-Clause-LBNL",
+            "citation": "Sieber CMK et al. Recovery of genomes from metagenomes via a dereplication, aggregation and scoring strategy. Nature Microbiology 3, 836-843 (2018).",
+            "doi": "10.1038/s41564-018-0171-1",
+            "pmid": "29807988"
           }
         }
       }
@@ -53722,6 +53879,10 @@
       "package": "dada2",
       "version": "1.40.0-r1"
     },
+    "taf-das_tool": {
+      "package": "das_tool",
+      "version": "1.1.7-r1"
+    },
     "taf-deepbgc": {
       "package": "deepbgc",
       "version": "0.1.31-r1"
@@ -54848,6 +55009,12 @@
       "repository": "taffish/dada2",
       "packages": [
         "dada2"
+      ]
+    },
+    "taffish/das-tool": {
+      "repository": "taffish/das-tool",
+      "packages": [
+        "das_tool"
       ]
     },
     "taffish/deepbgc": {
