@@ -1,0 +1,138 @@
+{
+  "name": "sage",
+  "latest": "0.14.7-r1",
+  "recent_version": "0.14.7-r1",
+  "recent_at": "2026-08-12T16:43:15Z",
+  "repository_url": "https://github.com/taffish/sage",
+  "command": {
+    "name": "taf-sage"
+  },
+  "versions": {
+    "0.14.7-r1": {
+      "name": "sage",
+      "kind": "tool",
+      "version": "0.14.7",
+      "release": 1,
+      "version_id": "0.14.7-r1",
+      "tag": "v0.14.7-r1",
+      "published_at": "2026-08-12T16:43:15Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/sage",
+      "repository_slug": "taffish/sage",
+      "command": {
+        "name": "taf-sage"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": false
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "proteomics",
+        "categories": [
+          "proteomics",
+          "mass-spectrometry",
+          "database-search",
+          "quantification"
+        ],
+        "keywords": [
+          "sage",
+          "proteomics",
+          "mass spectrometry",
+          "mzml",
+          "mgf",
+          "bruker tdf",
+          "peptide-spectrum match",
+          "psm",
+          "fasta",
+          "label-free quantification",
+          "tmt",
+          "parquet",
+          "percolator"
+        ],
+        "summary": "Sage v0.14.7 proteomics database searching and quantification runtime for mzML, MGF, and Bruker TDF data, with TSV, Parquet, matched-fragment, and Percolator PIN outputs.",
+        "description": "Sage v0.14.7 proteomics database searching and quantification runtime for mzML, MGF, and Bruker TDF data, with TSV, Parquet, matched-fragment, and Percolator PIN outputs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/sage:0.14.7-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.14.7-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:74e899d6c1f674a73c4ffe303dfd2245d27d0f4866b7408f5c10b1b845e88894",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ac6805db2f1b956bf38751879b1355f6698ae8d502a79853f5680dce8e0854f1",
+          "linux/arm64": "sha256:e2ea94566528b389456bd34fd70056a7dccdd8ad1e86b7775a115f7b1c28bef7"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "sage",
+          "sage-smoke",
+          "sh",
+          "awk",
+          "dd",
+          "grep",
+          "gzip",
+          "mktemp",
+          "sha256sum"
+        ],
+        "test": [
+          "sage-smoke identity /tmp/taf-sage-index-identity-$$",
+          "sage-smoke interfaces /tmp/taf-sage-index-interfaces-$$",
+          "sage-smoke mzml /tmp/taf-sage-index-mzml-$$",
+          "sage-smoke mgf-case /tmp/taf-sage-index-mgf-$$",
+          "sage-smoke gzip /tmp/taf-sage-index-gzip-$$",
+          "sage-smoke parquet /tmp/taf-sage-index-parquet-$$",
+          "sage-smoke annotate /tmp/taf-sage-index-annotate-$$",
+          "sage-smoke pin /tmp/taf-sage-index-pin-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-13T03:13:41Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-13T03:13:41Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/sage",
+        "ref": "v0.14.7-r1",
+        "commit": "e03d1e37bfc38e818284986296386127a8563560",
+        "html_url": "https://github.com/taffish/sage/tree/v0.14.7-r1"
+      },
+      "upstream": {
+        "name": "Sage",
+        "type": "github",
+        "homepage": "https://github.com/lazear/sage",
+        "repository": "lazear/sage",
+        "release_url": "https://github.com/lazear/sage/releases/tag/v0.14.7",
+        "version": "0.14.7",
+        "license": "MIT",
+        "citation": "Lazear M. Sage: An Open-Source Tool for Fast Proteomics Searching and Quantification at Scale. Journal of Proteome Research (2023).",
+        "doi": "10.1021/acs.jproteome.3c00486"
+      }
+    }
+  }
+}
