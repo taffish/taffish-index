@@ -1,0 +1,151 @@
+{
+  "name": "spatialdata",
+  "latest": "0.8.0-r1",
+  "recent_version": "0.8.0-r1",
+  "recent_at": "2026-08-14T04:40:48Z",
+  "repository_url": "https://github.com/taffish/spatialdata",
+  "command": {
+    "name": "taf-spatialdata"
+  },
+  "versions": {
+    "0.8.0-r1": {
+      "name": "spatialdata",
+      "kind": "tool",
+      "version": "0.8.0",
+      "release": 1,
+      "version_id": "0.8.0-r1",
+      "tag": "v0.8.0-r1",
+      "published_at": "2026-08-14T04:40:48Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/spatialdata",
+      "repository_slug": "taffish/spatialdata",
+      "command": {
+        "name": "taf-spatialdata"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "spatial-omics",
+        "categories": [
+          "spatial-omics",
+          "data-model",
+          "python",
+          "scverse",
+          "ome-ngff",
+          "visualization"
+        ],
+        "keywords": [
+          "spatialdata",
+          "spatial omics",
+          "ome-ngff",
+          "zarr",
+          "napari",
+          "napari-spatialdata",
+          "spatialdata-io",
+          "spatialdata-plot",
+          "novnc",
+          "images",
+          "labels",
+          "points",
+          "shapes",
+          "tables"
+        ],
+        "summary": "SpatialData 0.8.0 Python runtime, upstream peek CLI, official IO/plot extensions, and browser-accessible napari-spatialdata GUI for multimodal spatial omics data.",
+        "description": "SpatialData 0.8.0 Python runtime, upstream peek CLI, official IO/plot extensions, and browser-accessible napari-spatialdata GUI for multimodal spatial omics data."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/spatialdata:0.8.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.8.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:aa12dfd7b5adeee6f7716de870edf04d8e9f4a90e18d2373eb39756428fc5841",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:627c5c20e4f0248797ebede9b48d23b360207b4ab28b664bd985eb5ee3d583c6",
+          "linux/arm64": "sha256:237d69707f127331d0a9a1b8534e4f6b633a43940f8f566e6ed1c7be52d48b85"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "python",
+          "python3",
+          "pip",
+          "bash",
+          "sh",
+          "spatialdata-gui",
+          "spatialdata-gui-launcher",
+          "spatialdata-gui-smoke",
+          "Xvfb",
+          "xvfb-run",
+          "x11vnc",
+          "websockify",
+          "twm",
+          "dbus-run-session",
+          "dbus-daemon",
+          "xdotool",
+          "curl",
+          "timeout",
+          "ldd"
+        ],
+        "test": [
+          "python -m pip check && python /opt/spatialdata/share/testdata/spatialdata_smoke.py identity | grep -Fx 'spatialdata=0.8.0' >/dev/null && python -m spatialdata --help 2>&1 | grep -F 'Peek inside the SpatialData .zarr dataset' >/dev/null && spatialdata-gui --help | grep -F 'open SpatialData with napari through noVNC' >/dev/null && grep -Fx 'wheel_sha256=75139b0df0e27c4573141a8dbe6b3301b47231571505926ad6a633c046ec1010' /opt/spatialdata/share/doc/spatialdata/SOURCE >/dev/null && grep -Fx 'napari_spatialdata_wheel_sha256=34b6c746e08039ee2a1ead3b30e6dbfa9af16288730122caa174b303ee4a5304' /opt/spatialdata/share/doc/spatialdata/SOURCE >/dev/null && grep -Fx 'websockify_wheel_sha256=ac497a8dafc7f51d28ca989f01cdf5f8add663a497d425a56b159dcb8d6a314c' /opt/spatialdata/share/doc/spatialdata/SOURCE >/dev/null && grep -Fx 'constraints_sha256=ec6c49fd094d940d2b68c44690b89cdb5b3d918d4868d99c6178893a5f2726c8' /opt/spatialdata/share/doc/spatialdata/SOURCE >/dev/null",
+          "tmp=/tmp/taf-spatialdata-roundtrip-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/spatialdata/share/testdata/spatialdata_smoke.py roundtrip \"$tmp/data.zarr\" && test -s \"$tmp/roundtrip.json\" && grep -F '\"spatialdata\": \"0.8.0\"' \"$tmp/roundtrip.json\" >/dev/null && grep -E '\"(images|labels|points|shapes|tables)\": [1-9]' \"$tmp/roundtrip.json\" >/dev/null && rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-spatialdata-cli-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/spatialdata/share/testdata/spatialdata_smoke.py fixture \"$tmp/data.zarr\" && python -m spatialdata peek \"$tmp/data.zarr\" images labels points shapes table > \"$tmp/peek.txt\" && grep -F 'SpatialData object' \"$tmp/peek.txt\" >/dev/null && grep -F 'Images' \"$tmp/peek.txt\" >/dev/null && grep -F 'Tables' \"$tmp/peek.txt\" >/dev/null && rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-spatialdata-operations-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/spatialdata/share/testdata/spatialdata_smoke.py operations \"$tmp/operations.json\" && test -s \"$tmp/operations.json\" && grep -F '\"raster_shape\": [1, 16, 16]' \"$tmp/operations.json\" >/dev/null && grep -F '\"spatialdata\": \"0.8.0\"' \"$tmp/operations.json\" >/dev/null && rm -rf \"$tmp\"",
+          "tmp=/tmp/taf-spatialdata-gui-export-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; xvfb-run -a -s '-screen 0 1024x768x24' python /opt/spatialdata/share/testdata/spatialdata_smoke.py gui-export \"$tmp/gui.png\" && test -s \"$tmp/gui.png\" && test \"$(wc -c < \"$tmp/gui.png\")\" -gt 10000 && rm -rf \"$tmp\"",
+          "spatialdata-gui-smoke gui",
+          "spatialdata-gui-smoke gui-interrupt",
+          "spatialdata-gui-smoke errors"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-14T04:53:08Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-14T04:53:08Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/spatialdata",
+        "ref": "v0.8.0-r1",
+        "commit": "aa07ba82ff6c7d6f77efca86523aef5cc81966bc",
+        "html_url": "https://github.com/taffish/spatialdata/tree/v0.8.0-r1"
+      },
+      "upstream": {
+        "name": "SpatialData",
+        "type": "github",
+        "homepage": "https://spatialdata.scverse.org/en/stable/",
+        "repository": "https://github.com/scverse/spatialdata",
+        "release_url": "https://github.com/scverse/spatialdata/releases/tag/v0.8.0",
+        "version": "0.8.0",
+        "license": "BSD-3-Clause",
+        "citation": "Marconato et al. SpatialData: an open and universal data framework for spatial omics. Nature Methods 21, 58-62 (2024).",
+        "doi": "10.1038/s41592-024-02212-x"
+      }
+    }
+  }
+}
