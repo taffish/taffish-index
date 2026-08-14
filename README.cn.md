@@ -264,12 +264,13 @@ Meta：
 
 - `domain` 是大的领域 token，例如 `bio`、`ml`、`chem`、`devops` 或 `general`。
 - `category` 是用于 Hub 筛选和浏览的主分类 token。
-- `keywords` 是用于增强搜索的软件关键词。
+- `keywords` 是经过首尾空白清理和小写归一化、用于增强发现能力的搜索词。
 - `category` 和 `categories` 接受由字母、数字、`.`、`_`、`-`、`+` 和 `&`
   组成的简单筛选 token。
-- `keywords` 接受同样字符，并额外允许 `/` 和空格，因此 `blast+`、`ka/ks`、
-  `dn/ds`、`cut&run`、`cut&tag`、`multiple sequence alignment`
-  这类别名或短语是合法搜索词。
+- 与 category 标识符不同，`keywords` 接受可打印的 Unicode 文本和标点，因此
+  `Moran's I`、`Moran’s I`、`5′ UTR`、`Cα`、`ka/ks`、`cut&run`、
+  `multiple sequence alignment` 这类科学名称、别名或短语都是合法搜索词；Tab、
+  换行和其他控制字符仍会被拒绝。
 - `summary` 是面向用户的简短说明，可用于 Hub 页面和仓库元数据。
 - `categories` 和 `description` 是兼容的 Hub 侧别名。index 会把 `category`
   归一化到 `categories`，把 `summary` 归一化到 `description`，并在输出时保留两种形式。
@@ -331,6 +332,12 @@ sbcl --script scripts/build-index.lisp -- --org "taffish" --output index
 ## 本地测试
 
 从本仓库根目录运行：
+
+```sh
+sbcl --script tests/project.lisp
+```
+
+如需从本地 fixture 仓库构建 index：
 
 ```sh
 sbcl --script scripts/build-index.lisp -- --no-org --local-repo ../../../taffish/test/my-test-tool --output index

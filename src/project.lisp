@@ -148,9 +148,10 @@
       (member char '(#\+ #\&) :test #'char=)))
 
 (defun keyword-token-char-p (char)
-  (or (meta-token-char-p char)
-      (char= char #\/)
-      (char= char #\Space)))
+  ;; Keywords are human-facing search aliases, not structural identifiers.
+  ;; Accept printable text (including Unicode scientific notation and
+  ;; punctuation) while excluding tabs, newlines, and other control chars.
+  (graphic-char-p char))
 
 (defun valid-meta-token-p (token)
   (and (stringp token)

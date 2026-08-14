@@ -34,6 +34,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y sbcl
 
+      - name: Test index builder
+        run: sbcl --script tests/project.lisp
+
       - name: Check Docker buildx
         run: |
           docker --version

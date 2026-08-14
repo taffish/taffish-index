@@ -281,13 +281,13 @@ Meta:
 
 - `domain` is a broad domain token such as `bio`, `ml`, `chem`, `devops`, or `general`.
 - `category` is the primary category token used for Hub filtering and browsing.
-- `keywords` are normalized search tokens used to improve package discovery.
+- `keywords` are trimmed, lowercased search terms used to improve package discovery.
 - `category` and `categories` accept simple filter tokens made of letters,
   digits, `.`, `_`, `-`, `+`, and `&`.
-- `keywords` accept the same characters plus `/` and spaces, so common aliases
-  and phrases such as `blast+`, `ka/ks`, `dn/ds`, and
-  `cut&run`, `cut&tag`, and `multiple sequence alignment` are valid search
-  terms.
+- Unlike category identifiers, `keywords` accept printable Unicode text and
+  punctuation. Scientific names and phrases such as `Moran's I`, `Moran’s I`,
+  `5′ UTR`, `Cα`, `ka/ks`, `cut&run`, and `multiple sequence alignment` are
+  valid. Tabs, newlines, and other control characters are rejected.
 - `summary` is a short human-facing description for Hub pages and repository metadata.
 - `categories` and `description` are accepted Hub-side aliases. The index
   normalizes `category` into `categories` and `summary` into `description`, then
@@ -354,6 +354,12 @@ sbcl --script scripts/build-index.lisp -- --org "taffish" --output index
 ## Local Test
 
 From this repository root:
+
+```sh
+sbcl --script tests/project.lisp
+```
+
+To build an index from a local fixture repository:
 
 ```sh
 sbcl --script scripts/build-index.lisp -- --no-org --local-repo ../../../taffish/test/my-test-tool --output index
