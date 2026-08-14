@@ -1,0 +1,154 @@
+{
+  "name": "openms",
+  "latest": "3.5.0-r1",
+  "recent_version": "3.5.0-r1",
+  "recent_at": "2026-08-13T16:03:13Z",
+  "repository_url": "https://github.com/taffish/openms",
+  "command": {
+    "name": "taf-openms"
+  },
+  "versions": {
+    "3.5.0-r1": {
+      "name": "openms",
+      "kind": "tool",
+      "version": "3.5.0",
+      "release": 1,
+      "version_id": "3.5.0-r1",
+      "tag": "v3.5.0-r1",
+      "published_at": "2026-08-13T16:03:13Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/openms",
+      "repository_slug": "taffish/openms",
+      "command": {
+        "name": "taf-openms"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "proteomics",
+        "categories": [
+          "proteomics",
+          "metabolomics",
+          "mass-spectrometry",
+          "data-analysis",
+          "visualization"
+        ],
+        "keywords": [
+          "openms",
+          "topp",
+          "toppview",
+          "toppas",
+          "lc-ms",
+          "mass spectrometry",
+          "proteomics",
+          "metabolomics",
+          "mzml",
+          "openswath",
+          "novnc"
+        ],
+        "summary": "OpenMS 3.5.0 TOPP command suite, bundled search-engine adapters, and browser-accessible TOPPView/TOPPAS desktop applications.",
+        "description": "OpenMS 3.5.0 TOPP command suite, bundled search-engine adapters, and browser-accessible TOPPView/TOPPAS desktop applications."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/openms:3.5.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.5.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:3ee552e136d39d3ce54ac2656309cb5c9afd587cc0baaae524151071628e55e0",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ab2301d67e0a627b04206c0db6743c7b8012a3e489ceb62d755abf3842390bb4",
+          "linux/arm64": "sha256:f8c4401311644abdc78a378a3d0218a2380b0c710e45c6b12753d5ca88ad0fb4"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 420,
+        "exist": [
+          "OpenMSInfo",
+          "FileConverter",
+          "FileInfo",
+          "PeakPickerHiRes",
+          "SimpleSearchEngine",
+          "OpenSwathWorkflow",
+          "TOPPView",
+          "TOPPAS",
+          "INIFileEditor",
+          "FLASHDeconvWizard",
+          "SwathWizard",
+          "openms-gui",
+          "openms-smoke",
+          "java",
+          "mono",
+          "R",
+          "Rscript",
+          "python3",
+          "Xvfb",
+          "xvfb-run",
+          "x11vnc",
+          "websockify",
+          "openbox",
+          "dbus-run-session",
+          "dbus-daemon",
+          "curl",
+          "timeout",
+          "ldd"
+        ],
+        "test": [
+          "openms-smoke identity",
+          "openms-smoke core",
+          "openms-smoke adapters",
+          "openms-smoke gui",
+          "openms-smoke gui-interrupt",
+          "openms-smoke errors"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-14T02:40:21Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-14T02:40:21Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/openms",
+        "ref": "v3.5.0-r1",
+        "commit": "429eaa1a5c7b286809bd139a0376e35d75580b8e",
+        "html_url": "https://github.com/taffish/openms/tree/v3.5.0-r1"
+      },
+      "upstream": {
+        "name": "OpenMS",
+        "type": "github",
+        "homepage": "https://www.openms.org/",
+        "repository": "OpenMS/OpenMS",
+        "release_url": "https://github.com/OpenMS/OpenMS/releases/tag/release/3.5.0",
+        "version": "3.5.0",
+        "license": "BSD-3-Clause",
+        "citation": "Pfeuffer J, Bielow C, Wein S, et al. OpenMS 3 enables reproducible analysis of large-scale mass spectrometry data. Nature Methods 21, 365-367 (2024).",
+        "doi": "10.1038/s41592-024-02197-7"
+      }
+    }
+  }
+}
