@@ -1,13 +1,13 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-14T16:41:27Z",
+  "generated_at": "2026-08-14T17:15:44Z",
   "organization": "taffish",
   "counts": {
-    "packages": 260,
-    "versions": 427,
-    "commands": 260,
-    "repositories": 260,
-    "warnings": 1,
+    "packages": 261,
+    "versions": 428,
+    "commands": 261,
+    "repositories": 261,
+    "warnings": 0,
     "failed": 0,
     "rejected": 11
   },
@@ -47806,6 +47806,138 @@
         }
       }
     },
+    "squidpy": {
+      "name": "squidpy",
+      "latest": "1.8.3-r1",
+      "recent_version": "1.8.3-r1",
+      "recent_at": "2026-08-14T16:36:36Z",
+      "repository_url": "https://github.com/taffish/squidpy",
+      "command": {
+        "name": "taf-squidpy"
+      },
+      "versions": {
+        "1.8.3-r1": {
+          "name": "squidpy",
+          "kind": "tool",
+          "version": "1.8.3",
+          "release": 1,
+          "version_id": "1.8.3-r1",
+          "tag": "v1.8.3-r1",
+          "published_at": "2026-08-14T16:36:36Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/squidpy",
+          "repository_slug": "taffish/squidpy",
+          "command": {
+            "name": "taf-squidpy"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "spatial-omics",
+            "categories": [
+              "spatial-omics",
+              "spatial-transcriptomics",
+              "image-analysis",
+              "python",
+              "scverse",
+              "visualization"
+            ],
+            "keywords": [
+              "squidpy",
+              "spatial omics",
+              "spatial transcriptomics",
+              "anndata",
+              "spatial graph",
+              "moran's i",
+              "ligand-receptor",
+              "imagecontainer",
+              "spatialdata",
+              "scanpy",
+              "spatialleiden"
+            ],
+            "summary": "Squidpy 1.8.3 Python runtime for scalable spatial-omics graph statistics, ligand-receptor analysis, microscopy image processing, static plotting, and the official Leiden extra.",
+            "description": "Squidpy 1.8.3 Python runtime for scalable spatial-omics graph statistics, ligand-receptor analysis, microscopy image processing, static plotting, and the official Leiden extra."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/squidpy:1.8.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.8.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9e8c8fd80f9eebf3af883949bfba9db30bbeed01a2dc19fc9d9d8eb803fd7cca",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:16dda5181656a02a6ccffd55412c579009339187e3ef7f4b032340a6196552ec",
+              "linux/arm64": "sha256:7e1e96f2e7653a9610aef86ed260b2e7e61f3383a3369613b7b13b7670e454aa"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "python",
+              "python3",
+              "pip",
+              "bash",
+              "sh",
+              "fc-list"
+            ],
+            "test": [
+              "python -m pip check && python --help 2>&1 | grep -F 'usage:' >/dev/null && python /opt/squidpy/share/testdata/squidpy_smoke.py identity | grep -Fx 'squidpy=1.8.3' >/dev/null && grep -Fx 'upstream_commit=005c9056fea7c5432fb220abc9b48a384fb8c090' /opt/squidpy/share/doc/squidpy/SOURCE >/dev/null && grep -Fx 'wheel_sha256=05fd5da00db697e6d0dbb91ff543ff5b27d0046666ce5a7348548076b3310efc' /opt/squidpy/share/doc/squidpy/SOURCE >/dev/null && grep -Fx 'docrep_source_sha256=ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314' /opt/squidpy/share/doc/squidpy/SOURCE >/dev/null && grep -Fx 'constraints_sha256=0a33978dca71c6f1f302eeec1cf3f90cf94f343649ea854bc35064f112604541' /opt/squidpy/share/doc/squidpy/SOURCE >/dev/null",
+              "tmp=/tmp/taf-squidpy-graph-$$; rm -rf \"$tmp\"; python /opt/squidpy/share/testdata/squidpy_smoke.py graph \"$tmp\" && test -s \"$tmp/squidpy_graph.h5ad\" && test -s \"$tmp/nhood_enrichment.png\" && test -s \"$tmp/moran.tsv\" && test -s \"$tmp/centrality.tsv\" && test -s \"$tmp/versions.tsv\" && grep -F 'spatialleiden' \"$tmp/versions.tsv\" >/dev/null && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-squidpy-ligrec-$$; rm -rf \"$tmp\"; python /opt/squidpy/share/testdata/squidpy_smoke.py ligrec \"$tmp\" && test -s \"$tmp/ligrec-means.tsv\" && test -s \"$tmp/ligrec-pvalues.tsv\" && test -s \"$tmp/local-interactions.tsv\" && grep -F 'interaction_source' \"$tmp/ligrec-summary.tsv\" >/dev/null && grep -F 'local-dataframe' \"$tmp/ligrec-summary.tsv\" >/dev/null && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-squidpy-image-$$; rm -rf \"$tmp\"; python /opt/squidpy/share/testdata/squidpy_smoke.py image \"$tmp\" && test -s \"$tmp/input.tiff\" && test -s \"$tmp/image.png\" && test -s \"$tmp/image-summary.tsv\" && test -d \"$tmp/image.zarr\" && grep -F 'segmentation_max' \"$tmp/image-summary.tsv\" >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-14T17:15:44Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-14T17:15:44Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/squidpy",
+            "ref": "v1.8.3-r1",
+            "commit": "f4decc24a5255dbb074acc9699c8a02ac94f5dd9",
+            "html_url": "https://github.com/taffish/squidpy/tree/v1.8.3-r1"
+          },
+          "upstream": {
+            "name": "Squidpy",
+            "type": "github",
+            "homepage": "https://squidpy.readthedocs.io/en/stable/",
+            "repository": "https://github.com/scverse/squidpy",
+            "release_url": "https://github.com/scverse/squidpy/releases/tag/v1.8.3",
+            "version": "1.8.3",
+            "license": "BSD-3-Clause",
+            "citation": "Palla et al. Squidpy: a scalable framework for spatial omics analysis. Nature Methods 19, 171-178 (2022).",
+            "doi": "10.1038/s41592-021-01358-2",
+            "pmid": "35102346"
+          }
+        }
+      }
+    },
     "sra-tools": {
       "name": "sra-tools",
       "latest": "3.4.1-r1",
@@ -55310,6 +55442,10 @@
       "package": "sqanti3",
       "version": "6.0.2-r1"
     },
+    "taf-squidpy": {
+      "package": "squidpy",
+      "version": "1.8.3-r1"
+    },
     "taf-sra-tools": {
       "package": "sra-tools",
       "version": "3.4.1-r1"
@@ -56804,6 +56940,12 @@
         "sqanti3"
       ]
     },
+    "taffish/squidpy": {
+      "repository": "taffish/squidpy",
+      "packages": [
+        "squidpy"
+      ]
+    },
     "taffish/sra-tools": {
       "repository": "taffish/sra-tools",
       "packages": [
@@ -57009,11 +57151,5 @@
       ]
     }
   },
-  "warnings": [
-    {
-      "repository": "taffish/squidpy",
-      "ref": "v1.8.3-r1",
-      "message": "[meta].keywords contains an invalid token: \"moran's i\""
-    }
-  ]
+  "warnings": []
 }
