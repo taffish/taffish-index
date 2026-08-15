@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-15T02:27:09Z",
+  "generated_at": "2026-08-15T18:50:46Z",
   "organization": "taffish",
   "counts": {
-    "packages": 261,
-    "versions": 428,
-    "commands": 261,
-    "repositories": 261,
+    "packages": 262,
+    "versions": 429,
+    "commands": 262,
+    "repositories": 262,
     "warnings": 0,
     "failed": 0,
     "rejected": 11
@@ -6138,6 +6138,156 @@
             "citation": "Li and Godzik 2006",
             "doi": "10.1093/bioinformatics/btl158",
             "pmid": "16731699"
+          }
+        }
+      }
+    },
+    "cellpose": {
+      "name": "cellpose",
+      "latest": "4.2.1.1-r1",
+      "recent_version": "4.2.1.1-r1",
+      "recent_at": "2026-08-15T18:38:17Z",
+      "repository_url": "https://github.com/taffish/cellpose",
+      "command": {
+        "name": "taf-cellpose"
+      },
+      "versions": {
+        "4.2.1.1-r1": {
+          "name": "cellpose",
+          "kind": "tool",
+          "version": "4.2.1.1",
+          "release": 1,
+          "version_id": "4.2.1.1-r1",
+          "tag": "v4.2.1.1-r1",
+          "published_at": "2026-08-15T18:38:17Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/cellpose",
+          "repository_slug": "taffish/cellpose",
+          "command": {
+            "name": "taf-cellpose"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "bioimage-analysis",
+            "categories": [
+              "bioimage-analysis",
+              "microscopy",
+              "segmentation",
+              "machine-learning",
+              "visualization"
+            ],
+            "keywords": [
+              "cellpose",
+              "cellpose-sam",
+              "cellposedino",
+              "cell segmentation",
+              "nuclei",
+              "microscopy",
+              "2d",
+              "3d",
+              "pytorch",
+              "dask",
+              "bioimage.io",
+              "pyqt6",
+              "novnc"
+            ],
+            "summary": "Cellpose 4.2.1.1 CPU runtime with CLI, training, distributed and BioImage.IO extras, pinned DINOv3 integration, and browser-accessible official Qt GUI.",
+            "description": "Cellpose 4.2.1.1 CPU runtime with CLI, training, distributed and BioImage.IO extras, pinned DINOv3 integration, and browser-accessible official Qt GUI."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/cellpose:4.2.1.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.2.1.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6c43349c24694460e1aeed3907c1af000e636e64e36311c89f6efe31ff8c2364",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:97a5d3fecf18381650e9ef8aed8c08289a60f9416a16901d73d3fe5b4c328854",
+              "linux/arm64": "sha256:bc2c6b3dc1c6ca7db6bfaf8c2c266566cb43075409bac4bc4727db10fb01a8d2"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 1200,
+            "exist": [
+              "python",
+              "python3",
+              "pip",
+              "cellpose",
+              "cellpose-gui",
+              "cellpose-gui-launcher",
+              "cellpose-gui-smoke",
+              "Xvfb",
+              "xvfb-run",
+              "x11vnc",
+              "websockify",
+              "twm",
+              "dbus-run-session",
+              "dbus-daemon",
+              "xdotool",
+              "curl",
+              "timeout",
+              "ldd",
+              "cp"
+            ],
+            "test": [
+              "python -m pip check && python /opt/cellpose/share/testdata/cellpose_smoke.py identity | grep -Fx 'cellpose=4.2.1.1' >/dev/null && cellpose --version | grep -E '^cellpose version:[[:space:]]+4\\.2\\.1\\.1[[:space:]]*$' >/dev/null && cellpose --help | grep -F 'Cellpose Command Line Parameters' >/dev/null && cellpose-gui --help | grep -F 'official Cellpose Qt GUI through noVNC' >/dev/null && grep -Fx 'wheel_sha256=6c5c5159fd459115bee390ffb01d94d5e1006b97c211bf3c1a7b37d5395a1a13' /opt/cellpose/share/doc/cellpose/SOURCE >/dev/null && grep -Fx 'dinov3_source_sha256=c990614a09f0d2021a40f535e0f645d058b5c7be00cf3498fe04d58f16fa93c3' /opt/cellpose/share/doc/cellpose/SOURCE >/dev/null && grep -Fx 'constraints_sha256=b99baa34115d8761adce6dba2fdefc393903b4707f785b02a969e7695a889406' /opt/cellpose/share/doc/cellpose/SOURCE >/dev/null",
+              "tmp=/tmp/taf-cellpose-core-$$; rm -rf \"$tmp\"; python /opt/cellpose/share/testdata/cellpose_smoke.py core \"$tmp\" && test -s \"$tmp/core.json\" && grep -F '\"mask_count\": 2' \"$tmp/core.json\" >/dev/null && test -s \"$tmp/synthetic_cp_masks.png\" && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-cellpose-distributed-$$; rm -rf \"$tmp\"; python /opt/cellpose/share/testdata/cellpose_smoke.py distributed \"$tmp/data.zarr\" && test -d \"$tmp/data.zarr\" && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-cellpose-formats-$$; rm -rf \"$tmp\"; python /opt/cellpose/share/testdata/cellpose_smoke.py formats \"$tmp\" && test -s \"$tmp/volume.nrrd\" && test -s \"$tmp/volume.tif\" && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-cellpose-gui-export-$$; rm -rf \"$tmp\"; xvfb-run -a -s '-screen 0 1440x1000x24' python /opt/cellpose/share/testdata/cellpose_smoke.py gui-export \"$tmp\" && test -s \"$tmp/cellpose-gui.png\" && test \"$(wc -c < \"$tmp/cellpose-gui.png\")\" -gt 10000 && test -s \"$tmp/gui-image_cp_masks.png\" && test -s \"$tmp/gui-image_seg.npy\" && rm -rf \"$tmp\"",
+              "cellpose-gui-smoke gui2d",
+              "cellpose-gui-smoke gui3d",
+              "cellpose-gui-smoke gui-interrupt",
+              "cellpose-gui-smoke errors"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-15T18:50:46Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-15T18:50:46Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/cellpose",
+            "ref": "v4.2.1.1-r1",
+            "commit": "26f738465c880a45fd219c5b7bb9a49beee75981",
+            "html_url": "https://github.com/taffish/cellpose/tree/v4.2.1.1-r1"
+          },
+          "upstream": {
+            "name": "Cellpose",
+            "type": "github",
+            "homepage": "https://www.cellpose.org/",
+            "repository": "https://github.com/MouseLand/cellpose",
+            "release_url": "https://github.com/MouseLand/cellpose/releases/tag/v4.2.1.1",
+            "version": "4.2.1.1",
+            "license": "BSD-3-Clause",
+            "citation": "Pachitariu, Rariden, and Stringer. Cellpose-SAM: superhuman generalization for cellular segmentation. bioRxiv (2025).",
+            "doi": "10.1101/2025.04.28.651001"
           }
         }
       }
@@ -54670,6 +54820,10 @@
       "package": "cdhit",
       "version": "4.8.1-r1"
     },
+    "taf-cellpose": {
+      "package": "cellpose",
+      "version": "4.2.1.1-r1"
+    },
     "taf-cellsnp-lite": {
       "package": "cellsnp-lite",
       "version": "1.2.4-r1"
@@ -55780,6 +55934,12 @@
       "repository": "taffish/cdhit",
       "packages": [
         "cdhit"
+      ]
+    },
+    "taffish/cellpose": {
+      "repository": "taffish/cellpose",
+      "packages": [
+        "cellpose"
       ]
     },
     "taffish/cellsnp-lite": {
