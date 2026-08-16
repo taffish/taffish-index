@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-16T02:35:24Z",
+  "generated_at": "2026-08-16T08:37:51Z",
   "organization": "taffish",
   "counts": {
     "packages": 262,
-    "versions": 429,
+    "versions": 430,
     "commands": 262,
     "repositories": 262,
     "warnings": 0,
@@ -285,9 +285,9 @@
     },
     "alevin-fry": {
       "name": "alevin-fry",
-      "latest": "0.17.1-r1",
-      "recent_version": "0.17.1-r1",
-      "recent_at": "2026-08-11T05:21:16Z",
+      "latest": "0.18.0-r1",
+      "recent_version": "0.18.0-r1",
+      "recent_at": "2026-08-16T08:35:12Z",
       "repository_url": "https://github.com/taffish/alevin-fry",
       "command": {
         "name": "taf-alevin-fry"
@@ -643,6 +643,126 @@
             "repository": "COMBINE-lab/alevin-fry",
             "release_url": "https://github.com/COMBINE-lab/alevin-fry/releases/tag/v0.17.1",
             "version": "0.17.1",
+            "license": "BSD-3-Clause",
+            "citation": "He D, Zakeri M, Sarkar H, Soneson C, Srivastava A, Patro R. Alevin-fry unlocks rapid, accurate and memory-frugal quantification of single-cell RNA-seq data. Nature Methods. 2022;19:316-322.",
+            "doi": "10.1038/s41592-022-01408-3",
+            "pmid": "35277707"
+          }
+        },
+        "0.18.0-r1": {
+          "name": "alevin-fry",
+          "kind": "tool",
+          "version": "0.18.0",
+          "release": 1,
+          "version_id": "0.18.0-r1",
+          "tag": "v0.18.0-r1",
+          "published_at": "2026-08-16T08:35:12Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/alevin-fry",
+          "repository_slug": "taffish/alevin-fry",
+          "command": {
+            "name": "taf-alevin-fry"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "single-nucleus",
+              "transcriptomics",
+              "gene-expression",
+              "chromatin-accessibility"
+            ],
+            "keywords": [
+              "alevin-fry",
+              "scrna-seq",
+              "snrna-seq",
+              "scatac-seq",
+              "rad",
+              "cell barcode",
+              "umi",
+              "usa mode",
+              "rna velocity",
+              "quantification"
+            ],
+            "summary": "Alevin-fry 0.18.0 for deterministic barcode correction, bounded RAD collation, sc/snRNA-seq quantification, direct quant-to-infer processing, SAM/BAM conversion, RAD viewing, and supported scATAC-seq RAD processing.",
+            "description": "Alevin-fry 0.18.0 for deterministic barcode correction, bounded RAD collation, sc/snRNA-seq quantification, direct quant-to-infer processing, SAM/BAM conversion, RAD viewing, and supported scATAC-seq RAD processing."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/alevin-fry:0.18.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.18.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:1c900713512b6f68de879e4161067851be59197e8b97c5e48b3a3db4974f2d7e",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:659f6d69f2b23d14bdce2e907ce68e4f26af7a5f0ed5cc265fe8dd79c2bfee13",
+              "linux/arm64": "sha256:92265b1ada2fe29d304050440f65fdd314121f9a23ebf9d71a5e175c710892d3"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "alevin-fry",
+              "sh",
+              "grep",
+              "gzip",
+              "ldd",
+              "tr"
+            ],
+            "test": [
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh identity",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh interfaces",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh rad",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh rna",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh tiny",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh infer"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-16T08:37:51Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-16T08:37:51Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/alevin-fry",
+            "ref": "v0.18.0-r1",
+            "commit": "035d60457baed3a94fbd7461b03a6d2aa8ce3c49",
+            "html_url": "https://github.com/taffish/alevin-fry/tree/v0.18.0-r1"
+          },
+          "upstream": {
+            "name": "alevin-fry",
+            "type": "github",
+            "homepage": "https://github.com/COMBINE-lab/alevin-fry",
+            "repository": "COMBINE-lab/alevin-fry",
+            "release_url": "https://github.com/COMBINE-lab/alevin-fry/releases/tag/v0.18.0",
+            "version": "0.18.0",
             "license": "BSD-3-Clause",
             "citation": "He D, Zakeri M, Sarkar H, Soneson C, Srivastava A, Patro R. Alevin-fry unlocks rapid, accurate and memory-frugal quantification of single-cell RNA-seq data. Nature Methods. 2022;19:316-322.",
             "doi": "10.1038/s41592-022-01408-3",
@@ -54698,7 +54818,7 @@
     },
     "taf-alevin-fry": {
       "package": "alevin-fry",
-      "version": "0.17.1-r1"
+      "version": "0.18.0-r1"
     },
     "taf-amrfinderplus": {
       "package": "amrfinderplus",
