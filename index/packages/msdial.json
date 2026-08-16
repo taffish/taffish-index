@@ -1,0 +1,132 @@
+{
+  "name": "msdial",
+  "latest": "5.5.260323-r1",
+  "recent_version": "5.5.260323-r1",
+  "recent_at": "2026-08-16T16:45:12Z",
+  "repository_url": "https://github.com/taffish/msdial",
+  "command": {
+    "name": "taf-msdial"
+  },
+  "versions": {
+    "5.5.260323-r1": {
+      "name": "msdial",
+      "kind": "tool",
+      "version": "5.5.260323",
+      "release": 1,
+      "version_id": "5.5.260323-r1",
+      "tag": "v5.5.260323-r1",
+      "published_at": "2026-08-16T16:45:12Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/msdial",
+      "repository_slug": "taffish/msdial",
+      "command": {
+        "name": "taf-msdial"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metabolomics",
+        "categories": [
+          "metabolomics",
+          "lipidomics",
+          "mass-spectrometry",
+          "data-analysis",
+          "molecular-networking"
+        ],
+        "keywords": [
+          "ms-dial",
+          "msdialcui",
+          "lc-ms",
+          "gc-ms",
+          "ion mobility",
+          "mass spectrometry",
+          "metabolomics",
+          "lipidomics",
+          "mzml",
+          "netcdf",
+          "abf",
+          "molecular networking"
+        ],
+        "summary": "Official MS-DIAL 5.5.260323 Linux console runtime for GC-MS, LC-MS, LC-IM-MS, DI-MS, IM-MS, and MSP molecular-network analysis.",
+        "description": "Official MS-DIAL 5.5.260323 Linux console runtime for GC-MS, LC-MS, LC-IM-MS, DI-MS, IM-MS, and MSP molecular-network analysis."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/msdial:5.5.260323-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "5.5.260323-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:a5cf74fa32ac19bf33472e5a2da1d6dd7a547d0f84b6f82ac7bb074c64607013",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b88e12f4a0c77f67eaeff917b74c93b601b542c78109484c0b3c0ec42f1fc045"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "MSDIALCUI",
+          "msdial",
+          "msdial-smoke",
+          "bash",
+          "cp",
+          "grep",
+          "mktemp",
+          "readlink",
+          "rm",
+          "tr"
+        ],
+        "test": [
+          "msdial-smoke identity",
+          "msdial-smoke core",
+          "msdial-smoke errors"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-16T16:47:09Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-16T16:47:09Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/msdial",
+        "ref": "v5.5.260323-r1",
+        "commit": "bcc06056fa52dff0919ca8dc8a1f65b3d1ea4577",
+        "html_url": "https://github.com/taffish/msdial/tree/v5.5.260323-r1"
+      },
+      "upstream": {
+        "name": "MS-DIAL",
+        "type": "github",
+        "homepage": "https://systemsomicslab.github.io/compms/msdial/main.html",
+        "repository": "https://github.com/systemsomicslab/MsdialWorkbench",
+        "release_url": "https://github.com/systemsomicslab/MsdialWorkbench/releases/tag/MSDIAL-v5.5.260323",
+        "version": "5.5.260323",
+        "license": "CC-BY-4.0",
+        "citation": "Tsugawa H, Ikeda K, Takahashi M, et al. A lipidome atlas in MS-DIAL 4. Nature Biotechnology 38, 1159-1163 (2020).",
+        "doi": "10.1038/s41587-020-0531-2"
+      }
+    }
+  }
+}
