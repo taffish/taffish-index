@@ -1,0 +1,159 @@
+{
+  "name": "arriba",
+  "latest": "2.5.1-r1",
+  "recent_version": "2.5.1-r1",
+  "recent_at": "2026-08-17T16:15:44Z",
+  "repository_url": "https://github.com/taffish/arriba",
+  "command": {
+    "name": "taf-arriba"
+  },
+  "versions": {
+    "2.5.1-r1": {
+      "name": "arriba",
+      "kind": "tool",
+      "version": "2.5.1",
+      "release": 1,
+      "version_id": "2.5.1-r1",
+      "tag": "v2.5.1-r1",
+      "published_at": "2026-08-17T16:15:44Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/arriba",
+      "repository_slug": "taffish/arriba",
+      "command": {
+        "name": "taf-arriba"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "transcriptomics",
+          "gene-fusion",
+          "variant-calling",
+          "visualization"
+        ],
+        "keywords": [
+          "arriba",
+          "gene fusion",
+          "fusion transcript",
+          "rna-seq",
+          "star",
+          "bam",
+          "sam",
+          "cram",
+          "vcf",
+          "fusion visualization",
+          "viral expression"
+        ],
+        "summary": "Arriba detects gene fusions from STAR-aligned RNA-seq data and includes its reference workflow, databases, visualization, and utility scripts.",
+        "description": "Arriba detects gene fusions from STAR-aligned RNA-seq data and includes its reference workflow, databases, visualization, and utility scripts."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/arriba:2.5.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.5.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:3f6584fa30400c4a1a88aabd3e8c4d2e69e42e5a8ae5a76c520f8437875059c4",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:7cb5ef7ad14a8cd1d082d0dd6f5e650c0ef1048e9000cd09f85153e4543ae7d5"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "arriba",
+          "arriba-smoke",
+          "run_arriba.sh",
+          "download_references.sh",
+          "draw_fusions.R",
+          "run_arriba_on_prealigned_bam.sh",
+          "convert_fusions_to_vcf.sh",
+          "annotate_exon_numbers.sh",
+          "extract_fusion-supporting_alignments.sh",
+          "quantify_virus_expression.sh",
+          "STAR",
+          "samtools",
+          "Rscript",
+          "bash",
+          "wget",
+          "curl",
+          "which",
+          "awk",
+          "sed",
+          "grep",
+          "cut",
+          "sort",
+          "tee",
+          "tr",
+          "head",
+          "tail",
+          "rev",
+          "readlink",
+          "zcat",
+          "gunzip",
+          "gzip",
+          "bzip2",
+          "xz",
+          "tar",
+          "basename",
+          "dirname"
+        ],
+        "test": [
+          "arriba-smoke identity",
+          "arriba-smoke core",
+          "arriba-smoke drawing",
+          "arriba-smoke utilities"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-17T16:21:09Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-17T16:21:09Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/arriba",
+        "ref": "v2.5.1-r1",
+        "commit": "61c46896c971f0d9fe5077b4f2db4db59ee01a80",
+        "html_url": "https://github.com/taffish/arriba/tree/v2.5.1-r1"
+      },
+      "upstream": {
+        "name": "Arriba",
+        "type": "github",
+        "homepage": "https://arriba.readthedocs.io/",
+        "repository": "https://github.com/suhrig/arriba",
+        "release_url": "https://github.com/suhrig/arriba/releases/tag/v2.5.1",
+        "version": "2.5.1",
+        "license": "MIT; draw_fusions.R is GPL-3.0-only",
+        "citation": "Uhrig S, Ellermann J, Walther T, et al. Accurate and efficient detection of gene fusions from RNA sequencing data. Genome Research 31, 448-460 (2021).",
+        "doi": "10.1101/gr.257246.119",
+        "pmid": "33441414"
+      }
+    }
+  }
+}
