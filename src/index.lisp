@@ -1061,6 +1061,7 @@
 
 (defun build-index (&key org local-repos output-dir include-default-branch
                       include-archived include-forks force-recheck
+                      (jobs *default-index-jobs*)
                       metadata-overrides-file meta-overrides-file
                       rejected-releases-file)
   (let* ((output (uiop:ensure-directory-pathname output-dir))
@@ -1083,7 +1084,8 @@
           (scan-github-organization org
                                     :include-default-branch include-default-branch
                                     :include-archived include-archived
-                                    :include-forks include-forks)
+                                    :include-forks include-forks
+                                    :jobs jobs)
         (setf records (append github-records records)
               warnings (append github-warnings warnings))))
     (setf records (apply-metadata-overrides-to-records records metadata-overrides))

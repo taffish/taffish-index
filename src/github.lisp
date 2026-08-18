@@ -13,9 +13,11 @@
 
 (defun github-api-json (path &key token)
   (let* ((url (github-api-url path))
-         (raw (curl-text url
-                         :token (or token (github-token))
-                         :github-json t)))
+         (raw (call-with-github-api-lock
+               (lambda ()
+                 (curl-text url
+                            :token (or token (github-token))
+                            :github-json t)))))
     (when (blank-string-p raw)
       (error "GitHub API returned an empty response: ~A" url))
     (handler-case
@@ -237,22 +239,43 @@
                 warnings))))
     (values (nreverse records) (nreverse warnings))))
 
-(defun scan-github-organization (org &key include-default-branch include-archived include-forks)
-  (let ((records nil)
-        (warnings nil)
-        (repos (github-list-org-repositories org)))
-    (dolist (repo repos)
-      (let ((full-name (repo-full-name repo)))
-        (cond
-          ((and (repo-archived-p repo) (not include-archived))
-           nil)
-          ((and (repo-fork-p repo) (not include-forks))
-           nil)
-          (t
-           (format t "[taffish-index] scan ~A~%" full-name)
-           (multiple-value-bind (repo-records repo-warnings)
-               (scan-github-repository repo
-                                       :include-default-branch include-default-branch)
-             (setf records (append repo-records records)
-                   warnings (append repo-warnings warnings)))))))
+(defun scan-github-organization
+    (org &key include-default-branch include-archived include-forks
+              (jobs *default-index-jobs*))
+  (let* ((jobs (normalize-index-jobs jobs))
+         (records nil)
+         (warnings nil)
+         (repos
+           (remove-if
+            (lambda (repo)
+              (or (and (repo-archived-p repo) (not include-archived))
+                  (and (repo-fork-p repo) (not include-forks))))
+            (github-list-org-repositories org)))
+         (worker-count (effective-worker-count jobs (length repos))))
+    (when (and (> jobs 1)
+               (not (worker-threads-supported-p)))
+      (format *error-output*
+              "[taffish-index] warning: worker threads are unavailable; falling back to --jobs 1.~%"))
+    (format t "[taffish-index] scanning ~D repositor~:@P with ~D worker~:P...~%"
+            (length repos) worker-count)
+    (finish-output)
+    (multiple-value-bind (repo-results _worker-count)
+        (map-bounded-workers
+         (lambda (repo)
+           (let ((full-name (repo-full-name repo)))
+             (call-with-index-output-lock
+              (lambda ()
+                (format t "[taffish-index] scan ~A~%" full-name)
+                (finish-output)))
+             (multiple-value-list
+              (scan-github-repository
+               repo :include-default-branch include-default-branch))))
+         repos jobs)
+      (declare (ignore _worker-count))
+      ;; Preserve the historical append + nreverse aggregation exactly.  The
+      ;; build and report layers depend on this stable ordering.
+      (dolist (repo-result repo-results)
+        (destructuring-bind (repo-records repo-warnings) repo-result
+          (setf records (append repo-records records)
+                warnings (append repo-warnings warnings)))))
     (values (nreverse records) (nreverse warnings))))

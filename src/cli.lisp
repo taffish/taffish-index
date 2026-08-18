@@ -10,6 +10,8 @@ Options:
   --no-org                       Disable GitHub organization scan
   --local-repo <PATH>            Add a local TAFFISH app repository
   --output <DIR>                 Output directory [index]
+  --jobs <N>                     Scan up to N repositories concurrently (1-8)
+                                  [env TAFFISH_INDEX_JOBS or 8]
   --metadata-overrides <PATH>    Optional metadata override TOML
                                   [env TAFFISH_INDEX_METADATA_OVERRIDES
                                    or metadata-overrides.toml]
@@ -42,6 +44,10 @@ Options:
   (let ((org (env "TAFFISH_ORG" "taffish"))
         (local-repos nil)
         (output "index")
+        (jobs nil)
+        (environment-jobs
+          (env "TAFFISH_INDEX_JOBS"
+               (format nil "~D" *default-index-jobs*)))
         (metadata-overrides (default-metadata-overrides-path))
         (rejected-releases (default-rejected-releases-path))
         (include-default-branch
@@ -64,6 +70,11 @@ Options:
                   (list :org org
                         :local-repos (nreverse local-repos)
                         :output output
+                        :jobs (cond
+                                (jobs jobs)
+                                (help *default-index-jobs*)
+                                (t (parse-index-jobs-option
+                                    environment-jobs)))
                         :metadata-overrides metadata-overrides
                         :rejected-releases rejected-releases
                         :include-default-branch include-default-branch
@@ -82,9 +93,13 @@ Options:
                   (parse (cdr rest)))
                  ((string= (car rest) "--local-repo")
                   (push (next rest "--local-repo") local-repos)
-                  (parse (cddr rest)))
+                 (parse (cddr rest)))
                  ((string= (car rest) "--output")
                   (setf output (next rest "--output"))
+                  (parse (cddr rest)))
+                 ((string= (car rest) "--jobs")
+                  (setf jobs
+                        (parse-index-jobs-option (next rest "--jobs")))
                   (parse (cddr rest)))
                  ((member (car rest) '("--metadata-overrides" "--meta-overrides")
                           :test #'string=)
@@ -118,6 +133,7 @@ Options:
                           :org (plist-ref options :org)
                           :local-repos (plist-ref options :local-repos)
                           :output-dir (plist-ref options :output)
+                          :jobs (plist-ref options :jobs)
                           :metadata-overrides-file
                           (plist-ref options :metadata-overrides)
                           :rejected-releases-file

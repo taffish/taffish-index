@@ -341,15 +341,20 @@ The workflow:
 
 1. Checks out this repository.
 2. Installs SBCL.
-3. Runs the Common Lisp index builder.
+3. Runs the Common Lisp index builder with eight repository-scan workers.
 4. Writes generated files under `index/`.
 5. Commits and pushes changes when the generated index changed.
 
 The main build command is:
 
 ```sh
-sbcl --script scripts/build-index.lisp -- --org "taffish" --output index
+sbcl --script scripts/build-index.lisp -- --org "taffish" --jobs 8 --output index
 ```
+
+Repository scans are concurrent, while GitHub REST API calls are serialized to
+avoid multiplying API pressure. Metadata overrides, history preservation,
+trust gates, sorting, and file writes remain serial and deterministic. The
+workflow still uses one standard GitHub-hosted runner.
 
 ## Local Test
 
@@ -357,6 +362,7 @@ From this repository root:
 
 ```sh
 sbcl --script tests/project.lisp
+sbcl --script tests/concurrency.lisp
 ```
 
 To build an index from a local fixture repository:
@@ -378,11 +384,14 @@ sbcl --script scripts/build-index.lisp -- \
 To scan the GitHub organization locally:
 
 ```sh
-TAFFISH_BOT_TOKEN=<TOKEN> sbcl --script scripts/build-index.lisp -- --org taffish --output index
+TAFFISH_BOT_TOKEN=<TOKEN> sbcl --script scripts/build-index.lisp -- --org taffish --jobs 8 --output index
 ```
 
 For public repositories, unauthenticated requests may work, but a token is more
 reliable because of GitHub API rate limits.
+
+The default is eight repository workers. Use `--jobs 1` for a strictly serial
+scan or another integer from 1 through 8 to reduce local concurrency.
 
 ## Configuration
 
@@ -393,6 +402,7 @@ CLI options:
 --no-org                     Disable GitHub organization scan
 --local-repo <PATH>          Add a local TAFFISH app repository
 --output <DIR>               Output directory, default index
+--jobs <N>                   Concurrent repository workers, 1-8, default 8
 --metadata-overrides <PATH>  Optional metadata override TOML, default metadata-overrides.toml
 --meta-overrides <PATH>      Compatibility alias for --metadata-overrides
 --rejected-releases <PATH>   Optional known rejected release TOML, default rejected-releases.toml
@@ -410,6 +420,7 @@ Environment variables:
 | --- | --- |
 | `TAFFISH_ORG` | Default organization if `--org` is not provided. Defaults to `taffish`. |
 | `TAFFISH_BOT_TOKEN` | GitHub API token used by the builder. |
+| `TAFFISH_INDEX_JOBS` | Default concurrent repository worker count when `--jobs` is omitted. Must be from 1 through 8; defaults to 8. |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | Enables default branch snapshots when set to `1`, `true`, or `yes`. |
 | `TAFFISH_INDEX_FORCE_RECHECK` | Re-runs digest/smoke gates when set to `1`, `true`, or `yes`. |
 | `TAFFISH_INDEX_METADATA_OVERRIDES` | Optional path to a metadata override TOML file. Defaults to `metadata-overrides.toml`. |

@@ -35,7 +35,9 @@ jobs:
           sudo apt-get install -y sbcl
 
       - name: Test index builder
-        run: sbcl --script tests/project.lisp
+        run: |
+          sbcl --script tests/project.lisp
+          sbcl --script tests/concurrency.lisp
 
       - name: Check Docker buildx
         run: |
@@ -44,7 +46,7 @@ jobs:
 
       - name: Build index
         run: |
-          sbcl --script scripts/build-index.lisp -- --org "taffish" --output index
+          sbcl --script scripts/build-index.lisp -- --org "taffish" --jobs 8 --output index
 
       - name: Commit generated index
         run: |

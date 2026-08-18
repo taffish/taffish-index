@@ -319,15 +319,19 @@ workflow 会：
 
 1. checkout 本仓库。
 2. 安装 SBCL。
-3. 运行 Common Lisp index builder。
+3. 使用 8 个仓库扫描 worker 运行 Common Lisp index builder。
 4. 在 `index/` 下写入生成文件。
 5. 如果生成索引发生变化，则 commit 并 push。
 
 核心构建命令是：
 
 ```sh
-sbcl --script scripts/build-index.lisp -- --org "taffish" --output index
+sbcl --script scripts/build-index.lisp -- --org "taffish" --jobs 8 --output index
 ```
+
+仓库扫描会并发执行，但 GitHub REST API 请求仍会全局串行，以免放大 API 压力。
+metadata override、历史保留、trust gate、排序和文件写入继续保持串行且结果确定。
+workflow 仍然只使用一个标准 GitHub-hosted runner。
 
 ## 本地测试
 
@@ -335,6 +339,7 @@ sbcl --script scripts/build-index.lisp -- --org "taffish" --output index
 
 ```sh
 sbcl --script tests/project.lisp
+sbcl --script tests/concurrency.lisp
 ```
 
 如需从本地 fixture 仓库构建 index：
@@ -356,11 +361,14 @@ sbcl --script scripts/build-index.lisp -- \
 如果要本地扫描 GitHub 组织：
 
 ```sh
-TAFFISH_BOT_TOKEN=<TOKEN> sbcl --script scripts/build-index.lisp -- --org taffish --output index
+TAFFISH_BOT_TOKEN=<TOKEN> sbcl --script scripts/build-index.lisp -- --org taffish --jobs 8 --output index
 ```
 
 对于公开仓库，未认证请求有时也可以工作，但使用 token 更稳定，因为 GitHub API
 存在 rate limit。
+
+默认使用 8 个仓库 worker。需要严格串行扫描时可使用 `--jobs 1`；也可以传入
+1 到 8 之间的其他整数来降低本地并发度。
 
 ## 配置
 
@@ -371,6 +379,7 @@ CLI 选项：
 --no-org                     禁用 GitHub 组织扫描
 --local-repo <PATH>          添加一个本地 TAFFISH app 仓库
 --output <DIR>               输出目录，默认 index
+--jobs <N>                   并发仓库 worker 数，1-8，默认 8
 --metadata-overrides <PATH>  可选 metadata override TOML，默认 metadata-overrides.toml
 --meta-overrides <PATH>      --metadata-overrides 的兼容别名
 --rejected-releases <PATH>   可选 rejected release TOML，默认 rejected-releases.toml
@@ -387,6 +396,7 @@ CLI 选项：
 | --- | --- |
 | `TAFFISH_ORG` | 未提供 `--org` 时使用的默认组织。默认是 `taffish`。 |
 | `TAFFISH_BOT_TOKEN` | builder 使用的 GitHub API token。 |
+| `TAFFISH_INDEX_JOBS` | 未提供 `--jobs` 时使用的并发仓库 worker 数。必须是 1 到 8，默认 8。 |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | 设为 `1`、`true` 或 `yes` 时启用默认分支 snapshot。 |
 | `TAFFISH_INDEX_FORCE_RECHECK` | 设为 `1`、`true` 或 `yes` 时重新执行 digest/smoke gate。 |
 | `TAFFISH_INDEX_METADATA_OVERRIDES` | 可选 metadata override TOML 路径。默认是 `metadata-overrides.toml`。 |

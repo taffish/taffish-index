@@ -9,6 +9,7 @@
     :components
     ((:file "package")
      (:file "util")
+     (:file "concurrency")
      (:file "json")
      (:file "toml")
      (:file "project")

@@ -7,6 +7,7 @@
        (repo-root (uiop:pathname-parent-directory-pathname script-dir)))
   (dolist (relative '("src/package.lisp"
                       "src/util.lisp"
+                      "src/concurrency.lisp"
                       "src/json.lisp"
                       "src/toml.lisp"
                       "src/project.lisp"
