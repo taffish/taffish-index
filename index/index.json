@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-18T12:42:53Z",
+  "generated_at": "2026-08-18T17:06:46Z",
   "organization": "taffish",
   "counts": {
-    "packages": 264,
-    "versions": 436,
-    "commands": 264,
-    "repositories": 264,
+    "packages": 265,
+    "versions": 437,
+    "commands": 265,
+    "repositories": 265,
     "warnings": 0,
     "failed": 0,
     "rejected": 11
@@ -6417,6 +6417,142 @@
             "citation": "Li and Godzik 2006",
             "doi": "10.1093/bioinformatics/btl158",
             "pmid": "16731699"
+          }
+        }
+      }
+    },
+    "cellbender": {
+      "name": "cellbender",
+      "latest": "0.4.0-r1",
+      "recent_version": "0.4.0-r1",
+      "recent_at": "2026-08-18T16:40:23Z",
+      "repository_url": "https://github.com/taffish/cellbender",
+      "command": {
+        "name": "taf-cellbender"
+      },
+      "versions": {
+        "0.4.0-r1": {
+          "name": "cellbender",
+          "kind": "tool",
+          "version": "0.4.0",
+          "release": 1,
+          "version_id": "0.4.0-r1",
+          "tag": "v0.4.0-r1",
+          "published_at": "2026-08-18T16:40:23Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/cellbender",
+          "repository_slug": "taffish/cellbender",
+          "command": {
+            "name": "taf-cellbender"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "scrna-seq",
+              "ambient-rna",
+              "quality-control",
+              "machine-learning"
+            ],
+            "keywords": [
+              "cellbender",
+              "remove-background",
+              "ambient rna",
+              "droplet",
+              "scrna-seq",
+              "snrna-seq",
+              "cite-seq",
+              "10x genomics",
+              "anndata",
+              "loom",
+              "pyro",
+              "pytorch",
+              "cuda",
+              "html report"
+            ],
+            "summary": "CellBender 0.4.0 runtime for CPU or NVIDIA-accelerated removal of ambient background counts from raw droplet-based single-cell matrices, with denoised matrices, checkpoints, metrics, plots, and HTML QC reports.",
+            "description": "CellBender 0.4.0 runtime for CPU or NVIDIA-accelerated removal of ambient background counts from raw droplet-based single-cell matrices, with denoised matrices, checkpoints, metrics, plots, and HTML QC reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/cellbender:0.4.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.4.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:592d9b68ed840f80ead2e68fc9890d4945fb91b1d2a9a9d38f7da5a59e5e3ab0",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:8351724f0d70675b4b731d13ea914b2bbc28f9408ba8913dc20e5b447f2265ab",
+              "linux/arm64": "sha256:0511b290c00d76cf2f001abbfe9698bcd73af259bf69117f9782213e872d8ab1"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 1800,
+            "exist": [
+              "cellbender",
+              "python",
+              "python3",
+              "pip",
+              "jupyter",
+              "jupyter-nbconvert",
+              "ldd"
+            ],
+            "test": [
+              "python -m pip check && python /opt/cellbender/share/testdata/cellbender-smoke.py identity | grep -Fx 'cellbender=0.4.0' >/dev/null && cellbender --version | grep -Fx '0.4.0' >/dev/null && cellbender --help | grep -F 'remove-background' >/dev/null && cellbender remove-background --help | grep -F -- '--total-droplets-included' >/dev/null && grep -Fx 'source_sha256=4e25735f04047fffee68e7082c0471f89ffe0ac28a9f2a90481098503e07b40a' /opt/cellbender/share/doc/cellbender/SOURCE >/dev/null && grep -Fx 'constraints_sha256=ae2b480b2844b61028b23f95c33de922f7f543e7f0cd6483f37431ce03e9759b' /opt/cellbender/share/doc/cellbender/SOURCE >/dev/null",
+              "python /opt/cellbender/share/testdata/cellbender-smoke.py formats | grep -Fx 'formats=cellranger-h5,cellranger-mtx,dropseq-dge,bd-rhapsody,h5ad,npz,loom' >/dev/null",
+              "python /opt/cellbender/share/testdata/cellbender-smoke.py inference | grep -F '\"mode\": \"full\"' >/dev/null",
+              "python /opt/cellbender/share/testdata/cellbender-smoke.py checkpoint | grep -F '\"checkpoint_reused\": true' >/dev/null",
+              "python /opt/cellbender/share/testdata/cellbender-smoke.py report | grep -F '\"report_bytes\":' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-18T17:06:46Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-18T17:06:46Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/cellbender",
+            "ref": "v0.4.0-r1",
+            "commit": "1bbf9a0d47c14ae41d31ba77d5163e8942bf37d5",
+            "html_url": "https://github.com/taffish/cellbender/tree/v0.4.0-r1"
+          },
+          "upstream": {
+            "name": "CellBender",
+            "type": "github",
+            "homepage": "https://cellbender.readthedocs.io/",
+            "repository": "https://github.com/broadinstitute/CellBender",
+            "release_url": "https://github.com/broadinstitute/CellBender/releases/tag/v0.4.0",
+            "version": "0.4.0",
+            "license": "BSD-3-Clause",
+            "citation": "Fleming SJ, Chaffin MD, Arduini A, et al. Unsupervised removal of systematic background noise from droplet-based single-cell experiments using CellBender. Nature Methods. 2023;20:1323-1335.",
+            "doi": "10.1038/s41592-023-01943-7",
+            "pmid": "37550580"
           }
         }
       }
@@ -55737,6 +55873,10 @@
       "package": "cdhit",
       "version": "4.8.1-r1"
     },
+    "taf-cellbender": {
+      "package": "cellbender",
+      "version": "0.4.0-r1"
+    },
     "taf-cellpose": {
       "package": "cellpose",
       "version": "4.2.1.1-r1"
@@ -56861,6 +57001,12 @@
       "repository": "taffish/cdhit",
       "packages": [
         "cdhit"
+      ]
+    },
+    "taffish/cellbender": {
+      "repository": "taffish/cellbender",
+      "packages": [
+        "cellbender"
       ]
     },
     "taffish/cellpose": {
