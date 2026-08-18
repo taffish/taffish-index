@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-17T16:21:09Z",
+  "generated_at": "2026-08-18T02:30:26Z",
   "organization": "taffish",
   "counts": {
     "packages": 264,
-    "versions": 433,
+    "versions": 434,
     "commands": 264,
     "repositories": 264,
     "warnings": 0,
@@ -11442,9 +11442,9 @@
     },
     "delly": {
       "name": "delly",
-      "latest": "2.5.1-r1",
-      "recent_version": "2.5.1-r1",
-      "recent_at": "2026-08-01T01:24:20Z",
+      "latest": "2.6.0-r1",
+      "recent_version": "2.6.0-r1",
+      "recent_at": "2026-08-18T02:26:33Z",
       "repository_url": "https://github.com/taffish/delly",
       "command": {
         "name": "taf-delly"
@@ -11571,6 +11571,133 @@
             "repository": "dellytools/delly",
             "release_url": "https://github.com/dellytools/delly/releases/tag/v2.5.1",
             "version": "2.5.1",
+            "license": "BSD-3-Clause",
+            "citation": "Rausch T, Zichner T, Schlattl A, Stutz AM, Benes V, Korbel JO. DELLY: structural variant discovery by integrated paired-end and split-read analysis. Bioinformatics. 2012;28(18):i333-i339.",
+            "doi": "10.1093/bioinformatics/bts378"
+          }
+        },
+        "2.6.0-r1": {
+          "name": "delly",
+          "kind": "tool",
+          "version": "2.6.0",
+          "release": 1,
+          "version_id": "2.6.0-r1",
+          "tag": "v2.6.0-r1",
+          "published_at": "2026-08-18T02:26:33Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/delly",
+          "repository_slug": "taffish/delly",
+          "command": {
+            "name": "taf-delly"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-variation",
+            "categories": [
+              "structural-variation",
+              "copy-number-variation",
+              "variant-calling",
+              "short-read",
+              "long-read",
+              "genomics"
+            ],
+            "keywords": [
+              "delly",
+              "structural variant",
+              "copy-number variant",
+              "sv",
+              "cnv",
+              "short-read",
+              "long-read",
+              "assembly",
+              "germline",
+              "somatic",
+              "bam",
+              "cram",
+              "bcf"
+            ],
+            "summary": "Delly 2.6.0 runtime for integrated short-read, long-read, and assembly-based structural-variant discovery plus germline and somatic read-depth CNV analysis.",
+            "description": "Delly 2.6.0 runtime for integrated short-read, long-read, and assembly-based structural-variant discovery plus germline and somatic read-depth CNV analysis."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/delly:2.6.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.6.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:a6f192869579a3b3129c6c61529c7bfd38d5eb541e9bbb998125b6237dc820d0",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:ebcbb131d7aea93f784d24c49a1ef9aeaba0cd43e14bb490e00d559e835def14",
+              "linux/arm64": "sha256:b3f46a456ac92baf014089ef26209349628167ed29f085474c32982da6c885e7"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "delly",
+              "sh",
+              "awk",
+              "grep",
+              "gzip",
+              "mktemp",
+              "sed",
+              "sha256sum"
+            ],
+            "test": [
+              "/opt/delly/share/testdata/delly-smoke.sh identity",
+              "/opt/delly/share/testdata/delly-smoke.sh sr",
+              "/opt/delly/share/testdata/delly-smoke.sh lr",
+              "/opt/delly/share/testdata/delly-smoke.sh asm",
+              "/opt/delly/share/testdata/delly-smoke.sh cnv",
+              "/opt/delly/share/testdata/delly-smoke.sh cnv-lr",
+              "/opt/delly/share/testdata/delly-smoke.sh merge",
+              "/opt/delly/share/testdata/delly-smoke.sh filter"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-18T02:30:26Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-18T02:30:26Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/delly",
+            "ref": "v2.6.0-r1",
+            "commit": "6e139ac3930339bfc06b602b428e1465f584e078",
+            "html_url": "https://github.com/taffish/delly/tree/v2.6.0-r1"
+          },
+          "upstream": {
+            "name": "Delly",
+            "type": "github",
+            "homepage": "https://github.com/dellytools/delly",
+            "repository": "dellytools/delly",
+            "release_url": "https://github.com/dellytools/delly/releases/tag/v2.6.0",
+            "version": "2.6.0",
             "license": "BSD-3-Clause",
             "citation": "Rausch T, Zichner T, Schlattl A, Stutz AM, Benes V, Korbel JO. DELLY: structural variant discovery by integrated paired-end and split-read analysis. Bioinformatics. 2012;28(18):i333-i339.",
             "doi": "10.1093/bioinformatics/bts378"
@@ -55476,7 +55603,7 @@
     },
     "taf-delly": {
       "package": "delly",
-      "version": "2.5.1-r1"
+      "version": "2.6.0-r1"
     },
     "taf-diamond": {
       "package": "diamond",
