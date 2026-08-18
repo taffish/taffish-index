@@ -1,8 +1,8 @@
 {
   "name": "gatk",
-  "latest": "4.6.2.0-r2",
-  "recent_version": "4.6.2.0-r2",
-  "recent_at": "2026-05-18T06:19:54Z",
+  "latest": "4.7.0.0-r1",
+  "recent_version": "4.7.0.0-r1",
+  "recent_at": "2026-08-18T06:45:41Z",
   "repository_url": "https://github.com/taffish/gatk",
   "command": {
     "name": "taf-gatk"
@@ -250,6 +250,132 @@
         "repository": "broadinstitute/gatk",
         "release_url": "https://github.com/broadinstitute/gatk/releases/tag/4.6.2.0",
         "version": "4.6.2.0",
+        "license": "Apache-2.0",
+        "citation": "McKenna et al. 2010",
+        "doi": "10.1101/gr.107524.110",
+        "pmid": "20644199"
+      }
+    },
+    "4.7.0.0-r1": {
+      "name": "gatk",
+      "kind": "tool",
+      "version": "4.7.0.0",
+      "release": 1,
+      "version_id": "4.7.0.0-r1",
+      "tag": "v4.7.0.0-r1",
+      "published_at": "2026-08-18T06:45:41Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/gatk",
+      "repository_slug": "taffish/gatk",
+      "command": {
+        "name": "taf-gatk"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "variant-calling",
+        "categories": [
+          "variant-calling",
+          "genomics",
+          "germline",
+          "somatic",
+          "spark"
+        ],
+        "keywords": [
+          "gatk",
+          "gatk4",
+          "variant-calling",
+          "haplotypecaller",
+          "mutect2",
+          "genotypegvcfs",
+          "bqsr",
+          "vcf",
+          "bam",
+          "cram",
+          "spark"
+        ],
+        "summary": "Genome Analysis Toolkit 4.7 for germline and somatic variant discovery, genotyping, filtering, CRAM 3.1 I/O, and related genomics workflows.",
+        "description": "Genome Analysis Toolkit 4.7 for germline and somatic variant discovery, genotyping, filtering, CRAM 3.1 I/O, and related genomics workflows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/gatk:4.7.0.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.7.0.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:7fa512ae0d4f4799d0ba204af5b1fb02f14608cf3c683b680ba56448aae02463",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:461b10c7e2aa1bb6daefc6bdc6d1dbcae94d948dc6bf50209f7493082b738868"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "gatk",
+          "java",
+          "python",
+          "python3",
+          "R",
+          "Rscript",
+          "samtools",
+          "bcftools",
+          "bedtools",
+          "tabix"
+        ],
+        "test": [
+          "gatk --version 2>&1 | grep -F '4.7.0.0' >/dev/null",
+          "gatk --list 2>&1 | grep -F 'HaplotypeCaller' >/dev/null && gatk --list 2>&1 | grep -F 'Mutect2' >/dev/null && gatk --list 2>&1 | grep -F 'ConvertCountsToDepthFile' >/dev/null",
+          "gatk HaplotypeCaller --help 2>&1 | grep -F 'USAGE: HaplotypeCaller' >/dev/null",
+          "mkdir -p /tmp/taf-gatk-dict && cd /tmp/taf-gatk-dict && printf '>chr1\nACGTACGTACGTACGTACGT\n' > ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-dict.log 2>&1 && test -s ref.dict && grep -F '@SQ' ref.dict >/dev/null",
+          "mkdir -p /tmp/taf-gatk-vcf && cd /tmp/taf-gatk-vcf && printf '##fileformat=VCFv4.2\n##contig=<ID=chr1,length=20>\n#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\nchr1\t5\t.\tA\tT\t30\tPASS\t.\n' > tiny.vcf && gatk IndexFeatureFile -I tiny.vcf >/tmp/taf-gatk-vcf.log 2>&1 && test -s tiny.vcf.idx",
+          "mkdir -p /tmp/taf-gatk-printreads && cd /tmp/taf-gatk-printreads && printf '>chr1\nACGTACGTACGTACGTACGT\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-printreads-dict.log 2>&1 && printf '@HD\tVN:1.6\tSO:coordinate\n@SQ\tSN:chr1\tLN:20\n@RG\tID:rg1\tSM:sample1\nread1\t0\tchr1\t5\t60\t10M\t*\t0\t0\tACGTACGTAC\tFFFFFFFFFF\tRG:Z:rg1\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk PrintReads -R ref.fa -I reads.bam -O out.bam >/tmp/taf-gatk-printreads.log 2>&1 && test -s out.bam && samtools view out.bam | grep -F 'read1' >/dev/null",
+          "mkdir -p /tmp/taf-gatk-hc && cd /tmp/taf-gatk-hc && printf '>chr1\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-hc-dict.log 2>&1 && printf '@HD\tVN:1.6\tSO:coordinate\n@SQ\tSN:chr1\tLN:40\n@RG\tID:rg1\tSM:sample1\nread1\t0\tchr1\t5\t60\t20M\t*\t0\t0\tACGTTCGTACGTACGTACGT\tFFFFFFFFFFFFFFFFFFFF\tRG:Z:rg1\nread2\t0\tchr1\t5\t60\t20M\t*\t0\t0\tACGTTCGTACGTACGTACGT\tFFFFFFFFFFFFFFFFFFFF\tRG:Z:rg1\nread3\t0\tchr1\t5\t60\t20M\t*\t0\t0\tACGTTCGTACGTACGTACGT\tFFFFFFFFFFFFFFFFFFFF\tRG:Z:rg1\nread4\t0\tchr1\t5\t60\t20M\t*\t0\t0\tACGTTCGTACGTACGTACGT\tFFFFFFFFFFFFFFFFFFFF\tRG:Z:rg1\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk HaplotypeCaller -R ref.fa -I reads.bam -O calls.vcf >/tmp/taf-gatk-hc.log 2>&1 && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null",
+          "mkdir -p /tmp/taf-gatk-depth && cd /tmp/taf-gatk-depth && printf '@HD\tVN:1.5\n@SQ\tSN:chr1\tLN:1000\n@RG\tID:GATKCopyNumber\tSM:tiny\nCONTIG\tSTART\tEND\tCOUNT\nchr1\t1\t100\t3\nchr1\t101\t200\t4\n' > tiny.counts.tsv && printf '@HD\tVN:1.5\n@SQ\tSN:chr1\tLN:1000\n' > tiny.dict && gatk ConvertCountsToDepthFile --counts-filename tiny.counts.tsv --sequence-dictionary tiny.dict -O tiny.rd.txt.gz >/tmp/taf-gatk-depth.log 2>&1 && test -s tiny.rd.txt.gz && test -s tiny.rd.txt.gz.tbi && zcat tiny.rd.txt.gz | grep -F 'chr1' >/dev/null",
+          "mkdir -p /tmp/taf-gatk-cram && cd /tmp/taf-gatk-cram && printf '>chr1\nACGTACGTACGTACGTACGT\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-cram-dict.log 2>&1 && printf '@HD\tVN:1.6\tSO:coordinate\n@SQ\tSN:chr1\tLN:20\n@RG\tID:rg1\tSM:sample1\nread1\t0\tchr1\t5\t60\t10M\t*\t0\t0\tACGTACGTAC\tFFFFFFFFFF\tRG:Z:rg1\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk PrintReads -R ref.fa -I reads.bam -O out.cram --output-cram-version 3.1 >/tmp/taf-gatk-cram.log 2>&1 && test -s out.cram && python3 -c \"from pathlib import Path; assert Path('out.cram').read_bytes()[:6] == b'CRAM\\x03\\x01'\" && samtools view -T ref.fa -H out.cram | grep -F '@SQ' >/dev/null"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-18T09:16:03Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-18T09:16:03Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/gatk",
+        "ref": "v4.7.0.0-r1",
+        "commit": "9dd30c6d5c6b971249944db807d6372048226029",
+        "html_url": "https://github.com/taffish/gatk/tree/v4.7.0.0-r1"
+      },
+      "upstream": {
+        "name": "GATK",
+        "type": "github",
+        "homepage": "https://gatk.broadinstitute.org/",
+        "repository": "broadinstitute/gatk",
+        "release_url": "https://github.com/broadinstitute/gatk/releases/tag/4.7.0.0",
+        "version": "4.7.0.0",
         "license": "Apache-2.0",
         "citation": "McKenna et al. 2010",
         "doi": "10.1101/gr.107524.110",
