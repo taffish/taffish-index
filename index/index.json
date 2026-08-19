@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-19T02:33:17Z",
+  "generated_at": "2026-08-19T16:35:57Z",
   "organization": "taffish",
   "counts": {
-    "packages": 265,
-    "versions": 437,
-    "commands": 265,
-    "repositories": 265,
+    "packages": 266,
+    "versions": 438,
+    "commands": 266,
+    "repositories": 266,
     "warnings": 0,
     "failed": 0,
     "rejected": 11
@@ -20863,6 +20863,136 @@
             "license": "MIT",
             "citation": "Beghini et al. 2021, eLife, Integrating taxonomic, functional, and strain-level profiling of diverse microbial communities with bioBakery 3",
             "doi": "10.7554/eLife.65088"
+          }
+        }
+      }
+    },
+    "hyphy": {
+      "name": "hyphy",
+      "latest": "2.5.101-r1",
+      "recent_version": "2.5.101-r1",
+      "recent_at": "2026-08-19T16:11:15Z",
+      "repository_url": "https://github.com/taffish/hyphy",
+      "command": {
+        "name": "taf-hyphy"
+      },
+      "versions": {
+        "2.5.101-r1": {
+          "name": "hyphy",
+          "kind": "tool",
+          "version": "2.5.101",
+          "release": 1,
+          "version_id": "2.5.101-r1",
+          "tag": "v2.5.101-r1",
+          "published_at": "2026-08-19T16:11:15Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/hyphy",
+          "repository_slug": "taffish/hyphy",
+          "command": {
+            "name": "taf-hyphy"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "phylogenetics",
+            "categories": [
+              "phylogenetics",
+              "molecular-evolution",
+              "selection-analysis",
+              "recombination"
+            ],
+            "keywords": [
+              "hyphy",
+              "hbl",
+              "phylogeny",
+              "molecular evolution",
+              "natural selection",
+              "dn/ds",
+              "codon models",
+              "recombination",
+              "mpi",
+              "openmp"
+            ],
+            "summary": null,
+            "description": null
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/hyphy:2.5.101-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.5.101-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:687aa1cb95b17f5d3003cab9401ef89155daff8d1d6f3a2322699d174ab33aed",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e3deb1af18ac491f212cdd370032398b057cc80528720eca78cdebee0b97962c",
+              "linux/arm64": "sha256:034938c444ba33f0a6a91c27588dc96a0559183bfec8fa80990b50df2231bc2e"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "hyphy",
+              "HYPHYMP",
+              "HYPHYMPI",
+              "mpirun",
+              "hyphy-smoke"
+            ],
+            "test": [
+              "hyphy-smoke identity",
+              "hyphy-smoke help",
+              "hyphy-smoke hbl",
+              "hyphy-smoke slac",
+              "hyphy-smoke compressed",
+              "hyphy-smoke mpi"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-19T16:35:57Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-19T16:35:57Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/hyphy",
+            "ref": "v2.5.101-r1",
+            "commit": "18a3b091eae9c8482e4050999dfb4f17c826faa4",
+            "html_url": "https://github.com/taffish/hyphy/tree/v2.5.101-r1"
+          },
+          "upstream": {
+            "name": "HyPhy",
+            "type": "github",
+            "homepage": "https://www.hyphy.org/",
+            "repository": "veg/hyphy",
+            "release_url": "https://github.com/veg/hyphy/releases/tag/2.5.101",
+            "version": "2.5.101",
+            "license": "MIT",
+            "citation": "Kosakovsky Pond SL, Poon AFY, Velazquez R, Weaver S, Hepler NL, Murrell B, Shank SD, Magalis BR, Bouvier D, Nekrutenko A, Wisotsky S, Spielman SJ, Frost SDW, Muse SV. HyPhy 2.5-A Customizable Platform for Evolutionary Hypothesis Testing Using Phylogenies. Mol Biol Evol. 2020;37(1):295-299.",
+            "doi": "10.1093/molbev/msz197",
+            "pmid": "31504749"
           }
         }
       }
@@ -56145,6 +56275,10 @@
       "package": "humann",
       "version": "3.9-r1"
     },
+    "taf-hyphy": {
+      "package": "hyphy",
+      "version": "2.5.101-r1"
+    },
     "taf-idr": {
       "package": "idr",
       "version": "2.0.3-r1"
@@ -57409,6 +57543,12 @@
       "repository": "taffish/humann",
       "packages": [
         "humann"
+      ]
+    },
+    "taffish/hyphy": {
+      "repository": "taffish/hyphy",
+      "packages": [
+        "hyphy"
       ]
     },
     "taffish/idr": {
