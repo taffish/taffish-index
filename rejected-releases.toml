@@ -74,3 +74,10 @@ version_id = "1.17.1-r1"
 ref = "v1.17.1-r1"
 replacement = "1.17.1-r2"
 reason = "Immutable release did not produce a Docker image because its GitHub Actions build exceeded the six-hour job limit; use v1.17.1-r2 instead."
+
+[regenie-4.1.2-r1]
+repository = "taffish/regenie"
+version_id = "4.1.2-r1"
+ref = "v4.1.2-r1"
+replacement = "4.1.2-r2"
+reason = "Immutable release has an incorrect Docker build-context path for docker/regenie-smoke.sh, causing the image build to fail; fixed by v4.1.2-r2."
