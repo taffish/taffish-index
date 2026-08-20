@@ -1,23 +1,22 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-08-20T17:17:30Z",
+  "generated_at": "2026-08-20T17:30:20Z",
   "organization": "taffish",
   "counts": {
-    "failed": 1,
-    "rejected": 11,
+    "failed": 0,
+    "rejected": 12,
     "warnings": 0
   },
-  "failed": [
+  "failed": [],
+  "rejected": [
     {
       "repository": "taffish/regenie",
       "ref": "v4.1.2-r1",
       "version_id": "4.1.2-r1",
-      "stage": "digest",
-      "message": "failed to inspect image ghcr.io/taffish/regenie:4.1.2-r1: ERROR: ghcr.io/taffish/regenie:4.1.2-r1: not found\n (exit 1)",
+      "reason": "Immutable release has an incorrect Docker build-context path for docker/regenie-smoke.sh, causing the image build to fail; fixed by v4.1.2-r2.",
+      "replacement": "4.1.2-r2",
       "image": "ghcr.io/taffish/regenie:4.1.2-r1"
-    }
-  ],
-  "rejected": [
+    },
     {
       "repository": "taffish/signac",
       "ref": "v1.17.1-r1",
