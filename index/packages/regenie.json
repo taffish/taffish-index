@@ -1,0 +1,138 @@
+{
+  "name": "regenie",
+  "latest": "4.1.2-r2",
+  "recent_version": "4.1.2-r2",
+  "recent_at": "2026-08-20T17:09:47Z",
+  "repository_url": "https://github.com/taffish/regenie",
+  "command": {
+    "name": "taf-regenie"
+  },
+  "versions": {
+    "4.1.2-r2": {
+      "name": "regenie",
+      "kind": "tool",
+      "version": "4.1.2",
+      "release": 2,
+      "version_id": "4.1.2-r2",
+      "tag": "v4.1.2-r2",
+      "published_at": "2026-08-20T17:09:47Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/regenie",
+      "repository_slug": "taffish/regenie",
+      "command": {
+        "name": "taf-regenie"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "gwas",
+          "association-testing",
+          "population-genetics"
+        ],
+        "keywords": [
+          "regenie",
+          "gwas",
+          "whole-genome regression",
+          "association testing",
+          "firth",
+          "spa",
+          "skat",
+          "bgen",
+          "pgen",
+          "plink",
+          "survival analysis",
+          "gene-based testing",
+          "remeta"
+        ],
+        "summary": "REGENIE v4.1.2 command-line runtime for scalable whole-genome regression and single-variant, gene-based, interaction, conditional, survival, and multi-trait association analyses.",
+        "description": "REGENIE v4.1.2 command-line runtime for scalable whole-genome regression and single-variant, gene-based, interaction, conditional, survival, and multi-trait association analyses."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/regenie:4.1.2-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.1.2-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:909a84a4bab06792afdb67254ef7194df48091ccb475faa511ff272ef238c413",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:e6035f7e3a99512a012faf751cb658eaaa573965775f6ad5659f23a9041be76f",
+          "linux/arm64": "sha256:08a128a8a654ddd8c29d68bf8e6538ea53250b11152abda7fe5d6406ecaf37e1"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "regenie",
+          "regenie-smoke",
+          "sh",
+          "awk",
+          "grep",
+          "gzip",
+          "ldd",
+          "sha256sum"
+        ],
+        "test": [
+          "regenie-smoke identity /tmp/taf-regenie-index-identity-$$",
+          "regenie-smoke interfaces /tmp/taf-regenie-index-interfaces-$$",
+          "regenie-smoke step1-gzip /tmp/taf-regenie-index-step1-$$",
+          "regenie-smoke step2-bgen /tmp/taf-regenie-index-step2-$$",
+          "regenie-smoke pgen /tmp/taf-regenie-index-pgen-$$",
+          "regenie-smoke interaction /tmp/taf-regenie-index-interaction-$$",
+          "regenie-smoke gene-remeta /tmp/taf-regenie-index-gene-remeta-$$",
+          "regenie-smoke correlation /tmp/taf-regenie-index-correlation-$$"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-20T17:17:30Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-20T17:17:30Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/regenie",
+        "ref": "v4.1.2-r2",
+        "commit": "ec6ad5706b6369c4179b54bcf22a4d03ff0084c2",
+        "html_url": "https://github.com/taffish/regenie/tree/v4.1.2-r2"
+      },
+      "upstream": {
+        "name": "REGENIE",
+        "type": "github",
+        "homepage": "https://rgcgithub.github.io/regenie/",
+        "repository": "rgcgithub/regenie",
+        "release_url": "https://github.com/rgcgithub/regenie/tree/v4.1.2",
+        "version": "4.1.2",
+        "license": "MIT",
+        "citation": "Mbatchou J, Barnard L, Backman J, et al. Computationally efficient whole-genome regression for quantitative and binary traits. Nature Genetics. 2021;53:1097-1103.",
+        "doi": "10.1038/s41588-021-00870-7",
+        "pmid": "34017140"
+      }
+    }
+  }
+}
