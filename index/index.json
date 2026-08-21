@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-21T02:37:26Z",
+  "generated_at": "2026-08-21T16:14:33Z",
   "organization": "taffish",
   "counts": {
-    "packages": 267,
-    "versions": 439,
-    "commands": 267,
-    "repositories": 267,
+    "packages": 268,
+    "versions": 440,
+    "commands": 268,
+    "repositories": 268,
     "warnings": 0,
     "failed": 0,
     "rejected": 12
@@ -37160,6 +37160,150 @@
         }
       }
     },
+    "qupath": {
+      "name": "qupath",
+      "latest": "0.7.0-r1",
+      "recent_version": "0.7.0-r1",
+      "recent_at": "2026-08-21T16:10:13Z",
+      "repository_url": "https://github.com/taffish/qupath",
+      "command": {
+        "name": "taf-qupath"
+      },
+      "versions": {
+        "0.7.0-r1": {
+          "name": "qupath",
+          "kind": "tool",
+          "version": "0.7.0",
+          "release": 1,
+          "version_id": "0.7.0-r1",
+          "tag": "v0.7.0-r1",
+          "published_at": "2026-08-21T16:10:13Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/qupath",
+          "repository_slug": "taffish/qupath",
+          "command": {
+            "name": "taf-qupath"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "bioimaging",
+            "categories": [
+              "bioimaging",
+              "digital-pathology",
+              "microscopy",
+              "image-analysis",
+              "visualization"
+            ],
+            "keywords": [
+              "qupath",
+              "digital pathology",
+              "whole slide imaging",
+              "microscopy",
+              "bio-formats",
+              "openslide",
+              "ome-tiff",
+              "ome-zarr",
+              "groovy",
+              "novnc"
+            ],
+            "summary": "QuPath 0.7.0 digital pathology and bioimage analysis, including headless scripting and OME conversion plus a browser-accessible desktop GUI.",
+            "description": "QuPath 0.7.0 digital pathology and bioimage analysis, including headless scripting and OME conversion plus a browser-accessible desktop GUI."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/qupath:0.7.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.7.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:735de58f3237bdb8e8e0071f468a0dc3197ae8d0ff23ec19191d0462c6e93f1d",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:04ec0d15701826f172e81d2f44e241c90a3580e97dacdd94e514b68b172f3553"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "QuPath",
+              "qupath-gui",
+              "qupath-smoke",
+              "Xvfb",
+              "x11vnc",
+              "xdotool",
+              "websockify",
+              "twm",
+              "dbus-run-session",
+              "python3",
+              "curl",
+              "timeout",
+              "pgrep",
+              "grep",
+              "awk",
+              "cut",
+              "find",
+              "tail",
+              "sha256sum",
+              "od",
+              "tr",
+              "ldd"
+            ],
+            "test": [
+              "qupath-smoke identity",
+              "qupath-smoke core",
+              "qupath-smoke gui",
+              "qupath-smoke gui-interrupt",
+              "qupath-smoke errors"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-21T16:14:33Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-21T16:14:33Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/qupath",
+            "ref": "v0.7.0-r1",
+            "commit": "9037a6ef38c0c62cf67f63d0d218d27606db27d3",
+            "html_url": "https://github.com/taffish/qupath/tree/v0.7.0-r1"
+          },
+          "upstream": {
+            "name": "QuPath",
+            "type": "github",
+            "homepage": "https://qupath.github.io/",
+            "repository": "qupath/qupath",
+            "release_url": "https://github.com/qupath/qupath/releases/tag/v0.7.0",
+            "version": "0.7.0",
+            "license": "GPL-3.0-or-later",
+            "citation": "Bankhead P, Loughrey MB, Fernandez JA, et al. QuPath: Open source software for digital pathology image analysis. Scientific Reports 7, 16878 (2017).",
+            "doi": "10.1038/s41598-017-17204-5"
+          }
+        }
+      }
+    },
     "racon": {
       "name": "racon",
       "latest": "1.5.0-r1",
@@ -56737,6 +56881,10 @@
       "package": "quast",
       "version": "5.3.0-r2"
     },
+    "taf-qupath": {
+      "package": "qupath",
+      "version": "0.7.0-r1"
+    },
     "taf-racon": {
       "package": "racon",
       "version": "1.5.0-r1"
@@ -58171,6 +58319,12 @@
       "repository": "taffish/quast",
       "packages": [
         "quast"
+      ]
+    },
+    "taffish/qupath": {
+      "repository": "taffish/qupath",
+      "packages": [
+        "qupath"
       ]
     },
     "taffish/racon": {
