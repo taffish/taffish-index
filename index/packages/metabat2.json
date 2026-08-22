@@ -1,8 +1,8 @@
 {
   "name": "metabat2",
-  "latest": "2.18-r2",
-  "recent_version": "2.18-r2",
-  "recent_at": "2026-06-06T09:58:34Z",
+  "latest": "2.18-r3",
+  "recent_version": "2.18-r3",
+  "recent_at": "2026-08-22T04:35:30Z",
   "repository_url": "https://github.com/taffish/metabat2",
   "command": {
     "name": "taf-metabat2"
@@ -125,6 +125,129 @@
         "repository": "https://bitbucket.org/berkeleylab/metabat",
         "release_url": "https://bitbucket.org/berkeleylab/metabat/commits/c869c524d0f131d60a03be64bd26b89738160652",
         "version": "2.18-23-gc869c52",
+        "license": "BSD-3-Clause-LBNL",
+        "citation": "Kang et al. 2015, MetaBAT, an efficient tool for accurately reconstructing single genomes from complex microbial communities.",
+        "doi": "10.7717/peerj.1165",
+        "pmid": "26496390"
+      }
+    },
+    "2.18-r3": {
+      "name": "metabat2",
+      "kind": "tool",
+      "version": "2.18",
+      "release": 3,
+      "version_id": "2.18-r3",
+      "tag": "v2.18-r3",
+      "published_at": "2026-08-22T04:35:30Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/metabat2",
+      "repository_slug": "taffish/metabat2",
+      "command": {
+        "name": "taf-metabat2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "binning",
+          "assembly",
+          "coverage",
+          "mag"
+        ],
+        "keywords": [
+          "metabat",
+          "metabat2",
+          "metagenome binning",
+          "mag",
+          "bam",
+          "depth",
+          "coverage",
+          "contigs"
+        ],
+        "summary": "MetaBAT2 2.18 metagenome binning toolkit with metabat2, metabat1, depth summarization, and helper scripts.",
+        "description": "MetaBAT2 2.18 metagenome binning toolkit with metabat2, metabat1, depth summarization, and helper scripts."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/metabat2:2.18-r3",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.18-r3",
+        "image_tag_matches_version": true,
+        "digest": "sha256:3c0fae8208427227a8cb7f6144a38f3f43896d057e3e093992bd82d6bf5c2f8a",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:61748f57c3f8f4c415316e0fc299e400ba1074000b9ac25a8c452abb6902e946",
+          "linux/arm64": "sha256:58af9699f03a91b7eee87294f44c0b96c54cf0fade725a7ab80ef73a0c5cabb9"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "metabat2",
+          "metabat",
+          "metabat1",
+          "runMetaBat.sh",
+          "jgi_summarize_bam_contig_depths",
+          "contigOverlaps",
+          "aggregateBinDepths.pl",
+          "aggregateContigOverlapsByBin.pl",
+          "merge_abundances.py",
+          "filter_sam_by_min_len.py",
+          "bash",
+          "perl",
+          "python3",
+          "gzip"
+        ],
+        "test": [
+          "metabat2 -h 2>&1 | grep -F 'version 2:2.17.91-g8eb9602;' >/dev/null && metabat -h 2>&1 | grep -F 'version 2:2.17.91-g8eb9602;' >/dev/null && metabat1 -h 2>&1 | grep -F 'version 1:2.17.91-g8eb9602;' >/dev/null && jgi_summarize_bam_contig_depths -h 2>&1 | grep -F 'jgi_summarize_bam_contig_depths 2.17.91-g8eb9602' >/dev/null && contigOverlaps -h 2>&1 | grep -F 'ContigOverlaps 2.17.91-g8eb9602' >/dev/null",
+          "runMetaBat.sh 2>&1 | grep -F 'runMetaBat.sh' >/dev/null && aggregateBinDepths.pl 2>&1 | grep -F 'depth.txt' >/dev/null && aggregateContigOverlapsByBin.pl 2>&1 | grep -F 'contigOverlaps.txt' >/dev/null && aggregateContigOverlapsByBin.pl 2>&1 | grep -F 'firstBinsContigNames.fofn' >/dev/null && merge_abundances.py 2>&1 | grep -F 'Usage: merge_abundances.py' >/dev/null && filter_sam_by_min_len.py --help 2>&1 | grep -F 'Filters SAM' >/dev/null",
+          "tmp=/tmp/taf-metabat2-workflow-$$; rm -rf \"$tmp\"; /opt/metabat2/share/testdata/metabat2_smoke.sh all \"$tmp\" && test -s \"$tmp/depth.txt\" && test -s \"$tmp/direct_bin_depths.tsv\" && test -s \"$tmp/runmetabat.log\" && find \"$tmp/direct\" -type f -name '*.fa' | grep -q . && find \"$tmp/runmetabat\" -type f -name '*.fa' | grep -q . && rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-22T05:41:49Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-22T05:41:49Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/metabat2",
+        "ref": "v2.18-r3",
+        "commit": "93c6e05d26864a4d2f8f0a7754c1563cb9023f68",
+        "html_url": "https://github.com/taffish/metabat2/tree/v2.18-r3"
+      },
+      "upstream": {
+        "name": "MetaBAT",
+        "type": "official",
+        "homepage": "https://bitbucket.org/berkeleylab/metabat",
+        "repository": "https://bitbucket.org/berkeleylab/metabat",
+        "release_url": "https://bitbucket.org/berkeleylab/metabat/commits/8eb96023ef627d1955c05e3aca348c84b8757914",
+        "version": "2.18-25-g8eb9602",
         "license": "BSD-3-Clause-LBNL",
         "citation": "Kang et al. 2015, MetaBAT, an efficient tool for accurately reconstructing single genomes from complex microbial communities.",
         "doi": "10.7717/peerj.1165",

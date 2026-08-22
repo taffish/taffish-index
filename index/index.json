@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-22T02:52:29Z",
+  "generated_at": "2026-08-22T05:41:49Z",
   "organization": "taffish",
   "counts": {
     "packages": 268,
-    "versions": 441,
+    "versions": 443,
     "commands": 268,
     "repositories": 268,
     "warnings": 0,
@@ -26678,9 +26678,9 @@
     },
     "metabat2": {
       "name": "metabat2",
-      "latest": "2.18-r2",
-      "recent_version": "2.18-r2",
-      "recent_at": "2026-06-06T09:58:34Z",
+      "latest": "2.18-r3",
+      "recent_version": "2.18-r3",
+      "recent_at": "2026-08-22T04:35:30Z",
       "repository_url": "https://github.com/taffish/metabat2",
       "command": {
         "name": "taf-metabat2"
@@ -26803,6 +26803,129 @@
             "repository": "https://bitbucket.org/berkeleylab/metabat",
             "release_url": "https://bitbucket.org/berkeleylab/metabat/commits/c869c524d0f131d60a03be64bd26b89738160652",
             "version": "2.18-23-gc869c52",
+            "license": "BSD-3-Clause-LBNL",
+            "citation": "Kang et al. 2015, MetaBAT, an efficient tool for accurately reconstructing single genomes from complex microbial communities.",
+            "doi": "10.7717/peerj.1165",
+            "pmid": "26496390"
+          }
+        },
+        "2.18-r3": {
+          "name": "metabat2",
+          "kind": "tool",
+          "version": "2.18",
+          "release": 3,
+          "version_id": "2.18-r3",
+          "tag": "v2.18-r3",
+          "published_at": "2026-08-22T04:35:30Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/metabat2",
+          "repository_slug": "taffish/metabat2",
+          "command": {
+            "name": "taf-metabat2"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "binning",
+              "assembly",
+              "coverage",
+              "mag"
+            ],
+            "keywords": [
+              "metabat",
+              "metabat2",
+              "metagenome binning",
+              "mag",
+              "bam",
+              "depth",
+              "coverage",
+              "contigs"
+            ],
+            "summary": "MetaBAT2 2.18 metagenome binning toolkit with metabat2, metabat1, depth summarization, and helper scripts.",
+            "description": "MetaBAT2 2.18 metagenome binning toolkit with metabat2, metabat1, depth summarization, and helper scripts."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/metabat2:2.18-r3",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.18-r3",
+            "image_tag_matches_version": true,
+            "digest": "sha256:3c0fae8208427227a8cb7f6144a38f3f43896d057e3e093992bd82d6bf5c2f8a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:61748f57c3f8f4c415316e0fc299e400ba1074000b9ac25a8c452abb6902e946",
+              "linux/arm64": "sha256:58af9699f03a91b7eee87294f44c0b96c54cf0fade725a7ab80ef73a0c5cabb9"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "metabat2",
+              "metabat",
+              "metabat1",
+              "runMetaBat.sh",
+              "jgi_summarize_bam_contig_depths",
+              "contigOverlaps",
+              "aggregateBinDepths.pl",
+              "aggregateContigOverlapsByBin.pl",
+              "merge_abundances.py",
+              "filter_sam_by_min_len.py",
+              "bash",
+              "perl",
+              "python3",
+              "gzip"
+            ],
+            "test": [
+              "metabat2 -h 2>&1 | grep -F 'version 2:2.17.91-g8eb9602;' >/dev/null && metabat -h 2>&1 | grep -F 'version 2:2.17.91-g8eb9602;' >/dev/null && metabat1 -h 2>&1 | grep -F 'version 1:2.17.91-g8eb9602;' >/dev/null && jgi_summarize_bam_contig_depths -h 2>&1 | grep -F 'jgi_summarize_bam_contig_depths 2.17.91-g8eb9602' >/dev/null && contigOverlaps -h 2>&1 | grep -F 'ContigOverlaps 2.17.91-g8eb9602' >/dev/null",
+              "runMetaBat.sh 2>&1 | grep -F 'runMetaBat.sh' >/dev/null && aggregateBinDepths.pl 2>&1 | grep -F 'depth.txt' >/dev/null && aggregateContigOverlapsByBin.pl 2>&1 | grep -F 'contigOverlaps.txt' >/dev/null && aggregateContigOverlapsByBin.pl 2>&1 | grep -F 'firstBinsContigNames.fofn' >/dev/null && merge_abundances.py 2>&1 | grep -F 'Usage: merge_abundances.py' >/dev/null && filter_sam_by_min_len.py --help 2>&1 | grep -F 'Filters SAM' >/dev/null",
+              "tmp=/tmp/taf-metabat2-workflow-$$; rm -rf \"$tmp\"; /opt/metabat2/share/testdata/metabat2_smoke.sh all \"$tmp\" && test -s \"$tmp/depth.txt\" && test -s \"$tmp/direct_bin_depths.tsv\" && test -s \"$tmp/runmetabat.log\" && find \"$tmp/direct\" -type f -name '*.fa' | grep -q . && find \"$tmp/runmetabat\" -type f -name '*.fa' | grep -q . && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-22T05:41:49Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-22T05:41:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/metabat2",
+            "ref": "v2.18-r3",
+            "commit": "93c6e05d26864a4d2f8f0a7754c1563cb9023f68",
+            "html_url": "https://github.com/taffish/metabat2/tree/v2.18-r3"
+          },
+          "upstream": {
+            "name": "MetaBAT",
+            "type": "official",
+            "homepage": "https://bitbucket.org/berkeleylab/metabat",
+            "repository": "https://bitbucket.org/berkeleylab/metabat",
+            "release_url": "https://bitbucket.org/berkeleylab/metabat/commits/8eb96023ef627d1955c05e3aca348c84b8757914",
+            "version": "2.18-25-g8eb9602",
             "license": "BSD-3-Clause-LBNL",
             "citation": "Kang et al. 2015, MetaBAT, an efficient tool for accurately reconstructing single genomes from complex microbial communities.",
             "doi": "10.7717/peerj.1165",
@@ -30686,9 +30809,9 @@
     },
     "ncbi-datasets": {
       "name": "ncbi-datasets",
-      "latest": "18.35.0-r1",
-      "recent_version": "18.35.0-r1",
-      "recent_at": "2026-08-10T22:01:33Z",
+      "latest": "18.36.0-r1",
+      "recent_version": "18.36.0-r1",
+      "recent_at": "2026-08-22T05:23:57Z",
       "repository_url": "https://github.com/taffish/ncbi-datasets",
       "command": {
         "name": "taf-ncbi-datasets"
@@ -31039,6 +31162,128 @@
             "repository": "ncbi/datasets",
             "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.35.0",
             "version": "18.35.0",
+            "license": "Public Domain / United States Government Work",
+            "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
+            "doi": "10.1038/s41597-024-03571-y"
+          }
+        },
+        "18.36.0-r1": {
+          "name": "ncbi-datasets",
+          "kind": "tool",
+          "version": "18.36.0",
+          "release": 1,
+          "version_id": "18.36.0-r1",
+          "tag": "v18.36.0-r1",
+          "published_at": "2026-08-22T05:23:57Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/ncbi-datasets",
+          "repository_slug": "taffish/ncbi-datasets",
+          "command": {
+            "name": "taf-ncbi-datasets"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "data-retrieval",
+              "database-query",
+              "metadata"
+            ],
+            "keywords": [
+              "ncbi datasets",
+              "datasets",
+              "dataformat",
+              "ncbi",
+              "genome",
+              "gene",
+              "taxonomy",
+              "virus",
+              "metadata",
+              "data package"
+            ],
+            "summary": "NCBI Datasets 18.36.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata.",
+            "description": "NCBI Datasets 18.36.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/ncbi-datasets:18.36.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "18.36.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:3175d513af0cff42e225b8ace82aaf146d3266a29b46f88fc9026b9fd87bf84f",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0bbc10ebe9f223d29d312009d0da4231c6f4384cae250c7d7e8528588ce388f2",
+              "linux/arm64": "sha256:8df762ba460a55e22482819289ac8bde6845bed727cf71728522faeefb024eda"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "datasets",
+              "dataformat",
+              "sh",
+              "grep",
+              "sed",
+              "wc",
+              "tr",
+              "head",
+              "cut",
+              "mkdir",
+              "rm"
+            ],
+            "test": [
+              "datasets --version 2>&1 | grep -Fx 'datasets version: 18.36.0' >/dev/null && dataformat version 2>&1 | grep -Fx 'undefined' >/dev/null && grep -Fx 'upstream_version=18.36.0' /opt/ncbi-datasets/share/doc/ncbi-datasets/source.txt >/dev/null && test -s /etc/ssl/certs/ca-certificates.crt",
+              "datasets --help 2>&1 | grep -F 'Data Retrieval Commands' >/dev/null && datasets summary genome accession --help 2>&1 | grep -F -- '--as-json-lines' >/dev/null && datasets summary taxonomy taxon --help 2>&1 | grep -F -- '--as-json-lines' >/dev/null && datasets download genome accession --help 2>&1 | grep -F -- '--dehydrated' >/dev/null && datasets download gene gene-id --help 2>&1 | grep -F 'include all file types' >/dev/null && datasets download virus genome taxon --help 2>&1 | grep -F 'include all reports and sequence data' >/dev/null && datasets rehydrate --help 2>&1 | grep -F -- '--directory' >/dev/null && dataformat --help 2>&1 | grep -F 'Formatting Commands' >/dev/null && dataformat tsv genome --help 2>&1 | grep -F -- '--fields' >/dev/null && dataformat tsv sequence --help 2>&1 | grep -F -- '--list-templates' >/dev/null && dataformat tsv sequence --list-templates 2>&1 | grep -F 'summary-no-query' >/dev/null && dataformat excel genome --help 2>&1 | grep -F -- '--outputfile' >/dev/null",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh tsv",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh sequence",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh excel"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-22T05:41:49Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-22T05:41:49Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/ncbi-datasets",
+            "ref": "v18.36.0-r1",
+            "commit": "c0a5576365cbe7c917ff081474c639f0332154d3",
+            "html_url": "https://github.com/taffish/ncbi-datasets/tree/v18.36.0-r1"
+          },
+          "upstream": {
+            "name": "NCBI Datasets",
+            "type": "github",
+            "homepage": "https://www.ncbi.nlm.nih.gov/datasets/",
+            "repository": "ncbi/datasets",
+            "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.36.0",
+            "version": "18.36.0",
             "license": "Public Domain / United States Government Work",
             "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
             "doi": "10.1038/s41597-024-03571-y"
@@ -56802,7 +57047,7 @@
     },
     "taf-metabat2": {
       "package": "metabat2",
-      "version": "2.18-r2"
+      "version": "2.18-r3"
     },
     "taf-metaphlan": {
       "package": "metaphlan",
@@ -56874,7 +57119,7 @@
     },
     "taf-ncbi-datasets": {
       "package": "ncbi-datasets",
-      "version": "18.35.0-r1"
+      "version": "18.36.0-r1"
     },
     "taf-ngenomesyn": {
       "package": "ngenomesyn",
