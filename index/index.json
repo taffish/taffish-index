@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-22T05:41:49Z",
+  "generated_at": "2026-08-22T16:40:42Z",
   "organization": "taffish",
   "counts": {
-    "packages": 268,
-    "versions": 443,
-    "commands": 268,
-    "repositories": 268,
+    "packages": 269,
+    "versions": 444,
+    "commands": 269,
+    "repositories": 269,
     "warnings": 0,
     "failed": 0,
     "rejected": 12
@@ -50980,6 +50980,153 @@
         }
       }
     },
+    "suppa": {
+      "name": "suppa",
+      "latest": "2.4-r1",
+      "recent_version": "2.4-r1",
+      "recent_at": "2026-08-22T16:37:03Z",
+      "repository_url": "https://github.com/taffish/suppa",
+      "command": {
+        "name": "taf-suppa"
+      },
+      "versions": {
+        "2.4-r1": {
+          "name": "suppa",
+          "kind": "tool",
+          "version": "2.4",
+          "release": 1,
+          "version_id": "2.4-r1",
+          "tag": "v2.4-r1",
+          "published_at": "2026-08-22T16:37:03Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/suppa",
+          "repository_slug": "taffish/suppa",
+          "command": {
+            "name": "taf-suppa"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "alternative-splicing",
+            "categories": [
+              "alternative-splicing",
+              "transcriptomics",
+              "rna-seq",
+              "differential-splicing"
+            ],
+            "keywords": [
+              "suppa",
+              "suppa2",
+              "alternative splicing",
+              "psi",
+              "differential splicing",
+              "transcript usage",
+              "rna-seq",
+              "gtf",
+              "ioe",
+              "ioi",
+              "clustering"
+            ],
+            "summary": "SUPPA2 v2.4 for alternative-splicing event generation, PSI quantification, differential splicing or transcript usage, and event clustering.",
+            "description": "SUPPA2 v2.4 for alternative-splicing event generation, PSI quantification, differential splicing or transcript usage, and event clustering."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/suppa:2.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c9c18ef600aee160c8a61d6a2021c73d70e962badf51ff119f90da2f90cc846b",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:fc87cb1aa567e16edf6c72933b8991ffa30a4832b688a639eac3cc65906fbd34",
+              "linux/arm64": "sha256:3112bc86a99e3f7c287224bf4a102050db877e6ad76e54633a3da1c1b61f8cef"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "suppa",
+              "suppa.py",
+              "suppa-smoke",
+              "multipleFieldSelection.py",
+              "format_unique_fasta_RefSeq_annotation.py",
+              "generate_boxplot_event.py",
+              "Volcano_MA_plot.R",
+              "format_Ensembl_ids.R",
+              "split_file.R",
+              "rmats_to_suppa_ids_A3_events.pl",
+              "rmats_to_suppa_ids_A5_events.pl",
+              "rmats_to_suppa_ids_SE_events.pl",
+              "python3",
+              "perl",
+              "Rscript",
+              "sh",
+              "grep",
+              "sed",
+              "sort",
+              "sha256sum"
+            ],
+            "test": [
+              "suppa-smoke identity",
+              "suppa-smoke interfaces",
+              "suppa-smoke events",
+              "suppa-smoke quantification",
+              "suppa-smoke differential",
+              "suppa-smoke clustering",
+              "suppa-smoke helpers"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-22T16:40:42Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-22T16:40:42Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/suppa",
+            "ref": "v2.4-r1",
+            "commit": "3077e0b9a8687276477a298ed7cfe0bf09dd27cb",
+            "html_url": "https://github.com/taffish/suppa/tree/v2.4-r1"
+          },
+          "upstream": {
+            "name": "SUPPA2",
+            "type": "github",
+            "homepage": "https://github.com/comprna/SUPPA",
+            "repository": "comprna/SUPPA",
+            "release_url": "https://github.com/comprna/SUPPA/releases/tag/v2.4",
+            "version": "2.4",
+            "license": "MIT",
+            "citation": "Trincado JL et al. SUPPA2: fast, accurate, and uncertainty-aware differential splicing analysis across multiple conditions. Genome Biology 19, 40 (2018).",
+            "doi": "10.1186/s13059-018-1417-1",
+            "pmid": "29571299"
+          }
+        }
+      }
+    },
     "sylph": {
       "name": "sylph",
       "latest": "0.9.0-r1",
@@ -57477,6 +57624,10 @@
       "package": "subread",
       "version": "2.1.1-r2"
     },
+    "taf-suppa": {
+      "package": "suppa",
+      "version": "2.4-r1"
+    },
     "taf-sylph": {
       "package": "sylph",
       "version": "0.9.0-r1"
@@ -59027,6 +59178,12 @@
       "repository": "taffish/subread",
       "packages": [
         "subread"
+      ]
+    },
+    "taffish/suppa": {
+      "repository": "taffish/suppa",
+      "packages": [
+        "suppa"
       ]
     },
     "taffish/sylph": {
