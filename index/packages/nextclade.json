@@ -1,0 +1,134 @@
+{
+  "name": "nextclade",
+  "latest": "3.23.0-r1",
+  "recent_version": "3.23.0-r1",
+  "recent_at": "2026-08-23T16:20:11Z",
+  "repository_url": "https://github.com/taffish/nextclade",
+  "command": {
+    "name": "taf-nextclade"
+  },
+  "versions": {
+    "3.23.0-r1": {
+      "name": "nextclade",
+      "kind": "tool",
+      "version": "3.23.0",
+      "release": 1,
+      "version_id": "3.23.0-r1",
+      "tag": "v3.23.0-r1",
+      "published_at": "2026-08-23T16:20:11Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/nextclade",
+      "repository_slug": "taffish/nextclade",
+      "command": {
+        "name": "taf-nextclade"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "phylogenetics",
+        "categories": [
+          "phylogenetics",
+          "genomics",
+          "viral-genomics",
+          "variant-calling",
+          "quality-control",
+          "visualization"
+        ],
+        "keywords": [
+          "nextstrain",
+          "nextclade",
+          "virus",
+          "alignment",
+          "clade-assignment",
+          "mutation-calling",
+          "phylogenetics",
+          "quality-control",
+          "web-ui"
+        ],
+        "summary": "Nextclade 3.23.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces.",
+        "description": "Nextclade 3.23.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/nextclade:3.23.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.23.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:32e836392f820d209960f12ab7cd272af15e847d7c72b4ce12d3949acf168976",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d1dd136f4b4225e15024d3625d0a4a5fb6e791dada28993fee7e861ef5b2037a",
+          "linux/arm64": "sha256:6244d48d43f45f0a6f5ec58a9845a796b07bbd13a3922257d5881a7038a95521"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "nextclade",
+          "nextalign",
+          "nextclade-web",
+          "nextclade-smoke",
+          "nginx",
+          "wget",
+          "timeout",
+          "sh"
+        ],
+        "test": [
+          "nextclade-smoke identity",
+          "nextclade-smoke commands",
+          "nextclade-smoke core",
+          "nextclade-smoke web-ready-int",
+          "nextclade-smoke web-ready-term",
+          "nextclade-smoke web-startup-int",
+          "nextclade-smoke errors"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-23T16:20:57Z",
+        "backend_used": "docker"
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-23T16:20:57Z",
+        "policy": "taffish.index/trust-v1",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/nextclade",
+        "ref": "v3.23.0-r1",
+        "commit": "546dd2814f999e4260aa9bf6ca8145291497dc7d",
+        "html_url": "https://github.com/taffish/nextclade/tree/v3.23.0-r1"
+      },
+      "upstream": {
+        "name": "Nextclade",
+        "type": "github",
+        "homepage": "https://clades.nextstrain.org",
+        "repository": "https://github.com/nextstrain/nextclade",
+        "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.23.0",
+        "version": "3.23.0",
+        "license": "MIT",
+        "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
+        "doi": "10.21105/joss.03773"
+      }
+    }
+  }
+}
