@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-24T02:38:26Z",
+  "generated_at": "2026-08-24T17:28:21Z",
   "organization": "taffish",
   "counts": {
-    "packages": 270,
-    "versions": 445,
-    "commands": 270,
-    "repositories": 270,
+    "packages": 271,
+    "versions": 446,
+    "commands": 271,
+    "repositories": 271,
     "warnings": 0,
     "failed": 0,
     "rejected": 12
@@ -56011,6 +56011,182 @@
         }
       }
     },
+    "virsorter2": {
+      "name": "virsorter2",
+      "latest": "2.2.4-r1",
+      "recent_version": "2.2.4-r1",
+      "recent_at": "2026-08-24T17:23:46Z",
+      "repository_url": "https://github.com/taffish/virsorter2",
+      "command": {
+        "name": "taf-virsorter2"
+      },
+      "versions": {
+        "2.2.4-r1": {
+          "name": "virsorter2",
+          "kind": "tool",
+          "version": "2.2.4",
+          "release": 1,
+          "version_id": "2.2.4-r1",
+          "tag": "v2.2.4-r1",
+          "published_at": "2026-08-24T17:23:46Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/virsorter2",
+          "repository_slug": "taffish/virsorter2",
+          "command": {
+            "name": "taf-virsorter2"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "virus-identification",
+            "categories": [
+              "virus-identification",
+              "viromics",
+              "metagenomics",
+              "viral-genomics",
+              "machine-learning"
+            ],
+            "keywords": [
+              "virsorter2",
+              "virsorter",
+              "virus identification",
+              "viral sequence",
+              "viral contig",
+              "provirus",
+              "dsdna phage",
+              "ssdna virus",
+              "rna virus",
+              "ncldv",
+              "lavidaviridae",
+              "virophage",
+              "metagenome",
+              "prodigal",
+              "hmmer",
+              "last",
+              "snakemake"
+            ],
+            "summary": "VirSorter2 2.2.4 command-line runtime for identifying diverse viral sequences, with the public workflows, pinned helper closure, and a resumable personal/site-wide database installer with read-only automatic reuse.",
+            "description": "VirSorter2 2.2.4 command-line runtime for identifying diverse viral sequences, with the public workflows, pinned helper closure, and a resumable personal/site-wide database installer with read-only automatic reuse."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/virsorter2:2.2.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9c0d96e55801318e96404c65e014f05b765701488847e19981f692044593d223",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:8fbf8e4767d8232bc355562535c6ad03bc3a82ba7e0f24e37a13c5dec9947e26",
+              "linux/arm64": "sha256:5a9c9219b8fc7bc0789c6d9e49a3e8f1529b57402d54e99d09ca807fa77282dc"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "virsorter",
+              "virsorter-upstream",
+              "virsorter2-download-db",
+              "virsorter2-smoke",
+              "python",
+              "snakemake",
+              "prodigal",
+              "hmmsearch",
+              "hmmpress",
+              "hmmbuild",
+              "lastal",
+              "lastdb",
+              "ncbi-genome-download",
+              "mamba",
+              "conda",
+              "cookiecutter",
+              "git",
+              "sh",
+              "awk",
+              "basename",
+              "cat",
+              "cp",
+              "grep",
+              "gunzip",
+              "ln",
+              "mkdir",
+              "mv",
+              "printf",
+              "rm",
+              "rmdir",
+              "sed",
+              "sleep",
+              "tail",
+              "tar",
+              "touch",
+              "tr",
+              "wc",
+              "wget",
+              "xargs",
+              "gzip",
+              "bzip2"
+            ],
+            "test": [
+              "virsorter2-smoke identity",
+              "virsorter2-smoke commands",
+              "virsorter2-smoke config",
+              "virsorter2-smoke setup-plan",
+              "virsorter2-smoke bio-tools",
+              "virsorter2-smoke training",
+              "virsorter2-smoke db-boundary",
+              "virsorter2-smoke db-helper"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-24T17:28:21Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-24T17:28:21Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/virsorter2",
+            "ref": "v2.2.4-r1",
+            "commit": "e6444d42706be69730b5811740bb78e6a53b1424",
+            "html_url": "https://github.com/taffish/virsorter2/tree/v2.2.4-r1"
+          },
+          "upstream": {
+            "name": "VirSorter2",
+            "type": "github",
+            "homepage": "https://github.com/jiarong/VirSorter2",
+            "repository": "jiarong/VirSorter2",
+            "release_url": "https://github.com/jiarong/VirSorter2/releases/tag/v2.2.4",
+            "version": "2.2.4",
+            "license": "GPL-2.0-or-later",
+            "citation": "Guo et al. 2021, Microbiome 9:37",
+            "doi": "10.1186/s40168-020-00990-y",
+            "pmid": "33522966"
+          }
+        }
+      }
+    },
     "vsearch": {
       "name": "vsearch",
       "latest": "2.31.0-r1",
@@ -57858,6 +58034,10 @@
       "package": "vg",
       "version": "1.76.1-r1"
     },
+    "taf-virsorter2": {
+      "package": "virsorter2",
+      "version": "2.2.4-r1"
+    },
     "taf-vsearch": {
       "package": "vsearch",
       "version": "2.31.0-r1"
@@ -59466,6 +59646,12 @@
       "repository": "taffish/vg",
       "packages": [
         "vg"
+      ]
+    },
+    "taffish/virsorter2": {
+      "repository": "taffish/virsorter2",
+      "packages": [
+        "virsorter2"
       ]
     },
     "taffish/vsearch": {
