@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-25T08:49:04Z",
+  "generated_at": "2026-08-25T16:21:42Z",
   "organization": "taffish",
   "counts": {
-    "packages": 271,
-    "versions": 447,
-    "commands": 271,
-    "repositories": 271,
+    "packages": 272,
+    "versions": 448,
+    "commands": 272,
+    "repositories": 272,
     "warnings": 0,
     "failed": 0,
     "rejected": 12
@@ -34061,6 +34061,174 @@
         }
       }
     },
+    "pharokka": {
+      "name": "pharokka",
+      "latest": "1.10.1-r1",
+      "recent_version": "1.10.1-r1",
+      "recent_at": "2026-08-25T16:16:27Z",
+      "repository_url": "https://github.com/taffish/pharokka",
+      "command": {
+        "name": "taf-pharokka"
+      },
+      "versions": {
+        "1.10.1-r1": {
+          "name": "pharokka",
+          "kind": "tool",
+          "version": "1.10.1",
+          "release": 1,
+          "version_id": "1.10.1-r1",
+          "tag": "v1.10.1-r1",
+          "published_at": "2026-08-25T16:16:27Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/pharokka",
+          "repository_slug": "taffish/pharokka",
+          "command": {
+            "name": "taf-pharokka"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "viral-genomics",
+            "categories": [
+              "viral-genomics",
+              "genome-annotation",
+              "bacteriophage",
+              "functional-annotation",
+              "visualization"
+            ],
+            "keywords": [
+              "pharokka",
+              "phage",
+              "bacteriophage",
+              "virus",
+              "genome annotation",
+              "phrog",
+              "vfdb",
+              "card",
+              "phanotate",
+              "pyrodigal",
+              "mmseqs2",
+              "pyhmmer",
+              "trnascan-se",
+              "minced",
+              "aragorn",
+              "mash",
+              "genbank",
+              "gff",
+              "plot"
+            ],
+            "summary": "Pharokka 1.10.1 bacteriophage genome and protein annotation CLI with plotting, custom HMM creation, complete helper closure, and a resumable personal/site-wide database installer with automatic read-only reuse.",
+            "description": "Pharokka 1.10.1 bacteriophage genome and protein annotation CLI with plotting, custom HMM creation, complete helper closure, and a resumable personal/site-wide database installer with automatic read-only reuse."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/pharokka:1.10.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.10.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f6e3c8eaadf0cd9336465486c601c80f45f1c6ad0bfc6d6cfef627edc6f5d9cf",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b5ae5510c6606185c30f4f4496089551e94e594d46ebbb9ce332b29d37a38f5f",
+              "linux/arm64": "sha256:2e22934fa6bc012746c8c113d44116e6c47339786e690d9d5e5f3d2cd07af056"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "pharokka",
+              "pharokka-upstream",
+              "pharokka.py",
+              "pharokka_proteins.py",
+              "install_databases.py",
+              "pharokka_plotter.py",
+              "pharokka_multiplotter.py",
+              "create_custom_hmm.py",
+              "pharokka-download-db",
+              "pharokka-smoke",
+              "python",
+              "mmseqs",
+              "mash",
+              "phanotate.py",
+              "aragorn",
+              "minced",
+              "tRNAscan-SE",
+              "dnaapler",
+              "sh",
+              "awk",
+              "cat",
+              "cp",
+              "find",
+              "grep",
+              "gzip",
+              "mkdir",
+              "od",
+              "rm",
+              "sed",
+              "tar",
+              "tr",
+              "wc"
+            ],
+            "test": [
+              "pharokka-smoke identity",
+              "pharokka-smoke commands",
+              "pharokka-smoke create-hmm",
+              "pharokka-smoke plot",
+              "pharokka-smoke bio-tools",
+              "pharokka-smoke db-boundary",
+              "pharokka-smoke db-helper"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-25T16:21:42Z",
+            "backend_used": "docker"
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-25T16:21:42Z",
+            "policy": "taffish.index/trust-v1",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/pharokka",
+            "ref": "v1.10.1-r1",
+            "commit": "2445fdbeb9ee8975de6697067e006a54e0599eab",
+            "html_url": "https://github.com/taffish/pharokka/tree/v1.10.1-r1"
+          },
+          "upstream": {
+            "name": "Pharokka",
+            "type": "github",
+            "homepage": "https://pharokka.readthedocs.io/",
+            "repository": "https://github.com/gbouras13/pharokka",
+            "release_url": "https://github.com/gbouras13/pharokka/releases/tag/v1.10.1",
+            "version": "1.10.1",
+            "license": "MIT",
+            "citation": "Bouras et al. 2023, Bioinformatics 39(1):btac776",
+            "doi": "10.1093/bioinformatics/btac776",
+            "pmid": "36533606"
+          }
+        }
+      }
+    },
     "phylogeny-flow": {
       "name": "phylogeny-flow",
       "latest": "0.2.0-r1",
@@ -57780,6 +57948,10 @@
       "package": "phantompeakqualtools",
       "version": "1.2.2-r1"
     },
+    "taf-pharokka": {
+      "package": "pharokka",
+      "version": "1.10.1-r1"
+    },
     "taf-phylogeny-flow": {
       "package": "phylogeny-flow",
       "version": "0.2.0-r1"
@@ -59198,6 +59370,12 @@
       "repository": "taffish/phantompeakqualtools",
       "packages": [
         "phantompeakqualtools"
+      ]
+    },
+    "taffish/pharokka": {
+      "repository": "taffish/pharokka",
+      "packages": [
+        "pharokka"
       ]
     },
     "taffish/phylogeny-flow": {
