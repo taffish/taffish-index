@@ -1,0 +1,212 @@
+{
+  "name": "beast2",
+  "latest": "2.7.8-r1",
+  "recent_version": "2.7.8-r1",
+  "recent_at": "2026-08-26T16:03:15Z",
+  "repository_url": "https://github.com/taffish/beast2",
+  "command": {
+    "name": "taf-beast2"
+  },
+  "versions": {
+    "2.7.8-r1": {
+      "name": "beast2",
+      "kind": "tool",
+      "version": "2.7.8",
+      "release": 1,
+      "version_id": "2.7.8-r1",
+      "tag": "v2.7.8-r1",
+      "published_at": "2026-08-26T16:03:15Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/beast2",
+      "repository_slug": "taffish/beast2",
+      "command": {
+        "name": "taf-beast2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "phylogenetics",
+        "categories": [
+          "phylogenetics",
+          "bayesian-inference",
+          "molecular-evolution",
+          "mcmc",
+          "visualization"
+        ],
+        "keywords": [
+          "beast 2",
+          "beauti",
+          "treeannotator",
+          "logcombiner",
+          "loganalyser",
+          "densitree",
+          "beagle",
+          "phylogeny",
+          "mcmc",
+          "novnc"
+        ],
+        "summary": "BEAST 2.7.8 Bayesian phylogenetic inference suite with native amd64/arm64 runtimes, CPU BEAGLE, CLI utilities, package reuse, and browser-accessible desktop GUIs.",
+        "description": "BEAST 2.7.8 Bayesian phylogenetic inference suite with native amd64/arm64 runtimes, CPU BEAGLE, CLI utilities, package reuse, and browser-accessible desktop GUIs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/beast2:2.7.8-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.7.8-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:8a9c0f3caa6871e5bc68c89531a8dc64b83ce0c986c9ae38b1e94625b68b1e0d",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:5b412ec233f96f28596f6a717e24f6472d1eb156261d8d3003d0607369c674ac",
+          "linux/arm64": "sha256:90328bfee6b2880705641632d578304c4ff9c1d1116c42c69be14c7b6130075c"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "beast",
+          "beauti",
+          "treeannotator",
+          "logcombiner",
+          "loganalyser",
+          "densitree",
+          "applauncher",
+          "packagemanager",
+          "beast2-package-manager",
+          "beast2-gui",
+          "beast2-smoke",
+          "java",
+          "Xvfb",
+          "x11vnc",
+          "xdotool",
+          "websockify",
+          "twm",
+          "dbus-run-session",
+          "curl",
+          "timeout",
+          "pgrep",
+          "awk",
+          "cp",
+          "find",
+          "grep",
+          "ldd",
+          "sed",
+          "sha256sum",
+          "tail"
+        ],
+        "test": [
+          "beast2-smoke identity",
+          "beast2-smoke core",
+          "beast2-smoke tools",
+          "beast2-smoke packages",
+          "beast2-smoke beauti-data-term",
+          "beast2-smoke runner-ready-term",
+          "beast2-smoke startup-interrupt",
+          "beast2-smoke errors",
+          "beast2-smoke wm-startup-failure",
+          "beast2-smoke wm-runtime-failure"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-27T01:42:43Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-27T01:42:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260816.277.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e794da7eaea2f901cbf4840c831be2381f7c7c4d",
+            "image_digest": "sha256:8a9c0f3caa6871e5bc68c89531a8dc64b83ce0c986c9ae38b1e94625b68b1e0d",
+            "smoke_sha256": "e7954300bb91fc8fabb62baf9486643aded500cdb783eadced13e8f5a2701183",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-27T01:42:43Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260816.277.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e794da7eaea2f901cbf4840c831be2381f7c7c4d",
+            "image_digest": "sha256:8a9c0f3caa6871e5bc68c89531a8dc64b83ce0c986c9ae38b1e94625b68b1e0d",
+            "smoke_sha256": "e7954300bb91fc8fabb62baf9486643aded500cdb783eadced13e8f5a2701183",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-27T01:42:44Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260816.277.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e794da7eaea2f901cbf4840c831be2381f7c7c4d",
+            "image_digest": "sha256:8a9c0f3caa6871e5bc68c89531a8dc64b83ce0c986c9ae38b1e94625b68b1e0d",
+            "smoke_sha256": "e7954300bb91fc8fabb62baf9486643aded500cdb783eadced13e8f5a2701183",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-27T01:39:41Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/beast2",
+        "ref": "v2.7.8-r1",
+        "commit": "e794da7eaea2f901cbf4840c831be2381f7c7c4d",
+        "html_url": "https://github.com/taffish/beast2/tree/v2.7.8-r1"
+      },
+      "upstream": {
+        "name": "BEAST 2",
+        "type": "github",
+        "homepage": "https://www.beast2.org/",
+        "repository": "https://github.com/CompEvol/beast2",
+        "release_url": "https://github.com/CompEvol/beast2/releases/tag/v2.7.8",
+        "version": "2.7.8",
+        "license": "LGPL-2.1-or-later",
+        "citation": "Bouckaert R, Vaughan TG, Barido-Sottani J, et al. BEAST 2.5: An advanced software platform for Bayesian evolutionary analysis. PLoS Computational Biology. 2019;15(4):e1006650.",
+        "doi": "10.1371/journal.pcbi.1006650",
+        "pmid": "30958812"
+      }
+    }
+  }
+}
