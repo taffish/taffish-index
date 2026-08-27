@@ -193,6 +193,160 @@
    (cons "archived" (if archived t :false))
    (cons "fork" (if fork t :false))))
 
+(defparameter *github-ref-project-toml*
+  "[package]
+name = \"ref-fixture\"
+kind = \"tool\"
+version = \"1.0.0\"
+release = 1
+main = \"src/main.taf\"
+
+[repository]
+url = \"https://github.com/taffish/ref-fixture\"
+
+[command]
+name = \"taf-ref-fixture\"
+
+[runtime]
+pipe = true
+command_mode = true
+")
+
+;;; A release record must use the SHA returned by the tags API for every raw
+;;; content read.  The public source ref remains the human-facing release tag.
+
+(let* ((commit "0123456789abcdef0123456789abcdef01234567")
+       (tag "v1.0.0-r1")
+       (raw-calls nil)
+       (old-raw (symbol-function 'github-raw-text))
+       (old-tags (symbol-function 'github-list-tags))
+       (old-release-map (symbol-function 'github-release-time-map))
+       (records nil)
+       (warnings nil))
+  (unwind-protect
+       (progn
+         (setf (symbol-function 'github-raw-text)
+               (lambda (full-name ref path)
+                 (push (list full-name ref path) raw-calls)
+                 (if (string= path "taffish.toml")
+                     *github-ref-project-toml*
+                     "fixture"))
+               (symbol-function 'github-list-tags)
+               (lambda (_full-name)
+                 (declare (ignore _full-name))
+                 (list
+                  (json-object
+                   (cons "name" tag)
+                   (cons "commit" (json-object (cons "sha" commit))))))
+               (symbol-function 'github-release-time-map)
+               (lambda (_full-name)
+                 (declare (ignore _full-name))
+                 nil))
+         (multiple-value-setq (records warnings)
+           (scan-github-repository
+            (test-repository-json "taffish/ref-fixture"))))
+    (setf (symbol-function 'github-raw-text) old-raw
+          (symbol-function 'github-list-tags) old-tags
+          (symbol-function 'github-release-time-map) old-release-map))
+  (let ((record (first records))
+        (release-content-calls
+          (remove-if
+           (lambda (call) (string= (second call) "main"))
+           raw-calls)))
+    (check-equal 1 (length records)
+                 "release scan returns one SHA-bound record")
+    (check (null warnings)
+           "SHA-bound release scan produces no warning")
+    (check-equal tag (plist-ref record :source-ref)
+                 "release record preserves its public tag ref")
+    (check-equal commit (plist-ref record :source-commit)
+                 "release record preserves the tags API commit")
+    (check (and release-content-calls
+                (every (lambda (call)
+                         (string= (second call) commit))
+                       release-content-calls))
+           "release manifest and existence reads use the immutable commit")
+    (check (notany (lambda (call) (string= (second call) tag)) raw-calls)
+           "release content is never fetched through the movable tag")))
+
+(dolist
+    (case
+      (list
+       (cons "missing"
+             (json-object
+              (cons "name" "v1.0.0-r1")
+              (cons "commit" (json-object))))
+       (cons "malformed"
+             (json-object
+              (cons "name" "v1.0.0-r1")
+              (cons "commit"
+                    (json-object (cons "sha" "not-a-full-commit")))))))
+  (let ((raw-refs nil)
+        (old-raw (symbol-function 'github-raw-text))
+        (old-tags (symbol-function 'github-list-tags))
+        (old-release-map (symbol-function 'github-release-time-map))
+        (records nil)
+        (warnings nil))
+    (unwind-protect
+         (progn
+           (setf (symbol-function 'github-raw-text)
+                 (lambda (_full-name ref path)
+                   (declare (ignore _full-name))
+                   (push ref raw-refs)
+                   (if (string= path "taffish.toml")
+                       *github-ref-project-toml*
+                       "fixture"))
+                 (symbol-function 'github-list-tags)
+                 (lambda (_full-name)
+                   (declare (ignore _full-name))
+                   (list (cdr case)))
+                 (symbol-function 'github-release-time-map)
+                 (lambda (_full-name)
+                   (declare (ignore _full-name))
+                   nil))
+           (multiple-value-setq (records warnings)
+             (scan-github-repository
+              (test-repository-json "taffish/ref-fixture"))))
+      (setf (symbol-function 'github-raw-text) old-raw
+            (symbol-function 'github-list-tags) old-tags
+            (symbol-function 'github-release-time-map) old-release-map))
+    (check (null records)
+           (format nil "~A release commit SHA fails closed" (car case)))
+    (check (and (= (length warnings) 1)
+                (search "commit SHA"
+                        (or (plist-ref (first warnings) :message) "")))
+           (format nil "~A release commit SHA becomes a warning" (car case)))
+    (check (notany
+            (lambda (ref)
+              (or (string= ref "v1.0.0-r1")
+                  (string= ref "not-a-full-commit")))
+            raw-refs)
+           (format nil "~A release commit SHA never falls back to tag content"
+                   (car case)))))
+
+(let ((refs nil)
+      (old-raw (symbol-function 'github-raw-text)))
+  (unwind-protect
+       (progn
+         (setf (symbol-function 'github-raw-text)
+               (lambda (_full-name ref path)
+                 (declare (ignore _full-name))
+                 (push ref refs)
+                 (if (string= path "taffish.toml")
+                     *github-ref-project-toml*
+                     "fixture")))
+         (let ((record
+                 (scan-github-ref
+                  "taffish/ref-fixture" "main"
+                  :enforce-repository t)))
+           (check-equal "main" (plist-ref record :source-ref)
+                        "uncommitted development scan preserves its ref")
+           (check (null (plist-ref record :source-commit))
+                  "uncommitted development scan has no fabricated commit")
+           (check (every (lambda (ref) (string= ref "main")) refs)
+                  "scan without a commit consistently reads through its ref")))
+    (setf (symbol-function 'github-raw-text) old-raw)))
+
 (let* ((repos (list (test-repository-json "taffish/alpha")
                     (test-repository-json "taffish/archived" :archived t)
                     (test-repository-json "taffish/beta")

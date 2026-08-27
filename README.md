@@ -70,6 +70,7 @@ The index builder writes:
 index/index.json
 index/packages/<package>.json
 index/commands/<command>.json
+index/gate-state.json
 index/reports/latest.json
 index/reports/<timestamp>.json
 ```
@@ -77,9 +78,20 @@ index/reports/<timestamp>.json
 `index/index.json` is the full index. Split package and command files are written
 for consumers that want smaller lookups.
 
-Report files record scan warnings and trust-gate failures. Failed new versions
-are not added to the main index; maintainers inspect reports and fix the app
-repository before the version can become installable.
+`index/gate-state.json` is internal builder state. It preserves exact per-backend
+gate results and retry markers for new and failed versions so a later run can
+reuse matching passed work. Its additive `observations` ledger also freezes the
+first successfully aggregated source ref, source commit, image name, and observed
+digest for every planned container release, including releases that fail inspect
+or required smoke. Package-manager clients do not consume this file.
+
+Report files record scan warnings, required trust-gate failures, and advisory
+backend failures under `advisory_failed`. Failed new versions are not added to
+the main index; maintainers inspect reports and fix the app repository before
+the version can become installable.
+
+Staged reports retain the existing `failed`, `rejected`, and `warnings` fields
+and add `policy`, `counts.advisory_failed`, and the `advisory_failed` array.
 
 Known-bad immutable releases can be listed in `rejected-releases.toml`. Rejected
 versions are skipped before digest or smoke gates run, are not added to the main
@@ -103,7 +115,7 @@ Top-level fields include:
 | `schema_version` | Index schema identifier. |
 | `generated_at` | UTC generation timestamp. |
 | `organization` | Scanned GitHub organization, normally `taffish`. |
-| `counts` | Summary counts for packages, versions, commands, repositories, warnings, failed trust gates, and known rejected releases. |
+| `counts` | Summary counts for packages, versions, commands, repositories, warnings, required failures, advisory failures, and known rejected releases. |
 | `packages` | Package records keyed by package name. |
 | `commands` | Command lookup records keyed by base command name. |
 | `repositories` | Repository lookup records keyed by `owner/repo`. |
@@ -135,38 +147,103 @@ A repository is considered a TAFFISH app when:
 - `[command].name` starts with `taf-`.
 - Release tags use `v<version>-r<release>`.
 
-The builder prefers release tags. Default branch snapshots are only indexed when
-explicitly enabled for development use.
+The compatibility builder prefers release tags and can explicitly include
+default branch snapshots for development use. The staged production pipeline
+indexes immutable release tags only; branch snapshots never enter its durable
+multi-backend observation ledger.
 
 ## Trust Gate
 
-For each `repository + version_id`, the builder checks the previous
-`index/index.json` first:
+The staged builder checks both the previous `index/index.json` and the internal
+`index/gate-state.json` for each `repository + version_id`:
 
-- If the version already exists and the release tag still points to the same
-  commit, the previous record is reused by default.
-- Reused records preserve cached trust-gate results such as container digest,
-  platform digests, smoke status, and trust status, while refreshing safe parsed
-  metadata such as dependencies, platform constraints, meta, and upstream fields.
-- If the version is new, or `--force-recheck` is used, the builder applies the
-  trust gate.
-- If a release tag changes commit, the version is rejected and reported instead
-  of silently replacing the previous record.
+- If the version already exists and its release tag still points to the same
+  commit, the accepted record is reused by default. This keeps routine runs
+  focused on new and previously failed versions rather than backfilling history.
+- After the tags API resolves a release commit, every manifest and required-file
+  read is addressed through that SHA, so a tag move during the scan cannot mix
+  one commit identity with another commit's metadata. A missing or malformed
+  release commit SHA produces a warning and no record; it never falls back to
+  reading through the movable tag.
+- Reused records preserve cached container, smoke, and trust evidence while
+  refreshing safe parsed metadata such as dependencies, platform constraints,
+  meta, and upstream fields.
+- `--backfill` plans unchanged historical records for the matrix but still
+  reuses identity-matching passed backend results. It is the controlled way to
+  fill missing backend coverage. Legacy trust-v1 evidence does not contain the
+  complete v2 identity, so an explicit legacy backfill re-runs every configured
+  backend instead of relabeling the old pass.
+- `--backfill --backfill-limit N` bounds only newly selected legacy releases to
+  `1-50`. New releases, persistent retries, and enrolled evidence refreshes are
+  always added independently and do not consume that quota. Selection is
+  deterministic and ranks every package's newest release first, then its older
+  releases; persisted v2 evidence automatically advances the next batch.
+- `--force-recheck` also plans unchanged records, but disables gate-result cache
+  reuse and re-runs digest and smoke work. It is intentionally not the default.
+- A release tag that changes commit is rejected even under `--force-recheck`;
+  force only disables reuse and never weakens immutable-release validation. The
+  last accepted commit remains in the stable index, so the moved tag continues
+  to fail on later runs instead of being rediscovered as a new release.
 - If a previously indexed version is missing from the current scan, the builder
-  preserves the previous record by default and writes a warning. The version is
-  removed from the main index only after it is explicitly listed in
-  `rejected-releases.toml`.
+  preserves the previous record and reports a warning until the version is
+  explicitly listed in `rejected-releases.toml`.
+- When an accepted same-source version is scheduled for backfill or retry, its
+  last accepted record remains the stable fallback until the replacement passes
+  every required gate. Inspect or required-smoke failures are still reported;
+  `gate-state.json.retry_tasks` carries those failures into later routine runs so
+  they are retried instead of disappearing from the next report. A required pass
+  clears the marker; explicitly rejecting the immutable release removes it.
+- A release does not need to enter the public index before immutability begins.
+  Once an aggregate completes, `gate-state.json.observations` keeps the first
+  identity seen for every planned container task. A later run may fill a digest
+  that was initially unavailable, but it cannot replace an existing source ref,
+  source commit, image name, or digest. Malformed or conflicting observation
+  state fails closed. An explicit `rejected-releases.toml` entry is the supported
+  removal path, including when the rejected release is absent from that day's scan.
 
-For containerized apps, the trust gate currently:
+For containerized apps, the staged gate:
 
-1. validates `[smoke]` metadata;
-2. inspects the container image digest and platform list with Docker buildx;
-3. runs smoke checks inside the declared backend;
-4. adds the version to the main index only when all checks pass.
+1. validates metadata and creates a deterministic plan;
+2. inspects image digests and platform manifests with Docker buildx, rejecting a
+   same-release image tag whose digest changed;
+3. runs the same version-level smoke contract with Docker, Podman, and Apptainer;
+4. strictly validates all plan, manifest, and backend result artifacts;
+5. accepts the version when every required backend passes and reports advisory
+   failures without turning them into required failures.
+
+The initial `multibackend-1` policy is deliberately gradual. The backend declared
+by `[smoke].backend` is required; for the current app corpus that backend is
+Docker. The other configured backends, currently Podman and Apptainer, are
+advisory. Their failures appear in `advisory_failed` and in per-backend evidence
+but do not remove an otherwise accepted version. Changing this required/advisory
+contract requires an explicit policy-generation change.
 
 Docker/Podman smoke runs use `--network none`, do not mount the repository, and
-do not pass GitHub tokens or secrets into the container. Apptainer smoke uses a
-clean contained environment when that backend is available.
+do not receive GitHub tokens or secrets. Apptainer uses a clean contained
+environment and a digest-pinned temporary SIF. Apptainer smoke is accepted only
+when the runner's native platform matches the planned platform; it is not
+silently labeled as cross-architecture emulation. The current Action policy
+runs smoke on `linux/amd64`; inspecting an image that also publishes
+`linux/arm64` does not prove that backend smoke passed natively on arm64.
+
+Passed backend results are reusable only when the full cache identity matches:
+task id (`repository + version_id`), source commit, image digest, smoke SHA-256,
+backend, platform, and policy generation. Runtime and runner versions are stored
+as evidence but are not automatic cache invalidators. Partial successes for a
+failed new version remain in `gate-state.json`, and inspect/required failures are
+listed in its internal `retry_tasks` array. The next run repeats only work whose
+identity is missing or no longer matches while still retrying marked releases.
+For the same identity, an exact `failed` or `not_checked` gate-state result is
+newer than a public-index pass and vetoes that fallback until the backend runs
+successfully again.
+
+The observation ledger is persisted transactionally by `aggregate`, the only
+writer. If an Action, artifact, or required-backend infrastructure failure stops
+the workflow before aggregate completes, no new observation can be committed;
+the failed workflow remains the operational evidence, and the next aggregate
+that completes establishes the persistent baseline. This boundary avoids a
+partial write but cannot manufacture durable state from a run that never reached
+the writer.
 
 The main index keeps passed or previously accepted versions. It is not a
 destructive mirror of the current GitHub scan; it is an append-oriented stable
@@ -179,9 +256,11 @@ under `rejected` instead of being re-smoked on every run. `taf update` and
 `taf install` consume the stable main index, while maintainers use reports to
 fix failed app releases.
 
-Previously accepted versions may not have full trust metadata until they are
-republished or rechecked with `--force-recheck`. This preserves install
-stability while the Hub follows the stricter 0.8.x trust model.
+Previously accepted versions may not have full multi-backend evidence until a
+controlled `--backfill` or `--force-recheck` run. Historical records are not
+backfilled by default, preserving install stability and bounded routine runtime.
+The bounded form is recommended for staged migration; bare `--backfill` remains
+an unlimited compatibility mode.
 
 Current container metadata shape:
 
@@ -210,9 +289,34 @@ Current smoke result shape:
   "test": ["samtools --help"],
   "status": "passed",
   "checked_at": "2026-05-12T08:00:00Z",
-  "backend_used": "docker"
+  "backend_used": "docker",
+  "policy_generation": "multibackend-1",
+  "platform": "linux/amd64",
+  "required_backends": ["docker"],
+  "advisory_backends": ["podman", "apptainer"],
+  "backend_results": {
+    "docker": {
+      "status": "passed",
+      "checked_at": "2026-05-12T08:00:00Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version ...",
+      "runner_image": "ubuntu24/...",
+      "policy_generation": "multibackend-1",
+      "source_commit": "0123456789abcdef...",
+      "image_digest": "sha256:...",
+      "smoke_sha256": "...",
+      "provenance": "taffish-index",
+      "failure_kind": null,
+      "message": null
+    }
+  }
 }
 ```
+
+The fields through `backend_used` are retained for compatibility. The staged
+pipeline adds the policy, platform, required/advisory lists, and deterministically
+keyed `backend_results`. Legacy records without staged evidence keep the original
+shape until they are processed by the new pipeline.
 
 ## Optional Metadata
 
@@ -337,24 +441,57 @@ The scheduled run uses:
 17 1 * * *  # UTC
 ```
 
-The workflow:
+Scheduled runs always use routine mode. Manual dispatch exposes an optional
+`backfill_limit` input: leave it blank for routine mode, or enter `1-50` to pass
+the paired `--backfill --backfill-limit N` arguments safely.
 
-1. Checks out this repository.
-2. Installs SBCL.
-3. Runs the Common Lisp index builder with eight repository-scan workers.
-4. Writes generated files under `index/`.
-5. Commits and pushes changes when the generated index changed.
+The workflow is configured as a four-stage pipeline driven by
+`scripts/index-phase.lisp`:
 
-The main build command is:
+1. `plan` scans repositories, applies overrides/rejections/history rules, and
+   uploads an immutable plan artifact.
+2. `inspect` verifies the plan and inspects image digests/platform manifests,
+   then uploads a manifest artifact.
+3. `smoke` runs Docker, Podman, and Apptainer as three matrix jobs. Each backend
+   receives its own standard `ubuntu-24.04` runner and uploads one result artifact.
+4. `aggregate` downloads every artifact, performs strict identity and coverage
+   validation, transactionally replaces `index/`, and is the only job allowed to
+   commit and push.
 
-```sh
-sbcl --script scripts/build-index.lisp -- --org "taffish" --jobs 8 --output index
-```
+The configured bounded concurrency is:
 
-Repository scans are concurrent, while GitHub REST API calls are serialized to
-avoid multiplying API pressure. Metadata overrides, history preservation,
-trust gates, sorting, and file writes remain serial and deterministic. The
-workflow still uses one standard GitHub-hosted runner.
+| Stage | Default | Accepted maximum |
+| --- | ---: | ---: |
+| Repository scan | 8 | 8 |
+| Digest inspection | 4 | 4 |
+| Docker version workers | 2 | 4 |
+| Podman version workers | 2 | 4 |
+| Apptainer version workers | 1 | 2 |
+
+Repository workers still serialize GitHub REST requests to avoid multiplying API
+pressure, while raw-file work may overlap. Digest and smoke pools return results
+in task order even when execution completes out of order. Docker, Podman, and
+Apptainer run on independent runners, so their local image stores, temporary
+files, and resource limits are isolated from one another.
+
+Every plan, manifest, and result document has a content-derived ID. Aggregation
+rejects schema, source-head, policy, platform, task coverage, duplicate/missing
+backend, result-identity, and observation/digest mismatches before writing.
+Observation state is integrity-critical and fails closed even though malformed
+backend-result cache entries can be conservatively ignored and rerun. Aggregate
+builds a staging directory first, verifies required files, then promotes the
+directory with a backup/restore path. Earlier jobs have only `contents: read`;
+only `aggregate` has `contents: write`, and it refuses to push if `origin/main`
+moved since the workflow began.
+
+This describes the checked-in workflow configuration and local validation
+contract. It does not claim that this updated workflow has already completed a
+remote GitHub Actions run.
+
+The original `scripts/build-index.lisp` entry point and its CLI remain available
+for compatibility with local callers. GitHub Actions uses the staged
+`scripts/index-phase.lisp` path; the legacy command is not the multi-runner Action
+pipeline.
 
 ## Local Test
 
@@ -363,6 +500,7 @@ From this repository root:
 ```sh
 sbcl --script tests/project.lisp
 sbcl --script tests/concurrency.lisp
+sbcl --script tests/pipeline.lisp
 ```
 
 To build an index from a local fixture repository:
@@ -393,9 +531,88 @@ reliable because of GitHub API rate limits.
 The default is eight repository workers. Use `--jobs 1` for a strictly serial
 scan or another integer from 1 through 8 to reduce local concurrency.
 
+On the staged `index-phase.lisp plan` path, every explicit `--local-repo` must
+be the root of its own clean Git worktree with a committed `HEAD`; non-Git,
+nested-monorepo, modified, staged, or untracked inputs fail the plan. The staged
+record reads `taffish.toml` and every required-path existence gate directly from
+the committed tree, then uses `source.ref = "local"` and the real `HEAD` commit.
+Ignored worktree-only files therefore cannot escape the immutable identity. The
+compatibility `build-index.lisp` command retains its historical local-fixture
+behavior.
+
+The staged CLI can be reproduced locally in four phases when Docker, Podman, and
+Apptainer are installed. The Action runs the three smoke commands on independent
+runners; this local example lists them sequentially:
+
+```sh
+mkdir -p work/results
+
+# 1. Plan: routine mode checks new and previously failed versions.
+sbcl --script scripts/index-phase.lisp plan \
+  --org taffish \
+  --index-dir index \
+  --output work/plan.json \
+  --jobs 8 \
+  --backends docker,podman,apptainer \
+  --policy-generation multibackend-1 \
+  --platform linux/amd64
+
+# 2. Inspect immutable image identities.
+sbcl --script scripts/index-phase.lisp inspect \
+  --plan work/plan.json \
+  --output work/manifest.json \
+  --jobs 4
+
+# 3. Smoke each backend (independent Action runners in production).
+sbcl --script scripts/index-phase.lisp smoke \
+  --manifest work/manifest.json --backend docker \
+  --output work/results/docker.json --jobs 2
+sbcl --script scripts/index-phase.lisp smoke \
+  --manifest work/manifest.json --backend podman \
+  --output work/results/podman.json --jobs 2
+sbcl --script scripts/index-phase.lisp smoke \
+  --manifest work/manifest.json --backend apptainer \
+  --output work/results/apptainer.json --jobs 1
+
+# 4. Validate all artifacts and transactionally aggregate once.
+sbcl --script scripts/index-phase.lisp aggregate \
+  --plan work/plan.json \
+  --manifest work/manifest.json \
+  --result work/results/docker.json \
+  --result work/results/podman.json \
+  --result work/results/apptainer.json \
+  --index-dir index
+```
+
 ## Configuration
 
-CLI options:
+The staged command has phase-specific help:
+
+```sh
+sbcl --script scripts/index-phase.lisp --help
+```
+
+Important staged options are:
+
+```text
+plan      --jobs <1-8> --backends <CSV> --policy-generation <ID>
+          --platform <OS/ARCH>
+          [--backfill [--backfill-limit <1-50>] | --force-recheck]
+inspect   --plan <PATH> --output <PATH> --jobs <1-4>
+smoke     --manifest <PATH> --backend <NAME> --output <PATH> --jobs <N>
+aggregate --plan <PATH> --manifest <PATH> --result <PATH>... --index-dir <DIR>
+```
+
+`--backfill` includes unchanged historical records while reusing exact passed
+cache matches. Add `--backfill-limit N` to select at most N new legacy release
+tasks; the limit does not cap new releases, retries, or policy refreshes. A limit
+requires `--backfill` and cannot be combined with `--force-recheck`. Bare
+`--backfill` keeps the unlimited compatibility behavior. `--force-recheck`
+includes historical records but ignores matching gate cache results. Neither
+mode weakens changed-source-commit rejection, and routine Action runs use neither
+mode.
+
+The compatibility `scripts/build-index.lisp` CLI remains:
 
 ```text
 --org <ORG>                  Scan GitHub organization
@@ -423,6 +640,8 @@ Environment variables:
 | `TAFFISH_INDEX_JOBS` | Default concurrent repository worker count when `--jobs` is omitted. Must be from 1 through 8; defaults to 8. |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | Enables default branch snapshots when set to `1`, `true`, or `yes`. |
 | `TAFFISH_INDEX_FORCE_RECHECK` | Re-runs digest/smoke gates when set to `1`, `true`, or `yes`. |
+| `TAFFISH_INDEX_POLICY_GENERATION` | Default staged cache-policy generation. Defaults to `multibackend-1`. |
+| `TAFFISH_INDEX_PLATFORM` | Explicit staged smoke platform. Defaults to `linux/amd64`. |
 | `TAFFISH_INDEX_METADATA_OVERRIDES` | Optional path to a metadata override TOML file. Defaults to `metadata-overrides.toml`. |
 | `TAFFISH_INDEX_META_OVERRIDES` | Compatibility fallback for the older override path variable. |
 | `TAFFISH_INDEX_REJECTED_RELEASES` | Optional path to a known rejected release TOML file. Defaults to `rejected-releases.toml` when present. |

@@ -51,14 +51,27 @@
 
 (defun smoke-json (smoke)
   (if smoke
-      (json-object
-       (cons "backend" (plist-ref smoke :backend))
-       (cons "timeout" (plist-ref smoke :timeout))
-       (cons "exist" (string-list-json (plist-ref smoke :exist)))
-       (cons "test" (string-list-json (plist-ref smoke :test)))
-       (cons "status" (or (plist-ref smoke :status) :null))
-       (cons "checked_at" (or (plist-ref smoke :checked-at) :null))
-       (cons "backend_used" (or (plist-ref smoke :backend-used) :null)))
+      (apply
+       #'json-object
+       (append
+        (list
+         (cons "backend" (plist-ref smoke :backend))
+         (cons "timeout" (plist-ref smoke :timeout))
+         (cons "exist" (string-list-json (plist-ref smoke :exist)))
+         (cons "test" (string-list-json (plist-ref smoke :test)))
+         (cons "status" (or (plist-ref smoke :status) :null))
+         (cons "checked_at" (or (plist-ref smoke :checked-at) :null))
+         (cons "backend_used" (or (plist-ref smoke :backend-used) :null)))
+        (when (plist-ref smoke :policy-generation)
+          (list
+           (cons "policy_generation" (plist-ref smoke :policy-generation))
+           (cons "platform" (or (plist-ref smoke :platform) :null))
+           (cons "required_backends"
+                 (string-list-json (plist-ref smoke :required-backends)))
+           (cons "advisory_backends"
+                 (string-list-json (plist-ref smoke :advisory-backends)))
+           (cons "backend_results"
+                 (alist-json-object (plist-ref smoke :backend-results)))))))
       :null))
 
 (defun trust-json (trust)
@@ -301,7 +314,10 @@
   (cond
     ((and current previous)
      (copy-cached-keys current previous
-                       '(:status :checked-at :backend-used)))
+                       '(:status :checked-at :backend-used
+                         :policy-generation :platform
+                         :required-backends :advisory-backends
+                         :backend-results)))
     (current current)
     (t previous)))
 
@@ -410,7 +426,15 @@
           :test (json-string-list-value (json-ref smoke "test"))
           :status (json-ref smoke "status")
           :checked-at (json-ref smoke "checked_at")
-          :backend-used (json-ref smoke "backend_used"))))
+          :backend-used (json-ref smoke "backend_used")
+          :policy-generation (json-ref smoke "policy_generation")
+          :platform (json-ref smoke "platform")
+          :required-backends
+          (json-string-list-value (json-ref smoke "required_backends"))
+          :advisory-backends
+          (json-string-list-value (json-ref smoke "advisory_backends"))
+          :backend-results
+          (json-object-alist (json-ref smoke "backend_results")))))
 
 (defun json-trust-plist (trust)
   (unless (json-nullish-p trust)
@@ -944,19 +968,38 @@
 (defun warning-report-json (warning)
   (warning-json warning))
 
-(defun build-report-json (failures warnings &key rejected organization generated-at)
-  (json-object
-   (cons "schema_version" "taffish.index.report/v1")
-   (cons "generated_at" generated-at)
-   (cons "organization" (or organization :null))
-   (cons "counts"
-         (json-object
-          (cons "failed" (length failures))
-          (cons "rejected" (length rejected))
-          (cons "warnings" (length warnings))))
-   (cons "failed" (cons :array failures))
-   (cons "rejected" (cons :array rejected))
-   (cons "warnings" (cons :array (mapcar #'warning-report-json warnings)))))
+(defun build-report-json
+    (failures warnings
+     &key rejected
+       (advisory-failures nil advisory-failures-supplied-p)
+       (policy nil policy-supplied-p)
+       organization generated-at)
+  (apply
+   #'json-object
+   (append
+    (list
+     (cons "schema_version" "taffish.index.report/v1")
+     (cons "generated_at" generated-at)
+     (cons "organization" (or organization :null)))
+    (when policy-supplied-p
+      (list (cons "policy" (or policy :null))))
+    (list
+     (cons "counts"
+           (apply
+            #'json-object
+            (append
+             (list (cons "failed" (length failures)))
+             (when advisory-failures-supplied-p
+               (list (cons "advisory_failed"
+                           (length advisory-failures))))
+             (list (cons "rejected" (length rejected))
+                   (cons "warnings" (length warnings))))))
+     (cons "failed" (cons :array failures)))
+    (when advisory-failures-supplied-p
+      (list (cons "advisory_failed" (cons :array advisory-failures))))
+    (list
+     (cons "rejected" (cons :array rejected))
+     (cons "warnings" (cons :array (mapcar #'warning-report-json warnings)))))))
 
 (defun record-progress-label (record)
   (format nil "~A ~A"
@@ -976,8 +1019,7 @@
         (index 0))
     (dolist (record records)
       (incf index)
-      (let ((previous (and (not force-recheck)
-                           (gethash (record-cache-key record) previous-map)))
+      (let ((previous (gethash (record-cache-key record) previous-map))
             (rejection (rejected-release-for-record record rejected-map)))
         (cond
           (rejection
@@ -985,6 +1027,9 @@
            (push (rejected-record record rejection) rejected))
           ((changed-source-commit-p previous record)
            (log-record-progress index total "changed-source" record)
+           ;; Keep the accepted snapshot so the immutable-source mismatch
+           ;; remains detectable on later runs instead of becoming "new".
+           (push previous accepted)
            (push (failure-record
                   record
                   "source"
@@ -1014,7 +1059,11 @@
                      failures)))))))
     (values (nreverse accepted) (nreverse failures) (nreverse rejected))))
 
-(defun build-index-json (records warnings &key organization failures-count rejected-count generated-at)
+(defun build-index-json
+    (records warnings &key organization failures-count rejected-count
+                           (advisory-failed-count nil
+                                                  advisory-failed-count-supplied-p)
+                           generated-at)
   (let ((packages (make-hash-table :test #'equal))
         (commands (make-hash-table :test #'equal))
         (repositories (make-hash-table :test #'equal)))
@@ -1025,14 +1074,20 @@
      (cons "generated_at" (or generated-at (utc-timestamp)))
      (cons "organization" (or organization :null))
      (cons "counts"
-           (json-object
-            (cons "packages" (hash-table-count packages))
-            (cons "versions" (length records))
-            (cons "commands" (hash-table-count commands))
-            (cons "repositories" (hash-table-count repositories))
-            (cons "warnings" (length warnings))
-            (cons "failed" (or failures-count 0))
-            (cons "rejected" (or rejected-count 0))))
+           (apply
+            #'json-object
+            (append
+             (list
+              (cons "packages" (hash-table-count packages))
+              (cons "versions" (length records))
+              (cons "commands" (hash-table-count commands))
+              (cons "repositories" (hash-table-count repositories))
+              (cons "warnings" (length warnings))
+              (cons "failed" (or failures-count 0)))
+             (when advisory-failed-count-supplied-p
+               (list (cons "advisory_failed"
+                           (or advisory-failed-count 0))))
+             (list (cons "rejected" (or rejected-count 0))))))
      (cons "packages" (sorted-object-from-hash packages #'package-entry-json))
      (cons "commands" (sorted-object-from-hash commands #'command-entry-json))
      (cons "repositories" (sorted-object-from-hash repositories #'repository-entry-json))

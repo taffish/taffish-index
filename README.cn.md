@@ -67,6 +67,7 @@ index builder 会写入：
 index/index.json
 index/packages/<package>.json
 index/commands/<command>.json
+index/gate-state.json
 index/reports/latest.json
 index/reports/<timestamp>.json
 ```
@@ -74,8 +75,18 @@ index/reports/<timestamp>.json
 `index/index.json` 是完整索引。拆分后的 package 和 command 文件用于更小粒度
 的读取场景。
 
-report 文件会记录扫描 warning 和可信 gate 失败。失败的新版本不会进入主 index；
+`index/gate-state.json` 是 builder 内部状态。它为新增版本和失败版本保留精确的
+逐 backend gate 结果与重试 marker，使后续运行可以复用 identity 匹配的已通过工作。
+其中加法增加的 `observations` 账本还会为每个已进入计划的容器 release 冻结首次成功
+aggregate 的 source ref、source commit、image 名称和已观测 digest；即使该 release
+在 inspect 或 required smoke 阶段失败也一样。包管理器客户端不会消费这个文件。
+
+report 文件会记录扫描 warning、required 可信 gate 失败，以及位于
+`advisory_failed` 下的 advisory backend 失败。失败的新版本不会进入主 index；
 维护者需要查看 report，修复 app 仓库后，该版本才能变成可安装版本。
+
+staged report 会保留已有的 `failed`、`rejected` 和 `warnings` 字段，并加法写入
+`policy`、`counts.advisory_failed` 与 `advisory_failed` 数组。
 
 已确认有问题的不可变 release 可以写入 `rejected-releases.toml`。rejected
 版本会在 digest 或 smoke gate 运行前被跳过，不进入主 index，并且会和临时
@@ -99,7 +110,7 @@ trust-gate 失败分开报告。
 | `schema_version` | 索引 schema 标识。 |
 | `generated_at` | UTC 生成时间。 |
 | `organization` | 被扫描的 GitHub 组织，通常是 `taffish`。 |
-| `counts` | packages、versions、commands、repositories、warnings、failed trust gates 和已知 rejected releases 的统计。 |
+| `counts` | packages、versions、commands、repositories、warnings、required failures、advisory failures 和已知 rejected releases 的统计。 |
 | `packages` | 以 package name 为 key 的 package 记录。 |
 | `commands` | 以基础 command name 为 key 的 command 查询记录。 |
 | `repositories` | 以 `owner/repo` 为 key 的 repository 查询记录。 |
@@ -130,31 +141,85 @@ platform 约束、可选的人类可读 meta 字段、source ref 信息、可选
 - `[command].name` 以 `taf-` 开头。
 - release tag 使用 `v<version>-r<release>` 格式。
 
-builder 优先索引 release tag。默认分支 snapshot 只在显式开启时用于开发场景。
+兼容 builder 优先索引 release tag，也可以为开发场景显式包含默认分支 snapshot。
+staged 生产 pipeline 只索引不可变 release tag；分支 snapshot 不会进入它的持久化
+多 backend observation ledger。
 
 ## 可信 Gate
 
-对于每个 `repository + version_id`，builder 会先检查已有的 `index/index.json`：
+对于每个 `repository + version_id`，staged builder 会同时检查已有的
+`index/index.json` 和内部的 `index/gate-state.json`：
 
-- 如果该版本已经存在，并且 release tag 仍指向同一个 commit，默认复用旧记录。
-- 复用旧记录时会保留已缓存的可信 gate 结果，例如容器 digest、平台 digest、
-  smoke 状态和 trust 状态，同时刷新安全的解析元数据，例如依赖、平台约束、
-  meta 和 upstream 字段。
-- 如果是新增版本，或使用 `--force-recheck`，builder 会执行可信 gate。
-- 如果 release tag 指向的 commit 发生变化，该版本会被拒绝并写入 report，而不是静默替换旧记录。
-- 如果此前已进入 index 的版本在本轮扫描中缺失，builder 会默认保留旧记录并写入
-  warning。只有把该不可变版本显式加入 `rejected-releases.toml` 后，下一轮构建
-  才会把它从主 index 中移除。
+- 如果该版本已经存在，并且 release tag 仍指向同一个 commit，默认复用已接受记录。
+  因此日常运行只关注新增版本和此前失败的版本，不会自动回填全部历史。
+- tags API 解析出 release commit 后，manifest 和全部必需文件检查都会通过该 SHA
+  寻址，因此扫描过程中即使 tag 移动，也不会把一个 commit identity 与另一个
+  commit 的 metadata 混合。缺失或畸形的 release commit SHA 只会产生 warning，
+  不会生成 record，也绝不会退回可移动 tag 读取。
+- 复用旧记录时会保留已缓存的 container、smoke 和 trust 证据，同时刷新依赖、
+  platform 约束、meta、upstream 等可安全更新的解析元数据。
+- `--backfill` 会把未变化的历史记录纳入 matrix 计划，但仍复用 identity 匹配的
+  已通过 backend 结果；它是补齐缺失 backend 覆盖的受控方式。旧 trust-v1 证据
+  不具备完整 v2 identity，因此显式回填旧记录时会真实重跑全部已配置 backend，
+  不会把旧 pass 改名冒充新证据。
+- `--backfill --backfill-limit N` 只把本轮新选中的 legacy release 限制在 `1-50`
+  个；新增 release、持久 retry 和已纳管证据刷新会独立加入任务，不占这个额度。
+  选择过程完全确定，并按每个 package 的最新 release 优先、随后依次处理旧版本；
+  成功持久化的 v2 证据会让下一批自动向后推进。
+- `--force-recheck` 也会纳入未变化记录，但会禁用 gate-result cache 复用，重新运行
+  digest 和 smoke；它刻意不是默认行为。
+- 即使使用 `--force-recheck`，release tag 的 commit 发生变化仍会被拒绝；force
+  只禁用复用，不会削弱不可变 release 校验。最后一次接受的 commit 会继续保留在
+  稳定 index 中，因此移动过的 tag 在后续运行中仍会失败，不会被重新识别成新 release。
+- 如果此前已进入 index 的版本在本轮扫描中缺失，builder 会保留旧记录并报告
+  warning，直到该版本被显式加入 `rejected-releases.toml`。
+- 已接受且 source 未变化的版本进入 backfill 或重试时，会保留最后一次 accepted
+  记录作为稳定 fallback，直到替代证据通过全部 required gate。Inspect 或 required
+  smoke 失败仍会进入报告；`gate-state.json.retry_tasks` 会把失败带入后续普通日更，
+  避免下一份报告遗忘它。required gate 通过后清除 marker；显式 reject 该不可变
+  release 时也会移除 marker。
+- release 不需要先进入公开 index 才开始受不可变约束。只要一次 aggregate 成功完成，
+  `gate-state.json.observations` 就会保留每个已计划容器任务首次看到的 identity。首次
+  inspect 尚未获得 digest 时，后续可以补齐空值；但已经存在的 source ref、source
+  commit、image 名称或 digest 都不能被替换。损坏、重复或互相冲突的 observation
+  状态会 fail closed。显式写入 `rejected-releases.toml` 是受支持的清理路径，即使该
+  release 没有出现在当天扫描结果中也会清理。
 
-对于容器化 app，当前可信 gate 会：
+对于容器化 app，staged gate 会：
 
-1. 校验 `[smoke]` 元数据；
-2. 使用 Docker buildx 检查容器镜像 digest 和平台列表；
-3. 在声明的 backend 中运行 smoke checks；
-4. 只有全部通过时，才把该版本写入主 index。
+1. 校验元数据并创建确定性 plan；
+2. 使用 Docker buildx 检查镜像 digest 和平台 manifest，并拒绝同一 release 下
+   digest 已变化的镜像 tag；
+3. 使用 Docker、Podman 和 Apptainer 运行同一套 version-level smoke contract；
+4. 严格校验 plan、manifest 和各 backend result artifact；
+5. 所有 required backend 通过后接受该版本，同时单独报告 advisory failure。
 
-Docker/Podman smoke 运行会使用 `--network none`，不会挂载仓库，也不会把 GitHub
-token 或 secrets 传入容器。Apptainer smoke 在该 backend 可用时使用干净的隔离环境。
+初始 `multibackend-1` policy 采用渐进策略：`[smoke].backend` 声明的 backend
+是 required；对当前 app 集合而言，它是 Docker。其余已配置 backend（当前为
+Podman 和 Apptainer）是 advisory。它们的失败会进入 `advisory_failed` 和逐 backend
+证据，但不会移除其他条件已经通过的版本。改变 required/advisory 契约时必须显式
+推进 policy generation。
+
+Docker/Podman smoke 使用 `--network none`，不会挂载仓库，也不会接收 GitHub token
+或 secrets。Apptainer 使用干净的 contained 环境和 digest-pinned 临时 SIF，且只在
+runner 原生平台与计划平台一致时接受结果，不会把跨架构执行静默标记为已验证。
+当前 Action policy 在 `linux/amd64` 上运行 smoke；镜像 manifest 同时发布
+`linux/arm64`，不等于已经在 arm64 上原生通过 backend smoke。
+
+只有完整 cache identity 一致时，已通过 backend 结果才会被复用：task id
+（`repository + version_id`）、source commit、image digest、smoke SHA-256、backend、
+platform 和 policy generation。runtime/runner 版本只作为证据记录，不会自动使 cache
+失效。失败新版本的部分成功结果会保留在 `gate-state.json`，inspect/required 失败
+也会写入内部 `retry_tasks` 数组。所以下一轮既会继续重试已标记 release，又只重跑
+identity 缺失或不再匹配的 backend 工作。对于同一 identity，gate-state 中精确匹配的
+`failed` 或 `not_checked` 比公开 index 的旧 pass 更新，会否决该 fallback，直到对应
+backend 再次真实运行并通过。
+
+observation 账本只由唯一 writer `aggregate` 事务写入。如果 Action、artifact 或
+required-backend 基础设施故障使 workflow 在 aggregate 成功完成前中止，本次运行就
+无法提交新的 observation；失败的远端 workflow 仍是运维证据，而下一次成功完成的
+aggregate 才会建立持久 baseline。这个边界避免部分写入，但无法为从未到达 writer
+的运行凭空制造持久状态。
 
 主 index 保留通过检查或此前已经接受的稳定版本。它不是对当前 GitHub 扫描结果的
 破坏性镜像，而是一个偏追加的稳定账本：扫描缺失、GitHub raw/API 瞬时失败或仓库
@@ -164,8 +229,9 @@ token 或 secrets 传入容器。Apptainer smoke 在该 backend 可用时使用�
 不会每次重新运行 smoke。`taf update` 和 `taf install` 只消费稳定主 index，
 维护者通过 reports 修复失败的 app release。
 
-此前已经接受的版本可能暂时没有完整 trust 元数据，直到重新发布或使用
-`--force-recheck` 重新检查。这可以在 Hub 遵循更严格的 0.8.x 可信模型时保持安装稳定。
+此前已经接受的版本可能暂时没有完整的多 backend 证据，直到执行受控的
+`--backfill` 或 `--force-recheck`。默认不回填历史，从而保持安装稳定，并控制日常运行时间。
+分阶段迁移推荐使用带 limit 的形式；裸 `--backfill` 继续保留无限量兼容语义。
 
 当前 container 元数据形态：
 
@@ -194,9 +260,33 @@ token 或 secrets 传入容器。Apptainer smoke 在该 backend 可用时使用�
   "test": ["samtools --help"],
   "status": "passed",
   "checked_at": "2026-05-12T08:00:00Z",
-  "backend_used": "docker"
+  "backend_used": "docker",
+  "policy_generation": "multibackend-1",
+  "platform": "linux/amd64",
+  "required_backends": ["docker"],
+  "advisory_backends": ["podman", "apptainer"],
+  "backend_results": {
+    "docker": {
+      "status": "passed",
+      "checked_at": "2026-05-12T08:00:00Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version ...",
+      "runner_image": "ubuntu24/...",
+      "policy_generation": "multibackend-1",
+      "source_commit": "0123456789abcdef...",
+      "image_digest": "sha256:...",
+      "smoke_sha256": "...",
+      "provenance": "taffish-index",
+      "failure_kind": null,
+      "message": null
+    }
+  }
 }
 ```
+
+截至 `backend_used` 的旧字段会继续保留以兼容既有消费者。staged pipeline 加法
+写入 policy、platform、required/advisory 列表，以及按 backend key 确定排序的
+`backend_results`。没有 staged 证据的旧记录会维持原形，直到被新 pipeline 处理。
 
 ## 可选元数据
 
@@ -315,23 +405,45 @@ Smoke：
 17 1 * * *  # UTC
 ```
 
-workflow 会：
+定时任务始终使用日常模式。手动触发时可以填写可选的 `backfill_limit`：留空仍是
+日常模式，填写 `1-50` 会安全地成对传入 `--backfill --backfill-limit N`。
 
-1. checkout 本仓库。
-2. 安装 SBCL。
-3. 使用 8 个仓库扫描 worker 运行 Common Lisp index builder。
-4. 在 `index/` 下写入生成文件。
-5. 如果生成索引发生变化，则 commit 并 push。
+workflow 被配置为由 `scripts/index-phase.lisp` 驱动的四阶段 pipeline：
 
-核心构建命令是：
+1. `plan` 扫描仓库，应用 override、rejection 和历史保留规则，并上传不可变 plan artifact。
+2. `inspect` 验证 plan，检查镜像 digest/platform manifest，并上传 manifest artifact。
+3. `smoke` 以三个 matrix job 分别运行 Docker、Podman 和 Apptainer。每个 backend
+   使用独立的标准 `ubuntu-24.04` runner，并上传一个 result artifact。
+4. `aggregate` 下载全部 artifact，严格检查 identity 和覆盖度，以事务方式替换
+   `index/`，而且它是唯一允许 commit/push 的 job。
 
-```sh
-sbcl --script scripts/build-index.lisp -- --org "taffish" --jobs 8 --output index
-```
+配置的有界并发如下：
 
-仓库扫描会并发执行，但 GitHub REST API 请求仍会全局串行，以免放大 API 压力。
-metadata override、历史保留、trust gate、排序和文件写入继续保持串行且结果确定。
-workflow 仍然只使用一个标准 GitHub-hosted runner。
+| 阶段 | 默认值 | 允许上限 |
+| --- | ---: | ---: |
+| 仓库扫描 | 8 | 8 |
+| digest 检查 | 4 | 4 |
+| Docker version workers | 2 | 4 |
+| Podman version workers | 2 | 4 |
+| Apptainer version workers | 1 | 2 |
+
+仓库 worker 仍会串行 GitHub REST 请求，避免放大 API 压力；raw-file 工作可以并行。
+digest 和 smoke pool 即使以不同顺序完成，也会按 task 顺序返回结果。Docker、Podman
+和 Apptainer 位于独立 runner，因此各自的本地镜像存储、临时文件和资源限制彼此隔离。
+
+每份 plan、manifest 和 result 文档都有从内容派生的 ID。aggregate 会在写入前拒绝
+schema、source head、policy、platform、task 覆盖、重复/缺失 backend、result identity
+或 observation/digest 不匹配。observation 属于完整性关键账本，因此必须 fail closed；
+损坏的 backend-result cache 则可以保守丢弃并重跑。aggregate 先生成 staging 目录并
+检查必需文件，再通过带 backup/restore 路径的目录 promotion 完成替换。前序 job 只有
+`contents: read`；只有 `aggregate` 拥有 `contents: write`，而且如果 workflow 启动后
+`origin/main` 已移动，它会拒绝 push。
+
+以上描述的是仓库中已写入的 workflow 配置和本地验证契约，不代表更新后的 workflow
+已经在远端 GitHub Actions 中完整运行成功。
+
+原有 `scripts/build-index.lisp` 入口及其 CLI 继续供本地调用者兼容使用。GitHub Actions
+使用 staged `scripts/index-phase.lisp` 路径；旧命令不是多 runner Action pipeline。
 
 ## 本地测试
 
@@ -340,6 +452,7 @@ workflow 仍然只使用一个标准 GitHub-hosted runner。
 ```sh
 sbcl --script tests/project.lisp
 sbcl --script tests/concurrency.lisp
+sbcl --script tests/pipeline.lisp
 ```
 
 如需从本地 fixture 仓库构建 index：
@@ -370,9 +483,84 @@ TAFFISH_BOT_TOKEN=<TOKEN> sbcl --script scripts/build-index.lisp -- --org taffis
 默认使用 8 个仓库 worker。需要严格串行扫描时可使用 `--jobs 1`；也可以传入
 1 到 8 之间的其他整数来降低本地并发度。
 
+在 staged `index-phase.lisp plan` 路径中，每个显式 `--local-repo` 都必须是独立且
+干净的 Git worktree 根目录，并且已有提交过的 `HEAD`；非 Git、借用父 monorepo、
+tracked/staged 修改或 untracked 文件都会使 plan 失败。staged record 使用
+commit tree 直接读取 `taffish.toml` 并检查所有必需路径是否存在，然后使用
+`source.ref = "local"` 和真实 `HEAD` commit；因此只存在于 worktree 的 ignored 文件
+也不能绕过不可变 identity。兼容入口 `build-index.lisp` 继续保留原有的本地 fixture
+行为。
+
+安装 Docker、Podman 和 Apptainer 后，可以在本地按四阶段复现 staged CLI。
+Action 会把三条 smoke 命令放到独立 runner；下面的本地示例按顺序列出：
+
+```sh
+mkdir -p work/results
+
+# 1. Plan：日常模式只检查新增版本和此前失败的版本。
+sbcl --script scripts/index-phase.lisp plan \
+  --org taffish \
+  --index-dir index \
+  --output work/plan.json \
+  --jobs 8 \
+  --backends docker,podman,apptainer \
+  --policy-generation multibackend-1 \
+  --platform linux/amd64
+
+# 2. Inspect：解析不可变镜像 identity。
+sbcl --script scripts/index-phase.lisp inspect \
+  --plan work/plan.json \
+  --output work/manifest.json \
+  --jobs 4
+
+# 3. Smoke：生产 Action 中三个 backend 各用独立 runner。
+sbcl --script scripts/index-phase.lisp smoke \
+  --manifest work/manifest.json --backend docker \
+  --output work/results/docker.json --jobs 2
+sbcl --script scripts/index-phase.lisp smoke \
+  --manifest work/manifest.json --backend podman \
+  --output work/results/podman.json --jobs 2
+sbcl --script scripts/index-phase.lisp smoke \
+  --manifest work/manifest.json --backend apptainer \
+  --output work/results/apptainer.json --jobs 1
+
+# 4. Aggregate：验证全部 artifact，并且只执行一次事务聚合。
+sbcl --script scripts/index-phase.lisp aggregate \
+  --plan work/plan.json \
+  --manifest work/manifest.json \
+  --result work/results/docker.json \
+  --result work/results/podman.json \
+  --result work/results/apptainer.json \
+  --index-dir index
+```
+
 ## 配置
 
-CLI 选项：
+staged command 提供按 phase 划分的帮助：
+
+```sh
+sbcl --script scripts/index-phase.lisp --help
+```
+
+重要 staged 选项如下：
+
+```text
+plan      --jobs <1-8> --backends <CSV> --policy-generation <ID>
+          --platform <OS/ARCH>
+          [--backfill [--backfill-limit <1-50>] | --force-recheck]
+inspect   --plan <PATH> --output <PATH> --jobs <1-4>
+smoke     --manifest <PATH> --backend <NAME> --output <PATH> --jobs <N>
+aggregate --plan <PATH> --manifest <PATH> --result <PATH>... --index-dir <DIR>
+```
+
+`--backfill` 会纳入未变化的历史记录，同时复用精确匹配的已通过 cache；增加
+`--backfill-limit N` 后，每轮最多新选 N 个 legacy release task，但新增版本、retry
+和 policy refresh 不受此上限影响。limit 必须与 `--backfill` 同用，也不能与
+`--force-recheck` 组合；裸 `--backfill` 保留无限量兼容行为。`--force-recheck`
+会纳入历史记录，但忽略匹配的 gate cache。两者都不会削弱 changed-source-commit
+rejection，日常 Action 也不会使用这两个模式。
+
+兼容入口 `scripts/build-index.lisp` 的 CLI 继续保持：
 
 ```text
 --org <ORG>                  扫描 GitHub 组织
@@ -399,6 +587,8 @@ CLI 选项：
 | `TAFFISH_INDEX_JOBS` | 未提供 `--jobs` 时使用的并发仓库 worker 数。必须是 1 到 8，默认 8。 |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | 设为 `1`、`true` 或 `yes` 时启用默认分支 snapshot。 |
 | `TAFFISH_INDEX_FORCE_RECHECK` | 设为 `1`、`true` 或 `yes` 时重新执行 digest/smoke gate。 |
+| `TAFFISH_INDEX_POLICY_GENERATION` | staged cache policy generation 默认值。默认是 `multibackend-1`。 |
+| `TAFFISH_INDEX_PLATFORM` | 显式 staged smoke platform。默认是 `linux/amd64`。 |
 | `TAFFISH_INDEX_METADATA_OVERRIDES` | 可选 metadata override TOML 路径。默认是 `metadata-overrides.toml`。 |
 | `TAFFISH_INDEX_META_OVERRIDES` | 旧 override 路径环境变量的兼容回退。 |
 | `TAFFISH_INDEX_REJECTED_RELEASES` | 可选 rejected release TOML 路径。存在时默认使用 `rejected-releases.toml`。 |

@@ -140,6 +140,13 @@
 (defun release-tag-name-p (name)
   (not (null (parse-release-tag name))))
 
+(defun github-commit-sha-p (value)
+  (and (stringp value)
+       (= (length value) 40)
+       (every (lambda (character)
+                (not (null (digit-char-p character 16))))
+              value)))
+
 (defun repo-full-name (repo-json)
   (json-ref repo-json "full_name"))
 
@@ -154,13 +161,20 @@
 
 (defun scan-github-ref (full-name ref &key commit enforce-repository
                                   published-at published-at-source)
-  (let ((toml (github-raw-text full-name ref "taffish.toml")))
+  ;; Release tags are discovered together with their commit SHA.  Fetch every
+  ;; validated file through that immutable SHA so a moved tag cannot bind the
+  ;; recorded commit from one snapshot to metadata from another snapshot.
+  (when (and (release-tag-name-p ref)
+             (not (github-commit-sha-p commit)))
+    (error "release tag ~A has no valid 40-character commit SHA" ref))
+  (let* ((content-ref (or commit ref))
+         (toml (github-raw-text full-name content-ref "taffish.toml")))
     (when toml
       (let ((record
               (validate-project-from-toml
                toml
                (lambda (path)
-                 (github-file-exists-p full-name ref path))
+                 (github-file-exists-p full-name content-ref path))
                :source-repository full-name
                :ref ref
                :commit commit
@@ -205,18 +219,22 @@
              (commit-json (json-ref tag-json "commit"))
              (commit (and commit-json (json-ref commit-json "sha"))))
         (handler-case
-            (multiple-value-bind (published-at published-at-source)
-                (github-tag-time full-name tag-name commit release-time-map)
-              (let ((record (scan-github-ref full-name tag-name
-                                             :commit commit
-                                             :published-at published-at
-                                             :published-at-source published-at-source
-                                             :enforce-repository t)))
-                (when record
-                  (unless (string= tag-name (plist-ref record :tag))
-                    (error "release tag ~A does not match taffish.toml version ~A"
-                           tag-name (plist-ref record :tag)))
-                  (push record records))))
+            (progn
+              (unless (github-commit-sha-p commit)
+                (error "release tag ~A has no valid 40-character commit SHA"
+                       tag-name))
+              (multiple-value-bind (published-at published-at-source)
+                  (github-tag-time full-name tag-name commit release-time-map)
+                (let ((record (scan-github-ref full-name tag-name
+                                               :commit commit
+                                               :published-at published-at
+                                               :published-at-source published-at-source
+                                               :enforce-repository t)))
+                  (when record
+                    (unless (string= tag-name (plist-ref record :tag))
+                      (error "release tag ~A does not match taffish.toml version ~A"
+                             tag-name (plist-ref record :tag)))
+                    (push record records)))))
           (error (c)
             (push (warning-record full-name tag-name (format nil "~A" c))
                   warnings)))))

@@ -3,16 +3,16 @@ name: Build TAFFISH index
 on:
   workflow_dispatch:
     inputs:
-      include_default_branch:
-        description: "Also index default branch snapshots"
-        required: true
-        type: boolean
-        default: false
+      backfill_limit:
+        description: "Optional backfill batch size (1-50); leave blank for a normal run"
+        required: false
+        type: string
+        default: ""
   schedule:
     - cron: "17 1 * * *"
 
 permissions:
-  contents: write
+  contents: read
   packages: read
 
 concurrency:
@@ -20,14 +20,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-index:
-    runs-on: ubuntu-latest
+  plan:
+    name: Plan index update
+    runs-on: ubuntu-24.04
     env:
       TAFFISH_BOT_TOKEN: ${{ secrets.TAFFISH_BOT_TOKEN || github.token }}
-      TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH: ${{ inputs.include_default_branch && 'true' || 'false' }}
     steps:
       - name: Checkout index repository
         uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - name: Install SBCL
         run: |
@@ -38,15 +40,230 @@ jobs:
         run: |
           sbcl --script tests/project.lisp
           sbcl --script tests/concurrency.lisp
+          sbcl --script tests/pipeline.lisp
+
+      - name: Plan index update
+        env:
+          BACKFILL_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.backfill_limit || '' }}
+        run: |
+          set -euo pipefail
+
+          mkdir -p work
+          plan_args=(
+            --org taffish
+            --index-dir index
+            --output work/plan.json
+            --jobs 8
+            --backends docker,podman,apptainer
+            --policy-generation multibackend-1
+            --platform linux/amd64
+          )
+
+          if [[ -n "$BACKFILL_LIMIT_INPUT" ]]; then
+            if [[ ! "$BACKFILL_LIMIT_INPUT" =~ ^([1-9]|[1-4][0-9]|50)$ ]]; then
+              echo "backfill_limit must be blank or an integer from 1 to 50" >&2
+              exit 1
+            fi
+            plan_args+=(--backfill --backfill-limit "$BACKFILL_LIMIT_INPUT")
+          fi
+
+          sbcl --script scripts/index-phase.lisp plan "${plan_args[@]}"
+
+      - name: Upload index plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: index-plan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work/plan.json
+          if-no-files-found: error
+          retention-days: 1
+
+  inspect:
+    name: Inspect container manifests
+    needs: plan
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout index repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install SBCL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sbcl
+
+      - name: Download index plan
+        uses: actions/download-artifact@v5
+        with:
+          name: index-plan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work
 
       - name: Check Docker buildx
         run: |
           docker --version
           docker buildx version
 
-      - name: Build index
+      - name: Inspect container manifests
         run: |
-          sbcl --script scripts/build-index.lisp -- --org "taffish" --jobs 8 --output index
+          sbcl --script scripts/index-phase.lisp inspect \
+            --plan work/plan.json \
+            --output work/manifest.json \
+            --jobs 4
+
+      - name: Upload manifest inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: index-manifest-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work/manifest.json
+          if-no-files-found: error
+          retention-days: 1
+
+  smoke:
+    name: Smoke with ${{ matrix.backend }}
+    needs: inspect
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - backend: docker
+            jobs: 2
+          - backend: podman
+            jobs: 2
+          - backend: apptainer
+            jobs: 1
+    steps:
+      - name: Checkout index repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install SBCL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sbcl
+
+      - name: Download manifest inspection
+        uses: actions/download-artifact@v5
+        with:
+          name: index-manifest-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work
+
+      - name: Read backend task count
+        id: backend_tasks
+        run: |
+          count="$(jq -r --arg backend "${{ matrix.backend }}" '.counts.tasks_by_backend[$backend] // 0' work/manifest.json)"
+          if [[ ! "$count" =~ ^[0-9]+$ ]]; then
+            echo "Invalid task count for ${{ matrix.backend }}: $count" >&2
+            exit 1
+          fi
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Check Docker runtime
+        if: matrix.backend == 'docker' && steps.backend_tasks.outputs.count != '0'
+        continue-on-error: true
+        run: docker version
+
+      - name: Check Podman runtime
+        if: matrix.backend == 'podman' && steps.backend_tasks.outputs.count != '0'
+        continue-on-error: true
+        run: |
+          podman version
+          podman info
+
+      - name: Install Apptainer
+        if: matrix.backend == 'apptainer' && steps.backend_tasks.outputs.count != '0'
+        continue-on-error: true
+        env:
+          APPTAINER_CACHEDIR: ${{ runner.temp }}/apptainer-cache
+          APPTAINER_TMPDIR: ${{ runner.temp }}/apptainer-tmp
+        run: |
+          mkdir -p "$APPTAINER_CACHEDIR" "$APPTAINER_TMPDIR"
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:apptainer/ppa
+          sudo apt-get update
+          sudo apt-get install -y apptainer
+          apptainer --version
+
+      - name: Run backend smoke
+        env:
+          APPTAINER_CACHEDIR: ${{ runner.temp }}/apptainer-cache
+          APPTAINER_TMPDIR: ${{ runner.temp }}/apptainer-tmp
+        run: |
+          mkdir -p work/results
+          sbcl --script scripts/index-phase.lisp smoke \
+            --manifest work/manifest.json \
+            --backend "${{ matrix.backend }}" \
+            --output "work/results/${{ matrix.backend }}.json" \
+            --jobs "${{ matrix.jobs }}"
+
+      - name: Upload backend smoke result
+        uses: actions/upload-artifact@v4
+        with:
+          name: index-smoke-${{ matrix.backend }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work/results/${{ matrix.backend }}.json
+          if-no-files-found: error
+          retention-days: 1
+
+  aggregate:
+    name: Aggregate and publish index
+    needs:
+      - plan
+      - inspect
+      - smoke
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      packages: read
+    steps:
+      - name: Checkout index repository
+        uses: actions/checkout@v6
+
+      - name: Install SBCL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sbcl
+
+      - name: Download index plan
+        uses: actions/download-artifact@v5
+        with:
+          name: index-plan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work
+
+      - name: Download manifest inspection
+        uses: actions/download-artifact@v5
+        with:
+          name: index-manifest-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work
+
+      - name: Download Docker smoke result
+        uses: actions/download-artifact@v5
+        with:
+          name: index-smoke-docker-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work/results
+
+      - name: Download Podman smoke result
+        uses: actions/download-artifact@v5
+        with:
+          name: index-smoke-podman-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work/results
+
+      - name: Download Apptainer smoke result
+        uses: actions/download-artifact@v5
+        with:
+          name: index-smoke-apptainer-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work/results
+
+      - name: Aggregate index
+        run: |
+          sbcl --script scripts/index-phase.lisp aggregate \
+            --plan work/plan.json \
+            --manifest work/manifest.json \
+            --result work/results/docker.json \
+            --result work/results/podman.json \
+            --result work/results/apptainer.json \
+            --index-dir index
 
       - name: Commit generated index
         run: |
@@ -57,6 +274,11 @@ jobs:
             echo "Index is already up to date."
           else
             git commit -m "Update TAFFISH index"
-            git pull --rebase origin main
-            git push
+            remote_line="$(git ls-remote --exit-code origin refs/heads/main)"
+            remote_head="${remote_line%%$'\t'*}"
+            if [[ "$remote_head" != "$GITHUB_SHA" ]]; then
+              echo "origin/main moved during this workflow: expected $GITHUB_SHA, found $remote_head" >&2
+              exit 1
+            fi
+            git push origin HEAD:main
           fi

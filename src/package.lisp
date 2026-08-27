@@ -2,4 +2,5 @@
   (:use :cl)
   (:export
    :main
-   :build-index))
+   :build-index
+   :pipeline-main))

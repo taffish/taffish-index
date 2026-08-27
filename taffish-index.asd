@@ -15,4 +15,5 @@
      (:file "project")
      (:file "github")
      (:file "index")
-     (:file "cli")))))
+     (:file "cli")
+     (:file "pipeline")))))
