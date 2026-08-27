@@ -1958,8 +1958,15 @@
                 (namestring (uiop:ensure-directory-pathname directory)))))
     (uiop:ensure-directory-pathname (format nil "~A.~A/" name suffix))))
 
+(defun absolute-directory-pathname (directory)
+  (uiop:ensure-directory-pathname
+   (uiop:ensure-absolute-pathname
+    (uiop:ensure-directory-pathname directory)
+    (uiop:getcwd))))
+
 (defun promote-directory-transactionally (staging output generated-at)
-  (let* ((output (uiop:ensure-directory-pathname output))
+  (let* ((staging (absolute-directory-pathname staging))
+         (output (absolute-directory-pathname output))
          (backup (path-with-suffix-directory
                   output
                   (format nil "backup.~A"
@@ -2018,7 +2025,7 @@
                 (file-namestring report) destination)))))))))
 
 (defun write-index-bundle-transactionally (index-dir index report gate-state generated-at)
-  (let* ((output (uiop:ensure-directory-pathname index-dir))
+  (let* ((output (absolute-directory-pathname index-dir))
          (staging
            (path-with-suffix-directory
             output

@@ -2409,6 +2409,39 @@ test = [\"sh -c 'exit 0'\"]
     (check-equal "stable-old-output" (read-string-file sentinel)
                  "staging failure leaves the previous output sentinel intact")))
 
+;;; The production workflow passes a relative index directory.  Normalize the
+;;; promotion paths before RENAME-FILE so a backup remains a sibling instead of
+;;; being interpreted as a child of the directory being renamed.
+
+(with-test-directory (root "transactional-relative-output")
+  (let* ((generated-at "2026-08-27T00:00:00Z")
+         (output (merge-pathnames "index/" root))
+         (sentinel (merge-pathnames "sentinel.txt" output))
+         (published-index (merge-pathnames "index.json" output))
+         (backup
+           (merge-pathnames
+            (format nil "index.backup.~A/"
+                    (timestamp-for-filename generated-at))
+            root))
+         (index (build-index-json nil nil
+                                  :organization "taffish"
+                                  :generated-at generated-at))
+         (report (build-report-json nil nil
+                                    :organization "taffish"
+                                    :generated-at generated-at))
+         (state (gate-state-json generated-at
+                                 *test-policy-generation* nil)))
+    (write-string-file sentinel "old-relative-output")
+    (uiop:with-current-directory (root)
+      (write-index-bundle-transactionally
+       "index/" index report state generated-at))
+    (check (file-exists-p published-index)
+           "relative output promotes the staged index")
+    (check (not (probe-file sentinel))
+           "relative output replaces the previous directory")
+    (check (not (probe-file backup))
+           "relative output removes its sibling backup after promotion")))
+
 ;;; Consecutive successful promotions retain timestamped report history while
 ;;; replacing latest.json with the newest report.
 
