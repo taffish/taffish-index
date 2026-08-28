@@ -105,13 +105,66 @@
           "tmp=/tmp/taf-lastz-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; lastz /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=lav > \"$tmp/out.lav\"; test -s \"$tmp/out.lav\"; grep -F \"#:lav\" \"$tmp/out.lav\" >/dev/null; lastz /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=axt > \"$tmp/out.axt\"; test -s \"$tmp/out.axt\"; lastz /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=maf > \"$tmp/out.maf\"; grep -F \"##maf version=1\" \"$tmp/out.maf\" >/dev/null; lastz_D /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 > \"$tmp/out_D.lav\"; test -s \"$tmp/out_D.lav\"; lastz_32 /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=sam- > \"$tmp/out.sam\"; test -s \"$tmp/out.sam\"; lastz_40 /opt/lastz/share/testdata/pseudocat.fa /opt/lastz/share/testdata/pseudopig.fa C=2 W=8 T=0 --format=paf > \"$tmp/out.paf\"; test -s \"$tmp/out.paf\"; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-15T15:49:26Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T06:25:59Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T06:26:16Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f40c93c96bbb69d0c8a06ff09ccb38c27f312be2",
+            "image_digest": "sha256:06b8f4b6739bcd4769b3674ee7db993d12491e90e66801473351535d6063df26",
+            "smoke_sha256": "54b5d0bb30d04cbaff285488b886c74285a087b7b0d4c74f9b87bf20557a730c",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.139651429590320'"
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T06:25:59Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f40c93c96bbb69d0c8a06ff09ccb38c27f312be2",
+            "image_digest": "sha256:06b8f4b6739bcd4769b3674ee7db993d12491e90e66801473351535d6063df26",
+            "smoke_sha256": "54b5d0bb30d04cbaff285488b886c74285a087b7b0d4c74f9b87bf20557a730c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T06:26:04Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f40c93c96bbb69d0c8a06ff09ccb38c27f312be2",
+            "image_digest": "sha256:06b8f4b6739bcd4769b3674ee7db993d12491e90e66801473351535d6063df26",
+            "smoke_sha256": "54b5d0bb30d04cbaff285488b886c74285a087b7b0d4c74f9b87bf20557a730c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-15T15:49:26Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T06:22:14Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

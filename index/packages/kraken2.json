@@ -123,13 +123,66 @@
           "tmp=/tmp/taf-kraken2-compressed-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; gzip -c /opt/kraken2/test-fixtures/lambda-read.fa > \"$tmp/lambda-read.fa.gz\"; kraken2 --db /opt/kraken2/test-fixtures/tiny-db --gzip-compressed --output \"$tmp/out.tsv\" \"$tmp/lambda-read.fa.gz\" >\"$tmp/stdout.log\" 2>\"$tmp/run.log\"; grep -F \"$(printf 'C\\tlambda_read\\t10710\\t')\" \"$tmp/out.tsv\" >/dev/null; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-06T03:14:13Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T06:25:59Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T06:26:16Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "32cfb57c1502bb5674f1a5486b6af2df3697ca3a",
+            "image_digest": "sha256:d65b58deaa9262cda9525c3ebc3ffa0e589e39fb6eeb08296055cee80cc97165",
+            "smoke_sha256": "175745174d4b60ed3cb2f1a435a7527a5e51342b02f1f857d7720b9eed65f9af",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T06:25:59Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "32cfb57c1502bb5674f1a5486b6af2df3697ca3a",
+            "image_digest": "sha256:d65b58deaa9262cda9525c3ebc3ffa0e589e39fb6eeb08296055cee80cc97165",
+            "smoke_sha256": "175745174d4b60ed3cb2f1a435a7527a5e51342b02f1f857d7720b9eed65f9af",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T06:26:04Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "32cfb57c1502bb5674f1a5486b6af2df3697ca3a",
+            "image_digest": "sha256:d65b58deaa9262cda9525c3ebc3ffa0e589e39fb6eeb08296055cee80cc97165",
+            "smoke_sha256": "175745174d4b60ed3cb2f1a435a7527a5e51342b02f1f857d7720b9eed65f9af",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-06T03:14:13Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T06:22:14Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
