@@ -287,13 +287,66 @@
           "mkdir -p /tmp/taf-orthofinder-muscle-run && cd /tmp/taf-orthofinder-muscle-run && cp -r /usr/local/share/doc/orthofinder/tests/data/proteome/Core proteomes && orthofinder -f proteomes -M msa -A muscle -T fasttree -t 1 -a 1 -o results >/tmp/taf-orthofinder-muscle-run.log 2>&1 && test -s results/Results_*/Orthogroups/Orthogroups.tsv && test -s results/Results_*/Species_Tree/SpeciesTree_rooted.txt"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a916996ee75c7184ca766342af38548da616ee07",
+            "image_digest": "sha256:b63c6396b37751fb287a13d30903065d5150db165954c5b16a6a8e63e5744fe7",
+            "smoke_sha256": "2d53110f8a39018f80ab00136ba45470f13935ecf6b6ecdf03d0f098a55a6801",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a916996ee75c7184ca766342af38548da616ee07",
+            "image_digest": "sha256:b63c6396b37751fb287a13d30903065d5150db165954c5b16a6a8e63e5744fe7",
+            "smoke_sha256": "2d53110f8a39018f80ab00136ba45470f13935ecf6b6ecdf03d0f098a55a6801",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a916996ee75c7184ca766342af38548da616ee07",
+            "image_digest": "sha256:b63c6396b37751fb287a13d30903065d5150db165954c5b16a6a8e63e5744fe7",
+            "smoke_sha256": "2d53110f8a39018f80ab00136ba45470f13935ecf6b6ecdf03d0f098a55a6801",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

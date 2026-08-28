@@ -216,13 +216,66 @@
           "mkdir -p /tmp/taf-miniprot-aln && cd /tmp/taf-miniprot-aln && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 --aln --trans ref.fa.gz query.faa.gz > aln.txt && grep -F '##ATA' aln.txt >/dev/null && grep -F '##STA' aln.txt >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "80704e14da04a4b672c51bbb7ba7cd8ef4bdd9ee",
+            "image_digest": "sha256:b3630947752e0ec39798a3a8474f4311bb488fc18b09792649ed1045dc0a29c5",
+            "smoke_sha256": "0ef69a2dc33725dad3716fa11d508233766a367b54d8f31847e66040072b0a06",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-miniprot-index && cd /tmp/taf-miniprot-index && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 -d ref.mpi ref.fa.gz && test -s ref.mpi && miniprot -t1 ref.mpi query.faa.gz > indexed.paf && grep -F 'ENSMUSP00000025851.4' indexed.paf >/dev/null\nstdout: \nstderr: [M::mp_ntseq_read@0.000*2.71] read 27033 bases in 1 contigs\n[M::mp_idx_build@0.000*2.59] 212 blocks\n[M::mp_idx_build@0.002*1.46] collected syncmers\n[M::mp_idx_build@0.014*1.05] 16125 kmer-block pairs\n[M::mp_idx_print_stat] 14397 distinct k-mers; mean occ of infrequent k-mers: 1.12; 0 frequent k-mers accounting for 0 occurrences\n[M::main] Version: 0.18-r281\n[M::main] CMD: miniprot -t1 -d ref.mpi ref.fa.gz\n[M::main] Real time: 0.052 sec; CPU: 0.053 sec; Peak RSS: 0.063 GB\n[M::mp_idx_restore@0.014*1.04] loaded the index\n[M::mp_idx_print_stat] 14386 distinct k-mers; mean occ of infrequent k-mers: ..."
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "80704e14da04a4b672c51bbb7ba7cd8ef4bdd9ee",
+            "image_digest": "sha256:b3630947752e0ec39798a3a8474f4311bb488fc18b09792649ed1045dc0a29c5",
+            "smoke_sha256": "0ef69a2dc33725dad3716fa11d508233766a367b54d8f31847e66040072b0a06",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "80704e14da04a4b672c51bbb7ba7cd8ef4bdd9ee",
+            "image_digest": "sha256:b3630947752e0ec39798a3a8474f4311bb488fc18b09792649ed1045dc0a29c5",
+            "smoke_sha256": "0ef69a2dc33725dad3716fa11d508233766a367b54d8f31847e66040072b0a06",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

@@ -115,13 +115,66 @@
           "tmp=/tmp/taf-mummer4-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf \">ref\\n\" > ref.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> ref.fa; i=$((i + 1)); done; printf \"\\n\" >> ref.fa; printf \">qry\\n\" > qry.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> qry.fa; i=$((i + 1)); done; printf \"\\n\" >> qry.fa; nucmer -p smoke ref.fa qry.fa >/tmp/taf-mummer4-nucmer.log 2>&1; test -s smoke.delta; delta-filter -m smoke.delta > smoke.m.delta; test -s smoke.m.delta; show-coords -T -H smoke.m.delta > smoke.coords; test -s smoke.coords; mummer -mum -b -c ref.fa qry.fa > smoke.mums; test -s smoke.mums; dnadiff -p diff ref.fa qry.fa >/tmp/taf-mummer4-dnadiff.log 2>&1; test -s diff.report; mummerplot -p plot -t png smoke.delta >/tmp/taf-mummer4-mummerplot.log 2>&1; test -s plot.gp; test -s plot.png; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-15T07:07:09Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df794d0042cf732f9d7c85c7853372ff46cdfdef",
+            "image_digest": "sha256:a64b153cc8fe805bb86807b8f6aa69f8377d55c77e00c2ea382e95d3ea86e22f",
+            "smoke_sha256": "a7d3db1e99ce6c3d6db7f4402689fc830804a02b8c1c1fff4e62c3f4824c7abd",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 129): tmp=/tmp/taf-mummer4-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf \">ref\\n\" > ref.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> ref.fa; i=$((i + 1)); done; printf \"\\n\" >> ref.fa; printf \">qry\\n\" > qry.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> qry.fa; i=$((i + 1)); done; printf \"\\n\" >> qry.fa; nucmer -p smoke ref.fa qry.fa >/tmp/taf-mummer4-nucmer.log 2>&1; test -s smoke.delta; delta-filter -m smoke.delta > smoke.m.delta; test -s smoke.m.delta; show-coords -T -H smoke.m.delta > smoke.coords; test -s smoke.coords; mummer -mum -b -c ref.fa qry.fa > smoke.mums; test -s smoke.mums; dnadiff -p diff ref.fa qry.fa >/tmp/taf-mummer4-dnadiff.log 2>&1; test -s diff.report; mummerplot -p plot -t png smoke.delta >/tmp/taf-mummer4-mummerplot.log 2>&1; test -s plot.gp; test -s plot.png; rm -rf \"$tmp\"\nstdout: \nstderr: "
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df794d0042cf732f9d7c85c7853372ff46cdfdef",
+            "image_digest": "sha256:a64b153cc8fe805bb86807b8f6aa69f8377d55c77e00c2ea382e95d3ea86e22f",
+            "smoke_sha256": "a7d3db1e99ce6c3d6db7f4402689fc830804a02b8c1c1fff4e62c3f4824c7abd",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df794d0042cf732f9d7c85c7853372ff46cdfdef",
+            "image_digest": "sha256:a64b153cc8fe805bb86807b8f6aa69f8377d55c77e00c2ea382e95d3ea86e22f",
+            "smoke_sha256": "a7d3db1e99ce6c3d6db7f4402689fc830804a02b8c1c1fff4e62c3f4824c7abd",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-15T07:07:09Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

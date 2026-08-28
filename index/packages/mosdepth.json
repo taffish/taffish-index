@@ -222,13 +222,66 @@
           "mkdir -p /tmp/taf-mosdepth-chrom-end && cd /tmp/taf-mosdepth-chrom-end && mosdepth -n --by /opt/mosdepth/share/testdata/chrom-end/region-not-ok.bed out /opt/mosdepth/share/testdata/chrom-end/minimal.bam && test -s out.mosdepth.summary.txt && test -s out.regions.bed.gz"
         ],
         "status": "passed",
-        "checked_at": "2026-05-24T02:00:08Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "78c2d0702913542cb6f81d5a5ba8a8f51221782c",
+            "image_digest": "sha256:45d4b29a9d2cb75787fbd871553f9bdfb567709fd8b83d7aa36cb8e3a6421a36",
+            "smoke_sha256": "18239a9111a61d82a78602de705afdef80e8015099c4e34ae1d961d6d9cb6d78",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "78c2d0702913542cb6f81d5a5ba8a8f51221782c",
+            "image_digest": "sha256:45d4b29a9d2cb75787fbd871553f9bdfb567709fd8b83d7aa36cb8e3a6421a36",
+            "smoke_sha256": "18239a9111a61d82a78602de705afdef80e8015099c4e34ae1d961d6d9cb6d78",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "78c2d0702913542cb6f81d5a5ba8a8f51221782c",
+            "image_digest": "sha256:45d4b29a9d2cb75787fbd871553f9bdfb567709fd8b83d7aa36cb8e3a6421a36",
+            "smoke_sha256": "18239a9111a61d82a78602de705afdef80e8015099c4e34ae1d961d6d9cb6d78",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-24T02:00:08Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

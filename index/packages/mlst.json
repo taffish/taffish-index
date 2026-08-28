@@ -105,13 +105,66 @@
           "test -d /opt/mlst/db/pubmlst && test -s /opt/mlst/db/blast/mlst.fa.nhr && test -s /opt/mlst/share/doc/mlst/source.txt && test -s /opt/mlst/share/testdata/fixture.fa && test -s /opt/mlst/share/testdata/fixture.expected.tsv && command -v mlst-make_blast_db >/dev/null && command -v find >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-06-21T18:31:14Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b72de6429d0bb7887f9bd5ba101a64a2d9f12a94",
+            "image_digest": "sha256:07ec4cb766be66390e5f8359f8ed8e7455fed25d6a8724578c020f555f18c652",
+            "smoke_sha256": "5dbddf1a46aea5c2d615f9699f8ab5ab53e25de206358415ed7b6e25c4e0aa38",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b72de6429d0bb7887f9bd5ba101a64a2d9f12a94",
+            "image_digest": "sha256:07ec4cb766be66390e5f8359f8ed8e7455fed25d6a8724578c020f555f18c652",
+            "smoke_sha256": "5dbddf1a46aea5c2d615f9699f8ab5ab53e25de206358415ed7b6e25c4e0aa38",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b72de6429d0bb7887f9bd5ba101a64a2d9f12a94",
+            "image_digest": "sha256:07ec4cb766be66390e5f8359f8ed8e7455fed25d6a8724578c020f555f18c652",
+            "smoke_sha256": "5dbddf1a46aea5c2d615f9699f8ab5ab53e25de206358415ed7b6e25c4e0aa38",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-21T18:31:14Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

@@ -222,13 +222,66 @@
           "tmp=/tmp/taf-picard-cram-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa; printf 'chr1\\t64\\t6\\t64\\t65\\n' > ref.fa.fai; PICARD_JAVA_XMX=512m picard CreateSequenceDictionary R=ref.fa O=ref.dict QUIET=true >/tmp/taf-picard-cram-dict.log 2>&1; printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:64\\n@RG\\tID:rg1\\tSM:sample\\tPL:ILLUMINA\\nr1\\t0\\tchr1\\t1\\t60\\t8M\\t*\\t0\\t0\\tACGTACGT\\tIIIIIIII\\tRG:Z:rg1\\n' > input.sam; PICARD_JAVA_XMX=512m picard SamFormatConverter I=input.sam O=output.cram R=ref.fa QUIET=true >/tmp/taf-picard-cram-write.log 2>&1; test -s output.cram; set -- $(od -An -tu1 -N6 output.cram); test \"$1 $2 $3 $4 $5 $6\" = '67 82 65 77 3 1'; PICARD_JAVA_XMX=512m picard ValidateSamFile I=output.cram R=ref.fa MODE=SUMMARY QUIET=true >/tmp/taf-picard-cram-validate.log 2>&1; rm -rf \"$tmp\" /tmp/taf-picard-cram-dict.log /tmp/taf-picard-cram-write.log /tmp/taf-picard-cram-validate.log"
         ],
         "status": "passed",
-        "checked_at": "2026-08-02T01:26:54Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7989682a9b4e34d283283beb1639489d6bdd211a",
+            "image_digest": "sha256:67c8e668f5179bcf9dd1c0662834e157e5ddc08834f10fcdc112d419e04b685f",
+            "smoke_sha256": "cad67b22eb7bec2d6a3acaf72f7ca0f60785d3c0f5444b4157a262a7e0f37841",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7989682a9b4e34d283283beb1639489d6bdd211a",
+            "image_digest": "sha256:67c8e668f5179bcf9dd1c0662834e157e5ddc08834f10fcdc112d419e04b685f",
+            "smoke_sha256": "cad67b22eb7bec2d6a3acaf72f7ca0f60785d3c0f5444b4157a262a7e0f37841",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7989682a9b4e34d283283beb1639489d6bdd211a",
+            "image_digest": "sha256:67c8e668f5179bcf9dd1c0662834e157e5ddc08834f10fcdc112d419e04b685f",
+            "smoke_sha256": "cad67b22eb7bec2d6a3acaf72f7ca0f60785d3c0f5444b4157a262a7e0f37841",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-02T01:26:54Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

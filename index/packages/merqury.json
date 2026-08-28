@@ -375,13 +375,66 @@
           "mkdir -p /tmp/taf-merqury-smoke && cd /tmp/taf-merqury-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > asm.fa && meryl k=21 memory=0.1 count asm.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && merqury.sh read.meryl asm.fa out > run.out 2> run.err && test -s out.qv && test -s out.completeness.stats && test -s out.asm.spectra-cn.ln.png && test -s out.spectra-asm.ln.png && test -e asm_only.wig && grep -F 'asm_only.wig generated.' logs/out.spectra-cn.log >/dev/null && grep -F 'Done!' logs/out.spectra-cn.log >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-07-07T16:22:21Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "fe51efa55a3440dfc442dbc1d6709a66783b1136",
+            "image_digest": "sha256:6c3184718969348b54b8f295162265439d7895543202dba30403d20f1de4c79a",
+            "smoke_sha256": "a870747ca3fa4800b877f0b62338c26bd2285841d4fbe062b8b4d19d1312bf80",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "fe51efa55a3440dfc442dbc1d6709a66783b1136",
+            "image_digest": "sha256:6c3184718969348b54b8f295162265439d7895543202dba30403d20f1de4c79a",
+            "smoke_sha256": "a870747ca3fa4800b877f0b62338c26bd2285841d4fbe062b8b4d19d1312bf80",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "fe51efa55a3440dfc442dbc1d6709a66783b1136",
+            "image_digest": "sha256:6c3184718969348b54b8f295162265439d7895543202dba30403d20f1de4c79a",
+            "smoke_sha256": "a870747ca3fa4800b877f0b62338c26bd2285841d4fbe062b8b4d19d1312bf80",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-07T16:22:21Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

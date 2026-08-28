@@ -206,13 +206,66 @@
           "python -c 'import os, plotly.graph_objects as go; fig = go.Figure(data=[go.Bar(x=[\"sample\"], y=[1])]); fig.write_image(\"/tmp/taf-multiqc-kaleido.png\"); assert os.path.getsize(\"/tmp/taf-multiqc-kaleido.png\") > 0'"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ded4a842939b6a9074847820aa231bcc33ed8bc0",
+            "image_digest": "sha256:8be883b6a5083c7a21b96d0b9a93c7353cc690330d443adb64dec1ceaede0d39",
+            "smoke_sha256": "cc591242c053d12c0033f4a3bd9c8d9b46e5ee98aa8bed82ebef7fa1b7e32457",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ded4a842939b6a9074847820aa231bcc33ed8bc0",
+            "image_digest": "sha256:8be883b6a5083c7a21b96d0b9a93c7353cc690330d443adb64dec1ceaede0d39",
+            "smoke_sha256": "cc591242c053d12c0033f4a3bd9c8d9b46e5ee98aa8bed82ebef7fa1b7e32457",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ded4a842939b6a9074847820aa231bcc33ed8bc0",
+            "image_digest": "sha256:8be883b6a5083c7a21b96d0b9a93c7353cc690330d443adb64dec1ceaede0d39",
+            "smoke_sha256": "cc591242c053d12c0033f4a3bd9c8d9b46e5ee98aa8bed82ebef7fa1b7e32457",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

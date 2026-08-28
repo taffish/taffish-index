@@ -225,13 +225,66 @@
           "mkdir -p /tmp/taf-minimap2-index && cd /tmp/taf-minimap2-index && printf '>ref\\nGATTACAGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACGGATCGTAGCTACGATTCGACCTAGGTCAGTACGATCGATGCTAGGCTAACGTCGATACGGT\\n' > ref.fa && printf '>read1\\nGTCGATCGTACCTGACCTAGGATCGATGCTAGCTTACGATCGGATCCGTAGCTAGTCCGATGACCTTACG\\n' > reads.fa && minimap2 -k9 -w5 -d ref.mmi ref.fa && gzip -c reads.fa > reads.fa.gz && minimap2 ref.mmi reads.fa.gz > indexed.paf && grep -F 'read1' indexed.paf >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7be3be5debd9be82a314548fcf0c5edd8bb6172a",
+            "image_digest": "sha256:e61a507298bbeba54e42a17ad163755711f4daaea0d1b9a5a93e1320bf47f504",
+            "smoke_sha256": "ec68467facbc2ad23e552c3d42f2d54c298f8d3062216eda8d42a53ce2ac0548",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7be3be5debd9be82a314548fcf0c5edd8bb6172a",
+            "image_digest": "sha256:e61a507298bbeba54e42a17ad163755711f4daaea0d1b9a5a93e1320bf47f504",
+            "smoke_sha256": "ec68467facbc2ad23e552c3d42f2d54c298f8d3062216eda8d42a53ce2ac0548",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "failed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7be3be5debd9be82a314548fcf0c5edd8bb6172a",
+            "image_digest": "sha256:e61a507298bbeba54e42a17ad163755711f4daaea0d1b9a5a93e1320bf47f504",
+            "smoke_sha256": "ec68467facbc2ad23e552c3d42f2d54c298f8d3062216eda8d42a53ce2ac0548",
+            "provenance": "taffish-index",
+            "failure_kind": "prepare",
+            "message": "failed to pull ghcr.io/taffish/minimap2@sha256:e61a507298bbeba54e42a17ad163755711f4daaea0d1b9a5a93e1320bf47f504 with podman (exit 125): Trying to pull ghcr.io/taffish/minimap2@sha256:e61a507298bbeba54e42a17ad163755711f4daaea0d1b9a5a93e1320bf47f504...\nGetting image source signatures\nCopying blob sha256:97ab3a464ac4e1ae066a0a1457cb311b88d7e1bd257261db8c894b277bd66fe9\nCopying blob sha256:97455ec159e710583a8b6674cf9c621aafe8148c711af05eed581aefe563a5d2\nCopying blob sha256:bbf717f4652be034d9fc15b33a908c209c9d5f3ecd982b086dc17c3aa4397b20\nCopying blob sha256:43a596e37e8dae056596d2bc5806009d8815d1e3061870d177b3c07368069bf1\nCopying blob sha256:79868a54b7e44e477b898aa44571646f159736ab38cce382b414c10af25904ba\nCopying blob sha256:068fedd6..."
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

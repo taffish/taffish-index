@@ -217,13 +217,66 @@
           "/opt/nanoplot/share/testdata/nanoplot-smoke.sh image"
         ],
         "status": "passed",
-        "checked_at": "2026-08-18T12:42:53Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b9ff0a858cfaf4fdc4c571db4f55d412cf8ab43c",
+            "image_digest": "sha256:5861ab01a89d73efe113f9109a787eb655ca9b71845e7a57993dd41f47aa524c",
+            "smoke_sha256": "84e67ae9a3c9537c4157262b576862761a97a524250065aba3f8abdb5cfc2958",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 1): /opt/nanoplot/share/testdata/nanoplot-smoke.sh bam\nstdout: \n\n\nIf you read this then NanoPlot 1.47.2 has crashed :-(\nPlease try updating NanoPlot and see if that helps...\n\nIf not, please report this issue at https://github.com/wdecoster/NanoPlot/issues\nIf you could include the log file that would be really helpful.\nThanks!\n\n\n\n\nstderr: nanoplot-smoke: bam-no-static\nTraceback (most recent call last):\n  File \"/opt/nanoplot/python/bin/NanoPlot\", line 6, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/opt/nanoplot/python/lib/python3.12/site-packages/nanoplot/NanoPlot.py\", line 111, in main\n    make_report(plots, settings)\n  File \"/opt/nanoplot/python/lib/python3.12/site-packages/nanoplot/NanoPlot.py\", line 405, in make_report\n    html_file.write(report.html_head + \"\\n\".join(html_content))\nOSError: [Errno 28] No space left on device\n"
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b9ff0a858cfaf4fdc4c571db4f55d412cf8ab43c",
+            "image_digest": "sha256:5861ab01a89d73efe113f9109a787eb655ca9b71845e7a57993dd41f47aa524c",
+            "smoke_sha256": "84e67ae9a3c9537c4157262b576862761a97a524250065aba3f8abdb5cfc2958",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b9ff0a858cfaf4fdc4c571db4f55d412cf8ab43c",
+            "image_digest": "sha256:5861ab01a89d73efe113f9109a787eb655ca9b71845e7a57993dd41f47aa524c",
+            "smoke_sha256": "84e67ae9a3c9537c4157262b576862761a97a524250065aba3f8abdb5cfc2958",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-18T12:42:53Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

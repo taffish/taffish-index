@@ -478,13 +478,66 @@
           "tmp=/tmp/taf-meryl-analyze-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa; meryl k=7 memory=0.1 threads=1 count seq.fa output seq.meryl >/dev/null 2>meryl.log; meryl-analyze -mers seq.meryl -prefix motif -gt >/dev/null 2>analyze.log; test -s motif.GT.hist; test -s motif.AC.hist; test -s motif.GT_AC.hist"
         ],
         "status": "passed",
-        "checked_at": "2026-07-22T04:38:01Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "47a86c5104d32009a9891ed88b495edaab6b8173",
+            "image_digest": "sha256:47efd3e1eb869eea4f948a2ccd67a1ae5e0f2209e55186910239a4fb09472a5b",
+            "smoke_sha256": "f8a4be2438213d70cead62885c9bb5e9f4501ba113bc793507721eddfe23a746",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "47a86c5104d32009a9891ed88b495edaab6b8173",
+            "image_digest": "sha256:47efd3e1eb869eea4f948a2ccd67a1ae5e0f2209e55186910239a4fb09472a5b",
+            "smoke_sha256": "f8a4be2438213d70cead62885c9bb5e9f4501ba113bc793507721eddfe23a746",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "47a86c5104d32009a9891ed88b495edaab6b8173",
+            "image_digest": "sha256:47efd3e1eb869eea4f948a2ccd67a1ae5e0f2209e55186910239a4fb09472a5b",
+            "smoke_sha256": "f8a4be2438213d70cead62885c9bb5e9f4501ba113bc793507721eddfe23a746",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-22T04:38:01Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

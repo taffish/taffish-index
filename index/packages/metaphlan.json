@@ -421,13 +421,66 @@
           "/opt/metaphlan/share/testdata/metaphlan-smoke.sh"
         ],
         "status": "passed",
-        "checked_at": "2026-07-29T01:47:43Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3b02d97d169d7c255c0c0508d20183e3b695cba0",
+            "image_digest": "sha256:00ce84d010950ed7025a0f2b845ac18c6a7bbe990f823ef0903bb0a6bb7a6a79",
+            "smoke_sha256": "5928ee2b7d8f322c7b3677fb45e3f874d5ef97e2dadae07c8a58d02d125fa3c8",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3b02d97d169d7c255c0c0508d20183e3b695cba0",
+            "image_digest": "sha256:00ce84d010950ed7025a0f2b845ac18c6a7bbe990f823ef0903bb0a6bb7a6a79",
+            "smoke_sha256": "5928ee2b7d8f322c7b3677fb45e3f874d5ef97e2dadae07c8a58d02d125fa3c8",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3b02d97d169d7c255c0c0508d20183e3b695cba0",
+            "image_digest": "sha256:00ce84d010950ed7025a0f2b845ac18c6a7bbe990f823ef0903bb0a6bb7a6a79",
+            "smoke_sha256": "5928ee2b7d8f322c7b3677fb45e3f874d5ef97e2dadae07c8a58d02d125fa3c8",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-29T01:47:43Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

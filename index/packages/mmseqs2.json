@@ -372,13 +372,66 @@
           "mkdir -p /tmp/taf-mmseqs2-db-workflow && cd /tmp/taf-mmseqs2-db-workflow && printf '>q1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>q2\\nGILGFVFTLTVPSERKELKQLLQK\\n' > query.fa && printf '>t1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n>t2\\nGILGFVFTLTVPSERKELKQLLQK\\n>t3\\nAAAAAAAAAAAAAAAAAAAAAAAAAAAA\\n' > target.fa && mmseqs createdb query.fa queryDB --threads 1 >/tmp/taf-mmseqs2-createdb-query.log 2>&1 && mmseqs createdb target.fa targetDB --threads 1 >/tmp/taf-mmseqs2-createdb-target.log 2>&1 && mmseqs search queryDB targetDB resultDB tmp-search --threads 1 -s 1.0 >/tmp/taf-mmseqs2-search-db.log 2>&1 && mmseqs convertalis queryDB targetDB resultDB result.m8 >/tmp/taf-mmseqs2-convertalis.log 2>&1 && test -s result.m8 && grep -F 'q1' result.m8 >/dev/null && mmseqs createtsv queryDB targetDB resultDB result.tsv >/tmp/taf-mmseqs2-createtsv.log 2>&1 && test -s result.tsv && mmseqs convert2fasta targetDB target.back.fa >/tmp/taf-mmseqs2-convert2fasta.log 2>&1 && test -s target.back.fa && grep -F '>t1' target.back.fa >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T07:06:56Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "657538992961bfab58bd3e14b059b63b1d21d0fe",
+            "image_digest": "sha256:fbf844bce3eb8200b3c0273251ad8baff12ad0f4e03ef5d3da9b56e6bf47cdd6",
+            "smoke_sha256": "7cd93aeb02cae8b69d27ab08226ae9d77e46480137a0bb582f48c8e3b0094ef6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:06:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "657538992961bfab58bd3e14b059b63b1d21d0fe",
+            "image_digest": "sha256:fbf844bce3eb8200b3c0273251ad8baff12ad0f4e03ef5d3da9b56e6bf47cdd6",
+            "smoke_sha256": "7cd93aeb02cae8b69d27ab08226ae9d77e46480137a0bb582f48c8e3b0094ef6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T07:07:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "657538992961bfab58bd3e14b059b63b1d21d0fe",
+            "image_digest": "sha256:fbf844bce3eb8200b3c0273251ad8baff12ad0f4e03ef5d3da9b56e6bf47cdd6",
+            "smoke_sha256": "7cd93aeb02cae8b69d27ab08226ae9d77e46480137a0bb582f48c8e3b0094ef6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T07:03:40Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
