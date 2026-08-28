@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-08-27T11:13:46Z",
+  "generated_at": "2026-08-28T01:03:11Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -62,6 +62,66 @@
       "cache_reused": false,
       "failure_kind": null,
       "message": null
+    },
+    {
+      "task_id": "taffish/dorado|2.1.2-r1",
+      "plan_id": "3ece6ccb54cd013a992c9dd794ebc87f84756ecd371a09012f4ce66f3c181252",
+      "manifest_id": "9d986689604182f85afa105fab9ee57962dccc55684948c1c733cceaf2ed8412",
+      "backend": "apptainer",
+      "required": false,
+      "status": "failed",
+      "checked_at": "2026-08-28T01:08:08Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.3",
+      "runner_image": "ubuntu24/20260823.283.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "4fe8ae12ef1042867dba7ac99114230f01c983f8",
+      "image_digest": "sha256:41b8ffe697a79da5fca45c4f4bc4ea839ac737de625f14ac27f11f7541bb8407",
+      "smoke_sha256": "5284c331bebdf99ac15765d2dce6713beff90eecb5a5eff75cda25bd0ae28dd8",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): /opt/dorado/share/testdata/dorado-smoke.sh model-policy\nstdout: \nstderr: mkdir: cannot create directory '/models': Read-only file system\n"
+    },
+    {
+      "task_id": "taffish/dorado|2.1.2-r1",
+      "plan_id": "3ece6ccb54cd013a992c9dd794ebc87f84756ecd371a09012f4ce66f3c181252",
+      "manifest_id": "9d986689604182f85afa105fab9ee57962dccc55684948c1c733cceaf2ed8412",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-08-28T01:07:48Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20260823.283.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "4fe8ae12ef1042867dba7ac99114230f01c983f8",
+      "image_digest": "sha256:41b8ffe697a79da5fca45c4f4bc4ea839ac737de625f14ac27f11f7541bb8407",
+      "smoke_sha256": "5284c331bebdf99ac15765d2dce6713beff90eecb5a5eff75cda25bd0ae28dd8",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/dorado|2.1.2-r1",
+      "plan_id": "3ece6ccb54cd013a992c9dd794ebc87f84756ecd371a09012f4ce66f3c181252",
+      "manifest_id": "9d986689604182f85afa105fab9ee57962dccc55684948c1c733cceaf2ed8412",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-08-28T01:07:49Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 5.8.4",
+      "runner_image": "ubuntu24/20260823.283.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "4fe8ae12ef1042867dba7ac99114230f01c983f8",
+      "image_digest": "sha256:41b8ffe697a79da5fca45c4f4bc4ea839ac737de625f14ac27f11f7541bb8407",
+      "smoke_sha256": "5284c331bebdf99ac15765d2dce6713beff90eecb5a5eff75cda25bd0ae28dd8",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
     }
   ],
   "retry_tasks": [],
@@ -72,6 +132,13 @@
       "source_commit": "e794da7eaea2f901cbf4840c831be2381f7c7c4d",
       "image": "ghcr.io/taffish/beast2:2.7.8-r1",
       "image_digest": "sha256:8a9c0f3caa6871e5bc68c89531a8dc64b83ce0c986c9ae38b1e94625b68b1e0d"
+    },
+    {
+      "task_id": "taffish/dorado|2.1.2-r1",
+      "source_ref": "v2.1.2-r1",
+      "source_commit": "4fe8ae12ef1042867dba7ac99114230f01c983f8",
+      "image": "ghcr.io/taffish/dorado:2.1.2-r1",
+      "image_digest": "sha256:41b8ffe697a79da5fca45c4f4bc4ea839ac737de625f14ac27f11f7541bb8407"
     }
   ]
 }
