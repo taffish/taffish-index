@@ -230,7 +230,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-28T11:23:48Z",
+            "checked_at": "2026-08-28T13:02:16Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -240,7 +240,7 @@
             "smoke_sha256": "0ef69a2dc33725dad3716fa11d508233766a367b54d8f31847e66040072b0a06",
             "provenance": "taffish-index",
             "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-miniprot-index && cd /tmp/taf-miniprot-index && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 -d ref.mpi ref.fa.gz && test -s ref.mpi && miniprot -t1 ref.mpi query.faa.gz > indexed.paf && grep -F 'ENSMUSP00000025851.4' indexed.paf >/dev/null\nstdout: \nstderr: [M::mp_ntseq_read@0.000*2.84] read 27033 bases in 1 contigs\n[M::mp_idx_build@0.000*2.70] 212 blocks\n[M::mp_idx_build@0.001*1.48] collected syncmers\n[M::mp_idx_build@0.016*1.04] 16125 kmer-block pairs\n[M::mp_idx_print_stat] 14397 distinct k-mers; mean occ of infrequent k-mers: 1.12; 0 frequent k-mers accounting for 0 occurrences\n[M::main] Version: 0.18-r281\n[M::main] CMD: miniprot -t1 -d ref.mpi ref.fa.gz\n[M::main] Real time: 0.052 sec; CPU: 0.053 sec; Peak RSS: 0.063 GB\n[M::mp_idx_restore@0.013*1.04] loaded the index\n[M::mp_idx_print_stat] 14386 distinct k-mers; mean occ of infrequent k-mers: ..."
+            "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-miniprot-index && cd /tmp/taf-miniprot-index && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 -d ref.mpi ref.fa.gz && test -s ref.mpi && miniprot -t1 ref.mpi query.faa.gz > indexed.paf && grep -F 'ENSMUSP00000025851.4' indexed.paf >/dev/null\nstdout: \nstderr: [M::mp_ntseq_read@0.000*2.68] read 27033 bases in 1 contigs\n[M::mp_idx_build@0.000*2.54] 212 blocks\n[M::mp_idx_build@0.001*1.38] collected syncmers\n[M::mp_idx_build@0.041*1.01] 16125 kmer-block pairs\n[M::mp_idx_print_stat] 14397 distinct k-mers; mean occ of infrequent k-mers: 1.12; 0 frequent k-mers accounting for 0 occurrences\n[M::main] Version: 0.18-r281\n[M::main] CMD: miniprot -t1 -d ref.mpi ref.fa.gz\n[M::main] Real time: 0.080 sec; CPU: 0.080 sec; Peak RSS: 0.063 GB\n[M::mp_idx_restore@0.028*1.02] loaded the index\n[M::mp_idx_print_stat] 14386 distinct k-mers; mean occ of infrequent k-mers: ..."
           },
           "docker": {
             "status": "passed",
@@ -274,7 +274,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-28T11:20:23Z",
+        "checked_at": "2026-08-28T12:57:34Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
