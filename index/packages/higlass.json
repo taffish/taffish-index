@@ -442,13 +442,66 @@
           "tmp=\"$(mktemp -d /tmp/taf-higlass-smoke.XXXXXX)\" && (higlass --host-port 8888 --startup-timeout 90 --log-file \"$tmp/supervisord.log\" > \"$tmp/higlass.log\" 2>&1 & pid=\"$!\"; ok=0; for i in $(seq 1 90); do if grep -F 'HiGlass is ready.' \"$tmp/higlass.log\" >/dev/null 2>&1 && curl -fsS http://127.0.0.1/api/v1/tilesets/ 2>/dev/null | grep -F '\"count\"' >/dev/null && curl -fsS 'http://127.0.0.1/api/v1/viewconfs/?d=default' 2>/dev/null | grep -F '\"views\"' >/dev/null && curl -fsS http://127.0.0.1/app 2>/dev/null | grep -F 'TAFFISH HiGlass' >/dev/null; then ok=1; break; fi; sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; grep -F 'HiGlass is ready.' \"$tmp/higlass.log\" >/dev/null; grep -F 'http://127.0.0.1:8888/app' \"$tmp/higlass.log\" >/dev/null; test \"$ok\" -eq 1)"
         ],
         "status": "passed",
-        "checked_at": "2026-06-19T00:35:42Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0affe776ff920568426ead0a36e683ca9efa713e",
+            "image_digest": "sha256:2f67a21d819d6d37d9dc49bb030b0a5ce620ecd0bfb9fee91820069cb5447739",
+            "smoke_sha256": "b2edb0b072d136a51a83389baa030a2a3d2d9d0934c7eb2a01a6450c78fc9e63",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e..."
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0affe776ff920568426ead0a36e683ca9efa713e",
+            "image_digest": "sha256:2f67a21d819d6d37d9dc49bb030b0a5ce620ecd0bfb9fee91820069cb5447739",
+            "smoke_sha256": "b2edb0b072d136a51a83389baa030a2a3d2d9d0934c7eb2a01a6450c78fc9e63",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0affe776ff920568426ead0a36e683ca9efa713e",
+            "image_digest": "sha256:2f67a21d819d6d37d9dc49bb030b0a5ce620ecd0bfb9fee91820069cb5447739",
+            "smoke_sha256": "b2edb0b072d136a51a83389baa030a2a3d2d9d0934c7eb2a01a6450c78fc9e63",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-19T00:35:42Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

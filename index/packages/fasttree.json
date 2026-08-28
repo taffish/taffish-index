@@ -103,13 +103,66 @@
           "tmp=/tmp/taf-fasttree-helpers-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\n' '>s1' 'MKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQ' '>s2' 'MKTAYIAKQRQISFVKSYFSRQLEERLGLIEVQ' '>s3' 'MKTAYIAKQRQISFIKSHFSRQLDERLGLIEVQ' '>s4' 'MKTAYIAKQRQISFVKAHFSRQLEERLGLIEVQ' > protein.fa && FastTree -quiet -gamma -log gamma.log protein.fa > tree.nwk 2> run.log && test -s tree.nwk && test -s gamma.log && GammaLogToPaup.pl gamma.log > paup.tsv && grep -F 'Tree' paup.tsv >/dev/null && CompareTree.pl -tree tree.nwk -versus tree.nwk > compare.tsv && grep -F 'Len1' compare.tsv >/dev/null && CompareToBootstrap.pl -tree tree.nwk -boot tree.nwk > boot.nwk && test -s boot.nwk && FastTree -quiet -nosupport -trans /opt/fasttree/share/fasttree/wag.mat protein.fa > trans.nwk 2> trans.log && test -s trans.nwk && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-05-28T10:13:56Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5fce41b024263915c1c1ee2c744e68596d3383e8",
+            "image_digest": "sha256:5197bd90f4e98b08b48213e40b0c48fcd2099a94fee84ef5451827517aec288b",
+            "smoke_sha256": "0760b2fc9b718a0dd6b9592d3744ed5553ad5e5fd0dc384662523ca67fda3d00",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5fce41b024263915c1c1ee2c744e68596d3383e8",
+            "image_digest": "sha256:5197bd90f4e98b08b48213e40b0c48fcd2099a94fee84ef5451827517aec288b",
+            "smoke_sha256": "0760b2fc9b718a0dd6b9592d3744ed5553ad5e5fd0dc384662523ca67fda3d00",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5fce41b024263915c1c1ee2c744e68596d3383e8",
+            "image_digest": "sha256:5197bd90f4e98b08b48213e40b0c48fcd2099a94fee84ef5451827517aec288b",
+            "smoke_sha256": "0760b2fc9b718a0dd6b9592d3744ed5553ad5e5fd0dc384662523ca67fda3d00",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-28T10:13:56Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

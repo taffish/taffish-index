@@ -97,13 +97,66 @@
           "tmp=/tmp/taf-freesasa-cif-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; freesasa --cif --format=xml -o \"$tmp/1ubq.xml\" /opt/freesasa/share/testdata/1ubq.cif >/dev/null; test -s \"$tmp/1ubq.xml\"; grep -F '<results xmlns=\"http://freesasa.github.io/\"' \"$tmp/1ubq.xml\" >/dev/null; grep -F '<area total=' \"$tmp/1ubq.xml\" >/dev/null; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-17T16:18:38Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e527764ae69ebb46cefb5369358563103e2fa25c",
+            "image_digest": "sha256:d911ef05e2d712602efd1311feaa77028c28d9472ca47c9a8ac8b2e3357286c1",
+            "smoke_sha256": "be10dfb5898cd143a00ce3f70bd5f65ae141996324c2b172b1158efd918ac031",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e527764ae69ebb46cefb5369358563103e2fa25c",
+            "image_digest": "sha256:d911ef05e2d712602efd1311feaa77028c28d9472ca47c9a8ac8b2e3357286c1",
+            "smoke_sha256": "be10dfb5898cd143a00ce3f70bd5f65ae141996324c2b172b1158efd918ac031",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e527764ae69ebb46cefb5369358563103e2fa25c",
+            "image_digest": "sha256:d911ef05e2d712602efd1311feaa77028c28d9472ca47c9a8ac8b2e3357286c1",
+            "smoke_sha256": "be10dfb5898cd143a00ce3f70bd5f65ae141996324c2b172b1158efd918ac031",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-17T16:18:38Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

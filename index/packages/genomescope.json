@@ -95,13 +95,66 @@
           "mkdir -p /tmp/taf-genomescope-smoke && cd /tmp/taf-genomescope-smoke && genomescope.R -i /opt/genomescope/tests/inputk21.hist -o output -k 21 --json_report >/tmp/taf-genomescope-smoke.log 2>&1 && test -s output/summary.txt && test -s output/linear_plot.png && test -s output/log_plot.png && test -s output/report.json && grep -F 'Genome Haploid Length' output/summary.txt >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9544eba68cdd9d259253f8d990eb1a1b02e5a9f6",
+            "image_digest": "sha256:42d3b8a47fac43111d744e4a05b35d84844a14449552ce8975da069bd5555efe",
+            "smoke_sha256": "5c417a1ff645cc6c116756dfb8b3555881844566d5572abd31329405baeea549",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9544eba68cdd9d259253f8d990eb1a1b02e5a9f6",
+            "image_digest": "sha256:42d3b8a47fac43111d744e4a05b35d84844a14449552ce8975da069bd5555efe",
+            "smoke_sha256": "5c417a1ff645cc6c116756dfb8b3555881844566d5572abd31329405baeea549",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9544eba68cdd9d259253f8d990eb1a1b02e5a9f6",
+            "image_digest": "sha256:42d3b8a47fac43111d744e4a05b35d84844a14449552ce8975da069bd5555efe",
+            "smoke_sha256": "5c417a1ff645cc6c116756dfb8b3555881844566d5572abd31329405baeea549",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

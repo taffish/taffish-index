@@ -99,13 +99,66 @@
           "mkdir -p /tmp/taf-juicer-pre && cd /tmp/taf-juicer-pre && printf 'chr1\\t10000\\n' > chrom.sizes && printf '0 chr1 100 0 0 chr1 500 1\\n0 chr1 1000 0 0 chr1 1500 1\\n0 chr1 2000 0 0 chr1 2500 1\\n0 chr1 3000 0 0 chr1 3500 1\\n' > contacts.txt && JUICER_TOOLS_JAVA_XMX=512m juicer_tools pre -n -r 1000 contacts.txt tiny.hic chrom.sizes >/dev/null && test -s tiny.hic && JUICER_TOOLS_JAVA_XMX=512m juicer_tools validate tiny.hic 2>&1 | grep -F 'Validation successful' >/dev/null && JUICER_TOOLS_JAVA_XMX=512m juicer_tools dump observed NONE tiny.hic chr1 chr1 BP 1000 dump.txt >/dev/null && grep -F '0\t0\t1.0' dump.txt >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9e277102ec7a2173792089ae7b1d2eed023ac501",
+            "image_digest": "sha256:4ff6d049a4ce00730b44d8cdb665de991bd716ad05999728a568fbe6a4204684",
+            "smoke_sha256": "b530843711925f261f7a24af687834b78df1fe1c78dfddc8558e94e1d56f9061",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9e277102ec7a2173792089ae7b1d2eed023ac501",
+            "image_digest": "sha256:4ff6d049a4ce00730b44d8cdb665de991bd716ad05999728a568fbe6a4204684",
+            "smoke_sha256": "b530843711925f261f7a24af687834b78df1fe1c78dfddc8558e94e1d56f9061",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9e277102ec7a2173792089ae7b1d2eed023ac501",
+            "image_digest": "sha256:4ff6d049a4ce00730b44d8cdb665de991bd716ad05999728a568fbe6a4204684",
+            "smoke_sha256": "b530843711925f261f7a24af687834b78df1fe1c78dfddc8558e94e1d56f9061",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

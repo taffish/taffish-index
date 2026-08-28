@@ -442,13 +442,66 @@
           "tmp=/tmp/taf-esm-fold-missing-$$; rm -rf \"$tmp\" && mkdir -p \"$tmp\" && if TORCH_HOME=\"$tmp\" esm-fold-check-models >\"$tmp/check.log\" 2>&1; then cat \"$tmp/check.log\" >&2; rm -rf \"$tmp\"; exit 1; else grep -F 'missing model weight' \"$tmp/check.log\" >/dev/null && grep -F 'esm-fold-download-models' \"$tmp/check.log\" >/dev/null; fi; status=$?; rm -rf \"$tmp\"; exit \"$status\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-09T01:57:53Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bea52c5f000f73b9c69214bc08c808bbe335c93a",
+            "image_digest": "sha256:5de109528bb1bbce654035d51cce545689787b6e97fc7de75067118ae790083c",
+            "smoke_sha256": "872606d0a94573c3a6d3ca117fee400c754f58d874373443fed7625dc9f263e6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bea52c5f000f73b9c69214bc08c808bbe335c93a",
+            "image_digest": "sha256:5de109528bb1bbce654035d51cce545689787b6e97fc7de75067118ae790083c",
+            "smoke_sha256": "872606d0a94573c3a6d3ca117fee400c754f58d874373443fed7625dc9f263e6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "failed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bea52c5f000f73b9c69214bc08c808bbe335c93a",
+            "image_digest": "sha256:5de109528bb1bbce654035d51cce545689787b6e97fc7de75067118ae790083c",
+            "smoke_sha256": "872606d0a94573c3a6d3ca117fee400c754f58d874373443fed7625dc9f263e6",
+            "provenance": "taffish-index",
+            "failure_kind": "prepare",
+            "message": "failed to pull ghcr.io/taffish/esm-fold@sha256:5de109528bb1bbce654035d51cce545689787b6e97fc7de75067118ae790083c with podman (exit 125): Trying to pull ghcr.io/taffish/esm-fold@sha256:5de109528bb1bbce654035d51cce545689787b6e97fc7de75067118ae790083c...\nGetting image source signatures\nCopying blob sha256:109a48468c4c433e8cbce16773812d111907861b26061c06ac6bf6151032f40d\nCopying blob sha256:5a50897adb412bbfe42a4a359f29ddc5326f731e7d7e0ddb1c459d3a9b7dea72\nCopying blob sha256:5f412bd2f1fc57b0c16288ed4ddc9bc5db33040fdc0fdf7f0e25a9539bd2dce7\nCopying blob sha256:9ecba0f44e3728547597cfb34ee25608bbf2daa19503c1c3bcaecdbcf471db50\nCopying blob sha256:96d54c3075c9eeaed5561fd620828fd6bb5d80ecae7cb25f9ba5f7d88ea6e15c\nCopying blob sha256:784f5ac0..."
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-09T01:57:53Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

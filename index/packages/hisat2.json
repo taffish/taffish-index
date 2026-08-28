@@ -406,13 +406,66 @@
           "mkdir -p /tmp/taf-hisat2-vcf-smoke && cd /tmp/taf-hisat2-vcf-smoke && printf '>chr1\\n' > genome.fa && awk 'BEGIN { for (i = 0; i < 400; i++) printf \"A\"; printf \"\\n\" }' >> genome.fa && printf '##fileformat=VCFv4.2\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\nchr1\\t150\\trs1\\tA\\tC\\t.\\tPASS\\tGENE1;CLNSIG=5\\n' > genotype.vcf && hisat2_extract_snps_haplotypes_VCF.py --reference-type chromosome --genotype-vcf genotype.vcf --genotype-gene-list GENE1 --extra-files genome.fa /dev/null out && grep -F 'rs1' out.clnsig >/dev/null && grep -F 'Pathogenic' out.clnsig >/dev/null && grep -F 'GENE1' out.ref >/dev/null && grep -F '>chr1' out_backbone.fa >/dev/null && test -s genome.fa.fai"
         ],
         "status": "passed",
-        "checked_at": "2026-08-02T01:26:54Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7f950657c6a5a0ae250c1aef95f3ace3fec40464",
+            "image_digest": "sha256:4e502ebb4089dfc82b2d5efecca9bfa83a14caaf2e8fcd69f1a9efaf1b975820",
+            "smoke_sha256": "bc42e55e853c76675d61c54fe8fc619bb2d25d27b28048fef6ea51f3e2aca449",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7f950657c6a5a0ae250c1aef95f3ace3fec40464",
+            "image_digest": "sha256:4e502ebb4089dfc82b2d5efecca9bfa83a14caaf2e8fcd69f1a9efaf1b975820",
+            "smoke_sha256": "bc42e55e853c76675d61c54fe8fc619bb2d25d27b28048fef6ea51f3e2aca449",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7f950657c6a5a0ae250c1aef95f3ace3fec40464",
+            "image_digest": "sha256:4e502ebb4089dfc82b2d5efecca9bfa83a14caaf2e8fcd69f1a9efaf1b975820",
+            "smoke_sha256": "bc42e55e853c76675d61c54fe8fc619bb2d25d27b28048fef6ea51f3e2aca449",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-02T01:26:54Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

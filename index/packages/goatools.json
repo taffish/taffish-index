@@ -109,13 +109,66 @@
           "/opt/goatools/share/testdata/goatools-smoke.sh graphics"
         ],
         "status": "passed",
-        "checked_at": "2026-07-17T02:45:43Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0f2e8dea8e024b00255dea3d297538856d558304",
+            "image_digest": "sha256:dd0a6584cc238f7ab213a227843ffe9d5629095369f09a51d0ca44f1e6099554",
+            "smoke_sha256": "f2a64124a950ce93ecf2741c9a820a16d92cfcbb3f62ae7aa6fd50e3d4a600ba",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0f2e8dea8e024b00255dea3d297538856d558304",
+            "image_digest": "sha256:dd0a6584cc238f7ab213a227843ffe9d5629095369f09a51d0ca44f1e6099554",
+            "smoke_sha256": "f2a64124a950ce93ecf2741c9a820a16d92cfcbb3f62ae7aa6fd50e3d4a600ba",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "failed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0f2e8dea8e024b00255dea3d297538856d558304",
+            "image_digest": "sha256:dd0a6584cc238f7ab213a227843ffe9d5629095369f09a51d0ca44f1e6099554",
+            "smoke_sha256": "f2a64124a950ce93ecf2741c9a820a16d92cfcbb3f62ae7aa6fd50e3d4a600ba",
+            "provenance": "taffish-index",
+            "failure_kind": "prepare",
+            "message": "failed to pull ghcr.io/taffish/goatools@sha256:dd0a6584cc238f7ab213a227843ffe9d5629095369f09a51d0ca44f1e6099554 with podman (exit 125): Trying to pull ghcr.io/taffish/goatools@sha256:dd0a6584cc238f7ab213a227843ffe9d5629095369f09a51d0ca44f1e6099554...\nGetting image source signatures\nCopying blob sha256:9d0fb5854160acf362b4c0e6583a9c636ab3fa7d61878413f23032975429172e\nCopying blob sha256:91b8d4ab0a8cb4e27109badf9069959686507d54115420b7b9bb2ed6169e6477\nCopying blob sha256:b7e97db3511b734f0730a7f3463aaa2199624896a51294e231a742039c1c4086\nCopying blob sha256:278c43479e93864332983d99faf4c21bec1c9b5275e193e1323206cccec888e8\nCopying blob sha256:d728de2ace1baa4b9ffd720e15bf1a803c3f3e54a41dcb3bac7180e85fbde043\nCopying blob sha256:597c6c61..."
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-17T02:45:43Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

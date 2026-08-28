@@ -314,13 +314,66 @@
           "mkdir -p /tmp/taf-hicexplorer-cool && cd /tmp/taf-hicexplorer-cool && python -c 'import cooler, pandas as pd; bins = pd.DataFrame({\"chrom\": [\"chr1\", \"chr1\"], \"start\": [0, 1000], \"end\": [1000, 2000]}); pixels = pd.DataFrame({\"bin1_id\": [0, 0, 1], \"bin2_id\": [0, 1, 1], \"count\": [5, 2, 3]}); cooler.create_cooler(\"tiny.cool\", bins=bins, pixels=pixels, ordered=True)' && hicInfo --matrices tiny.cool | grep -F 'tiny.cool' >/dev/null && hicPlotMatrix --matrix tiny.cool --outFileName tiny.png >/dev/null && test -s tiny.png && hicConvertFormat --matrices tiny.cool --inputFormat cool --outputFormat h5 --outFileName tiny.h5 >/dev/null && test -s tiny.h5 && hicInfo --matrices tiny.h5 | grep -F 'tiny.h5' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "33c1e2d78e16545ad2688bf2612f0c14851803bc",
+            "image_digest": "sha256:c05c641688a7bde35edb40024d3b3a6a88fe1af99d086149475212aae1517069",
+            "smoke_sha256": "2befa98216ecbb7f97501dc671a8aa86a08454c1e41d3f461e6cb952fc6d25fc",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "33c1e2d78e16545ad2688bf2612f0c14851803bc",
+            "image_digest": "sha256:c05c641688a7bde35edb40024d3b3a6a88fe1af99d086149475212aae1517069",
+            "smoke_sha256": "2befa98216ecbb7f97501dc671a8aa86a08454c1e41d3f461e6cb952fc6d25fc",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "33c1e2d78e16545ad2688bf2612f0c14851803bc",
+            "image_digest": "sha256:c05c641688a7bde35edb40024d3b3a6a88fe1af99d086149475212aae1517069",
+            "smoke_sha256": "2befa98216ecbb7f97501dc671a8aa86a08454c1e41d3f461e6cb952fc6d25fc",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

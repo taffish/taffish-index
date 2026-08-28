@@ -106,13 +106,66 @@
           "/opt/isoquant/share/testdata/isoquant-smoke.sh pipeline"
         ],
         "status": "passed",
-        "checked_at": "2026-08-04T04:32:57Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ccc31fbfb655d0239487298f3582d819a841f78e",
+            "image_digest": "sha256:cdbe20675d455ea8d387182a29ef7dde53b87a72c0e55e0e6310f7c431ebb4b2",
+            "smoke_sha256": "a01bdb961f1f8454a2e28da05abaa31eb1f9d2d055bd9c0aeeb5784c68d20d7d",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 99): /opt/isoquant/share/testdata/isoquant-smoke.sh pipeline\nstdout: \nstderr: isoquant-smoke: upstream-toy-pipeline\n"
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ccc31fbfb655d0239487298f3582d819a841f78e",
+            "image_digest": "sha256:cdbe20675d455ea8d387182a29ef7dde53b87a72c0e55e0e6310f7c431ebb4b2",
+            "smoke_sha256": "a01bdb961f1f8454a2e28da05abaa31eb1f9d2d055bd9c0aeeb5784c68d20d7d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ccc31fbfb655d0239487298f3582d819a841f78e",
+            "image_digest": "sha256:cdbe20675d455ea8d387182a29ef7dde53b87a72c0e55e0e6310f7c431ebb4b2",
+            "smoke_sha256": "a01bdb961f1f8454a2e28da05abaa31eb1f9d2d055bd9c0aeeb5784c68d20d7d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-04T04:32:57Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

@@ -121,13 +121,66 @@
           "set -e; tmp=/tmp/taf-homer-find-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>chrSmoke\\nATTGCATCATGGGGATTGCATCAT\\n' > \"$tmp/genome.fa\"; homer2 find -i \"$tmp/genome.fa\" -m /opt/homer/motifs/chop.motif > \"$tmp/sites.txt\" 2> \"$tmp/find.log\"; test -s \"$tmp/sites.txt\"; grep -F 'chrSmoke' \"$tmp/sites.txt\" >/dev/null; grep -F 'ATTGCATCAT' \"$tmp/sites.txt\" >/dev/null; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-20T07:42:48Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0d692cffaecad38791c0e6f0a0f9cc508a688460",
+            "image_digest": "sha256:8c914f802a3b5cd237adc073fc30cc87893656e57387ff6da8a57a96624b7f6a",
+            "smoke_sha256": "3597a2c70b6ea9ab8312aef19d6f03d60559face25d266c9c91818ef83b65813",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0d692cffaecad38791c0e6f0a0f9cc508a688460",
+            "image_digest": "sha256:8c914f802a3b5cd237adc073fc30cc87893656e57387ff6da8a57a96624b7f6a",
+            "smoke_sha256": "3597a2c70b6ea9ab8312aef19d6f03d60559face25d266c9c91818ef83b65813",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "failed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0d692cffaecad38791c0e6f0a0f9cc508a688460",
+            "image_digest": "sha256:8c914f802a3b5cd237adc073fc30cc87893656e57387ff6da8a57a96624b7f6a",
+            "smoke_sha256": "3597a2c70b6ea9ab8312aef19d6f03d60559face25d266c9c91818ef83b65813",
+            "provenance": "taffish-index",
+            "failure_kind": "prepare",
+            "message": "failed to pull ghcr.io/taffish/homer@sha256:8c914f802a3b5cd237adc073fc30cc87893656e57387ff6da8a57a96624b7f6a with podman (exit 125): Trying to pull ghcr.io/taffish/homer@sha256:8c914f802a3b5cd237adc073fc30cc87893656e57387ff6da8a57a96624b7f6a...\nGetting image source signatures\nCopying blob sha256:5566ffc888e66184eade23720e0843d438a94a52a95265480f55d701f7d1e6f9\nCopying blob sha256:21558b4881e323d11d62c87a8406e4916772bc3e734c7304026c7c2f7f434d75\nCopying blob sha256:b9136609bef0128191aa157637b98dd7b98e52154ca60c18258d65957a01c6d0\nCopying blob sha256:9353d9dc2859c281d2f3436447f0266e106eb89fb3720555206b55670ad29f8e\nCopying blob sha256:9b1480be3ad1fe67932d65f81a4bca2f43226c6e4593d365636d180765e87f10\nCopying blob sha256:d3d7b3a777e..."
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-20T07:42:48Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

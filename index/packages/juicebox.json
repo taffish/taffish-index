@@ -103,13 +103,66 @@
           "juicebox-gui --help >/dev/null && (JUICEBOX_JAVA_XMX=512m juicebox-gui --geometry 800x600 >/tmp/taf-juicebox-gui.log 2>&1 & pid=$!; ok=0; i=0; while [ $i -lt 45 ]; do if curl -fs http://127.0.0.1:5801/vnc.html >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill $pid 2>/dev/null || true; wait $pid >/dev/null 2>&1 || true; test $ok -eq 1 && grep -F 'http://127.0.0.1:5801/vnc.html?autoconnect=1&resize=scale' /tmp/taf-juicebox-gui.log >/dev/null && grep -F 'Juicebox GUI is starting.' /tmp/taf-juicebox-gui.log >/dev/null)"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bf63e40b63dbd0e29c8fb2924f478aaccba20e40",
+            "image_digest": "sha256:551c986fbec86d492b6f45d996268cabaf62d7b795c2341ba9e51db229840f12",
+            "smoke_sha256": "9fb51d71446ae22869f09894e0c324be077ec0e80c21209af43f8a30e50cbb4e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bf63e40b63dbd0e29c8fb2924f478aaccba20e40",
+            "image_digest": "sha256:551c986fbec86d492b6f45d996268cabaf62d7b795c2341ba9e51db229840f12",
+            "smoke_sha256": "9fb51d71446ae22869f09894e0c324be077ec0e80c21209af43f8a30e50cbb4e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bf63e40b63dbd0e29c8fb2924f478aaccba20e40",
+            "image_digest": "sha256:551c986fbec86d492b6f45d996268cabaf62d7b795c2341ba9e51db229840f12",
+            "smoke_sha256": "9fb51d71446ae22869f09894e0c324be077ec0e80c21209af43f8a30e50cbb4e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

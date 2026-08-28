@@ -354,13 +354,66 @@
           "mkdir -p /tmp/taf-gatk-cram && cd /tmp/taf-gatk-cram && printf '>chr1\nACGTACGTACGTACGTACGT\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-cram-dict.log 2>&1 && printf '@HD\tVN:1.6\tSO:coordinate\n@SQ\tSN:chr1\tLN:20\n@RG\tID:rg1\tSM:sample1\nread1\t0\tchr1\t5\t60\t10M\t*\t0\t0\tACGTACGTAC\tFFFFFFFFFF\tRG:Z:rg1\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk PrintReads -R ref.fa -I reads.bam -O out.cram --output-cram-version 3.1 >/tmp/taf-gatk-cram.log 2>&1 && test -s out.cram && python3 -c \"from pathlib import Path; assert Path('out.cram').read_bytes()[:6] == b'CRAM\\x03\\x01'\" && samtools view -T ref.fa -H out.cram | grep -F '@SQ' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-08-18T09:16:03Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9dd30c6d5c6b971249944db807d6372048226029",
+            "image_digest": "sha256:7fa512ae0d4f4799d0ba204af5b1fb02f14608cf3c683b680ba56448aae02463",
+            "smoke_sha256": "c5d93627c03401b481193dfa26912bd8e969b46239181aeb8712ae6d53b81825",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9dd30c6d5c6b971249944db807d6372048226029",
+            "image_digest": "sha256:7fa512ae0d4f4799d0ba204af5b1fb02f14608cf3c683b680ba56448aae02463",
+            "smoke_sha256": "c5d93627c03401b481193dfa26912bd8e969b46239181aeb8712ae6d53b81825",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9dd30c6d5c6b971249944db807d6372048226029",
+            "image_digest": "sha256:7fa512ae0d4f4799d0ba204af5b1fb02f14608cf3c683b680ba56448aae02463",
+            "smoke_sha256": "c5d93627c03401b481193dfa26912bd8e969b46239181aeb8712ae6d53b81825",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-18T09:16:03Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

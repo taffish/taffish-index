@@ -246,13 +246,66 @@
           "mkdir -p /tmp/taf-evidencemodeler-smoke && cd /tmp/taf-evidencemodeler-smoke && cp -a /opt/evidencemodeler/testing/. . && EVidenceModeler --sample_id smalltest --genome genome.fasta --weights weights.txt --gene_predictions gene_predictions.gff3 --protein_alignments protein_alignments.gff3 --transcript_alignments transcript_alignments.gff3 --segmentSize 100000 --overlapSize 10000 --CPU 1 >/tmp/taf-evidencemodeler-smoke.log 2>&1 && test -s smalltest.EVM.gff3 && test -s smalltest.EVM.pep && test -s smalltest.EVM.cds && test -s smalltest.EVM.bed && grep -F 'evm.TU' smalltest.EVM.gff3 >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e4cb9b248fdae1080827f9488586b352b38a22a0",
+            "image_digest": "sha256:868c520933923fb429da6136732c20db2bd611a5d2d457a08ccf30152aeeafe3",
+            "smoke_sha256": "8f13ed83aad7471356811915c2b711fda37b1ded942b6b3c12e52bc928bbb8fd",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e4cb9b248fdae1080827f9488586b352b38a22a0",
+            "image_digest": "sha256:868c520933923fb429da6136732c20db2bd611a5d2d457a08ccf30152aeeafe3",
+            "smoke_sha256": "8f13ed83aad7471356811915c2b711fda37b1ded942b6b3c12e52bc928bbb8fd",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e4cb9b248fdae1080827f9488586b352b38a22a0",
+            "image_digest": "sha256:868c520933923fb429da6136732c20db2bd611a5d2d457a08ccf30152aeeafe3",
+            "smoke_sha256": "8f13ed83aad7471356811915c2b711fda37b1ded942b6b3c12e52bc928bbb8fd",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

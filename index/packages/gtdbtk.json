@@ -124,13 +124,66 @@
           "tmp=/tmp/taf-gtdbtk-no-db-$$; rm -rf \"$tmp\" && mkdir -p \"$tmp/genomes\" && printf '>tiny\\nATGAAATAA\\n' > \"$tmp/genomes/tiny.fna\" && if gtdbtk classify_wf --genome_dir \"$tmp/genomes\" --out_dir \"$tmp/out\" --cpus 1 >\"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; else grep -F 'The GTDB-Tk reference data does not exist or is corrupted.' \"$tmp/run.log\" >/dev/null && grep -F 'GTDBTK_DATA_PATH=/refdata/' \"$tmp/run.log\" >/dev/null && test ! -e \"$tmp/out/gtdbtk.bac120.summary.tsv\"; fi; status=$?; rm -rf \"$tmp\"; exit \"$status\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-07T07:44:15Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "33432a9ca0b33d9a0ff3c5d52aaecd975762d109",
+            "image_digest": "sha256:653d082155e0b182ad477ac29cdacbb35709f455d985770201e315c101e3f348",
+            "smoke_sha256": "218cd0b885141b1397910865ddcd62e2d4cf521a5798f12ffacc81748b2fa1dd",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "33432a9ca0b33d9a0ff3c5d52aaecd975762d109",
+            "image_digest": "sha256:653d082155e0b182ad477ac29cdacbb35709f455d985770201e315c101e3f348",
+            "smoke_sha256": "218cd0b885141b1397910865ddcd62e2d4cf521a5798f12ffacc81748b2fa1dd",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "33432a9ca0b33d9a0ff3c5d52aaecd975762d109",
+            "image_digest": "sha256:653d082155e0b182ad477ac29cdacbb35709f455d985770201e315c101e3f348",
+            "smoke_sha256": "218cd0b885141b1397910865ddcd62e2d4cf521a5798f12ffacc81748b2fa1dd",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-07T07:44:15Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

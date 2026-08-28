@@ -93,13 +93,66 @@
           "tmp=/tmp/taf-doubletdetection-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/doubletdetection/share/testdata/doubletdetection_smoke.py \"$tmp/out\" && test -s \"$tmp/out/doubletdetection.doublet_scores.tsv\" && test -s \"$tmp/out/doubletdetection.annotated.h5ad\" && test -s \"$tmp/out/doubletdetection.convergence.png\" && test -s \"$tmp/out/doubletdetection.threshold.png\" && test -s \"$tmp/out/versions.tsv\" && grep -F 'predicted_doublet' \"$tmp/out/doubletdetection.doublet_scores.tsv\" >/dev/null && grep -F 'doubletdetection' \"$tmp/out/versions.tsv\" >/dev/null && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-05T02:10:08Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T05:13:06Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1f2c80f2678cfbcd81403c20cca9e6b72dac18fa",
+            "image_digest": "sha256:4447b77a49d49fb8f5669350bda31a3071017d68b07e3680c23c128687fa013e",
+            "smoke_sha256": "d155c934359b350f57269830a8b17fbbd65473cd15efaabdcdce52619a183d2e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1f2c80f2678cfbcd81403c20cca9e6b72dac18fa",
+            "image_digest": "sha256:4447b77a49d49fb8f5669350bda31a3071017d68b07e3680c23c128687fa013e",
+            "smoke_sha256": "d155c934359b350f57269830a8b17fbbd65473cd15efaabdcdce52619a183d2e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T05:13:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1f2c80f2678cfbcd81403c20cca9e6b72dac18fa",
+            "image_digest": "sha256:4447b77a49d49fb8f5669350bda31a3071017d68b07e3680c23c128687fa013e",
+            "smoke_sha256": "d155c934359b350f57269830a8b17fbbd65473cd15efaabdcdce52619a183d2e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-05T02:10:08Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T05:09:46Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
