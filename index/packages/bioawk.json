@@ -98,13 +98,66 @@
           "tmp=/tmp/taf-bioawk-vcf-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; trap 'rm -rf \"$tmp\"' EXIT; cd \"$tmp\"; printf '##fileformat=VCFv4.2\\n#CHROM\\tPOS\\tID\\tREF\\tALT\\tQUAL\\tFILTER\\tINFO\\tfoo\\tbar\\nchr1\\t12\\t.\\tA\\tG\\t.\\tPASS\\t.\\t0/1\\t1/1\\n' > in.vcf; printf '{print $chrom\":\"$pos\":\"$ref\">\"$alt}\\n' > vcf.awk; bioawk -c vcf -f vcf.awk in.vcf > vcf.txt; grep -Fx 'chr1:12:A>G' vcf.txt >/dev/null; printf '{print $_CHROM\":\"$POS\":\"$foo\":\"$bar}\\n' > hdr.awk; grep -v '^##' in.vcf | bioawk -tc hdr -f hdr.awk > hdr.txt; grep -Fx 'chr1:12:0/1:1/1' hdr.txt >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-07-01T04:36:12Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "cfd78f88447c7dc31c4d9c62d7d8e9207f2f915f",
+            "image_digest": "sha256:2378ba5461d569607f07847552861a58a633677ed72039878ae5bb79b5155b29",
+            "smoke_sha256": "4369b6ba78d185d8fc87c3cf4c63f822105519325f49ea7eaea209560e573c8c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "cfd78f88447c7dc31c4d9c62d7d8e9207f2f915f",
+            "image_digest": "sha256:2378ba5461d569607f07847552861a58a633677ed72039878ae5bb79b5155b29",
+            "smoke_sha256": "4369b6ba78d185d8fc87c3cf4c63f822105519325f49ea7eaea209560e573c8c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "cfd78f88447c7dc31c4d9c62d7d8e9207f2f915f",
+            "image_digest": "sha256:2378ba5461d569607f07847552861a58a633677ed72039878ae5bb79b5155b29",
+            "smoke_sha256": "4369b6ba78d185d8fc87c3cf4c63f822105519325f49ea7eaea209560e573c8c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-01T04:36:12Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

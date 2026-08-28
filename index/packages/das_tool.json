@@ -125,13 +125,66 @@
           "das-tool-smoke provenance"
         ],
         "status": "passed",
-        "checked_at": "2026-08-12T04:39:17Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "36bdb6fec194289b307e889efdec9254bc6931a6",
+            "image_digest": "sha256:46131066a41825cd00126da5c51e1fe2c9b66199a77661ef4d8572ecbce08f48",
+            "smoke_sha256": "b4b3f53622cca7027fbebb28f7ea57012d4329fcc9c89deb3e43ee81cd27f46c",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 1): das-tool-smoke pipeline\nstdout: \nstderr: DAS Tool 1.1.7 \nAnalyzing assembly \nPredicting genes \nAnnotating single copy genes using diamond \nWarning:  No SCGs detected for SCG set: archaea \nError in write.table(message, file = filename, sep = \"\\t\", col.names = F,  : \n  Error writing to connection:  No space left on device\nCalls: write.log -> write.table\nExecution halted\nDAS Tool 1.1.7 \n2026-08-28 03:16:26 \n\nParameters: \n--bins\t/opt/das_tool/share/testdata/tiny/tiny.concoct.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.maxbin2.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.metabat.contigs2bin.tsv,/opt/das_tool/share/tes..."
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "36bdb6fec194289b307e889efdec9254bc6931a6",
+            "image_digest": "sha256:46131066a41825cd00126da5c51e1fe2c9b66199a77661ef4d8572ecbce08f48",
+            "smoke_sha256": "b4b3f53622cca7027fbebb28f7ea57012d4329fcc9c89deb3e43ee81cd27f46c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "36bdb6fec194289b307e889efdec9254bc6931a6",
+            "image_digest": "sha256:46131066a41825cd00126da5c51e1fe2c9b66199a77661ef4d8572ecbce08f48",
+            "smoke_sha256": "b4b3f53622cca7027fbebb28f7ea57012d4329fcc9c89deb3e43ee81cd27f46c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-12T04:39:17Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

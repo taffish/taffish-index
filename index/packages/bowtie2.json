@@ -114,13 +114,66 @@
           "printf '>ref\\nACGTACGTTGCAAGTCGATCGTACGATCGTTAACCGGTTAACCGGTT\\n' >/tmp/taf-bowtie2-ref.fa && bowtie2-build /tmp/taf-bowtie2-ref.fa /tmp/taf-bowtie2-ref >/dev/null && printf '@read1\\nTGCAAGTCGATCGTACGATCGTTAACCGGTTA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' >/tmp/taf-bowtie2-read.fq && gzip -c /tmp/taf-bowtie2-read.fq >/tmp/taf-bowtie2-read.fq.gz && bzip2 -c /tmp/taf-bowtie2-read.fq >/tmp/taf-bowtie2-read.fq.bz2 && bowtie2 -x /tmp/taf-bowtie2-ref -U /tmp/taf-bowtie2-read.fq.gz -S /tmp/taf-bowtie2-gz.sam --quiet && grep -v '^@' /tmp/taf-bowtie2-gz.sam | awk '$3!=\"*\"{found=1} END{exit !found}' && bowtie2 -x /tmp/taf-bowtie2-ref -U /tmp/taf-bowtie2-read.fq.bz2 -S /tmp/taf-bowtie2-bz2.sam --quiet && grep -v '^@' /tmp/taf-bowtie2-bz2.sam | awk '$3!=\"*\"{found=1} END{exit !found}' && bowtie2-inspect -n /tmp/taf-bowtie2-ref | grep -Fx ref >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "aed37dd5e60ff98695167d6c53baf972cbb5c92d",
+            "image_digest": "sha256:b93d81981c48721596864683d5890e6dc018a3aad23b92c8db83e0b20d0c5f28",
+            "smoke_sha256": "acdacd071a68cd12ced04250b203094b3fa70458de13d2b8eae6f804055fc8b0",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "aed37dd5e60ff98695167d6c53baf972cbb5c92d",
+            "image_digest": "sha256:b93d81981c48721596864683d5890e6dc018a3aad23b92c8db83e0b20d0c5f28",
+            "smoke_sha256": "acdacd071a68cd12ced04250b203094b3fa70458de13d2b8eae6f804055fc8b0",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "aed37dd5e60ff98695167d6c53baf972cbb5c92d",
+            "image_digest": "sha256:b93d81981c48721596864683d5890e6dc018a3aad23b92c8db83e0b20d0c5f28",
+            "smoke_sha256": "acdacd071a68cd12ced04250b203094b3fa70458de13d2b8eae6f804055fc8b0",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

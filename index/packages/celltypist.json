@@ -94,13 +94,66 @@
           "tmp=/tmp/taf-celltypist-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/celltypist/share/testdata/celltypist_smoke.py \"$tmp/out\" && test -s \"$tmp/out/celltypist_model.pkl\" && test -s \"$tmp/out/celltypist_predictions.tsv\" && test -s \"$tmp/out/celltypist_annotated.h5ad\" && test -s \"$tmp/out/versions.tsv\" && grep -F 'predicted_labels' \"$tmp/out/celltypist_predictions.tsv\" >/dev/null && grep -F 'celltypist' \"$tmp/out/versions.tsv\" >/dev/null && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-04T16:45:30Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3ed4498e24eb427d039124b7ae994e464c88006a",
+            "image_digest": "sha256:5851f9bd852fdf3e94e854574f9440465e5c5f285297565a60cf7312336fa12f",
+            "smoke_sha256": "04bfce880bb93582be23445fbb374dfe5ebf35278e47c0294a5747fc49a5f455",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3ed4498e24eb427d039124b7ae994e464c88006a",
+            "image_digest": "sha256:5851f9bd852fdf3e94e854574f9440465e5c5f285297565a60cf7312336fa12f",
+            "smoke_sha256": "04bfce880bb93582be23445fbb374dfe5ebf35278e47c0294a5747fc49a5f455",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3ed4498e24eb427d039124b7ae994e464c88006a",
+            "image_digest": "sha256:5851f9bd852fdf3e94e854574f9440465e5c5f285297565a60cf7312336fa12f",
+            "smoke_sha256": "04bfce880bb93582be23445fbb374dfe5ebf35278e47c0294a5747fc49a5f455",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-04T16:45:30Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

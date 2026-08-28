@@ -221,13 +221,66 @@
           "tmp=/tmp/taf-bioviz-tree-circ-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\n' '((a:0.1,b:0.2):0.3,(c:0.2,d:0.4):0.1);' > tree.nwk && bioviz-tree --tree tree.nwk --layout circular --formats png --hide-tip-labels --outdir out && test -s out/tree.png && grep -F 'layout\tcircular' out/tree_plot_summary.tsv >/dev/null && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-05-28T16:28:56Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a9aa03ac50b490b1af4aa743b2dbc27d686c7e85",
+            "image_digest": "sha256:4a5a8801604c250267026e61c81b2a3b3c56dbfc3f39a59310a7b268ac5268e8",
+            "smoke_sha256": "8eb7ef366497cb826c6d68a3664a02cfafa1093ebe11257086fc22ba906e7355",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a9aa03ac50b490b1af4aa743b2dbc27d686c7e85",
+            "image_digest": "sha256:4a5a8801604c250267026e61c81b2a3b3c56dbfc3f39a59310a7b268ac5268e8",
+            "smoke_sha256": "8eb7ef366497cb826c6d68a3664a02cfafa1093ebe11257086fc22ba906e7355",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a9aa03ac50b490b1af4aa743b2dbc27d686c7e85",
+            "image_digest": "sha256:4a5a8801604c250267026e61c81b2a3b3c56dbfc3f39a59310a7b268ac5268e8",
+            "smoke_sha256": "8eb7ef366497cb826c6d68a3664a02cfafa1093ebe11257086fc22ba906e7355",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-28T16:28:56Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

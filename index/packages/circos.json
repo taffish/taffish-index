@@ -107,13 +107,66 @@
           "taf-circos-smoke | grep -F 'circos.png' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "493d8cd48436f8e134fbd0ee3ed4e995914b3124",
+            "image_digest": "sha256:9c62acb3de2ee9b991448dfaf513335ee91270033ea4fe4a5771e9a4c57d48cb",
+            "smoke_sha256": "4188fd6dc24790943f315ae8c10e614b0bd257ef268069795a091ddc00b7842f",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "493d8cd48436f8e134fbd0ee3ed4e995914b3124",
+            "image_digest": "sha256:9c62acb3de2ee9b991448dfaf513335ee91270033ea4fe4a5771e9a4c57d48cb",
+            "smoke_sha256": "4188fd6dc24790943f315ae8c10e614b0bd257ef268069795a091ddc00b7842f",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "failed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "493d8cd48436f8e134fbd0ee3ed4e995914b3124",
+            "image_digest": "sha256:9c62acb3de2ee9b991448dfaf513335ee91270033ea4fe4a5771e9a4c57d48cb",
+            "smoke_sha256": "4188fd6dc24790943f315ae8c10e614b0bd257ef268069795a091ddc00b7842f",
+            "provenance": "taffish-index",
+            "failure_kind": "prepare",
+            "message": "failed to pull ghcr.io/taffish/circos@sha256:9c62acb3de2ee9b991448dfaf513335ee91270033ea4fe4a5771e9a4c57d48cb with podman (exit 125): Trying to pull ghcr.io/taffish/circos@sha256:9c62acb3de2ee9b991448dfaf513335ee91270033ea4fe4a5771e9a4c57d48cb...\nGetting image source signatures\nCopying blob sha256:226f2d5296b540411231224de27388bfe3cd7d3eec3d49ec68677950fa407b41\nCopying blob sha256:70b113dcdd1f9d8001de845034d517a7e13658bbb1af1028cab8281164b1b3be\nCopying blob sha256:794f53a287c629f820bbafae19b5674c6760f2fa85f0db7c6ed187e88fc3329d\nCopying blob sha256:c818b91ad4075a329d0a2d99e69f861e741912f7685cc4a899e4774c8ee4220e\nCopying blob sha256:9b02e9fcb40102eae20d9d1fc7594b44328f4a3eb9b8a3bdb7db283d10840a30\nCopying blob sha256:c3386916bc..."
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

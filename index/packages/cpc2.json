@@ -96,13 +96,66 @@
           "mkdir -p /tmp/taf-cpc2-orf-test && cd /tmp/taf-cpc2-orf-test && printf '>coding\\nATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG\\n' > input.fa && CPC2.py -i input.fa -o cpc2-orf --ORF >/dev/null && test -s cpc2-orf.txt && head -n 1 cpc2-orf.txt | grep -F 'ORF_Start' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "007aff10f8cc9a28d09046aaf16f34cb372a3f34",
+            "image_digest": "sha256:3cf38137b206f2799e6b35bc1988080023e313656e11ca1af1527a22f021c202",
+            "smoke_sha256": "c0df3dd7e4198944587114bff4cc1edefca2e68d75ccc4187f7a9a871dc76ce7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "007aff10f8cc9a28d09046aaf16f34cb372a3f34",
+            "image_digest": "sha256:3cf38137b206f2799e6b35bc1988080023e313656e11ca1af1527a22f021c202",
+            "smoke_sha256": "c0df3dd7e4198944587114bff4cc1edefca2e68d75ccc4187f7a9a871dc76ce7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "007aff10f8cc9a28d09046aaf16f34cb372a3f34",
+            "image_digest": "sha256:3cf38137b206f2799e6b35bc1988080023e313656e11ca1af1527a22f021c202",
+            "smoke_sha256": "c0df3dd7e4198944587114bff4cc1edefca2e68d75ccc4187f7a9a871dc76ce7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

@@ -101,13 +101,66 @@
           "python -c 'import numpy as np, pandas as pd; from deepbgc.models.hmm import DiscreteHMM; model=DiscreteHMM()._construct_model(np.array([0.9,0.1]), np.array([[0.9,0.1],[0.1,0.9]]), np.array([[0.8,0.2,0.5],[0.2,0.8,0.5]]), {\"PF00001\":0,\"PF00002\":1}); pred=model.predict(pd.DataFrame({\"pfam_id\":[\"PF00001\",\"PF00002\",\"PF99999\"]})); assert len(pred)==3; assert pred.notnull().all(); print(\"deepbgc-hmm-ok\", round(float(pred.iloc[0]), 6))' 2>&1 | grep -F 'deepbgc-hmm-ok' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-06-04T02:48:03Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b085cacb78db8dea6f821b56751316224d7ff2d7",
+            "image_digest": "sha256:60f1233d0a812957595ab026e570803e147acd2335ef5459d9d2fce44b768b29",
+            "smoke_sha256": "722417aa3917762c957d0b3d339b80a7c3629ad21d963faff9971cc6a935cca7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b085cacb78db8dea6f821b56751316224d7ff2d7",
+            "image_digest": "sha256:60f1233d0a812957595ab026e570803e147acd2335ef5459d9d2fce44b768b29",
+            "smoke_sha256": "722417aa3917762c957d0b3d339b80a7c3629ad21d963faff9971cc6a935cca7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b085cacb78db8dea6f821b56751316224d7ff2d7",
+            "image_digest": "sha256:60f1233d0a812957595ab026e570803e147acd2335ef5459d9d2fce44b768b29",
+            "smoke_sha256": "722417aa3917762c957d0b3d339b80a7c3629ad21d963faff9971cc6a935cca7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-04T02:48:03Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

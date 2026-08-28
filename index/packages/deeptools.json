@@ -118,13 +118,66 @@
           "tmp=/tmp/taf-deeptools-bigwig-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; data=/opt/deeptools/share/testdata; bamCoverage -b \"$data/sample1.bam\" -o sample1.bw --binSize 10 --numberOfProcessors 1 && bamCoverage -b \"$data/sample2.bam\" -o sample2.bw --binSize 10 --numberOfProcessors 1 && test -s sample1.bw && test -s sample2.bw && multiBigwigSummary bins -b sample1.bw sample2.bw -out bigwig_summary.npz --binSize 100 --numberOfProcessors 1 && test -s bigwig_summary.npz && computeMatrix scale-regions -S sample1.bw sample2.bw -R \"$data/regions.bed\" -o matrix.gz --regionBodyLength 100 --beforeRegionStartLength 0 --afterRegionStartLength 0 --numberOfProcessors 1 && test -s matrix.gz && plotHeatmap -m matrix.gz -out heatmap.png && plotProfile -m matrix.gz -out profile.png && test -s heatmap.png && test -s profile.png && bigwigAverage -b sample1.bw sample2.bw -o average.bw && bigwigCompare -b1 sample1.bw -b2 sample2.bw -o compare.bw && test -s average.bw && test -s compare.bw && cd / && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-05-26T07:07:53Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3c0703dd30c1920a5012928e94c0522c86526e26",
+            "image_digest": "sha256:0cc2a014ac8cf250e9a90b4994883b52e18165ec448131ead38a14fc84d13bf1",
+            "smoke_sha256": "863dc54df08735205474d122a73a2e0c4e052071e31db24b9527659c7d80875a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3c0703dd30c1920a5012928e94c0522c86526e26",
+            "image_digest": "sha256:0cc2a014ac8cf250e9a90b4994883b52e18165ec448131ead38a14fc84d13bf1",
+            "smoke_sha256": "863dc54df08735205474d122a73a2e0c4e052071e31db24b9527659c7d80875a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3c0703dd30c1920a5012928e94c0522c86526e26",
+            "image_digest": "sha256:0cc2a014ac8cf250e9a90b4994883b52e18165ec448131ead38a14fc84d13bf1",
+            "smoke_sha256": "863dc54df08735205474d122a73a2e0c4e052071e31db24b9527659c7d80875a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-26T07:07:53Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

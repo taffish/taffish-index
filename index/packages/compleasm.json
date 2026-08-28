@@ -477,13 +477,66 @@
           "tmp=/tmp/taf-compleasm-miniprot-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nATGAAAACCGCTTACATTGCTAAACAACGTCAAATTTCTTTTGTTAAATCTCATTTTTCTCGTCAACTGGAAGAACGTCTGGGTCTGATTGAAGTTCAAGCTAATAAT\\n' > genome.fa; printf '>prot1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > proteins.faa; compleasm miniprot -a genome.fa -p proteins.faa -o miniprot-out -t 1 >/dev/null; test -s miniprot-out/miniprot_output.gff; test -e miniprot-out/miniprot.done"
         ],
         "status": "passed",
-        "checked_at": "2026-07-25T17:23:37Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b36e50e402706672c15b5e5e9e6ccf926fc19655",
+            "image_digest": "sha256:73b659df0a26ba25af715ef18d28ad30a19b140a35963a0172411a3fbd5982ce",
+            "smoke_sha256": "f7a34ae431760c5bbb6700fddc279890b4ff41aba3928a3251c88a20a602f763",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b36e50e402706672c15b5e5e9e6ccf926fc19655",
+            "image_digest": "sha256:73b659df0a26ba25af715ef18d28ad30a19b140a35963a0172411a3fbd5982ce",
+            "smoke_sha256": "f7a34ae431760c5bbb6700fddc279890b4ff41aba3928a3251c88a20a602f763",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b36e50e402706672c15b5e5e9e6ccf926fc19655",
+            "image_digest": "sha256:73b659df0a26ba25af715ef18d28ad30a19b140a35963a0172411a3fbd5982ce",
+            "smoke_sha256": "f7a34ae431760c5bbb6700fddc279890b4ff41aba3928a3251c88a20a602f763",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-25T17:23:37Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

@@ -97,13 +97,66 @@
           "mkdir -p /tmp/taf-cellxgene-smoke && cd /tmp/taf-cellxgene-smoke && python -c 'import anndata as ad, numpy as np, pandas as pd; X=np.array([[1,0,2],[0,1,3],[2,1,0]], dtype=\"float32\"); obs=pd.DataFrame({\"cell_type\": pd.Categorical([\"a\", \"b\", \"a\"])}, index=[\"cell1\", \"cell2\", \"cell3\"]); var=pd.DataFrame(index=[\"GeneA\", \"GeneB\", \"GeneC\"]); adata=ad.AnnData(X=X, obs=obs, var=var); adata.obsm[\"X_umap\"]=np.array([[0,0],[1,0],[0,1]], dtype=\"float32\"); adata.write_h5ad(\"tiny.h5ad\")' && (cellxgene-service --dataset tiny.h5ad > /tmp/taf-cellxgene-service.log 2>&1 & pid=\"$!\"; ok=0; i=0; while [ \"$i\" -lt 60 ]; do if curl -fs http://127.0.0.1:5005/ >/dev/null 2>&1 && curl -fs -H 'Accept: application/octet-stream' 'http://127.0.0.1:5005/api/v0.2/layout/obs?layout-name=umap' >/dev/null 2>&1 && curl -fs -H 'Accept: application/octet-stream' 'http://127.0.0.1:5005/api/v0.2/annotations/obs?annotation-name=cell_type' >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" >/dev/null 2>&1 || true; grep -F 'http://127.0.0.1:5005/' /tmp/taf-cellxgene-service.log >/dev/null; test \"$ok\" -eq 1)"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "027ec7b26aed30ffe54f995e9d40806a29e0414c",
+            "image_digest": "sha256:5feaf273fb81d74b8843ff709236b5ade90df7cd90d55079ff6b5c3510d8df20",
+            "smoke_sha256": "478bbb32624d0a713677f74a64cd307dc743df6729eb17c327614b1d4b4ad3ed",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "027ec7b26aed30ffe54f995e9d40806a29e0414c",
+            "image_digest": "sha256:5feaf273fb81d74b8843ff709236b5ade90df7cd90d55079ff6b5c3510d8df20",
+            "smoke_sha256": "478bbb32624d0a713677f74a64cd307dc743df6729eb17c327614b1d4b4ad3ed",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "027ec7b26aed30ffe54f995e9d40806a29e0414c",
+            "image_digest": "sha256:5feaf273fb81d74b8843ff709236b5ade90df7cd90d55079ff6b5c3510d8df20",
+            "smoke_sha256": "478bbb32624d0a713677f74a64cd307dc743df6729eb17c327614b1d4b4ad3ed",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

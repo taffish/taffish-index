@@ -105,13 +105,66 @@
           "tmp=/tmp/taf-bracken-workflow-$$; rm -rf \"$tmp\"; /opt/bracken/test-fixtures/bracken_smoke.sh \"$tmp\" && test -s \"$tmp/sample.bracken\" && test -s \"$tmp/sample.bracken.report\" && test -s \"$tmp/combined.tsv\" && test -s \"$tmp/tiny.kmer_distrib\" && grep -F 'Escherichia coli' \"$tmp/sample.bracken\" >/dev/null && grep -F 'S1_num' \"$tmp/combined.tsv\" >/dev/null && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-06T03:14:13Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:59:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8ef035b1ab736a91243f581d0975761b5172cfd2",
+            "image_digest": "sha256:2bfec8676ce87bf952be33a6bb3c77721722e24eacc46c767281cb02b032eac9",
+            "smoke_sha256": "db21aaf7faad0a33bb33913a61c44360a2dd129cf2b94ebded38a57375123253",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8ef035b1ab736a91243f581d0975761b5172cfd2",
+            "image_digest": "sha256:2bfec8676ce87bf952be33a6bb3c77721722e24eacc46c767281cb02b032eac9",
+            "smoke_sha256": "db21aaf7faad0a33bb33913a61c44360a2dd129cf2b94ebded38a57375123253",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:59:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8ef035b1ab736a91243f581d0975761b5172cfd2",
+            "image_digest": "sha256:2bfec8676ce87bf952be33a6bb3c77721722e24eacc46c767281cb02b032eac9",
+            "smoke_sha256": "db21aaf7faad0a33bb33913a61c44360a2dd129cf2b94ebded38a57375123253",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-06T03:14:13Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:56:35Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
