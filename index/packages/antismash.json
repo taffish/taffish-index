@@ -100,13 +100,66 @@
           "tmp=/tmp/taf-antismash-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python3 -c 'print(\">tiny\\n\" + \"ATG\" + \"GCT\" * 998 + \"TAA\")' > \"$tmp/tiny.fa\"; antismash --taxon bacteria --genefinding-tool prodigal --minimal --output-dir \"$tmp/out\" \"$tmp/tiny.fa\" >/tmp/taf-antismash-smoke.log 2>&1; find \"$tmp/out\" -type f -name \"*.json\" | grep -q .; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-02T02:27:38Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:26:38Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:26:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e38892ebf748a9196f45415c012e70c772e4c5a2",
+            "image_digest": "sha256:9783f4d89ef03bce1bc7d9e58339b95130cc2416c88ae518d24eedcf61173cdc",
+            "smoke_sha256": "02f3655849f257c4cb395844f2b5da8a50fbc0df6b443fa3260900c5dfbacb02",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:26:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e38892ebf748a9196f45415c012e70c772e4c5a2",
+            "image_digest": "sha256:9783f4d89ef03bce1bc7d9e58339b95130cc2416c88ae518d24eedcf61173cdc",
+            "smoke_sha256": "02f3655849f257c4cb395844f2b5da8a50fbc0df6b443fa3260900c5dfbacb02",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "failed",
+            "checked_at": "2026-08-28T01:26:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e38892ebf748a9196f45415c012e70c772e4c5a2",
+            "image_digest": "sha256:9783f4d89ef03bce1bc7d9e58339b95130cc2416c88ae518d24eedcf61173cdc",
+            "smoke_sha256": "02f3655849f257c4cb395844f2b5da8a50fbc0df6b443fa3260900c5dfbacb02",
+            "provenance": "taffish-index",
+            "failure_kind": "prepare",
+            "message": "failed to pull ghcr.io/taffish/antismash@sha256:9783f4d89ef03bce1bc7d9e58339b95130cc2416c88ae518d24eedcf61173cdc with podman (exit 125): Trying to pull ghcr.io/taffish/antismash@sha256:9783f4d89ef03bce1bc7d9e58339b95130cc2416c88ae518d24eedcf61173cdc...\nGetting image source signatures\nCopying blob sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1\nCopying blob sha256:ff488f9fb330753a33c8428a9a6f2141e538ba51fbba18669fe1c984a66a18d9\nCopying blob sha256:16568b24f2a48324b087ac1bebb244801fe1561d020a07d247224bed98fc7305\nCopying blob sha256:1521e3cb9026eeba8bb8470f3671392919e2d2f34ffa3a5e52a1b1c95d66535d\nCopying blob sha256:cdd62bf39133c498a16f7a7b1b6555ba43d02b2511c508fa4c0a9b1975ffe20e\nCopying blob sha256:4f4fb70..."
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-02T02:27:38Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:22:17Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

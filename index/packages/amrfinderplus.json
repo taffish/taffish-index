@@ -108,13 +108,66 @@
           "tmp=/tmp/taf-amrfinderplus-missing-db-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>tiny\\nMKKFFDSRREQQLKELNQ\\n' > \"$tmp/tiny.faa\"; if amrfinder -p \"$tmp/tiny.faa\" --database \"$tmp/no-db\" > \"$tmp/run.log\" 2>&1; then cat \"$tmp/run.log\" >&2; exit 1; fi; grep -Ei 'database|directory|No such|not found' \"$tmp/run.log\" >/dev/null; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-21T04:45:34Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:26:38Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:26:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b9dbacaf781987128cf74dae2eddab49d9b65ee0",
+            "image_digest": "sha256:b9508ce4600a0ce17bb02273ac0f84a8f5cfab1841a4dae5f5a40a17d410aa34",
+            "smoke_sha256": "f3a8ba67190d916e500192aad96982339861665affa30c8d2dc179806c83a31d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:26:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b9dbacaf781987128cf74dae2eddab49d9b65ee0",
+            "image_digest": "sha256:b9508ce4600a0ce17bb02273ac0f84a8f5cfab1841a4dae5f5a40a17d410aa34",
+            "smoke_sha256": "f3a8ba67190d916e500192aad96982339861665affa30c8d2dc179806c83a31d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:26:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b9dbacaf781987128cf74dae2eddab49d9b65ee0",
+            "image_digest": "sha256:b9508ce4600a0ce17bb02273ac0f84a8f5cfab1841a4dae5f5a40a17d410aa34",
+            "smoke_sha256": "f3a8ba67190d916e500192aad96982339861665affa30c8d2dc179806c83a31d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-21T04:45:34Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:22:17Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

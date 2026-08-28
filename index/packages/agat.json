@@ -99,13 +99,66 @@
           "mkdir -p /tmp/taf-agat-statistics && cd /tmp/taf-agat-statistics && printf '##gff-version 3\\nchr1\\tProdigal\\tCDS\\t1\\t9\\t.\\t+\\t0\\tID=cds1;locus_tag=gene1;product=hypothetical protein\\n' > input.gff3 && agat_convert_sp_gxf2gxf.pl --gff input.gff3 -o fixed.gff3 >/tmp/taf-agat-statistics-gxf.log 2>&1 && agat_sp_statistics.pl --gff fixed.gff3 -o statistics.txt >/tmp/taf-agat-statistics.log 2>&1 && test -s statistics.txt && grep -F 'Number of gene' statistics.txt >/dev/null && samtools --version 2>&1 | grep -F 'samtools' >/dev/null && Rscript --version 2>&1 | grep -F 'Rscript' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T01:26:38Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:26:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df1cddbd3a79b2ca80512f98673f5c69ec2f5b75",
+            "image_digest": "sha256:f3a8fdd713d899a1be9083eb5bdb40301701fd0649f2989c6f1f2286d38471bc",
+            "smoke_sha256": "fbd7fc2098ba218a565789d6e277329a039509cd111fbb3c4ea92fd3e22439b4",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:26:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df1cddbd3a79b2ca80512f98673f5c69ec2f5b75",
+            "image_digest": "sha256:f3a8fdd713d899a1be9083eb5bdb40301701fd0649f2989c6f1f2286d38471bc",
+            "smoke_sha256": "fbd7fc2098ba218a565789d6e277329a039509cd111fbb3c4ea92fd3e22439b4",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T01:26:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df1cddbd3a79b2ca80512f98673f5c69ec2f5b75",
+            "image_digest": "sha256:f3a8fdd713d899a1be9083eb5bdb40301701fd0649f2989c6f1f2286d38471bc",
+            "smoke_sha256": "fbd7fc2098ba218a565789d6e277329a039509cd111fbb3c4ea92fd3e22439b4",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T01:22:17Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
