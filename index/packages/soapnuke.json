@@ -100,13 +100,66 @@
           "Rscript /opt/soapnuke/Rscripts/Q20Q30.R 2>&1 | grep -F 'Usage:' >/dev/null && Rscript /opt/soapnuke/Rscripts/base.R 2>&1 | grep -F 'Usage:' >/dev/null && Rscript /opt/soapnuke/Rscripts/quality.R 2>&1 | grep -F 'Usage:' >/dev/null && test -s /opt/soapnuke/share/doc/Readme.md && grep -F 'SOAPnuke is released under' /opt/soapnuke/share/doc/Readme.md >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T11:23:36Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8efbef4a5d95ee22cb0ddec65e318181ef4cb823",
+            "image_digest": "sha256:88bddd2890bd95a829eb942e9931226367f068edd2d87d0d6820f3477ce18fd0",
+            "smoke_sha256": "3612e5be39abaf9ebb5e7cdbef362b2dfee07e97a6a367a59af8650024bd5966",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8efbef4a5d95ee22cb0ddec65e318181ef4cb823",
+            "image_digest": "sha256:88bddd2890bd95a829eb942e9931226367f068edd2d87d0d6820f3477ce18fd0",
+            "smoke_sha256": "3612e5be39abaf9ebb5e7cdbef362b2dfee07e97a6a367a59af8650024bd5966",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8efbef4a5d95ee22cb0ddec65e318181ef4cb823",
+            "image_digest": "sha256:88bddd2890bd95a829eb942e9931226367f068edd2d87d0d6820f3477ce18fd0",
+            "smoke_sha256": "3612e5be39abaf9ebb5e7cdbef362b2dfee07e97a6a367a59af8650024bd5966",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T11:20:23Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

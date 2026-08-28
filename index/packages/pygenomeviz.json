@@ -246,13 +246,66 @@
           "tmp=/tmp/taf-pygenomeviz-gui-$$; mkdir -p \"$tmp\"; cd \"$tmp\"; pygenomeviz-gui --port 8501 --host-port 8501 >gui.out 2>&1 & pid=\"$!\"; ok=0; i=0; while [ \"$i\" -lt 60 ]; do if curl -fs http://127.0.0.1:8501/ >/dev/null 2>&1; then ok=1; break; fi; i=$((i + 1)); sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" >/dev/null 2>&1 || true; test \"$ok\" -eq 1; grep -F 'http://127.0.0.1:8501/' gui.out >/dev/null; grep -F 'Press Ctrl-C to stop this GUI session.' gui.out >/dev/null; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-19T01:40:29Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T11:23:36Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3adb9ba2ede0ee650ce924202f605135d5598a93",
+            "image_digest": "sha256:8205c6e460af48ef710f4fb3ceaf07a984fb42300daadce7987f47be78993418",
+            "smoke_sha256": "2780830199be04fa97eb6b523f4c1f89af595ca1926fd515fbc321a6e3e19f51",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3adb9ba2ede0ee650ce924202f605135d5598a93",
+            "image_digest": "sha256:8205c6e460af48ef710f4fb3ceaf07a984fb42300daadce7987f47be78993418",
+            "smoke_sha256": "2780830199be04fa97eb6b523f4c1f89af595ca1926fd515fbc321a6e3e19f51",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3adb9ba2ede0ee650ce924202f605135d5598a93",
+            "image_digest": "sha256:8205c6e460af48ef710f4fb3ceaf07a984fb42300daadce7987f47be78993418",
+            "smoke_sha256": "2780830199be04fa97eb6b523f4c1f89af595ca1926fd515fbc321a6e3e19f51",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-19T01:40:29Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T11:20:23Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

@@ -444,13 +444,66 @@
           "tmp=/tmp/taf-rseqc-qual-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@r1\\nACGTACGT\\n+\\nIIIIIIII\\n@r2\\nACGTTCGT\\n+\\nHHHHIIII\\n@r3\\nACGTGCGT\\n+\\nGGGGHHHH\\n@r4\\nACGTCCGT\\n+\\nFFFFGGGG\\n' > reads.fq && sc_seqQual.py -i reads.fq -o qual --file-type png --no-num > qual.out 2>&1 && test -s qual.qual_count.csv && test -s qual.qual_percent.csv && test -s qual.qual_heatmap.png && grep -F 'Index' qual.qual_count.csv >/dev/null && python -c 'import pysam; header={\"HD\":{\"VN\":\"1.6\",\"SO\":\"coordinate\"},\"SQ\":[{\"SN\":\"chr1\",\"LN\":1000}]}; out=pysam.AlignmentFile(\"edits.bam\",\"wb\",header=header); a=pysam.AlignedSegment(); a.query_name=\"edit1\"; a.query_sequence=\"ACGTACGT\"; a.flag=0; a.reference_id=0; a.reference_start=100; a.mapping_quality=60; a.cigar=[(0,8)]; a.query_qualities=pysam.qualitystring_to_array(\"I\"*8); a.set_tags([(\"CR\",\"AAAA\"),(\"CB\",\"AACA\"),(\"UR\",\"TTTT\"),(\"UB\",\"TTGT\"),(\"RE\",\"E\"),(\"TX\",\"tx1\"),(\"xf\",1)]); out.write(a); out.close(); pysam.index(\"edits.bam\")' && sc_editMatrix.py -i edits.bam -o edits --skip-heatmap > edits.out 2>&1 && test -s edits.CB_edits_count.csv && test -s edits.UMI_edits_count.csv && test ! -e edits.CB_edits_heatmap.png && test ! -e edits.UMI_edits_heatmap.png && sc_bamStat.py -i edits.bam > scbam.out 2> scbam.err && grep -F 'Total_mapped_reads:' scbam.out >/dev/null && grep -F 'Confidently_mapped_reads:' scbam.out >/dev/null && test -s All_reads_uniqID.txt && test -s confident_reads_uniqID.txt && test ! -e chr1.all_reads_id.txt && test ! -e chr1.confident_reads_id.txt && cd / && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-07-28T09:26:08Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T11:23:36Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df943fb6104a576fc49c57c7dc7d4847340b5605",
+            "image_digest": "sha256:c1615d2940dea72d85b040e172621445a41ee2eb1bba75c6108e1fff86939a8c",
+            "smoke_sha256": "de2edce3d0a3e8f3f184b1998a937215d63feb12ffd6e86b8e364c49f8d3a8c8",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df943fb6104a576fc49c57c7dc7d4847340b5605",
+            "image_digest": "sha256:c1615d2940dea72d85b040e172621445a41ee2eb1bba75c6108e1fff86939a8c",
+            "smoke_sha256": "de2edce3d0a3e8f3f184b1998a937215d63feb12ffd6e86b8e364c49f8d3a8c8",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "failed",
+            "checked_at": "2026-08-28T11:23:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df943fb6104a576fc49c57c7dc7d4847340b5605",
+            "image_digest": "sha256:c1615d2940dea72d85b040e172621445a41ee2eb1bba75c6108e1fff86939a8c",
+            "smoke_sha256": "de2edce3d0a3e8f3f184b1998a937215d63feb12ffd6e86b8e364c49f8d3a8c8",
+            "provenance": "taffish-index",
+            "failure_kind": "prepare",
+            "message": "failed to pull ghcr.io/taffish/rseqc@sha256:c1615d2940dea72d85b040e172621445a41ee2eb1bba75c6108e1fff86939a8c with podman (exit 125): Trying to pull ghcr.io/taffish/rseqc@sha256:c1615d2940dea72d85b040e172621445a41ee2eb1bba75c6108e1fff86939a8c...\nGetting image source signatures\nCopying blob sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1\nCopying blob sha256:2e78339beeb274596923f0de0beb14c6d9ccfd2745f708d6827f6173922018f4\nCopying blob sha256:8357438c336b699b8ddf62df89f04ac18a4cb22bcf2ef1d5ac06fd5faf9e19c9\nCopying blob sha256:c74b9a1d80c84c649647c903bdba7b383e1b34cb2b05c5b093f934bb248ae41e\nCopying blob sha256:597c6c618d36213af657a6a8444a5d87801f9a219682b206ad21ccb8f3e57bbd\nCopying blob sha256:52f9b9c2768..."
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-28T09:26:08Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T11:20:23Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

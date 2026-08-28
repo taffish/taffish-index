@@ -222,13 +222,66 @@
           "mkdir -p /tmp/taf-stringtie-expression/sample1 && cd /tmp/taf-stringtie-expression && printf 'sample1\\t/tmp/taf-stringtie-expression/sample1/sample.gtf\\n' > samples.txt && stringtie -e -B -G /opt/stringtie/tests/human-chr19_P.gff -o sample1/sample.gtf /opt/stringtie/tests/long_reads.bam >/tmp/taf-stringtie-expression/run.log 2>&1 && test -s sample1/sample.gtf && test -s sample1/t_data.ctab && grep -F 'TPM' sample1/sample.gtf >/dev/null && prepDE.py3 -i samples.txt -g gene_count_matrix.csv -t transcript_count_matrix.csv >/tmp/taf-stringtie-expression/prepde.log 2>&1 && test -s gene_count_matrix.csv && test -s transcript_count_matrix.csv && grep -F 'gene_id' gene_count_matrix.csv >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-24T02:00:08Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T11:23:36Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4d5f430ca8581d7cc2c44a2cdcf250a4afa31dcf",
+            "image_digest": "sha256:0d532974419f488b3bc864525b6c854dbcf94c01ad05ae40eb8ff9e20512a2ae",
+            "smoke_sha256": "7e13b338f55a8af18d15dbf9007a54935af00de39bb0ff97009b524734ec2174",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4d5f430ca8581d7cc2c44a2cdcf250a4afa31dcf",
+            "image_digest": "sha256:0d532974419f488b3bc864525b6c854dbcf94c01ad05ae40eb8ff9e20512a2ae",
+            "smoke_sha256": "7e13b338f55a8af18d15dbf9007a54935af00de39bb0ff97009b524734ec2174",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4d5f430ca8581d7cc2c44a2cdcf250a4afa31dcf",
+            "image_digest": "sha256:0d532974419f488b3bc864525b6c854dbcf94c01ad05ae40eb8ff9e20512a2ae",
+            "smoke_sha256": "7e13b338f55a8af18d15dbf9007a54935af00de39bb0ff97009b524734ec2174",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-24T02:00:08Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T11:20:23Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

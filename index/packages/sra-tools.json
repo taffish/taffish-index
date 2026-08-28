@@ -115,13 +115,66 @@
           "mkdir -p /tmp/taf-sra-test && HOME=/tmp/taf-sra-test test-sra +s+c -X text 2>&1 | grep -F 'NCBI SRA Toolkit release version: 3.4.1.' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T11:23:36Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "fff86ff25f015bfa83b2d623b6a966ad2e2541f8",
+            "image_digest": "sha256:c1eabfe3529e04afdb797eed456f99f632d43ffd7d89cdd951a031c962a07ad2",
+            "smoke_sha256": "5936f1e5c284c6a842e288dc4ede373ae7bda9321c03c586bd599318526be1aa",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "fff86ff25f015bfa83b2d623b6a966ad2e2541f8",
+            "image_digest": "sha256:c1eabfe3529e04afdb797eed456f99f632d43ffd7d89cdd951a031c962a07ad2",
+            "smoke_sha256": "5936f1e5c284c6a842e288dc4ede373ae7bda9321c03c586bd599318526be1aa",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "fff86ff25f015bfa83b2d623b6a966ad2e2541f8",
+            "image_digest": "sha256:c1eabfe3529e04afdb797eed456f99f632d43ffd7d89cdd951a031c962a07ad2",
+            "smoke_sha256": "5936f1e5c284c6a842e288dc4ede373ae7bda9321c03c586bd599318526be1aa",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T11:20:23Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

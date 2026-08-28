@@ -113,13 +113,66 @@
           "qupath-smoke errors"
         ],
         "status": "passed",
-        "checked_at": "2026-08-21T16:14:33Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T11:23:36Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T11:23:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9037a6ef38c0c62cf67f63d0d218d27606db27d3",
+            "image_digest": "sha256:735de58f3237bdb8e8e0071f468a0dc3197ae8d0ff23ec19191d0462c6e93f1d",
+            "smoke_sha256": "c78b2c1d9b390fbea5c604f7d2451eb2b174f124637bacd2e20425e7b30b1f93",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 255): qupath-smoke core\nstdout: \nstderr: "
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9037a6ef38c0c62cf67f63d0d218d27606db27d3",
+            "image_digest": "sha256:735de58f3237bdb8e8e0071f468a0dc3197ae8d0ff23ec19191d0462c6e93f1d",
+            "smoke_sha256": "c78b2c1d9b390fbea5c604f7d2451eb2b174f124637bacd2e20425e7b30b1f93",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9037a6ef38c0c62cf67f63d0d218d27606db27d3",
+            "image_digest": "sha256:735de58f3237bdb8e8e0071f468a0dc3197ae8d0ff23ec19191d0462c6e93f1d",
+            "smoke_sha256": "c78b2c1d9b390fbea5c604f7d2451eb2b174f124637bacd2e20425e7b30b1f93",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-21T16:14:33Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T11:20:23Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

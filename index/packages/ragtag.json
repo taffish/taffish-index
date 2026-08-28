@@ -120,13 +120,66 @@
           "tmp=/tmp/taf-ragtag-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; python3 -c 'import random; random.seed(7); seq = \"\".join(random.choice(\"ACGT\") for _ in range(30000)); open(\"ref.fa\", \"w\").write(\">ref\\n\" + seq + \"\\n\"); open(\"query.fa\", \"w\").write(\">ctg1\\n\" + seq + \"\\n\")'; ragtag.py scaffold -f 1000 -t 1 -o mm2 ref.fa query.fa > mm2.log 2>&1 || { cat mm2.log >&2; exit 1; }; test -s mm2/ragtag.scaffold.agp; test -s mm2/ragtag.scaffold.fasta; grep -F 'ctg1' mm2/ragtag.scaffold.agp >/dev/null; ragtag.py agpcheck mm2/ragtag.scaffold.agp > agpcheck.txt 2>&1; grep -F 'complete with no errors' agpcheck.txt >/dev/null; ragtag.py asmstats mm2/ragtag.scaffold.fasta > asmstats.tsv; grep -F 'N50' asmstats.tsv >/dev/null; ragtag.py scaffold --aligner nucmer --nucmer-params '--maxmatch -l 100 -c 500' -f 1000 -o nucmer ref.fa query.fa > nucmer.log 2>&1 || { cat nucmer.log >&2; exit 1; }; test -s nucmer/ragtag.scaffold.agp; unimap -b24 -c ref.fa query.fa > unimap.paf 2> unimap.log || { cat unimap.log >&2; exit 1; }; test -s unimap.paf; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-16T06:05:38Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T11:23:36Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f9e89f4dec71d408722a4448c1fc661e65e07707",
+            "image_digest": "sha256:8826fa1c105cdea7438f956cbe226c80d9b1041159605ad47d4f0efbe5f8753d",
+            "smoke_sha256": "2859a1317a992fe04ac093c64a96695c757249181c9a2e696754c7314b2a207d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f9e89f4dec71d408722a4448c1fc661e65e07707",
+            "image_digest": "sha256:8826fa1c105cdea7438f956cbe226c80d9b1041159605ad47d4f0efbe5f8753d",
+            "smoke_sha256": "2859a1317a992fe04ac093c64a96695c757249181c9a2e696754c7314b2a207d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f9e89f4dec71d408722a4448c1fc661e65e07707",
+            "image_digest": "sha256:8826fa1c105cdea7438f956cbe226c80d9b1041159605ad47d4f0efbe5f8753d",
+            "smoke_sha256": "2859a1317a992fe04ac093c64a96695c757249181c9a2e696754c7314b2a207d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-16T06:05:38Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T11:20:23Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

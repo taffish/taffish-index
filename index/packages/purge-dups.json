@@ -106,13 +106,66 @@
           "tmp=/tmp/taf-purge-dups-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>ctg1\\nAAAACCCCGGGGTTTTAAAACCCC\\n>ctg2\\nAAAAGGGGCCCCAAAAGGGGCCCC\\n' > asm.fa; split_fa asm.fa > asm.split.fa; grep -F '>ctg1:1-24' asm.split.fa >/dev/null; printf 'read1\\t24\\t0\\t24\\t+\\tctg1\\t24\\t0\\t24\\t24\\t24\\t60\\nread2\\t24\\t0\\t24\\t+\\tctg2\\t24\\t0\\t24\\t24\\t24\\t60\\n' > reads.paf; pbcstat reads.paf >/dev/null 2>&1; test -s PB.stat; test -s PB.base.cov; grep -F '>ctg1' PB.base.cov >/dev/null; printf '1\\t1\\n2\\t20\\n3\\t15\\n4\\t3\\n' > stat.in; calcuts -l 1 -m 2 -u 5 stat.in > cutoffs; awk \"NR==1 && \\$1==1 && \\$6==5 {ok=1} END{exit ok?0:1}\" cutoffs; purge_dups -T cutoffs -c PB.base.cov reads.paf > dups.bed 2> purge.log; grep -F '[M::main] finish sorting' purge.log >/dev/null; grep -F 'JUNK' dups.bed >/dev/null; get_seqs -p out dups.bed asm.fa; test -s out.hap.fa; grep -F '>hap_ctg1 JUNK' out.hap.fa >/dev/null; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-11T11:22:42Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T11:23:36Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a51ceb0ed6373e46c0e4054894611c96106f7cc7",
+            "image_digest": "sha256:7527a0276572314381df417cc989572ff829e8260556ba0aa6880bba1d719b38",
+            "smoke_sha256": "4d202c41bc80994d87b8c6210209ac80a6ccefe3a4b582be55ee8d47318b641b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a51ceb0ed6373e46c0e4054894611c96106f7cc7",
+            "image_digest": "sha256:7527a0276572314381df417cc989572ff829e8260556ba0aa6880bba1d719b38",
+            "smoke_sha256": "4d202c41bc80994d87b8c6210209ac80a6ccefe3a4b582be55ee8d47318b641b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T11:23:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a51ceb0ed6373e46c0e4054894611c96106f7cc7",
+            "image_digest": "sha256:7527a0276572314381df417cc989572ff829e8260556ba0aa6880bba1d719b38",
+            "smoke_sha256": "4d202c41bc80994d87b8c6210209ac80a6ccefe3a4b582be55ee8d47318b641b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-11T11:22:42Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T11:20:23Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
