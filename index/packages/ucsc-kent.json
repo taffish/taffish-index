@@ -121,13 +121,66 @@
           "mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2392c639b97ec9dd2efc0fb8e10f52ead9271304",
+            "image_digest": "sha256:2644469af28b6299df2203209aa22c1a6557924c5002f73983e986ab4dafa987",
+            "smoke_sha256": "ce48b0894f51337de663212b2820ea499ccf751bd2421254d14010b7408668e6",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140469882880608'"
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2392c639b97ec9dd2efc0fb8e10f52ead9271304",
+            "image_digest": "sha256:2644469af28b6299df2203209aa22c1a6557924c5002f73983e986ab4dafa987",
+            "smoke_sha256": "ce48b0894f51337de663212b2820ea499ccf751bd2421254d14010b7408668e6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2392c639b97ec9dd2efc0fb8e10f52ead9271304",
+            "image_digest": "sha256:2644469af28b6299df2203209aa22c1a6557924c5002f73983e986ab4dafa987",
+            "smoke_sha256": "ce48b0894f51337de663212b2820ea499ccf751bd2421254d14010b7408668e6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

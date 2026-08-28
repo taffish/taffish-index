@@ -96,13 +96,66 @@
           "tmp=/tmp/taf-trimal-backtrans-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cp /opt/trimal/share/doc/trimal/dataset/example.091.AA.strNOG.ENOG411BWBU.fasta \"$tmp/aa.fa\" && cp /opt/trimal/share/doc/trimal/dataset/example.091.AA.strNOG.ENOG411BWBU.codon.fa \"$tmp/codon.fa\" && trimal -in \"$tmp/aa.fa\" -backtrans \"$tmp/codon.fa\" -out \"$tmp/backtrans.fa\" -automated1 && test -s \"$tmp/backtrans.fa\" && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-05-25T15:12:21Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f557c5cf48301d692689088c350a5b02d7260a5f",
+            "image_digest": "sha256:2dcf1344cb057ed47b208401c721c522cfd2d03c98fb1b75ca2c10727c9dabc5",
+            "smoke_sha256": "a8a459084219e7f40bdeeb1da7404a96d68c29cdec6b1755b483881317fcfb07",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f557c5cf48301d692689088c350a5b02d7260a5f",
+            "image_digest": "sha256:2dcf1344cb057ed47b208401c721c522cfd2d03c98fb1b75ca2c10727c9dabc5",
+            "smoke_sha256": "a8a459084219e7f40bdeeb1da7404a96d68c29cdec6b1755b483881317fcfb07",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f557c5cf48301d692689088c350a5b02d7260a5f",
+            "image_digest": "sha256:2dcf1344cb057ed47b208401c721c522cfd2d03c98fb1b75ca2c10727c9dabc5",
+            "smoke_sha256": "a8a459084219e7f40bdeeb1da7404a96d68c29cdec6b1755b483881317fcfb07",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-25T15:12:21Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

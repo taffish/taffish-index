@@ -569,13 +569,66 @@
           "tmp=\"$(mktemp -d)\"; report-render new --outdir \"$tmp/example\" --force >/dev/null; report-render render --spec \"$tmp/example/report.toml\" --root \"$tmp/example\" --out \"$tmp/example/04_reports/report.html\" --force --validate >/dev/null; test -s \"$tmp/example/04_reports/report.html\"; grep -F 'data-template=\"taffish-flow-report\"' \"$tmp/example/04_reports/report.html\" >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-08-09T06:52:41Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "cac961ed0bbbce42425136e69949e9006ccd1093",
+            "image_digest": "sha256:047b981df30465363a21dfad3ef665af448fc1cf720d816f5ab545e0795d57e3",
+            "smoke_sha256": "9180d6159a63b5dd884b0d382e0f4d3a9d1575944f0252253309ba003e3c7c2a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "cac961ed0bbbce42425136e69949e9006ccd1093",
+            "image_digest": "sha256:047b981df30465363a21dfad3ef665af448fc1cf720d816f5ab545e0795d57e3",
+            "smoke_sha256": "9180d6159a63b5dd884b0d382e0f4d3a9d1575944f0252253309ba003e3c7c2a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "cac961ed0bbbce42425136e69949e9006ccd1093",
+            "image_digest": "sha256:047b981df30465363a21dfad3ef665af448fc1cf720d816f5ab545e0795d57e3",
+            "smoke_sha256": "9180d6159a63b5dd884b0d382e0f4d3a9d1575944f0252253309ba003e3c7c2a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-09T06:52:41Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

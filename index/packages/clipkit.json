@@ -579,13 +579,66 @@
           "python -c 'from clipkit import clipkit; run, stats = clipkit(raw_alignment=\">stop\\nATGTAAACCTGA\\n>control\\nATGCAAACCCAA\\n\", mode=\"gappy\", gaps=0.9, sequence_type=\"nt\", codon=True, remove_stop_codons=\"all\"); assert str(run.trimmed[0].seq) == \"ATG---ACC---\"; assert run.stop_codon_masking.summary == {\"mode\": \"all\", \"terminal_masked\": 1, \"internal_masked\": 1, \"total_masked\": 2}; assert stats.output_length == 12'"
         ],
         "status": "passed",
-        "checked_at": "2026-07-18T14:22:20Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "28b6c97313aa75ed0d9f55e24a60886aa17ea549",
+            "image_digest": "sha256:ee25a972d4aa2be22958b16905090dd3121d81a1bd350af6424ba9081d8d0e6e",
+            "smoke_sha256": "0671dcd72ee2e9940ae281442d0f734133db6d693f9b8728cd256c72d6ebc90c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "28b6c97313aa75ed0d9f55e24a60886aa17ea549",
+            "image_digest": "sha256:ee25a972d4aa2be22958b16905090dd3121d81a1bd350af6424ba9081d8d0e6e",
+            "smoke_sha256": "0671dcd72ee2e9940ae281442d0f734133db6d693f9b8728cd256c72d6ebc90c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "28b6c97313aa75ed0d9f55e24a60886aa17ea549",
+            "image_digest": "sha256:ee25a972d4aa2be22958b16905090dd3121d81a1bd350af6424ba9081d8d0e6e",
+            "smoke_sha256": "0671dcd72ee2e9940ae281442d0f734133db6d693f9b8728cd256c72d6ebc90c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-18T14:22:20Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

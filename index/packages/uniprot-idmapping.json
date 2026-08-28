@@ -92,13 +92,66 @@
           "tmp=/tmp/taf-uniprot-idmapping-page-smoke-$$; portfile=${tmp}.port; rm -rf \"$tmp\" \"$portfile\"; mkdir -p \"$tmp\"; python3 /opt/uniprot-idmapping/tests/mock_uniprot_server.py \"$portfile\" & pid=$!; trap 'kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; rm -rf \"$tmp\" \"$portfile\"' EXIT; i=0; while [ ! -s \"$portfile\" ]; do i=$((i + 1)); if [ \"$i\" -gt 50 ]; then exit 1; fi; sleep 0.1; done; cd \"$tmp\" && printf 'P00720\\n' > ids.txt && uniprot-idmapping --base-url \"http://127.0.0.1:$(cat \"$portfile\")\" -i ids.txt -o out.csv --task mapping --from UniProtKB_AC-ID --to UniProtKB --stream False --size 1 && test -s out.csv && grep -F 'LYSC_CHICK' out.csv >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bf944e9ee80164347d5261388d926e2972de78f5",
+            "image_digest": "sha256:35cdddedaf29fdcff1d18654c86b59316d39f1c33f3e9b0fc3b57a6be944e71d",
+            "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139755508017264'"
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bf944e9ee80164347d5261388d926e2972de78f5",
+            "image_digest": "sha256:35cdddedaf29fdcff1d18654c86b59316d39f1c33f3e9b0fc3b57a6be944e71d",
+            "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bf944e9ee80164347d5261388d926e2972de78f5",
+            "image_digest": "sha256:35cdddedaf29fdcff1d18654c86b59316d39f1c33f3e9b0fc3b57a6be944e71d",
+            "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

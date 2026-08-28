@@ -126,13 +126,66 @@
           "tmp=/tmp/taf-vcftools-index-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\\n' '##fileformat=VCFv4.2' '##contig=<ID=chr1,length=1000>' '##INFO=<ID=DP,Number=1,Type=Integer,Description=\"Depth\">' '##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">' '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ts1\ts2' 'chr1\t10\trs1\tA\tG\t50\tPASS\tDP=10\tGT\t0/0\t0/1' 'chr1\t20\trs2\tC\tT\t60\tPASS\tDP=12\tGT\t0/1\t0/0' > tiny.vcf && bgzip -c tiny.vcf > tiny.vcf.gz && tabix -p vcf tiny.vcf.gz && vcf-isec -n +1 tiny.vcf.gz > isec.vcf && grep -F 'rs1' isec.vcf >/dev/null && vcf-compare tiny.vcf.gz tiny.vcf.gz > compare.txt && grep -F 'Number of REF matches' compare.txt >/dev/null && perl -e 'print \">chr1\\n\", \"A\"x19, \"C\", \"A\"x30, \"\\n\"' > ref.fa && samtools faidx ref.fa && samtools faidx ref.fa chr1:1-20 | vcf-consensus tiny.vcf.gz > consensus.fa && grep -F '>chr1:1-20' consensus.fa >/dev/null && gnuplot --version | grep -F 'gnuplot' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "cf79aa073f41783a19a205291650f4318a5b84d3",
+            "image_digest": "sha256:fc504602abbffe3634656d8c0fa09720dfdd4c7571481faecef476018d50b92b",
+            "smoke_sha256": "fd13e27acf100d9f0f5850227f2039e02f8e10e62fa8aec5599bdcee67ca1d0d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "cf79aa073f41783a19a205291650f4318a5b84d3",
+            "image_digest": "sha256:fc504602abbffe3634656d8c0fa09720dfdd4c7571481faecef476018d50b92b",
+            "smoke_sha256": "fd13e27acf100d9f0f5850227f2039e02f8e10e62fa8aec5599bdcee67ca1d0d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "cf79aa073f41783a19a205291650f4318a5b84d3",
+            "image_digest": "sha256:fc504602abbffe3634656d8c0fa09720dfdd4c7571481faecef476018d50b92b",
+            "smoke_sha256": "fd13e27acf100d9f0f5850227f2039e02f8e10e62fa8aec5599bdcee67ca1d0d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

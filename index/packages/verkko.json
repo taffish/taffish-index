@@ -102,13 +102,66 @@
           "tmp=/tmp/taf-verkko-dryrun-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@hifi1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n@hifi2\\nTGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCATGCA\\n+\\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\\n' > hifi.fq && taf-verkko-run -d asm --hifi hifi.fq --snakeopts --dry-run --cores 1 > dryrun.log 2>&1 && test -s asm/verkko.yml && grep -F 'hifi.fq' asm/verkko.yml >/dev/null && grep -E 'Building DAG|Job stats|rule' dryrun.log >/dev/null && cd / && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-05-25T05:18:55Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e4fd59ff7b4fb0f1d65668bd662e7c3f1b73e2dc",
+            "image_digest": "sha256:75ad619eb33cc557225f45affbe5cad40426740e81349730d5e01d6292ae5ab6",
+            "smoke_sha256": "c888cec67fef4011c32d1594d2d9c762e63a8a4096407ce3465212e79794e9b4",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e4fd59ff7b4fb0f1d65668bd662e7c3f1b73e2dc",
+            "image_digest": "sha256:75ad619eb33cc557225f45affbe5cad40426740e81349730d5e01d6292ae5ab6",
+            "smoke_sha256": "c888cec67fef4011c32d1594d2d9c762e63a8a4096407ce3465212e79794e9b4",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e4fd59ff7b4fb0f1d65668bd662e7c3f1b73e2dc",
+            "image_digest": "sha256:75ad619eb33cc557225f45affbe5cad40426740e81349730d5e01d6292ae5ab6",
+            "smoke_sha256": "c888cec67fef4011c32d1594d2d9c762e63a8a4096407ce3465212e79794e9b4",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-25T05:18:55Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

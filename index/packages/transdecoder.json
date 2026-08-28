@@ -114,13 +114,66 @@
           "set -eu; tmp=/tmp/taf-transdecoder-homology-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; gunzip -c /opt/transdecoder/sample_data/cufflinks_example/test.genome.fasta.gz > \"$tmp/test.genome.fasta\"; gunzip -c /opt/transdecoder/sample_data/cufflinks_example/transcripts.gtf.gz > \"$tmp/transcripts.gtf\"; gunzip -c /opt/transdecoder/sample_data/cufflinks_example/mini_sprot.db.pep.gz > \"$tmp/mini_sprot.db.pep\"; gunzip -c /opt/transdecoder/sample_data/cufflinks_example/mini_Pfam-A.hmm.gz > \"$tmp/mini_Pfam-A.hmm\"; TransDecoder --genome \"$tmp/test.genome.fasta\" --gtf \"$tmp/transcripts.gtf\" --blast_search_pep \"$tmp/mini_sprot.db.pep\" --blast_tool diamond --blast_threads 1 --pfam-search-db \"$tmp/mini_Pfam-A.hmm\" -m 50 -T 50 --single_best_only --no_refine_starts -O \"$tmp/out\" > \"$tmp/run.log\" 2>&1; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder.pep\"; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder.gff3\"; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder.genome.gff3\"; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder_dir/blastp.outfmt6\"; test -s \"$tmp/out/transcripts.cDNA.fasta.transdecoder_dir/pfam.domtblout\"; grep -F 'mRNA' \"$tmp/out/transcripts.cDNA.fasta.transdecoder.genome.gff3\" >/dev/null; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-05-29T07:45:27Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ccbd7713f79226b5e1de503b3dc5061636b9dd99",
+            "image_digest": "sha256:b2ebf27b49d2297123558517c7f8d3c336ce3668377bc3cae4970d12db129f00",
+            "smoke_sha256": "32c477b32c7c2d378e8e3d4dd10c7b513b4f9fd3af0cde58184633f44988b741",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ccbd7713f79226b5e1de503b3dc5061636b9dd99",
+            "image_digest": "sha256:b2ebf27b49d2297123558517c7f8d3c336ce3668377bc3cae4970d12db129f00",
+            "smoke_sha256": "32c477b32c7c2d378e8e3d4dd10c7b513b4f9fd3af0cde58184633f44988b741",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ccbd7713f79226b5e1de503b3dc5061636b9dd99",
+            "image_digest": "sha256:b2ebf27b49d2297123558517c7f8d3c336ce3668377bc3cae4970d12db129f00",
+            "smoke_sha256": "32c477b32c7c2d378e8e3d4dd10c7b513b4f9fd3af0cde58184633f44988b741",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-29T07:45:27Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

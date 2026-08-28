@@ -144,13 +144,66 @@
           "virsorter2-smoke db-helper"
         ],
         "status": "passed",
-        "checked_at": "2026-08-24T17:28:21Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e6444d42706be69730b5811740bb78e6a53b1424",
+            "image_digest": "sha256:9c0d96e55801318e96404c65e014f05b765701488847e19981f692044593d223",
+            "smoke_sha256": "9cf1e617e6ceed9106c0245c4fe26fb58fb2732f758931a50823fe0d79777ca7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e6444d42706be69730b5811740bb78e6a53b1424",
+            "image_digest": "sha256:9c0d96e55801318e96404c65e014f05b765701488847e19981f692044593d223",
+            "smoke_sha256": "9cf1e617e6ceed9106c0245c4fe26fb58fb2732f758931a50823fe0d79777ca7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "failed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e6444d42706be69730b5811740bb78e6a53b1424",
+            "image_digest": "sha256:9c0d96e55801318e96404c65e014f05b765701488847e19981f692044593d223",
+            "smoke_sha256": "9cf1e617e6ceed9106c0245c4fe26fb58fb2732f758931a50823fe0d79777ca7",
+            "provenance": "taffish-index",
+            "failure_kind": "prepare",
+            "message": "failed to pull ghcr.io/taffish/virsorter2@sha256:9c0d96e55801318e96404c65e014f05b765701488847e19981f692044593d223 with podman (exit 125): Trying to pull ghcr.io/taffish/virsorter2@sha256:9c0d96e55801318e96404c65e014f05b765701488847e19981f692044593d223...\nGetting image source signatures\nCopying blob sha256:af590bb4aa71eb95f8ca347a476e22114a1f4e34aee511905d8522dacd2ba93c\nCopying blob sha256:039e6f9f9752f74a3ff4a6a224f64c7c864da16ed98f882107704328f41b9c42\nCopying blob sha256:ed5ffb1d8693d0d9343db9e6d456fff72cb4bb62366208181cd1c2d6eff41139\nCopying blob sha256:a85b8fee14201e4c846c53fe103db1ff2789d834acc1f4bed5e0161dbfa2fc45\nCopying blob sha256:a1c838070e846c680d38c0c4f3b96bfd5b4e73e603b0954c2f0bb6a544e27ec0\nCopying blob sha256:60385e..."
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-24T17:28:21Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

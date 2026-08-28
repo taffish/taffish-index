@@ -99,13 +99,66 @@
           "set -eu; tmp=/tmp/taf-yahs-juicer-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; printf '>ctg1\\nACGTACGTACGTACGT\\n>ctg2\\nAAAACCCCGGGGTTTT\\n' > \"$tmp/contigs.fa\"; samtools faidx \"$tmp/contigs.fa\"; printf 'scaffold_1\\t1\\t16\\t1\\tW\\tctg1\\t1\\t16\\t+\\nscaffold_1\\t17\\t116\\t2\\tN\\t100\\tscaffold\\tyes\\tproximity_ligation\\nscaffold_1\\t117\\t132\\t3\\tW\\tctg2\\t1\\t16\\t+\\n' > \"$tmp/scaffolds.agp\"; printf 'ctg1\\t0\\t16\\tread001/1\\t60\\nctg2\\t0\\t16\\tread001/2\\t60\\nctg1\\t2\\t14\\tread002/1\\t60\\nctg2\\t2\\t14\\tread002/2\\t60\\n' > \"$tmp/hic.bed\"; juicer pre --file-type BED -o \"$tmp/pre\" \"$tmp/hic.bed\" \"$tmp/scaffolds.agp\" \"$tmp/contigs.fa.fai\" >/tmp/taf-yahs-juicer.log 2>&1; test -s \"$tmp/pre.txt\"; grep -F 'scaffold_1' \"$tmp/pre.txt\" >/dev/null; grep -F 'Version: 1.2.2' /tmp/taf-yahs-juicer.log >/dev/null; rm -rf \"$tmp\" /tmp/taf-yahs-juicer.log"
         ],
         "status": "passed",
-        "checked_at": "2026-06-11T11:22:42Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-28T13:29:54Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:30:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5397cc00a29ee6be36c8b7bf7f7c329a5fd9bd8c",
+            "image_digest": "sha256:00dee7398aea4c9af1ec09c50081981b3be38e719950adb32243f93ddab7ec89",
+            "smoke_sha256": "c8e85c30fc770f771d5d0b8fde5d9d93828137d151f65138d708282c793ce18b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5397cc00a29ee6be36c8b7bf7f7c329a5fd9bd8c",
+            "image_digest": "sha256:00dee7398aea4c9af1ec09c50081981b3be38e719950adb32243f93ddab7ec89",
+            "smoke_sha256": "c8e85c30fc770f771d5d0b8fde5d9d93828137d151f65138d708282c793ce18b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-28T13:29:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5397cc00a29ee6be36c8b7bf7f7c329a5fd9bd8c",
+            "image_digest": "sha256:00dee7398aea4c9af1ec09c50081981b3be38e719950adb32243f93ddab7ec89",
+            "smoke_sha256": "c8e85c30fc770f771d5d0b8fde5d9d93828137d151f65138d708282c793ce18b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-11T11:22:42Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-28T13:26:19Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
