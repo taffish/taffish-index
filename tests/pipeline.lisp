@@ -232,6 +232,23 @@
      task *test-backends* results "2026-08-26T00:00:00Z"
      *test-policy-generation* *test-platform*)))
 
+(defun record-with-backend-status (record backend status
+                                   &key (failure-kind "smoke")
+                                     (message "test backend failure"))
+  (let* ((smoke (plist-ref record :smoke))
+         (results (copy-tree (plist-ref smoke :backend-results)))
+         (pair (assoc backend results :test #'string=)))
+    (unless pair
+      (error "missing backend result for ~A" backend))
+    (setf (cdr pair)
+          (replace-json-field
+           (replace-json-field
+            (replace-json-field (cdr pair) "status" status)
+            "failure_kind" (if (string= status "passed") :null failure-kind))
+           "message" (if (string= status "passed") :null message)))
+    (copy-record-set
+     record :smoke (copy-record-set smoke :backend-results results))))
+
 (defun make-test-plan (records &key (prior-results nil)
                                     (prior-retry-tasks nil)
                                     (prior-observations nil)
@@ -1823,6 +1840,10 @@ test = [\"sh -c 'exit 0'\"]
                    "advisory backend failure is not a blocking failure")
       (check-equal 1 (json-ref counts "advisory_failed")
                    "advisory backend failure is counted separately")
+      (check-equal 1 (json-ref counts "latest_advisory_failed")
+                   "a single failing release is current advisory health")
+      (check-equal 0 (json-ref counts "historical_advisory_failed")
+                   "a single failing release has no historical failure")
       (check (index-version-record index record)
              "required Docker pass keeps the version installable")))
   (with-test-directory (root "required-failure")
@@ -1838,7 +1859,11 @@ test = [\"sh -c 'exit 0'\"]
       (check-equal 1 (json-ref counts "failed")
                    "required Docker failure is blocking")
       (check-equal 0 (json-ref counts "advisory_failed")
-                   "passing advisory backends add no advisory failures"))))
+                   "passing advisory backends add no advisory failures")
+      (check-equal 0 (json-ref counts "latest_advisory_failed")
+                   "passing advisory backends keep current health clear")
+      (check-equal 0 (json-ref counts "historical_advisory_failed")
+                   "passing advisory backends keep history clear"))))
 
 ;;; A release identity is frozen on the first successfully aggregated attempt,
 ;;; even when inspect or required smoke prevents that release from entering the
@@ -2291,7 +2316,15 @@ test = [\"sh -c 'exit 0'\"]
                    "Apptainer infrastructure outage is published as not_checked")
       (check-equal 2
                    (json-ref (json-ref index "counts") "advisory_failed")
-                   "two advisory infrastructure outages are reported separately"))))
+                   "two advisory infrastructure outages are reported separately")
+      (check-equal 2
+                   (json-ref (json-ref index "counts")
+                             "latest_advisory_failed")
+                   "advisory infrastructure is fail-closed as current health")
+      (check-equal 0
+                   (json-ref (json-ref index "counts")
+                             "historical_advisory_failed")
+                   "advisory infrastructure is never hidden as history"))))
 
 ;;; Each advisory terminal state independently triggers a later retry. Build
 ;;; the prior record through aggregation so this exercises public evidence, not
@@ -2365,6 +2398,364 @@ test = [\"sh -c 'exit 0'\"]
                        "not_checked retry reuses Podman pass")
           (check-equal 1 (manifest-backend-task-count retry-manifest "apptainer")
                        "not_checked retry reruns only Apptainer"))))))
+
+;;; Routine refresh keeps current installable releases live without spending
+;;; every daily run on deterministic advisory failures from superseded releases.
+
+(let* ((old-current
+         (make-package-version-record 70 "advisory-scope" "1.0.0" 1))
+       (latest-current
+         (make-package-version-record 71 "advisory-scope" "2.0.0" 1))
+       (new-current
+         (make-package-version-record 72 "advisory-scope" "3.0.0" 1))
+       (old-failed
+         (record-with-backend-status
+          (make-complete-pipeline-record old-current)
+          "apptainer" "failed"))
+       (old-not-checked
+         (record-with-backend-status
+          (make-complete-pipeline-record old-current)
+          "apptainer" "not_checked"
+          :failure-kind "infrastructure"
+          :message "apptainer unavailable"))
+       (old-prepare-failed
+         (record-with-backend-status
+          (make-complete-pipeline-record old-current)
+          "apptainer" "failed"
+          :failure-kind "prepare"
+          :message "temporary image preparation failure"))
+       (old-runtime-failed
+         (record-with-backend-status
+          (make-complete-pipeline-record old-current)
+          "apptainer" "failed"
+          :failure-kind "runtime"
+          :message "temporary runtime failure"))
+       (latest-passed (make-complete-pipeline-record latest-current))
+       (latest-failed
+         (record-with-backend-status
+          latest-passed "apptainer" "failed")))
+  (multiple-value-bind (accepted tasks failures rejected)
+      (classify-pipeline-records
+       (list old-current latest-current)
+       (previous-record-map (list old-failed latest-passed)) nil
+       *test-generated-at* *test-policy-generation* *test-backends*
+       :platform *test-platform*)
+    (declare (ignore failures rejected))
+    (check-equal 2 (length accepted)
+                 "routine refresh preserves both accepted package versions")
+    (check (null tasks)
+           "routine refresh defers a superseded deterministic advisory failure"))
+  (multiple-value-bind (_accepted tasks failures rejected)
+      (classify-pipeline-records
+       (list old-current latest-current)
+       (previous-record-map (list old-failed latest-failed)) nil
+       *test-generated-at* *test-policy-generation* *test-backends*
+       :platform *test-platform*)
+    (declare (ignore _accepted failures rejected))
+    (check-equal 1 (length tasks)
+                 "routine refresh retries only the failed accepted latest")
+    (check-equal (record-cache-key latest-current)
+                 (plist-ref (first tasks) :task-id)
+                 "routine latest retry selects the semantic newest release"))
+  (multiple-value-bind (_accepted tasks failures rejected)
+      (classify-pipeline-records
+       (list old-current latest-current)
+       (previous-record-map (list old-failed latest-failed)) nil
+       *test-generated-at* *test-policy-generation* *test-backends*
+       :platform *test-platform* :retry-failed t)
+    (declare (ignore _accepted failures rejected))
+    (check-equal 2 (length tasks)
+                 "explicit retry-failed retains its all-history behavior"))
+  (multiple-value-bind (_accepted tasks failures rejected)
+      (classify-pipeline-records
+       (list old-current latest-current)
+       (previous-record-map (list old-not-checked latest-passed)) nil
+       *test-generated-at* *test-policy-generation* *test-backends*
+       :platform *test-platform*)
+    (declare (ignore _accepted failures rejected))
+    (check-equal 1 (length tasks)
+                 "historical not_checked evidence still retries automatically")
+    (check-equal (record-cache-key old-current)
+                 (plist-ref (first tasks) :task-id)
+                 "not_checked retry keeps the unfinished historical release"))
+  (dolist (transient
+           (list (cons "prepare" old-prepare-failed)
+                 (cons "runtime" old-runtime-failed)))
+    (multiple-value-bind (_accepted tasks failures rejected)
+        (classify-pipeline-records
+         (list old-current latest-current)
+         (previous-record-map (list (cdr transient) latest-passed)) nil
+         *test-generated-at* *test-policy-generation* *test-backends*
+         :platform *test-platform*)
+      (declare (ignore _accepted failures rejected))
+      (check-equal 1 (length tasks)
+                   (format nil "historical ~A failure still retries automatically"
+                           (car transient)))
+      (check-equal (record-cache-key old-current)
+                   (plist-ref (first tasks) :task-id)
+                   (format nil "~A failure remains unfinished evidence"
+                           (car transient)))))
+  (multiple-value-bind (_accepted tasks failures rejected)
+      (classify-pipeline-records
+       (list old-current latest-current new-current)
+       (previous-record-map (list old-failed latest-passed)) nil
+       *test-generated-at* *test-policy-generation* *test-backends*
+       :platform *test-platform*)
+    (declare (ignore _accepted failures rejected))
+    (check-equal 1 (length tasks)
+                 "a new unaccepted release does not reactivate superseded failures")
+    (check-equal (record-cache-key new-current)
+                 (plist-ref (first tasks) :task-id)
+                 "routine planning still enrolls the new release"))
+  (let ((rejected-map (make-hash-table :test #'equal)))
+    (setf (gethash (record-cache-key latest-current) rejected-map)
+          (list :repository (plist-ref latest-current :source-repository)
+                :version-id (plist-ref latest-current :version-id)
+                :reason "test rejection"))
+    (multiple-value-bind (_accepted tasks failures rejected)
+        (classify-pipeline-records
+         (list old-current latest-current)
+         (previous-record-map (list old-failed latest-passed)) rejected-map
+         *test-generated-at* *test-policy-generation* *test-backends*
+         :platform *test-platform*)
+      (declare (ignore _accepted failures))
+      (check-equal 1 (length rejected)
+                   "the rejected latest remains explicit")
+      (check-equal 1 (length tasks)
+                   "rejecting the latest promotes the fallback for routine retry")
+      (check-equal (record-cache-key old-current)
+                   (plist-ref (first tasks) :task-id)
+                   "the promoted fallback becomes the accepted latest"))))
+
+;;; Advisory health is additive: legacy totals remain available while current
+;;; and superseded accepted releases are exposed separately.
+
+(let* ((alpha-old-current
+         (make-package-version-record 73 "health-alpha" "1.0.0" 1))
+       (alpha-latest-current
+         (make-package-version-record 74 "health-alpha" "2.0.0" 1))
+       (beta-latest-current
+         (make-package-version-record 75 "health-beta" "1.0.0" 1))
+       (alpha-old-failed
+         (record-with-backend-status
+          (make-complete-pipeline-record alpha-old-current)
+          "apptainer" "failed"))
+       (alpha-latest-passed
+         (make-complete-pipeline-record alpha-latest-current))
+       (beta-latest-failed
+         (record-with-backend-status
+          (make-complete-pipeline-record beta-latest-current)
+          "apptainer" "failed"))
+       (accepted
+         (list alpha-old-failed alpha-latest-passed beta-latest-failed))
+       (plan (make-classified-test-plan accepted nil nil nil))
+       (manifest (make-test-manifest plan))
+       (docker (make-backend-result-document manifest "docker" "passed"))
+       (podman (make-backend-result-document manifest "podman" "passed"))
+       (apptainer
+         (make-backend-result-document manifest "apptainer" "passed")))
+  (with-test-directory (root "advisory-health-split")
+    (let* ((output (merge-pathnames "index/" root))
+           (index
+             (aggregate-pipeline
+              plan manifest (list docker podman apptainer)
+              output :current-head "test-source-head"))
+           (counts (json-ref index "counts"))
+           (report (json-file (merge-pathnames "reports/latest.json" output)))
+           (report-counts (json-ref report "counts"))
+           (all (json-array-field report "advisory_failed"))
+           (latest (json-array-field report "latest_advisory_failed"))
+           (historical (json-array-field report "historical_advisory_failed")))
+      (check-equal "taffish.index/v1" (json-ref index "schema_version")
+                   "health split keeps the public index schema version")
+      (check-equal "taffish.index.report/v1" (json-ref report "schema_version")
+                   "health split keeps the report schema version")
+      (check-equal 2 (json-ref counts "advisory_failed")
+                   "legacy index advisory total retains all accepted evidence")
+      (check-equal 1 (json-ref counts "latest_advisory_failed")
+                   "index counts one latest advisory failure")
+      (check-equal 1 (json-ref counts "historical_advisory_failed")
+                   "index counts one superseded advisory failure")
+      (check-equal 2 (json-ref report-counts "advisory_failed")
+                   "report retains the legacy advisory total")
+      (check-equal 1 (json-ref report-counts "latest_advisory_failed")
+                   "report counts one latest advisory failure")
+      (check-equal 1 (json-ref report-counts "historical_advisory_failed")
+                   "report counts one historical advisory failure")
+      (check-equal 2 (length all)
+                   "legacy advisory array retains both failures")
+      (check-equal (record-cache-key beta-latest-current)
+                   (json-ref (first latest) "task_id")
+                   "latest advisory array contains the failing package latest")
+      (check-equal (record-cache-key alpha-old-current)
+                   (json-ref (first historical) "task_id")
+                   "historical advisory array contains the superseded failure"))))
+
+(let* ((accepted-current
+         (make-package-version-record 76 "health-promotion" "1.0.0" 1))
+       (candidate-current
+         (make-package-version-record 77 "health-promotion" "2.0.0" 1))
+       (accepted-failed
+         (record-with-backend-status
+          (make-complete-pipeline-record accepted-current)
+          "apptainer" "failed"))
+       (candidate-task
+         (list :task-id (record-cache-key candidate-current)
+               :input-index 0
+               :record candidate-current
+               :required-backends '("docker")
+               :advisory-backends '("podman" "apptainer")
+               :allow-cache t))
+       (plan
+         (make-classified-test-plan
+          (list accepted-failed) (list candidate-task) nil nil))
+       (manifest (make-test-manifest plan))
+       (docker-fail
+         (make-backend-result-document manifest "docker" "failed"))
+       (docker-pass
+         (make-backend-result-document manifest "docker" "passed"))
+       (podman-pass
+         (make-backend-result-document manifest "podman" "passed"))
+       (apptainer-pass
+         (make-backend-result-document manifest "apptainer" "passed")))
+  (with-test-directory (root "health-promotion-required-fail")
+    (let* ((output (merge-pathnames "index/" root))
+           (index
+             (aggregate-pipeline
+              plan manifest (list docker-fail podman-pass apptainer-pass)
+              output :current-head "test-source-head"))
+           (counts (json-ref index "counts")))
+      (check-equal 1 (json-ref counts "latest_advisory_failed")
+                   "an unaccepted candidate does not demote accepted health")
+      (check-equal 0 (json-ref counts "historical_advisory_failed")
+                   "accepted latest stays current until candidate promotion")))
+  (with-test-directory (root "health-promotion-required-pass")
+    (let* ((output (merge-pathnames "index/" root))
+           (index
+             (aggregate-pipeline
+              plan manifest (list docker-pass podman-pass apptainer-pass)
+              output :current-head "test-source-head"))
+           (counts (json-ref index "counts")))
+      (check-equal 0 (json-ref counts "latest_advisory_failed")
+                   "an accepted successor becomes the clear current health")
+      (check-equal 1 (json-ref counts "historical_advisory_failed")
+                   "promotion moves the predecessor failure into history"))))
+
+(let* ((index
+         (build-index-json nil nil
+                           :organization "taffish"
+                           :generated-at *test-generated-at*))
+       (report
+         (build-report-json nil nil
+                            :organization "taffish"
+                            :generated-at *test-generated-at*))
+       (index-counts (json-ref index "counts"))
+       (report-counts (json-ref report "counts")))
+  (check (null (assoc "latest_advisory_failed" (cdr index-counts)
+                      :test #'string=))
+         "compatibility index builder does not invent staged health fields")
+  (check (null (assoc "historical_advisory_failed" (cdr report-counts)
+                      :test #'string=))
+         "compatibility report builder keeps its legacy output shape"))
+
+(let* ((current (make-package-version-record 78 "health-current" "1.0.0" 1))
+       (failed
+         (record-with-backend-status
+          (make-complete-pipeline-record current) "apptainer" "failed"))
+       (pass
+         (json-object
+          (cons "task_id" (record-cache-key current))
+          (cons "backend" "apptainer")
+          (cons "status" "passed"))))
+  (check
+   (null (merge-advisory-failure-reports
+          nil (list failed) :current-results (list pass)))
+   "a current backend pass clears a failed accepted fallback from the report"))
+
+(let ((orphan
+        (json-object
+         (cons "task_id" "taffish/orphan|1.0.0-r1")
+         (cons "backend" "apptainer")
+         (cons "required" :false)
+         (cons "status" "failed")
+         (cons "failure_kind" "smoke")
+         (cons "message" "stale orphan evidence"))))
+  (check
+   (null
+    (merge-advisory-failure-reports
+     nil nil :state-results (list orphan)
+     :platform *test-platform* :generation *test-policy-generation*))
+   "orphan gate-state failure is not relabeled as current without identity"))
+
+;;; Gate-state keeps advisory evidence for a not-yet-accepted release even when
+;;; its next persistent retry stops at inspect and produces no backend results.
+
+(let* ((record (make-test-record 79))
+       (task-id (record-cache-key record))
+       (day-one-plan (make-test-plan (list record)))
+       (day-one-manifest (make-test-manifest day-one-plan))
+       (day-one-docker
+         (make-backend-result-document day-one-manifest "docker" "failed"))
+       (day-one-podman
+         (make-backend-result-document day-one-manifest "podman" "passed"))
+       (day-one-apptainer
+         (make-backend-result-document
+          day-one-manifest "apptainer" "failed")))
+  (with-test-directory (root "unaccepted-advisory-state-retention")
+    (let* ((output (merge-pathnames "index/" root))
+           (_day-one-index
+             (aggregate-pipeline
+              day-one-plan day-one-manifest
+              (list day-one-docker day-one-podman day-one-apptainer)
+              output :current-head "test-source-head"))
+           (day-one-state
+             (json-file (merge-pathnames "gate-state.json" output)))
+           (day-one-task (first (manifest-task-plists day-one-manifest)))
+           (day-two-task
+             (make-test-task
+              (plist-ref day-one-task :record) 0 *test-backends*))
+           (day-two-plan
+             (make-classified-test-plan
+              nil (list day-two-task) nil nil
+              :prior-results (json-array-field day-one-state "results")
+              :prior-retry-tasks
+              (json-array-field day-one-state "retry_tasks")
+              :prior-observations
+              (json-array-field day-one-state "observations")))
+           (day-two-manifest
+             (inspect-pipeline-plan
+              day-two-plan :jobs 1
+              :inspector
+              (lambda (_image)
+                (declare (ignore _image))
+                (error "temporary inspect failure"))))
+           (day-two-docker
+             (make-backend-result-document
+              day-two-manifest "docker" "passed"))
+           (day-two-podman
+             (make-backend-result-document
+              day-two-manifest "podman" "passed"))
+           (day-two-apptainer
+             (make-backend-result-document
+              day-two-manifest "apptainer" "passed")))
+      (declare (ignore _day-one-index))
+      (check (null (json-array-field day-two-manifest "tasks"))
+             "the second-day inspect failure reaches no backend task")
+      (aggregate-pipeline
+       day-two-plan day-two-manifest
+       (list day-two-docker day-two-podman day-two-apptainer)
+       output :current-head "test-source-head")
+      (let* ((report
+               (json-file (merge-pathnames "reports/latest.json" output)))
+             (advisory (json-array-field report "advisory_failed")))
+        (check-equal 1 (length advisory)
+                     "inspect-only retry retains the known advisory failure")
+        (check-equal task-id (json-ref (first advisory) "task_id")
+                     "retained advisory evidence keeps its release identity")
+        (check-equal 1
+                     (json-ref (json-ref report "counts")
+                               "latest_advisory_failed")
+                     "unaccepted known failure remains current health")))))
 
 ;;; Plan/manifest/result artifact integrity fails closed.
 

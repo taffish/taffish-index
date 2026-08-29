@@ -972,6 +972,10 @@
     (failures warnings
      &key rejected
        (advisory-failures nil advisory-failures-supplied-p)
+       (latest-advisory-failures
+         nil latest-advisory-failures-supplied-p)
+       (historical-advisory-failures
+         nil historical-advisory-failures-supplied-p)
        (policy nil policy-supplied-p)
        organization generated-at)
   (apply
@@ -992,11 +996,23 @@
              (when advisory-failures-supplied-p
                (list (cons "advisory_failed"
                            (length advisory-failures))))
+             (when latest-advisory-failures-supplied-p
+               (list (cons "latest_advisory_failed"
+                           (length latest-advisory-failures))))
+             (when historical-advisory-failures-supplied-p
+               (list (cons "historical_advisory_failed"
+                           (length historical-advisory-failures))))
              (list (cons "rejected" (length rejected))
                    (cons "warnings" (length warnings))))))
      (cons "failed" (cons :array failures)))
     (when advisory-failures-supplied-p
       (list (cons "advisory_failed" (cons :array advisory-failures))))
+    (when latest-advisory-failures-supplied-p
+      (list (cons "latest_advisory_failed"
+                  (cons :array latest-advisory-failures))))
+    (when historical-advisory-failures-supplied-p
+      (list (cons "historical_advisory_failed"
+                  (cons :array historical-advisory-failures))))
     (list
      (cons "rejected" (cons :array rejected))
      (cons "warnings" (cons :array (mapcar #'warning-report-json warnings)))))))
@@ -1063,6 +1079,10 @@
     (records warnings &key organization failures-count rejected-count
                            (advisory-failed-count nil
                                                   advisory-failed-count-supplied-p)
+                           (latest-advisory-failed-count
+                             nil latest-advisory-failed-count-supplied-p)
+                           (historical-advisory-failed-count
+                             nil historical-advisory-failed-count-supplied-p)
                            generated-at)
   (let ((packages (make-hash-table :test #'equal))
         (commands (make-hash-table :test #'equal))
@@ -1087,6 +1107,12 @@
              (when advisory-failed-count-supplied-p
                (list (cons "advisory_failed"
                            (or advisory-failed-count 0))))
+             (when latest-advisory-failed-count-supplied-p
+               (list (cons "latest_advisory_failed"
+                           (or latest-advisory-failed-count 0))))
+             (when historical-advisory-failed-count-supplied-p
+               (list (cons "historical_advisory_failed"
+                           (or historical-advisory-failed-count 0))))
              (list (cons "rejected" (or rejected-count 0))))))
      (cons "packages" (sorted-object-from-hash packages #'package-entry-json))
      (cons "commands" (sorted-object-from-hash commands #'command-entry-json))

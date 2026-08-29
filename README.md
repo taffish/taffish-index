@@ -86,12 +86,22 @@ digest for every planned container release, including releases that fail inspect
 or required smoke. Package-manager clients do not consume this file.
 
 Report files record scan warnings, required trust-gate failures, and advisory
-backend failures under `advisory_failed`. Failed new versions are not added to
-the main index; maintainers inspect reports and fix the app repository before
-the version can become installable.
+backend failures under `advisory_failed`. That compatibility total retains all
+known current and superseded release failures. `latest_advisory_failed` and
+`historical_advisory_failed` partition the same evidence so current package
+health can be read without erasing immutable historical results. Failed new
+versions are not added to the main index; maintainers inspect reports and fix
+the app repository before the version can become installable.
+
+The latest bucket is intentionally fail-closed: it includes accepted package
+latest failures, not-yet-accepted current candidates, and infrastructure or
+otherwise unclassified advisory failures. It is therefore a current/unresolved
+health count, not a promise of exactly one entry per accepted package.
 
 Staged reports retain the existing `failed`, `rejected`, and `warnings` fields
-and add `policy`, `counts.advisory_failed`, and the `advisory_failed` array.
+and add `policy`, the compatibility `advisory_failed` count/array, and the
+additive latest/historical count/array pairs. The invariant is
+`advisory_failed = latest_advisory_failed + historical_advisory_failed`.
 
 Known-bad immutable releases can be listed in `rejected-releases.toml`. Rejected
 versions are skipped before digest or smoke gates run, are not added to the main
@@ -115,7 +125,7 @@ Top-level fields include:
 | `schema_version` | Index schema identifier. |
 | `generated_at` | UTC generation timestamp. |
 | `organization` | Scanned GitHub organization, normally `taffish`. |
-| `counts` | Summary counts for packages, versions, commands, repositories, warnings, required failures, advisory failures, and known rejected releases. |
+| `counts` | Summary counts for packages, versions, commands, repositories, warnings, required failures, total/latest/historical advisory failures, and known rejected releases. |
 | `packages` | Package records keyed by package name. |
 | `commands` | Command lookup records keyed by base command name. |
 | `repositories` | Repository lookup records keyed by `owner/repo`. |
@@ -159,7 +169,10 @@ The staged builder checks both the previous `index/index.json` and the internal
 
 - If the version already exists and its release tag still points to the same
   commit, the accepted record is reused by default. This keeps routine runs
-  focused on new and previously failed versions rather than backfilling history.
+  focused on new releases, unfinished evidence, required failures, and
+  deterministic advisory failures on each package's currently accepted latest
+  release rather than repeatedly executing superseded advisory failures. A
+  not-yet-accepted newer release does not demote the current accepted latest.
 - After the tags API resolves a release commit, every manifest and required-file
   read is addressed through that SHA, so a tag move during the scan cannot mix
   one commit identity with another commit's metadata. A missing or malformed
@@ -184,7 +197,9 @@ The staged builder checks both the previous `index/index.json` and the internal
   exact current `failed`/`not_checked` backend result or a persisted retry marker,
   while excluding unrelated new releases, legacy backfill, and pure policy
   refreshes. The latest exact gate-state result takes precedence over older public
-  evidence, and already passed backends are still reused independently.
+  evidence, and already passed backends are still reused independently. Unlike
+  routine mode, this explicit command includes matching failures from both latest
+  and historical releases.
 - A release tag that changes commit is rejected even under `--force-recheck`;
   force only disables reuse and never weakens immutable-release validation. The
   last accepted commit remains in the stable index, so the moved tag continues
@@ -221,7 +236,11 @@ by `[smoke].backend` is required; for the current app corpus that backend is
 Docker. The other configured backends, currently Podman and Apptainer, are
 advisory. Their failures appear in `advisory_failed` and in per-backend evidence
 but do not remove an otherwise accepted version. Changing this required/advisory
-contract requires an explicit policy-generation change.
+contract requires an explicit policy-generation change. Routine runs retain and
+report an exact historical advisory `failed` result with
+`failure_kind = "smoke"` without executing that superseded release again;
+`prepare`, `runtime`, `not_checked`, identity changes, and latest-release
+failures remain eligible for routine work.
 
 Docker/Podman smoke runs use `--network none`, do not mount the repository, and
 do not receive GitHub tokens or secrets. Their image pull gets one bounded retry
@@ -455,7 +474,9 @@ The scheduled run uses:
 Scheduled runs always use routine mode. Manual dispatch exposes two mutually
 exclusive controls: `backfill_limit` accepts `1-50` for a bounded legacy
 backfill, while `retry_failed` selects only exact current failed/not-checked
-evidence. Leave both at their defaults for routine mode.
+evidence across latest and historical releases. Leave both at their defaults for
+routine mode, which does not repeatedly execute exact advisory failures on
+superseded releases when their `failure_kind` is `smoke`.
 
 The workflow is configured as a four-stage pipeline driven by
 `scripts/index-phase.lisp`:
@@ -560,7 +581,7 @@ runners; this local example lists them sequentially:
 ```sh
 mkdir -p work/results
 
-# 1. Plan: routine mode checks new and previously failed versions.
+# 1. Plan: routine mode checks new/current work and unfinished evidence.
 sbcl --script scripts/index-phase.lisp plan \
   --org taffish \
   --index-dir index \
@@ -630,6 +651,11 @@ mode.
 `--force-recheck`. It selects only exact evidence for the current source commit,
 image digest, smoke signature, platform, and policy generation. Rejection and
 immutable-source drift checks still run first and cannot be bypassed by this mode.
+This explicit mode includes both latest and historical matching failures; routine
+mode defers only deterministic advisory `failed` evidence with
+`failure_kind = "smoke"` for superseded accepted releases while continuing to
+report it. Prepare, runtime, infrastructure, and incomplete evidence keep their
+automatic retry behavior.
 
 The compatibility `scripts/build-index.lisp` CLI remains:
 

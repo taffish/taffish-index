@@ -389,7 +389,9 @@
                 nil
                 (format nil "~{~A~^; ~}" (nreverse cache-warnings))))))))))
 
-(defun enrolled-record-needs-refresh-p (record generation platform backends)
+(defun enrolled-record-needs-refresh-p
+    (record generation platform backends
+     &key (retry-advisory-failures t))
   (let* ((smoke (plist-ref record :smoke))
          (container (plist-ref record :container))
          (record-generation (and smoke
@@ -413,8 +415,6 @@
              (lambda (backend)
                (let ((result (cdr (assoc backend results :test #'string=))))
                  (not (and result
-                           (string= (or (json-ref result "status") "")
-                                    "passed")
                            (string= (or (json-ref result "platform") "")
                                     platform)
                            (string= (or (json-ref result
@@ -425,7 +425,18 @@
                            (string= (or (json-ref result "image_digest") "")
                                     (or image-digest ""))
                            (string= (or (json-ref result "smoke_sha256") "")
-                                    (or smoke-sha256 ""))))))
+                                    (or smoke-sha256 ""))
+                           (or
+                            (string= (or (json-ref result "status") "")
+                                     "passed")
+                            (and (not retry-advisory-failures)
+                                 (member backend expected-advisory
+                                         :test #'string=)
+                                 (string= (or (json-ref result "status") "")
+                                          "failed")
+                                 (string=
+                                  (or (json-ref result "failure_kind") "")
+                                  "smoke")))))))
              backends))))))
 
 (defun observation-source-identity-changed-p (observation record)
@@ -567,6 +578,12 @@
      packages)
     ranks))
 
+(defun latest-ranked-record-p (record rank-map)
+  (multiple-value-bind (rank present-p)
+      (gethash (record-cache-key record) rank-map)
+    ;; Unknown previous records remain conservative and retry as latest.
+    (or (not present-p) (= rank 0))))
+
 (defun select-legacy-backfill-task-ids (records previous-map rejected-map
                                         retry-task-ids limit)
   (normalize-stage-jobs limit *maximum-backfill-limit* "--backfill-limit")
@@ -614,7 +631,9 @@
             (select-legacy-backfill-task-ids
              records previous-map rejected-map retry-task-ids
              backfill-limit)))
-        (input-index 0))
+        (input-index 0)
+        (previous-rank-map
+          (record-version-rank-map (hash-values previous-map) rejected-map)))
     (dolist (record (sorted-json-records-by-key records))
       (let* ((cache-key (record-cache-key record))
              (previous (gethash cache-key previous-map))
@@ -663,7 +682,11 @@
                                       :test #'string=))))
                 (not (member cache-key retry-task-ids :test #'string=))
                 (not (enrolled-record-needs-refresh-p
-                      previous generation platform backends)))
+                      previous generation platform backends
+                      :retry-advisory-failures
+                      (or retry-failed
+                          (latest-ranked-record-p
+                           previous previous-rank-map)))))
            (push (cached-accepted-record record previous) accepted))
           ((plist-ref record :container)
            (let* ((candidate
@@ -2038,12 +2061,175 @@
                   :source "taffish-index"))))
 
 (defun result-failure-report (task result)
-  (task-failure-record
-   task
-   (or (json-ref result "failure_kind") "smoke")
-   (or (json-ref result "message") "backend smoke failed")
-   :backend (json-ref result "backend")
-   :failure-kind (or (json-ref result "failure_kind") "smoke")))
+  (let ((failure-kind
+          (or (optional-json-string result "failure_kind") "smoke")))
+    (task-failure-record
+     task
+     failure-kind
+     (or (optional-json-string result "message") "backend smoke failed")
+     :backend (json-ref result "backend")
+     :failure-kind failure-kind)))
+
+(defun sorted-json-values (values)
+  (sort (copy-list values)
+        #'string<
+        :key (lambda (value) (write-json-string value :indent nil))))
+
+(defun record-advisory-failure-reports (record)
+  (let* ((smoke (plist-ref record :smoke))
+         (results (and smoke (plist-ref smoke :backend-results)))
+         (task (list :task-id (record-cache-key record) :record record))
+         (failures nil))
+    (dolist (backend (and smoke (plist-ref smoke :advisory-backends)))
+      (let ((result (and results
+                         (cdr (assoc backend results :test #'string=)))))
+        (when (and result
+                   (string= (or (json-ref result "status") "") "failed"))
+          (push
+           (task-failure-record
+            task
+            (or (json-ref result "failure_kind") "smoke")
+            (or (json-ref result "message") "backend smoke failed")
+            :backend backend
+            :failure-kind (or (json-ref result "failure_kind") "smoke"))
+           failures))))
+    (nreverse failures)))
+
+(defun advisory-failure-identity-key (failure)
+  (let ((task-id (json-ref failure "task_id"))
+        (backend (json-ref failure "backend")))
+    (if (and (stringp task-id) (stringp backend))
+        (format nil "~A|~A" task-id backend)
+        (write-json-string failure :indent nil))))
+
+(defun advisory-report-task-map (records tasks)
+  (let ((table (make-hash-table :test #'equal)))
+    (dolist (record records)
+      (let ((smoke (plist-ref record :smoke)))
+        (setf (gethash (record-cache-key record) table)
+              (list :task-id (record-cache-key record)
+                    :record record
+                    :required-backends
+                    (and smoke (plist-ref smoke :required-backends))
+                    :advisory-backends
+                    (and smoke (plist-ref smoke :advisory-backends))))))
+    (dolist (task tasks)
+      (setf (gethash (plist-ref task :task-id) table) task))
+    table))
+
+(defun task-report-smoke-sha256 (task)
+  (or (plist-ref task :smoke-sha256)
+      (let* ((record (plist-ref task :record))
+             (smoke (plist-ref record :smoke))
+             (results (and smoke (plist-ref smoke :backend-results))))
+        (or
+         (loop for pair in results
+               for sha = (optional-json-string (cdr pair) "smoke_sha256")
+               when sha return sha)
+         (and smoke (smoke-signature smoke))))))
+
+(defun cached-task-report-smoke-sha256 (task-id task cache)
+  (multiple-value-bind (sha present-p) (gethash task-id cache)
+    (if present-p
+        sha
+        (setf (gethash task-id cache) (task-report-smoke-sha256 task)))))
+
+(defun state-result-current-for-task-p
+    (result task platform generation expected-smoke-sha256)
+  (let* ((record (and task (plist-ref task :record)))
+         (container (and record (plist-ref record :container)))
+         (backend (json-ref result "backend")))
+    (and task
+         (stringp backend)
+         (member backend
+                 (append (plist-ref task :required-backends)
+                         (plist-ref task :advisory-backends))
+                 :test #'string=)
+         (string= (or (json-ref result "task_id") "")
+                  (or (plist-ref task :task-id) ""))
+         (string= (or (optional-json-string result "platform") "")
+                  platform)
+         (string= (or (optional-json-string result "policy_generation") "")
+                  generation)
+         (equal (optional-json-string result "source_commit")
+                (plist-ref record :source-commit))
+         (equal (optional-json-string result "image_digest")
+                (and container (plist-ref container :digest)))
+         (equal (optional-json-string result "smoke_sha256")
+                expected-smoke-sha256))))
+
+(defun merge-advisory-failure-reports
+    (current records &key state-results tasks current-results
+                       platform generation)
+  (let ((table (make-hash-table :test #'equal))
+        (task-map (advisory-report-task-map records tasks))
+        (smoke-sha-map (make-hash-table :test #'equal)))
+    ;; Cached accepted evidence keeps historical failures visible even when the
+    ;; superseded release is intentionally not executed in this routine run.
+    (dolist (record records)
+      (dolist (failure (record-advisory-failure-reports record))
+        (setf (gethash (advisory-failure-identity-key failure) table) failure)))
+    ;; Gate-state is the operational authority for both accepted fallbacks and
+    ;; not-yet-accepted releases.  Rebuild exact advisory failures here so an
+    ;; inspect-only retry cannot make a known backend failure disappear.
+    (dolist (result state-results)
+      (let* ((task-id (json-ref result "task_id"))
+             (backend (json-ref result "backend"))
+             (task (and (stringp task-id) (gethash task-id task-map)))
+             (known-current-p
+               (and task platform generation
+                    (state-result-current-for-task-p
+                     result task platform generation
+                     (cached-task-report-smoke-sha256
+                      task-id task smoke-sha-map))))
+             (advisory-p
+               (and task
+                    (member backend (plist-ref task :advisory-backends)
+                            :test #'string=))))
+        (when known-current-p
+          (cond
+            ((result-passed-p result)
+             (remhash (advisory-failure-identity-key result) table))
+            ((and (string= (or (json-ref result "status") "") "failed")
+                  advisory-p)
+             (setf (gethash (advisory-failure-identity-key result) table)
+                   (result-failure-report task result)))
+            ((string= (or (json-ref result "status") "") "failed")
+             (remhash (advisory-failure-identity-key result) table))))))
+    ;; A current pass is newer than a failed accepted fallback even when another
+    ;; required backend prevents the whole record from being replaced.
+    (dolist (result current-results)
+      (when (result-passed-p result)
+        (remhash (advisory-failure-identity-key result) table)))
+    ;; A current failure is likewise newer than the accepted fallback for the
+    ;; same exact release/backend identity.
+    (dolist (failure current)
+      (setf (gethash (advisory-failure-identity-key failure) table) failure))
+    (sorted-json-values (hash-values table))))
+
+(defun unique-records-by-cache-key (records)
+  (let ((table (make-hash-table :test #'equal)))
+    (dolist (record records)
+      (setf (gethash (record-cache-key record) table) record))
+    (hash-values table)))
+
+(defun partition-advisory-failures (failures release-universe)
+  (let* ((records (unique-records-by-cache-key release-universe))
+         (record-map (previous-record-map records))
+         (rank-map (record-version-rank-map records nil))
+         (latest nil)
+         (historical nil))
+    (dolist (failure failures)
+      (let* ((task-id (json-ref failure "task_id"))
+             (record (and (stringp task-id) (gethash task-id record-map)))
+             (rank (and record (gethash task-id rank-map))))
+        ;; Infrastructure and unknown identities are current by default so a
+        ;; classification gap can never make the latest health view look green.
+        (if (and record (integerp rank) (> rank 0))
+            (push failure historical)
+            (push failure latest))))
+    (values (sorted-json-values latest)
+            (sorted-json-values historical))))
 
 (defun infrastructure-advisory-report (backend message)
   (json-object
@@ -2056,11 +2242,6 @@
    (cons "task_id" :null)
    (cons "backend" backend)
    (cons "failure_kind" "infrastructure")))
-
-(defun sorted-json-values (values)
-  (sort (copy-list values)
-        #'string<
-        :key (lambda (value) (write-json-string value :indent nil))))
 
 (defun replace-accepted-record (records replacement)
   (let ((cache-key (record-cache-key replacement)))
@@ -2248,6 +2429,9 @@
              (generation (pipeline-policy-generation plan))
              (platform (pipeline-platform plan))
              (backends (pipeline-backends plan))
+             (plan-tasks
+               (mapcar #'pipeline-task-from-json
+                       (json-array-field plan "tasks")))
              (accepted
                (mapcar #'json-record-plist
                        (json-array-field plan "accepted")))
@@ -2264,8 +2448,8 @@
              (rejected-task-map (make-hash-table :test #'equal))
              (advisory-failures nil)
              (current-results nil))
-        (dolist (task (json-array-field plan "tasks"))
-          (setf (gethash (json-string-field task "task_id") plan-task-map) t))
+        (dolist (task plan-tasks)
+          (setf (gethash (plist-ref task :task-id) plan-task-map) t))
         (dolist (task-id (json-array-field plan "prior_retry_tasks"))
           (when (stringp task-id)
             (setf (gethash task-id retry-map) t)))
@@ -2339,12 +2523,13 @@
                  (json-array-field plan "prior_observations"))
                (current-observations
                  (json-array-field manifest "observations"))
+               (current-results (nreverse current-results))
                (state-results
                  (remove-if
                   (lambda (result)
                     (gethash (json-ref result "task_id") rejected-task-map))
                   (merge-gate-results
-                   prior-results (nreverse current-results))))
+                   prior-results current-results)))
                (state-observations
                  (merge-gate-observations
                   prior-observations current-observations
@@ -2359,32 +2544,51 @@
                (accepted (sorted-json-records-by-key accepted))
                (failures (sorted-json-values failures))
                (rejected (sorted-json-values rejected))
+               (release-universe
+                 (unique-records-by-cache-key accepted))
                (advisory-failures
-                 (sorted-json-values advisory-failures))
+                 (merge-advisory-failure-reports
+                  advisory-failures accepted
+                  :state-results state-results
+                  :tasks plan-tasks
+                  :current-results current-results
+                  :platform platform
+                  :generation generation))
                (warnings (sorted-warning-plists warnings))
-               (index
-                 (build-index-json
-                  accepted warnings
-                  :organization organization
-                  :failures-count (length failures)
-                  :advisory-failed-count (length advisory-failures)
-                  :rejected-count (length rejected)
-                  :generated-at generated-at))
-               (report
-                 (build-report-json
-                  failures warnings
-                  :rejected rejected
-                  :advisory-failures advisory-failures
-                  :policy policy
-                  :organization organization
-                  :generated-at generated-at))
                (gate-state
                  (gate-state-json
                   generated-at generation state-results
                   retry-tasks state-observations)))
-          (write-index-bundle-transactionally
-           index-dir index report gate-state generated-at)
-          index)))))
+          (multiple-value-bind
+                (latest-advisory-failures historical-advisory-failures)
+              (partition-advisory-failures
+               advisory-failures release-universe)
+            (let ((index
+                    (build-index-json
+                     accepted warnings
+                     :organization organization
+                     :failures-count (length failures)
+                     :advisory-failed-count (length advisory-failures)
+                     :latest-advisory-failed-count
+                     (length latest-advisory-failures)
+                     :historical-advisory-failed-count
+                     (length historical-advisory-failures)
+                     :rejected-count (length rejected)
+                     :generated-at generated-at))
+                  (report
+                    (build-report-json
+                     failures warnings
+                     :rejected rejected
+                     :advisory-failures advisory-failures
+                     :latest-advisory-failures latest-advisory-failures
+                     :historical-advisory-failures
+                     historical-advisory-failures
+                     :policy policy
+                     :organization organization
+                     :generated-at generated-at)))
+              (write-index-bundle-transactionally
+               index-dir index report gate-state generated-at)
+              index)))))))
 
 (defun aggregate-pipeline-files (plan-path manifest-path result-paths index-dir)
   (let* ((plan (json-file plan-path))

@@ -82,11 +82,19 @@ aggregate 的 source ref、source commit、image 名称和已观测 digest；即
 在 inspect 或 required smoke 阶段失败也一样。包管理器客户端不会消费这个文件。
 
 report 文件会记录扫描 warning、required 可信 gate 失败，以及位于
-`advisory_failed` 下的 advisory backend 失败。失败的新版本不会进入主 index；
-维护者需要查看 report，修复 app 仓库后，该版本才能变成可安装版本。
+`advisory_failed` 下的 advisory backend 失败。这个兼容总数会保留当前与已被后继
+版本取代的全部已知失败；`latest_advisory_failed` 和
+`historical_advisory_failed` 会对同一批证据进行拆分，使维护者可以查看当前 package
+健康度，同时不删除不可变历史结果。失败的新版本不会进入主 index；维护者需要查看
+report，修复 app 仓库后，该版本才能变成可安装版本。
+
+latest bucket 会保守地 fail closed：它既包含 accepted package latest failure，也包含
+尚未 accepted 的当前 candidate，以及 infrastructure 或无法归类的 advisory failure。
+因此它表示当前/未解决健康项，并不承诺每个 accepted package 恰好只有一条记录。
 
 staged report 会保留已有的 `failed`、`rejected` 和 `warnings` 字段，并加法写入
-`policy`、`counts.advisory_failed` 与 `advisory_failed` 数组。
+`policy`、兼容的 `advisory_failed` 计数/数组，以及 latest/historical 两组新增计数/数组。
+始终满足 `advisory_failed = latest_advisory_failed + historical_advisory_failed`。
 
 已确认有问题的不可变 release 可以写入 `rejected-releases.toml`。rejected
 版本会在 digest 或 smoke gate 运行前被跳过，不进入主 index，并且会和临时
@@ -110,7 +118,7 @@ trust-gate 失败分开报告。
 | `schema_version` | 索引 schema 标识。 |
 | `generated_at` | UTC 生成时间。 |
 | `organization` | 被扫描的 GitHub 组织，通常是 `taffish`。 |
-| `counts` | packages、versions、commands、repositories、warnings、required failures、advisory failures 和已知 rejected releases 的统计。 |
+| `counts` | packages、versions、commands、repositories、warnings、required failures、advisory failures 总数及 latest/historical 拆分，以及已知 rejected releases 的统计。 |
 | `packages` | 以 package name 为 key 的 package 记录。 |
 | `commands` | 以基础 command name 为 key 的 command 查询记录。 |
 | `repositories` | 以 `owner/repo` 为 key 的 repository 查询记录。 |
@@ -151,7 +159,9 @@ staged 生产 pipeline 只索引不可变 release tag；分支 snapshot 不会�
 `index/index.json` 和内部的 `index/gate-state.json`：
 
 - 如果该版本已经存在，并且 release tag 仍指向同一个 commit，默认复用已接受记录。
-  因此日常运行只关注新增版本和此前失败的版本，不会自动回填全部历史。
+  因此日常运行只关注新增 release、未完成证据、required failure，以及每个 package
+  当前已接受 latest release 上的确定性 advisory failure，不会反复执行已经被后继版本
+  取代的 advisory failure。尚未被接受的新 release 不会提前取代当前 accepted latest。
 - tags API 解析出 release commit 后，manifest 和全部必需文件检查都会通过该 SHA
   寻址，因此扫描过程中即使 tag 移动，也不会把一个 commit identity 与另一个
   commit 的 metadata 混合。缺失或畸形的 release commit SHA 只会产生 warning，
@@ -171,7 +181,8 @@ staged 生产 pipeline 只索引不可变 release tag；分支 snapshot 不会�
 - `--retry-failed` 是手动 retry-only 模式，只计划具有当前精确 `failed` /
   `not_checked` backend 证据或持久 retry marker 的 release，同时排除无关的新 release、
   legacy backfill 和纯 policy refresh。最新的精确 gate-state 结果优先于公开 index 的
-  旧证据；已经通过的 backend 仍会分别复用。
+  旧证据；已经通过的 backend 仍会分别复用。与日常模式不同，这个显式命令会覆盖
+  latest 与 historical release 中所有精确匹配的问题证据。
 - 即使使用 `--force-recheck`，release tag 的 commit 发生变化仍会被拒绝；force
   只禁用复用，不会削弱不可变 release 校验。最后一次接受的 commit 会继续保留在
   稳定 index 中，因此移动过的 tag 在后续运行中仍会失败，不会被重新识别成新 release。
@@ -202,7 +213,10 @@ staged 生产 pipeline 只索引不可变 release tag；分支 snapshot 不会�
 是 required；对当前 app 集合而言，它是 Docker。其余已配置 backend（当前为
 Podman 和 Apptainer）是 advisory。它们的失败会进入 `advisory_failed` 和逐 backend
 证据，但不会移除其他条件已经通过的版本。改变 required/advisory 契约时必须显式
-推进 policy generation。
+推进 policy generation。日常运行会保留并报告 historical release 上 identity 精确
+匹配且 `failure_kind = "smoke"` 的 advisory `failed`，但不会再次执行这个 superseded
+release；`prepare`、`runtime`、`not_checked`、identity 变化与 latest release failure
+仍会进入日常任务。
 
 Docker/Podman smoke 使用 `--network none`，不会挂载仓库，也不会接收 GitHub token
 或 secrets。其镜像 pull 对非超时失败提供一次有界重试；命令诊断在限制长度的同时
@@ -414,7 +428,9 @@ Smoke：
 
 定时任务始终使用日常模式。手动触发提供两个互斥控制：`backfill_limit` 接受 `1-50`
 以分批回填 legacy 证据；`retry_failed` 只选择当前精确 failed/not-checked 证据。两者
-都保持默认值时仍是日常模式。
+都保持默认值时仍是日常模式，不会反复执行 superseded release 上 identity 精确匹配的
+`failure_kind = "smoke"` advisory failure；显式 retry 则会覆盖 latest 与 historical
+release。
 
 workflow 被配置为由 `scripts/index-phase.lisp` 驱动的四阶段 pipeline：
 
@@ -506,7 +522,7 @@ Action 会把三条 smoke 命令放到独立 runner；下面的本地示例按�
 ```sh
 mkdir -p work/results
 
-# 1. Plan：日常模式只检查新增版本和此前失败的版本。
+# 1. Plan：日常模式检查新增/当前工作与尚未完成的证据。
 sbcl --script scripts/index-phase.lisp plan \
   --org taffish \
   --index-dir index \
@@ -573,6 +589,9 @@ rejection，日常 Action 也不会使用这两个模式。
 `--retry-failed` 与两种 backfill 形式、`--force-recheck` 均互斥。它只选择与当前 source
 commit、image digest、smoke signature、platform 和 policy generation 精确匹配的
 问题证据。rejection 和 immutable-source drift 检查始终先执行，不能被该模式绕过。
+这个显式模式会覆盖 latest 与 historical release；日常模式只延后 superseded accepted
+release 上 `failure_kind = "smoke"` 的确定性 advisory `failed`，同时仍在 report 中保留
+它。prepare、runtime、infrastructure 与未完成证据仍保持自动重试。
 
 兼容入口 `scripts/build-index.lisp` 的 CLI 继续保持：
 
