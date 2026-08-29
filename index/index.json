@@ -1,16 +1,16 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-28T13:26:19Z",
+  "generated_at": "2026-08-29T00:45:58Z",
   "organization": "taffish",
   "counts": {
     "packages": 273,
-    "versions": 450,
+    "versions": 451,
     "commands": 273,
     "repositories": 273,
-    "warnings": 0,
+    "warnings": 212,
     "failed": 0,
-    "advisory_failed": 22,
-    "rejected": 12
+    "advisory_failed": 20,
+    "rejected": 10
   },
   "packages": {
     "abricate": {
@@ -3655,8 +3655,8 @@
                 "message": null
               },
               "podman": {
-                "status": "failed",
-                "checked_at": "2026-08-28T13:29:58Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T00:49:50Z",
                 "platform": "linux/amd64",
                 "runtime_version": "podman version 5.8.4",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -3665,14 +3665,14 @@
                 "image_digest": "sha256:7038c0217f912e33ea260f0d4583ddbd936acbfcbaeae028ef99142d8eba0c91",
                 "smoke_sha256": "bc955b84fb597fc2f47eac4045f4b97d96783dfa5828c7f0eb962da4f3e6cad0",
                 "provenance": "taffish-index",
-                "failure_kind": "prepare",
-                "message": "failed to pull ghcr.io/taffish/bcftools@sha256:7038c0217f912e33ea260f0d4583ddbd936acbfcbaeae028ef99142d8eba0c91 with podman (exit 125): Trying to pull ghcr.io/taffish/bcftools@sha256:7038c0217f912e33ea260f0d4583ddbd936acbfcbaeae028ef99142d8eba0c91...\nGetting image source signatures\nCopying blob sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1\nCopying blob sha256:068fedd6b0f109b8186d00d49327b6fc6747c428fd3c9a8739424ff5f38d7531\nCopying blob sha256:7d87a9e0456cc06e092c340acd7ad246f3bffb9227ad5848bcbbff9ba3e634d6\nCopying blob sha256:0b9e8d8081b81d0c601c1fcc91742d7e911d20bf62145d4d96655c6dcd505cdc\nCopying blob sha256:6d4747f3d7413e611eca1f5a6cc0fdc53c0bf15c4fea3e09cecc3cb40d48fbd2\nCopying blob sha256:bc36eead..."
+                "failure_kind": null,
+                "message": null
               }
             }
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -4240,7 +4240,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -4250,7 +4250,7 @@
                 "smoke_sha256": "c588854379a50e91f93f295c049bae3bf7a9cbf4f87c7c291eff5a3227c1efae",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates && starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/bedops/bin/__pycache__/starch-diffcpython-311.pyc.140556748293040'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates && starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/bedops/bin/__pycache__/starch-diffcpython-311.pyc.139920247374768'"
               },
               "docker": {
                 "status": "passed",
@@ -4284,7 +4284,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -13915,7 +13915,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -13925,7 +13925,7 @@
                 "smoke_sha256": "eaef4faf38838cfdf5bc077d224a9bb51a1d1820c475536f1aca7fdab3ae244e",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.139647183209168'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140125872800464'"
               },
               "docker": {
                 "status": "passed",
@@ -13959,7 +13959,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -14095,7 +14095,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -14105,7 +14105,7 @@
                 "smoke_sha256": "eaef4faf38838cfdf5bc077d224a9bb51a1d1820c475536f1aca7fdab3ae244e",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140525860602576'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140715536515792'"
               },
               "docker": {
                 "status": "passed",
@@ -14139,7 +14139,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -15052,7 +15052,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -15062,7 +15062,7 @@
                 "smoke_sha256": "b4b3f53622cca7027fbebb28f7ea57012d4329fcc9c89deb3e43ee81cd27f46c",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): das-tool-smoke pipeline\nstdout: \nstderr: DAS Tool 1.1.7 \nAnalyzing assembly \nPredicting genes \nAnnotating single copy genes using diamond \nWarning:  No SCGs detected for SCG set: archaea \nError in write.table(message, file = filename, sep = \"\\t\", col.names = F,  : \n  Error writing to connection:  No space left on device\nCalls: write.log -> write.table\nExecution halted\nDAS Tool 1.1.7 \n2026-08-28 13:49:30 \n\nParameters: \n--bins\t/opt/das_tool/share/testdata/tiny/tiny.concoct.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.maxbin2.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.metabat.contigs2bin.tsv,/opt/das_tool/share/tes..."
+                "message": "smoke command failed (apptainer, exit 1): das-tool-smoke pipeline\nstdout: \nstderr: DAS Tool 1.1.7 \nAnalyzing assembly \nPredicting genes \nAnnotating single copy genes using diamond \nWarning:  No SCGs detected for SCG set: archaea \nError in write.table(message, file = filename, sep = \"\\t\", col.names = F,  : \n  Error writing to connection:  No space left on device\nCalls: write.log -> write.table\nExecution halted\nDAS Tool 1.1.7 \n2026-08-29 00:51:20 \n\nParameters: \n--bins\t/opt/das_tool/share/testdata/tiny/tiny.concoct.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.maxbin2.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.metabat.contigs2bin.tsv,/opt/das_tool/share/tes..."
               },
               "docker": {
                 "status": "passed",
@@ -15096,7 +15096,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -17281,7 +17281,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -17325,7 +17325,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -23970,7 +23970,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -24014,7 +24014,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -26278,7 +26278,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -26322,7 +26322,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -29178,7 +29178,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -29222,7 +29222,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -31255,7 +31255,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31299,7 +31299,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -31445,7 +31445,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31455,7 +31455,7 @@
                 "smoke_sha256": "54b5d0bb30d04cbaff285488b886c74285a087b7b0d4c74f9b87bf20557a730c",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.139757766370608'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.139743844984112'"
               },
               "docker": {
                 "status": "passed",
@@ -31489,7 +31489,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -36786,7 +36786,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -36796,7 +36796,7 @@
                 "smoke_sha256": "0ef69a2dc33725dad3716fa11d508233766a367b54d8f31847e66040072b0a06",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-miniprot-index && cd /tmp/taf-miniprot-index && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 -d ref.mpi ref.fa.gz && test -s ref.mpi && miniprot -t1 ref.mpi query.faa.gz > indexed.paf && grep -F 'ENSMUSP00000025851.4' indexed.paf >/dev/null\nstdout: \nstderr: [M::mp_ntseq_read@0.000*2.85] read 27033 bases in 1 contigs\n[M::mp_idx_build@0.000*2.70] 212 blocks\n[M::mp_idx_build@0.002*1.47] collected syncmers\n[M::mp_idx_build@0.015*1.05] 16125 kmer-block pairs\n[M::mp_idx_print_stat] 14397 distinct k-mers; mean occ of infrequent k-mers: 1.12; 0 frequent k-mers accounting for 0 occurrences\n[M::main] Version: 0.18-r281\n[M::main] CMD: miniprot -t1 -d ref.mpi ref.fa.gz\n[M::main] Real time: 0.054 sec; CPU: 0.055 sec; Peak RSS: 0.063 GB\n[M::mp_idx_restore@0.015*1.04] loaded the index\n[M::mp_idx_print_stat] 14386 distinct k-mers; mean occ of infrequent k-mers: ..."
+                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-miniprot-index && cd /tmp/taf-miniprot-index && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 -d ref.mpi ref.fa.gz && test -s ref.mpi && miniprot -t1 ref.mpi query.faa.gz > indexed.paf && grep -F 'ENSMUSP00000025851.4' indexed.paf >/dev/null\nstdout: \nstderr: [M::mp_ntseq_read@0.000*2.50] read 27033 bases in 1 contigs\n[M::mp_idx_build@0.000*2.43] 212 blocks\n[M::mp_idx_build@0.001*1.33] collected syncmers\n[M::mp_idx_build@0.015*1.03] 16125 kmer-block pairs\n[M::mp_idx_print_stat] 14397 distinct k-mers; mean occ of infrequent k-mers: 1.12; 0 frequent k-mers accounting for 0 occurrences\n[M::main] Version: 0.18-r281\n[M::main] CMD: miniprot -t1 -d ref.mpi ref.fa.gz\n[M::main] Real time: 0.038 sec; CPU: 0.038 sec; Peak RSS: 0.063 GB\n[M::mp_idx_restore@0.012*1.03] loaded the index\n[M::mp_idx_print_stat] 14386 distinct k-mers; mean occ of infrequent k-mers: ..."
               },
               "docker": {
                 "status": "passed",
@@ -36830,7 +36830,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -39147,7 +39147,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -39191,7 +39191,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -39871,7 +39871,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -39915,7 +39915,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -40595,7 +40595,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -40605,7 +40605,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.BGIeOa/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/28 14:19:37 [emerg] ..."
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.glKfIn/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/29 01:02:23 [emerg] ..."
               },
               "docker": {
                 "status": "passed",
@@ -40639,7 +40639,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -42558,7 +42558,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -42602,7 +42602,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -48897,7 +48897,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -48941,7 +48941,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -57917,9 +57917,9 @@
     },
     "scanpy": {
       "name": "scanpy",
-      "latest": "1.12.3-r1",
-      "recent_version": "1.12.3-r1",
-      "recent_at": "2026-07-25T13:29:20Z",
+      "latest": "1.12.4-r1",
+      "recent_version": "1.12.4-r1",
+      "recent_at": "2026-08-29T00:37:05Z",
       "repository_url": "https://github.com/taffish/scanpy",
       "command": {
         "name": "taf-scanpy"
@@ -58314,6 +58314,177 @@
             "repository": "https://github.com/scverse/scanpy",
             "release_url": "https://github.com/scverse/scanpy/releases/tag/1.12.3",
             "version": "1.12.3",
+            "license": "BSD-3-Clause",
+            "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
+            "doi": "10.1186/s13059-017-1382-0",
+            "pmid": "29409532"
+          }
+        },
+        "1.12.4-r1": {
+          "name": "scanpy",
+          "kind": "tool",
+          "version": "1.12.4",
+          "release": 1,
+          "version_id": "1.12.4-r1",
+          "tag": "v1.12.4-r1",
+          "published_at": "2026-08-29T00:37:05Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/scanpy",
+          "repository_slug": "taffish/scanpy",
+          "command": {
+            "name": "taf-scanpy"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "transcriptomics",
+              "python",
+              "scverse",
+              "visualization"
+            ],
+            "keywords": [
+              "scanpy",
+              "single-cell",
+              "scrna-seq",
+              "anndata",
+              "h5ad",
+              "leiden",
+              "umap",
+              "pca"
+            ],
+            "summary": "Scanpy 1.12.4 CPU Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, and static plotting.",
+            "description": "Scanpy 1.12.4 CPU Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, and static plotting."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/scanpy:1.12.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.12.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b1165fa6c8f92c333846ca2035fcd8b304b49a9c36813575a7343444fb8bf90a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6eb14e5f2117ef76287df48fa83c17b5d495dd6b8616c571cd24619b2ea26e89",
+              "linux/arm64": "sha256:39708a473d789a09ab6484f26c9b3dd6897b535f63e0aec194ff1c7078802c43"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "scanpy",
+              "scanpy-prepare-datasets",
+              "python",
+              "python3",
+              "pip",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "test \"$(python -c 'import importlib.metadata as md; print(md.version(\"scanpy\"))')\" = '1.12.4' && test \"$(python -c 'import importlib.metadata as md; print(md.version(\"scikit-misc\"))')\" = '0.5.2' && test \"$(python -c 'import importlib.metadata as md; print(md.version(\"openpyxl\"))')\" = '3.1.5' && test \"$(python -c 'import importlib.metadata as md; print(md.version(\"et-xmlfile\"))')\" = '2.0.0' && python -c 'import importlib.metadata as md; import scanpy as sc, anndata, et_xmlfile, fast_array_utils, h5py, igraph, leidenalg, matplotlib, natsort, networkx, numba, numpy, openpyxl, pandas, pynndescent, scipy, scverse_misc, seaborn, sklearn, statsmodels, umap; from skmisc.loess import loess; print(md.version(\"scanpy\"))' | grep -Fx '1.12.4' >/dev/null && scanpy --help 2>&1 | grep -E 'usage:|Usage:' >/dev/null && scanpy settings | grep -F 'TAFFISH_IMPLICIT_DATASET_DOWNLOADS_DISABLED' >/dev/null && grep -Fx 'upstream_commit=ff2133115f639fccce9633aa7f5309c36a0972e7' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'wheel_sha256=a12a7ca9500e4b247fbb5fb9318fb204907125e411183bad3e9c62e5b988f37c' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'scikit_misc_sdist_sha256=49fa30e4051b341edc7422db66a12c0f59d468729285bfe644d10924dc51be0a' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'openpyxl_wheel_sha256=5282c12b107bffeef825f4617dc029afaf41d0ea60823bbb665ef3079dc79de2' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'et_xmlfile_wheel_sha256=7a91720bc756843502c3b7504c77b8fe44217c85c537d85037f0f536151b2caa' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'dataset_catalog_sha256=7ec2711c801966b85eafae96857a166a70dbc8921a9094b627d65d9aad5f70fd' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'dataset_helper_sha256=f7bfd875c8f068d403206d6affec1ba0effd5b559799c9164bc31415b51596cd' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'dataset_policy_sha256=6a8cb1a52ee3973f43dce3135c7f4d291f64ea8c023c0b7205387b4c545f4eb4' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'smoke_script_sha256=77bcf120d3e64d0a306050b28c33f834befaa9bb78d7c0be4fdd82c824fc75fe' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && printf '%s  %s\\n' 'f7bfd875c8f068d403206d6affec1ba0effd5b559799c9164bc31415b51596cd' /opt/scanpy/bin/scanpy-prepare-datasets '6a8cb1a52ee3973f43dce3135c7f4d291f64ea8c023c0b7205387b4c545f4eb4' /opt/scanpy/lib/python3.12/site-packages/sitecustomize.py '77bcf120d3e64d0a306050b28c33f834befaa9bb78d7c0be4fdd82c824fc75fe' /opt/scanpy/share/testdata/scanpy_smoke.py | sha256sum -c - >/dev/null && grep -Fx 'dataset_policy=managed-v1 with persistent verified or explicit unverified roots' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && test -f /opt/scanpy/share/scanpy/TAFFISH_IMPLICIT_DATASET_DOWNLOADS_DISABLED && test ! -L /opt/scanpy/share/scanpy/TAFFISH_IMPLICIT_DATASET_DOWNLOADS_DISABLED && printf '%s  %s\n' '7ec2711c801966b85eafae96857a166a70dbc8921a9094b627d65d9aad5f70fd' /opt/scanpy/share/scanpy/dataset-catalog.json | sha256sum -c - >/dev/null && test -s /opt/scanpy/share/doc/scanpy/LICENSE.upstream && test -s /opt/scanpy/share/doc/scanpy/LICENSE.scikit-misc && test -s /opt/scanpy/share/doc/scanpy/LICENSE.scikit-misc-loess && test -s /opt/scanpy/share/doc/scanpy/LICENSE.openpyxl && test -s /opt/scanpy/share/doc/scanpy/LICENSE.et-xmlfile && test -s /opt/scanpy/share/doc/scanpy/LICENSE.et-xmlfile-python",
+              "scanpy-prepare-datasets --list-datasets | grep -F 'pbmc3k-raw' >/dev/null && scanpy-prepare-datasets --dataset pbmc3k-raw --dry-run | grep -F 'pbmc3k-raw' >/dev/null && scanpy-prepare-datasets --dataset pbmc3k-raw --dry-run | grep -Fx 'required_free_bytes=53687091' >/dev/null && if scanpy-prepare-datasets --dataset pbmc3k-raw --min-free-gb nan --dry-run >/dev/null 2>&1; then exit 1; fi && if scanpy-prepare-datasets --dataset all --dry-run >/dev/null 2>&1; then exit 1; fi",
+              "tmp=/tmp/taf-scanpy-regression-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; NUMBA_DISABLE_JIT=1 python /opt/scanpy/share/testdata/scanpy_smoke.py --regressions-only \"$tmp/out\" | grep -Fx 'regressions=ok' >/dev/null && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-scanpy-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/scanpy/share/testdata/scanpy_smoke.py \"$tmp/out\" && test -s \"$tmp/out/scanpy_smoke.h5ad\" && test -s \"$tmp/out/pca.png\" && test -s \"$tmp/out/markers.tsv\" && test -s \"$tmp/out/versions.tsv\" && grep -F 'gene' \"$tmp/out/markers.tsv\" >/dev/null && grep -F 'scanpy' \"$tmp/out/versions.tsv\" >/dev/null && grep -F 'openpyxl' \"$tmp/out/versions.tsv\" >/dev/null && grep -F 'et-xmlfile' \"$tmp/out/versions.tsv\" >/dev/null && rm -rf \"$tmp\"",
+              "python /opt/scanpy/share/testdata/scanpy_smoke.py --policy-only | grep -Fx 'dataset_policy=fail-closed' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-29T00:49:41Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-08-29T00:50:02Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c62fca822f37e09cc80a4a0c145ca4f7a8945d22",
+                "image_digest": "sha256:b1165fa6c8f92c333846ca2035fcd8b304b49a9c36813575a7343444fb8bf90a",
+                "smoke_sha256": "7384ebae8ccbab0d9fa9ffba170d5f2eb557ca32fb75553bb6fad6ef665c6c4f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-08-29T00:49:41Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c62fca822f37e09cc80a4a0c145ca4f7a8945d22",
+                "image_digest": "sha256:b1165fa6c8f92c333846ca2035fcd8b304b49a9c36813575a7343444fb8bf90a",
+                "smoke_sha256": "7384ebae8ccbab0d9fa9ffba170d5f2eb557ca32fb75553bb6fad6ef665c6c4f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-08-29T00:49:50Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c62fca822f37e09cc80a4a0c145ca4f7a8945d22",
+                "image_digest": "sha256:b1165fa6c8f92c333846ca2035fcd8b304b49a9c36813575a7343444fb8bf90a",
+                "smoke_sha256": "7384ebae8ccbab0d9fa9ffba170d5f2eb557ca32fb75553bb6fad6ef665c6c4f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-29T00:45:58Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/scanpy",
+            "ref": "v1.12.4-r1",
+            "commit": "c62fca822f37e09cc80a4a0c145ca4f7a8945d22",
+            "html_url": "https://github.com/taffish/scanpy/tree/v1.12.4-r1"
+          },
+          "upstream": {
+            "name": "Scanpy",
+            "type": "github",
+            "homepage": "https://scanpy.readthedocs.io/",
+            "repository": "https://github.com/scverse/scanpy",
+            "release_url": "https://github.com/scverse/scanpy/releases/tag/1.12.4",
+            "version": "1.12.4",
             "license": "BSD-3-Clause",
             "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
             "doi": "10.1186/s13059-017-1382-0",
@@ -64560,7 +64731,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -64604,7 +64775,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -67988,7 +68159,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -68032,7 +68203,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -68706,7 +68877,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -68716,7 +68887,7 @@
                 "smoke_sha256": "ce48b0894f51337de663212b2820ea499ccf751bd2421254d14010b7408668e6",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140469882880608'"
+                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140478217634400'"
               },
               "docker": {
                 "status": "passed",
@@ -68750,7 +68921,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -68881,7 +69052,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-28T13:30:09Z",
+                "checked_at": "2026-08-29T00:50:02Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -68891,7 +69062,7 @@
                 "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139755508017264'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139781931870320'"
               },
               "docker": {
                 "status": "passed",
@@ -68925,7 +69096,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -70985,8 +71156,8 @@
                 "message": null
               },
               "podman": {
-                "status": "failed",
-                "checked_at": "2026-08-28T13:29:58Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T00:49:50Z",
                 "platform": "linux/amd64",
                 "runtime_version": "podman version 5.8.4",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -70995,14 +71166,14 @@
                 "image_digest": "sha256:9c0d96e55801318e96404c65e014f05b765701488847e19981f692044593d223",
                 "smoke_sha256": "9cf1e617e6ceed9106c0245c4fe26fb58fb2732f758931a50823fe0d79777ca7",
                 "provenance": "taffish-index",
-                "failure_kind": "prepare",
-                "message": "failed to pull ghcr.io/taffish/virsorter2@sha256:9c0d96e55801318e96404c65e014f05b765701488847e19981f692044593d223 with podman (exit 125): Trying to pull ghcr.io/taffish/virsorter2@sha256:9c0d96e55801318e96404c65e014f05b765701488847e19981f692044593d223...\nGetting image source signatures\nCopying blob sha256:af590bb4aa71eb95f8ca347a476e22114a1f4e34aee511905d8522dacd2ba93c\nCopying blob sha256:039e6f9f9752f74a3ff4a6a224f64c7c864da16ed98f882107704328f41b9c42\nCopying blob sha256:ed5ffb1d8693d0d9343db9e6d456fff72cb4bb62366208181cd1c2d6eff41139\nCopying blob sha256:a85b8fee14201e4c846c53fe103db1ff2789d834acc1f4bed5e0161dbfa2fc45\nCopying blob sha256:a1c838070e846c680d38c0c4f3b96bfd5b4e73e603b0954c2f0bb6a544e27ec0\nCopying blob sha256:60385e..."
+                "failure_kind": null,
+                "message": null
               }
             }
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-28T13:26:19Z",
+            "checked_at": "2026-08-29T00:45:58Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -72998,7 +73169,7 @@
     },
     "taf-scanpy": {
       "package": "scanpy",
-      "version": "1.12.3-r1"
+      "version": "1.12.4-r1"
     },
     "taf-scrnaseq-python": {
       "package": "scrnaseq-python",
@@ -74869,5 +75040,1066 @@
       ]
     }
   },
-  "warnings": []
+  "warnings": [
+    {
+      "repository": "taffish/abricate",
+      "ref": "v1.4.0-r1",
+      "message": "previous index record 1.4.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/alevin-fry",
+      "ref": "v0.17.1-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/alevin-fry",
+      "ref": "v0.17.1-r1",
+      "message": "previous index record 0.17.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/bakta",
+      "ref": "v1.12.0-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/bakta",
+      "ref": "v1.12.1-r1",
+      "message": "previous index record 1.12.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/bandage-ng",
+      "ref": "v2026.4.1-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/bandage-ng",
+      "ref": "v2026.4.1-r1",
+      "message": "previous index record 2026.4.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/bcftools",
+      "ref": "v1.23.1-r2",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/bcftools",
+      "ref": "v1.23.1-r2",
+      "message": "previous index record 1.23.1-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/bedtools",
+      "ref": "v2.31.1-r1",
+      "message": "previous index record 2.31.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/bioconductor-rnaseq",
+      "ref": "v3.23-r1",
+      "message": "previous index record 3.23-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/blast",
+      "ref": "v2.17.0-r1",
+      "message": "previous index record 2.17.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/braker3",
+      "ref": "v3.0.8-r1",
+      "message": "previous index record 3.0.8-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/busco",
+      "ref": "v6.0.0-r1",
+      "message": "previous index record 6.0.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/busco",
+      "ref": "v6.0.0-r2",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/busco",
+      "ref": "v6.0.0-r2",
+      "message": "previous index record 6.0.0-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/busco",
+      "ref": "v6.1.0-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/busco",
+      "ref": "v6.1.0-r1",
+      "message": "previous index record 6.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/bustools",
+      "ref": "v0.45.1-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/bustools",
+      "ref": "v0.45.1-r1",
+      "message": "previous index record 0.45.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/bustools",
+      "ref": "v0.45.1-r2",
+      "message": "previous index record 0.45.1-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/bwa",
+      "ref": "v0.7.19-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/bwa",
+      "ref": "v0.7.19-r1",
+      "message": "previous index record 0.7.19-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/chromap",
+      "ref": "v0.3.2-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/chromap",
+      "ref": "v0.3.2-r1",
+      "message": "previous index record 0.3.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/clair3",
+      "ref": "v2.0.2-r1",
+      "message": "previous index record 2.0.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/clipkit",
+      "ref": "v2.12.2-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/clipkit",
+      "ref": "v2.12.2-r1",
+      "message": "previous index record 2.12.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/clipkit",
+      "ref": "v2.13.0-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/clipkit",
+      "ref": "v2.13.0-r1",
+      "message": "previous index record 2.13.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/clipkit",
+      "ref": "v2.14.0-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/clipkit",
+      "ref": "v2.14.0-r1",
+      "message": "previous index record 2.14.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/clustal-omega",
+      "ref": "v1.2.4-r1",
+      "message": "previous index record 1.2.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/cnvkit",
+      "ref": "v0.9.14-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/cnvkit",
+      "ref": "v0.9.14-r1",
+      "message": "previous index record 0.9.14-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/compleasm",
+      "ref": "v0.2.7-r1",
+      "message": "previous index record 0.2.7-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/compleasm",
+      "ref": "v0.2.7-r2",
+      "message": "previous index record 0.2.7-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/compleasm",
+      "ref": "v0.2.8-r1",
+      "message": "previous index record 0.2.8-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/compleasm",
+      "ref": "v0.2.9-r1",
+      "message": "previous index record 0.2.9-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/coverm",
+      "ref": "v0.8.0-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/craq",
+      "ref": "v1.10-r1",
+      "message": "previous index record 1.10-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/csvtk",
+      "ref": "v0.37.0-r1",
+      "message": "previous index record 0.37.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/cufflinks",
+      "ref": "v2.2.1-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/cufflinks",
+      "ref": "v2.2.1-r1",
+      "message": "previous index record 2.2.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/dada2",
+      "ref": "v1.40.0-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/dada2",
+      "ref": "v1.40.0-r1",
+      "message": "previous index record 1.40.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/deepbgc",
+      "ref": "v0.1.31-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/deepbgc",
+      "ref": "v0.1.31-r1",
+      "message": "previous index record 0.1.31-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/deeptools",
+      "ref": "v3.5.6-r1",
+      "message": "previous index record 3.5.6-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/delly",
+      "ref": "v2.5.1-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/delly",
+      "ref": "v2.5.1-r1",
+      "message": "previous index record 2.5.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/dorado",
+      "ref": "v2.0.1-r1",
+      "message": "previous index record 2.0.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/dorado",
+      "ref": "v2.1.0-r1",
+      "message": "previous index record 2.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/dorado",
+      "ref": "v2.1.1-r1",
+      "message": "previous index record 2.1.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/dorado",
+      "ref": "v2.1.2-r1",
+      "message": "previous index record 2.1.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/dssp",
+      "ref": "v4.6.1-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/dssp",
+      "ref": "v4.6.1-r1",
+      "message": "previous index record 4.6.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/edta",
+      "ref": "v2.3.0-r1",
+      "message": "previous index record 2.3.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/eggnog-mapper",
+      "ref": "v2.1.15-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/eggnog-mapper",
+      "ref": "v2.1.15-r1",
+      "message": "previous index record 2.1.15-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/esm-fold",
+      "ref": "v2.0.0-r3",
+      "message": "previous index record 2.0.0-r3 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/evidencemodeler",
+      "ref": "v2.1.0-r1",
+      "message": "previous index record 2.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/filtlong",
+      "ref": "v0.3.1-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/filtlong",
+      "ref": "v0.3.1-r1",
+      "message": "previous index record 0.3.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/foldseek",
+      "ref": "v10-r2",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/foldseek",
+      "ref": "v10-r2",
+      "message": "previous index record 10-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/freebayes",
+      "ref": "v1.3.10-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/freebayes",
+      "ref": "v1.3.10-r1",
+      "message": "previous index record 1.3.10-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/freesasa",
+      "ref": "v2.1.3-r1",
+      "message": "previous index record 2.1.3-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/gromacs",
+      "ref": "v2026.2-r2",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/gromacs",
+      "ref": "v2026.2-r2",
+      "message": "previous index record 2026.2-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/haphic",
+      "ref": "v1.0.7-r1",
+      "message": "previous index record 1.0.7-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/haphic",
+      "ref": "v1.0.7-r2",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/haphic",
+      "ref": "v1.0.7-r2",
+      "message": "previous index record 1.0.7-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/hicexplorer",
+      "ref": "v3.7.6-r1",
+      "message": "previous index record 3.7.6-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/hicexplorer",
+      "ref": "v3.7.6-r2",
+      "message": "previous index record 3.7.6-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/hifiasm",
+      "ref": "v0.25.0-r2",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/hifiasm",
+      "ref": "v0.25.0-r2",
+      "message": "previous index record 0.25.0-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/hisat2",
+      "ref": "v2.2.2-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/hisat2",
+      "ref": "v2.2.2-r1",
+      "message": "previous index record 2.2.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/hmmer",
+      "ref": "v3.4-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/hmmer",
+      "ref": "v3.4-r1",
+      "message": "previous index record 3.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/hmmer",
+      "ref": "v3.4-r2",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/hmmer",
+      "ref": "v3.4-r2",
+      "message": "previous index record 3.4-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/igv",
+      "ref": "v2.19.7-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/igv",
+      "ref": "v2.19.7-r1",
+      "message": "previous index record 2.19.7-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/igv",
+      "ref": "v2.19.8-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/igv",
+      "ref": "v2.19.8-r1",
+      "message": "previous index record 2.19.8-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/interproscan",
+      "ref": "v5.77-108.0-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/interproscan",
+      "ref": "v5.77-108.0-r1",
+      "message": "previous index record 5.77-108.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/interproscan",
+      "ref": "v5.77-108.0-r3",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/interproscan",
+      "ref": "v5.77-108.0-r3",
+      "message": "previous index record 5.77-108.0-r3 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/kmc",
+      "ref": "v3.2.4-r1",
+      "message": "previous index record 3.2.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/kraken2",
+      "ref": "v2.17.1-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/kraken2",
+      "ref": "v2.17.1-r1",
+      "message": "previous index record 2.17.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/krona",
+      "ref": "v2.8.1-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/krona",
+      "ref": "v2.8.1-r1",
+      "message": "previous index record 2.8.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/lightdock",
+      "ref": "v0.9.4-r1",
+      "message": "previous index record 0.9.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/macs3",
+      "ref": "v3.0.4-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/macs3",
+      "ref": "v3.0.4-r1",
+      "message": "previous index record 3.0.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/medaka",
+      "ref": "v2.2.2-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/medaka",
+      "ref": "v2.2.2-r1",
+      "message": "previous index record 2.2.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/merqury",
+      "ref": "v1.4.1-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/merqury",
+      "ref": "v1.4.1-r1",
+      "message": "previous index record 1.4.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/meryl",
+      "ref": "v1.4.1-r2",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/meryl",
+      "ref": "v1.4.1-r2",
+      "message": "previous index record 1.4.1-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/meryl",
+      "ref": "v1.4.2-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/meryl",
+      "ref": "v1.4.2-r1",
+      "message": "previous index record 1.4.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/minigraph",
+      "ref": "v0.21-r1",
+      "message": "previous index record 0.21-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/minimap2",
+      "ref": "v2.31-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/minimap2",
+      "ref": "v2.31-r1",
+      "message": "previous index record 2.31-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/mirdeep2",
+      "ref": "v0.1.3-r1",
+      "message": "previous index record 0.1.3-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/mmseqs2",
+      "ref": "v18-r2",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/mmseqs2",
+      "ref": "v18-r2",
+      "message": "previous index record 18-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/modkit",
+      "ref": "v0.6.4-r1",
+      "message": "previous index record 0.6.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/mothur",
+      "ref": "v1.48.5-r1",
+      "message": "previous index record 1.48.5-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/msdial",
+      "ref": "v5.5.260323-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/msdial",
+      "ref": "v5.5.260323-r1",
+      "message": "previous index record 5.5.260323-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/muscle",
+      "ref": "v5.3-r2",
+      "message": "previous index record 5.3-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/nanoplot",
+      "ref": "v1.47.1-r2",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/nanoplot",
+      "ref": "v1.47.1-r2",
+      "message": "previous index record 1.47.1-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/ncbi-datasets",
+      "ref": "v18.35.0-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/ncbi-datasets",
+      "ref": "v18.35.0-r1",
+      "message": "previous index record 18.35.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/nextclade",
+      "ref": "v3.23.0-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/nextclade",
+      "ref": "v3.23.0-r1",
+      "message": "previous index record 3.23.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/ngenomesyn",
+      "ref": "v1.43-r1",
+      "message": "previous index record 1.43-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/ngs-qc-flow",
+      "ref": "v0.1.0-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/ngs-qc-flow",
+      "ref": "v0.1.0-r1",
+      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/oxdna",
+      "ref": "v3.7.0-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/oxdna",
+      "ref": "v3.7.0-r1",
+      "message": "previous index record 3.7.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/p2rank",
+      "ref": "v2.5.1-r1",
+      "message": "previous index record 2.5.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/panaroo",
+      "ref": "v1.8.0-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/panaroo",
+      "ref": "v1.8.0-r1",
+      "message": "previous index record 1.8.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/pandepth",
+      "ref": "v2.26-r2",
+      "message": "previous index record 2.26-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/pggb",
+      "ref": "v0.7.4-r1",
+      "message": "previous index record 0.7.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/phantompeakqualtools",
+      "ref": "v1.2.2-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/phantompeakqualtools",
+      "ref": "v1.2.2-r1",
+      "message": "previous index record 1.2.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/phylogeny-flow",
+      "ref": "v0.2.0-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/phylogeny-flow",
+      "ref": "v0.2.0-r1",
+      "message": "previous index record 0.2.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/plip",
+      "ref": "v3.0.1-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/plip",
+      "ref": "v3.0.1-r1",
+      "message": "previous index record 3.0.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/plotsr",
+      "ref": "v1.2.0-r1",
+      "message": "previous index record 1.2.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/pqsfinder",
+      "ref": "v2.28.0-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/pqsfinder",
+      "ref": "v2.28.0-r1",
+      "message": "previous index record 2.28.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/prodigal",
+      "ref": "v2.6.3-r1",
+      "message": "previous index record 2.6.3-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/protenix",
+      "ref": "v2.0.0-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/protenix",
+      "ref": "v2.0.0-r1",
+      "message": "previous index record 2.0.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/purge-dups",
+      "ref": "v1.2.6-r1",
+      "message": "previous index record 1.2.6-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/quartet",
+      "ref": "v1.3.1-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/quartet",
+      "ref": "v1.3.1-r1",
+      "message": "previous index record 1.3.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/quast",
+      "ref": "v5.3.0-r2",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/quast",
+      "ref": "v5.3.0-r2",
+      "message": "previous index record 5.3.0-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/racon",
+      "ref": "v1.5.0-r1",
+      "message": "previous index record 1.5.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/ragtag",
+      "ref": "v2.1.0-r1",
+      "message": "previous index record 2.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/repeatmodeler",
+      "ref": "v2.0.9-r1",
+      "message": "previous index record 2.0.9-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/rmblast",
+      "ref": "v2.17.1-r1",
+      "message": "previous index record 2.17.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/rnaseq-alignment-flow",
+      "ref": "v0.1.0-r1",
+      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/rnaseq-de-flow",
+      "ref": "v0.1.0-r2",
+      "message": "previous index record 0.1.0-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/rnaseq-denovo-assembly-flow",
+      "ref": "v0.1.0-r1",
+      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/rnaseq-report-flow",
+      "ref": "v0.3.0-r2",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/rnaseq-report-flow",
+      "ref": "v0.3.0-r2",
+      "message": "previous index record 0.3.0-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/rnaseq-standard-flow",
+      "ref": "v0.3.0-r1",
+      "message": "previous index record 0.3.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/rnaseq-yeast-get-data",
+      "ref": "v0.1.0-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/rnaseq-yeast-get-data",
+      "ref": "v0.1.0-r1",
+      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/rsem",
+      "ref": "v1.3.3-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/rsem",
+      "ref": "v1.3.3-r1",
+      "message": "previous index record 1.3.3-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/sage",
+      "ref": "v0.14.7-r1",
+      "message": "previous index record 0.14.7-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/salmon",
+      "ref": "v2.3.1-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/salmon",
+      "ref": "v2.3.1-r1",
+      "message": "previous index record 2.3.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/salmon",
+      "ref": "v2.4.1-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/salmon",
+      "ref": "v2.4.1-r1",
+      "message": "previous index record 2.4.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/scrnaseq-python",
+      "ref": "v0.1.0-r1",
+      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/scrnaseq-r",
+      "ref": "v0.1.0-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/scrnaseq-r",
+      "ref": "v0.1.0-r1",
+      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/seqkit",
+      "ref": "v2.13.0-r1",
+      "message": "previous index record 2.13.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/seqkit",
+      "ref": "v2.13.0-r2",
+      "message": "previous index record 2.13.0-r2 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/seqwish",
+      "ref": "v0.7.12-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/seqwish",
+      "ref": "v0.7.12-r1",
+      "message": "previous index record 0.7.12-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/seurat",
+      "ref": "v5.5.0-r1",
+      "message": "previous index record 5.5.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/simpleaf",
+      "ref": "v0.26.2-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/simpleaf",
+      "ref": "v0.26.2-r1",
+      "message": "previous index record 0.26.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/sourmash",
+      "ref": "v4.9.4-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/sourmash",
+      "ref": "v4.9.4-r1",
+      "message": "previous index record 4.9.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/spades",
+      "ref": "v4.2.0-r1",
+      "message": "previous index record 4.2.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/spades",
+      "ref": "v4.3.0-r1",
+      "message": "previous index record 4.3.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/sqanti3",
+      "ref": "v6.0.2-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/sqanti3",
+      "ref": "v6.0.2-r1",
+      "message": "previous index record 6.0.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/star",
+      "ref": "v2.7.11b-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/star",
+      "ref": "v2.7.11b-r1",
+      "message": "previous index record 2.7.11b-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/stringtie",
+      "ref": "v3.0.3-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/stringtie",
+      "ref": "v3.0.3-r1",
+      "message": "previous index record 3.0.3-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/suppa",
+      "ref": "v2.4-r1",
+      "message": "previous index record 2.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/taffish-report-render",
+      "ref": "v0.1.0-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/taffish-report-render",
+      "ref": "v0.1.0-r1",
+      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/tmbed",
+      "ref": "v1.0.2-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/tmbed",
+      "ref": "v1.0.2-r1",
+      "message": "previous index record 1.0.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/trf",
+      "ref": "v4.09.1-r1",
+      "message": "dockerfile does not exist: docker/Dockerfile"
+    },
+    {
+      "repository": "taffish/trf",
+      "ref": "v4.09.1-r1",
+      "message": "previous index record 4.09.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/trnascan-se",
+      "ref": "v2.0.12-r1",
+      "message": "previous index record 2.0.12-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/trnascan-se",
+      "ref": "v2.0.13-r1",
+      "message": "previous index record 2.0.13-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/uniprot-idmapping",
+      "ref": "v0.1.0-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/uniprot-idmapping",
+      "ref": "v0.1.0-r1",
+      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/vg",
+      "ref": "v1.76.1-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/vg",
+      "ref": "v1.76.1-r1",
+      "message": "previous index record 1.76.1-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/virsorter2",
+      "ref": "v2.2.4-r1",
+      "message": "previous index record 2.2.4-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/vsearch",
+      "ref": "v2.31.0-r1",
+      "message": "docs/help.md does not exist"
+    },
+    {
+      "repository": "taffish/vsearch",
+      "ref": "v2.31.0-r1",
+      "message": "previous index record 2.31.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/weblogo",
+      "ref": "v3.9.0-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/weblogo",
+      "ref": "v3.9.0-r1",
+      "message": "previous index record 3.9.0-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/wfmash",
+      "ref": "v0.24.2-r1",
+      "message": "previous index record 0.24.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    },
+    {
+      "repository": "taffish/yahs",
+      "ref": "v1.2.2-r1",
+      "message": "main TAF file does not exist: src/main.taf"
+    },
+    {
+      "repository": "taffish/yahs",
+      "ref": "v1.2.2-r1",
+      "message": "previous index record 1.2.2-r1 is missing from the current scan; preserved until explicitly rejected"
+    }
+  ]
 }
