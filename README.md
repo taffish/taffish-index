@@ -180,6 +180,11 @@ The staged builder checks both the previous `index/index.json` and the internal
   releases; persisted v2 evidence automatically advances the next batch.
 - `--force-recheck` also plans unchanged records, but disables gate-result cache
   reuse and re-runs digest and smoke work. It is intentionally not the default.
+- `--retry-failed` is a manual retry-only mode. It plans only releases with an
+  exact current `failed`/`not_checked` backend result or a persisted retry marker,
+  while excluding unrelated new releases, legacy backfill, and pure policy
+  refreshes. The latest exact gate-state result takes precedence over older public
+  evidence, and already passed backends are still reused independently.
 - A release tag that changes commit is rejected even under `--force-recheck`;
   force only disables reuse and never weakens immutable-release validation. The
   last accepted commit remains in the stable index, so the moved tag continues
@@ -219,12 +224,18 @@ but do not remove an otherwise accepted version. Changing this required/advisory
 contract requires an explicit policy-generation change.
 
 Docker/Podman smoke runs use `--network none`, do not mount the repository, and
-do not receive GitHub tokens or secrets. Apptainer uses a clean contained
-environment and a digest-pinned temporary SIF. Apptainer smoke is accepted only
-when the runner's native platform matches the planned platform; it is not
-silently labeled as cross-architecture emulation. The current Action policy
-runs smoke on `linux/amd64`; inspecting an image that also publishes
-`linux/arm64` does not prove that backend smoke passed natively on arm64.
+do not receive GitHub tokens or secrets. Their image pull gets one bounded retry
+for non-timeout failures. Command diagnostics preserve both the beginning and
+terminal error while remaining bounded. Apptainer uses a clean contained
+environment and a digest-pinned, read-only temporary SIF. Every Apptainer smoke
+command receives a unique disk-backed work directory for its contained HOME,
+`/tmp`, and `/var/tmp`; the directory is deleted after that command, including on
+failure. This avoids the small in-memory session directory without granting a
+writable image or repository bind. Apptainer smoke is accepted only when the
+runner's native platform matches the planned platform; it is not silently labeled
+as cross-architecture emulation. The current Action policy runs smoke on
+`linux/amd64`; inspecting an image that also publishes `linux/arm64` does not
+prove that backend smoke passed natively on arm64.
 
 Passed backend results are reusable only when the full cache identity matches:
 task id (`repository + version_id`), source commit, image digest, smoke SHA-256,
@@ -441,9 +452,10 @@ The scheduled run uses:
 17 1 * * *  # UTC
 ```
 
-Scheduled runs always use routine mode. Manual dispatch exposes an optional
-`backfill_limit` input: leave it blank for routine mode, or enter `1-50` to pass
-the paired `--backfill --backfill-limit N` arguments safely.
+Scheduled runs always use routine mode. Manual dispatch exposes two mutually
+exclusive controls: `backfill_limit` accepts `1-50` for a bounded legacy
+backfill, while `retry_failed` selects only exact current failed/not-checked
+evidence. Leave both at their defaults for routine mode.
 
 The workflow is configured as a four-stage pipeline driven by
 `scripts/index-phase.lisp`:
@@ -498,6 +510,7 @@ pipeline.
 From this repository root:
 
 ```sh
+bash tests/action-plan.sh
 sbcl --script tests/project.lisp
 sbcl --script tests/concurrency.lisp
 sbcl --script tests/pipeline.lisp
@@ -597,7 +610,8 @@ Important staged options are:
 ```text
 plan      --jobs <1-8> --backends <CSV> --policy-generation <ID>
           --platform <OS/ARCH>
-          [--backfill [--backfill-limit <1-50>] | --force-recheck]
+          [--backfill [--backfill-limit <1-50>] | --force-recheck |
+           --retry-failed]
 inspect   --plan <PATH> --output <PATH> --jobs <1-4>
 smoke     --manifest <PATH> --backend <NAME> --output <PATH> --jobs <N>
 aggregate --plan <PATH> --manifest <PATH> --result <PATH>... --index-dir <DIR>
@@ -611,6 +625,11 @@ requires `--backfill` and cannot be combined with `--force-recheck`. Bare
 includes historical records but ignores matching gate cache results. Neither
 mode weakens changed-source-commit rejection, and routine Action runs use neither
 mode.
+
+`--retry-failed` is mutually exclusive with both backfill forms and
+`--force-recheck`. It selects only exact evidence for the current source commit,
+image digest, smoke signature, platform, and policy generation. Rejection and
+immutable-source drift checks still run first and cannot be bypassed by this mode.
 
 The compatibility `scripts/build-index.lisp` CLI remains:
 
@@ -640,6 +659,7 @@ Environment variables:
 | `TAFFISH_INDEX_JOBS` | Default concurrent repository worker count when `--jobs` is omitted. Must be from 1 through 8; defaults to 8. |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | Enables default branch snapshots when set to `1`, `true`, or `yes`. |
 | `TAFFISH_INDEX_FORCE_RECHECK` | Re-runs digest/smoke gates when set to `1`, `true`, or `yes`. |
+| `TAFFISH_INDEX_APPTAINER_WORK_ROOT` | Optional absolute disk directory under which unique contained Apptainer smoke workdirs are created and removed. Defaults to the system temporary directory. |
 | `TAFFISH_INDEX_POLICY_GENERATION` | Default staged cache-policy generation. Defaults to `multibackend-1`. |
 | `TAFFISH_INDEX_PLATFORM` | Explicit staged smoke platform. Defaults to `linux/amd64`. |
 | `TAFFISH_INDEX_METADATA_OVERRIDES` | Optional path to a metadata override TOML file. Defaults to `metadata-overrides.toml`. |

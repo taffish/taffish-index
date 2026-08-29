@@ -136,6 +136,19 @@
         (format nil "~A..." (subseq clean 0 limit))
         clean)))
 
+(defun diagnostic-excerpt (string &optional (limit 1200))
+  "Keep both ends of bounded command output so terminal errors remain visible."
+  (let ((clean (or string "")))
+    (if (<= (length clean) limit)
+        clean
+        (let* ((head-length (floor limit 2))
+               (tail-length (- limit head-length))
+               (omitted (- (length clean) head-length tail-length)))
+          (format nil "~A~%...[~D characters omitted]...~%~A"
+                  (subseq clean 0 head-length)
+                  omitted
+                  (subseq clean (- (length clean) tail-length)))))))
+
 (defun curl-args (url &key token github-json)
   (append
    (list "--fail" "--silent" "--show-error" "--location"

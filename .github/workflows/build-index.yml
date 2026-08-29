@@ -8,6 +8,11 @@ on:
         required: false
         type: string
         default: ""
+      retry_failed:
+        description: "Only retry exact failed or not-checked app evidence"
+        required: false
+        type: boolean
+        default: false
   schedule:
     - cron: "17 1 * * *"
 
@@ -38,6 +43,7 @@ jobs:
 
       - name: Test index builder
         run: |
+          bash tests/action-plan.sh
           sbcl --script tests/project.lisp
           sbcl --script tests/concurrency.lisp
           sbcl --script tests/pipeline.lisp
@@ -45,29 +51,8 @@ jobs:
       - name: Plan index update
         env:
           BACKFILL_LIMIT_INPUT: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.backfill_limit || '' }}
-        run: |
-          set -euo pipefail
-
-          mkdir -p work
-          plan_args=(
-            --org taffish
-            --index-dir index
-            --output work/plan.json
-            --jobs 8
-            --backends docker,podman,apptainer
-            --policy-generation multibackend-1
-            --platform linux/amd64
-          )
-
-          if [[ -n "$BACKFILL_LIMIT_INPUT" ]]; then
-            if [[ ! "$BACKFILL_LIMIT_INPUT" =~ ^([1-9]|[1-4][0-9]|50)$ ]]; then
-              echo "backfill_limit must be blank or an integer from 1 to 50" >&2
-              exit 1
-            fi
-            plan_args+=(--backfill --backfill-limit "$BACKFILL_LIMIT_INPUT")
-          fi
-
-          sbcl --script scripts/index-phase.lisp plan "${plan_args[@]}"
+          RETRY_FAILED_INPUT: ${{ github.event_name == 'workflow_dispatch' && inputs.retry_failed && 'true' || 'false' }}
+        run: bash scripts/action-plan.sh
 
       - name: Upload index plan
         uses: actions/upload-artifact@v7
@@ -190,8 +175,9 @@ jobs:
         env:
           APPTAINER_CACHEDIR: ${{ runner.temp }}/apptainer-cache
           APPTAINER_TMPDIR: ${{ runner.temp }}/apptainer-tmp
+          TAFFISH_INDEX_APPTAINER_WORK_ROOT: ${{ runner.temp }}/apptainer-work
         run: |
-          mkdir -p work/results
+          mkdir -p work/results "$TAFFISH_INDEX_APPTAINER_WORK_ROOT"
           sbcl --script scripts/index-phase.lisp smoke \
             --manifest work/manifest.json \
             --backend "${{ matrix.backend }}" \

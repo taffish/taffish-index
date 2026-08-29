@@ -168,6 +168,10 @@ staged 生产 pipeline 只索引不可变 release tag；分支 snapshot 不会�
   成功持久化的 v2 证据会让下一批自动向后推进。
 - `--force-recheck` 也会纳入未变化记录，但会禁用 gate-result cache 复用，重新运行
   digest 和 smoke；它刻意不是默认行为。
+- `--retry-failed` 是手动 retry-only 模式，只计划具有当前精确 `failed` /
+  `not_checked` backend 证据或持久 retry marker 的 release，同时排除无关的新 release、
+  legacy backfill 和纯 policy refresh。最新的精确 gate-state 结果优先于公开 index 的
+  旧证据；已经通过的 backend 仍会分别复用。
 - 即使使用 `--force-recheck`，release tag 的 commit 发生变化仍会被拒绝；force
   只禁用复用，不会削弱不可变 release 校验。最后一次接受的 commit 会继续保留在
   稳定 index 中，因此移动过的 tag 在后续运行中仍会失败，不会被重新识别成新 release。
@@ -201,9 +205,12 @@ Podman 和 Apptainer）是 advisory。它们的失败会进入 `advisory_failed`
 推进 policy generation。
 
 Docker/Podman smoke 使用 `--network none`，不会挂载仓库，也不会接收 GitHub token
-或 secrets。Apptainer 使用干净的 contained 环境和 digest-pinned 临时 SIF，且只在
-runner 原生平台与计划平台一致时接受结果，不会把跨架构执行静默标记为已验证。
-当前 Action policy 在 `linux/amd64` 上运行 smoke；镜像 manifest 同时发布
+或 secrets。其镜像 pull 对非超时失败提供一次有界重试；命令诊断在限制长度的同时
+保留开头和最终错误。Apptainer 使用干净的 contained 环境和 digest-pinned、只读的
+临时 SIF。每条 Apptainer smoke 命令都获得唯一的磁盘 workdir，作为 contained HOME、
+`/tmp` 和 `/var/tmp`，并在成功或失败后删除；这不会让镜像可写，也不会增加仓库 bind。
+Apptainer 只在 runner 原生平台与计划平台一致时接受结果，不会把跨架构执行静默标记为
+已验证。当前 Action policy 在 `linux/amd64` 上运行 smoke；镜像 manifest 同时发布
 `linux/arm64`，不等于已经在 arm64 上原生通过 backend smoke。
 
 只有完整 cache identity 一致时，已通过 backend 结果才会被复用：task id
@@ -405,8 +412,9 @@ Smoke：
 17 1 * * *  # UTC
 ```
 
-定时任务始终使用日常模式。手动触发时可以填写可选的 `backfill_limit`：留空仍是
-日常模式，填写 `1-50` 会安全地成对传入 `--backfill --backfill-limit N`。
+定时任务始终使用日常模式。手动触发提供两个互斥控制：`backfill_limit` 接受 `1-50`
+以分批回填 legacy 证据；`retry_failed` 只选择当前精确 failed/not-checked 证据。两者
+都保持默认值时仍是日常模式。
 
 workflow 被配置为由 `scripts/index-phase.lisp` 驱动的四阶段 pipeline：
 
@@ -450,6 +458,7 @@ schema、source head、policy、platform、task 覆盖、重复/缺失 backend�
 从本仓库根目录运行：
 
 ```sh
+bash tests/action-plan.sh
 sbcl --script tests/project.lisp
 sbcl --script tests/concurrency.lisp
 sbcl --script tests/pipeline.lisp
@@ -547,7 +556,8 @@ sbcl --script scripts/index-phase.lisp --help
 ```text
 plan      --jobs <1-8> --backends <CSV> --policy-generation <ID>
           --platform <OS/ARCH>
-          [--backfill [--backfill-limit <1-50>] | --force-recheck]
+          [--backfill [--backfill-limit <1-50>] | --force-recheck |
+           --retry-failed]
 inspect   --plan <PATH> --output <PATH> --jobs <1-4>
 smoke     --manifest <PATH> --backend <NAME> --output <PATH> --jobs <N>
 aggregate --plan <PATH> --manifest <PATH> --result <PATH>... --index-dir <DIR>
@@ -559,6 +569,10 @@ aggregate --plan <PATH> --manifest <PATH> --result <PATH>... --index-dir <DIR>
 `--force-recheck` 组合；裸 `--backfill` 保留无限量兼容行为。`--force-recheck`
 会纳入历史记录，但忽略匹配的 gate cache。两者都不会削弱 changed-source-commit
 rejection，日常 Action 也不会使用这两个模式。
+
+`--retry-failed` 与两种 backfill 形式、`--force-recheck` 均互斥。它只选择与当前 source
+commit、image digest、smoke signature、platform 和 policy generation 精确匹配的
+问题证据。rejection 和 immutable-source drift 检查始终先执行，不能被该模式绕过。
 
 兼容入口 `scripts/build-index.lisp` 的 CLI 继续保持：
 
@@ -587,6 +601,7 @@ rejection，日常 Action 也不会使用这两个模式。
 | `TAFFISH_INDEX_JOBS` | 未提供 `--jobs` 时使用的并发仓库 worker 数。必须是 1 到 8，默认 8。 |
 | `TAFFISH_INDEX_INCLUDE_DEFAULT_BRANCH` | 设为 `1`、`true` 或 `yes` 时启用默认分支 snapshot。 |
 | `TAFFISH_INDEX_FORCE_RECHECK` | 设为 `1`、`true` 或 `yes` 时重新执行 digest/smoke gate。 |
+| `TAFFISH_INDEX_APPTAINER_WORK_ROOT` | 可选绝对磁盘目录；每条 contained Apptainer smoke 会在其下创建并删除唯一 workdir。默认使用系统临时目录。 |
 | `TAFFISH_INDEX_POLICY_GENERATION` | staged cache policy generation 默认值。默认是 `multibackend-1`。 |
 | `TAFFISH_INDEX_PLATFORM` | 显式 staged smoke platform。默认是 `linux/amd64`。 |
 | `TAFFISH_INDEX_METADATA_OVERRIDES` | 可选 metadata override TOML 路径。默认是 `metadata-overrides.toml`。 |

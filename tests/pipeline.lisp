@@ -439,6 +439,24 @@ test = [\"sh -c 'exit 0'\"]
            '("--output" "ignored.json" "--backfill"
              "--backfill-limit" "2" "--force-recheck"))))
        "bounded backfill cannot be combined with force recheck")
+(let ((retry
+        (parse-plan-options
+         '("--retry-failed" "--output" "ignored.json"))))
+  (check (plist-ref retry :retry-failed)
+         "retry-failed mode is parsed independent of option order")
+  (check (null (plist-ref retry :backfill))
+         "retry-failed mode does not imply legacy backfill")
+  (check (null (plist-ref retry :force-recheck))
+         "retry-failed mode preserves exact cache reuse"))
+(dolist (arguments
+          '(("--output" "ignored.json" "--retry-failed" "--backfill")
+            ("--output" "ignored.json" "--backfill" "--retry-failed")
+            ("--output" "ignored.json" "--retry-failed" "--backfill"
+             "--backfill-limit" "2")
+            ("--output" "ignored.json" "--retry-failed"
+             "--force-recheck")))
+  (check (signals-error-p (lambda () (parse-plan-options arguments)))
+         (format nil "retry-failed rejects conflicting options ~S" arguments)))
 (check (ensure-backend-platform-compatible
         "apptainer" "linux/amd64" "linux/amd64")
        "Apptainer accepts a matching native host platform")
@@ -450,6 +468,176 @@ test = [\"sh -c 'exit 0'\"]
 (check (ensure-backend-platform-compatible
         "docker" "linux/arm64" "linux/amd64")
        "Docker may use its explicit platform/emulation support")
+
+;;; Runtime harness isolation, bounded diagnostics, and pull retry policy.
+
+(let* ((workdir #p"/tmp/taffish-index-test-work/")
+       (args
+         (backend-run-args
+          "apptainer" "/tmp/test.sif" *test-platform* "tool --version"
+          workdir)))
+  (check-equal
+   '("exec" "--cleanenv" "--containall" "--no-mount" "bind-paths"
+     "--workdir" "/tmp/taffish-index-test-work/"
+     "--net" "--network" "none" "/tmp/test.sif" "sh" "-c"
+     "tool --version")
+   args
+   "Apptainer smoke uses a contained disk-backed workdir")
+  (check (not (member "--writable" args :test #'string=))
+         "Apptainer smoke keeps the SIF read-only")
+  (check (not (member "--writable-tmpfs" args :test #'string=))
+         "Apptainer smoke does not add a writable overlay")
+  (check (not (member "--compat" args :test #'string=))
+         "Apptainer smoke does not broaden compatibility mounts"))
+(check (signals-error-p
+        (lambda ()
+          (backend-run-args
+           "apptainer" "/tmp/test.sif" *test-platform* "true")))
+       "Apptainer argv rejects a missing disk-backed workdir")
+
+(let* ((long-output
+         (concatenate 'string
+                      "diagnostic-head-"
+                      (make-string 1300 :initial-element #\x)
+                      "-diagnostic-tail"))
+       (excerpt (diagnostic-excerpt long-output 120)))
+  (check (search "diagnostic-head" excerpt)
+         "bounded diagnostics preserve command output head")
+  (check (search "diagnostic-tail" excerpt)
+         "bounded diagnostics preserve command output tail")
+  (check (search "characters omitted" excerpt)
+         "bounded diagnostics mark omitted output")
+  (check-equal "short output" (diagnostic-excerpt "short output" 120)
+               "short diagnostics remain unchanged")
+  (check-equal "" (diagnostic-excerpt nil 120)
+               "missing diagnostics are safe and empty"))
+
+(with-test-directory (root "apptainer-workdir")
+  (let ((observed nil))
+    (dotimes (_ 2)
+      (declare (ignore _))
+      (run-one-backend-command
+       "apptainer" "/tmp/test.sif" *test-platform* 60 "true"
+       :work-root root
+       :command-runner
+       (lambda (_timeout _backend args)
+         (declare (ignore _timeout _backend))
+         (let* ((position (position "--workdir" args :test #'string=))
+                (path (and position (nth (1+ position) args))))
+           (check (and path (probe-file path))
+                  "Apptainer workdir exists while a smoke command runs")
+           (push path observed))
+         (values t "" "" 0))))
+    (check-equal 2 (length (remove-duplicates observed :test #'string=))
+                 "each Apptainer smoke command gets a unique workdir")
+    (check (every (lambda (path) (not (probe-file path))) observed)
+           "successful Apptainer smoke removes every workdir")
+    (let ((failed-path nil))
+      (check
+       (signals-error-p
+        (lambda ()
+          (run-one-backend-command
+           "apptainer" "/tmp/test.sif" *test-platform* 60 "false"
+           :work-root root
+           :command-runner
+           (lambda (_timeout _backend args)
+             (declare (ignore _timeout _backend))
+             (let ((position (position "--workdir" args :test #'string=)))
+               (setf failed-path (nth (1+ position) args)))
+             (values nil "failed head" "failed tail" 1)))))
+       "failed Apptainer smoke remains a gate failure")
+      (check (and failed-path (not (probe-file failed-path)))
+             "failed Apptainer smoke also removes its workdir"))
+    (let ((signaled-path nil))
+      (check
+       (signals-error-p
+        (lambda ()
+          (run-one-backend-command
+           "apptainer" "/tmp/test.sif" *test-platform* 60 "error"
+           :work-root root
+           :command-runner
+           (lambda (_timeout _backend args)
+             (declare (ignore _timeout _backend))
+             (let ((position (position "--workdir" args :test #'string=)))
+               (setf signaled-path (nth (1+ position) args)))
+             (error "direct runner failure")))))
+       "direct Apptainer runner exceptions remain failures")
+      (check (and signaled-path (not (probe-file signaled-path)))
+             "direct Apptainer runner exceptions remove their workdir"))))
+
+(let ((calls 0)
+      (sleeps 0))
+  (check
+   (run-image-prepare-command
+    "pull test image" "podman" '("pull" "test")
+    :attempts 2
+    :retry-delay 0
+    :runner
+    (lambda (_timeout _backend _arguments)
+      (declare (ignore _timeout _backend _arguments))
+      (incf calls)
+      (if (= calls 1)
+          (values nil "first head" "first tail" 125)
+          (values t "" "" 0)))
+    :sleeper
+    (lambda (_seconds)
+      (declare (ignore _seconds))
+      (incf sleeps)))
+   "Docker/Podman image preparation retries one transient pull failure")
+  (check-equal 2 calls "transient pull failure executes exactly two attempts")
+  (check-equal 1 sleeps "transient pull failure uses one bounded backoff"))
+(let ((calls 0))
+  (check
+   (signals-error-p
+    (lambda ()
+      (run-image-prepare-command
+       "pull timed-out image" "podman" '("pull" "test")
+       :attempts 2
+       :runner
+       (lambda (_timeout _backend _arguments)
+         (declare (ignore _timeout _backend _arguments))
+         (incf calls)
+         (values nil "" "timeout tail" 124))
+       :sleeper (lambda (_seconds) (declare (ignore _seconds))))))
+   "timed-out image preparation remains a gate failure")
+  (check-equal 1 calls "timeout exit does not start a duplicate pull"))
+
+(let* ((variable "TAFFISH_INDEX_APPTAINER_WORK_ROOT")
+       (old-value (uiop:getenv variable))
+       (record (make-test-record 230))
+       (manifest (make-test-manifest (make-test-plan (list record)))))
+  (unwind-protect
+       (progn
+         (sb-posix:setenv variable "relative-work-root" 1)
+         (let ((document
+                 (run-backend-phase
+                  manifest "apptainer" 1
+                  :runtime-version "fake-apptainer"
+                  :host-platform *test-platform*)))
+           (check (stringp (json-ref document "infrastructure_error"))
+                  "invalid Apptainer work root is runner infrastructure")
+           (check-equal 0 (json-ref document "workers_used")
+                        "invalid Apptainer work root starts no app workers")
+           (check (null (json-array-field document "results"))
+                  "invalid Apptainer work root creates no false app failures")))
+    (if old-value
+        (sb-posix:setenv variable old-value 1)
+        (sb-posix:unsetenv variable)))
+  (let ((document
+          (run-backend-phase
+           manifest "apptainer" 1
+           :runtime-version "fake-apptainer"
+           :host-platform *test-platform*
+           :apptainer-work-root-validator
+           (lambda ()
+             (error "configured Apptainer work root is not writable")))))
+    (check (search "not writable"
+                   (json-ref document "infrastructure_error"))
+           "unwritable Apptainer root is runner infrastructure")
+    (check-equal 0 (json-ref document "workers_used")
+                 "unwritable Apptainer root starts no app workers")
+    (check (null (json-array-field document "results"))
+           "unwritable Apptainer root creates no false app failures")))
 
 ;;; Staged local inputs receive a real, clean Git identity.  This is stricter
 ;;; than the compatibility BUILD-INDEX path because observations are durable.
@@ -745,7 +933,8 @@ test = [\"sh -c 'exit 0'\"]
               :replacement "1.0.0-r25"))
   (dolist (case '(("routine" nil)
                   ("backfill" (:backfill t))
-                  ("force" (:force-recheck t))))
+                  ("force" (:force-recheck t))
+                  ("retry" (:retry-failed t))))
     (multiple-value-bind (accepted tasks failures rejected)
         (apply #'classify-pipeline-records
                (list current) previous-map rejected-map *test-generated-at*
@@ -1005,6 +1194,143 @@ test = [\"sh -c 'exit 0'\"]
                         *test-platform* *test-backends*)
                        "per-backend identity mismatch invalidates whole-record reuse")))))))))
 
+;;; Manual retry-only mode selects exact current problems while preserving the
+;;; existing per-backend cache and excluding unrelated work.
+
+(let* ((record (make-test-record 27))
+       (plan (make-test-plan (list record)))
+       (manifest (make-test-manifest plan))
+       (task (first (manifest-task-plists manifest)))
+       (result-map (make-hash-table :test #'equal)))
+  (dolist (pair '(("docker" . "passed")
+                  ("podman" . "failed")
+                  ("apptainer" . "not_checked")))
+    (let ((backend (car pair))
+          (status (cdr pair)))
+      (setf (gethash (composite-result-key
+                      (plist-ref task :task-id) backend)
+                     result-map)
+            (backend-result-json
+             task "retry-only-plan" "retry-only-manifest"
+             backend *test-platform* *test-policy-generation*
+             status *test-generated-at*
+             :runtime-version (format nil "retry-only-~A" backend)
+             :runner-image "retry-only-runner"
+             :provenance "pipeline-test"
+             :failure-kind (unless (string= status "passed") "smoke")
+             :message (unless (string= status "passed")
+                        "retry-only test failure")))))
+  (let* ((previous
+           (accepted-record-from-task
+            task *test-backends* result-map *test-generated-at*
+            *test-policy-generation* *test-platform*))
+         (current (make-test-record 27))
+         (unrelated-new (make-test-record 28))
+         (prior-results
+           (loop for result being the hash-values of result-map
+                 collect result)))
+    (multiple-value-bind (accepted tasks failures rejected)
+        (classify-pipeline-records
+         (list current unrelated-new)
+         (previous-record-map (list previous)) nil
+         *test-generated-at* *test-policy-generation* *test-backends*
+         :platform *test-platform*
+         :prior-results prior-results
+         :retry-failed t)
+      (check-equal 1 (length accepted)
+                   "retry-only keeps the existing accepted fallback")
+      (check-equal 1 (length tasks)
+                   "retry-only selects one app with exact problem evidence")
+      (check-equal (record-cache-key current)
+                   (plist-ref (first tasks) :task-id)
+                   "retry-only excludes an unrelated new release")
+      (check (null failures)
+             "retry-only exact problem selection creates no source failure")
+      (check (null rejected)
+             "retry-only exact problem selection creates no rejection")
+      (let* ((retry-plan
+               (make-classified-test-plan
+                accepted tasks failures rejected
+                :prior-results prior-results))
+             (retry-manifest (make-test-manifest retry-plan)))
+        (check-equal 0 (manifest-backend-task-count retry-manifest "docker")
+                     "retry-only reuses the exact Docker pass")
+        (check-equal 1 (manifest-backend-task-count retry-manifest "podman")
+                     "retry-only reruns the exact failed Podman backend")
+        (check-equal 1
+                     (manifest-backend-task-count retry-manifest "apptainer")
+                     "retry-only reruns exact not_checked Apptainer evidence")))
+    (let ((passed-state nil))
+      (dolist (backend *test-backends*)
+        (push
+         (backend-result-json
+          task "retry-pass-plan" "retry-pass-manifest"
+          backend *test-platform* *test-policy-generation*
+          "passed" *test-generated-at*
+          :runtime-version (format nil "retry-pass-~A" backend)
+          :runner-image "retry-pass-runner"
+          :provenance "pipeline-test")
+         passed-state))
+      (multiple-value-bind (accepted tasks failures rejected)
+          (classify-pipeline-records
+           (list current) (previous-record-map (list previous)) nil
+           *test-generated-at* *test-policy-generation* *test-backends*
+           :platform *test-platform*
+           :prior-results passed-state
+           :retry-failed t)
+        (declare (ignore failures rejected))
+        (check-equal 1 (length accepted)
+                     "latest exact passes keep the accepted record")
+        (check (null tasks)
+               "latest exact gate-state passes veto older public failures")))
+    (multiple-value-bind (accepted tasks failures rejected)
+        (classify-pipeline-records
+         (list current) (previous-record-map (list previous)) nil
+         *test-generated-at* "pipeline-test-2" *test-backends*
+         :platform *test-platform*
+         :prior-results prior-results
+         :retry-failed t)
+      (declare (ignore failures rejected))
+      (check-equal 1 (length accepted)
+                   "stale retry evidence preserves the accepted record")
+      (check (null tasks)
+             "retry-only does not disguise a pure policy refresh as failure"))))
+
+(let* ((record (make-test-record 29))
+       (plan (make-test-plan (list record)))
+       (manifest (make-test-manifest plan))
+       (task (first (manifest-task-plists manifest)))
+       (docker-failed
+         (first
+          (json-array-field
+           (make-backend-result-document manifest "docker" "failed")
+           "results")))
+       (observation (observation-from-task task)))
+  (multiple-value-bind (accepted tasks failures rejected)
+      (classify-pipeline-records
+       (list record) (make-hash-table :test #'equal) nil
+       *test-generated-at* *test-policy-generation* *test-backends*
+       :platform *test-platform*
+       :prior-results (list docker-failed)
+       :observations-map (observation-map (list observation))
+       :retry-failed t)
+    (declare (ignore failures rejected))
+    (check (null accepted)
+           "first required failure is not prematurely published")
+    (check-equal 1 (length tasks)
+                 "retry-only selects exact required failure before enrollment"))
+  (multiple-value-bind (accepted tasks failures rejected)
+      (classify-pipeline-records
+       (list record) (make-hash-table :test #'equal) nil
+       *test-generated-at* *test-policy-generation* *test-backends*
+       :platform *test-platform*
+       :retry-task-ids (list (record-cache-key record))
+       :observations-map (observation-map (list observation))
+       :retry-failed t)
+    (declare (ignore accepted failures rejected))
+    (check-equal 1 (length tasks)
+                 "retry-only includes a persisted inspect/required retry marker")))
+
 ;;; Legacy accepted records remain untouched in routine runs. Explicit
 ;;; backfill/force work never upgrades trust-v1 evidence into an exact v2 hit.
 
@@ -1027,6 +1353,16 @@ test = [\"sh -c 'exit 0'\"]
                  "legacy records remain accepted in routine mode")
     (check (null tasks)
            "routine mode does not automatically backfill legacy records"))
+  (multiple-value-bind (accepted tasks failures rejected)
+      (classify-pipeline-records
+       (list current) previous-map nil *test-generated-at*
+       *test-policy-generation* *test-backends*
+       :platform *test-platform* :retry-failed t)
+    (declare (ignore failures rejected))
+    (check-equal 1 (length accepted)
+                 "retry-only preserves a trust-v1 legacy record")
+    (check (null tasks)
+           "retry-only does not misclassify trust-v1 as failed evidence"))
   (multiple-value-bind (accepted tasks failures rejected)
       (classify-pipeline-records
        (list current) previous-map nil *test-generated-at*

@@ -21,6 +21,8 @@
   '(("docker" . 4) ("podman" . 4) ("apptainer" . 2)))
 (defparameter *maximum-backfill-limit* 50)
 (defparameter *default-image-prepare-timeout* 600)
+(defparameter *default-image-pull-attempts* 2)
+(defparameter *default-image-pull-retry-delay* 2)
 (defparameter *pipeline-repository-root*
   #.(let* ((source (or *compile-file-truename* *load-truename*))
            (source-directory (uiop:pathname-directory-pathname source)))
@@ -452,7 +454,8 @@
          record :container (copy-record-set container :digest digest))
         record)))
 
-(defun validate-backfill-options (backfill backfill-limit force-recheck)
+(defun validate-backfill-options (backfill backfill-limit force-recheck
+                                  &optional retry-failed)
   (when (and backfill-limit (not backfill))
     (pipeline-error "--backfill-limit requires --backfill"))
   (when (and backfill-limit force-recheck)
@@ -461,7 +464,75 @@
   (when backfill-limit
     (normalize-stage-jobs backfill-limit *maximum-backfill-limit*
                           "--backfill-limit"))
+  (when (and retry-failed backfill)
+    (pipeline-error "--retry-failed cannot be combined with --backfill"))
+  (when (and retry-failed force-recheck)
+    (pipeline-error
+     "--retry-failed cannot be combined with --force-recheck"))
   backfill-limit)
+
+(defun retryable-backend-status-p (result)
+  (and (json-object-p result)
+       (member (json-ref result "status") '("failed" "not_checked")
+               :test #'string=)))
+
+(defun backend-evidence-identity-matches-record-p
+    (result record backend platform generation &key state-result)
+  (let* ((container (plist-ref record :container))
+         (smoke (plist-ref record :smoke))
+         (task-id (record-cache-key record)))
+    (and (json-object-p result)
+         (or (not state-result)
+             (and (string= (or (json-ref result "task_id") "") task-id)
+                  (string= (or (json-ref result "backend") "") backend)))
+         (string= (or (json-ref result "platform") "") platform)
+         (string= (or (json-ref result "policy_generation") "") generation)
+         (string= (or (json-ref result "source_commit") "")
+                  (or (plist-ref record :source-commit) ""))
+         (string= (or (json-ref result "image_digest") "")
+                  (or (and container (plist-ref container :digest)) ""))
+         (string= (or (json-ref result "smoke_sha256") "")
+                  (or (and smoke (smoke-signature smoke)) "")))))
+
+(defun exact-prior-result-for-record
+    (prior-results record backend platform generation)
+  (find-if
+   (lambda (result)
+     (backend-evidence-identity-matches-record-p
+      result record backend platform generation :state-result t))
+   prior-results))
+
+(defun exact-public-result-for-record (record backend platform generation)
+  (let* ((smoke (plist-ref record :smoke))
+         (results (and smoke (plist-ref smoke :backend-results)))
+         (result (and results (cdr (assoc backend results :test #'string=)))))
+    (and result
+         (backend-evidence-identity-matches-record-p
+          result record backend platform generation)
+         result)))
+
+(defun retry-failed-record-p
+    (record previous observation prior-results retry-task-ids
+     backends platform generation)
+  (let* ((cache-key (record-cache-key record))
+         (candidate
+           (if (and previous (same-source-commit-p previous record))
+               (cached-accepted-record record previous)
+               (record-with-observation-baseline record observation))))
+    (or (member cache-key retry-task-ids :test #'string=)
+        (some
+         (lambda (backend)
+           (let ((state-result
+                   (exact-prior-result-for-record
+                    prior-results candidate backend platform generation)))
+             ;; The operational ledger is newer than the public index.  An
+             ;; exact state pass therefore vetoes an older public failure.
+             (if state-result
+                 (retryable-backend-status-p state-result)
+                 (retryable-backend-status-p
+                  (exact-public-result-for-record
+                   candidate backend platform generation)))))
+         backends))))
 
 (defun legacy-backfill-candidate-p (record previous rejected-map retry-task-ids)
   (let* ((cache-key (record-cache-key record))
@@ -527,9 +598,12 @@
                                   checked-at generation backends
                                   &key (platform *default-pipeline-platform*)
                                     retry-task-ids
+                                    prior-results
                                     observations-map
-                                    force-recheck backfill backfill-limit)
-  (validate-backfill-options backfill backfill-limit force-recheck)
+                                    force-recheck backfill backfill-limit
+                                    retry-failed)
+  (validate-backfill-options
+   backfill backfill-limit force-recheck retry-failed)
   (let ((accepted nil)
         (tasks nil)
         (failures nil)
@@ -572,6 +646,15 @@
                                    (json-ref observation "source_commit")))
                           (plist-ref record :source-commit)))
                  failures))
+          ((and retry-failed
+                (not (retry-failed-record-p
+                      record previous observation prior-results retry-task-ids
+                      backends platform generation)))
+           ;; Retry-only runs must not enroll new releases, backfill legacy
+           ;; evidence, or perform a pure policy refresh. Existing accepted
+           ;; records remain byte-for-byte compatible with routine output.
+           (when previous
+             (push (cached-accepted-record record previous) accepted)))
           ((and previous (same-source-commit-p previous record)
                 (not force-recheck)
                 (not (and backfill
@@ -746,9 +829,10 @@
                                 metadata-overrides-file rejected-releases-file
                                 include-default-branch include-archived
                                 include-forks force-recheck backfill
-                                backfill-limit
+                                backfill-limit retry-failed
                                 generated-at generation platform backends)
-  (validate-backfill-options backfill backfill-limit force-recheck)
+  (validate-backfill-options
+   backfill backfill-limit force-recheck retry-failed)
   (when include-default-branch
     (pipeline-error
      "the staged pipeline indexes immutable release tags only; default branch snapshots remain available through scripts/build-index.lisp"))
@@ -792,9 +876,10 @@
            generated-at generation backends
            :platform platform
            :retry-task-ids prior-retry-tasks
+           :prior-results prior-results
            :observations-map (observation-map prior-observations)
            :force-recheck force-recheck :backfill backfill
-           :backfill-limit backfill-limit)
+           :backfill-limit backfill-limit :retry-failed retry-failed)
         (let* ((policy (pipeline-policy-json generation platform backends))
                (rejected-task-ids
                  (sorted-string-hash-keys rejected-releases))
@@ -1228,6 +1313,85 @@
   (run-command "timeout"
                (append (list (write-to-string timeout) program) args)))
 
+(defun apptainer-work-root ()
+  (let ((root
+          (uiop:ensure-directory-pathname
+           (env "TAFFISH_INDEX_APPTAINER_WORK_ROOT"
+                (namestring (uiop:temporary-directory))))))
+    (unless (uiop:absolute-pathname-p root)
+      (pipeline-error
+       "TAFFISH_INDEX_APPTAINER_WORK_ROOT must be an absolute path: ~A"
+       root))
+    (ensure-directory root)
+    root))
+
+(defun call-with-temporary-directory
+    (function &key (directory (uiop:temporary-directory))
+                    (prefix "taffish-index-"))
+  (let ((root (uiop:ensure-directory-pathname directory)))
+    (unless (uiop:absolute-pathname-p root)
+      (pipeline-error "temporary directory root must be absolute: ~A" root))
+    (ensure-directory root)
+    (uiop:with-temporary-file
+        (:stream stream :pathname placeholder
+         :directory root :prefix prefix :suffix ".work" :keep t)
+      (let ((temporary-directory nil))
+        (unwind-protect
+             (progn
+               (close stream)
+               (delete-file placeholder)
+               (setf temporary-directory
+                     (uiop:ensure-directory-pathname placeholder))
+               (ensure-directory temporary-directory)
+               (funcall function temporary-directory))
+          (cond
+            ((and temporary-directory (probe-file temporary-directory))
+             (uiop:delete-directory-tree
+              temporary-directory :validate t :if-does-not-exist :ignore))
+            ((probe-file placeholder)
+             (delete-file placeholder))))))))
+
+(defun validate-apptainer-work-root ()
+  (let ((root (apptainer-work-root)))
+    ;; Existence alone is insufficient: prove that the runner can create and
+    ;; remove the same unique child directories used by smoke commands.
+    (call-with-temporary-directory
+     (lambda (_directory)
+       (declare (ignore _directory))
+       t)
+     :directory root
+     :prefix "taffish-index-apptainer-preflight-")
+    root))
+
+(defun non-retryable-prepare-exit-p (code)
+  (member code '(124 137 143) :test #'eql))
+
+(defun run-image-prepare-command
+    (description backend arguments
+     &key (attempts 1) (retry-delay *default-image-pull-retry-delay*)
+       (runner #'timeout-command) (sleeper #'sleep))
+  (unless (and (integerp attempts) (> attempts 0))
+    (pipeline-error "prepare attempts must be a positive integer"))
+  (let ((diagnostics nil))
+    (loop for attempt from 1 to attempts do
+      (multiple-value-bind (ok out err code)
+          (funcall runner *default-image-prepare-timeout* backend arguments)
+        (when ok
+          (return-from run-image-prepare-command t))
+        (push
+         (format nil
+                 "attempt ~D (exit ~A)~%stdout: ~A~%stderr: ~A"
+                 attempt code (diagnostic-excerpt out)
+                 (diagnostic-excerpt err))
+         diagnostics)
+        (when (or (= attempt attempts)
+                  (non-retryable-prepare-exit-p code))
+          (gate-error
+           "prepare"
+           "failed to ~A after ~D attempt~:P:~%~{~A~^~%~}"
+           description attempt (nreverse diagnostics)))
+        (funcall sleeper retry-delay)))))
+
 (defun backend-pull-args (backend immutable-image platform)
   (cond
     ((string= backend "docker")
@@ -1237,14 +1401,19 @@
     (t
      (pipeline-error "pull args are not defined for ~A" backend))))
 
-(defun backend-run-args (backend image platform command)
+(defun backend-run-args (backend image platform command &optional workdir)
   (cond
     ((member backend '("docker" "podman") :test #'string=)
      (list "run" "--rm" "--platform" platform "--network" "none"
            "--entrypoint" "sh" image "-c" command))
     ((string= backend "apptainer")
+     (unless workdir
+       (pipeline-error "apptainer smoke requires a disk-backed workdir"))
+     (unless (uiop:absolute-pathname-p workdir)
+       (pipeline-error "apptainer workdir must be absolute: ~A" workdir))
      (list "exec" "--cleanenv" "--containall"
            "--no-mount" "bind-paths"
+           "--workdir" (namestring workdir)
            "--net" "--network" "none"
            image "sh" "-c" command))
     (t
@@ -1259,15 +1428,26 @@
                        (shell-single-quote executable)))
              executables))))
 
-(defun run-one-backend-command (backend image platform timeout command)
-  (multiple-value-bind (ok out err code)
-      (timeout-command timeout backend
-                       (backend-run-args backend image platform command))
-    (unless ok
-      (gate-error
-       "smoke"
-       "smoke command failed (~A, exit ~A): ~A~%stdout: ~A~%stderr: ~A"
-       backend code command (limit-string out 600) (limit-string err 600)))))
+(defun run-one-backend-command
+    (backend image platform timeout command
+     &key (command-runner #'timeout-command) work-root)
+  (labels ((run-command-with-workdir (workdir)
+             (multiple-value-bind (ok out err code)
+                 (funcall command-runner timeout backend
+                          (backend-run-args
+                           backend image platform command workdir))
+               (unless ok
+                 (gate-error
+                  "smoke"
+                  "smoke command failed (~A, exit ~A): ~A~%stdout: ~A~%stderr: ~A"
+                  backend code command (diagnostic-excerpt out)
+                  (diagnostic-excerpt err))))))
+    (if (string= backend "apptainer")
+        (call-with-temporary-directory
+         #'run-command-with-workdir
+         :directory (or work-root (apptainer-work-root))
+         :prefix "taffish-index-apptainer-")
+        (run-command-with-workdir nil))))
 
 (defun run-task-smoke-commands (task backend runtime-image platform)
   (let* ((record (plist-ref task :record))
@@ -1289,17 +1469,10 @@
   (let ((image (plist-ref task :immutable-image)))
     (unwind-protect
          (progn
-           (multiple-value-bind (ok out err code)
-               (timeout-command
-                *default-image-prepare-timeout*
-                backend
-                (backend-pull-args backend image platform))
-             (declare (ignore out))
-             (unless ok
-               (gate-error
-                "prepare"
-                "failed to pull ~A with ~A (exit ~A): ~A"
-                image backend code (limit-string err 600))))
+           (run-image-prepare-command
+            (format nil "pull ~A with ~A" image backend)
+            backend (backend-pull-args backend image platform)
+            :attempts *default-image-pull-attempts*)
            (run-task-smoke-commands task backend image platform))
       (cleanup-local-runtime-image backend image))))
 
@@ -1318,19 +1491,12 @@
       (close stream)
       (when (probe-file sif-path)
         (delete-file sif-path))
-      (multiple-value-bind (ok out err code)
-          (timeout-command
-           *default-image-prepare-timeout*
-           "apptainer"
-           (list "pull" "--disable-cache" "--force"
-                 (namestring sif-path)
-                 (apptainer-source-reference immutable-image)))
-        (declare (ignore out))
-        (unless ok
-          (gate-error
-           "prepare"
-           "failed to convert ~A with apptainer (exit ~A): ~A"
-           immutable-image code (limit-string err 600))))
+      (run-image-prepare-command
+       (format nil "convert ~A with apptainer" immutable-image)
+       "apptainer"
+       (list "pull" "--disable-cache" "--force"
+             (namestring sif-path)
+             (apptainer-source-reference immutable-image)))
       (run-task-smoke-commands
        task "apptainer" (namestring sif-path) platform))))
 
@@ -1374,7 +1540,9 @@
                           &key (executor #'execute-backend-task)
                             (checked-at (utc-timestamp))
                             runtime-version
-                            (host-platform (normalized-host-platform)))
+                            (host-platform (normalized-host-platform))
+                            (apptainer-work-root-validator
+                              #'validate-apptainer-work-root))
   (ensure-pipeline-schema manifest *pipeline-manifest-schema* "manifest")
   (let* ((manifest-id
            (verify-document-id manifest "manifest_id" "manifest"))
@@ -1415,6 +1583,11 @@
              (progn
                (ensure-backend-platform-compatible
                 backend platform host-platform)
+               ;; Validate the shared disk root once as runner infrastructure.
+               ;; Per-command children remain unique and are still cleaned in
+               ;; RUN-ONE-BACKEND-COMMAND.
+               (when (string= backend "apptainer")
+                 (funcall apptainer-work-root-validator))
                (unless runtime-version
                  (setf runtime-version (backend-runtime-version backend))))
            (error (condition)
@@ -2251,6 +2424,7 @@ Plan options:
   --force-recheck                Ignore matching gate cache results
   --backfill                     Plan unchanged legacy records for the matrix
   --backfill-limit <N>           Limit legacy backfill tasks to 1-50
+  --retry-failed                 Only plan exact failed/not_checked evidence
 
 Inspect options:
   --plan <PATH>                  Plan JSON path
@@ -2300,7 +2474,8 @@ Aggregate options:
         (include-forks nil)
         (force-recheck (environment-true-p "TAFFISH_INDEX_FORCE_RECHECK"))
         (backfill nil)
-        (backfill-limit nil))
+        (backfill-limit nil)
+        (retry-failed nil))
     (loop while args do
       (let ((option (car args)))
         (cond
@@ -2356,6 +2531,8 @@ Aggregate options:
                   (pipeline-next-argument args option)
                   option *maximum-backfill-limit*)
                  args (cddr args)))
+          ((string= option "--retry-failed")
+           (setf retry-failed t args (cdr args)))
           (t
            (pipeline-error "unknown plan option: ~A" option)))))
     (unless output
@@ -2364,7 +2541,8 @@ Aggregate options:
       (pipeline-error "--policy-generation must not be empty"))
     (unless (known-platform-string-p platform)
       (pipeline-error "--platform must be OS/ARCH, got: ~S" platform))
-    (validate-backfill-options backfill backfill-limit force-recheck)
+    (validate-backfill-options
+     backfill backfill-limit force-recheck retry-failed)
     (list :org org
           :local-repos (nreverse local-repos)
           :index-dir index-dir
@@ -2380,7 +2558,8 @@ Aggregate options:
           :include-forks include-forks
           :force-recheck force-recheck
           :backfill backfill
-          :backfill-limit backfill-limit)))
+          :backfill-limit backfill-limit
+          :retry-failed retry-failed)))
 
 (defun parse-simple-phase-options (stage args)
   (let ((plan nil)
@@ -2459,6 +2638,7 @@ Aggregate options:
    :force-recheck (plist-ref options :force-recheck)
    :backfill (plist-ref options :backfill)
    :backfill-limit (plist-ref options :backfill-limit)
+   :retry-failed (plist-ref options :retry-failed)
    :generated-at (utc-timestamp)
    :generation (plist-ref options :generation)
    :platform (plist-ref options :platform)
