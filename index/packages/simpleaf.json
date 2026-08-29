@@ -114,13 +114,66 @@
           "/opt/simpleaf/share/testdata/simpleaf-smoke.sh macs"
         ],
         "status": "passed",
-        "checked_at": "2026-07-28T02:00:12Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T02:22:15Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b87fe83fcedc3346d7bdac812b5b4e97298a202f",
+            "image_digest": "sha256:a8e5cd1fd709a6e0eb71ca87c6bbb264b0dc1ad25a34f045be60cc717445ce9a",
+            "smoke_sha256": "614f18964fad5f8dab663b7f62934d85a562a8ec06b96925dbcfd1ed92c0add1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b87fe83fcedc3346d7bdac812b5b4e97298a202f",
+            "image_digest": "sha256:a8e5cd1fd709a6e0eb71ca87c6bbb264b0dc1ad25a34f045be60cc717445ce9a",
+            "smoke_sha256": "614f18964fad5f8dab663b7f62934d85a562a8ec06b96925dbcfd1ed92c0add1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:22Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b87fe83fcedc3346d7bdac812b5b4e97298a202f",
+            "image_digest": "sha256:a8e5cd1fd709a6e0eb71ca87c6bbb264b0dc1ad25a34f045be60cc717445ce9a",
+            "smoke_sha256": "614f18964fad5f8dab663b7f62934d85a562a8ec06b96925dbcfd1ed92c0add1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-28T02:00:12Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T02:18:34Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
@@ -245,13 +298,66 @@
           "/opt/simpleaf/share/testdata/simpleaf-smoke.sh macs"
         ],
         "status": "passed",
-        "checked_at": "2026-08-11T12:04:13Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T02:22:15Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c83cbf87871498b9d2023cdaf116eb649e7aa5d4",
+            "image_digest": "sha256:48baf8bc17b5e14631fdab461eea355b222e4aaaecedfc3fd53b9ffb34852437",
+            "smoke_sha256": "614f18964fad5f8dab663b7f62934d85a562a8ec06b96925dbcfd1ed92c0add1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c83cbf87871498b9d2023cdaf116eb649e7aa5d4",
+            "image_digest": "sha256:48baf8bc17b5e14631fdab461eea355b222e4aaaecedfc3fd53b9ffb34852437",
+            "smoke_sha256": "614f18964fad5f8dab663b7f62934d85a562a8ec06b96925dbcfd1ed92c0add1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:22Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c83cbf87871498b9d2023cdaf116eb649e7aa5d4",
+            "image_digest": "sha256:48baf8bc17b5e14631fdab461eea355b222e4aaaecedfc3fd53b9ffb34852437",
+            "smoke_sha256": "614f18964fad5f8dab663b7f62934d85a562a8ec06b96925dbcfd1ed92c0add1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-11T12:04:13Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T02:18:34Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

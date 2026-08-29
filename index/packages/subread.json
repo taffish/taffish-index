@@ -117,13 +117,66 @@
           "mkdir -p /tmp/taf-subread-exactsnp && cd /tmp/taf-subread-exactsnp && exactSNP -g /opt/subread/test/chr901.fa -o out.vcf -i /opt/subread/test/exactSNP/data/test-in.BAM -b >/tmp/taf-subread-exactsnp/exactsnp.log 2>&1 && test -s out.vcf && grep -F '#CHROM' out.vcf >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T02:22:15Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-29T02:22:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e9aa267552083333c4fa61adc7fcdb8c67c3e014",
+            "image_digest": "sha256:9dcb4f87dbc6e9ed60a400470514238d92614a6b11e665fcc5dcfa52f426e02d",
+            "smoke_sha256": "c4cfcf84d4aaf28529c2df22e8fbd9dba26e28a52cb60d035e5812cbab44f933",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-subread-align && cd /tmp/taf-subread-align && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-align/index.log 2>&1 && test -s small.00.b.array && subread-align --SAMoutput -t0 -P6 -i small -r /opt/subread/test/subread-align/data/test-noerror-r1.fq -o aln.sam -H -J >/tmp/taf-subread-align/align.log 2>&1 && test -s aln.sam && grep -F '@PG' aln.sam >/dev/null && grep -F 'subread-align' aln.sam >/dev/null\nstdout: \nstderr: "
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e9aa267552083333c4fa61adc7fcdb8c67c3e014",
+            "image_digest": "sha256:9dcb4f87dbc6e9ed60a400470514238d92614a6b11e665fcc5dcfa52f426e02d",
+            "smoke_sha256": "c4cfcf84d4aaf28529c2df22e8fbd9dba26e28a52cb60d035e5812cbab44f933",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:22Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e9aa267552083333c4fa61adc7fcdb8c67c3e014",
+            "image_digest": "sha256:9dcb4f87dbc6e9ed60a400470514238d92614a6b11e665fcc5dcfa52f426e02d",
+            "smoke_sha256": "c4cfcf84d4aaf28529c2df22e8fbd9dba26e28a52cb60d035e5812cbab44f933",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T02:18:34Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
@@ -268,7 +321,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T01:15:15Z",
+            "checked_at": "2026-08-29T02:22:38Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -312,7 +365,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T01:11:49Z",
+        "checked_at": "2026-08-29T02:18:34Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },

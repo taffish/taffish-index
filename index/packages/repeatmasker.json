@@ -250,13 +250,66 @@
           "mkdir -p /tmp/taf-repeatmasker-utils-smoke/out && cd /tmp/taf-repeatmasker-utils-smoke && printf '>ToyRepeat#DNA/Toy\\nACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGT\\n' > repeats.fa && printf '>seq1\\nNNNNNACGTTGCATGTCAGTACGATCGTACGATGCTAGCTAGGATCCGATCGTNNNNN\\n' > input.fa && RepeatMasker -pa 1 -engine rmblast -lib repeats.fa -dir out input.fa >/tmp/taf-repeatmasker-utils-smoke/run.log 2>&1 && rmOutToGFF3.pl out/input.fa.out > out/input.fa.util.gff && test -s out/input.fa.util.gff && grep -F 'ToyRepeat' out/input.fa.util.gff >/dev/null && buildSummary.pl out/input.fa.out > out/input.fa.summary && test -s out/input.fa.summary && grep -F 'ToyRepeat' out/input.fa.summary >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T16:50:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T02:22:15Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c1bd9df94351766fa24fafb5f77e8313b47f39e2",
+            "image_digest": "sha256:ff97044f3c02d0103c57f46f45b9c132fcf2e52343825305511022f59a612d0b",
+            "smoke_sha256": "455bf6d27f0177460e9b23bd6465920da7e63ce9ba4dfa7f4f32ec1a1c491b4d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c1bd9df94351766fa24fafb5f77e8313b47f39e2",
+            "image_digest": "sha256:ff97044f3c02d0103c57f46f45b9c132fcf2e52343825305511022f59a612d0b",
+            "smoke_sha256": "455bf6d27f0177460e9b23bd6465920da7e63ce9ba4dfa7f4f32ec1a1c491b4d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:22Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c1bd9df94351766fa24fafb5f77e8313b47f39e2",
+            "image_digest": "sha256:ff97044f3c02d0103c57f46f45b9c132fcf2e52343825305511022f59a612d0b",
+            "smoke_sha256": "455bf6d27f0177460e9b23bd6465920da7e63ce9ba4dfa7f4f32ec1a1c491b4d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T16:50:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T02:18:34Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
@@ -426,8 +479,8 @@
             "message": null
           },
           "podman": {
-            "status": "failed",
-            "checked_at": "2026-08-29T01:15:07Z",
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:22Z",
             "platform": "linux/amd64",
             "runtime_version": "podman version 5.8.4",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -436,14 +489,14 @@
             "image_digest": "sha256:c081de7772711291acd6e913775f1d5121aeefecc4c6c8e9ddad74b0389d2306",
             "smoke_sha256": "455bf6d27f0177460e9b23bd6465920da7e63ce9ba4dfa7f4f32ec1a1c491b4d",
             "provenance": "taffish-index",
-            "failure_kind": "prepare",
-            "message": "failed to pull ghcr.io/taffish/repeatmasker@sha256:c081de7772711291acd6e913775f1d5121aeefecc4c6c8e9ddad74b0389d2306 with podman (exit 125): Trying to pull ghcr.io/taffish/repeatmasker@sha256:c081de7772711291acd6e913775f1d5121aeefecc4c6c8e9ddad74b0389d2306...\nGetting image source signatures\nCopying blob sha256:f632617f54ee3bf78e281e15d86498741cb220a2c5a4bdce794002c7d8274565\nCopying blob sha256:108c3e214bdeda9a433589e96b2f89dfcc3cae15d82bcadd34d82ac6b04a0882\nCopying blob sha256:068fedd6b0f109b8186d00d49327b6fc6747c428fd3c9a8739424ff5f38d7531\nCopying blob sha256:759cf944c5e35b55c5f1c1415cbb68eb7c27bb1bb4e1f2e66f6dde0862dd2552\nCopying blob sha256:abf6eda9345bfd8d6be7fded13366254220cb40e7e90694dbcf14865b5748002\nCopying blob sha256:6097..."
+            "failure_kind": null,
+            "message": null
           }
         }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T01:11:49Z",
+        "checked_at": "2026-08-29T02:18:34Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },

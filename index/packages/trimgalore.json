@@ -101,13 +101,66 @@
           "mkdir -p /tmp/taf-trimgalore-clumpify && cd /tmp/taf-trimgalore-clumpify && printf '@r1\\nACGTACGTAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n@r2\\nTGCATGCAAGATCGGAAGAGC\\n+\\nFFFFFFFFFFFFFFFFFFFFFF\\n' > reads.fq && gzip -c reads.fq > reads.fq.gz && trim_galore --clumpify --cores 2 --length 5 -o out reads.fq.gz >/tmp/taf-trimgalore-clumpify.log 2>&1 && test -s out/reads_trimmed.fq.gz && gzip -cd out/reads_trimmed.fq.gz | grep -F 'ACGTACGT' >/dev/null && grep -F 'clumpify:' /tmp/taf-trimgalore-clumpify.log >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T02:22:15Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "d02f6082a0f148757e6e1581b8bf6821fd060439",
+            "image_digest": "sha256:2d4cca2387c17a6e0f36a153dbc0569d092014143ad9cf09781be0f952a6a9e4",
+            "smoke_sha256": "d58b5b8bc7aa983fc5a542a86b160dd34fff66b6e6f8b3f0562694535d54ecc9",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "d02f6082a0f148757e6e1581b8bf6821fd060439",
+            "image_digest": "sha256:2d4cca2387c17a6e0f36a153dbc0569d092014143ad9cf09781be0f952a6a9e4",
+            "smoke_sha256": "d58b5b8bc7aa983fc5a542a86b160dd34fff66b6e6f8b3f0562694535d54ecc9",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:22Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "d02f6082a0f148757e6e1581b8bf6821fd060439",
+            "image_digest": "sha256:2d4cca2387c17a6e0f36a153dbc0569d092014143ad9cf09781be0f952a6a9e4",
+            "smoke_sha256": "d58b5b8bc7aa983fc5a542a86b160dd34fff66b6e6f8b3f0562694535d54ecc9",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T02:18:34Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

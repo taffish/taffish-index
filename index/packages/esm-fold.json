@@ -209,13 +209,66 @@
           "python -c 'from pathlib import Path; from esm.data import read_fasta; p=Path(\"/tmp/taf-esm-fold-smoke.fa\"); p.write_text(\">toy\\nMKT\\n\"); assert list(read_fasta(p)) == [(\"toy\", \"MKT\")]'"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T02:22:15Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "fc59f209b24d6839c215cf8528a3cf94a95f3e0c",
+            "image_digest": "sha256:6832ea158130d031517a91c8039529406f60d84aba83a118c6e7db1ae7c13f39",
+            "smoke_sha256": "4f1f1fd1d319bbec607e2b170499ceeac2619b9a94c77b562c66a30aae2e402b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "fc59f209b24d6839c215cf8528a3cf94a95f3e0c",
+            "image_digest": "sha256:6832ea158130d031517a91c8039529406f60d84aba83a118c6e7db1ae7c13f39",
+            "smoke_sha256": "4f1f1fd1d319bbec607e2b170499ceeac2619b9a94c77b562c66a30aae2e402b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:22Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "fc59f209b24d6839c215cf8528a3cf94a95f3e0c",
+            "image_digest": "sha256:6832ea158130d031517a91c8039529406f60d84aba83a118c6e7db1ae7c13f39",
+            "smoke_sha256": "4f1f1fd1d319bbec607e2b170499ceeac2619b9a94c77b562c66a30aae2e402b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T02:18:34Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

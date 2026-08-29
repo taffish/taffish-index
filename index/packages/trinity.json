@@ -125,13 +125,66 @@
           "mkdir -p /tmp/taf-trinity-assembly && cd /tmp/taf-trinity-assembly && Trinity --seqType fq --max_memory 2G --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --SS_lib_type RF --CPU 1 --no_normalize_reads --no_salmon --output trinity_smoke_out >/tmp/taf-trinity-assembly/run.log 2>&1 && test -s trinity_smoke_out.Trinity.fasta && grep -F 'TRINITY_' trinity_smoke_out.Trinity.fasta >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T02:22:15Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-29T02:22:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2a09b3867831c238feff183bce2b44badf21e1db",
+            "image_digest": "sha256:a36842a882f82f201a23db4ec2e85bc56c54a61d1491363828fb55b76e621603",
+            "smoke_sha256": "7df4a732dfd375bd2489db4067353ebe750b84420206f3a47a3690288ff867ce",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 2): mkdir -p /tmp/taf-trinity-assembly && cd /tmp/taf-trinity-assembly && Trinity --seqType fq --max_memory 2G --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --SS_lib_type RF --CPU 1 --no_normalize_reads --no_salmon --output trinity_smoke_out >/tmp/taf-trinity-assembly/run.log 2>&1 && test -s trinity_smoke_out.Trinity.fasta && grep -F 'TRINITY_' trinity_smoke_out.Trinity.fasta >/dev/null\nstdout: \nstderr: "
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2a09b3867831c238feff183bce2b44badf21e1db",
+            "image_digest": "sha256:a36842a882f82f201a23db4ec2e85bc56c54a61d1491363828fb55b76e621603",
+            "smoke_sha256": "7df4a732dfd375bd2489db4067353ebe750b84420206f3a47a3690288ff867ce",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T02:22:22Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2a09b3867831c238feff183bce2b44badf21e1db",
+            "image_digest": "sha256:a36842a882f82f201a23db4ec2e85bc56c54a61d1491363828fb55b76e621603",
+            "smoke_sha256": "7df4a732dfd375bd2489db4067353ebe750b84420206f3a47a3690288ff867ce",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T02:18:34Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
@@ -284,7 +337,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T01:15:15Z",
+            "checked_at": "2026-08-29T02:22:38Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -328,7 +381,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T01:11:49Z",
+        "checked_at": "2026-08-29T02:18:34Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
