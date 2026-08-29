@@ -97,13 +97,66 @@
           "tmp=/tmp/taf-clipkit-ecomp-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; cp /opt/clipkit/share/doc/clipkit/test.ecomp in.ecomp && clipkit in.ecomp -o out.fa -of fasta --report_json ecomp.json -q && test -s out.fa && test -s ecomp.json && python -c 'import json; data=json.load(open(\"ecomp.json\")); assert data[\"status\"] == \"completed\"; assert data[\"output_file_format\"] == \"fasta\"' && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-05-26T07:07:53Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T04:44:08Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T04:44:21Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "51d7f6a58ddd87cbd176fa19c805472457ac7e0c",
+            "image_digest": "sha256:522276ff910b25fdda0303799211470e7a3a2b85f3535549ce0360bc15f202f5",
+            "smoke_sha256": "9d7781f07b16a5ce8fddc9d58692fb0172f1c2dfda2153a01ab448136942f771",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T04:44:08Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "51d7f6a58ddd87cbd176fa19c805472457ac7e0c",
+            "image_digest": "sha256:522276ff910b25fdda0303799211470e7a3a2b85f3535549ce0360bc15f202f5",
+            "smoke_sha256": "9d7781f07b16a5ce8fddc9d58692fb0172f1c2dfda2153a01ab448136942f771",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T04:44:12Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "51d7f6a58ddd87cbd176fa19c805472457ac7e0c",
+            "image_digest": "sha256:522276ff910b25fdda0303799211470e7a3a2b85f3535549ce0360bc15f202f5",
+            "smoke_sha256": "9d7781f07b16a5ce8fddc9d58692fb0172f1c2dfda2153a01ab448136942f771",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-26T07:07:53Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T04:39:52Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
@@ -214,13 +267,66 @@
           "python -c 'import numpy as np; from clipkit.msa import MSA; n=1024; records=np.full((n,n), \"A\", dtype=\"U1\"); records[:512,0]=\"-\"; records[512:768,0]=\"C\"; msa=MSA([{\"id\":str(i)} for i in range(n)], records, gap_chars=[\"-\"]); assert records.size > 1000000; assert msa.site_gappyness[0] == 0.5; assert msa.site_entropy[0] == 1.0; assert msa.site_composition_bias[0] == 0.0; assert msa.column_character_frequencies[0] == {\"A\":256, \"C\":256}'"
         ],
         "status": "passed",
-        "checked_at": "2026-07-11T12:46:01Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T04:44:08Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T04:44:21Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a0b024fa1a8d4a9a862f0a0cc12ea3faebf4c146",
+            "image_digest": "sha256:fe2975e365a9559d3858d8f5b6eebb11748708bcd7b04d710d1cd7977151b897",
+            "smoke_sha256": "94811beed380c757677b629b31e1d56f8dffc91be79aec550d9f3926e68c9ef2",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T04:44:08Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a0b024fa1a8d4a9a862f0a0cc12ea3faebf4c146",
+            "image_digest": "sha256:fe2975e365a9559d3858d8f5b6eebb11748708bcd7b04d710d1cd7977151b897",
+            "smoke_sha256": "94811beed380c757677b629b31e1d56f8dffc91be79aec550d9f3926e68c9ef2",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T04:44:12Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "a0b024fa1a8d4a9a862f0a0cc12ea3faebf4c146",
+            "image_digest": "sha256:fe2975e365a9559d3858d8f5b6eebb11748708bcd7b04d710d1cd7977151b897",
+            "smoke_sha256": "94811beed380c757677b629b31e1d56f8dffc91be79aec550d9f3926e68c9ef2",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-11T12:46:01Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T04:39:52Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

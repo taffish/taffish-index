@@ -95,13 +95,66 @@
           "tmp=\"$(mktemp -d /tmp/taf-higlass-smoke.XXXXXX)\" && (higlass --host-port 8888 > \"$tmp/higlass.log\" 2>&1 & pid=\"$!\"; ok=0; for i in $(seq 1 45); do if curl -fsS http://127.0.0.1/api/v1/tilesets/ | grep -F '\"count\"' >/dev/null; then ok=1; break; fi; sleep 1; done; kill \"$pid\" 2>/dev/null || true; wait \"$pid\" 2>/dev/null || true; grep -F 'http://127.0.0.1:8888/' \"$tmp/higlass.log\" >/dev/null; test \"$ok\" -eq 1)"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T04:44:08Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-08-29T04:44:21Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4d8ee0ae62f3c52fbb9f08bba4f56c547bfeac85",
+            "image_digest": "sha256:05a7663f9a5a53520c655860e5cd20c305741caa10832aef181f8c7908c9541c",
+            "smoke_sha256": "d8df9796ee9e4fa86fa113c0686b805ca24c3d07ab626657d8b04bab4449712e",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n"
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T04:44:08Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4d8ee0ae62f3c52fbb9f08bba4f56c547bfeac85",
+            "image_digest": "sha256:05a7663f9a5a53520c655860e5cd20c305741caa10832aef181f8c7908c9541c",
+            "smoke_sha256": "d8df9796ee9e4fa86fa113c0686b805ca24c3d07ab626657d8b04bab4449712e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T04:44:12Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4d8ee0ae62f3c52fbb9f08bba4f56c547bfeac85",
+            "image_digest": "sha256:05a7663f9a5a53520c655860e5cd20c305741caa10832aef181f8c7908c9541c",
+            "smoke_sha256": "d8df9796ee9e4fa86fa113c0686b805ca24c3d07ab626657d8b04bab4449712e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T04:39:52Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
@@ -224,7 +277,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T03:59:47Z",
+            "checked_at": "2026-08-29T04:44:21Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -268,7 +321,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T03:55:03Z",
+        "checked_at": "2026-08-29T04:39:52Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -393,7 +446,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T03:59:47Z",
+            "checked_at": "2026-08-29T04:44:21Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -437,7 +490,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T03:55:03Z",
+        "checked_at": "2026-08-29T04:39:52Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -562,7 +615,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T03:59:47Z",
+            "checked_at": "2026-08-29T04:44:21Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -606,7 +659,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T03:55:03Z",
+        "checked_at": "2026-08-29T04:39:52Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
