@@ -138,8 +138,8 @@
         ],
         "backend_results": {
           "apptainer": {
-            "status": "failed",
-            "checked_at": "2026-08-29T02:22:38Z",
+            "status": "passed",
+            "checked_at": "2026-08-29T03:59:47Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -148,8 +148,8 @@
             "image_digest": "sha256:46131066a41825cd00126da5c51e1fe2c9b66199a77661ef4d8572ecbce08f48",
             "smoke_sha256": "b4b3f53622cca7027fbebb28f7ea57012d4329fcc9c89deb3e43ee81cd27f46c",
             "provenance": "taffish-index",
-            "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): das-tool-smoke pipeline\nstdout: \nstderr: DAS Tool 1.1.7 \nAnalyzing assembly \nPredicting genes \nAnnotating single copy genes using diamond \nWarning:  No SCGs detected for SCG set: archaea \nError in write.table(message, file = filename, sep = \"\\t\", col.names = F,  : \n  Error writing to connection:  No space left on device\nCalls: write.log -> write.table\nExecution halted\nDAS Tool 1.1.7 \n2026-08-29 02:29:02 \n\nParameters: \n--bins\t/opt/das_tool/share/testdata/tiny/tiny.concoct.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.maxbin2.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.metabat.contigs2bin.tsv,/opt/das_tool/share/tes..."
+            "failure_kind": null,
+            "message": null
           },
           "docker": {
             "status": "passed",
@@ -183,7 +183,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T02:18:34Z",
+        "checked_at": "2026-08-29T03:55:03Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },

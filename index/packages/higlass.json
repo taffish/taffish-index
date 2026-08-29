@@ -224,7 +224,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T02:22:38Z",
+            "checked_at": "2026-08-29T03:59:47Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -234,7 +234,7 @@
             "smoke_sha256": "d8df9796ee9e4fa86fa113c0686b805ca24c3d07ab626657d8b04bab4449712e",
             "provenance": "taffish-index",
             "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e..."
+            "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n"
           },
           "docker": {
             "status": "passed",
@@ -268,7 +268,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T02:18:34Z",
+        "checked_at": "2026-08-29T03:55:03Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -393,7 +393,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T02:22:38Z",
+            "checked_at": "2026-08-29T03:59:47Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -403,7 +403,7 @@
             "smoke_sha256": "68294e15d2c80e3c72e758fe45fe13699576da843d26095164f572ce75f22e50",
             "provenance": "taffish-index",
             "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e..."
+            "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n"
           },
           "docker": {
             "status": "passed",
@@ -437,7 +437,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T02:18:34Z",
+        "checked_at": "2026-08-29T03:55:03Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -562,7 +562,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T02:22:38Z",
+            "checked_at": "2026-08-29T03:59:47Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -572,7 +572,7 @@
             "smoke_sha256": "b2edb0b072d136a51a83389baa030a2a3d2d9d0934c7eb2a01a6450c78fc9e63",
             "provenance": "taffish-index",
             "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e..."
+            "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n"
           },
           "docker": {
             "status": "passed",
@@ -606,7 +606,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T02:18:34Z",
+        "checked_at": "2026-08-29T03:55:03Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },

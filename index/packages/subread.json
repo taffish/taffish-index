@@ -130,8 +130,8 @@
         ],
         "backend_results": {
           "apptainer": {
-            "status": "failed",
-            "checked_at": "2026-08-29T02:22:38Z",
+            "status": "passed",
+            "checked_at": "2026-08-29T03:59:47Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -140,8 +140,8 @@
             "image_digest": "sha256:9dcb4f87dbc6e9ed60a400470514238d92614a6b11e665fcc5dcfa52f426e02d",
             "smoke_sha256": "c4cfcf84d4aaf28529c2df22e8fbd9dba26e28a52cb60d035e5812cbab44f933",
             "provenance": "taffish-index",
-            "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-subread-align && cd /tmp/taf-subread-align && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-align/index.log 2>&1 && test -s small.00.b.array && subread-align --SAMoutput -t0 -P6 -i small -r /opt/subread/test/subread-align/data/test-noerror-r1.fq -o aln.sam -H -J >/tmp/taf-subread-align/align.log 2>&1 && test -s aln.sam && grep -F '@PG' aln.sam >/dev/null && grep -F 'subread-align' aln.sam >/dev/null\nstdout: \nstderr: "
+            "failure_kind": null,
+            "message": null
           },
           "docker": {
             "status": "passed",
@@ -175,7 +175,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T02:18:34Z",
+        "checked_at": "2026-08-29T03:55:03Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -320,8 +320,8 @@
         ],
         "backend_results": {
           "apptainer": {
-            "status": "failed",
-            "checked_at": "2026-08-29T02:22:38Z",
+            "status": "passed",
+            "checked_at": "2026-08-29T03:59:47Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -330,8 +330,8 @@
             "image_digest": "sha256:4dafdb6c85e90874bccd5a86c574fad6dc3f18dd7d5082a2f3e8a5351e4a247c",
             "smoke_sha256": "c4cfcf84d4aaf28529c2df22e8fbd9dba26e28a52cb60d035e5812cbab44f933",
             "provenance": "taffish-index",
-            "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-subread-align && cd /tmp/taf-subread-align && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-align/index.log 2>&1 && test -s small.00.b.array && subread-align --SAMoutput -t0 -P6 -i small -r /opt/subread/test/subread-align/data/test-noerror-r1.fq -o aln.sam -H -J >/tmp/taf-subread-align/align.log 2>&1 && test -s aln.sam && grep -F '@PG' aln.sam >/dev/null && grep -F 'subread-align' aln.sam >/dev/null\nstdout: \nstderr: "
+            "failure_kind": null,
+            "message": null
           },
           "docker": {
             "status": "passed",
@@ -365,7 +365,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T02:18:34Z",
+        "checked_at": "2026-08-29T03:55:03Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },

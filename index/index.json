@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-29T02:18:34Z",
+  "generated_at": "2026-08-29T03:55:03Z",
   "organization": "taffish",
   "counts": {
     "packages": 273,
@@ -9,7 +9,7 @@
     "repositories": 273,
     "warnings": 0,
     "failed": 0,
-    "advisory_failed": 26,
+    "advisory_failed": 16,
     "rejected": 12
   },
   "packages": {
@@ -4399,7 +4399,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -4409,7 +4409,7 @@
                 "smoke_sha256": "c588854379a50e91f93f295c049bae3bf7a9cbf4f87c7c291eff5a3227c1efae",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates && starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/bedops/bin/__pycache__/starch-diffcpython-311.pyc.139762584044464'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates && starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/bedops/bin/__pycache__/starch-diffcpython-311.pyc.140604796027824'"
               },
               "docker": {
                 "status": "passed",
@@ -4443,7 +4443,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -14339,7 +14339,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -14349,7 +14349,7 @@
                 "smoke_sha256": "eaef4faf38838cfdf5bc077d224a9bb51a1d1820c475536f1aca7fdab3ae244e",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140421886853840'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140274331353808'"
               },
               "docker": {
                 "status": "passed",
@@ -14383,7 +14383,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -14519,7 +14519,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -14529,7 +14529,7 @@
                 "smoke_sha256": "eaef4faf38838cfdf5bc077d224a9bb51a1d1820c475536f1aca7fdab3ae244e",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.139881872491216'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140264299987664'"
               },
               "docker": {
                 "status": "passed",
@@ -14563,7 +14563,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -15475,8 +15475,8 @@
             ],
             "backend_results": {
               "apptainer": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -15485,8 +15485,8 @@
                 "image_digest": "sha256:46131066a41825cd00126da5c51e1fe2c9b66199a77661ef4d8572ecbce08f48",
                 "smoke_sha256": "b4b3f53622cca7027fbebb28f7ea57012d4329fcc9c89deb3e43ee81cd27f46c",
                 "provenance": "taffish-index",
-                "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): das-tool-smoke pipeline\nstdout: \nstderr: DAS Tool 1.1.7 \nAnalyzing assembly \nPredicting genes \nAnnotating single copy genes using diamond \nWarning:  No SCGs detected for SCG set: archaea \nError in write.table(message, file = filename, sep = \"\\t\", col.names = F,  : \n  Error writing to connection:  No space left on device\nCalls: write.log -> write.table\nExecution halted\nDAS Tool 1.1.7 \n2026-08-29 02:29:02 \n\nParameters: \n--bins\t/opt/das_tool/share/testdata/tiny/tiny.concoct.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.maxbin2.contigs2bin.tsv,/opt/das_tool/share/testdata/tiny/tiny.metabat.contigs2bin.tsv,/opt/das_tool/share/tes..."
+                "failure_kind": null,
+                "message": null
               },
               "docker": {
                 "status": "passed",
@@ -15520,7 +15520,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -17864,7 +17864,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -17908,7 +17908,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -25030,7 +25030,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -25074,7 +25074,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -27371,7 +27371,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -27381,7 +27381,7 @@
                 "smoke_sha256": "d8df9796ee9e4fa86fa113c0686b805ca24c3d07ab626657d8b04bab4449712e",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e..."
+                "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n"
               },
               "docker": {
                 "status": "passed",
@@ -27415,7 +27415,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -27540,7 +27540,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -27550,7 +27550,7 @@
                 "smoke_sha256": "68294e15d2c80e3c72e758fe45fe13699576da843d26095164f572ce75f22e50",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e..."
+                "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n"
               },
               "docker": {
                 "status": "passed",
@@ -27584,7 +27584,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -27709,7 +27709,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -27719,7 +27719,7 @@
                 "smoke_sha256": "b2edb0b072d136a51a83389baa030a2a3d2d9d0934c7eb2a01a6450c78fc9e63",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e..."
+                "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n"
               },
               "docker": {
                 "status": "passed",
@@ -27753,7 +27753,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -29744,8 +29744,8 @@
                 "message": null
               },
               "podman": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:22Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:41Z",
                 "platform": "linux/amd64",
                 "runtime_version": "podman version 5.8.4",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -29754,14 +29754,14 @@
                 "image_digest": "sha256:70647e676db46696ab31be7778b8248f6ea4515008aa9edb80a52355bcb7f2ee",
                 "smoke_sha256": "e9acef3a55f37fd301a079afa3c2a1fdac1f97052fb1ef9da5f4dbd511d427f6",
                 "provenance": "taffish-index",
-                "failure_kind": "prepare",
-                "message": "failed to pull ghcr.io/taffish/igv@sha256:70647e676db46696ab31be7778b8248f6ea4515008aa9edb80a52355bcb7f2ee with podman (exit 125): Trying to pull ghcr.io/taffish/igv@sha256:70647e676db46696ab31be7778b8248f6ea4515008aa9edb80a52355bcb7f2ee...\nGetting image source signatures\nCopying blob sha256:58fcfcf22e548234bdca0d111b535d2d0a6d3dd8650e2204de383b5cf724e383\nCopying blob sha256:9b02e9fcb40102eae20d9d1fc7594b44328f4a3eb9b8a3bdb7db283d10840a30\nCopying blob sha256:3ecf9257fd4e2802d3d965284f18f37974760748e1666e9cf297230309165089\nCopying blob sha256:6e61e4b0a11c0ceae9df83b1c7eb6daf813e7909b90dd7cfd9fe0ab6cc3d3b28\nCopying blob sha256:5f287cb048a403c43e183f5eb62356bd7badd88a2e0c037f3c9ca11167304687\nCopying blob sha256:2bfb2a7763173..."
+                "failure_kind": null,
+                "message": null
               }
             }
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -30980,7 +30980,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31024,7 +31024,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -33110,7 +33110,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -33154,7 +33154,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -33300,7 +33300,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -33310,7 +33310,7 @@
                 "smoke_sha256": "54b5d0bb30d04cbaff285488b886c74285a087b7b0d4c74f9b87bf20557a730c",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.139869968540976'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.140527060297008'"
               },
               "docker": {
                 "status": "passed",
@@ -33344,7 +33344,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -39105,8 +39105,8 @@
             ],
             "backend_results": {
               "apptainer": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -39115,8 +39115,8 @@
                 "image_digest": "sha256:6615c68cab82d997a2b8fe96fd71408b0ae7acc6da1362e3cd2f5387a029b600",
                 "smoke_sha256": "0ef69a2dc33725dad3716fa11d508233766a367b54d8f31847e66040072b0a06",
                 "provenance": "taffish-index",
-                "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-miniprot-index && cd /tmp/taf-miniprot-index && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 -d ref.mpi ref.fa.gz && test -s ref.mpi && miniprot -t1 ref.mpi query.faa.gz > indexed.paf && grep -F 'ENSMUSP00000025851.4' indexed.paf >/dev/null\nstdout: \nstderr: [M::mp_ntseq_read@0.000*2.84] read 27033 bases in 1 contigs\n[M::mp_idx_build@0.000*2.72] 212 blocks\n[M::mp_idx_build@0.001*1.39] collected syncmers\n[M::mp_idx_build@0.022*1.02] 16125 kmer-block pairs\n[M::mp_idx_print_stat] 14397 distinct k-mers; mean occ of infrequent k-mers: 1.12; 0 frequent k-mers accounting for 0 occurrences\n[M::main] Version: 0.18-r281\n[M::main] CMD: miniprot -t1 -d ref.mpi ref.fa.gz\n[M::main] Real time: 0.046 sec; CPU: 0.046 sec; Peak RSS: 0.065 GB\n[M::mp_idx_restore@0.019*1.02] loaded the index\n[M::mp_idx_print_stat] 14386 distinct k-mers; mean occ of infrequent k-mers: ..."
+                "failure_kind": null,
+                "message": null
               },
               "docker": {
                 "status": "passed",
@@ -39150,7 +39150,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -39276,8 +39276,8 @@
             ],
             "backend_results": {
               "apptainer": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -39286,8 +39286,8 @@
                 "image_digest": "sha256:b3630947752e0ec39798a3a8474f4311bb488fc18b09792649ed1045dc0a29c5",
                 "smoke_sha256": "0ef69a2dc33725dad3716fa11d508233766a367b54d8f31847e66040072b0a06",
                 "provenance": "taffish-index",
-                "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-miniprot-index && cd /tmp/taf-miniprot-index && cp /usr/local/share/doc/miniprot/test/DPP3-hs.gen.fa.gz ref.fa.gz && cp /usr/local/share/doc/miniprot/test/DPP3-mm.pep.fa.gz query.faa.gz && miniprot -t1 -d ref.mpi ref.fa.gz && test -s ref.mpi && miniprot -t1 ref.mpi query.faa.gz > indexed.paf && grep -F 'ENSMUSP00000025851.4' indexed.paf >/dev/null\nstdout: \nstderr: [M::mp_ntseq_read@0.000*2.83] read 27033 bases in 1 contigs\n[M::mp_idx_build@0.000*2.73] 212 blocks\n[M::mp_idx_build@0.001*1.44] collected syncmers\n[M::mp_idx_build@0.021*1.02] 16125 kmer-block pairs\n[M::mp_idx_print_stat] 14397 distinct k-mers; mean occ of infrequent k-mers: 1.12; 0 frequent k-mers accounting for 0 occurrences\n[M::main] Version: 0.18-r281\n[M::main] CMD: miniprot -t1 -d ref.mpi ref.fa.gz\n[M::main] Real time: 0.045 sec; CPU: 0.045 sec; Peak RSS: 0.063 GB\n[M::mp_idx_restore@0.013*1.02] loaded the index\n[M::mp_idx_print_stat] 14386 distinct k-mers; mean occ of infrequent k-mers: ..."
+                "failure_kind": null,
+                "message": null
               },
               "docker": {
                 "status": "passed",
@@ -39321,7 +39321,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -41903,7 +41903,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -41947,7 +41947,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -42785,8 +42785,8 @@
             ],
             "backend_results": {
               "apptainer": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -42795,8 +42795,8 @@
                 "image_digest": "sha256:5861ab01a89d73efe113f9109a787eb655ca9b71845e7a57993dd41f47aa524c",
                 "smoke_sha256": "84e67ae9a3c9537c4157262b576862761a97a524250065aba3f8abdb5cfc2958",
                 "provenance": "taffish-index",
-                "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): /opt/nanoplot/share/testdata/nanoplot-smoke.sh bam\nstdout: \n\n\nIf you read this then NanoPlot 1.47.2 has crashed :-(\nPlease try updating NanoPlot and see if that helps...\n\nIf not, please report this issue at https://github.com/wdecoster/NanoPlot/issues\nIf you could include the log file that would be really helpful.\nThanks!\n\n\n\n\nstderr: nanoplot-smoke: bam-no-static\nTraceback (most recent call last):\n  File \"/opt/nanoplot/python/bin/NanoPlot\", line 6, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/opt/nanoplot/python/lib/python3.12/site-packages/nanoplot/NanoPlot.py\", line 111, in main\n    make_report(plots, settings)\n  File \"/opt/nanoplot/python/lib/python3.12/site-packages/nanoplot/NanoPlot.py\", line 405, in make_report\n    html_file.write(report.html_head + \"\\n\".join(html_content))\nOSError: [Errno 28] No space left on device\n"
+                "failure_kind": null,
+                "message": null
               },
               "docker": {
                 "status": "passed",
@@ -42830,7 +42830,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -43616,7 +43616,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -43626,7 +43626,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.LcpFif/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/29 02:59:32 [emerg] ..."
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.mBGKIK/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/29 04:20:12 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
               },
               "docker": {
                 "status": "passed",
@@ -43660,7 +43660,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -45632,7 +45632,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -45642,7 +45642,7 @@
                 "smoke_sha256": "c21fc43b4924fd4cd373eeeb83f3fbf6f32d21f1ef0c6bab79a15da97e6b3ea2",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): tmp=/tmp/taf-p2rank-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; grep -v '^HETATM' /opt/p2rank/test_data/1fbl.pdb > \"$tmp/1fbl_nohet.pdb\"; prank predict -visualizations 0 -threads 1 -o \"$tmp/predict\" -f \"$tmp/1fbl_nohet.pdb\" > \"$tmp/predict.log\" 2>&1; test -s \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\"; test -s \"$tmp/predict/1fbl_nohet.pdb_residues.csv\"; grep -F \"pocket1\" \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\" >/dev/null; if grep -F \"Could not download\" \"$tmp/predict.log\"; then exit 1; fi; rm -rf \"$tmp\"\nstdout: [ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/PHE.cif OR store locally to /tmp/chemcomp/PHE.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/VAL.cif OR store locally to /tmp/chemcomp/VAL.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/LEU.cif OR store locally to /tmp/chemcomp/LEU.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download...\nstderr: "
+                "message": "smoke command failed (apptainer, exit 1): tmp=/tmp/taf-p2rank-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; grep -v '^HETATM' /opt/p2rank/test_data/1fbl.pdb > \"$tmp/1fbl_nohet.pdb\"; prank predict -visualizations 0 -threads 1 -o \"$tmp/predict\" -f \"$tmp/1fbl_nohet.pdb\" > \"$tmp/predict.log\" 2>&1; test -s \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\"; test -s \"$tmp/predict/1fbl_nohet.pdb_residues.csv\"; grep -F \"pocket1\" \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\" >/dev/null; if grep -F \"Could not download\" \"$tmp/predict.log\"; then exit 1; fi; rm -rf \"$tmp\"\nstdout: [ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/PHE.cif OR store locally to /tmp/chemcomp/PHE.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/VAL.cif OR store locally to /tmp/chemcomp/VAL.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/LEU.cif OR store locally to /tmp/chemcomp/LEU.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download\n...[2180 characters omitted]...\n/ligands/download/LYS.cif OR store locally to /tmp/chemcomp/LYS.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/GLN.cif OR store locally to /tmp/chemcomp/GLN.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/MET.cif OR store locally to /tmp/chemcomp/MET.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/CYS.cif OR store locally to /tmp/chemcomp/CYS.cif.gz Error =files.rcsb.org\n\nstderr: "
               },
               "docker": {
                 "status": "passed",
@@ -45676,7 +45676,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -52500,8 +52500,8 @@
             ],
             "backend_results": {
               "apptainer": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -52510,8 +52510,8 @@
                 "image_digest": "sha256:735de58f3237bdb8e8e0071f468a0dc3197ae8d0ff23ec19191d0462c6e93f1d",
                 "smoke_sha256": "c78b2c1d9b390fbea5c604f7d2451eb2b174f124637bacd2e20425e7b30b1f93",
                 "provenance": "taffish-index",
-                "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 255): qupath-smoke core\nstdout: \nstderr: "
+                "failure_kind": null,
+                "message": null
               },
               "docker": {
                 "status": "passed",
@@ -52545,7 +52545,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -69310,8 +69310,8 @@
             ],
             "backend_results": {
               "apptainer": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -69320,8 +69320,8 @@
                 "image_digest": "sha256:9dcb4f87dbc6e9ed60a400470514238d92614a6b11e665fcc5dcfa52f426e02d",
                 "smoke_sha256": "c4cfcf84d4aaf28529c2df22e8fbd9dba26e28a52cb60d035e5812cbab44f933",
                 "provenance": "taffish-index",
-                "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-subread-align && cd /tmp/taf-subread-align && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-align/index.log 2>&1 && test -s small.00.b.array && subread-align --SAMoutput -t0 -P6 -i small -r /opt/subread/test/subread-align/data/test-noerror-r1.fq -o aln.sam -H -J >/tmp/taf-subread-align/align.log 2>&1 && test -s aln.sam && grep -F '@PG' aln.sam >/dev/null && grep -F 'subread-align' aln.sam >/dev/null\nstdout: \nstderr: "
+                "failure_kind": null,
+                "message": null
               },
               "docker": {
                 "status": "passed",
@@ -69355,7 +69355,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -69500,8 +69500,8 @@
             ],
             "backend_results": {
               "apptainer": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -69510,8 +69510,8 @@
                 "image_digest": "sha256:4dafdb6c85e90874bccd5a86c574fad6dc3f18dd7d5082a2f3e8a5351e4a247c",
                 "smoke_sha256": "c4cfcf84d4aaf28529c2df22e8fbd9dba26e28a52cb60d035e5812cbab44f933",
                 "provenance": "taffish-index",
-                "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-subread-align && cd /tmp/taf-subread-align && subread-buildindex -o small /opt/subread/test/chr901.fa >/tmp/taf-subread-align/index.log 2>&1 && test -s small.00.b.array && subread-align --SAMoutput -t0 -P6 -i small -r /opt/subread/test/subread-align/data/test-noerror-r1.fq -o aln.sam -H -J >/tmp/taf-subread-align/align.log 2>&1 && test -s aln.sam && grep -F '@PG' aln.sam >/dev/null && grep -F 'subread-align' aln.sam >/dev/null\nstdout: \nstderr: "
+                "failure_kind": null,
+                "message": null
               },
               "docker": {
                 "status": "passed",
@@ -69545,7 +69545,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -73048,8 +73048,8 @@
             ],
             "backend_results": {
               "apptainer": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -73058,8 +73058,8 @@
                 "image_digest": "sha256:a36842a882f82f201a23db4ec2e85bc56c54a61d1491363828fb55b76e621603",
                 "smoke_sha256": "7df4a732dfd375bd2489db4067353ebe750b84420206f3a47a3690288ff867ce",
                 "provenance": "taffish-index",
-                "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 2): mkdir -p /tmp/taf-trinity-assembly && cd /tmp/taf-trinity-assembly && Trinity --seqType fq --max_memory 2G --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --SS_lib_type RF --CPU 1 --no_normalize_reads --no_salmon --output trinity_smoke_out >/tmp/taf-trinity-assembly/run.log 2>&1 && test -s trinity_smoke_out.Trinity.fasta && grep -F 'TRINITY_' trinity_smoke_out.Trinity.fasta >/dev/null\nstdout: \nstderr: "
+                "failure_kind": null,
+                "message": null
               },
               "docker": {
                 "status": "passed",
@@ -73093,7 +73093,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -73246,8 +73246,8 @@
             ],
             "backend_results": {
               "apptainer": {
-                "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "status": "passed",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -73256,8 +73256,8 @@
                 "image_digest": "sha256:e1ab43839616b1c39ac7d5b23c0719c4ae78e665815bbbc91a33ee8c505d9f91",
                 "smoke_sha256": "7df4a732dfd375bd2489db4067353ebe750b84420206f3a47a3690288ff867ce",
                 "provenance": "taffish-index",
-                "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 2): mkdir -p /tmp/taf-trinity-assembly && cd /tmp/taf-trinity-assembly && Trinity --seqType fq --max_memory 2G --left /opt/trinity/sample_data/test_Trinity_Assembly/reads.left.fq.gz --right /opt/trinity/sample_data/test_Trinity_Assembly/reads.right.fq.gz --SS_lib_type RF --CPU 1 --no_normalize_reads --no_salmon --output trinity_smoke_out >/tmp/taf-trinity-assembly/run.log 2>&1 && test -s trinity_smoke_out.Trinity.fasta && grep -F 'TRINITY_' trinity_smoke_out.Trinity.fasta >/dev/null\nstdout: \nstderr: "
+                "failure_kind": null,
+                "message": null
               },
               "docker": {
                 "status": "passed",
@@ -73291,7 +73291,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -74018,7 +74018,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -74028,7 +74028,7 @@
                 "smoke_sha256": "ce48b0894f51337de663212b2820ea499ccf751bd2421254d14010b7408668e6",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140052321567328'"
+                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140690455593568'"
               },
               "docker": {
                 "status": "passed",
@@ -74062,7 +74062,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -74193,7 +74193,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T02:22:38Z",
+                "checked_at": "2026-08-29T03:59:47Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -74203,7 +74203,7 @@
                 "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.140599202326640'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139718687746160'"
               },
               "docker": {
                 "status": "passed",
@@ -74237,7 +74237,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T02:18:34Z",
+            "checked_at": "2026-08-29T03:55:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },

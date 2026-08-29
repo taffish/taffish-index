@@ -114,7 +114,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T02:22:38Z",
+            "checked_at": "2026-08-29T03:59:47Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -124,7 +124,7 @@
             "smoke_sha256": "c21fc43b4924fd4cd373eeeb83f3fbf6f32d21f1ef0c6bab79a15da97e6b3ea2",
             "provenance": "taffish-index",
             "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): tmp=/tmp/taf-p2rank-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; grep -v '^HETATM' /opt/p2rank/test_data/1fbl.pdb > \"$tmp/1fbl_nohet.pdb\"; prank predict -visualizations 0 -threads 1 -o \"$tmp/predict\" -f \"$tmp/1fbl_nohet.pdb\" > \"$tmp/predict.log\" 2>&1; test -s \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\"; test -s \"$tmp/predict/1fbl_nohet.pdb_residues.csv\"; grep -F \"pocket1\" \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\" >/dev/null; if grep -F \"Could not download\" \"$tmp/predict.log\"; then exit 1; fi; rm -rf \"$tmp\"\nstdout: [ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/PHE.cif OR store locally to /tmp/chemcomp/PHE.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/VAL.cif OR store locally to /tmp/chemcomp/VAL.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/LEU.cif OR store locally to /tmp/chemcomp/LEU.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download...\nstderr: "
+            "message": "smoke command failed (apptainer, exit 1): tmp=/tmp/taf-p2rank-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; grep -v '^HETATM' /opt/p2rank/test_data/1fbl.pdb > \"$tmp/1fbl_nohet.pdb\"; prank predict -visualizations 0 -threads 1 -o \"$tmp/predict\" -f \"$tmp/1fbl_nohet.pdb\" > \"$tmp/predict.log\" 2>&1; test -s \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\"; test -s \"$tmp/predict/1fbl_nohet.pdb_residues.csv\"; grep -F \"pocket1\" \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\" >/dev/null; if grep -F \"Could not download\" \"$tmp/predict.log\"; then exit 1; fi; rm -rf \"$tmp\"\nstdout: [ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/PHE.cif OR store locally to /tmp/chemcomp/PHE.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/VAL.cif OR store locally to /tmp/chemcomp/VAL.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/LEU.cif OR store locally to /tmp/chemcomp/LEU.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download\n...[2180 characters omitted]...\n/ligands/download/LYS.cif OR store locally to /tmp/chemcomp/LYS.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/GLN.cif OR store locally to /tmp/chemcomp/GLN.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/MET.cif OR store locally to /tmp/chemcomp/MET.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/CYS.cif OR store locally to /tmp/chemcomp/CYS.cif.gz Error =files.rcsb.org\n\nstderr: "
           },
           "docker": {
             "status": "passed",
@@ -158,7 +158,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T02:18:34Z",
+        "checked_at": "2026-08-29T03:55:03Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
