@@ -228,13 +228,66 @@
           "mkdir -p /tmp/taf-gatk-hc && cd /tmp/taf-gatk-hc && printf '>chr1\\nACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT\\n' > ref.fa && samtools faidx ref.fa && gatk CreateSequenceDictionary -R ref.fa -O ref.dict >/tmp/taf-gatk-hc-dict.log 2>&1 && printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:40\\n@RG\\tID:rg1\\tSM:sample1\\nread1\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread2\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread3\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\nread4\\t0\\tchr1\\t5\\t60\\t20M\\t*\\t0\\t0\\tACGTTCGTACGTACGTACGT\\tFFFFFFFFFFFFFFFFFFFF\\tRG:Z:rg1\\n' > reads.sam && samtools view -bS reads.sam > reads.bam && samtools index reads.bam && gatk HaplotypeCaller -R ref.fa -I reads.bam -O calls.vcf >/tmp/taf-gatk-hc.log 2>&1 && test -s calls.vcf && grep -F '#CHROM' calls.vcf >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T01:15:01Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7d9deb9d44d85fa4c8cd580571fcfdcdbdd4bd82",
+            "image_digest": "sha256:b87efc3b139be1e6cb62ef69e424c6debcfdcbf59ac203a07ecabc3090be7922",
+            "smoke_sha256": "19c773f71e9af1b4b6cdcbe95af29ef04e4409f589b82eb2e5214f937ea79ad3",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7d9deb9d44d85fa4c8cd580571fcfdcdbdd4bd82",
+            "image_digest": "sha256:b87efc3b139be1e6cb62ef69e424c6debcfdcbf59ac203a07ecabc3090be7922",
+            "smoke_sha256": "19c773f71e9af1b4b6cdcbe95af29ef04e4409f589b82eb2e5214f937ea79ad3",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7d9deb9d44d85fa4c8cd580571fcfdcdbdd4bd82",
+            "image_digest": "sha256:b87efc3b139be1e6cb62ef69e424c6debcfdcbf59ac203a07ecabc3090be7922",
+            "smoke_sha256": "19c773f71e9af1b4b6cdcbe95af29ef04e4409f589b82eb2e5214f937ea79ad3",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T01:11:49Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

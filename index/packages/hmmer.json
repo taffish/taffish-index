@@ -142,13 +142,66 @@
           "mkdir -p /tmp/taf-hmmer-nhmmer && cd /tmp/taf-hmmer-nhmmer && cp /opt/hmmer/share/doc/hmmer/tutorial/MADE1.hmm . && cp /opt/hmmer/share/doc/hmmer/tutorial/dna_target.fa . && nhmmer --tblout nh.tbl MADE1.hmm dna_target.fa >/dev/null && grep -F 'MADE1' nh.tbl >/dev/null && makehmmerdb dna_target.fa dna.hmmerdb >/dev/null && test -s dna.hmmerdb"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T01:15:01Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7cbdb793c3bc3c7223ceb9761b288b14ba29621b",
+            "image_digest": "sha256:023e8be4a4396a727a23d9b34b3693650e2683e73e0b072931d11c263f3f310c",
+            "smoke_sha256": "d9e71fba9b72e3f75bf8800b2a500e69381a25cfe078987c2a00bc461b504850",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7cbdb793c3bc3c7223ceb9761b288b14ba29621b",
+            "image_digest": "sha256:023e8be4a4396a727a23d9b34b3693650e2683e73e0b072931d11c263f3f310c",
+            "smoke_sha256": "d9e71fba9b72e3f75bf8800b2a500e69381a25cfe078987c2a00bc461b504850",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "7cbdb793c3bc3c7223ceb9761b288b14ba29621b",
+            "image_digest": "sha256:023e8be4a4396a727a23d9b34b3693650e2683e73e0b072931d11c263f3f310c",
+            "smoke_sha256": "d9e71fba9b72e3f75bf8800b2a500e69381a25cfe078987c2a00bc461b504850",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T01:11:49Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

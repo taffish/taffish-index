@@ -99,13 +99,66 @@
           "/opt/nanoplot/share/testdata/nanoplot-smoke.sh image"
         ],
         "status": "passed",
-        "checked_at": "2026-07-09T05:51:28Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T01:15:01Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df41126320b46178e0f0164aec283cda62feb169",
+            "image_digest": "sha256:e4b48b8b201be6bb2c73d1ba8648a67ab40851554e1e7d0301c08d9f938b191f",
+            "smoke_sha256": "0e185cba97a9a640dcd4fe1f63f2a20ea7bc83a9b8a2d7b1f194420cbc7df66a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df41126320b46178e0f0164aec283cda62feb169",
+            "image_digest": "sha256:e4b48b8b201be6bb2c73d1ba8648a67ab40851554e1e7d0301c08d9f938b191f",
+            "smoke_sha256": "0e185cba97a9a640dcd4fe1f63f2a20ea7bc83a9b8a2d7b1f194420cbc7df66a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "df41126320b46178e0f0164aec283cda62feb169",
+            "image_digest": "sha256:e4b48b8b201be6bb2c73d1ba8648a67ab40851554e1e7d0301c08d9f938b191f",
+            "smoke_sha256": "0e185cba97a9a640dcd4fe1f63f2a20ea7bc83a9b8a2d7b1f194420cbc7df66a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-09T05:51:28Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T01:11:49Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
@@ -231,7 +284,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T00:50:02Z",
+            "checked_at": "2026-08-29T01:15:15Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -275,7 +328,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T00:45:58Z",
+        "checked_at": "2026-08-29T01:11:49Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },

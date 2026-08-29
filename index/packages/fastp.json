@@ -472,13 +472,66 @@
           "mkdir -p /tmp/taf-fastp-parallel && cd /tmp/taf-fastp-parallel && printf '@p1/1\\nACGTACGTACGTACGTACGT\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r1.fq && printf '@p1/2\\nTGCATGCATGCATGCATGCA\\n+\\nFFFFFFFFFFFFFFFFFFFF\\n' > r2.fq && mkdir -p batch-in batch-out batch-report && cp r1.fq batch-in/sample_R1.fq && cp r2.fq batch-in/sample_R2.fq && parallel.py -i batch-in -o batch-out -r batch-report -p 1 -a '-w 1' >/tmp/taf-fastp-parallel.log && test -s batch-out/sample_R1.clean.fastq.gz && test -s batch-out/sample_R2.clean.fastq.gz && test -s batch-report/sample_pe.fq.html && test -s batch-report/sample_pe.fq.json && test -s batch-report/overall.html"
         ],
         "status": "passed",
-        "checked_at": "2026-06-21T06:18:48Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T01:15:01Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5da2c2cfec7d328af8b60c73a93d1d7d438ca9c7",
+            "image_digest": "sha256:e3feec8a82740073dc0709b381a6abf97e9680207fbc2fc4ac967a56d10a8d7a",
+            "smoke_sha256": "e72bd4fc1aa2efd1afb44cfce56073d2a0ef027ffb33395564d6de35aba6ea59",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5da2c2cfec7d328af8b60c73a93d1d7d438ca9c7",
+            "image_digest": "sha256:e3feec8a82740073dc0709b381a6abf97e9680207fbc2fc4ac967a56d10a8d7a",
+            "smoke_sha256": "e72bd4fc1aa2efd1afb44cfce56073d2a0ef027ffb33395564d6de35aba6ea59",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5da2c2cfec7d328af8b60c73a93d1d7d438ca9c7",
+            "image_digest": "sha256:e3feec8a82740073dc0709b381a6abf97e9680207fbc2fc4ac967a56d10a8d7a",
+            "smoke_sha256": "e72bd4fc1aa2efd1afb44cfce56073d2a0ef027ffb33395564d6de35aba6ea59",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-21T06:18:48Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T01:11:49Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

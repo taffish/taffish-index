@@ -224,13 +224,66 @@
           "set -eu; tmp=/tmp/taf-plink2-vcf-subset-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '%s\\n' '##fileformat=VCFv4.2' '##contig=<ID=chr1,length=1000>' '##FORMAT=<ID=GT,Number=1,Type=String,Description=\"Genotype\">' '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\ts1\ts2' 'chr1\t10\trs1\tA\tG\t50\tPASS\t.\tGT\t0/0\t0/1' 'chr1\t20\trs2\tC\tT\t60\tPASS\t.\tGT\t0/1\t1/1' > tiny.vcf; vcf_subset --in tiny.vcf --out keep.vcf --indv s2 > vcf_subset.log 2>&1; test -s keep.vcf; grep \"^#CHROM\" keep.vcf | grep -F \"s2\" >/dev/null; if grep \"^#CHROM\" keep.vcf | grep -F \"s1\"; then exit 1; fi; grep -F \"rs1\" keep.vcf >/dev/null; printf '%s\\n' 'rs2' > extract.ids; vcf_subset --in tiny.vcf --out extract.vcf --extract extract.ids > extract.log 2>&1; test -s extract.vcf; grep -F \"rs2\" extract.vcf >/dev/null; if grep -F \"rs1\" extract.vcf; then exit 1; fi; printf '%s\\n' 'rs2' > exclude.ids; vcf_subset --in tiny.vcf --out exclude.vcf --exclude exclude.ids > exclude.log 2>&1; test -s exclude.vcf; grep -F \"rs1\" exclude.vcf >/dev/null; if grep -F \"rs2\" exclude.vcf; then exit 1; fi; gzip -c tiny.vcf > tiny.vcf.gz; vcf_subset --in tiny.vcf.gz --out no_samples.vcf --no-samples > no_samples.log 2>&1; test -s no_samples.vcf; grep -F \"#CHROM\" no_samples.vcf >/dev/null; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-08-06T17:47:15Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T01:15:01Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1a028d9393f336b63a05eaf40392b3cb3448894b",
+            "image_digest": "sha256:ac9a8841dc0e5e5c6d94a3ebf146b11c029aaa2eb5053b1945ff4425e04c9e06",
+            "smoke_sha256": "88846bdfd8c93ebea10c94f0fbd784a9d62379f698779f88c39f2c76a1bd3dc1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1a028d9393f336b63a05eaf40392b3cb3448894b",
+            "image_digest": "sha256:ac9a8841dc0e5e5c6d94a3ebf146b11c029aaa2eb5053b1945ff4425e04c9e06",
+            "smoke_sha256": "88846bdfd8c93ebea10c94f0fbd784a9d62379f698779f88c39f2c76a1bd3dc1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1a028d9393f336b63a05eaf40392b3cb3448894b",
+            "image_digest": "sha256:ac9a8841dc0e5e5c6d94a3ebf146b11c029aaa2eb5053b1945ff4425e04c9e06",
+            "smoke_sha256": "88846bdfd8c93ebea10c94f0fbd784a9d62379f698779f88c39f2c76a1bd3dc1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-06T17:47:15Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T01:11:49Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

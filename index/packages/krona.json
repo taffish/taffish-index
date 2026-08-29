@@ -117,13 +117,66 @@
           "tmp=/tmp/taf-krona-taxonomy-$$; mkdir -p \"$tmp\"; cd \"$tmp\"; printf 'q1\\t562\\t99\\n' > tax.tsv; if ktImportTaxonomy -o tax.html tax.tsv >log 2>&1; then cat log; exit 1; fi; grep -F 'Was updateTaxonomy.sh run?' log >/dev/null; test ! -s tax.html; rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-06-06T05:09:34Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T01:15:01Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "442283638bce8a7785364bb54c1c04ee456145a9",
+            "image_digest": "sha256:1110b7ea879c7e0985dfef97ce8b4957245bc110f6d5d827c661553ba9733c3a",
+            "smoke_sha256": "a136ad9a4949338666e3ddb02dceec3cbdf3917e1f1839cb3a103b50dbec81fa",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "442283638bce8a7785364bb54c1c04ee456145a9",
+            "image_digest": "sha256:1110b7ea879c7e0985dfef97ce8b4957245bc110f6d5d827c661553ba9733c3a",
+            "smoke_sha256": "a136ad9a4949338666e3ddb02dceec3cbdf3917e1f1839cb3a103b50dbec81fa",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "442283638bce8a7785364bb54c1c04ee456145a9",
+            "image_digest": "sha256:1110b7ea879c7e0985dfef97ce8b4957245bc110f6d5d827c661553ba9733c3a",
+            "smoke_sha256": "a136ad9a4949338666e3ddb02dceec3cbdf3917e1f1839cb3a103b50dbec81fa",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-06T05:09:34Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T01:11:49Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
@@ -270,7 +323,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-29T00:50:02Z",
+            "checked_at": "2026-08-29T01:15:15Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -314,7 +367,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-29T00:45:58Z",
+        "checked_at": "2026-08-29T01:11:49Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },

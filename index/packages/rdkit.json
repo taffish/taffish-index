@@ -91,13 +91,66 @@
           "tmp=/tmp/taf-rdkit-smoke-$$; rm -rf \"$tmp\"; python /opt/rdkit/share/testdata/rdkit-smoke.py \"$tmp\" && test -s \"$tmp/molecules.sdf\" && test -s \"$tmp/molecule.svg\" && test -s \"$tmp/molecule.png\" && test -s \"$tmp/summary.tsv\" && grep -F 'rdkit_version' \"$tmp/summary.tsv\" | grep -F '2026.03.4' >/dev/null && python -m rdkit.Chem.ChemUtils.SDFToCSV \"$tmp/molecules.sdf\" \"$tmp/molecules.csv\" && test -s \"$tmp/molecules.csv\" && grep -F 'SMILES' \"$tmp/molecules.csv\" >/dev/null && grep -F 'aspirin' \"$tmp/molecules.csv\" >/dev/null && rm -rf \"$tmp\""
         ],
         "status": "passed",
-        "checked_at": "2026-07-13T02:23:24Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T01:15:01Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9b3a2ad56a3964e0c4d6a7cafa7d5fde239bdabd",
+            "image_digest": "sha256:3fa5f5f7789a7f3a36057273b504ba4d2c4b294fb503b85c9151d7ab2b245fbd",
+            "smoke_sha256": "74dd999c2da56190ab280256a2d7a87e2b4b3f716605b4ec738006255efb570b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9b3a2ad56a3964e0c4d6a7cafa7d5fde239bdabd",
+            "image_digest": "sha256:3fa5f5f7789a7f3a36057273b504ba4d2c4b294fb503b85c9151d7ab2b245fbd",
+            "smoke_sha256": "74dd999c2da56190ab280256a2d7a87e2b4b3f716605b4ec738006255efb570b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9b3a2ad56a3964e0c4d6a7cafa7d5fde239bdabd",
+            "image_digest": "sha256:3fa5f5f7789a7f3a36057273b504ba4d2c4b294fb503b85c9151d7ab2b245fbd",
+            "smoke_sha256": "74dd999c2da56190ab280256a2d7a87e2b4b3f716605b4ec738006255efb570b",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-07-13T02:23:24Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T01:11:49Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

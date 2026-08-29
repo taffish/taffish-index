@@ -98,13 +98,66 @@
           "mkdir -p /tmp/taf-merfin-smoke && cd /tmp/taf-merfin-smoke && printf '>toy\\nACGTACGTACGTACGTACGTACGTACGTACGT\\n' > seq.fa && meryl count memory=0.1 threads=1 k=21 seq.fa output read.meryl >/dev/null 2> meryl.log && test -d read.meryl && meryl histogram read.meryl > read.hist && test -s read.hist && merfin -hist -sequence seq.fa -readmers read.meryl -peak 1 -output merfin.hist -threads 1 > merfin.out 2> merfin.log && test -s merfin.hist && grep -F 'Merfin QV*' merfin.log >/dev/null && grep -F 'Bye!' merfin.log >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T01:15:01Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1582743ad22662b5ea533657b178aecb6240e7f2",
+            "image_digest": "sha256:e060c915221defd44a1a32d872443ae2116020bae0737efc0666d4f12dd0e063",
+            "smoke_sha256": "6bad0008e635566ff8031130d1f29aaf85b48bbf4277a8b29af3913b4089ab76",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1582743ad22662b5ea533657b178aecb6240e7f2",
+            "image_digest": "sha256:e060c915221defd44a1a32d872443ae2116020bae0737efc0666d4f12dd0e063",
+            "smoke_sha256": "6bad0008e635566ff8031130d1f29aaf85b48bbf4277a8b29af3913b4089ab76",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1582743ad22662b5ea533657b178aecb6240e7f2",
+            "image_digest": "sha256:e060c915221defd44a1a32d872443ae2116020bae0737efc0666d4f12dd0e063",
+            "smoke_sha256": "6bad0008e635566ff8031130d1f29aaf85b48bbf4277a8b29af3913b4089ab76",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-05-23T05:22:32Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T01:11:49Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {

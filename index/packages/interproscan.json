@@ -219,13 +219,66 @@
           "test -x /opt/interproscan/bin/hmmer/hmmer3/3.3/hmmscan && test -x /opt/interproscan/bin/hmmer/hmmer3/3.3/hmmsearch && test -x /opt/interproscan/bin/prints/fingerPRINTScan && /opt/interproscan/bin/hmmer/hmmer3/3.3/hmmscan -h 2>&1 | grep -F 'HMMER' >/dev/null"
         ],
         "status": "passed",
-        "checked_at": "2026-06-07T16:01:25Z",
-        "backend_used": "docker"
+        "checked_at": "2026-08-29T01:15:01Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4ab69c5898bc31b03a9d0ac51f3396b8ff255fb3",
+            "image_digest": "sha256:bbd79a4a4fe8805fcfcac44b075ad2debe6f8a52df6b609d06c026580d37a0a9",
+            "smoke_sha256": "c16b611f559cafa6b2deb5a1bdaac686f8e9f88099bcb57a8fa95e2d630a1fb8",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4ab69c5898bc31b03a9d0ac51f3396b8ff255fb3",
+            "image_digest": "sha256:bbd79a4a4fe8805fcfcac44b075ad2debe6f8a52df6b609d06c026580d37a0a9",
+            "smoke_sha256": "c16b611f559cafa6b2deb5a1bdaac686f8e9f88099bcb57a8fa95e2d630a1fb8",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-29T01:15:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4ab69c5898bc31b03a9d0ac51f3396b8ff255fb3",
+            "image_digest": "sha256:bbd79a4a4fe8805fcfcac44b075ad2debe6f8a52df6b609d06c026580d37a0a9",
+            "smoke_sha256": "c16b611f559cafa6b2deb5a1bdaac686f8e9f88099bcb57a8fa95e2d630a1fb8",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-06-07T16:01:25Z",
-        "policy": "taffish.index/trust-v1",
+        "checked_at": "2026-08-29T01:11:49Z",
+        "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
