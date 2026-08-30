@@ -1,8 +1,8 @@
 {
   "name": "uniprot-idmapping",
-  "latest": "0.1.0-r1",
-  "recent_version": "0.1.0-r1",
-  "recent_at": "2026-05-20T05:09:43Z",
+  "latest": "0.1.0-r2",
+  "recent_version": "0.1.0-r2",
+  "recent_at": "2026-08-30T13:27:25Z",
   "repository_url": "https://github.com/taffish/uniprot-idmapping",
   "command": {
     "name": "taf-uniprot-idmapping"
@@ -106,7 +106,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-30T12:24:15Z",
+            "checked_at": "2026-08-30T14:09:41Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -116,7 +116,7 @@
             "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
             "provenance": "taffish-index",
             "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139946536134768'"
+            "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139987725559920'"
           },
           "docker": {
             "status": "passed",
@@ -150,7 +150,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-30T12:20:18Z",
+        "checked_at": "2026-08-30T14:04:47Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -159,6 +159,169 @@
         "ref": "v0.1.0-r1",
         "commit": "bf944e9ee80164347d5261388d926e2972de78f5",
         "html_url": "https://github.com/taffish/uniprot-idmapping/tree/v0.1.0-r1"
+      },
+      "upstream": {
+        "name": "TAFFISH UniProt ID Mapping client",
+        "type": "first-party",
+        "homepage": "https://github.com/taffish/uniprot-idmapping",
+        "repository": "taffish/uniprot-idmapping",
+        "version": "0.1.0",
+        "license": "Apache-2.0",
+        "citation": "The UniProt Consortium 2025; UniProt website API 2025",
+        "doi": "10.1093/nar/gkaf394",
+        "pmid": "40331428"
+      }
+    },
+    "0.1.0-r2": {
+      "name": "uniprot-idmapping",
+      "kind": "tool",
+      "version": "0.1.0",
+      "release": 2,
+      "version_id": "0.1.0-r2",
+      "tag": "v0.1.0-r2",
+      "published_at": "2026-08-30T13:27:25Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/uniprot-idmapping",
+      "repository_slug": "taffish/uniprot-idmapping",
+      "command": {
+        "name": "taf-uniprot-idmapping"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "annotation",
+        "categories": [
+          "annotation",
+          "id-mapping",
+          "database-client",
+          "protein"
+        ],
+        "keywords": [
+          "uniprot",
+          "idmapping",
+          "annotation",
+          "protein",
+          "rest-api",
+          "csv",
+          "taffish-first-party"
+        ],
+        "summary": "TAFFISH first-party command-line client for UniProt ID Mapping REST API jobs.",
+        "description": "TAFFISH first-party command-line client for UniProt ID Mapping REST API jobs."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/uniprot-idmapping:0.1.0-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.1.0-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:82bd2629c59570e98d81b1cbdb6f39bb2506e04ba5e705920f4b35b5f634f342",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:c041ffe5301c351964dd4fff10854f59ffd520963be3b21b09634aa88a67c373",
+          "linux/arm64": "sha256:3c2db6f00fe898c1cebdad46ba603d94da7c8fb3e35c8ee9c922679ad33f72ec"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 90,
+        "exist": [
+          "uniprot-idmapping",
+          "uniprot-idmapping-smoke",
+          "python3"
+        ],
+        "test": [
+          "uniprot-idmapping-smoke source",
+          "uniprot-idmapping-smoke interface",
+          "uniprot-idmapping-smoke query",
+          "uniprot-idmapping-smoke mapping"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-30T14:09:22Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-30T14:09:41Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5ccd6f14301c6ebc0c59c30cef12bc8c01960b7d",
+            "image_digest": "sha256:82bd2629c59570e98d81b1cbdb6f39bb2506e04ba5e705920f4b35b5f634f342",
+            "smoke_sha256": "e40abbc964b833eca556dac7f0bef4209c4846fac44b0600116acfa88a813208",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-30T14:09:22Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5ccd6f14301c6ebc0c59c30cef12bc8c01960b7d",
+            "image_digest": "sha256:82bd2629c59570e98d81b1cbdb6f39bb2506e04ba5e705920f4b35b5f634f342",
+            "smoke_sha256": "e40abbc964b833eca556dac7f0bef4209c4846fac44b0600116acfa88a813208",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-30T14:09:26Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5ccd6f14301c6ebc0c59c30cef12bc8c01960b7d",
+            "image_digest": "sha256:82bd2629c59570e98d81b1cbdb6f39bb2506e04ba5e705920f4b35b5f634f342",
+            "smoke_sha256": "e40abbc964b833eca556dac7f0bef4209c4846fac44b0600116acfa88a813208",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-30T14:04:47Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/uniprot-idmapping",
+        "ref": "v0.1.0-r2",
+        "commit": "5ccd6f14301c6ebc0c59c30cef12bc8c01960b7d",
+        "html_url": "https://github.com/taffish/uniprot-idmapping/tree/v0.1.0-r2"
       },
       "upstream": {
         "name": "TAFFISH UniProt ID Mapping client",
