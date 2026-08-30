@@ -1,16 +1,16 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-30T10:52:55Z",
+  "generated_at": "2026-08-30T12:20:18Z",
   "organization": "taffish",
   "counts": {
-    "packages": 273,
-    "versions": 455,
-    "commands": 273,
-    "repositories": 273,
+    "packages": 274,
+    "versions": 456,
+    "commands": 274,
+    "repositories": 274,
     "warnings": 0,
     "failed": 0,
-    "advisory_failed": 17,
-    "latest_advisory_failed": 9,
+    "advisory_failed": 18,
+    "latest_advisory_failed": 10,
     "historical_advisory_failed": 8,
     "rejected": 12
   },
@@ -18452,7 +18452,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T10:57:32Z",
+                "checked_at": "2026-08-30T12:24:15Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -18496,7 +18496,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T10:52:55Z",
+            "checked_at": "2026-08-30T12:20:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -25777,7 +25777,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T10:57:32Z",
+                "checked_at": "2026-08-30T12:24:15Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -25821,7 +25821,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T10:52:55Z",
+            "checked_at": "2026-08-30T12:20:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -28509,7 +28509,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T10:57:32Z",
+                "checked_at": "2026-08-30T12:24:15Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -28553,7 +28553,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T10:52:55Z",
+            "checked_at": "2026-08-30T12:20:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -30768,6 +30768,194 @@
         }
       }
     },
+    "ilastik": {
+      "name": "ilastik",
+      "latest": "1.4.2-r1",
+      "recent_version": "1.4.2-r1",
+      "recent_at": "2026-08-30T12:10:20Z",
+      "repository_url": "https://github.com/taffish/ilastik",
+      "command": {
+        "name": "taf-ilastik"
+      },
+      "versions": {
+        "1.4.2-r1": {
+          "name": "ilastik",
+          "kind": "tool",
+          "version": "1.4.2",
+          "release": 1,
+          "version_id": "1.4.2-r1",
+          "tag": "v1.4.2-r1",
+          "published_at": "2026-08-30T12:10:20Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/ilastik",
+          "repository_slug": "taffish/ilastik",
+          "command": {
+            "name": "taf-ilastik"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "image-analysis",
+            "categories": [
+              "image-analysis",
+              "machine-learning",
+              "segmentation",
+              "microscopy"
+            ],
+            "keywords": [
+              "ilastik",
+              "bioimage",
+              "pixel-classification",
+              "object-classification",
+              "tracking",
+              "counting",
+              "ome-zarr"
+            ],
+            "summary": "Interactive and headless machine-learning workflows for biological image analysis.",
+            "description": "Interactive and headless machine-learning workflows for biological image analysis."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/ilastik:1.4.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.4.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:eb356ab4c5eefc9a4107bf00d79f2bf6bbe49fa5b0709422599c1a0c1e871d0f",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2f3ee6453272ae0b6a1f64dff7959a66057706b46f79ebf2bf1d836867365f79"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "ilastik",
+              "ilastik-gui",
+              "ilastik-models",
+              "ilastik-smoke",
+              "python",
+              "Xvfb",
+              "twm",
+              "x11vnc",
+              "websockify",
+              "xdotool",
+              "curl"
+            ],
+            "test": [
+              "ilastik-smoke identity",
+              "ilastik-smoke modules",
+              "ilastik-smoke runtime-closure",
+              "ilastik-smoke data-conversion",
+              "ilastik-smoke model-contract",
+              "ilastik-smoke model-fixture",
+              "ilastik-smoke gui-project-term",
+              "ilastik-smoke gui-startup-interrupt",
+              "ilastik-smoke gui-errors",
+              "ilastik-smoke wm-startup-failure",
+              "ilastik-smoke wm-runtime-failure"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-30T12:23:54Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "failed",
+                "checked_at": "2026-08-30T12:24:15Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9fa4638c4cad94c6ef601300e39f4610d1f3f167",
+                "image_digest": "sha256:eb356ab4c5eefc9a4107bf00d79f2bf6bbe49fa5b0709422599c1a0c1e871d0f",
+                "smoke_sha256": "c0c204fab471168496139cb895177ff5cd59a6aed6d3f2564ef5523ddf095ad7",
+                "provenance": "taffish-index",
+                "failure_kind": "smoke",
+                "message": "smoke command failed (apptainer, exit 1): ilastik-smoke model-fixture\nstdout: \nstderr: ilastik-models: error: [Errno 30] Read-only file system: '/model-install'\n"
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-08-30T12:23:54Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9fa4638c4cad94c6ef601300e39f4610d1f3f167",
+                "image_digest": "sha256:eb356ab4c5eefc9a4107bf00d79f2bf6bbe49fa5b0709422599c1a0c1e871d0f",
+                "smoke_sha256": "c0c204fab471168496139cb895177ff5cd59a6aed6d3f2564ef5523ddf095ad7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-08-30T12:24:14Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9fa4638c4cad94c6ef601300e39f4610d1f3f167",
+                "image_digest": "sha256:eb356ab4c5eefc9a4107bf00d79f2bf6bbe49fa5b0709422599c1a0c1e871d0f",
+                "smoke_sha256": "c0c204fab471168496139cb895177ff5cd59a6aed6d3f2564ef5523ddf095ad7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-30T12:20:18Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/ilastik",
+            "ref": "v1.4.2-r1",
+            "commit": "9fa4638c4cad94c6ef601300e39f4610d1f3f167",
+            "html_url": "https://github.com/taffish/ilastik/tree/v1.4.2-r1"
+          },
+          "upstream": {
+            "name": "ilastik",
+            "type": "github",
+            "homepage": "https://www.ilastik.org",
+            "repository": "ilastik/ilastik",
+            "release_url": "https://github.com/ilastik/ilastik/releases/tag/1.4.2",
+            "version": "1.4.2",
+            "license": "GPL-2.0-or-later WITH ilastik-plugin-exception; lazyflow is LGPL-2.1-or-later",
+            "citation": "Berg et al. ilastik: interactive machine learning for (bio)image analysis. Nature Methods (2019).",
+            "doi": "10.1038/s41592-019-0582-9"
+          }
+        }
+      }
+    },
     "interproscan": {
       "name": "interproscan",
       "latest": "5.78-109.0-r1",
@@ -31780,7 +31968,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T10:57:32Z",
+                "checked_at": "2026-08-30T12:24:15Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31824,7 +32012,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T10:52:55Z",
+            "checked_at": "2026-08-30T12:20:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -33910,7 +34098,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T10:57:32Z",
+                "checked_at": "2026-08-30T12:24:15Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -33954,7 +34142,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T10:52:55Z",
+            "checked_at": "2026-08-30T12:20:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -42956,7 +43144,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T10:57:32Z",
+                "checked_at": "2026-08-30T12:24:15Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -43000,7 +43188,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T10:52:55Z",
+            "checked_at": "2026-08-30T12:20:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -44722,7 +44910,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T10:57:32Z",
+                "checked_at": "2026-08-30T12:24:15Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -44732,7 +44920,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.BJOmaM/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/30 11:06:50 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.KJHbbP/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/30 12:34:14 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
               },
               "docker": {
                 "status": "passed",
@@ -44766,7 +44954,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T10:52:55Z",
+            "checked_at": "2026-08-30T12:20:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -46738,7 +46926,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T10:57:32Z",
+                "checked_at": "2026-08-30T12:24:15Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -46782,7 +46970,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T10:52:55Z",
+            "checked_at": "2026-08-30T12:20:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -76350,7 +76538,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T10:57:32Z",
+                "checked_at": "2026-08-30T12:24:15Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -76360,7 +76548,7 @@
                 "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.140468450175088'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139946536134768'"
               },
               "docker": {
                 "status": "passed",
@@ -76394,7 +76582,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T10:52:55Z",
+            "checked_at": "2026-08-30T12:20:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -80241,6 +80429,10 @@
       "package": "igv",
       "version": "2.19.8-r1"
     },
+    "taf-ilastik": {
+      "package": "ilastik",
+      "version": "1.4.2-r1"
+    },
     "taf-interproscan": {
       "package": "interproscan",
       "version": "5.78-109.0-r1"
@@ -81545,6 +81737,12 @@
       "repository": "taffish/igv",
       "packages": [
         "igv"
+      ]
+    },
+    "taffish/ilastik": {
+      "repository": "taffish/ilastik",
+      "packages": [
+        "ilastik"
       ]
     },
     "taffish/interproscan": {
