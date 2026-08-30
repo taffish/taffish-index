@@ -1,17 +1,17 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-30T04:34:42Z",
+  "generated_at": "2026-08-30T06:46:30Z",
   "organization": "taffish",
   "counts": {
     "packages": 273,
-    "versions": 453,
+    "versions": 454,
     "commands": 273,
     "repositories": 273,
     "warnings": 0,
     "failed": 0,
     "advisory_failed": 17,
-    "latest_advisory_failed": 11,
-    "historical_advisory_failed": 6,
+    "latest_advisory_failed": 10,
+    "historical_advisory_failed": 7,
     "rejected": 12
   },
   "packages": {
@@ -18452,7 +18452,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -18496,7 +18496,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -25777,7 +25777,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -25821,7 +25821,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -28509,7 +28509,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -28553,7 +28553,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -31780,7 +31780,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31824,7 +31824,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -33910,7 +33910,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -33954,7 +33954,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -33981,9 +33981,9 @@
     },
     "lastz": {
       "name": "lastz",
-      "latest": "1.04.52-r1",
-      "recent_version": "1.04.52-r1",
-      "recent_at": "2026-06-15T15:25:10Z",
+      "latest": "1.04.52-r2",
+      "recent_version": "1.04.52-r2",
+      "recent_at": "2026-08-30T06:31:39Z",
       "repository_url": "https://github.com/taffish/lastz",
       "command": {
         "name": "taf-lastz"
@@ -34100,7 +34100,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -34110,7 +34110,7 @@
                 "smoke_sha256": "54b5d0bb30d04cbaff285488b886c74285a087b7b0d4c74f9b87bf20557a730c",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.140499642901808'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.140312003044656'"
               },
               "docker": {
                 "status": "passed",
@@ -34144,7 +34144,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -34153,6 +34153,206 @@
             "ref": "v1.04.52-r1",
             "commit": "f40c93c96bbb69d0c8a06ff09ccb38c27f312be2",
             "html_url": "https://github.com/taffish/lastz/tree/v1.04.52-r1"
+          },
+          "upstream": {
+            "name": "LASTZ",
+            "type": "github",
+            "homepage": "https://github.com/lastz/lastz",
+            "repository": "lastz/lastz",
+            "release_url": "https://github.com/lastz/lastz/releases/tag/1.04.52",
+            "version": "1.04.52",
+            "license": "MIT",
+            "citation": "Harris RS 2007, Improved pairwise alignment of genomic DNA"
+          }
+        },
+        "1.04.52-r2": {
+          "name": "lastz",
+          "kind": "tool",
+          "version": "1.04.52",
+          "release": 2,
+          "version_id": "1.04.52-r2",
+          "tag": "v1.04.52-r2",
+          "published_at": "2026-08-30T06:31:39Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/lastz",
+          "repository_slug": "taffish/lastz",
+          "command": {
+            "name": "taf-lastz"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-alignment",
+            "categories": [
+              "genome-alignment",
+              "pairwise-alignment",
+              "comparative-genomics",
+              "whole-genome-alignment"
+            ],
+            "keywords": [
+              "lastz",
+              "blastz",
+              "dna alignment",
+              "pairwise alignment",
+              "lav",
+              "axt",
+              "maf",
+              "sam",
+              "paf",
+              "cigar",
+              "2bit",
+              "nib"
+            ],
+            "summary": "LASTZ 1.04.52 command-line runtime for pairwise DNA sequence alignment, scoring inference, and common genomic alignment output formats.",
+            "description": "LASTZ 1.04.52 command-line runtime for pairwise DNA sequence alignment, scoring inference, and common genomic alignment output formats."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/lastz:1.04.52-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.04.52-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6793a0ce56b371cbf3065ea4f98c7a74b350393f6f8a4e643d02531a2ef0651b",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:3bfce103efbd0438e8d03fc4b47588eeb25c441400201fad75c2b8cd10779005",
+              "linux/arm64": "sha256:8acdb62b64edcee9367affd9960759bf4746308769328ff0d320d853a72144c6"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "lastz",
+              "lastz_D",
+              "lastz_32",
+              "lastz_40",
+              "alignment_table.py",
+              "alignment_table_aids.py",
+              "any_to_qdna.py",
+              "axt_compare.py",
+              "build_fasta_hsx.py",
+              "cigar.py",
+              "create_scores_file.sh",
+              "expand_scores_file.py",
+              "fasta_fragments.py",
+              "fasta_softmask_intervals.py",
+              "gfa_compare.py",
+              "hassock_hash.py",
+              "hsx_file.py",
+              "install_py.py",
+              "lav_compare.py",
+              "lav_sort.py",
+              "maf_sort.py",
+              "merge_masking_intervals.py",
+              "pick_from_fasta_hsx.py",
+              "probabilities_to_scores.py",
+              "qcode_to_scores.py",
+              "tabular_to_maf.py",
+              "python3",
+              "bash",
+              "sed",
+              "grep",
+              "ldd",
+              "find",
+              "mktemp",
+              "tail",
+              "taf-lastz-smoke"
+            ],
+            "test": [
+              "taf-lastz-smoke source",
+              "taf-lastz-smoke versions",
+              "taf-lastz-smoke pycompile",
+              "taf-lastz-smoke align",
+              "taf-lastz-smoke helpers"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-30T06:50:03Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-08-30T06:50:13Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "bb1646256634953f182bd47befbe1bd0587f019d",
+                "image_digest": "sha256:6793a0ce56b371cbf3065ea4f98c7a74b350393f6f8a4e643d02531a2ef0651b",
+                "smoke_sha256": "9b9fedb0ac71a1ad5daf2a55e3f13825ca23335e9a83e038c52cc2f0cb949fe3",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-08-30T06:50:03Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "bb1646256634953f182bd47befbe1bd0587f019d",
+                "image_digest": "sha256:6793a0ce56b371cbf3065ea4f98c7a74b350393f6f8a4e643d02531a2ef0651b",
+                "smoke_sha256": "9b9fedb0ac71a1ad5daf2a55e3f13825ca23335e9a83e038c52cc2f0cb949fe3",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-08-30T06:50:00Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "bb1646256634953f182bd47befbe1bd0587f019d",
+                "image_digest": "sha256:6793a0ce56b371cbf3065ea4f98c7a74b350393f6f8a4e643d02531a2ef0651b",
+                "smoke_sha256": "9b9fedb0ac71a1ad5daf2a55e3f13825ca23335e9a83e038c52cc2f0cb949fe3",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-30T06:46:30Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/lastz",
+            "ref": "v1.04.52-r2",
+            "commit": "bb1646256634953f182bd47befbe1bd0587f019d",
+            "html_url": "https://github.com/taffish/lastz/tree/v1.04.52-r2"
           },
           "upstream": {
             "name": "LASTZ",
@@ -42756,7 +42956,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -42800,7 +43000,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -44522,7 +44722,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -44532,7 +44732,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.kCEePA/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/30 04:49:10 [emerg] 27#27: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.mfPmdO/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/30 07:01:11 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
               },
               "docker": {
                 "status": "passed",
@@ -44566,7 +44766,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -46538,7 +46738,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -46582,7 +46782,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -75772,7 +75972,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -75782,7 +75982,7 @@
                 "smoke_sha256": "ce48b0894f51337de663212b2820ea499ccf751bd2421254d14010b7408668e6",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140445927604832'"
+                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140182381920864'"
               },
               "docker": {
                 "status": "passed",
@@ -75816,7 +76016,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -75947,7 +76147,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T04:39:21Z",
+                "checked_at": "2026-08-30T06:50:13Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -75957,7 +76157,7 @@
                 "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.140702051657840'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139832723810416'"
               },
               "docker": {
                 "status": "passed",
@@ -75991,7 +76191,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T04:34:42Z",
+            "checked_at": "2026-08-30T06:46:30Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -79892,7 +80092,7 @@
     },
     "taf-lastz": {
       "package": "lastz",
-      "version": "1.04.52-r1"
+      "version": "1.04.52-r2"
     },
     "taf-lightdock": {
       "package": "lightdock",

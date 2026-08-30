@@ -1,8 +1,8 @@
 {
   "name": "lastz",
-  "latest": "1.04.52-r1",
-  "recent_version": "1.04.52-r1",
-  "recent_at": "2026-06-15T15:25:10Z",
+  "latest": "1.04.52-r2",
+  "recent_version": "1.04.52-r2",
+  "recent_at": "2026-08-30T06:31:39Z",
   "repository_url": "https://github.com/taffish/lastz",
   "command": {
     "name": "taf-lastz"
@@ -119,7 +119,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-30T04:39:21Z",
+            "checked_at": "2026-08-30T06:50:13Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -129,7 +129,7 @@
             "smoke_sha256": "54b5d0bb30d04cbaff285488b886c74285a087b7b0d4c74f9b87bf20557a730c",
             "provenance": "taffish-index",
             "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.140499642901808'"
+            "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.140312003044656'"
           },
           "docker": {
             "status": "passed",
@@ -163,7 +163,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-30T04:34:42Z",
+        "checked_at": "2026-08-30T06:46:30Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -172,6 +172,206 @@
         "ref": "v1.04.52-r1",
         "commit": "f40c93c96bbb69d0c8a06ff09ccb38c27f312be2",
         "html_url": "https://github.com/taffish/lastz/tree/v1.04.52-r1"
+      },
+      "upstream": {
+        "name": "LASTZ",
+        "type": "github",
+        "homepage": "https://github.com/lastz/lastz",
+        "repository": "lastz/lastz",
+        "release_url": "https://github.com/lastz/lastz/releases/tag/1.04.52",
+        "version": "1.04.52",
+        "license": "MIT",
+        "citation": "Harris RS 2007, Improved pairwise alignment of genomic DNA"
+      }
+    },
+    "1.04.52-r2": {
+      "name": "lastz",
+      "kind": "tool",
+      "version": "1.04.52",
+      "release": 2,
+      "version_id": "1.04.52-r2",
+      "tag": "v1.04.52-r2",
+      "published_at": "2026-08-30T06:31:39Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/lastz",
+      "repository_slug": "taffish/lastz",
+      "command": {
+        "name": "taf-lastz"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-alignment",
+        "categories": [
+          "genome-alignment",
+          "pairwise-alignment",
+          "comparative-genomics",
+          "whole-genome-alignment"
+        ],
+        "keywords": [
+          "lastz",
+          "blastz",
+          "dna alignment",
+          "pairwise alignment",
+          "lav",
+          "axt",
+          "maf",
+          "sam",
+          "paf",
+          "cigar",
+          "2bit",
+          "nib"
+        ],
+        "summary": "LASTZ 1.04.52 command-line runtime for pairwise DNA sequence alignment, scoring inference, and common genomic alignment output formats.",
+        "description": "LASTZ 1.04.52 command-line runtime for pairwise DNA sequence alignment, scoring inference, and common genomic alignment output formats."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/lastz:1.04.52-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.04.52-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6793a0ce56b371cbf3065ea4f98c7a74b350393f6f8a4e643d02531a2ef0651b",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3bfce103efbd0438e8d03fc4b47588eeb25c441400201fad75c2b8cd10779005",
+          "linux/arm64": "sha256:8acdb62b64edcee9367affd9960759bf4746308769328ff0d320d853a72144c6"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "lastz",
+          "lastz_D",
+          "lastz_32",
+          "lastz_40",
+          "alignment_table.py",
+          "alignment_table_aids.py",
+          "any_to_qdna.py",
+          "axt_compare.py",
+          "build_fasta_hsx.py",
+          "cigar.py",
+          "create_scores_file.sh",
+          "expand_scores_file.py",
+          "fasta_fragments.py",
+          "fasta_softmask_intervals.py",
+          "gfa_compare.py",
+          "hassock_hash.py",
+          "hsx_file.py",
+          "install_py.py",
+          "lav_compare.py",
+          "lav_sort.py",
+          "maf_sort.py",
+          "merge_masking_intervals.py",
+          "pick_from_fasta_hsx.py",
+          "probabilities_to_scores.py",
+          "qcode_to_scores.py",
+          "tabular_to_maf.py",
+          "python3",
+          "bash",
+          "sed",
+          "grep",
+          "ldd",
+          "find",
+          "mktemp",
+          "tail",
+          "taf-lastz-smoke"
+        ],
+        "test": [
+          "taf-lastz-smoke source",
+          "taf-lastz-smoke versions",
+          "taf-lastz-smoke pycompile",
+          "taf-lastz-smoke align",
+          "taf-lastz-smoke helpers"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-30T06:50:03Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-30T06:50:13Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bb1646256634953f182bd47befbe1bd0587f019d",
+            "image_digest": "sha256:6793a0ce56b371cbf3065ea4f98c7a74b350393f6f8a4e643d02531a2ef0651b",
+            "smoke_sha256": "9b9fedb0ac71a1ad5daf2a55e3f13825ca23335e9a83e038c52cc2f0cb949fe3",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-30T06:50:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bb1646256634953f182bd47befbe1bd0587f019d",
+            "image_digest": "sha256:6793a0ce56b371cbf3065ea4f98c7a74b350393f6f8a4e643d02531a2ef0651b",
+            "smoke_sha256": "9b9fedb0ac71a1ad5daf2a55e3f13825ca23335e9a83e038c52cc2f0cb949fe3",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-30T06:50:00Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bb1646256634953f182bd47befbe1bd0587f019d",
+            "image_digest": "sha256:6793a0ce56b371cbf3065ea4f98c7a74b350393f6f8a4e643d02531a2ef0651b",
+            "smoke_sha256": "9b9fedb0ac71a1ad5daf2a55e3f13825ca23335e9a83e038c52cc2f0cb949fe3",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-30T06:46:30Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/lastz",
+        "ref": "v1.04.52-r2",
+        "commit": "bb1646256634953f182bd47befbe1bd0587f019d",
+        "html_url": "https://github.com/taffish/lastz/tree/v1.04.52-r2"
       },
       "upstream": {
         "name": "LASTZ",
