@@ -1,8 +1,8 @@
 {
   "name": "cufflinks",
-  "latest": "2.2.1-r2",
-  "recent_version": "2.2.1-r2",
-  "recent_at": "2026-05-18T06:18:29Z",
+  "latest": "2.2.1-r3",
+  "recent_version": "2.2.1-r3",
+  "recent_at": "2026-08-30T04:32:23Z",
   "repository_url": "https://github.com/taffish/cufflinks",
   "command": {
     "name": "taf-cufflinks"
@@ -302,7 +302,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-08-30T03:19:57Z",
+            "checked_at": "2026-08-30T04:39:21Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -312,7 +312,7 @@
             "smoke_sha256": "eaef4faf38838cfdf5bc077d224a9bb51a1d1820c475536f1aca7fdab3ae244e",
             "provenance": "taffish-index",
             "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140678880625360'"
+            "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.139762143560400'"
           },
           "docker": {
             "status": "passed",
@@ -346,7 +346,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-08-30T03:15:18Z",
+        "checked_at": "2026-08-30T04:34:42Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -361,6 +361,182 @@
         "homepage": "https://cole-trapnell-lab.github.io/cufflinks/",
         "repository": "cole-trapnell-lab/cufflinks",
         "release_url": "https://github.com/cole-trapnell-lab/cufflinks/releases/tag/v2.2.1",
+        "version": "2.2.1",
+        "license": "BSL-1.0",
+        "citation": "Trapnell et al. 2010",
+        "doi": "10.1038/nbt.1621",
+        "pmid": "20436464"
+      }
+    },
+    "2.2.1-r3": {
+      "name": "cufflinks",
+      "kind": "tool",
+      "version": "2.2.1",
+      "release": 3,
+      "version_id": "2.2.1-r3",
+      "tag": "v2.2.1-r3",
+      "published_at": "2026-08-30T04:32:23Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/cufflinks",
+      "repository_slug": "taffish/cufflinks",
+      "command": {
+        "name": "taf-cufflinks"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "transcriptomics",
+          "assembly",
+          "quantification",
+          "differential-expression"
+        ],
+        "keywords": [
+          "cufflinks",
+          "cuffdiff",
+          "cuffcompare",
+          "cuffmerge",
+          "cuffquant",
+          "cuffnorm",
+          "rna-seq",
+          "transcript-assembly",
+          "gtf",
+          "sam",
+          "bam",
+          "fpkm"
+        ],
+        "summary": "Cufflinks suite for reference-guided transcript assembly, abundance estimation, and RNA-seq differential expression workflows.",
+        "description": "Cufflinks suite for reference-guided transcript assembly, abundance estimation, and RNA-seq differential expression workflows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/cufflinks:2.2.1-r3",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.2.1-r3",
+        "image_tag_matches_version": true,
+        "digest": "sha256:f3b3df02116b5e1df4625c418616cecb59b773aec48f4840bfbdaedd68dfc2b0",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0fd02468e43b91b585aee8417d8ba4870bb5d7d3aad26a10251064b2d9fc5a56"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "cufflinks",
+          "cuffcompare",
+          "cuffmerge",
+          "cuffquant",
+          "cuffdiff",
+          "cuffnorm",
+          "gffread",
+          "gtf_to_sam",
+          "python3",
+          "sort",
+          "taf-cufflinks-smoke"
+        ],
+        "test": [
+          "taf-cufflinks-smoke source",
+          "taf-cufflinks-smoke versions",
+          "taf-cufflinks-smoke pycompile",
+          "taf-cufflinks-smoke annotation",
+          "taf-cufflinks-smoke merge"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-30T04:39:03Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-30T04:39:21Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "afcec5a489aa383b62c30bb0b8355e23f81c644f",
+            "image_digest": "sha256:f3b3df02116b5e1df4625c418616cecb59b773aec48f4840bfbdaedd68dfc2b0",
+            "smoke_sha256": "7d52f2603431a20dc821d0ec5d0d697a6f96bc775a8a74442c607f76156ba275",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-30T04:39:03Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "afcec5a489aa383b62c30bb0b8355e23f81c644f",
+            "image_digest": "sha256:f3b3df02116b5e1df4625c418616cecb59b773aec48f4840bfbdaedd68dfc2b0",
+            "smoke_sha256": "7d52f2603431a20dc821d0ec5d0d697a6f96bc775a8a74442c607f76156ba275",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-30T04:39:07Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "afcec5a489aa383b62c30bb0b8355e23f81c644f",
+            "image_digest": "sha256:f3b3df02116b5e1df4625c418616cecb59b773aec48f4840bfbdaedd68dfc2b0",
+            "smoke_sha256": "7d52f2603431a20dc821d0ec5d0d697a6f96bc775a8a74442c607f76156ba275",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-30T04:34:42Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/cufflinks",
+        "ref": "v2.2.1-r3",
+        "commit": "afcec5a489aa383b62c30bb0b8355e23f81c644f",
+        "html_url": "https://github.com/taffish/cufflinks/tree/v2.2.1-r3"
+      },
+      "upstream": {
+        "type": "github",
+        "homepage": "https://cole-trapnell-lab.github.io/cufflinks/",
+        "repository": "cole-trapnell-lab/cufflinks",
+        "release_url": "https://github.com/cole-trapnell-lab/cufflinks/tree/v2.2.1",
         "version": "2.2.1",
         "license": "BSL-1.0",
         "citation": "Trapnell et al. 2010",

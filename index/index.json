@@ -1,17 +1,17 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-30T03:15:18Z",
+  "generated_at": "2026-08-30T04:34:42Z",
   "organization": "taffish",
   "counts": {
     "packages": 273,
-    "versions": 452,
+    "versions": 453,
     "commands": 273,
     "repositories": 273,
     "warnings": 0,
     "failed": 0,
     "advisory_failed": 17,
-    "latest_advisory_failed": 12,
-    "historical_advisory_failed": 5,
+    "latest_advisory_failed": 11,
+    "historical_advisory_failed": 6,
     "rejected": 12
   },
   "packages": {
@@ -14523,9 +14523,9 @@
     },
     "cufflinks": {
       "name": "cufflinks",
-      "latest": "2.2.1-r2",
-      "recent_version": "2.2.1-r2",
-      "recent_at": "2026-05-18T06:18:29Z",
+      "latest": "2.2.1-r3",
+      "recent_version": "2.2.1-r3",
+      "recent_at": "2026-08-30T04:32:23Z",
       "repository_url": "https://github.com/taffish/cufflinks",
       "command": {
         "name": "taf-cufflinks"
@@ -14825,7 +14825,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -14835,7 +14835,7 @@
                 "smoke_sha256": "eaef4faf38838cfdf5bc077d224a9bb51a1d1820c475536f1aca7fdab3ae244e",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140678880625360'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.139762143560400'"
               },
               "docker": {
                 "status": "passed",
@@ -14869,7 +14869,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -14884,6 +14884,182 @@
             "homepage": "https://cole-trapnell-lab.github.io/cufflinks/",
             "repository": "cole-trapnell-lab/cufflinks",
             "release_url": "https://github.com/cole-trapnell-lab/cufflinks/releases/tag/v2.2.1",
+            "version": "2.2.1",
+            "license": "BSL-1.0",
+            "citation": "Trapnell et al. 2010",
+            "doi": "10.1038/nbt.1621",
+            "pmid": "20436464"
+          }
+        },
+        "2.2.1-r3": {
+          "name": "cufflinks",
+          "kind": "tool",
+          "version": "2.2.1",
+          "release": 3,
+          "version_id": "2.2.1-r3",
+          "tag": "v2.2.1-r3",
+          "published_at": "2026-08-30T04:32:23Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/cufflinks",
+          "repository_slug": "taffish/cufflinks",
+          "command": {
+            "name": "taf-cufflinks"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "assembly",
+              "quantification",
+              "differential-expression"
+            ],
+            "keywords": [
+              "cufflinks",
+              "cuffdiff",
+              "cuffcompare",
+              "cuffmerge",
+              "cuffquant",
+              "cuffnorm",
+              "rna-seq",
+              "transcript-assembly",
+              "gtf",
+              "sam",
+              "bam",
+              "fpkm"
+            ],
+            "summary": "Cufflinks suite for reference-guided transcript assembly, abundance estimation, and RNA-seq differential expression workflows.",
+            "description": "Cufflinks suite for reference-guided transcript assembly, abundance estimation, and RNA-seq differential expression workflows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/cufflinks:2.2.1-r3",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.1-r3",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f3b3df02116b5e1df4625c418616cecb59b773aec48f4840bfbdaedd68dfc2b0",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0fd02468e43b91b585aee8417d8ba4870bb5d7d3aad26a10251064b2d9fc5a56"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "cufflinks",
+              "cuffcompare",
+              "cuffmerge",
+              "cuffquant",
+              "cuffdiff",
+              "cuffnorm",
+              "gffread",
+              "gtf_to_sam",
+              "python3",
+              "sort",
+              "taf-cufflinks-smoke"
+            ],
+            "test": [
+              "taf-cufflinks-smoke source",
+              "taf-cufflinks-smoke versions",
+              "taf-cufflinks-smoke pycompile",
+              "taf-cufflinks-smoke annotation",
+              "taf-cufflinks-smoke merge"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-30T04:39:03Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-08-30T04:39:21Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "afcec5a489aa383b62c30bb0b8355e23f81c644f",
+                "image_digest": "sha256:f3b3df02116b5e1df4625c418616cecb59b773aec48f4840bfbdaedd68dfc2b0",
+                "smoke_sha256": "7d52f2603431a20dc821d0ec5d0d697a6f96bc775a8a74442c607f76156ba275",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-08-30T04:39:03Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "afcec5a489aa383b62c30bb0b8355e23f81c644f",
+                "image_digest": "sha256:f3b3df02116b5e1df4625c418616cecb59b773aec48f4840bfbdaedd68dfc2b0",
+                "smoke_sha256": "7d52f2603431a20dc821d0ec5d0d697a6f96bc775a8a74442c607f76156ba275",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-08-30T04:39:07Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "afcec5a489aa383b62c30bb0b8355e23f81c644f",
+                "image_digest": "sha256:f3b3df02116b5e1df4625c418616cecb59b773aec48f4840bfbdaedd68dfc2b0",
+                "smoke_sha256": "7d52f2603431a20dc821d0ec5d0d697a6f96bc775a8a74442c607f76156ba275",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-30T04:34:42Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/cufflinks",
+            "ref": "v2.2.1-r3",
+            "commit": "afcec5a489aa383b62c30bb0b8355e23f81c644f",
+            "html_url": "https://github.com/taffish/cufflinks/tree/v2.2.1-r3"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://cole-trapnell-lab.github.io/cufflinks/",
+            "repository": "cole-trapnell-lab/cufflinks",
+            "release_url": "https://github.com/cole-trapnell-lab/cufflinks/tree/v2.2.1",
             "version": "2.2.1",
             "license": "BSL-1.0",
             "citation": "Trapnell et al. 2010",
@@ -18276,7 +18452,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -18320,7 +18496,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -25601,7 +25777,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -25645,7 +25821,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -28333,7 +28509,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -28377,7 +28553,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -31604,7 +31780,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31648,7 +31824,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -33734,7 +33910,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -33778,7 +33954,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -33924,7 +34100,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -33934,7 +34110,7 @@
                 "smoke_sha256": "54b5d0bb30d04cbaff285488b886c74285a087b7b0d4c74f9b87bf20557a730c",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.139907861767472'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.140499642901808'"
               },
               "docker": {
                 "status": "passed",
@@ -33968,7 +34144,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -42580,7 +42756,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -42624,7 +42800,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -44346,7 +44522,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -44356,7 +44532,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.ngaAJH/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/30 03:31:23 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.kCEePA/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/30 04:49:10 [emerg] 27#27: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
               },
               "docker": {
                 "status": "passed",
@@ -44390,7 +44566,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -46362,7 +46538,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -46406,7 +46582,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -75596,7 +75772,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -75606,7 +75782,7 @@
                 "smoke_sha256": "ce48b0894f51337de663212b2820ea499ccf751bd2421254d14010b7408668e6",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140615175996000'"
+                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140445927604832'"
               },
               "docker": {
                 "status": "passed",
@@ -75640,7 +75816,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -75771,7 +75947,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T03:19:57Z",
+                "checked_at": "2026-08-30T04:39:21Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -75781,7 +75957,7 @@
                 "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139988610246768'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.140702051657840'"
               },
               "docker": {
                 "status": "passed",
@@ -75815,7 +75991,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T03:15:18Z",
+            "checked_at": "2026-08-30T04:34:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -79460,7 +79636,7 @@
     },
     "taf-cufflinks": {
       "package": "cufflinks",
-      "version": "2.2.1-r2"
+      "version": "2.2.1-r3"
     },
     "taf-cutadapt": {
       "package": "cutadapt",
