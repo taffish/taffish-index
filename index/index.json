@@ -1,17 +1,17 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-29T08:18:11Z",
+  "generated_at": "2026-08-30T03:15:18Z",
   "organization": "taffish",
   "counts": {
     "packages": 273,
-    "versions": 451,
+    "versions": 452,
     "commands": 273,
     "repositories": 273,
     "warnings": 0,
     "failed": 0,
     "advisory_failed": 17,
-    "latest_advisory_failed": 13,
-    "historical_advisory_failed": 4,
+    "latest_advisory_failed": 12,
+    "historical_advisory_failed": 5,
     "rejected": 12
   },
   "packages": {
@@ -4266,9 +4266,9 @@
     },
     "bedops": {
       "name": "bedops",
-      "latest": "2.4.42-r1",
-      "recent_version": "2.4.42-r1",
-      "recent_at": "2026-06-20T09:02:09Z",
+      "latest": "2.4.42-r2",
+      "recent_version": "2.4.42-r2",
+      "recent_at": "2026-08-30T02:59:02Z",
       "repository_url": "https://github.com/taffish/bedops",
       "command": {
         "name": "taf-bedops"
@@ -4401,7 +4401,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -4411,7 +4411,7 @@
                 "smoke_sha256": "c588854379a50e91f93f295c049bae3bf7a9cbf4f87c7c291eff5a3227c1efae",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates && starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/bedops/bin/__pycache__/starch-diffcpython-311.pyc.140564754777008'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates && starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/bedops/bin/__pycache__/starch-diffcpython-311.pyc.140041479193520'"
               },
               "docker": {
                 "status": "passed",
@@ -4445,7 +4445,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -4454,6 +4454,204 @@
             "ref": "v2.4.42-r1",
             "commit": "f532649b4a36e9e383c16f9cb4d5609ce3c67de8",
             "html_url": "https://github.com/taffish/bedops/tree/v2.4.42-r1"
+          },
+          "upstream": {
+            "name": "BEDOPS",
+            "type": "github",
+            "homepage": "https://github.com/bedops/bedops",
+            "repository": "bedops/bedops",
+            "release_url": "https://github.com/bedops/bedops/releases/tag/v2.4.42",
+            "version": "2.4.42",
+            "license": "GPL-2.0-or-later; bundled third-party source archives retain their own upstream licenses",
+            "citation": "Neph S, Kuehn MS, Reynolds AP, et al. BEDOPS: high-performance genomic feature operations. Bioinformatics. 2012;28(14):1919-1920.",
+            "doi": "10.1093/bioinformatics/bts277",
+            "pmid": "22576172"
+          }
+        },
+        "2.4.42-r2": {
+          "name": "bedops",
+          "kind": "tool",
+          "version": "2.4.42",
+          "release": 2,
+          "version_id": "2.4.42-r2",
+          "tag": "v2.4.42-r2",
+          "published_at": "2026-08-30T02:59:02Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bedops",
+          "repository_slug": "taffish/bedops",
+          "command": {
+            "name": "taf-bedops"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-intervals",
+            "categories": [
+              "genome-intervals",
+              "genomics",
+              "bed",
+              "set-operations",
+              "data-conversion"
+            ],
+            "keywords": [
+              "bedops",
+              "bed",
+              "bedmap",
+              "sort-bed",
+              "starch",
+              "genomic intervals",
+              "set operations",
+              "format conversion"
+            ],
+            "summary": "BEDOPS 2.4.42 command-line runtime for sorted BED set operations, element mapping, Starch archive compression, and common genomic interval format conversion.",
+            "description": "BEDOPS 2.4.42 command-line runtime for sorted BED set operations, element mapping, Starch archive compression, and common genomic interval format conversion."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bedops:2.4.42-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.4.42-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4edc4873bfb5e7a6eefed0e0dc2413dedd443d87b8682133eca00c6b0b1c7dac",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7bad10a14adad01d11809b60752d90cb1a85c776140c1044e78aa55088cb8422",
+              "linux/arm64": "sha256:53c4387b4fe7c21b557e16427ac9a8c9dffc303f9896cf3a4e1eb2f3b9b1fd4f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "bedops",
+              "bedmap",
+              "bedextract",
+              "closest-features",
+              "sort-bed",
+              "starch",
+              "unstarch",
+              "starchcat",
+              "starchstrip",
+              "starch-diff",
+              "convert2bed",
+              "gff2bed",
+              "gtf2bed",
+              "gvf2bed",
+              "psl2bed",
+              "rmsk2bed",
+              "sam2bed",
+              "vcf2bed",
+              "wig2bed",
+              "bam2bed",
+              "bam2bed_gnuParallel",
+              "bam2starch",
+              "bam2starch_gnuParallel",
+              "python3",
+              "perl",
+              "bash",
+              "tcsh",
+              "samtools",
+              "parallel",
+              "grep",
+              "sed",
+              "awk",
+              "find"
+            ],
+            "test": [
+              "grep -Fx \"BEDOPS 2.4.42\" /opt/bedops/share/doc/bedops/source.txt >/dev/null && grep -F \"9daa0c098e37490a07f84664d2c61ff8909689995cf7e1673d259ccd4f1c453c\" /opt/bedops/share/doc/bedops/source.txt >/dev/null",
+              "bedops --version 2>&1 | grep -F \"2.4.42\" >/dev/null && sort-bed --version 2>&1 | grep -F \"2.4.42\" >/dev/null && bedmap --version 2>&1 | grep -F \"2.4.42\" >/dev/null && starch --version 2>&1 | grep -F \"2.4.42\" >/dev/null",
+              "bedops --help 2>&1 | grep -F \"USAGE: bedops\" >/dev/null && bedmap --help 2>&1 | grep -F \"USAGE: bedmap\" >/dev/null && closest-features --help 2>&1 | grep -F \"USAGE: closest-features\" >/dev/null && convert2bed --help 2>&1 | grep -F \"convert2bed\" >/dev/null && bam2bed_gnuParallel --help 2>&1 | grep -F \"GNU Parallel\" >/dev/null",
+              "set -eu; pycache=/tmp/taf-bedops-pycache-$$; rm -rf \"$pycache\"; mkdir -p \"$pycache\"; trap 'rm -rf \"$pycache\"' 0; PYTHONPYCACHEPREFIX=\"$pycache\" python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates; starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null",
+              "set -eu; work=/tmp/taf-bedops-smoke-$$; rm -rf \"$work\"; mkdir -p \"$work\"; trap 'rm -rf \"$work\"' 0; cd \"$work\"; export TMPDIR=\"$work\"; printf 'chr1\\t10\\t20\\ta\\nchr1\\t1\\t5\\tb\\nchr2\\t3\\t8\\tc\\n' > input.bed; sort-bed input.bed > sorted.bed; awk 'NR==1 && $1==\"chr1\" && $2==1 && $3==5 && $4==\"b\" {ok=1} END{exit ok?0:1}' sorted.bed; printf 'chr1\\t4\\t12\\tx\\n' | sort-bed - > ref.bed; bedops --intersect sorted.bed ref.bed > intersect.bed; test \"$(wc -l < intersect.bed)\" -eq 2; bedmap --echo --count ref.bed sorted.bed > map.txt; grep -F \"chr1\" map.txt >/dev/null; grep -F \"|2\" map.txt >/dev/null; starch sorted.bed > sorted.starch; unstarch sorted.starch > recovered.bed; diff -u sorted.bed recovered.bed; unstarch --list sorted.starch | grep -F \"chr1\" >/dev/null; starch-diff sorted.starch sorted.starch > starch-diff.log 2>&1 || { status=$?; printf '%s\\n' \"smoke-stage=starch-diff exit=$status\" >&2; tail -n 50 starch-diff.log >&2; exit \"$status\"; }; grep -F \"identical\" starch-diff.log >/dev/null || { status=$?; printf '%s\\n' \"smoke-stage=starch-diff-marker exit=$status\" >&2; tail -n 50 starch-diff.log >&2; exit \"$status\"; }; printf 'chr1\\tsrc\\tgene\\t2\\t10\\t.\\t+\\t.\\tID=g1\\n' | gff2bed --do-not-sort > gff.bed; grep -F \"g1\" gff.bed >/dev/null",
+              "set -eu; work=/tmp/taf-bedops-bam-smoke-$$; rm -rf \"$work\"; mkdir -p \"$work\"; trap 'rm -rf \"$work\"' 0; cd \"$work\"; export TMPDIR=\"$work\"; printf '@HD\\tVN:1.6\\tSO:coordinate\\n@SQ\\tSN:chr1\\tLN:1000\\nr1\\t0\\tchr1\\t2\\t60\\t4M\\t*\\t0\\t0\\tACGT\\tFFFF\\n' > input.sam; samtools view -b -o input.bam input.sam; samtools index input.bam; bam2bed < input.bam > serial.bed; bam2bed_gnuParallel input.bam parallel.bed; diff -u serial.bed parallel.bed; grep -F \"chr1\" serial.bed >/dev/null; grep -F \"r1\" serial.bed >/dev/null; bam2starch_gnuParallel input.bam parallel.starch; unstarch parallel.starch > parallel-starch.bed; diff -u serial.bed parallel-starch.bed"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-30T03:19:40Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-08-30T03:19:57Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "df92e54fb722b8ce56615cb99eaac327585677f8",
+                "image_digest": "sha256:4edc4873bfb5e7a6eefed0e0dc2413dedd443d87b8682133eca00c6b0b1c7dac",
+                "smoke_sha256": "82087e65319d9534c8415de6cc5254954f8f207e9f23513d5d56a193dd525fef",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-08-30T03:19:40Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "df92e54fb722b8ce56615cb99eaac327585677f8",
+                "image_digest": "sha256:4edc4873bfb5e7a6eefed0e0dc2413dedd443d87b8682133eca00c6b0b1c7dac",
+                "smoke_sha256": "82087e65319d9534c8415de6cc5254954f8f207e9f23513d5d56a193dd525fef",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-08-30T03:19:51Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "df92e54fb722b8ce56615cb99eaac327585677f8",
+                "image_digest": "sha256:4edc4873bfb5e7a6eefed0e0dc2413dedd443d87b8682133eca00c6b0b1c7dac",
+                "smoke_sha256": "82087e65319d9534c8415de6cc5254954f8f207e9f23513d5d56a193dd525fef",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-30T03:15:18Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bedops",
+            "ref": "v2.4.42-r2",
+            "commit": "df92e54fb722b8ce56615cb99eaac327585677f8",
+            "html_url": "https://github.com/taffish/bedops/tree/v2.4.42-r2"
           },
           "upstream": {
             "name": "BEDOPS",
@@ -14627,7 +14825,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -14637,7 +14835,7 @@
                 "smoke_sha256": "eaef4faf38838cfdf5bc077d224a9bb51a1d1820c475536f1aca7fdab3ae244e",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140018052252368'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140678880625360'"
               },
               "docker": {
                 "status": "passed",
@@ -14671,7 +14869,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -18078,7 +18276,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -18122,7 +18320,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -25403,7 +25601,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -25447,7 +25645,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -28135,7 +28333,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -28179,7 +28377,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -31406,7 +31604,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31450,7 +31648,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -33536,7 +33734,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -33580,7 +33778,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -33726,7 +33924,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -33736,7 +33934,7 @@
                 "smoke_sha256": "54b5d0bb30d04cbaff285488b886c74285a087b7b0d4c74f9b87bf20557a730c",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.140590281205040'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.139907861767472'"
               },
               "docker": {
                 "status": "passed",
@@ -33770,7 +33968,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -42382,7 +42580,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -42426,7 +42624,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -44148,7 +44346,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -44158,7 +44356,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.mhlDOm/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/29 08:39:24 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.ngaAJH/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/30 03:31:23 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
               },
               "docker": {
                 "status": "passed",
@@ -44192,7 +44390,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -46164,7 +46362,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -46208,7 +46406,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -75398,7 +75596,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -75408,7 +75606,7 @@
                 "smoke_sha256": "ce48b0894f51337de663212b2820ea499ccf751bd2421254d14010b7408668e6",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.139693880509024'"
+                "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140615175996000'"
               },
               "docker": {
                 "status": "passed",
@@ -75442,7 +75640,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -75573,7 +75771,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-29T08:22:10Z",
+                "checked_at": "2026-08-30T03:19:57Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -75583,7 +75781,7 @@
                 "smoke_sha256": "05b325bcd6fd7e20754efb58a2989b18d38d3aabf91fb067eefe8ce92d843981",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139825959577712'"
+                "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139988610246768'"
               },
               "docker": {
                 "status": "passed",
@@ -75617,7 +75815,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-29T08:18:11Z",
+            "checked_at": "2026-08-30T03:15:18Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -79106,7 +79304,7 @@
     },
     "taf-bedops": {
       "package": "bedops",
-      "version": "2.4.42-r1"
+      "version": "2.4.42-r2"
     },
     "taf-bedtools": {
       "package": "bedtools",
