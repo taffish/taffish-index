@@ -1,17 +1,17 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-30T18:47:00Z",
+  "generated_at": "2026-08-31T04:13:42Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 458,
+    "versions": 460,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
     "failed": 0,
     "advisory_failed": 18,
-    "latest_advisory_failed": 8,
-    "historical_advisory_failed": 10,
+    "latest_advisory_failed": 7,
+    "historical_advisory_failed": 11,
     "rejected": 12
   },
   "packages": {
@@ -17834,9 +17834,9 @@
     },
     "dorado": {
       "name": "dorado",
-      "latest": "2.1.2-r1",
-      "recent_version": "2.1.2-r1",
-      "recent_at": "2026-08-28T00:21:58Z",
+      "latest": "2.1.2-r2",
+      "recent_version": "2.1.2-r2",
+      "recent_at": "2026-08-31T03:51:38Z",
       "repository_url": "https://github.com/taffish/dorado",
       "command": {
         "name": "taf-dorado"
@@ -18452,7 +18452,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T18:51:09Z",
+                "checked_at": "2026-08-31T04:17:23Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -18496,7 +18496,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T18:47:00Z",
+            "checked_at": "2026-08-31T04:13:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -18505,6 +18505,184 @@
             "ref": "v2.1.2-r1",
             "commit": "4fe8ae12ef1042867dba7ac99114230f01c983f8",
             "html_url": "https://github.com/taffish/dorado/tree/v2.1.2-r1"
+          },
+          "upstream": {
+            "name": "Dorado",
+            "type": "github",
+            "homepage": "https://github.com/nanoporetech/dorado",
+            "repository": "nanoporetech/dorado",
+            "release_url": "https://github.com/nanoporetech/dorado/releases/tag/v2.1.2",
+            "version": "2.1.2",
+            "license": "Oxford Nanopore Technologies PLC Public License v1.0",
+            "citation": "Oxford Nanopore Technologies. Dorado: Oxford Nanopore's basecaller. https://github.com/nanoporetech/dorado"
+          }
+        },
+        "2.1.2-r2": {
+          "name": "dorado",
+          "kind": "tool",
+          "version": "2.1.2",
+          "release": 2,
+          "version_id": "2.1.2-r2",
+          "tag": "v2.1.2-r2",
+          "published_at": "2026-08-31T03:51:38Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/dorado",
+          "repository_slug": "taffish/dorado",
+          "command": {
+            "name": "taf-dorado"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "nanopore",
+            "categories": [
+              "nanopore",
+              "basecalling",
+              "long-read",
+              "alignment",
+              "variant-calling"
+            ],
+            "keywords": [
+              "dorado",
+              "nanopore",
+              "ont",
+              "pod5",
+              "basecalling",
+              "duplex",
+              "modified-bases",
+              "barcoding",
+              "polish",
+              "smallvar"
+            ],
+            "summary": "Oxford Nanopore Dorado 2.1.2 analysis engine and basecaller.",
+            "description": "Oxford Nanopore Dorado 2.1.2 analysis engine and basecaller."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/dorado:2.1.2-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.1.2-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:3dccafb4d46f11118b5e1d6d469eb2e1e68c48f3aa397dc85905b96a1ce2dce1",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e9160607bab95837ab17c6e70c6b44602bd0a78519c30abb8f892ba86ec38d24"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "dorado",
+              "dorado-download-models",
+              "sh",
+              "bash",
+              "curl",
+              "grep",
+              "python3",
+              "sha256sum",
+              "rm",
+              "mkdir",
+              "wc"
+            ],
+            "test": [
+              "dorado --version 2>&1 | grep -Fx '2.1.2+8b8fc5d' >/dev/null && test -s /opt/dorado/share/licenses/dorado/LICENCE.txt && grep -F 'Research Purposes' /opt/dorado/share/licenses/dorado/LICENCE.txt >/dev/null && grep -F 'claims no redistribution right' /opt/dorado/share/licenses/dorado/MODEL-RESOURCE-NOTICE.txt >/dev/null && curl --version 2>&1 | grep -F 'curl ' >/dev/null",
+              "dorado --help 2>&1 | grep -F 'basecaller' >/dev/null && dorado --help 2>&1 | grep -F 'download' >/dev/null && dorado --help 2>&1 | grep -F 'smallvar' >/dev/null",
+              "dorado basecaller --help 2>&1 | grep -F -- '--device' >/dev/null && dorado download --help 2>&1 | grep -F -- '--model' >/dev/null && dorado download --list-structured 2>/dev/null | grep -F 'simplex_models' >/dev/null && dorado smallvar --help 2>&1 | grep -F -- '--gvcf' >/dev/null && dorado smallvar --help 2>&1 | grep -F -- '--hemizygous-regions' >/dev/null",
+              "/opt/dorado/share/testdata/dorado-smoke.sh help",
+              "/opt/dorado/share/testdata/dorado-smoke.sh licences",
+              "/opt/dorado/share/testdata/dorado-smoke.sh model-contract",
+              "/opt/dorado/share/testdata/dorado-smoke.sh model-fixture",
+              "/opt/dorado/share/testdata/dorado-smoke.sh model-policy",
+              "/opt/dorado/share/testdata/dorado-smoke.sh trim",
+              "/opt/dorado/share/testdata/dorado-smoke.sh aligner"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-31T04:17:11Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-08-31T04:17:23Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "af3e202f888b1154553cd22ce6c9c8e8223a8676",
+                "image_digest": "sha256:3dccafb4d46f11118b5e1d6d469eb2e1e68c48f3aa397dc85905b96a1ce2dce1",
+                "smoke_sha256": "c0166919be393d5a6f14aea48e5f2a13ba4bb15dfe9f3791ead3ecf8252ae970",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-08-31T04:17:11Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "af3e202f888b1154553cd22ce6c9c8e8223a8676",
+                "image_digest": "sha256:3dccafb4d46f11118b5e1d6d469eb2e1e68c48f3aa397dc85905b96a1ce2dce1",
+                "smoke_sha256": "c0166919be393d5a6f14aea48e5f2a13ba4bb15dfe9f3791ead3ecf8252ae970",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-08-31T04:17:18Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "af3e202f888b1154553cd22ce6c9c8e8223a8676",
+                "image_digest": "sha256:3dccafb4d46f11118b5e1d6d469eb2e1e68c48f3aa397dc85905b96a1ce2dce1",
+                "smoke_sha256": "c0166919be393d5a6f14aea48e5f2a13ba4bb15dfe9f3791ead3ecf8252ae970",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-31T04:13:42Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/dorado",
+            "ref": "v2.1.2-r2",
+            "commit": "af3e202f888b1154553cd22ce6c9c8e8223a8676",
+            "html_url": "https://github.com/taffish/dorado/tree/v2.1.2-r2"
           },
           "upstream": {
             "name": "Dorado",
@@ -25127,9 +25305,9 @@
     },
     "genrich": {
       "name": "genrich",
-      "latest": "0.6.1-r1",
-      "recent_version": "0.6.1-r1",
-      "recent_at": "2026-06-29T16:44:33Z",
+      "latest": "0.6.2-r1",
+      "recent_version": "0.6.2-r1",
+      "recent_at": "2026-08-31T03:51:30Z",
       "repository_url": "https://github.com/taffish/genrich",
       "command": {
         "name": "taf-genrich"
@@ -25298,6 +25476,176 @@
             "repository": "jsh58/Genrich",
             "release_url": "https://github.com/jsh58/Genrich/tree/v0.6.1",
             "version": "0.6.1",
+            "license": "MIT",
+            "citation": "No dedicated citation is listed in the upstream Genrich README."
+          }
+        },
+        "0.6.2-r1": {
+          "name": "genrich",
+          "kind": "tool",
+          "version": "0.6.2",
+          "release": 1,
+          "version_id": "0.6.2-r1",
+          "tag": "v0.6.2-r1",
+          "published_at": "2026-08-31T03:51:30Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/genrich",
+          "repository_slug": "taffish/genrich",
+          "command": {
+            "name": "taf-genrich"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "chip-seq",
+            "categories": [
+              "chip-seq",
+              "atac-seq",
+              "peak-calling",
+              "epigenomics",
+              "genomics"
+            ],
+            "keywords": [
+              "genrich",
+              "peak calling",
+              "atac-seq",
+              "chip-seq",
+              "narrowpeak",
+              "sam",
+              "bam",
+              "pcr duplicates",
+              "pileup",
+              "bed"
+            ],
+            "summary": "Genrich 0.6.2 peak-calling runtime for genomic enrichment assays such as ChIP-seq and ATAC-seq.",
+            "description": "Genrich 0.6.2 peak-calling runtime for genomic enrichment assays such as ChIP-seq and ATAC-seq."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/genrich:0.6.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.6.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e9c450fd59db4ca11060c3ae92ff92d6a9339f0e1a6446ca85de2c22f7be72fd",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b094389caa75ef5989eafcfabeb966fecb9ac3f8c36ffe38bf7dac011cb88844",
+              "linux/arm64": "sha256:38e15b849c6f565f372251e5278774b44740b6b8329dfed0613e93e41b1b3c4a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "Genrich",
+              "findNs.py",
+              "python3",
+              "sh",
+              "grep",
+              "ldd"
+            ],
+            "test": [
+              "grep -Fx 'source_commit=da439890cfcbf8feaff473e8e703dceae2d385c0' /opt/genrich/share/doc/genrich/source.txt >/dev/null && grep -Fx 'source_sha256=2b5480e5b3163c67bcf49820c476a7f4c05a17c13adba0ea0577b1c2ad1c17bc' /opt/genrich/share/doc/genrich/source.txt >/dev/null",
+              "Genrich -V 2>&1 | grep -Fx 'Genrich, version 0.6.2' >/dev/null && Genrich -h 2>&1 | grep -F 'Input SAM/BAM file' >/dev/null && Genrich -h 2>&1 | grep -F 'ATAC-seq' >/dev/null && grep -F -- '-L <int>' /opt/genrich/share/doc/genrich/README.md >/dev/null",
+              "ldd \"$(command -v Genrich)\" 2>&1 | grep -F \"not found\" && exit 1 || true",
+              "set -e; tmp=/tmp/taf-genrich-findns-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nAAANNNA\\n' > ref.fa; findNs.py ref.fa ns.bed 3 2>findns.stderr; grep -Fx \"$(printf 'chr1\\t3\\t6')\" ns.bed >/dev/null; grep -F 'Intervals of Ns (min. 3bp): 1' findns.stderr >/dev/null; python3 -c \"import gzip; gzip.open('ref.fa.gz', 'wt').write('>chr1\\nAAANNNA\\n')\"; findNs.py ref.fa.gz ns.bed.gz 3 2>findns-gz.stderr; python3 -c \"import gzip; assert gzip.open('ns.bed.gz', 'rt').read() == 'chr1\\t3\\t6\\n'\"; rm -rf \"$tmp\"",
+              "set -e; tmp=/tmp/taf-genrich-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@HD\\tVN:1.6\\tSO:queryname\\n@SQ\\tSN:chr1\\tLN:1000\\nr001\\t0\\tchr1\\t101\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tIIIIIIIIII\\nr002\\t0\\tchr1\\t201\\t60\\t10M\\t*\\t0\\t0\\tTGCATGCATT\\tIIIIIIIIII\\n' > reads.sam; Genrich -t reads.sam -y -L 1000 -o peaks.narrowPeak -b reads.bed -f pileup.log -v >/tmp/taf-genrich.stdout 2>/tmp/taf-genrich.stderr; test -e peaks.narrowPeak; test -s reads.bed; test -s pileup.log; grep -F 'chr1' reads.bed >/dev/null; grep -F 'Fragments analyzed' /tmp/taf-genrich.stderr >/dev/null; grep -F 'Genome length: 1000bp' /tmp/taf-genrich.stderr >/dev/null; rm -rf \"$tmp\" /tmp/taf-genrich.stdout /tmp/taf-genrich.stderr"
+            ],
+            "status": "passed",
+            "checked_at": "2026-08-31T04:17:11Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-08-31T04:17:23Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "598a3a75a0002ea93ee4e12f4c39639a600ae229",
+                "image_digest": "sha256:e9c450fd59db4ca11060c3ae92ff92d6a9339f0e1a6446ca85de2c22f7be72fd",
+                "smoke_sha256": "2cea4e8d6e4c4258c3c25f807062ca7f0f0513cbf18e404271e0920602b985ec",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-08-31T04:17:11Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "598a3a75a0002ea93ee4e12f4c39639a600ae229",
+                "image_digest": "sha256:e9c450fd59db4ca11060c3ae92ff92d6a9339f0e1a6446ca85de2c22f7be72fd",
+                "smoke_sha256": "2cea4e8d6e4c4258c3c25f807062ca7f0f0513cbf18e404271e0920602b985ec",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-08-31T04:17:18Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "598a3a75a0002ea93ee4e12f4c39639a600ae229",
+                "image_digest": "sha256:e9c450fd59db4ca11060c3ae92ff92d6a9339f0e1a6446ca85de2c22f7be72fd",
+                "smoke_sha256": "2cea4e8d6e4c4258c3c25f807062ca7f0f0513cbf18e404271e0920602b985ec",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-08-31T04:13:42Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/genrich",
+            "ref": "v0.6.2-r1",
+            "commit": "598a3a75a0002ea93ee4e12f4c39639a600ae229",
+            "html_url": "https://github.com/taffish/genrich/tree/v0.6.2-r1"
+          },
+          "upstream": {
+            "name": "Genrich",
+            "type": "github",
+            "homepage": "https://github.com/jsh58/Genrich",
+            "repository": "jsh58/Genrich",
+            "release_url": "https://github.com/jsh58/Genrich/releases/tag/v0.6.2",
+            "version": "0.6.2",
             "license": "MIT",
             "citation": "No dedicated citation is listed in the upstream Genrich README."
           }
@@ -25777,7 +26125,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T18:51:09Z",
+                "checked_at": "2026-08-31T04:17:23Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -25821,7 +26169,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T18:47:00Z",
+            "checked_at": "2026-08-31T04:13:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -28509,7 +28857,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T18:51:09Z",
+                "checked_at": "2026-08-31T04:17:23Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -28553,7 +28901,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T18:47:00Z",
+            "checked_at": "2026-08-31T04:13:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -30888,7 +31236,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T18:51:09Z",
+                "checked_at": "2026-08-31T04:17:23Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -30932,7 +31280,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T18:47:00Z",
+            "checked_at": "2026-08-31T04:13:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -31968,7 +32316,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T18:51:09Z",
+                "checked_at": "2026-08-31T04:17:23Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -32012,7 +32360,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T18:47:00Z",
+            "checked_at": "2026-08-31T04:13:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -43349,7 +43697,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T18:51:09Z",
+                "checked_at": "2026-08-31T04:17:23Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -43393,7 +43741,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T18:47:00Z",
+            "checked_at": "2026-08-31T04:13:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -45115,7 +45463,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T18:51:09Z",
+                "checked_at": "2026-08-31T04:17:23Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -45125,7 +45473,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.GaElkm/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/30 19:01:25 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.HpfBLJ/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/31 04:34:51 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
               },
               "docker": {
                 "status": "passed",
@@ -45159,7 +45507,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T18:47:00Z",
+            "checked_at": "2026-08-31T04:13:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -47131,7 +47479,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-30T18:51:09Z",
+                "checked_at": "2026-08-31T04:17:23Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -47175,7 +47523,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-30T18:47:00Z",
+            "checked_at": "2026-08-31T04:13:42Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -80635,7 +80983,7 @@
     },
     "taf-dorado": {
       "package": "dorado",
-      "version": "2.1.2-r1"
+      "version": "2.1.2-r2"
     },
     "taf-doubletdetection": {
       "package": "doubletdetection",
@@ -80727,7 +81075,7 @@
     },
     "taf-genrich": {
       "package": "genrich",
-      "version": "0.6.1-r1"
+      "version": "0.6.2-r1"
     },
     "taf-gfatools": {
       "package": "gfatools",

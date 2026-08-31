@@ -1,8 +1,8 @@
 {
   "name": "genrich",
-  "latest": "0.6.1-r1",
-  "recent_version": "0.6.1-r1",
-  "recent_at": "2026-06-29T16:44:33Z",
+  "latest": "0.6.2-r1",
+  "recent_version": "0.6.2-r1",
+  "recent_at": "2026-08-31T03:51:30Z",
   "repository_url": "https://github.com/taffish/genrich",
   "command": {
     "name": "taf-genrich"
@@ -171,6 +171,176 @@
         "repository": "jsh58/Genrich",
         "release_url": "https://github.com/jsh58/Genrich/tree/v0.6.1",
         "version": "0.6.1",
+        "license": "MIT",
+        "citation": "No dedicated citation is listed in the upstream Genrich README."
+      }
+    },
+    "0.6.2-r1": {
+      "name": "genrich",
+      "kind": "tool",
+      "version": "0.6.2",
+      "release": 1,
+      "version_id": "0.6.2-r1",
+      "tag": "v0.6.2-r1",
+      "published_at": "2026-08-31T03:51:30Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/genrich",
+      "repository_slug": "taffish/genrich",
+      "command": {
+        "name": "taf-genrich"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "chip-seq",
+        "categories": [
+          "chip-seq",
+          "atac-seq",
+          "peak-calling",
+          "epigenomics",
+          "genomics"
+        ],
+        "keywords": [
+          "genrich",
+          "peak calling",
+          "atac-seq",
+          "chip-seq",
+          "narrowpeak",
+          "sam",
+          "bam",
+          "pcr duplicates",
+          "pileup",
+          "bed"
+        ],
+        "summary": "Genrich 0.6.2 peak-calling runtime for genomic enrichment assays such as ChIP-seq and ATAC-seq.",
+        "description": "Genrich 0.6.2 peak-calling runtime for genomic enrichment assays such as ChIP-seq and ATAC-seq."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/genrich:0.6.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.6.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:e9c450fd59db4ca11060c3ae92ff92d6a9339f0e1a6446ca85de2c22f7be72fd",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b094389caa75ef5989eafcfabeb966fecb9ac3f8c36ffe38bf7dac011cb88844",
+          "linux/arm64": "sha256:38e15b849c6f565f372251e5278774b44740b6b8329dfed0613e93e41b1b3c4a"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "Genrich",
+          "findNs.py",
+          "python3",
+          "sh",
+          "grep",
+          "ldd"
+        ],
+        "test": [
+          "grep -Fx 'source_commit=da439890cfcbf8feaff473e8e703dceae2d385c0' /opt/genrich/share/doc/genrich/source.txt >/dev/null && grep -Fx 'source_sha256=2b5480e5b3163c67bcf49820c476a7f4c05a17c13adba0ea0577b1c2ad1c17bc' /opt/genrich/share/doc/genrich/source.txt >/dev/null",
+          "Genrich -V 2>&1 | grep -Fx 'Genrich, version 0.6.2' >/dev/null && Genrich -h 2>&1 | grep -F 'Input SAM/BAM file' >/dev/null && Genrich -h 2>&1 | grep -F 'ATAC-seq' >/dev/null && grep -F -- '-L <int>' /opt/genrich/share/doc/genrich/README.md >/dev/null",
+          "ldd \"$(command -v Genrich)\" 2>&1 | grep -F \"not found\" && exit 1 || true",
+          "set -e; tmp=/tmp/taf-genrich-findns-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nAAANNNA\\n' > ref.fa; findNs.py ref.fa ns.bed 3 2>findns.stderr; grep -Fx \"$(printf 'chr1\\t3\\t6')\" ns.bed >/dev/null; grep -F 'Intervals of Ns (min. 3bp): 1' findns.stderr >/dev/null; python3 -c \"import gzip; gzip.open('ref.fa.gz', 'wt').write('>chr1\\nAAANNNA\\n')\"; findNs.py ref.fa.gz ns.bed.gz 3 2>findns-gz.stderr; python3 -c \"import gzip; assert gzip.open('ns.bed.gz', 'rt').read() == 'chr1\\t3\\t6\\n'\"; rm -rf \"$tmp\"",
+          "set -e; tmp=/tmp/taf-genrich-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '@HD\\tVN:1.6\\tSO:queryname\\n@SQ\\tSN:chr1\\tLN:1000\\nr001\\t0\\tchr1\\t101\\t60\\t10M\\t*\\t0\\t0\\tACGTACGTAA\\tIIIIIIIIII\\nr002\\t0\\tchr1\\t201\\t60\\t10M\\t*\\t0\\t0\\tTGCATGCATT\\tIIIIIIIIII\\n' > reads.sam; Genrich -t reads.sam -y -L 1000 -o peaks.narrowPeak -b reads.bed -f pileup.log -v >/tmp/taf-genrich.stdout 2>/tmp/taf-genrich.stderr; test -e peaks.narrowPeak; test -s reads.bed; test -s pileup.log; grep -F 'chr1' reads.bed >/dev/null; grep -F 'Fragments analyzed' /tmp/taf-genrich.stderr >/dev/null; grep -F 'Genome length: 1000bp' /tmp/taf-genrich.stderr >/dev/null; rm -rf \"$tmp\" /tmp/taf-genrich.stdout /tmp/taf-genrich.stderr"
+        ],
+        "status": "passed",
+        "checked_at": "2026-08-31T04:17:11Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-08-31T04:17:23Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "598a3a75a0002ea93ee4e12f4c39639a600ae229",
+            "image_digest": "sha256:e9c450fd59db4ca11060c3ae92ff92d6a9339f0e1a6446ca85de2c22f7be72fd",
+            "smoke_sha256": "2cea4e8d6e4c4258c3c25f807062ca7f0f0513cbf18e404271e0920602b985ec",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-08-31T04:17:11Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "598a3a75a0002ea93ee4e12f4c39639a600ae229",
+            "image_digest": "sha256:e9c450fd59db4ca11060c3ae92ff92d6a9339f0e1a6446ca85de2c22f7be72fd",
+            "smoke_sha256": "2cea4e8d6e4c4258c3c25f807062ca7f0f0513cbf18e404271e0920602b985ec",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-08-31T04:17:18Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "598a3a75a0002ea93ee4e12f4c39639a600ae229",
+            "image_digest": "sha256:e9c450fd59db4ca11060c3ae92ff92d6a9339f0e1a6446ca85de2c22f7be72fd",
+            "smoke_sha256": "2cea4e8d6e4c4258c3c25f807062ca7f0f0513cbf18e404271e0920602b985ec",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-08-31T04:13:42Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/genrich",
+        "ref": "v0.6.2-r1",
+        "commit": "598a3a75a0002ea93ee4e12f4c39639a600ae229",
+        "html_url": "https://github.com/taffish/genrich/tree/v0.6.2-r1"
+      },
+      "upstream": {
+        "name": "Genrich",
+        "type": "github",
+        "homepage": "https://github.com/jsh58/Genrich",
+        "repository": "jsh58/Genrich",
+        "release_url": "https://github.com/jsh58/Genrich/releases/tag/v0.6.2",
+        "version": "0.6.2",
         "license": "MIT",
         "citation": "No dedicated citation is listed in the upstream Genrich README."
       }
