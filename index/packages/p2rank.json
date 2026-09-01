@@ -1,8 +1,8 @@
 {
   "name": "p2rank",
-  "latest": "2.5.1-r1",
-  "recent_version": "2.5.1-r1",
-  "recent_at": "2026-06-17T15:01:45Z",
+  "latest": "2.5.1-r2",
+  "recent_version": "2.5.1-r2",
+  "recent_at": "2026-09-01T18:07:20Z",
   "repository_url": "https://github.com/taffish/p2rank",
   "command": {
     "name": "taf-p2rank"
@@ -114,7 +114,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-09-01T12:01:27Z",
+            "checked_at": "2026-09-01T18:18:48Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260823.283.1",
@@ -158,7 +158,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-09-01T11:56:24Z",
+        "checked_at": "2026-09-01T18:13:53Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -167,6 +167,180 @@
         "ref": "v2.5.1-r1",
         "commit": "eeada5c7604946afdfb9f5afe2644d3fd25176c3",
         "html_url": "https://github.com/taffish/p2rank/tree/v2.5.1-r1"
+      },
+      "upstream": {
+        "name": "P2Rank",
+        "type": "github",
+        "homepage": "https://github.com/rdk/p2rank",
+        "repository": "rdk/p2rank",
+        "release_url": "https://github.com/rdk/p2rank/releases/tag/2.5.1",
+        "version": "2.5.1",
+        "license": "MIT",
+        "citation": "Krivak R, Hoksza D. P2Rank: machine learning based tool for rapid and accurate prediction of ligand binding sites from protein structure. Journal of Cheminformatics. 2018;10:39.",
+        "doi": "10.1186/s13321-018-0285-8",
+        "pmid": "30105488"
+      }
+    },
+    "2.5.1-r2": {
+      "name": "p2rank",
+      "kind": "tool",
+      "version": "2.5.1",
+      "release": 2,
+      "version_id": "2.5.1-r2",
+      "tag": "v2.5.1-r2",
+      "published_at": "2026-09-01T18:07:20Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/p2rank",
+      "repository_slug": "taffish/p2rank",
+      "command": {
+        "name": "taf-p2rank"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "structural-biology",
+        "categories": [
+          "structural-biology",
+          "protein-structure",
+          "pocket-prediction",
+          "ligand-binding",
+          "drug-discovery",
+          "machine-learning"
+        ],
+        "keywords": [
+          "p2rank",
+          "prank",
+          "binding site",
+          "ligand binding",
+          "protein pocket",
+          "pocket prediction",
+          "pocket rescoring",
+          "fpocket",
+          "pdb",
+          "mmcif",
+          "biojava"
+        ],
+        "summary": "P2Rank 2.5.1 protein ligand-binding site prediction with an offline-safe BioJava cache and bundled fpocket helper.",
+        "description": "P2Rank 2.5.1 protein ligand-binding site prediction with an offline-safe BioJava cache and bundled fpocket helper."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/p2rank:2.5.1-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.5.1-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:5c458a31ac07eebda1442e046c91ea0f04801421c77209bd85a4f5dcef1ad682",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:7f24dd089747a92b3b9e120890aebfec75c7c62247fb2322ac65ad49666830bf"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "prank",
+          "java",
+          "fpocket",
+          "bash",
+          "grep",
+          "sed",
+          "ldd",
+          "taffish-p2rank-smoke"
+        ],
+        "test": [
+          "set -eu; grep -Fx \"P2Rank 2.5.1\" /opt/p2rank/source.txt >/dev/null; grep -F \"d243f2d9036ac053fefb9407b5fe1c85f4fe077c519fd975ac585e995feab274\" /opt/p2rank/source.txt >/dev/null; grep -Fx \"fpocket 4.2.3\" /opt/fpocket/share/doc/fpocket/source.txt >/dev/null; test -s /opt/p2rank/cache/chemcomp/PHE.cif.gz",
+          "set -eu; prank -v 2>&1 | grep -F \"P2Rank 2.5.1\" >/dev/null; { prank help 2>&1 || true; } | grep -F \"predict pockets\" >/dev/null; { prank help 2>&1 || true; } | grep -F \"eval-rescore\" >/dev/null",
+          "set -eu; if ldd \"$(command -v fpocket)\" 2>&1 | grep -F \"not found\"; then exit 1; fi",
+          "taffish-p2rank-smoke predict",
+          "taffish-p2rank-smoke fpocket-rescore"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-01T18:18:34Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-01T18:18:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "91054e79a70e39912fac669c68220ee34f2c56c5",
+            "image_digest": "sha256:5c458a31ac07eebda1442e046c91ea0f04801421c77209bd85a4f5dcef1ad682",
+            "smoke_sha256": "97b302241b538bb8a867288efb69fbb315a55c7dc8ac863c454cbe8308a193d9",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-01T18:18:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "91054e79a70e39912fac669c68220ee34f2c56c5",
+            "image_digest": "sha256:5c458a31ac07eebda1442e046c91ea0f04801421c77209bd85a4f5dcef1ad682",
+            "smoke_sha256": "97b302241b538bb8a867288efb69fbb315a55c7dc8ac863c454cbe8308a193d9",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-01T18:19:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "91054e79a70e39912fac669c68220ee34f2c56c5",
+            "image_digest": "sha256:5c458a31ac07eebda1442e046c91ea0f04801421c77209bd85a4f5dcef1ad682",
+            "smoke_sha256": "97b302241b538bb8a867288efb69fbb315a55c7dc8ac863c454cbe8308a193d9",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-01T18:13:53Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/p2rank",
+        "ref": "v2.5.1-r2",
+        "commit": "91054e79a70e39912fac669c68220ee34f2c56c5",
+        "html_url": "https://github.com/taffish/p2rank/tree/v2.5.1-r2"
       },
       "upstream": {
         "name": "P2Rank",

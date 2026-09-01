@@ -1,17 +1,17 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-01T11:56:24Z",
+  "generated_at": "2026-09-01T18:13:53Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 463,
+    "versions": 466,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
     "failed": 0,
     "advisory_failed": 18,
-    "latest_advisory_failed": 6,
-    "historical_advisory_failed": 12,
+    "latest_advisory_failed": 5,
+    "historical_advisory_failed": 13,
     "rejected": 12
   },
   "packages": {
@@ -394,9 +394,9 @@
     },
     "alevin-fry": {
       "name": "alevin-fry",
-      "latest": "0.18.0-r1",
-      "recent_version": "0.18.0-r1",
-      "recent_at": "2026-08-16T08:35:12Z",
+      "latest": "0.18.1-r1",
+      "recent_version": "0.18.1-r1",
+      "recent_at": "2026-09-01T18:08:29Z",
       "repository_url": "https://github.com/taffish/alevin-fry",
       "command": {
         "name": "taf-alevin-fry"
@@ -1084,6 +1084,180 @@
             "repository": "COMBINE-lab/alevin-fry",
             "release_url": "https://github.com/COMBINE-lab/alevin-fry/releases/tag/v0.18.0",
             "version": "0.18.0",
+            "license": "BSD-3-Clause",
+            "citation": "He D, Zakeri M, Sarkar H, Soneson C, Srivastava A, Patro R. Alevin-fry unlocks rapid, accurate and memory-frugal quantification of single-cell RNA-seq data. Nature Methods. 2022;19:316-322.",
+            "doi": "10.1038/s41592-022-01408-3",
+            "pmid": "35277707"
+          }
+        },
+        "0.18.1-r1": {
+          "name": "alevin-fry",
+          "kind": "tool",
+          "version": "0.18.1",
+          "release": 1,
+          "version_id": "0.18.1-r1",
+          "tag": "v0.18.1-r1",
+          "published_at": "2026-09-01T18:08:29Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/alevin-fry",
+          "repository_slug": "taffish/alevin-fry",
+          "command": {
+            "name": "taf-alevin-fry"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "single-nucleus",
+              "transcriptomics",
+              "gene-expression",
+              "chromatin-accessibility"
+            ],
+            "keywords": [
+              "alevin-fry",
+              "scrna-seq",
+              "snrna-seq",
+              "scatac-seq",
+              "rad",
+              "cell barcode",
+              "umi",
+              "usa mode",
+              "rna velocity",
+              "quantification"
+            ],
+            "summary": "Alevin-fry 0.18.1 for deterministic barcode correction, bounded RAD collation, sc/snRNA-seq quantification, direct quant-to-infer processing, SAM/BAM conversion, RAD viewing, and supported scATAC-seq RAD processing.",
+            "description": "Alevin-fry 0.18.1 for deterministic barcode correction, bounded RAD collation, sc/snRNA-seq quantification, direct quant-to-infer processing, SAM/BAM conversion, RAD viewing, and supported scATAC-seq RAD processing."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/alevin-fry:0.18.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.18.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:99cb1d4afff155f3cbd2ffd2b7e2e779c1e04a7039c14755ce9ac86ea24d28ca",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:3ac16abecbf7eb1bc2654104b38a99507c92cf8168d89335b902d96a7a4da6b6",
+              "linux/arm64": "sha256:55e97120eb1fde0228f9611cd7cf68105a65531ecf2369f78ae388991188113b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "alevin-fry",
+              "sh",
+              "grep",
+              "gzip",
+              "ldd",
+              "tr",
+              "tail"
+            ],
+            "test": [
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh identity",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh interfaces",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh rad",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh rna",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh tiny",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh infer"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-01T18:18:34Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-01T18:18:48Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a2b4d85aee2ae812f1959bd19084f5eeb2de1a4c",
+                "image_digest": "sha256:99cb1d4afff155f3cbd2ffd2b7e2e779c1e04a7039c14755ce9ac86ea24d28ca",
+                "smoke_sha256": "4dd05f93a3a2ee5f27c37d8e24fa69135f7e6d9112faa4a97048d131b16c95d4",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-01T18:18:34Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a2b4d85aee2ae812f1959bd19084f5eeb2de1a4c",
+                "image_digest": "sha256:99cb1d4afff155f3cbd2ffd2b7e2e779c1e04a7039c14755ce9ac86ea24d28ca",
+                "smoke_sha256": "4dd05f93a3a2ee5f27c37d8e24fa69135f7e6d9112faa4a97048d131b16c95d4",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-01T18:19:01Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a2b4d85aee2ae812f1959bd19084f5eeb2de1a4c",
+                "image_digest": "sha256:99cb1d4afff155f3cbd2ffd2b7e2e779c1e04a7039c14755ce9ac86ea24d28ca",
+                "smoke_sha256": "4dd05f93a3a2ee5f27c37d8e24fa69135f7e6d9112faa4a97048d131b16c95d4",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-01T18:13:53Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/alevin-fry",
+            "ref": "v0.18.1-r1",
+            "commit": "a2b4d85aee2ae812f1959bd19084f5eeb2de1a4c",
+            "html_url": "https://github.com/taffish/alevin-fry/tree/v0.18.1-r1"
+          },
+          "upstream": {
+            "name": "alevin-fry",
+            "type": "github",
+            "homepage": "https://github.com/COMBINE-lab/alevin-fry",
+            "repository": "COMBINE-lab/alevin-fry",
+            "release_url": "https://github.com/COMBINE-lab/alevin-fry/releases/tag/v0.18.1",
+            "version": "0.18.1",
             "license": "BSD-3-Clause",
             "citation": "He D, Zakeri M, Sarkar H, Soneson C, Srivastava A, Patro R. Alevin-fry unlocks rapid, accurate and memory-frugal quantification of single-cell RNA-seq data. Nature Methods. 2022;19:316-322.",
             "doi": "10.1038/s41592-022-01408-3",
@@ -29036,7 +29210,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-01T12:01:27Z",
+                "checked_at": "2026-09-01T18:18:48Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -29080,7 +29254,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-01T11:56:24Z",
+            "checked_at": "2026-09-01T18:13:53Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -31415,7 +31589,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-01T12:01:27Z",
+                "checked_at": "2026-09-01T18:18:48Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31459,7 +31633,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-01T11:56:24Z",
+            "checked_at": "2026-09-01T18:13:53Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -32495,7 +32669,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-01T12:01:27Z",
+                "checked_at": "2026-09-01T18:18:48Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -32539,7 +32713,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-01T11:56:24Z",
+            "checked_at": "2026-09-01T18:13:53Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -43876,7 +44050,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-01T12:01:27Z",
+                "checked_at": "2026-09-01T18:18:48Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -43920,7 +44094,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-01T11:56:24Z",
+            "checked_at": "2026-09-01T18:13:53Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -44475,9 +44649,9 @@
     },
     "nanoplot": {
       "name": "nanoplot",
-      "latest": "1.47.2-r1",
-      "recent_version": "1.47.2-r1",
-      "recent_at": "2026-08-18T12:32:18Z",
+      "latest": "1.47.4-r1",
+      "recent_version": "1.47.4-r1",
+      "recent_at": "2026-09-01T18:08:39Z",
       "repository_url": "https://github.com/taffish/nanoplot",
       "command": {
         "name": "taf-nanoplot"
@@ -44820,6 +44994,179 @@
             "repository": "wdecoster/NanoPlot",
             "release_url": "https://github.com/wdecoster/NanoPlot/releases/tag/v1.47.2",
             "version": "1.47.2",
+            "license": "MIT",
+            "citation": "De Coster W, Rademakers R. NanoPack2: population-scale evaluation of long-read sequencing data. Bioinformatics. 2023;39(5):btad311.",
+            "doi": "10.1093/bioinformatics/btad311"
+          }
+        },
+        "1.47.4-r1": {
+          "name": "nanoplot",
+          "kind": "tool",
+          "version": "1.47.4",
+          "release": 1,
+          "version_id": "1.47.4-r1",
+          "tag": "v1.47.4-r1",
+          "published_at": "2026-09-01T18:08:39Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/nanoplot",
+          "repository_slug": "taffish/nanoplot",
+          "command": {
+            "name": "taf-nanoplot"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "nanopore",
+            "categories": [
+              "nanopore",
+              "long-read",
+              "quality-control",
+              "visualization"
+            ],
+            "keywords": [
+              "nanoplot",
+              "nanopore",
+              "long-read",
+              "fastq",
+              "bam",
+              "cram",
+              "sequencing-summary",
+              "quality-control",
+              "plots"
+            ],
+            "summary": "Plotting and summary reports for Oxford Nanopore and other long-read sequencing data.",
+            "description": "Plotting and summary reports for Oxford Nanopore and other long-read sequencing data."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/nanoplot:1.47.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.47.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e38a5e37a9f513268090a28a6c4838b550e8b8d514428b21200155d5b521985b",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c73675c89547ec0568d0c54037220914f8401976b914e1976c3c371f7e3f6802",
+              "linux/arm64": "sha256:275b09916f7de7eedab09688471352f17b4008a42b1cd95600a166351eef0206"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "NanoPlot",
+              "python",
+              "python3",
+              "chromium",
+              "gzip",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "NanoPlot --version 2>&1 | grep -Fx 'NanoPlot 1.47.4' >/dev/null",
+              "NanoPlot --help 2>&1 | grep -F 'CREATES VARIOUS PLOTS' >/dev/null && NanoPlot --listcolors 2>&1 | grep -F 'aliceblue' >/dev/null",
+              "python -c 'import importlib.metadata as md; import nanoplot, nanoget, pysam, pandas, numpy, scipy, pyarrow, plotly, kaleido, PIL; assert md.version(\"nanoplot\") == \"1.47.4\"; assert md.version(\"nanoget\") == \"1.19.6\"; assert md.version(\"plotly\").startswith(\"6.\"); print(nanoplot.__version__)' | grep -Fx '1.47.4' >/dev/null",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh fastq",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh kde",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh bam",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh barcoded-summary",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh image"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-01T18:18:34Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-01T18:18:48Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3c576efa383ca268a1825625682d751c38117afb",
+                "image_digest": "sha256:e38a5e37a9f513268090a28a6c4838b550e8b8d514428b21200155d5b521985b",
+                "smoke_sha256": "44b5cf1694b118d14f2eb6cf243c92652b785302bf6b21dc07a456516c28772b",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-01T18:18:34Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3c576efa383ca268a1825625682d751c38117afb",
+                "image_digest": "sha256:e38a5e37a9f513268090a28a6c4838b550e8b8d514428b21200155d5b521985b",
+                "smoke_sha256": "44b5cf1694b118d14f2eb6cf243c92652b785302bf6b21dc07a456516c28772b",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-01T18:19:01Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3c576efa383ca268a1825625682d751c38117afb",
+                "image_digest": "sha256:e38a5e37a9f513268090a28a6c4838b550e8b8d514428b21200155d5b521985b",
+                "smoke_sha256": "44b5cf1694b118d14f2eb6cf243c92652b785302bf6b21dc07a456516c28772b",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-01T18:13:53Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/nanoplot",
+            "ref": "v1.47.4-r1",
+            "commit": "3c576efa383ca268a1825625682d751c38117afb",
+            "html_url": "https://github.com/taffish/nanoplot/tree/v1.47.4-r1"
+          },
+          "upstream": {
+            "name": "NanoPlot",
+            "type": "github",
+            "homepage": "https://github.com/wdecoster/NanoPlot",
+            "repository": "wdecoster/NanoPlot",
+            "release_url": "https://github.com/wdecoster/NanoPlot/releases/tag/v1.47.4",
+            "version": "1.47.4",
             "license": "MIT",
             "citation": "De Coster W, Rademakers R. NanoPack2: population-scale evaluation of long-read sequencing data. Bioinformatics. 2023;39(5):btad311.",
             "doi": "10.1093/bioinformatics/btad311"
@@ -45642,7 +45989,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-01T12:01:27Z",
+                "checked_at": "2026-09-01T18:18:48Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -45652,7 +45999,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.BoApfa/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/01 12:09:53 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.eKCKaG/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/01 18:29:07 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
               },
               "docker": {
                 "status": "passed",
@@ -45686,7 +46033,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-01T11:56:24Z",
+            "checked_at": "2026-09-01T18:13:53Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -47544,9 +47891,9 @@
     },
     "p2rank": {
       "name": "p2rank",
-      "latest": "2.5.1-r1",
-      "recent_version": "2.5.1-r1",
-      "recent_at": "2026-06-17T15:01:45Z",
+      "latest": "2.5.1-r2",
+      "recent_version": "2.5.1-r2",
+      "recent_at": "2026-09-01T18:07:20Z",
       "repository_url": "https://github.com/taffish/p2rank",
       "command": {
         "name": "taf-p2rank"
@@ -47658,7 +48005,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-01T12:01:27Z",
+                "checked_at": "2026-09-01T18:18:48Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -47702,7 +48049,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-01T11:56:24Z",
+            "checked_at": "2026-09-01T18:13:53Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -47711,6 +48058,180 @@
             "ref": "v2.5.1-r1",
             "commit": "eeada5c7604946afdfb9f5afe2644d3fd25176c3",
             "html_url": "https://github.com/taffish/p2rank/tree/v2.5.1-r1"
+          },
+          "upstream": {
+            "name": "P2Rank",
+            "type": "github",
+            "homepage": "https://github.com/rdk/p2rank",
+            "repository": "rdk/p2rank",
+            "release_url": "https://github.com/rdk/p2rank/releases/tag/2.5.1",
+            "version": "2.5.1",
+            "license": "MIT",
+            "citation": "Krivak R, Hoksza D. P2Rank: machine learning based tool for rapid and accurate prediction of ligand binding sites from protein structure. Journal of Cheminformatics. 2018;10:39.",
+            "doi": "10.1186/s13321-018-0285-8",
+            "pmid": "30105488"
+          }
+        },
+        "2.5.1-r2": {
+          "name": "p2rank",
+          "kind": "tool",
+          "version": "2.5.1",
+          "release": 2,
+          "version_id": "2.5.1-r2",
+          "tag": "v2.5.1-r2",
+          "published_at": "2026-09-01T18:07:20Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/p2rank",
+          "repository_slug": "taffish/p2rank",
+          "command": {
+            "name": "taf-p2rank"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-biology",
+            "categories": [
+              "structural-biology",
+              "protein-structure",
+              "pocket-prediction",
+              "ligand-binding",
+              "drug-discovery",
+              "machine-learning"
+            ],
+            "keywords": [
+              "p2rank",
+              "prank",
+              "binding site",
+              "ligand binding",
+              "protein pocket",
+              "pocket prediction",
+              "pocket rescoring",
+              "fpocket",
+              "pdb",
+              "mmcif",
+              "biojava"
+            ],
+            "summary": "P2Rank 2.5.1 protein ligand-binding site prediction with an offline-safe BioJava cache and bundled fpocket helper.",
+            "description": "P2Rank 2.5.1 protein ligand-binding site prediction with an offline-safe BioJava cache and bundled fpocket helper."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/p2rank:2.5.1-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.5.1-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5c458a31ac07eebda1442e046c91ea0f04801421c77209bd85a4f5dcef1ad682",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7f24dd089747a92b3b9e120890aebfec75c7c62247fb2322ac65ad49666830bf"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "prank",
+              "java",
+              "fpocket",
+              "bash",
+              "grep",
+              "sed",
+              "ldd",
+              "taffish-p2rank-smoke"
+            ],
+            "test": [
+              "set -eu; grep -Fx \"P2Rank 2.5.1\" /opt/p2rank/source.txt >/dev/null; grep -F \"d243f2d9036ac053fefb9407b5fe1c85f4fe077c519fd975ac585e995feab274\" /opt/p2rank/source.txt >/dev/null; grep -Fx \"fpocket 4.2.3\" /opt/fpocket/share/doc/fpocket/source.txt >/dev/null; test -s /opt/p2rank/cache/chemcomp/PHE.cif.gz",
+              "set -eu; prank -v 2>&1 | grep -F \"P2Rank 2.5.1\" >/dev/null; { prank help 2>&1 || true; } | grep -F \"predict pockets\" >/dev/null; { prank help 2>&1 || true; } | grep -F \"eval-rescore\" >/dev/null",
+              "set -eu; if ldd \"$(command -v fpocket)\" 2>&1 | grep -F \"not found\"; then exit 1; fi",
+              "taffish-p2rank-smoke predict",
+              "taffish-p2rank-smoke fpocket-rescore"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-01T18:18:34Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-01T18:18:48Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "91054e79a70e39912fac669c68220ee34f2c56c5",
+                "image_digest": "sha256:5c458a31ac07eebda1442e046c91ea0f04801421c77209bd85a4f5dcef1ad682",
+                "smoke_sha256": "97b302241b538bb8a867288efb69fbb315a55c7dc8ac863c454cbe8308a193d9",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-01T18:18:34Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "91054e79a70e39912fac669c68220ee34f2c56c5",
+                "image_digest": "sha256:5c458a31ac07eebda1442e046c91ea0f04801421c77209bd85a4f5dcef1ad682",
+                "smoke_sha256": "97b302241b538bb8a867288efb69fbb315a55c7dc8ac863c454cbe8308a193d9",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-01T18:19:01Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "91054e79a70e39912fac669c68220ee34f2c56c5",
+                "image_digest": "sha256:5c458a31ac07eebda1442e046c91ea0f04801421c77209bd85a4f5dcef1ad682",
+                "smoke_sha256": "97b302241b538bb8a867288efb69fbb315a55c7dc8ac863c454cbe8308a193d9",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-01T18:13:53Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/p2rank",
+            "ref": "v2.5.1-r2",
+            "commit": "91054e79a70e39912fac669c68220ee34f2c56c5",
+            "html_url": "https://github.com/taffish/p2rank/tree/v2.5.1-r2"
           },
           "upstream": {
             "name": "P2Rank",
@@ -81286,7 +81807,7 @@
     },
     "taf-alevin-fry": {
       "package": "alevin-fry",
-      "version": "0.18.0-r1"
+      "version": "0.18.1-r1"
     },
     "taf-amrfinderplus": {
       "package": "amrfinderplus",
@@ -81878,7 +82399,7 @@
     },
     "taf-nanoplot": {
       "package": "nanoplot",
-      "version": "1.47.2-r1"
+      "version": "1.47.4-r1"
     },
     "taf-ncbi-datasets": {
       "package": "ncbi-datasets",
@@ -81922,7 +82443,7 @@
     },
     "taf-p2rank": {
       "package": "p2rank",
-      "version": "2.5.1-r1"
+      "version": "2.5.1-r2"
     },
     "taf-pairtools": {
       "package": "pairtools",
