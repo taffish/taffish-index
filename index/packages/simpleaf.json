@@ -1,8 +1,8 @@
 {
   "name": "simpleaf",
-  "latest": "0.28.0-r1",
-  "recent_version": "0.28.0-r1",
-  "recent_at": "2026-08-16T11:03:00Z",
+  "latest": "0.30.0-r1",
+  "recent_version": "0.30.0-r1",
+  "recent_at": "2026-09-01T11:07:30Z",
   "repository_url": "https://github.com/taffish/simpleaf",
   "command": {
     "name": "taf-simpleaf"
@@ -557,6 +557,191 @@
         "repository": "COMBINE-lab/simpleaf",
         "release_url": "https://github.com/COMBINE-lab/simpleaf/releases/tag/v0.28.0",
         "version": "0.28.0",
+        "license": "BSD-3-Clause"
+      }
+    },
+    "0.30.0-r1": {
+      "name": "simpleaf",
+      "kind": "tool",
+      "version": "0.30.0",
+      "release": 1,
+      "version_id": "0.30.0-r1",
+      "tag": "v0.30.0-r1",
+      "published_at": "2026-09-01T11:07:30Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/simpleaf",
+      "repository_slug": "taffish/simpleaf",
+      "command": {
+        "name": "taf-simpleaf"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "single-cell",
+        "categories": [
+          "single-cell",
+          "single-nucleus",
+          "transcriptomics",
+          "chromatin-accessibility",
+          "workflow"
+        ],
+        "keywords": [
+          "simpleaf",
+          "piscem",
+          "alevin-fry",
+          "macs3",
+          "scrna-seq",
+          "snrna-seq",
+          "scatac-seq",
+          "10x",
+          "barcode",
+          "umi",
+          "quantification",
+          "multiplex"
+        ],
+        "summary": "Simpleaf 0.30.0 with piscem 0.23.0, pinned alevin-fry and MACS3, offline registries, registry-backed sample selection, bounded stage resources, and single-cell RNA-seq/ATAC-seq processing.",
+        "description": "Simpleaf 0.30.0 with piscem 0.23.0, pinned alevin-fry and MACS3, offline registries, registry-backed sample selection, bounded stage resources, and single-cell RNA-seq/ATAC-seq processing."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/simpleaf:0.30.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.30.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:ccd80f56712cb56db4ee3d6bce3dfe8caa9ca24a757f7668bcc187e9ef467597",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d6c2bd43b7f65526e54785c64dac61517c10e874b7797be4c6bd2fe7e749802a",
+          "linux/arm64": "sha256:f543c2f34fd77b403eaed49a0cc865c04b2fad247c286885a1703bc70ad39253"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "simpleaf",
+          "piscem",
+          "alevin-fry",
+          "macs3",
+          "python",
+          "python3",
+          "bash",
+          "sh",
+          "awk",
+          "grep",
+          "sed",
+          "tail",
+          "gzip",
+          "gunzip",
+          "unzip",
+          "wget",
+          "curl",
+          "ldd"
+        ],
+        "test": [
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh identity",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh interfaces",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh registry",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh index",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh quant",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh workflow",
+          "/opt/simpleaf/share/testdata/simpleaf-smoke.sh macs"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-01T12:00:51Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-01T12:01:27Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1ac0acaf59763483c897c1ad9356359304910e8b",
+            "image_digest": "sha256:ccd80f56712cb56db4ee3d6bce3dfe8caa9ca24a757f7668bcc187e9ef467597",
+            "smoke_sha256": "b3c2c9cdcb0dc3bcd9c0749f96aa12e7d8eef5c28a0f82d9c12d4ae64544fd08",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-01T12:00:51Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1ac0acaf59763483c897c1ad9356359304910e8b",
+            "image_digest": "sha256:ccd80f56712cb56db4ee3d6bce3dfe8caa9ca24a757f7668bcc187e9ef467597",
+            "smoke_sha256": "b3c2c9cdcb0dc3bcd9c0749f96aa12e7d8eef5c28a0f82d9c12d4ae64544fd08",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-01T12:00:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "1ac0acaf59763483c897c1ad9356359304910e8b",
+            "image_digest": "sha256:ccd80f56712cb56db4ee3d6bce3dfe8caa9ca24a757f7668bcc187e9ef467597",
+            "smoke_sha256": "b3c2c9cdcb0dc3bcd9c0749f96aa12e7d8eef5c28a0f82d9c12d4ae64544fd08",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-01T11:56:24Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/simpleaf",
+        "ref": "v0.30.0-r1",
+        "commit": "1ac0acaf59763483c897c1ad9356359304910e8b",
+        "html_url": "https://github.com/taffish/simpleaf/tree/v0.30.0-r1"
+      },
+      "upstream": {
+        "name": "simpleaf",
+        "type": "github",
+        "homepage": "https://combine-lab.github.io/simpleaf/",
+        "repository": "COMBINE-lab/simpleaf",
+        "release_url": "https://github.com/COMBINE-lab/simpleaf/releases/tag/v0.30.0",
+        "version": "0.30.0",
         "license": "BSD-3-Clause"
       }
     }
