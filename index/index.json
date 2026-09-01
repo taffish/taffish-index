@@ -1,17 +1,17 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-08-31T07:04:40Z",
+  "generated_at": "2026-09-01T05:31:03Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 460,
+    "versions": 462,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
     "failed": 0,
     "advisory_failed": 18,
-    "latest_advisory_failed": 7,
-    "historical_advisory_failed": 11,
+    "latest_advisory_failed": 6,
+    "historical_advisory_failed": 12,
     "rejected": 12
   },
   "packages": {
@@ -26015,9 +26015,9 @@
     },
     "gget": {
       "name": "gget",
-      "latest": "0.30.8-r1",
-      "recent_version": "0.30.8-r1",
-      "recent_at": "2026-07-02T02:52:51Z",
+      "latest": "0.30.8-r2",
+      "recent_version": "0.30.8-r2",
+      "recent_at": "2026-09-01T05:24:14Z",
       "repository_url": "https://github.com/taffish/gget",
       "command": {
         "name": "taf-gget"
@@ -26125,7 +26125,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-31T07:08:25Z",
+                "checked_at": "2026-09-01T05:35:01Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -26169,7 +26169,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-31T07:04:40Z",
+            "checked_at": "2026-09-01T05:31:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -26178,6 +26178,185 @@
             "ref": "v0.30.8-r1",
             "commit": "22a63b001f7b5192283d9e3c3b7c698cf749b346",
             "html_url": "https://github.com/taffish/gget/tree/v0.30.8-r1"
+          },
+          "upstream": {
+            "name": "gget",
+            "type": "github",
+            "homepage": "https://pachterlab.github.io/gget",
+            "repository": "scverse/gget",
+            "release_url": "https://github.com/scverse/gget/releases/tag/v0.30.8",
+            "version": "0.30.8",
+            "license": "BSD-2-Clause; bundled third-party binaries and AlphaFold support files keep their upstream notices",
+            "citation": "Luebbert L, Pachter L. Efficient querying of genomic reference databases with gget. Bioinformatics. 2023. doi:10.1093/bioinformatics/btac836",
+            "doi": "10.1093/bioinformatics/btac836"
+          }
+        },
+        "0.30.8-r2": {
+          "name": "gget",
+          "kind": "tool",
+          "version": "0.30.8",
+          "release": 2,
+          "version_id": "0.30.8-r2",
+          "tag": "v0.30.8-r2",
+          "published_at": "2026-09-01T05:24:14Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/gget",
+          "repository_slug": "taffish/gget",
+          "command": {
+            "name": "taf-gget"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "database-query",
+              "annotation",
+              "reference"
+            ],
+            "keywords": [
+              "gget",
+              "scverse",
+              "ensembl",
+              "uniprot",
+              "ncbi",
+              "enrichr",
+              "opentargets",
+              "cellxgene"
+            ],
+            "summary": "Efficient querying of genomic reference databases from the gget command-line tool and Python package.",
+            "description": "Efficient querying of genomic reference databases from the gget command-line tool and Python package."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/gget:0.30.8-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.30.8-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:254e12706b09329b9ea5d4becef02028a7aa95714bf39f6851bce994a7c0bf5f",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1340a3c3d79544f34754e1ae7da0e22eebe039fabd979bdea67c5ae76c28aedb"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "gget",
+              "gget-elm-resources",
+              "python",
+              "python3",
+              "sh",
+              "curl",
+              "git",
+              "grep",
+              "ldd",
+              "cat",
+              "chmod",
+              "mkdir",
+              "rm",
+              "tar"
+            ],
+            "test": [
+              "gget --version 2>&1 | grep -Fx 'gget version: 0.30.8' >/dev/null",
+              "gget --help 2>&1 | grep -F \"Subparser 'opentargets'\" >/dev/null && gget setup --help 2>&1 | grep -F 'alphafold' >/dev/null && gget mutate --help 2>&1 | grep -F 'Mutate nucleotide sequences' >/dev/null",
+              "python -c 'import importlib.metadata as md; import gget, pandas, numpy, requests, bs4, lxml, mysql.connector, matplotlib; assert md.version(\"gget\") == \"0.30.8\"; print(gget.__version__)' | grep -Fx '0.30.8' >/dev/null",
+              "/opt/gget/share/testdata/gget-smoke.sh muscle",
+              "/opt/gget/share/testdata/gget-smoke.sh diamond",
+              "/opt/gget/share/testdata/gget-smoke.sh binaries",
+              "/opt/gget/share/testdata/gget-smoke.sh datasets",
+              "/opt/gget/share/testdata/gget-smoke.sh elm-contract",
+              "/opt/gget/share/testdata/gget-smoke.sh elm-fixture",
+              "/opt/gget/share/testdata/gget-smoke.sh permission-contract"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-01T05:34:48Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-01T05:35:01Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "37684209b6c684822e6e2c57f6f74ab067fb1caa",
+                "image_digest": "sha256:254e12706b09329b9ea5d4becef02028a7aa95714bf39f6851bce994a7c0bf5f",
+                "smoke_sha256": "b262477224c077dd99a362199ec70ef5abf4b9f9522206e7dc8703141efd1263",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-01T05:34:48Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "37684209b6c684822e6e2c57f6f74ab067fb1caa",
+                "image_digest": "sha256:254e12706b09329b9ea5d4becef02028a7aa95714bf39f6851bce994a7c0bf5f",
+                "smoke_sha256": "b262477224c077dd99a362199ec70ef5abf4b9f9522206e7dc8703141efd1263",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-01T05:34:54Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "37684209b6c684822e6e2c57f6f74ab067fb1caa",
+                "image_digest": "sha256:254e12706b09329b9ea5d4becef02028a7aa95714bf39f6851bce994a7c0bf5f",
+                "smoke_sha256": "b262477224c077dd99a362199ec70ef5abf4b9f9522206e7dc8703141efd1263",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-01T05:31:03Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/gget",
+            "ref": "v0.30.8-r2",
+            "commit": "37684209b6c684822e6e2c57f6f74ab067fb1caa",
+            "html_url": "https://github.com/taffish/gget/tree/v0.30.8-r2"
           },
           "upstream": {
             "name": "gget",
@@ -28857,7 +29036,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-31T07:08:25Z",
+                "checked_at": "2026-09-01T05:35:01Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -28901,7 +29080,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-31T07:04:40Z",
+            "checked_at": "2026-09-01T05:31:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -31236,7 +31415,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-31T07:08:25Z",
+                "checked_at": "2026-09-01T05:35:01Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31280,7 +31459,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-31T07:04:40Z",
+            "checked_at": "2026-09-01T05:31:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -32316,7 +32495,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-31T07:08:25Z",
+                "checked_at": "2026-09-01T05:35:01Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -32360,7 +32539,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-31T07:04:40Z",
+            "checked_at": "2026-09-01T05:31:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -43697,7 +43876,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-31T07:08:25Z",
+                "checked_at": "2026-09-01T05:35:01Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -43741,7 +43920,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-31T07:04:40Z",
+            "checked_at": "2026-09-01T05:31:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -45463,7 +45642,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-31T07:08:25Z",
+                "checked_at": "2026-09-01T05:35:01Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -45473,7 +45652,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.Gcefdf/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/08/31 07:17:32 [emerg] 30#30: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.IFJdAC/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/01 05:45:28 [emerg] 27#27: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
               },
               "docker": {
                 "status": "passed",
@@ -45507,7 +45686,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-31T07:04:40Z",
+            "checked_at": "2026-09-01T05:31:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -47479,7 +47658,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-08-31T07:08:25Z",
+                "checked_at": "2026-09-01T05:35:01Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -47523,7 +47702,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-08-31T07:04:40Z",
+            "checked_at": "2026-09-01T05:31:03Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -61682,9 +61861,9 @@
     },
     "salmon": {
       "name": "salmon",
-      "latest": "2.6.0-r1",
-      "recent_version": "2.6.0-r1",
-      "recent_at": "2026-08-25T08:45:53Z",
+      "latest": "2.7.0-r1",
+      "recent_version": "2.7.0-r1",
+      "recent_at": "2026-09-01T05:24:17Z",
       "repository_url": "https://github.com/taffish/salmon",
       "command": {
         "name": "taf-salmon"
@@ -63955,6 +64134,197 @@
             "repository": "COMBINE-lab/salmon",
             "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.6.0",
             "version": "2.6.0",
+            "license": "BSD-3-Clause",
+            "citation": "Patro et al. 2017, Nature Methods",
+            "doi": "10.1038/nmeth.4197",
+            "pmid": "28263959"
+          }
+        },
+        "2.7.0-r1": {
+          "name": "salmon",
+          "kind": "tool",
+          "version": "2.7.0",
+          "release": 1,
+          "version_id": "2.7.0-r1",
+          "tag": "v2.7.0-r1",
+          "published_at": "2026-09-01T05:24:17Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/salmon",
+          "repository_slug": "taffish/salmon",
+          "command": {
+            "name": "taf-salmon"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "quantification",
+              "alignment",
+              "indexing"
+            ],
+            "keywords": [
+              "salmon",
+              "rna-seq",
+              "transcript abundance",
+              "selective alignment",
+              "sketch",
+              "sshash",
+              "canonical k-mer",
+              "piscem",
+              "quant",
+              "quantmerge",
+              "adaptive threading",
+              "bounded worker pool"
+            ],
+            "summary": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, index-format-v2 canonical k-mer dictionaries, selective-alignment and sketch modes, RAD workflows, mapping export, alignment-based quantification, and quantification merging.",
+            "description": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, index-format-v2 canonical k-mer dictionaries, selective-alignment and sketch modes, RAD workflows, mapping export, alignment-based quantification, and quantification merging."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/salmon:2.7.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.7.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:83ef591b1806ea15ed2722e0a7e40d50cc11cc3fd77fa872afce78814fea811a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1141b4aea853ad2a7992ac07f3d8677795548441a482b954e594deb18a9d67dc",
+              "linux/arm64": "sha256:c41bd93d852a51604f8a3325a274669f10b10512bc5351116cfb8607c644b913"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "salmon",
+              "ldd",
+              "locale",
+              "ps",
+              "gzip",
+              "od",
+              "awk",
+              "cmp",
+              "cp",
+              "sed",
+              "find",
+              "wc",
+              "sh"
+            ],
+            "test": [
+              "sh /opt/salmon/share/salmon-smoke.sh interfaces",
+              "sh /opt/salmon/share/salmon-smoke.sh index",
+              "sh /opt/salmon/share/salmon-smoke.sh compatibility",
+              "sh /opt/salmon/share/salmon-smoke.sh quant",
+              "sh /opt/salmon/share/salmon-smoke.sh pool",
+              "sh /opt/salmon/share/salmon-smoke.sh sketch",
+              "sh /opt/salmon/share/salmon-smoke.sh merge",
+              "sh /opt/salmon/share/salmon-smoke.sh alevin",
+              "sh /opt/salmon/share/salmon-smoke.sh alignment",
+              "sh /opt/salmon/share/salmon-smoke.sh genome",
+              "sh /opt/salmon/share/salmon-smoke.sh accel",
+              "sh /opt/salmon/share/salmon-smoke.sh bam",
+              "sh /opt/salmon/share/salmon-smoke.sh rad",
+              "sh /opt/salmon/share/salmon-smoke.sh deterministic",
+              "sh /opt/salmon/share/salmon-smoke.sh skip"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-01T05:34:48Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-01T05:35:01Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "50e2d10e8b6ee6fe58618331c22ce0be873a3f3f",
+                "image_digest": "sha256:83ef591b1806ea15ed2722e0a7e40d50cc11cc3fd77fa872afce78814fea811a",
+                "smoke_sha256": "d87e841ee33576f821d1c821aa72aa6e84b1252b5caf8a425253fc39b08b45cc",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-01T05:34:48Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "50e2d10e8b6ee6fe58618331c22ce0be873a3f3f",
+                "image_digest": "sha256:83ef591b1806ea15ed2722e0a7e40d50cc11cc3fd77fa872afce78814fea811a",
+                "smoke_sha256": "d87e841ee33576f821d1c821aa72aa6e84b1252b5caf8a425253fc39b08b45cc",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-01T05:34:54Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "50e2d10e8b6ee6fe58618331c22ce0be873a3f3f",
+                "image_digest": "sha256:83ef591b1806ea15ed2722e0a7e40d50cc11cc3fd77fa872afce78814fea811a",
+                "smoke_sha256": "d87e841ee33576f821d1c821aa72aa6e84b1252b5caf8a425253fc39b08b45cc",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-01T05:31:03Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/salmon",
+            "ref": "v2.7.0-r1",
+            "commit": "50e2d10e8b6ee6fe58618331c22ce0be873a3f3f",
+            "html_url": "https://github.com/taffish/salmon/tree/v2.7.0-r1"
+          },
+          "upstream": {
+            "name": "Salmon",
+            "type": "github",
+            "homepage": "https://combine-lab.github.io/salmon/",
+            "repository": "COMBINE-lab/salmon",
+            "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.7.0",
+            "version": "2.7.0",
             "license": "BSD-3-Clause",
             "citation": "Patro et al. 2017, Nature Methods",
             "doi": "10.1038/nmeth.4197",
@@ -81087,7 +81457,7 @@
     },
     "taf-gget": {
       "package": "gget",
-      "version": "0.30.8-r1"
+      "version": "0.30.8-r2"
     },
     "taf-goatools": {
       "package": "goatools",
@@ -81575,7 +81945,7 @@
     },
     "taf-salmon": {
       "package": "salmon",
-      "version": "2.6.0-r1"
+      "version": "2.7.0-r1"
     },
     "taf-samblaster": {
       "package": "samblaster",
