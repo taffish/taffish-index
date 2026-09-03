@@ -1,17 +1,17 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-02T08:58:12Z",
+  "generated_at": "2026-09-03T00:17:54Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 469,
+    "versions": 470,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
     "failed": 0,
     "advisory_failed": 18,
-    "latest_advisory_failed": 4,
-    "historical_advisory_failed": 14,
+    "latest_advisory_failed": 3,
+    "historical_advisory_failed": 15,
     "rejected": 12
   },
   "packages": {
@@ -29394,7 +29394,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-02T09:03:16Z",
+                "checked_at": "2026-09-03T00:22:24Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -29438,7 +29438,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-02T08:58:12Z",
+            "checked_at": "2026-09-03T00:17:54Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -31773,7 +31773,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-02T09:03:16Z",
+                "checked_at": "2026-09-03T00:22:24Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -31817,7 +31817,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-02T08:58:12Z",
+            "checked_at": "2026-09-03T00:17:54Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -44285,9 +44285,9 @@
     },
     "mummer4": {
       "name": "mummer4",
-      "latest": "4.0.1-r1",
-      "recent_version": "4.0.1-r1",
-      "recent_at": "2026-06-15T06:57:04Z",
+      "latest": "4.0.1-r2",
+      "recent_version": "4.0.1-r2",
+      "recent_at": "2026-09-03T00:13:57Z",
       "repository_url": "https://github.com/taffish/mummer4",
       "command": {
         "name": "taf-mummer4"
@@ -44414,7 +44414,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-02T09:03:16Z",
+                "checked_at": "2026-09-03T00:22:24Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -44458,7 +44458,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-02T08:58:12Z",
+            "checked_at": "2026-09-03T00:17:54Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -44467,6 +44467,196 @@
             "ref": "v4.0.1-r1",
             "commit": "df794d0042cf732f9d7c85c7853372ff46cdfdef",
             "html_url": "https://github.com/taffish/mummer4/tree/v4.0.1-r1"
+          },
+          "upstream": {
+            "name": "MUMmer4",
+            "type": "github",
+            "homepage": "https://github.com/mummer4/mummer",
+            "repository": "mummer4/mummer",
+            "release_url": "https://github.com/mummer4/mummer/releases/tag/v4.0.1",
+            "version": "4.0.1",
+            "license": "Artistic-2.0",
+            "citation": "Marcais et al. 2018, MUMmer4: A fast and versatile genome alignment system",
+            "doi": "10.1371/journal.pcbi.1005944",
+            "pmid": "29373581"
+          }
+        },
+        "4.0.1-r2": {
+          "name": "mummer4",
+          "kind": "tool",
+          "version": "4.0.1",
+          "release": 2,
+          "version_id": "4.0.1-r2",
+          "tag": "v4.0.1-r2",
+          "published_at": "2026-09-03T00:13:57Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/mummer4",
+          "repository_slug": "taffish/mummer4",
+          "command": {
+            "name": "taf-mummer4"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-alignment",
+            "categories": [
+              "genome-alignment",
+              "comparative-genomics",
+              "whole-genome-alignment",
+              "structural-variation",
+              "assembly"
+            ],
+            "keywords": [
+              "mummer",
+              "mummer4",
+              "nucmer",
+              "promer",
+              "dnadiff",
+              "delta-filter",
+              "show-coords",
+              "mummerplot",
+              "whole genome alignment",
+              "fasta",
+              "delta"
+            ],
+            "summary": "MUMmer4 4.0.1 command-line runtime for fast whole-genome nucleotide and translated alignments, delta filtering, coordinate/SNP reporting, dnadiff summaries, and mummerplot dotplots.",
+            "description": "MUMmer4 4.0.1 command-line runtime for fast whole-genome nucleotide and translated alignments, delta filtering, coordinate/SNP reporting, dnadiff summaries, and mummerplot dotplots."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/mummer4:4.0.1-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.0.1-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:074bec5b4ee72d004aff3253c9b5bd3b64ccc0ea74b31ec5196ac3bb7d858b9d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c760bf482a6d35517c4fb632685cef0bdd6a9852474f68f166dc74a454947181",
+              "linux/arm64": "sha256:fa065d6517ae686e4d34e6ac8ab47e7f66d78a577d7ccb52e8f612508c7dc989"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "nucmer",
+              "promer",
+              "dnadiff",
+              "mummer",
+              "delta-filter",
+              "show-coords",
+              "show-snps",
+              "show-diff",
+              "show-aligns",
+              "show-tiling",
+              "mummerplot",
+              "repeat-match",
+              "mgaps",
+              "annotate",
+              "combineMUMs",
+              "gnuplot",
+              "perl",
+              "gawk",
+              "bash",
+              "sed",
+              "grep",
+              "ldd",
+              "mktemp",
+              "tail"
+            ],
+            "test": [
+              "/opt/mummer/share/testdata/mummer4-smoke.sh identity",
+              "/opt/mummer/share/testdata/mummer4-smoke.sh help",
+              "/opt/mummer/share/testdata/mummer4-smoke.sh linkage",
+              "/opt/mummer/share/testdata/mummer4-smoke.sh pipeline"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-03T00:22:00Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-03T00:22:24Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "204e53b35419a143ff08573f4ccf2bb44d3e0cdb",
+                "image_digest": "sha256:074bec5b4ee72d004aff3253c9b5bd3b64ccc0ea74b31ec5196ac3bb7d858b9d",
+                "smoke_sha256": "ca87dae8714ac9b9b49ede8dc934a535b0621e4f7a615fc8db67fb99891d3ca1",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-03T00:22:00Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260831.293.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "204e53b35419a143ff08573f4ccf2bb44d3e0cdb",
+                "image_digest": "sha256:074bec5b4ee72d004aff3253c9b5bd3b64ccc0ea74b31ec5196ac3bb7d858b9d",
+                "smoke_sha256": "ca87dae8714ac9b9b49ede8dc934a535b0621e4f7a615fc8db67fb99891d3ca1",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-03T00:22:20Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 5.8.4",
+                "runner_image": "ubuntu24/20260823.283.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "204e53b35419a143ff08573f4ccf2bb44d3e0cdb",
+                "image_digest": "sha256:074bec5b4ee72d004aff3253c9b5bd3b64ccc0ea74b31ec5196ac3bb7d858b9d",
+                "smoke_sha256": "ca87dae8714ac9b9b49ede8dc934a535b0621e4f7a615fc8db67fb99891d3ca1",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-03T00:17:54Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/mummer4",
+            "ref": "v4.0.1-r2",
+            "commit": "204e53b35419a143ff08573f4ccf2bb44d3e0cdb",
+            "html_url": "https://github.com/taffish/mummer4/tree/v4.0.1-r2"
           },
           "upstream": {
             "name": "MUMmer4",
@@ -46353,7 +46543,7 @@
             "backend_results": {
               "apptainer": {
                 "status": "failed",
-                "checked_at": "2026-09-02T09:03:16Z",
+                "checked_at": "2026-09-03T00:22:24Z",
                 "platform": "linux/amd64",
                 "runtime_version": "apptainer version 1.5.3",
                 "runner_image": "ubuntu24/20260823.283.1",
@@ -46363,7 +46553,7 @@
                 "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
                 "provenance": "taffish-index",
                 "failure_kind": "smoke",
-                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.JeLmoL/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/02 09:09:17 [emerg] 26#26: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+                "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.kagbBi/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/03 00:29:00 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
               },
               "docker": {
                 "status": "passed",
@@ -46397,7 +46587,7 @@
           },
           "trust": {
             "status": "passed",
-            "checked_at": "2026-09-02T08:58:12Z",
+            "checked_at": "2026-09-03T00:17:54Z",
             "policy": "taffish.index/trust-v2",
             "source": "taffish-index"
           },
@@ -82929,7 +83119,7 @@
     },
     "taf-mummer4": {
       "package": "mummer4",
-      "version": "4.0.1-r1"
+      "version": "4.0.1-r2"
     },
     "taf-muscle": {
       "package": "muscle",
