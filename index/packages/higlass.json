@@ -1,8 +1,8 @@
 {
   "name": "higlass",
-  "latest": "2.3.5-r1",
-  "recent_version": "2.3.5-r1",
-  "recent_at": "2026-06-19T00:26:17Z",
+  "latest": "2.3.5-r2",
+  "recent_version": "2.3.5-r2",
+  "recent_at": "2026-09-04T02:35:09Z",
   "repository_url": "https://github.com/taffish/higlass",
   "command": {
     "name": "taf-higlass"
@@ -615,10 +615,10 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-09-03T05:57:41Z",
+            "checked_at": "2026-09-04T03:01:40Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
-            "runner_image": "ubuntu24/20260823.283.1",
+            "runner_image": "ubuntu24/20260831.293.1",
             "policy_generation": "multibackend-1",
             "source_commit": "0affe776ff920568426ead0a36e683ca9efa713e",
             "image_digest": "sha256:2f67a21d819d6d37d9dc49bb030b0a5ce620ecd0bfb9fee91820069cb5447739",
@@ -659,7 +659,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-09-03T05:53:49Z",
+        "checked_at": "2026-09-04T02:57:03Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -668,6 +668,181 @@
         "ref": "v2.3.5-r1",
         "commit": "0affe776ff920568426ead0a36e683ca9efa713e",
         "html_url": "https://github.com/taffish/higlass/tree/v2.3.5-r1"
+      },
+      "upstream": {
+        "name": "HiGlass",
+        "type": "github",
+        "homepage": "https://higlass.io/",
+        "repository": "higlass/higlass",
+        "release_url": "https://github.com/higlass/higlass/tree/v2.3.5",
+        "version": "2.3.5",
+        "license": "MIT",
+        "citation": "Kerpedjiev et al. 2018. HiGlass: web-based visual exploration and analysis of genome interaction maps.",
+        "doi": "10.1186/s13059-018-1486-1",
+        "pmid": "30143029"
+      }
+    },
+    "2.3.5-r2": {
+      "name": "higlass",
+      "kind": "tool",
+      "version": "2.3.5",
+      "release": 2,
+      "version_id": "2.3.5-r2",
+      "tag": "v2.3.5-r2",
+      "published_at": "2026-09-04T02:35:09Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/higlass",
+      "repository_slug": "taffish/higlass",
+      "command": {
+        "name": "taf-higlass"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "visualization",
+          "browser",
+          "hic",
+          "server"
+        ],
+        "keywords": [
+          "higlass",
+          "hi-c",
+          "genome-browser",
+          "contact-map",
+          "tileset",
+          "cooler",
+          "bigwig",
+          "web-service"
+        ],
+        "summary": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks.",
+        "description": "Browser-based HiGlass server for interactive visualization of Hi-C contact maps and other tiled genomic tracks."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/higlass:2.3.5-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.3.5-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:522d2a5752edace2d4cbfabd5864dd5398884fdcceabe7f510543e1aa2afc045",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:4e9927fed55b69522a891066b79cebd67beb87e702af5c9b76b48d0fa179b4e8"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "higlass",
+          "higlass-manage",
+          "higlass-runtime",
+          "higlass-smoke",
+          "nginx",
+          "uwsgi",
+          "python",
+          "curl",
+          "timeout",
+          "awk",
+          "setsid"
+        ],
+        "test": [
+          "higlass-smoke identity",
+          "higlass-smoke help",
+          "higlass-smoke manage",
+          "higlass-smoke imports",
+          "higlass-smoke service-term",
+          "higlass-smoke startup-int",
+          "higlass-smoke critical"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-04T03:01:04Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-04T03:01:40Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260831.293.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "6a31615495247ca269c55bd4ba037500a56d8c07",
+            "image_digest": "sha256:522d2a5752edace2d4cbfabd5864dd5398884fdcceabe7f510543e1aa2afc045",
+            "smoke_sha256": "2c2b7d69df19f3c3c8ff60024e6da177c0951622710d02da420cf005d6f8db92",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-04T03:01:04Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260831.293.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "6a31615495247ca269c55bd4ba037500a56d8c07",
+            "image_digest": "sha256:522d2a5752edace2d4cbfabd5864dd5398884fdcceabe7f510543e1aa2afc045",
+            "smoke_sha256": "2c2b7d69df19f3c3c8ff60024e6da177c0951622710d02da420cf005d6f8db92",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-04T03:01:12Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 5.8.4",
+            "runner_image": "ubuntu24/20260823.283.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "6a31615495247ca269c55bd4ba037500a56d8c07",
+            "image_digest": "sha256:522d2a5752edace2d4cbfabd5864dd5398884fdcceabe7f510543e1aa2afc045",
+            "smoke_sha256": "2c2b7d69df19f3c3c8ff60024e6da177c0951622710d02da420cf005d6f8db92",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-04T02:57:03Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/higlass",
+        "ref": "v2.3.5-r2",
+        "commit": "6a31615495247ca269c55bd4ba037500a56d8c07",
+        "html_url": "https://github.com/taffish/higlass/tree/v2.3.5-r2"
       },
       "upstream": {
         "name": "HiGlass",
