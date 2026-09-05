@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-09-05T00:59:11Z",
+  "generated_at": "2026-09-05T05:50:16Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -10205,12 +10205,12 @@
     },
     {
       "task_id": "taffish/ilastik|1.4.2-r1",
-      "plan_id": "772fcdb60579c5b229088fc6cc6e057b4d16ecb28cb190b159e16b823f47cca2",
-      "manifest_id": "9d8091f7cd0e4e018316c287a15c62799f43918d90dd533b9d8521e80538fdff",
+      "plan_id": "dd18e438d3d9ac51c7f307204b9875450df9b9210f60957495c3cb45f7082dff",
+      "manifest_id": "f853f7a6a5b525b7cadb6c3e866ebbb56ccb5139a2d245750ed2092d546f8a1b",
       "backend": "apptainer",
       "required": false,
       "status": "failed",
-      "checked_at": "2026-09-05T01:02:49Z",
+      "checked_at": "2026-09-05T05:53:57Z",
       "platform": "linux/amd64",
       "runtime_version": "apptainer version 1.5.3",
       "runner_image": "ubuntu24/20260831.293.1",
@@ -10225,8 +10225,8 @@
     },
     {
       "task_id": "taffish/ilastik|1.4.2-r1",
-      "plan_id": "772fcdb60579c5b229088fc6cc6e057b4d16ecb28cb190b159e16b823f47cca2",
-      "manifest_id": "9d8091f7cd0e4e018316c287a15c62799f43918d90dd533b9d8521e80538fdff",
+      "plan_id": "dd18e438d3d9ac51c7f307204b9875450df9b9210f60957495c3cb45f7082dff",
+      "manifest_id": "f853f7a6a5b525b7cadb6c3e866ebbb56ccb5139a2d245750ed2092d546f8a1b",
       "backend": "docker",
       "required": true,
       "status": "passed",
@@ -10245,8 +10245,8 @@
     },
     {
       "task_id": "taffish/ilastik|1.4.2-r1",
-      "plan_id": "772fcdb60579c5b229088fc6cc6e057b4d16ecb28cb190b159e16b823f47cca2",
-      "manifest_id": "9d8091f7cd0e4e018316c287a15c62799f43918d90dd533b9d8521e80538fdff",
+      "plan_id": "dd18e438d3d9ac51c7f307204b9875450df9b9210f60957495c3cb45f7082dff",
+      "manifest_id": "f853f7a6a5b525b7cadb6c3e866ebbb56ccb5139a2d245750ed2092d546f8a1b",
       "backend": "podman",
       "required": false,
       "status": "passed",
@@ -14945,12 +14945,12 @@
     },
     {
       "task_id": "taffish/nextclade|3.23.0-r1",
-      "plan_id": "772fcdb60579c5b229088fc6cc6e057b4d16ecb28cb190b159e16b823f47cca2",
-      "manifest_id": "9d8091f7cd0e4e018316c287a15c62799f43918d90dd533b9d8521e80538fdff",
+      "plan_id": "dd18e438d3d9ac51c7f307204b9875450df9b9210f60957495c3cb45f7082dff",
+      "manifest_id": "f853f7a6a5b525b7cadb6c3e866ebbb56ccb5139a2d245750ed2092d546f8a1b",
       "backend": "apptainer",
       "required": false,
       "status": "failed",
-      "checked_at": "2026-09-05T01:02:49Z",
+      "checked_at": "2026-09-05T05:53:57Z",
       "platform": "linux/amd64",
       "runtime_version": "apptainer version 1.5.3",
       "runner_image": "ubuntu24/20260831.293.1",
@@ -14961,12 +14961,12 @@
       "provenance": "taffish-index",
       "cache_reused": false,
       "failure_kind": "smoke",
-      "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.abPGMG/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/05 01:06:08 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+      "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.hIcBoF/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/05 05:57:13 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
     },
     {
       "task_id": "taffish/nextclade|3.23.0-r1",
-      "plan_id": "772fcdb60579c5b229088fc6cc6e057b4d16ecb28cb190b159e16b823f47cca2",
-      "manifest_id": "9d8091f7cd0e4e018316c287a15c62799f43918d90dd533b9d8521e80538fdff",
+      "plan_id": "dd18e438d3d9ac51c7f307204b9875450df9b9210f60957495c3cb45f7082dff",
+      "manifest_id": "f853f7a6a5b525b7cadb6c3e866ebbb56ccb5139a2d245750ed2092d546f8a1b",
       "backend": "docker",
       "required": true,
       "status": "passed",
@@ -14985,8 +14985,8 @@
     },
     {
       "task_id": "taffish/nextclade|3.23.0-r1",
-      "plan_id": "772fcdb60579c5b229088fc6cc6e057b4d16ecb28cb190b159e16b823f47cca2",
-      "manifest_id": "9d8091f7cd0e4e018316c287a15c62799f43918d90dd533b9d8521e80538fdff",
+      "plan_id": "dd18e438d3d9ac51c7f307204b9875450df9b9210f60957495c3cb45f7082dff",
+      "manifest_id": "f853f7a6a5b525b7cadb6c3e866ebbb56ccb5139a2d245750ed2092d546f8a1b",
       "backend": "podman",
       "required": false,
       "status": "passed",
