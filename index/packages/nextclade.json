@@ -1,8 +1,8 @@
 {
   "name": "nextclade",
-  "latest": "3.23.0-r1",
-  "recent_version": "3.23.0-r1",
-  "recent_at": "2026-08-23T16:20:11Z",
+  "latest": "3.23.0-r2",
+  "recent_version": "3.23.0-r2",
+  "recent_at": "2026-09-06T04:15:46Z",
   "repository_url": "https://github.com/taffish/nextclade",
   "command": {
     "name": "taf-nextclade"
@@ -117,7 +117,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-09-05T05:53:57Z",
+            "checked_at": "2026-09-06T04:21:58Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260831.293.1",
@@ -127,7 +127,7 @@
             "smoke_sha256": "f8a746cc47c9925564390e2688e2b751d507c7de8fc45ccaa951b74e4de5a355",
             "provenance": "taffish-index",
             "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.hIcBoF/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/05 05:57:13 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
+            "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.EnDkoO/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/06 04:26:11 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n"
           },
           "docker": {
             "status": "passed",
@@ -161,7 +161,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-09-05T05:50:16Z",
+        "checked_at": "2026-09-06T04:17:24Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -170,6 +170,193 @@
         "ref": "v3.23.0-r1",
         "commit": "546dd2814f999e4260aa9bf6ca8145291497dc7d",
         "html_url": "https://github.com/taffish/nextclade/tree/v3.23.0-r1"
+      },
+      "upstream": {
+        "name": "Nextclade",
+        "type": "github",
+        "homepage": "https://clades.nextstrain.org",
+        "repository": "https://github.com/nextstrain/nextclade",
+        "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.23.0",
+        "version": "3.23.0",
+        "license": "MIT",
+        "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
+        "doi": "10.21105/joss.03773"
+      }
+    },
+    "3.23.0-r2": {
+      "name": "nextclade",
+      "kind": "tool",
+      "version": "3.23.0",
+      "release": 2,
+      "version_id": "3.23.0-r2",
+      "tag": "v3.23.0-r2",
+      "published_at": "2026-09-06T04:15:46Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/nextclade",
+      "repository_slug": "taffish/nextclade",
+      "command": {
+        "name": "taf-nextclade"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "phylogenetics",
+        "categories": [
+          "phylogenetics",
+          "genomics",
+          "viral-genomics",
+          "variant-calling",
+          "quality-control",
+          "visualization"
+        ],
+        "keywords": [
+          "nextstrain",
+          "nextclade",
+          "virus",
+          "alignment",
+          "clade-assignment",
+          "mutation-calling",
+          "phylogenetics",
+          "quality-control",
+          "web-ui"
+        ],
+        "summary": "Nextclade 3.23.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces.",
+        "description": "Nextclade 3.23.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/nextclade:3.23.0-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.23.0-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:7c99204a9e041184349159f0267f8c0208a485b5f1e280cdbcee988f9e039c85",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:97e81c2d85cb6ec76929db1aafaf8fad85c9b56217826b79a647dc80366e7026",
+          "linux/arm64": "sha256:f4857f2d8ab2738703486b60a4e29557b88a6ed1f4a530659d26de8bf1e83867"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "nextclade",
+          "nextalign",
+          "nextclade-web",
+          "nextclade-datasets",
+          "nextclade-smoke",
+          "nginx",
+          "jq",
+          "sha256sum",
+          "find",
+          "xargs",
+          "setsid",
+          "wget",
+          "timeout",
+          "cmp",
+          "env",
+          "sh",
+          "bash"
+        ],
+        "test": [
+          "nextclade-smoke identity",
+          "nextclade-smoke commands",
+          "nextclade-smoke core",
+          "nextclade-smoke datasets",
+          "nextclade-smoke web-ready-int",
+          "nextclade-smoke web-ready-term",
+          "nextclade-smoke web-startup-int",
+          "nextclade-smoke web-critical",
+          "nextclade-smoke web-critical-zero",
+          "nextclade-smoke errors"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-06T04:21:42Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-06T04:21:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260831.293.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "18526a1139477fddf0611693dc629f70db0e9181",
+            "image_digest": "sha256:7c99204a9e041184349159f0267f8c0208a485b5f1e280cdbcee988f9e039c85",
+            "smoke_sha256": "4b659494e7453b65c7c0b15fcc8e8ffa452971d872bb1313dafff37b7b7685cc",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-06T04:21:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260831.293.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "18526a1139477fddf0611693dc629f70db0e9181",
+            "image_digest": "sha256:7c99204a9e041184349159f0267f8c0208a485b5f1e280cdbcee988f9e039c85",
+            "smoke_sha256": "4b659494e7453b65c7c0b15fcc8e8ffa452971d872bb1313dafff37b7b7685cc",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-06T04:21:44Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20260831.293.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "18526a1139477fddf0611693dc629f70db0e9181",
+            "image_digest": "sha256:7c99204a9e041184349159f0267f8c0208a485b5f1e280cdbcee988f9e039c85",
+            "smoke_sha256": "4b659494e7453b65c7c0b15fcc8e8ffa452971d872bb1313dafff37b7b7685cc",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-06T04:17:24Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/nextclade",
+        "ref": "v3.23.0-r2",
+        "commit": "18526a1139477fddf0611693dc629f70db0e9181",
+        "html_url": "https://github.com/taffish/nextclade/tree/v3.23.0-r2"
       },
       "upstream": {
         "name": "Nextclade",
