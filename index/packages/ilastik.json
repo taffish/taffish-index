@@ -1,8 +1,8 @@
 {
   "name": "ilastik",
-  "latest": "1.4.2-r1",
-  "recent_version": "1.4.2-r1",
-  "recent_at": "2026-08-30T12:10:20Z",
+  "latest": "1.4.2-r2",
+  "recent_version": "1.4.2-r2",
+  "recent_at": "2026-09-07T09:04:06Z",
   "repository_url": "https://github.com/taffish/ilastik",
   "command": {
     "name": "taf-ilastik"
@@ -118,7 +118,7 @@
         "backend_results": {
           "apptainer": {
             "status": "failed",
-            "checked_at": "2026-09-07T06:14:39Z",
+            "checked_at": "2026-09-07T09:49:56Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.3",
             "runner_image": "ubuntu24/20260831.293.1",
@@ -162,7 +162,7 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-09-07T06:10:12Z",
+        "checked_at": "2026-09-07T09:46:00Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
@@ -171,6 +171,188 @@
         "ref": "v1.4.2-r1",
         "commit": "9fa4638c4cad94c6ef601300e39f4610d1f3f167",
         "html_url": "https://github.com/taffish/ilastik/tree/v1.4.2-r1"
+      },
+      "upstream": {
+        "name": "ilastik",
+        "type": "github",
+        "homepage": "https://www.ilastik.org",
+        "repository": "ilastik/ilastik",
+        "release_url": "https://github.com/ilastik/ilastik/releases/tag/1.4.2",
+        "version": "1.4.2",
+        "license": "GPL-2.0-or-later WITH ilastik-plugin-exception; lazyflow is LGPL-2.1-or-later",
+        "citation": "Berg et al. ilastik: interactive machine learning for (bio)image analysis. Nature Methods (2019).",
+        "doi": "10.1038/s41592-019-0582-9"
+      }
+    },
+    "1.4.2-r2": {
+      "name": "ilastik",
+      "kind": "tool",
+      "version": "1.4.2",
+      "release": 2,
+      "version_id": "1.4.2-r2",
+      "tag": "v1.4.2-r2",
+      "published_at": "2026-09-07T09:04:06Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/ilastik",
+      "repository_slug": "taffish/ilastik",
+      "command": {
+        "name": "taf-ilastik"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "image-analysis",
+        "categories": [
+          "image-analysis",
+          "machine-learning",
+          "segmentation",
+          "microscopy"
+        ],
+        "keywords": [
+          "ilastik",
+          "bioimage",
+          "pixel-classification",
+          "object-classification",
+          "tracking",
+          "counting",
+          "ome-zarr"
+        ],
+        "summary": "Interactive and headless machine-learning workflows for biological image analysis.",
+        "description": "Interactive and headless machine-learning workflows for biological image analysis."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/ilastik:1.4.2-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.4.2-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:0c3aaf1e15eb69c9a26dd07df5d358ee5128e13e8baf1bc7d3dabc4b384bd28e",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:8c42686f0cf5577b977e14058cc4aa2fc53b78602977919172ed9e030269460a"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "ilastik",
+          "ilastik-gui",
+          "ilastik-models",
+          "ilastik-smoke",
+          "python",
+          "Xvfb",
+          "twm",
+          "x11vnc",
+          "websockify",
+          "xdotool",
+          "curl"
+        ],
+        "test": [
+          "ilastik-smoke identity",
+          "ilastik-smoke modules",
+          "ilastik-smoke runtime-closure",
+          "ilastik-smoke data-conversion",
+          "ilastik-smoke model-contract",
+          "ilastik-smoke model-fixture",
+          "ilastik-smoke model-download",
+          "ilastik-smoke gui-project-term",
+          "ilastik-smoke gui-startup-interrupt",
+          "ilastik-smoke gui-errors",
+          "ilastik-smoke wm-startup-failure",
+          "ilastik-smoke wm-runtime-failure",
+          "ilastik-smoke rfb-contract",
+          "ilastik-smoke vnc-readiness-failure",
+          "ilastik-smoke xvfb-forced-cleanup",
+          "ilastik-smoke gui-log-permissions",
+          "ilastik-smoke gui-early-interrupt"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-07T09:49:39Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-07T09:49:56Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260831.293.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bf27ae99e61886f82d30675bd6447590c63c8f5b",
+            "image_digest": "sha256:0c3aaf1e15eb69c9a26dd07df5d358ee5128e13e8baf1bc7d3dabc4b384bd28e",
+            "smoke_sha256": "3c1f12e79f6814f7f2044b50032f9f9393b879c1864b7331c16dc207a057fd5e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-07T09:49:39Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260831.293.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bf27ae99e61886f82d30675bd6447590c63c8f5b",
+            "image_digest": "sha256:0c3aaf1e15eb69c9a26dd07df5d358ee5128e13e8baf1bc7d3dabc4b384bd28e",
+            "smoke_sha256": "3c1f12e79f6814f7f2044b50032f9f9393b879c1864b7331c16dc207a057fd5e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-07T09:49:47Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20260831.293.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bf27ae99e61886f82d30675bd6447590c63c8f5b",
+            "image_digest": "sha256:0c3aaf1e15eb69c9a26dd07df5d358ee5128e13e8baf1bc7d3dabc4b384bd28e",
+            "smoke_sha256": "3c1f12e79f6814f7f2044b50032f9f9393b879c1864b7331c16dc207a057fd5e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-07T09:46:00Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/ilastik",
+        "ref": "v1.4.2-r2",
+        "commit": "bf27ae99e61886f82d30675bd6447590c63c8f5b",
+        "html_url": "https://github.com/taffish/ilastik/tree/v1.4.2-r2"
       },
       "upstream": {
         "name": "ilastik",
