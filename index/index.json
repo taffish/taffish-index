@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-08T06:00:56Z",
+  "generated_at": "2026-09-08T16:34:52Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 475,
+    "versions": 476,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
@@ -16573,9 +16573,9 @@
     },
     "deeptools": {
       "name": "deeptools",
-      "latest": "3.5.6-r1",
-      "recent_version": "3.5.6-r1",
-      "recent_at": "2026-05-26T06:55:06Z",
+      "latest": "4.0.0-r1",
+      "recent_version": "4.0.0-r1",
+      "recent_at": "2026-09-08T16:24:24Z",
       "repository_url": "https://github.com/taffish/deeptools",
       "command": {
         "name": "taf-deeptools"
@@ -16767,6 +16767,208 @@
             "release_url": "https://github.com/deeptools/deepTools/releases/tag/3.5.6",
             "version": "3.5.6",
             "license": "MIT; deeptools/cm.py is BSD-licensed",
+            "citation": "Ramirez et al. 2016, deepTools2: a next generation web server for deep-sequencing data analysis",
+            "doi": "10.1093/nar/gkw257",
+            "pmid": "27079975"
+          }
+        },
+        "4.0.0-r1": {
+          "name": "deeptools",
+          "kind": "tool",
+          "version": "4.0.0",
+          "release": 1,
+          "version_id": "4.0.0-r1",
+          "tag": "v4.0.0-r1",
+          "published_at": "2026-09-08T16:24:24Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/deeptools",
+          "repository_slug": "taffish/deeptools",
+          "command": {
+            "name": "taf-deeptools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "ngs",
+            "categories": [
+              "ngs",
+              "coverage",
+              "bigwig",
+              "visualization",
+              "quality-control",
+              "epigenomics"
+            ],
+            "keywords": [
+              "deeptools",
+              "bamcoverage",
+              "bamcompare",
+              "bigwig",
+              "computematrix",
+              "plotheatmap",
+              "plotprofile",
+              "chip-seq",
+              "rna-seq"
+            ],
+            "summary": "deepTools 4.0.0 command suite for BAM/bigWig processing, quality control, matrix generation, and sequencing-data visualization.",
+            "description": "deepTools 4.0.0 command suite for BAM/bigWig processing, quality control, matrix generation, and sequencing-data visualization."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/deeptools:4.0.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.0.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:224f972209764fbe2559f7aa391f31a15dce571fc0f1bb290e1caeb64ef6c300",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f7c5902c2eee382304c0881777ec07db7c82036e9b0f4226892971ae2f2c90aa",
+              "linux/arm64": "sha256:47c12d32e539933ec6a7d16413a8f124fa60223c985121acaa9fb892098b54a3"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "deeptools",
+              "bamCoverage",
+              "bamCompare",
+              "bigwigAverage",
+              "bigwigCompare",
+              "multiBamSummary",
+              "multiBigwigSummary",
+              "computeMatrix",
+              "computeMatrixOperations",
+              "plotHeatmap",
+              "plotProfile",
+              "plotCorrelation",
+              "plotPCA",
+              "plotCoverage",
+              "plotFingerprint",
+              "plotEnrichment",
+              "bamPEFragmentSize",
+              "computeGCBias",
+              "correctGCBias",
+              "alignmentSieve",
+              "estimateReadFiltering",
+              "estimateScaleFactor",
+              "bamCoverage_old",
+              "bamCompare_old",
+              "computeMatrix_old",
+              "alignmentSieve_old",
+              "multiBamSummary_old",
+              "deeptools-resources",
+              "deeptools-smoke",
+              "python",
+              "python3",
+              "bash",
+              "sh",
+              "curl"
+            ],
+            "test": [
+              "deeptools-smoke identity",
+              "deeptools-smoke help",
+              "deeptools-smoke core",
+              "deeptools-smoke legacy",
+              "deeptools-smoke plots",
+              "deeptools-smoke gc",
+              "deeptools-smoke resources"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-08T16:38:16Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-08T16:38:37Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "4fc9497f1231978f44cea2f87235ad8e5baeba9e",
+                "image_digest": "sha256:224f972209764fbe2559f7aa391f31a15dce571fc0f1bb290e1caeb64ef6c300",
+                "smoke_sha256": "c7e64dc1653f617e691f05646586227bd63e30c6562566cf91a912981852df7d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-08T16:38:16Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260831.293.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "4fc9497f1231978f44cea2f87235ad8e5baeba9e",
+                "image_digest": "sha256:224f972209764fbe2559f7aa391f31a15dce571fc0f1bb290e1caeb64ef6c300",
+                "smoke_sha256": "c7e64dc1653f617e691f05646586227bd63e30c6562566cf91a912981852df7d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-08T16:38:23Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260831.293.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "4fc9497f1231978f44cea2f87235ad8e5baeba9e",
+                "image_digest": "sha256:224f972209764fbe2559f7aa391f31a15dce571fc0f1bb290e1caeb64ef6c300",
+                "smoke_sha256": "c7e64dc1653f617e691f05646586227bd63e30c6562566cf91a912981852df7d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-08T16:34:52Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/deeptools",
+            "ref": "v4.0.0-r1",
+            "commit": "4fc9497f1231978f44cea2f87235ad8e5baeba9e",
+            "html_url": "https://github.com/taffish/deeptools/tree/v4.0.0-r1"
+          },
+          "upstream": {
+            "name": "deepTools",
+            "type": "github",
+            "homepage": "https://deeptools.readthedocs.io/",
+            "repository": "deeptools/deepTools",
+            "release_url": "https://github.com/deeptools/deepTools/releases/tag/4.0.0",
+            "version": "4.0.0",
+            "license": "MIT",
             "citation": "Ramirez et al. 2016, deepTools2: a next generation web server for deep-sequencing data analysis",
             "doi": "10.1093/nar/gkw257",
             "pmid": "27079975"
@@ -83695,7 +83897,7 @@
     },
     "taf-deeptools": {
       "package": "deeptools",
-      "version": "3.5.6-r1"
+      "version": "4.0.0-r1"
     },
     "taf-deepvariant": {
       "package": "deepvariant",
