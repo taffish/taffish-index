@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-09T06:03:55Z",
+  "generated_at": "2026-09-09T12:40:42Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 476,
+    "versions": 477,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
@@ -33663,9 +33663,9 @@
     },
     "jcvi": {
       "name": "jcvi",
-      "latest": "1.6.6-r1",
-      "recent_version": "1.6.6-r1",
-      "recent_at": "2026-07-16T21:27:54Z",
+      "latest": "1.6.7-r1",
+      "recent_version": "1.6.7-r1",
+      "recent_at": "2026-09-09T11:26:14Z",
       "repository_url": "https://github.com/taffish/jcvi",
       "command": {
         "name": "taf-jcvi"
@@ -33851,6 +33851,198 @@
             "repository": "tanghaibao/jcvi",
             "release_url": "https://github.com/tanghaibao/jcvi/tree/v1.6.6",
             "version": "1.6.6",
+            "license": "BSD-2-Clause",
+            "citation": "Tang et al. 2024, JCVI: A versatile toolkit for comparative genomics analysis",
+            "doi": "10.1002/imt2.211"
+          }
+        },
+        "1.6.7-r1": {
+          "name": "jcvi",
+          "kind": "tool",
+          "version": "1.6.7",
+          "release": 1,
+          "version_id": "1.6.7-r1",
+          "tag": "v1.6.7-r1",
+          "published_at": "2026-09-09T11:26:14Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/jcvi",
+          "repository_slug": "taffish/jcvi",
+          "command": {
+            "name": "taf-jcvi"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "comparative-genomics",
+            "categories": [
+              "comparative-genomics",
+              "genome-assembly",
+              "genome-annotation",
+              "synteny",
+              "bioinformatics-utilities"
+            ],
+            "keywords": [
+              "jcvi",
+              "mcscan",
+              "allmaps",
+              "synteny",
+              "comparative genomics",
+              "genome assembly",
+              "genome annotation",
+              "fasta",
+              "bed",
+              "gff",
+              "genomics graphics"
+            ],
+            "summary": "JCVI 1.6.7 Python toolkit for genome assembly, annotation, comparative genomics, file-format manipulation, synteny analysis, and genomics graphics.",
+            "description": "JCVI 1.6.7 Python toolkit for genome assembly, annotation, comparative genomics, file-format manipulation, synteny analysis, and genomics graphics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/jcvi:1.6.7-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.6.7-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:a1f06423c455554a794b6d0030a14fc731f73d614075c591b8eeac67d7cba574",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:82d972723715fe23a84254c0cfc31baa12f088fe67f40c1fa17f6dbf4e067044",
+              "linux/arm64": "sha256:0a65a0695b2ad4640c57bd4b171db7df1ad96797e77ecd2a9ecaba46e1269845"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "jcvi",
+              "jcvi-resources",
+              "python",
+              "bedtools",
+              "convert",
+              "identify",
+              "dot",
+              "tesseract",
+              "Rscript",
+              "embossversion",
+              "needle",
+              "samtools",
+              "bgzip",
+              "tabix",
+              "lastdb",
+              "lastal",
+              "makeblastdb",
+              "blastn",
+              "bash",
+              "grep",
+              "sed",
+              "ldd"
+            ],
+            "test": [
+              "/opt/jcvi/share/testdata/jcvi-smoke.sh identity",
+              "/opt/jcvi/share/testdata/jcvi-smoke.sh modules",
+              "/opt/jcvi/share/testdata/jcvi-smoke.sh fasta",
+              "/opt/jcvi/share/testdata/jcvi-smoke.sh bedtools",
+              "/opt/jcvi/share/testdata/jcvi-smoke.sh graphics",
+              "/opt/jcvi/share/testdata/jcvi-smoke.sh synteny",
+              "/opt/jcvi/share/testdata/jcvi-smoke.sh helpers",
+              "/opt/jcvi/share/testdata/jcvi-smoke.sh resources",
+              "/opt/jcvi/share/testdata/jcvi-smoke.sh sam"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-09T12:44:56Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-09T12:45:17Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260831.293.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "d6d54b67c9c8755fd7e23769da0c7345093afe39",
+                "image_digest": "sha256:a1f06423c455554a794b6d0030a14fc731f73d614075c591b8eeac67d7cba574",
+                "smoke_sha256": "e413d8105a8f2abf1d3309d56bdf19f853451ec87d60fa8117cd09e3d812f8fc",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-09T12:44:56Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "d6d54b67c9c8755fd7e23769da0c7345093afe39",
+                "image_digest": "sha256:a1f06423c455554a794b6d0030a14fc731f73d614075c591b8eeac67d7cba574",
+                "smoke_sha256": "e413d8105a8f2abf1d3309d56bdf19f853451ec87d60fa8117cd09e3d812f8fc",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-09T12:44:53Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260831.293.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "d6d54b67c9c8755fd7e23769da0c7345093afe39",
+                "image_digest": "sha256:a1f06423c455554a794b6d0030a14fc731f73d614075c591b8eeac67d7cba574",
+                "smoke_sha256": "e413d8105a8f2abf1d3309d56bdf19f853451ec87d60fa8117cd09e3d812f8fc",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-09T12:40:42Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/jcvi",
+            "ref": "v1.6.7-r1",
+            "commit": "d6d54b67c9c8755fd7e23769da0c7345093afe39",
+            "html_url": "https://github.com/taffish/jcvi/tree/v1.6.7-r1"
+          },
+          "upstream": {
+            "name": "JCVI",
+            "type": "github",
+            "homepage": "https://github.com/tanghaibao/jcvi",
+            "repository": "tanghaibao/jcvi",
+            "release_url": "https://github.com/tanghaibao/jcvi/tree/v1.6.7",
+            "version": "1.6.7",
             "license": "BSD-2-Clause",
             "citation": "Tang et al. 2024, JCVI: A versatile toolkit for comparative genomics analysis",
             "doi": "10.1002/imt2.211"
@@ -84093,7 +84285,7 @@
     },
     "taf-jcvi": {
       "package": "jcvi",
-      "version": "1.6.6-r1"
+      "version": "1.6.7-r1"
     },
     "taf-jellyfish": {
       "package": "jellyfish",
