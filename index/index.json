@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-10T06:03:22Z",
+  "generated_at": "2026-09-10T17:00:01Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 478,
+    "versions": 479,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
@@ -45954,9 +45954,9 @@
     },
     "nanoplot": {
       "name": "nanoplot",
-      "latest": "1.47.4-r1",
-      "recent_version": "1.47.4-r1",
-      "recent_at": "2026-09-01T18:08:39Z",
+      "latest": "1.48.0-r1",
+      "recent_version": "1.48.0-r1",
+      "recent_at": "2026-09-10T16:55:25Z",
       "repository_url": "https://github.com/taffish/nanoplot",
       "command": {
         "name": "taf-nanoplot"
@@ -46472,6 +46472,184 @@
             "repository": "wdecoster/NanoPlot",
             "release_url": "https://github.com/wdecoster/NanoPlot/releases/tag/v1.47.4",
             "version": "1.47.4",
+            "license": "MIT",
+            "citation": "De Coster W, Rademakers R. NanoPack2: population-scale evaluation of long-read sequencing data. Bioinformatics. 2023;39(5):btad311.",
+            "doi": "10.1093/bioinformatics/btad311"
+          }
+        },
+        "1.48.0-r1": {
+          "name": "nanoplot",
+          "kind": "tool",
+          "version": "1.48.0",
+          "release": 1,
+          "version_id": "1.48.0-r1",
+          "tag": "v1.48.0-r1",
+          "published_at": "2026-09-10T16:55:25Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/nanoplot",
+          "repository_slug": "taffish/nanoplot",
+          "command": {
+            "name": "taf-nanoplot"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "nanopore",
+            "categories": [
+              "nanopore",
+              "long-read",
+              "quality-control",
+              "visualization"
+            ],
+            "keywords": [
+              "nanoplot",
+              "nanopore",
+              "long-read",
+              "fastq",
+              "bam",
+              "cram",
+              "sequencing-summary",
+              "quality-control",
+              "plots"
+            ],
+            "summary": "Plotting and summary reports for Oxford Nanopore and other long-read sequencing data.",
+            "description": "Plotting and summary reports for Oxford Nanopore and other long-read sequencing data."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/nanoplot:1.48.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.48.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:768138edf8dbdffbbae832f80317b7c28036d3768fc5328764e6350f67b31279",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:feac6c7e4d588327f3aeeb12d294b6adf0640e5a38bfdda53898b4bcec9ccbd9",
+              "linux/arm64": "sha256:17f1dd937a1ea6129be05f24e142af26d87dd03e8919bd011a8e93dde35e229f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "NanoPlot",
+              "python",
+              "python3",
+              "chromium",
+              "gzip",
+              "grep",
+              "sed",
+              "tr",
+              "tail",
+              "mktemp",
+              "find"
+            ],
+            "test": [
+              "NanoPlot --version 2>&1 | grep -Fx 'NanoPlot 1.48.0' >/dev/null",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh help",
+              "python -c 'import importlib.metadata as md; import nanoplot, nanoget, pysam, pandas, numpy, scipy, pyarrow, plotly, kaleido, PIL, matplotlib, seaborn; assert md.version(\"nanoplot\") == \"1.48.0\"; assert md.version(\"nanoget\") == \"1.19.6\"; assert md.version(\"plotly\").startswith(\"6.\"); print(nanoplot.__version__)' | grep -Fx '1.48.0' >/dev/null",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh fastq",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh kde",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh bam",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh barcoded-summary",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh image",
+              "/opt/nanoplot/share/testdata/nanoplot-smoke.sh javascript"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-10T17:03:52Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-10T17:04:39Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "519ea1065800a28d03d5a1f15a026d747e95bd05",
+                "image_digest": "sha256:768138edf8dbdffbbae832f80317b7c28036d3768fc5328764e6350f67b31279",
+                "smoke_sha256": "0e9308deeddd981192545b164db82e29ca220b837bf59f970960d27028e9178a",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-10T17:03:52Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "519ea1065800a28d03d5a1f15a026d747e95bd05",
+                "image_digest": "sha256:768138edf8dbdffbbae832f80317b7c28036d3768fc5328764e6350f67b31279",
+                "smoke_sha256": "0e9308deeddd981192545b164db82e29ca220b837bf59f970960d27028e9178a",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-10T17:03:48Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "519ea1065800a28d03d5a1f15a026d747e95bd05",
+                "image_digest": "sha256:768138edf8dbdffbbae832f80317b7c28036d3768fc5328764e6350f67b31279",
+                "smoke_sha256": "0e9308deeddd981192545b164db82e29ca220b837bf59f970960d27028e9178a",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-10T17:00:01Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/nanoplot",
+            "ref": "v1.48.0-r1",
+            "commit": "519ea1065800a28d03d5a1f15a026d747e95bd05",
+            "html_url": "https://github.com/taffish/nanoplot/tree/v1.48.0-r1"
+          },
+          "upstream": {
+            "name": "NanoPlot",
+            "type": "github",
+            "homepage": "https://github.com/wdecoster/NanoPlot",
+            "repository": "wdecoster/NanoPlot",
+            "release_url": "https://github.com/wdecoster/NanoPlot/releases/tag/v1.48.0",
+            "version": "1.48.0",
             "license": "MIT",
             "citation": "De Coster W, Rademakers R. NanoPack2: population-scale evaluation of long-read sequencing data. Bioinformatics. 2023;39(5):btad311.",
             "doi": "10.1093/bioinformatics/btad311"
@@ -84608,7 +84786,7 @@
     },
     "taf-nanoplot": {
       "package": "nanoplot",
-      "version": "1.47.4-r1"
+      "version": "1.48.0-r1"
     },
     "taf-ncbi-datasets": {
       "package": "ncbi-datasets",
