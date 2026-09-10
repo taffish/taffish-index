@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-09-09T12:40:42Z",
+  "generated_at": "2026-09-10T02:51:48Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -18304,6 +18304,66 @@
       "message": null
     },
     {
+      "task_id": "taffish/rdkit|2026.03.6-r1",
+      "plan_id": "64238d7821a6bb3a9fa5ac149d30c6fece4354bcbd7ee14ba2397b7f9bc57642",
+      "manifest_id": "93ca6bb8a662febddd8aaaa6633782851b47ab4c50f4591cbd73d24a4759e3bb",
+      "backend": "apptainer",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-09-10T02:55:19Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.3",
+      "runner_image": "ubuntu24/20260831.293.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "d63b41cff012a19fd600034e74f80f07501e3be3",
+      "image_digest": "sha256:57cd6e6272649642946abbec0ab89e19c2ab413afda1422f34d3e6808447b455",
+      "smoke_sha256": "581f22618bf4db28da0b92ef67fa7584d0974ec3095aaea70309d91df4520c79",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/rdkit|2026.03.6-r1",
+      "plan_id": "64238d7821a6bb3a9fa5ac149d30c6fece4354bcbd7ee14ba2397b7f9bc57642",
+      "manifest_id": "93ca6bb8a662febddd8aaaa6633782851b47ab4c50f4591cbd73d24a4759e3bb",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-09-10T02:55:05Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20260831.293.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "d63b41cff012a19fd600034e74f80f07501e3be3",
+      "image_digest": "sha256:57cd6e6272649642946abbec0ab89e19c2ab413afda1422f34d3e6808447b455",
+      "smoke_sha256": "581f22618bf4db28da0b92ef67fa7584d0974ec3095aaea70309d91df4520c79",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/rdkit|2026.03.6-r1",
+      "plan_id": "64238d7821a6bb3a9fa5ac149d30c6fece4354bcbd7ee14ba2397b7f9bc57642",
+      "manifest_id": "93ca6bb8a662febddd8aaaa6633782851b47ab4c50f4591cbd73d24a4759e3bb",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-09-10T02:55:17Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 4.9.3",
+      "runner_image": "ubuntu24/20260907.300.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "d63b41cff012a19fd600034e74f80f07501e3be3",
+      "image_digest": "sha256:57cd6e6272649642946abbec0ab89e19c2ab413afda1422f34d3e6808447b455",
+      "smoke_sha256": "581f22618bf4db28da0b92ef67fa7584d0974ec3095aaea70309d91df4520c79",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
       "task_id": "taffish/regenie|4.1.2-r2",
       "plan_id": "ecc996c7f6d97c166f7886309c3f12b3825b65cec6a70e67d09e132f901aadfe",
       "manifest_id": "0bc52c64508a8cb28acde94e903dedd4b5ad00cf037477c6195859f9c7e28339",
@@ -27880,6 +27940,13 @@
       "source_commit": "472e8100951e5b1fc7b530e7224e5922b4c65dc9",
       "image": "ghcr.io/taffish/rdkit:2026.03.5-r1",
       "image_digest": "sha256:808d7f86ee58a89aafbea77a7349ff675c14c61769dda907da0da757e5ea75bd"
+    },
+    {
+      "task_id": "taffish/rdkit|2026.03.6-r1",
+      "source_ref": "v2026.03.6-r1",
+      "source_commit": "d63b41cff012a19fd600034e74f80f07501e3be3",
+      "image": "ghcr.io/taffish/rdkit:2026.03.6-r1",
+      "image_digest": "sha256:57cd6e6272649642946abbec0ab89e19c2ab413afda1422f34d3e6808447b455"
     },
     {
       "task_id": "taffish/regenie|4.1.2-r2",

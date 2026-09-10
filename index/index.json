@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-09T12:40:42Z",
+  "generated_at": "2026-09-10T02:51:48Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 477,
+    "versions": 478,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
@@ -57225,9 +57225,9 @@
     },
     "rdkit": {
       "name": "rdkit",
-      "latest": "2026.03.5-r1",
-      "recent_version": "2026.03.5-r1",
-      "recent_at": "2026-08-02T16:07:08Z",
+      "latest": "2026.03.6-r1",
+      "recent_version": "2026.03.6-r1",
+      "recent_at": "2026-09-10T02:39:33Z",
       "repository_url": "https://github.com/taffish/rdkit",
       "command": {
         "name": "taf-rdkit"
@@ -57554,6 +57554,169 @@
             "repository": "rdkit/rdkit",
             "release_url": "https://github.com/rdkit/rdkit/releases/tag/Release_2026_03_5",
             "version": "2026.03.5",
+            "license": "BSD-3-Clause",
+            "citation": "RDKit: Open-source cheminformatics. https://www.rdkit.org",
+            "doi": "10.5281/zenodo.591637"
+          }
+        },
+        "2026.03.6-r1": {
+          "name": "rdkit",
+          "kind": "tool",
+          "version": "2026.03.6",
+          "release": 1,
+          "version_id": "2026.03.6-r1",
+          "tag": "v2026.03.6-r1",
+          "published_at": "2026-09-10T02:39:33Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rdkit",
+          "repository_slug": "taffish/rdkit",
+          "command": {
+            "name": "taf-rdkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "cheminformatics",
+            "categories": [
+              "cheminformatics",
+              "molecular-informatics",
+              "molecular-descriptors",
+              "machine-learning"
+            ],
+            "keywords": [
+              "rdkit",
+              "smiles",
+              "sdf",
+              "molecular fingerprints",
+              "molecular descriptors",
+              "substructure search",
+              "cheminformatics",
+              "molecule drawing"
+            ],
+            "summary": "RDKit 2026.03.6 Python cheminformatics runtime with native amd64/arm64 builds, core shared libraries, runtime data, upstream Contrib files, and scientific Python dependencies.",
+            "description": "RDKit 2026.03.6 Python cheminformatics runtime with native amd64/arm64 builds, core shared libraries, runtime data, upstream Contrib files, and scientific Python dependencies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rdkit:2026.03.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2026.03.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:57cd6e6272649642946abbec0ab89e19c2ab413afda1422f34d3e6808447b455",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:5566cabbe1245979ba1ce0f2f69fb416f5f193e947434d89ec9836fd3031dc4e",
+              "linux/arm64": "sha256:26f011907047bc95b08fd209ca58db8930a68ab0ca25be436dab26c3d958824d"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "python",
+              "python3",
+              "rdkit-runtime-info"
+            ],
+            "test": [
+              "rdkit-runtime-info --json | grep -F '\"rdkit\": \"2026.03.6\"' >/dev/null && rdkit-runtime-info --json | grep -F '\"np-score\": \"available\"' >/dev/null && python -c 'import rdkit; from rdkit import Avalon, Chem, DataManip, Dbase, DistanceGeometry, ForceField, Geometry, ML, Numerics, SimDivFilters, VLib; from rdkit.Chem import AllChem, Draw, PandasTools, inchi, rdCoordGen, rdFreeSASA, rdMolDescriptors, rdSynthonSpaceSearch; assert rdkit.__version__ == \"2026.03.6\"; print(rdkit.__version__)' | grep -Fx '2026.03.6' >/dev/null",
+              "python --help 2>&1 | grep -F 'usage: python' >/dev/null && python -m rdkit.Chem.ChemUtils.SDFToCSV --help 2>&1 | grep -F 'Convert SDF file to CSV' >/dev/null && rdkit-runtime-info --help 2>&1 | grep -F 'runtime versions' >/dev/null",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-rdkit-smoke.XXXXXX); trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; python /opt/rdkit/share/testdata/rdkit-smoke.py \"$tmp/results\"; test -s \"$tmp/results/molecules.sdf\"; test -s \"$tmp/results/molecule.svg\"; test -s \"$tmp/results/molecule.png\"; test -s \"$tmp/results/molecule.pdf\"; test -s \"$tmp/results/tiny-space.spc\"; grep -F 'rdkit_version' \"$tmp/results/summary.tsv\" | grep -F '2026.03.6' >/dev/null; python -m rdkit.Chem.ChemUtils.SDFToCSV \"$tmp/results/molecules.sdf\" \"$tmp/results/molecules.csv\"; test -s \"$tmp/results/molecules.csv\"; grep -F 'SMILES' \"$tmp/results/molecules.csv\" >/dev/null; grep -F 'aspirin' \"$tmp/results/molecules.csv\" >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-10T02:55:05Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-10T02:55:19Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260831.293.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "d63b41cff012a19fd600034e74f80f07501e3be3",
+                "image_digest": "sha256:57cd6e6272649642946abbec0ab89e19c2ab413afda1422f34d3e6808447b455",
+                "smoke_sha256": "581f22618bf4db28da0b92ef67fa7584d0974ec3095aaea70309d91df4520c79",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-10T02:55:05Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260831.293.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "d63b41cff012a19fd600034e74f80f07501e3be3",
+                "image_digest": "sha256:57cd6e6272649642946abbec0ab89e19c2ab413afda1422f34d3e6808447b455",
+                "smoke_sha256": "581f22618bf4db28da0b92ef67fa7584d0974ec3095aaea70309d91df4520c79",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-10T02:55:17Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "d63b41cff012a19fd600034e74f80f07501e3be3",
+                "image_digest": "sha256:57cd6e6272649642946abbec0ab89e19c2ab413afda1422f34d3e6808447b455",
+                "smoke_sha256": "581f22618bf4db28da0b92ef67fa7584d0974ec3095aaea70309d91df4520c79",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-10T02:51:48Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rdkit",
+            "ref": "v2026.03.6-r1",
+            "commit": "d63b41cff012a19fd600034e74f80f07501e3be3",
+            "html_url": "https://github.com/taffish/rdkit/tree/v2026.03.6-r1"
+          },
+          "upstream": {
+            "name": "RDKit",
+            "type": "github",
+            "homepage": "https://www.rdkit.org/",
+            "repository": "rdkit/rdkit",
+            "release_url": "https://github.com/rdkit/rdkit/releases/tag/Release_2026_03_6",
+            "version": "2026.03.6",
             "license": "BSD-3-Clause",
             "citation": "RDKit: Open-source cheminformatics. https://www.rdkit.org",
             "doi": "10.5281/zenodo.591637"
@@ -84605,7 +84768,7 @@
     },
     "taf-rdkit": {
       "package": "rdkit",
-      "version": "2026.03.5-r1"
+      "version": "2026.03.6-r1"
     },
     "taf-regenie": {
       "package": "regenie",
