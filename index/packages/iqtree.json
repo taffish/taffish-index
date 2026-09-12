@@ -1,8 +1,8 @@
 {
   "name": "iqtree",
-  "latest": "3.1.3-r1",
-  "recent_version": "3.1.3-r1",
-  "recent_at": "2026-06-20T03:27:05Z",
+  "latest": "3.1.4-r1",
+  "recent_version": "3.1.4-r1",
+  "recent_at": "2026-09-12T17:44:11Z",
   "repository_url": "https://github.com/taffish/iqtree",
   "command": {
     "name": "taf-iqtree"
@@ -350,6 +350,186 @@
         "license": "GPL-2.0-only",
         "citation": "Wong et al. 2025, IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models",
         "doi": "10.32942/X2P62N"
+      }
+    },
+    "3.1.4-r1": {
+      "name": "iqtree",
+      "kind": "tool",
+      "version": "3.1.4",
+      "release": 1,
+      "version_id": "3.1.4-r1",
+      "tag": "v3.1.4-r1",
+      "published_at": "2026-09-12T17:44:11Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/iqtree",
+      "repository_slug": "taffish/iqtree",
+      "command": {
+        "name": "taf-iqtree"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "phylogenetics",
+        "categories": [
+          "phylogenetics",
+          "molecular-evolution",
+          "model-selection",
+          "tree-inference",
+          "sequence-analysis"
+        ],
+        "keywords": [
+          "iq-tree",
+          "iqtree3",
+          "maximum likelihood",
+          "phylogenomics",
+          "modelfinder",
+          "ultrafast bootstrap",
+          "sh-alrt",
+          "alisim",
+          "cmaple",
+          "concordance factor"
+        ],
+        "summary": "IQ-TREE 3.1.4 phylogenomic maximum-likelihood inference suite.",
+        "description": "IQ-TREE 3.1.4 phylogenomic maximum-likelihood inference suite."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/iqtree:3.1.4-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.1.4-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:5b536dcb39e05cf01ae4130a1e13b04c902ca8b6e020f7f3457bc1a5271b9bfe",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:7eb008f911512874331ef97a26cc5415b88dd5178572af62d438e6bf6686233f",
+          "linux/arm64": "sha256:cb96b36a38d3e100c4c51204d53bce42342c2cab153a085879cdef86ca5ed9be"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "iqtree3",
+          "iqtree",
+          "iqtree-smoke",
+          "bash",
+          "sh",
+          "grep",
+          "sed",
+          "awk",
+          "gzip",
+          "tar",
+          "mktemp",
+          "tail",
+          "sha256sum"
+        ],
+        "test": [
+          "iqtree-smoke identity",
+          "iqtree-smoke interfaces",
+          "iqtree-smoke ml",
+          "iqtree-smoke modelfinder",
+          "iqtree-smoke alisim",
+          "iqtree-smoke model-file",
+          "iqtree-smoke failures"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-12T17:49:37Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-12T17:50:09Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.3",
+            "runner_image": "ubuntu24/20260907.300.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "afd588be9f9fdef4744306d3bbb85171403ee171",
+            "image_digest": "sha256:5b536dcb39e05cf01ae4130a1e13b04c902ca8b6e020f7f3457bc1a5271b9bfe",
+            "smoke_sha256": "4fb9c682938074810211bde88ea9c12da3be6c28ca6c3436f14408a9bd518f80",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-12T17:49:37Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260907.300.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "afd588be9f9fdef4744306d3bbb85171403ee171",
+            "image_digest": "sha256:5b536dcb39e05cf01ae4130a1e13b04c902ca8b6e020f7f3457bc1a5271b9bfe",
+            "smoke_sha256": "4fb9c682938074810211bde88ea9c12da3be6c28ca6c3436f14408a9bd518f80",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-12T17:49:43Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20260907.300.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "afd588be9f9fdef4744306d3bbb85171403ee171",
+            "image_digest": "sha256:5b536dcb39e05cf01ae4130a1e13b04c902ca8b6e020f7f3457bc1a5271b9bfe",
+            "smoke_sha256": "4fb9c682938074810211bde88ea9c12da3be6c28ca6c3436f14408a9bd518f80",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-12T17:45:54Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/iqtree",
+        "ref": "v3.1.4-r1",
+        "commit": "afd588be9f9fdef4744306d3bbb85171403ee171",
+        "html_url": "https://github.com/taffish/iqtree/tree/v3.1.4-r1"
+      },
+      "upstream": {
+        "name": "IQ-TREE",
+        "type": "github",
+        "homepage": "https://iqtree.github.io/",
+        "repository": "iqtree/iqtree3",
+        "release_url": "https://github.com/iqtree/iqtree3/releases/tag/v3.1.4",
+        "version": "3.1.4",
+        "license": "GPL-2.0-only; bundled components retain their own notices",
+        "citation": "Wong et al. 2026, IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models",
+        "doi": "10.1093/molbev/msag117"
       }
     }
   }
