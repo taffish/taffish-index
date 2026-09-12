@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-11T06:05:42Z",
+  "generated_at": "2026-09-12T03:37:16Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 479,
+    "versions": 482,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
@@ -22203,9 +22203,9 @@
     },
     "fastp": {
       "name": "fastp",
-      "latest": "1.3.6-r1",
-      "recent_version": "1.3.6-r1",
-      "recent_at": "2026-06-30T07:32:14Z",
+      "latest": "1.3.7-r1",
+      "recent_version": "1.3.7-r1",
+      "recent_at": "2026-09-12T03:28:14Z",
       "repository_url": "https://github.com/taffish/fastp",
       "command": {
         "name": "taf-fastp"
@@ -23086,6 +23086,190 @@
             "repository": "OpenGene/fastp",
             "release_url": "https://github.com/OpenGene/fastp/releases/tag/v1.3.6",
             "version": "1.3.6",
+            "license": "MIT",
+            "citation": "Chen 2025; Chen 2023; Chen et al. 2018",
+            "doi": "10.1002/imt2.70078; 10.1002/imt2.107; 10.1093/bioinformatics/bty560",
+            "pmid": "41112039; 30423086"
+          }
+        },
+        "1.3.7-r1": {
+          "name": "fastp",
+          "kind": "tool",
+          "version": "1.3.7",
+          "release": 1,
+          "version_id": "1.3.7-r1",
+          "tag": "v1.3.7-r1",
+          "published_at": "2026-09-12T03:28:14Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/fastp",
+          "repository_slug": "taffish/fastp",
+          "command": {
+            "name": "taf-fastp"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "quality-control",
+              "preprocessing",
+              "trimming",
+              "sequencing"
+            ],
+            "keywords": [
+              "fastp",
+              "fastq",
+              "qc",
+              "quality-control",
+              "adapter-trimming",
+              "filtering",
+              "umi",
+              "deduplication",
+              "html-report",
+              "json-report",
+              "illumina",
+              "mgi",
+              "paired-end"
+            ],
+            "summary": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports.",
+            "description": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/fastp:1.3.7-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.3.7-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:ce7537bfd8e1aedac14fd3c913409cc837bde8467514fcd2e49c47f4c746a5ba",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:6a94e2e6c28349d1ea7f2dbc048a824342fad6b77d1066e98e2f4f42a3f0c95f",
+              "linux/arm64": "sha256:d85fdd7f1d86a17ab69eb99760777066e6cfd9d1db221c53a8624f6408f7a56a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "fastp",
+              "parallel.py",
+              "python",
+              "python3",
+              "fastp-report-offline"
+            ],
+            "test": [
+              "fastp --version | grep -Fx 'fastp 1.3.7' >/dev/null",
+              "fastp --help 2>&1 | grep -F 'usage:' >/dev/null",
+              "parallel.py -h 2>&1 | grep -F 'A python script to use fastp' >/dev/null",
+              "ldd $(command -v fastp) | grep -F 'libisal' >/dev/null",
+              "fastp-report-offline --help | grep -F 'self-contained offline fastp' >/dev/null",
+              "python3 /usr/local/share/fastp/fastp-smoke.py se",
+              "python3 /usr/local/share/fastp/fastp-smoke.py thread-cap",
+              "python3 /usr/local/share/fastp/fastp-smoke.py stdin",
+              "python3 /usr/local/share/fastp/fastp-smoke.py paired",
+              "python3 /usr/local/share/fastp/fastp-smoke.py bgzf",
+              "python3 /usr/local/share/fastp/fastp-smoke.py fifo",
+              "python3 /usr/local/share/fastp/fastp-smoke.py batch",
+              "python3 /usr/local/share/fastp/fastp-smoke.py offline-report",
+              "python3 /usr/local/share/fastp/fastp-smoke.py negative",
+              "python3 /usr/local/share/fastp/fastp-smoke.py licenses"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-12T03:40:30Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-12T03:40:43Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0f4198bfbd61fb5fb44aa83ad70b55652f820b56",
+                "image_digest": "sha256:ce7537bfd8e1aedac14fd3c913409cc837bde8467514fcd2e49c47f4c746a5ba",
+                "smoke_sha256": "611cea5113a9e90e9a20adb4d30b3a3f0ec2b6f9643b6478a6fd932304955505",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-12T03:40:30Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0f4198bfbd61fb5fb44aa83ad70b55652f820b56",
+                "image_digest": "sha256:ce7537bfd8e1aedac14fd3c913409cc837bde8467514fcd2e49c47f4c746a5ba",
+                "smoke_sha256": "611cea5113a9e90e9a20adb4d30b3a3f0ec2b6f9643b6478a6fd932304955505",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-12T03:40:30Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0f4198bfbd61fb5fb44aa83ad70b55652f820b56",
+                "image_digest": "sha256:ce7537bfd8e1aedac14fd3c913409cc837bde8467514fcd2e49c47f4c746a5ba",
+                "smoke_sha256": "611cea5113a9e90e9a20adb4d30b3a3f0ec2b6f9643b6478a6fd932304955505",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-12T03:37:16Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/fastp",
+            "ref": "v1.3.7-r1",
+            "commit": "0f4198bfbd61fb5fb44aa83ad70b55652f820b56",
+            "html_url": "https://github.com/taffish/fastp/tree/v1.3.7-r1"
+          },
+          "upstream": {
+            "name": "fastp",
+            "type": "github",
+            "homepage": "https://github.com/OpenGene/fastp",
+            "repository": "OpenGene/fastp",
+            "release_url": "https://github.com/OpenGene/fastp/releases/tag/v1.3.7",
+            "version": "1.3.7",
             "license": "MIT",
             "citation": "Chen 2025; Chen 2023; Chen et al. 2018",
             "doi": "10.1002/imt2.70078; 10.1002/imt2.107; 10.1093/bioinformatics/bty560",
@@ -57904,9 +58088,9 @@
     },
     "regenie": {
       "name": "regenie",
-      "latest": "4.1.2-r2",
-      "recent_version": "4.1.2-r2",
-      "recent_at": "2026-08-20T17:09:47Z",
+      "latest": "4.1.3-r1",
+      "recent_version": "4.1.3-r1",
+      "recent_at": "2026-09-12T03:28:03Z",
       "repository_url": "https://github.com/taffish/regenie",
       "command": {
         "name": "taf-regenie"
@@ -58085,6 +58269,190 @@
             "repository": "rgcgithub/regenie",
             "release_url": "https://github.com/rgcgithub/regenie/tree/v4.1.2",
             "version": "4.1.2",
+            "license": "MIT",
+            "citation": "Mbatchou J, Barnard L, Backman J, et al. Computationally efficient whole-genome regression for quantitative and binary traits. Nature Genetics. 2021;53:1097-1103.",
+            "doi": "10.1038/s41588-021-00870-7",
+            "pmid": "34017140"
+          }
+        },
+        "4.1.3-r1": {
+          "name": "regenie",
+          "kind": "tool",
+          "version": "4.1.3",
+          "release": 1,
+          "version_id": "4.1.3-r1",
+          "tag": "v4.1.3-r1",
+          "published_at": "2026-09-12T03:28:03Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/regenie",
+          "repository_slug": "taffish/regenie",
+          "command": {
+            "name": "taf-regenie"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "gwas",
+              "association-testing",
+              "population-genetics"
+            ],
+            "keywords": [
+              "regenie",
+              "gwas",
+              "whole-genome regression",
+              "association testing",
+              "firth",
+              "spa",
+              "skat",
+              "bgen",
+              "pgen",
+              "plink",
+              "survival analysis",
+              "gene-based testing",
+              "remeta"
+            ],
+            "summary": "REGENIE v4.1.3 command-line runtime for scalable whole-genome regression and single-variant, gene-based, interaction, conditional, survival, and multi-trait association analyses.",
+            "description": "REGENIE v4.1.3 command-line runtime for scalable whole-genome regression and single-variant, gene-based, interaction, conditional, survival, and multi-trait association analyses."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/regenie:4.1.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.1.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:17adfa3b1947469ccc6e759d3d933e5172f820e984e67af9067661256472221f",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:5250aec244b97c5184b37aeaeeea38fc6e267ba21afacdd35f24443dcec6e7f7",
+              "linux/arm64": "sha256:fe93f66a8386aa84d9de8006f607959698970c988f19a7ef56d9aff385836cf3"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "regenie",
+              "regenie-smoke",
+              "sh",
+              "awk",
+              "grep",
+              "gzip",
+              "ldd",
+              "sha256sum",
+              "mktemp",
+              "tail",
+              "wc",
+              "tr",
+              "rm"
+            ],
+            "test": [
+              "regenie-smoke identity",
+              "regenie-smoke interfaces",
+              "regenie-smoke step1-gzip",
+              "regenie-smoke step2-bgen",
+              "regenie-smoke pgen",
+              "regenie-smoke interaction",
+              "regenie-smoke gene-remeta",
+              "regenie-smoke correlation"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-12T03:40:30Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-12T03:40:43Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8a4a569a2a4a9a89d32ac6132138601684c342ef",
+                "image_digest": "sha256:17adfa3b1947469ccc6e759d3d933e5172f820e984e67af9067661256472221f",
+                "smoke_sha256": "ef8c3945b874918bf3dceb4fb62e6f8910fc688bd940a0eccd220ed5df6624da",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-12T03:40:30Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8a4a569a2a4a9a89d32ac6132138601684c342ef",
+                "image_digest": "sha256:17adfa3b1947469ccc6e759d3d933e5172f820e984e67af9067661256472221f",
+                "smoke_sha256": "ef8c3945b874918bf3dceb4fb62e6f8910fc688bd940a0eccd220ed5df6624da",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-12T03:40:30Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8a4a569a2a4a9a89d32ac6132138601684c342ef",
+                "image_digest": "sha256:17adfa3b1947469ccc6e759d3d933e5172f820e984e67af9067661256472221f",
+                "smoke_sha256": "ef8c3945b874918bf3dceb4fb62e6f8910fc688bd940a0eccd220ed5df6624da",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-12T03:37:16Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/regenie",
+            "ref": "v4.1.3-r1",
+            "commit": "8a4a569a2a4a9a89d32ac6132138601684c342ef",
+            "html_url": "https://github.com/taffish/regenie/tree/v4.1.3-r1"
+          },
+          "upstream": {
+            "name": "REGENIE",
+            "type": "github",
+            "homepage": "https://rgcgithub.github.io/regenie/",
+            "repository": "rgcgithub/regenie",
+            "release_url": "https://github.com/rgcgithub/regenie/tree/v4.1.3",
+            "version": "4.1.3",
             "license": "MIT",
             "citation": "Mbatchou J, Barnard L, Backman J, et al. Computationally efficient whole-genome regression for quantitative and binary traits. Nature Genetics. 2021;53:1097-1103.",
             "doi": "10.1038/s41588-021-00870-7",
@@ -72334,9 +72702,9 @@
     },
     "somalier": {
       "name": "somalier",
-      "latest": "0.3.4-r1",
-      "recent_version": "0.3.4-r1",
-      "recent_at": "2026-09-07T16:34:44Z",
+      "latest": "0.3.5-r1",
+      "recent_version": "0.3.5-r1",
+      "recent_at": "2026-09-12T03:28:09Z",
       "repository_url": "https://github.com/taffish/somalier",
       "command": {
         "name": "taf-somalier"
@@ -72704,6 +73072,195 @@
             "repository": "brentp/somalier",
             "release_url": "https://github.com/brentp/somalier/releases/tag/v0.3.4",
             "version": "0.3.4",
+            "license": "MIT",
+            "citation": "Pedersen BS, Bhetariya PJ, Brown J, et al. Somalier: rapid relatedness estimation for cancer and germline studies using efficient genome sketches. Genome Medicine. 2020;12:62.",
+            "doi": "10.1186/s13073-020-00761-2"
+          }
+        },
+        "0.3.5-r1": {
+          "name": "somalier",
+          "kind": "tool",
+          "version": "0.3.5",
+          "release": 1,
+          "version_id": "0.3.5-r1",
+          "tag": "v0.3.5-r1",
+          "published_at": "2026-09-12T03:28:09Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/somalier",
+          "repository_slug": "taffish/somalier",
+          "command": {
+            "name": "taf-somalier"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "quality-control",
+            "categories": [
+              "quality-control",
+              "sample-identity",
+              "relatedness",
+              "population-genetics"
+            ],
+            "keywords": [
+              "somalier",
+              "sample swap",
+              "sample identity",
+              "relatedness",
+              "pedigree",
+              "ancestry",
+              "contamination",
+              "bam",
+              "cram",
+              "vcf",
+              "gvcf"
+            ],
+            "summary": "Somalier 0.3.5 runtime for extracting compact genome sketches and checking sample identity, relatedness, ancestry, and contamination.",
+            "description": "Somalier 0.3.5 runtime for extracting compact genome sketches and checking sample identity, relatedness, ancestry, and contamination."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/somalier:0.3.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.3.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:dc3c90095915b99aa5908b069388ede7384504076353b139cc624df4e110c617",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7218aa5e32f0cf530da9e73b05406ac707480f9bee5541a5f33632534ca57092",
+              "linux/arm64": "sha256:7667c6fa3eb6348405091da31d4e435fa6faa81a789d9420e4c2dd5622b876ee"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "somalier",
+              "somalier-resources",
+              "python3",
+              "curl",
+              "sh",
+              "awk",
+              "grep",
+              "gzip",
+              "ldd",
+              "mktemp",
+              "sed",
+              "cmp",
+              "sha256sum",
+              "tail"
+            ],
+            "test": [
+              "grep -F 'source_sha256=506f540589495cdc933b5c9e014f01b16261a567e003bcce60afbcf8de4519a8' /opt/somalier/share/doc/somalier/source.txt >/dev/null && grep -F 'upstream_commit=3a89a8f4f3ba90b06ee9cf43460ae98e02c6f30c' /opt/somalier/share/doc/somalier/source.txt >/dev/null",
+              "/opt/somalier/share/testdata/somalier-smoke.sh identity",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-vcf",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-bam",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-cram",
+              "/opt/somalier/share/testdata/somalier-smoke.sh relate",
+              "/opt/somalier/share/testdata/somalier-smoke.sh ab-plot",
+              "/opt/somalier/share/testdata/somalier-smoke.sh contamination",
+              "/opt/somalier/share/testdata/somalier-smoke.sh find-sites",
+              "/opt/somalier/share/testdata/somalier-smoke.sh pedrel",
+              "/opt/somalier/share/testdata/somalier-smoke.sh ancestry",
+              "/opt/somalier/share/testdata/somalier-smoke.sh cigar-boundary",
+              "/opt/somalier/share/testdata/somalier-smoke.sh resources",
+              "/opt/somalier/share/testdata/somalier-smoke.sh reference-error",
+              "/opt/somalier/share/testdata/somalier-smoke.sh reference-counts"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-12T03:40:30Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-12T03:40:43Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8d29bb377b6f6bb5c29661706e39902d5ec03783",
+                "image_digest": "sha256:dc3c90095915b99aa5908b069388ede7384504076353b139cc624df4e110c617",
+                "smoke_sha256": "6b2a5ddbe6497f92e84af154b897fc015bfad38b2b8776b583a530063be65c45",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-12T03:40:30Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8d29bb377b6f6bb5c29661706e39902d5ec03783",
+                "image_digest": "sha256:dc3c90095915b99aa5908b069388ede7384504076353b139cc624df4e110c617",
+                "smoke_sha256": "6b2a5ddbe6497f92e84af154b897fc015bfad38b2b8776b583a530063be65c45",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-12T03:40:30Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8d29bb377b6f6bb5c29661706e39902d5ec03783",
+                "image_digest": "sha256:dc3c90095915b99aa5908b069388ede7384504076353b139cc624df4e110c617",
+                "smoke_sha256": "6b2a5ddbe6497f92e84af154b897fc015bfad38b2b8776b583a530063be65c45",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-12T03:37:16Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/somalier",
+            "ref": "v0.3.5-r1",
+            "commit": "8d29bb377b6f6bb5c29661706e39902d5ec03783",
+            "html_url": "https://github.com/taffish/somalier/tree/v0.3.5-r1"
+          },
+          "upstream": {
+            "name": "Somalier",
+            "type": "github",
+            "homepage": "https://github.com/brentp/somalier",
+            "repository": "brentp/somalier",
+            "release_url": "https://github.com/brentp/somalier/releases/tag/v0.3.5",
+            "version": "0.3.5",
             "license": "MIT",
             "citation": "Pedersen BS, Bhetariya PJ, Brown J, et al. Somalier: rapid relatedness estimation for cancer and germline studies using efficient genome sketches. Genome Medicine. 2020;12:62.",
             "doi": "10.1186/s13073-020-00761-2"
@@ -84490,7 +85047,7 @@
     },
     "taf-fastp": {
       "package": "fastp",
-      "version": "1.3.6-r1"
+      "version": "1.3.7-r1"
     },
     "taf-fastqc": {
       "package": "fastqc",
@@ -84950,7 +85507,7 @@
     },
     "taf-regenie": {
       "package": "regenie",
-      "version": "4.1.2-r2"
+      "version": "4.1.3-r1"
     },
     "taf-repeatmasker": {
       "package": "repeatmasker",
@@ -85114,7 +85671,7 @@
     },
     "taf-somalier": {
       "package": "somalier",
-      "version": "0.3.4-r1"
+      "version": "0.3.5-r1"
     },
     "taf-sourmash": {
       "package": "sourmash",
