@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-09-13T06:17:09Z",
+  "generated_at": "2026-09-13T16:17:23Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -15304,6 +15304,66 @@
       "message": null
     },
     {
+      "task_id": "taffish/ncbi-datasets|18.37.0-r1",
+      "plan_id": "783cb13587bd0a291ef286dd2ce7037631d322564ce724da83f10ff6d32824fe",
+      "manifest_id": "22af98bda5fb0217d7bea3dab2641b4827bc2784f47e9f8649baca30c3111744",
+      "backend": "apptainer",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-09-13T16:21:35Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.3",
+      "runner_image": "ubuntu24/20260907.300.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "03793ebf6a3ddc2aa7390dc54322def22e4ed500",
+      "image_digest": "sha256:6ecddf1d7d948aa809aa96545d88aa3e1719edba0704a3a96ee1480850d3fc3b",
+      "smoke_sha256": "f70c723d31cc73a87e16de65aac672e1ef90d0ea5b44926bd0efaf9fb3aa0006",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/ncbi-datasets|18.37.0-r1",
+      "plan_id": "783cb13587bd0a291ef286dd2ce7037631d322564ce724da83f10ff6d32824fe",
+      "manifest_id": "22af98bda5fb0217d7bea3dab2641b4827bc2784f47e9f8649baca30c3111744",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-09-13T16:21:16Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20260907.300.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "03793ebf6a3ddc2aa7390dc54322def22e4ed500",
+      "image_digest": "sha256:6ecddf1d7d948aa809aa96545d88aa3e1719edba0704a3a96ee1480850d3fc3b",
+      "smoke_sha256": "f70c723d31cc73a87e16de65aac672e1ef90d0ea5b44926bd0efaf9fb3aa0006",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/ncbi-datasets|18.37.0-r1",
+      "plan_id": "783cb13587bd0a291ef286dd2ce7037631d322564ce724da83f10ff6d32824fe",
+      "manifest_id": "22af98bda5fb0217d7bea3dab2641b4827bc2784f47e9f8649baca30c3111744",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-09-13T16:21:21Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 4.9.3",
+      "runner_image": "ubuntu24/20260907.300.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "03793ebf6a3ddc2aa7390dc54322def22e4ed500",
+      "image_digest": "sha256:6ecddf1d7d948aa809aa96545d88aa3e1719edba0704a3a96ee1480850d3fc3b",
+      "smoke_sha256": "f70c723d31cc73a87e16de65aac672e1ef90d0ea5b44926bd0efaf9fb3aa0006",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
       "task_id": "taffish/nextclade|3.23.0-r1",
       "plan_id": "42e664fbeadc4bd3161a02e27fc356640cad04caf920383ee174433d88bf2997",
       "manifest_id": "e4c22d2ee4d6110ec7871d01577792fa6064fa617f579111138fbda0356df19a",
@@ -27890,6 +27950,13 @@
       "source_commit": "c0a5576365cbe7c917ff081474c639f0332154d3",
       "image": "ghcr.io/taffish/ncbi-datasets:18.36.0-r1",
       "image_digest": "sha256:3175d513af0cff42e225b8ace82aaf146d3266a29b46f88fc9026b9fd87bf84f"
+    },
+    {
+      "task_id": "taffish/ncbi-datasets|18.37.0-r1",
+      "source_ref": "v18.37.0-r1",
+      "source_commit": "03793ebf6a3ddc2aa7390dc54322def22e4ed500",
+      "image": "ghcr.io/taffish/ncbi-datasets:18.37.0-r1",
+      "image_digest": "sha256:6ecddf1d7d948aa809aa96545d88aa3e1719edba0704a3a96ee1480850d3fc3b"
     },
     {
       "task_id": "taffish/nextclade|3.23.0-r1",

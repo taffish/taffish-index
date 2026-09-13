@@ -1,18 +1,18 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-13T06:17:09Z",
+  "generated_at": "2026-09-13T16:17:23Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 483,
+    "versions": 484,
     "commands": 274,
     "repositories": 274,
-    "warnings": 104,
+    "warnings": 0,
     "failed": 0,
     "advisory_failed": 18,
     "latest_advisory_failed": 0,
     "historical_advisory_failed": 18,
-    "rejected": 7
+    "rejected": 12
   },
   "packages": {
     "abricate": {
@@ -47023,9 +47023,9 @@
     },
     "ncbi-datasets": {
       "name": "ncbi-datasets",
-      "latest": "18.36.0-r1",
-      "recent_version": "18.36.0-r1",
-      "recent_at": "2026-08-22T05:23:57Z",
+      "latest": "18.37.0-r1",
+      "recent_version": "18.37.0-r1",
+      "recent_at": "2026-09-13T16:14:42Z",
       "repository_url": "https://github.com/taffish/ncbi-datasets",
       "command": {
         "name": "taf-ncbi-datasets"
@@ -47710,6 +47710,187 @@
             "repository": "ncbi/datasets",
             "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.36.0",
             "version": "18.36.0",
+            "license": "Public Domain / United States Government Work",
+            "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
+            "doi": "10.1038/s41597-024-03571-y"
+          }
+        },
+        "18.37.0-r1": {
+          "name": "ncbi-datasets",
+          "kind": "tool",
+          "version": "18.37.0",
+          "release": 1,
+          "version_id": "18.37.0-r1",
+          "tag": "v18.37.0-r1",
+          "published_at": "2026-09-13T16:14:42Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/ncbi-datasets",
+          "repository_slug": "taffish/ncbi-datasets",
+          "command": {
+            "name": "taf-ncbi-datasets"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "data-retrieval",
+              "database-query",
+              "metadata"
+            ],
+            "keywords": [
+              "ncbi datasets",
+              "datasets",
+              "dataformat",
+              "ncbi",
+              "genome",
+              "gene",
+              "taxonomy",
+              "virus",
+              "metadata",
+              "data package"
+            ],
+            "summary": "NCBI Datasets 18.37.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata.",
+            "description": "NCBI Datasets 18.37.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/ncbi-datasets:18.37.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "18.37.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6ecddf1d7d948aa809aa96545d88aa3e1719edba0704a3a96ee1480850d3fc3b",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:581b2f74212038dc6a281da405c9d597c68b261cb677f8921062c816ca2e3f21",
+              "linux/arm64": "sha256:89053ac3572c3a1aa7a1d14e207f01635938eea2b53a583a4ca4b2c2133e5e77"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "datasets",
+              "dataformat",
+              "sh",
+              "grep",
+              "sed",
+              "wc",
+              "tr",
+              "head",
+              "cut",
+              "mkdir",
+              "rm",
+              "mktemp",
+              "unzip",
+              "tail",
+              "sha256sum",
+              "find"
+            ],
+            "test": [
+              "datasets --version 2>&1 | grep -Fx 'datasets version: 18.37.0' >/dev/null && dataformat version 2>&1 | grep -Fx 'undefined' >/dev/null && grep -Fx 'upstream_version=18.37.0' /opt/ncbi-datasets/share/doc/ncbi-datasets/source.txt >/dev/null && test -s /etc/ssl/certs/ca-certificates.crt",
+              "datasets --help 2>&1 | grep -F 'Data Retrieval Commands' >/dev/null && datasets summary genome accession --help 2>&1 | grep -F -- '--as-json-lines' >/dev/null && datasets summary taxonomy taxon --help 2>&1 | grep -F -- '--as-json-lines' >/dev/null && datasets download genome accession --help 2>&1 | grep -F -- '--dehydrated' >/dev/null && datasets download gene gene-id --help 2>&1 | grep -F 'include all file types' >/dev/null && datasets download virus genome taxon --help 2>&1 | grep -F 'include all reports and sequence data' >/dev/null && datasets rehydrate --help 2>&1 | grep -F -- '--directory' >/dev/null && dataformat --help 2>&1 | grep -F 'Formatting Commands' >/dev/null && dataformat tsv genome --help 2>&1 | grep -F -- '--fields' >/dev/null && dataformat tsv sequence --help 2>&1 | grep -F -- '--list-templates' >/dev/null && dataformat tsv sequence --list-templates 2>&1 | grep -F 'summary-no-query' >/dev/null && dataformat excel genome --help 2>&1 | grep -F -- '--outputfile' >/dev/null",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh tsv",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh sequence",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh excel",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh invalid"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-13T16:21:16Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-13T16:21:35Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "03793ebf6a3ddc2aa7390dc54322def22e4ed500",
+                "image_digest": "sha256:6ecddf1d7d948aa809aa96545d88aa3e1719edba0704a3a96ee1480850d3fc3b",
+                "smoke_sha256": "f70c723d31cc73a87e16de65aac672e1ef90d0ea5b44926bd0efaf9fb3aa0006",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-13T16:21:16Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "03793ebf6a3ddc2aa7390dc54322def22e4ed500",
+                "image_digest": "sha256:6ecddf1d7d948aa809aa96545d88aa3e1719edba0704a3a96ee1480850d3fc3b",
+                "smoke_sha256": "f70c723d31cc73a87e16de65aac672e1ef90d0ea5b44926bd0efaf9fb3aa0006",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-13T16:21:21Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "03793ebf6a3ddc2aa7390dc54322def22e4ed500",
+                "image_digest": "sha256:6ecddf1d7d948aa809aa96545d88aa3e1719edba0704a3a96ee1480850d3fc3b",
+                "smoke_sha256": "f70c723d31cc73a87e16de65aac672e1ef90d0ea5b44926bd0efaf9fb3aa0006",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-13T16:17:23Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/ncbi-datasets",
+            "ref": "v18.37.0-r1",
+            "commit": "03793ebf6a3ddc2aa7390dc54322def22e4ed500",
+            "html_url": "https://github.com/taffish/ncbi-datasets/tree/v18.37.0-r1"
+          },
+          "upstream": {
+            "name": "NCBI Datasets",
+            "type": "github",
+            "homepage": "https://www.ncbi.nlm.nih.gov/datasets/",
+            "repository": "ncbi/datasets",
+            "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.37.0",
+            "version": "18.37.0",
             "license": "Public Domain / United States Government Work",
             "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
             "doi": "10.1038/s41597-024-03571-y"
@@ -85527,7 +85708,7 @@
     },
     "taf-ncbi-datasets": {
       "package": "ncbi-datasets",
-      "version": "18.36.0-r1"
+      "version": "18.37.0-r1"
     },
     "taf-nextclade": {
       "package": "nextclade",
@@ -87664,526 +87845,5 @@
       ]
     }
   },
-  "warnings": [
-    {
-      "repository": "taffish/alevin-fry",
-      "ref": "v0.17.1-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/alevin-fry",
-      "ref": "v0.17.1-r1",
-      "message": "previous index record 0.17.1-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/autodock-vina",
-      "ref": "v1.2.7-r1",
-      "message": "previous index record 1.2.7-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/bamtools",
-      "ref": "v2.5.3-r1",
-      "message": "previous index record 2.5.3-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/bioconductor-bioviz",
-      "ref": "v3.23-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/bioconductor-bioviz",
-      "ref": "v3.23-r1",
-      "message": "previous index record 3.23-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/bioconductor-rnaseq",
-      "ref": "v3.23-r1",
-      "message": "previous index record 3.23-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/biser",
-      "ref": "v1.4-r2",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/biser",
-      "ref": "v1.4-r2",
-      "message": "previous index record 1.4-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/busco",
-      "ref": "v6.1.0-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/busco",
-      "ref": "v6.1.0-r1",
-      "message": "previous index record 6.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/bwa",
-      "ref": "v0.7.19-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/bwa",
-      "ref": "v0.7.19-r1",
-      "message": "previous index record 0.7.19-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/circos",
-      "ref": "v0.69-10-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/circos",
-      "ref": "v0.69-10-r1",
-      "message": "previous index record 0.69-10-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/clinker",
-      "ref": "v0.0.32-r1",
-      "message": "previous index record 0.0.32-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/clipkit",
-      "ref": "v2.13.1-r1",
-      "message": "previous index record 2.13.1-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/clipkit",
-      "ref": "v2.14.0-r1",
-      "message": "previous index record 2.14.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/cufflinks",
-      "ref": "v2.2.1-r2",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/cufflinks",
-      "ref": "v2.2.1-r2",
-      "message": "previous index record 2.2.1-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/cutadapt",
-      "ref": "v5.2-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/cutadapt",
-      "ref": "v5.2-r1",
-      "message": "previous index record 5.2-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/deepvariant",
-      "ref": "v1.10.0-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/f5c",
-      "ref": "v1.7-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/f5c",
-      "ref": "v1.7-r1",
-      "message": "previous index record 1.7-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/genomescope",
-      "ref": "v2.1.0-r1",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/genomescope",
-      "ref": "v2.1.0-r1",
-      "message": "previous index record 2.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/hicexplorer",
-      "ref": "v3.7.6-r2",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/hicexplorer",
-      "ref": "v3.7.6-r2",
-      "message": "previous index record 3.7.6-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/higlass",
-      "ref": "v0.10.4-r1",
-      "message": "previous index record 0.10.4-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/hisat2",
-      "ref": "v2.2.2-r1",
-      "message": "previous index record 2.2.2-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/igv",
-      "ref": "v2.19.7-r1",
-      "message": "previous index record 2.19.7-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/igv",
-      "ref": "v2.19.8-r1",
-      "message": "previous index record 2.19.8-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/interproscan",
-      "ref": "v5.78-109.0-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/interproscan",
-      "ref": "v5.78-109.0-r1",
-      "message": "previous index record 5.78-109.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/juicer",
-      "ref": "v2.20.00-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/juicer",
-      "ref": "v2.20.00-r1",
-      "message": "previous index record 2.20.00-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/kraken2",
-      "ref": "v2.17.1-r1",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/kraken2",
-      "ref": "v2.17.1-r1",
-      "message": "previous index record 2.17.1-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/mafft",
-      "ref": "v7.525-r1",
-      "message": "previous index record 7.525-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/meme-suite",
-      "ref": "v5.5.9-r1",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/meme-suite",
-      "ref": "v5.5.9-r1",
-      "message": "previous index record 5.5.9-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/meryl",
-      "ref": "v1.4.1-r3",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/meryl",
-      "ref": "v1.4.1-r3",
-      "message": "previous index record 1.4.1-r3 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/mirdeep2",
-      "ref": "v0.1.3-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/mirdeep2",
-      "ref": "v0.1.3-r1",
-      "message": "previous index record 0.1.3-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/mlst",
-      "ref": "v2.35.0-r1",
-      "message": "previous index record 2.35.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/mothur",
-      "ref": "v1.48.5-r1",
-      "message": "previous index record 1.48.5-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/mothur",
-      "ref": "v1.48.6-r1",
-      "message": "previous index record 1.48.6-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/nanoplot",
-      "ref": "v1.47.1-r2",
-      "message": "previous index record 1.47.1-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/nanoplot",
-      "ref": "v1.47.2-r1",
-      "message": "previous index record 1.47.2-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/nanoplot",
-      "ref": "v1.47.4-r1",
-      "message": "previous index record 1.47.4-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/nanoplot",
-      "ref": "v1.48.0-r1",
-      "message": "previous index record 1.48.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/ncbi-datasets",
-      "ref": "v18.33.1-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/ncbi-datasets",
-      "ref": "v18.33.1-r1",
-      "message": "previous index record 18.33.1-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/openbabel",
-      "ref": "v3.2.1-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/openbabel",
-      "ref": "v3.2.1-r1",
-      "message": "previous index record 3.2.1-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/p2rank",
-      "ref": "v2.5.1-r3",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/p2rank",
-      "ref": "v2.5.1-r3",
-      "message": "previous index record 2.5.1-r3 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/picard",
-      "ref": "v3.4.0-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/picard",
-      "ref": "v3.4.0-r1",
-      "message": "previous index record 3.4.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/plotsr",
-      "ref": "v1.1.1-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/plotsr",
-      "ref": "v1.1.1-r1",
-      "message": "previous index record 1.1.1-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/quast",
-      "ref": "v5.3.0-r1",
-      "message": "previous index record 5.3.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/quast",
-      "ref": "v5.3.0-r2",
-      "message": "previous index record 5.3.0-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/regenie",
-      "ref": "v4.1.2-r2",
-      "message": "previous index record 4.1.2-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/regenie",
-      "ref": "v4.1.3-r1",
-      "message": "previous index record 4.1.3-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/repeatmasker",
-      "ref": "v4.2.3-r3",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/repeatmasker",
-      "ref": "v4.2.3-r3",
-      "message": "previous index record 4.2.3-r3 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/rnaseq-alignment-qc-flow",
-      "ref": "v0.1.0-r1",
-      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/rnaseq-alignment-qc-flow",
-      "ref": "v0.2.0-r1",
-      "message": "previous index record 0.2.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/rnaseq-enrichment-flow",
-      "ref": "v0.1.0-r1",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/rnaseq-enrichment-flow",
-      "ref": "v0.1.0-r1",
-      "message": "previous index record 0.1.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/rseqc",
-      "ref": "v5.0.4-r1",
-      "message": "previous index record 5.0.4-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/rseqc",
-      "ref": "v5.0.4-r2",
-      "message": "previous index record 5.0.4-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/rseqc",
-      "ref": "v5.0.5-r1",
-      "message": "previous index record 5.0.5-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/salmon",
-      "ref": "v2.0.1-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/salmon",
-      "ref": "v2.0.1-r1",
-      "message": "previous index record 2.0.1-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/samblaster",
-      "ref": "v0.1.26-r1",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/samblaster",
-      "ref": "v0.1.26-r1",
-      "message": "previous index record 0.1.26-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/samtools",
-      "ref": "v1.24-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/samtools",
-      "ref": "v1.24-r1",
-      "message": "previous index record 1.24-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/seqkit",
-      "ref": "v2.13.0-r2",
-      "message": "previous index record 2.13.0-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/seqwish",
-      "ref": "v0.7.12-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/seqwish",
-      "ref": "v0.7.12-r1",
-      "message": "previous index record 0.7.12-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/simpleaf",
-      "ref": "v0.28.0-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/simpleaf",
-      "ref": "v0.28.0-r1",
-      "message": "previous index record 0.28.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/somalier",
-      "ref": "v0.3.4-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/somalier",
-      "ref": "v0.3.4-r1",
-      "message": "previous index record 0.3.4-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/spatialdata",
-      "ref": "v0.8.0-r1",
-      "message": "main TAF file does not exist: src/main.taf"
-    },
-    {
-      "repository": "taffish/spatialdata",
-      "ref": "v0.8.0-r1",
-      "message": "previous index record 0.8.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/srf",
-      "ref": "v20240109-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/srf",
-      "ref": "v20240109-r1",
-      "message": "previous index record 20240109-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/srf",
-      "ref": "v20240109-r2",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/srf",
-      "ref": "v20240109-r2",
-      "message": "previous index record 20240109-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/subread",
-      "ref": "v2.1.1-r2",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/subread",
-      "ref": "v2.1.1-r2",
-      "message": "previous index record 2.1.1-r2 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/taffish-report-render",
-      "ref": "v0.3.0-r1",
-      "message": "dockerfile does not exist: docker/Dockerfile"
-    },
-    {
-      "repository": "taffish/taffish-report-render",
-      "ref": "v0.3.0-r1",
-      "message": "previous index record 0.3.0-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/taffish-report-render",
-      "ref": "v0.3.1-r1",
-      "message": "docs/help.md does not exist"
-    },
-    {
-      "repository": "taffish/taffish-report-render",
-      "ref": "v0.3.1-r1",
-      "message": "previous index record 0.3.1-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/taffish-report-render",
-      "ref": "v0.3.3-r1",
-      "message": "previous index record 0.3.3-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/ucsc-kent",
-      "ref": "v492-r1",
-      "message": "previous index record 492-r1 is missing from the current scan; preserved until explicitly rejected"
-    },
-    {
-      "repository": "taffish/ucsc-kent",
-      "ref": "v492-r2",
-      "message": "previous index record 492-r2 is missing from the current scan; preserved until explicitly rejected"
-    }
-  ]
+  "warnings": []
 }
