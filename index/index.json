@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-19T05:58:50Z",
+  "generated_at": "2026-09-19T16:15:52Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 490,
+    "versions": 491,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
@@ -35545,9 +35545,9 @@
     },
     "kaiju": {
       "name": "kaiju",
-      "latest": "1.10.2-r1",
-      "recent_version": "1.10.2-r1",
-      "recent_at": "2026-07-11T21:28:30Z",
+      "latest": "1.10.3-r1",
+      "recent_version": "1.10.3-r1",
+      "recent_at": "2026-09-19T16:09:04Z",
       "repository_url": "https://github.com/taffish/kaiju",
       "command": {
         "name": "taf-kaiju"
@@ -35752,6 +35752,215 @@
             "repository": "bioinformatics-centre/kaiju",
             "release_url": "https://github.com/bioinformatics-centre/kaiju/releases/tag/v1.10.2",
             "version": "1.10.2",
+            "license": "GPL-3.0-or-later",
+            "citation": "Menzel, Ng, and Krogh 2016, Fast and sensitive taxonomic classification for metagenomics with Kaiju, Nature Communications 7:11257",
+            "doi": "10.1038/ncomms11257",
+            "pmid": "27071849"
+          }
+        },
+        "1.10.3-r1": {
+          "name": "kaiju",
+          "kind": "tool",
+          "version": "1.10.3",
+          "release": 1,
+          "version_id": "1.10.3-r1",
+          "tag": "v1.10.3-r1",
+          "published_at": "2026-09-19T16:09:04Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/kaiju",
+          "repository_slug": "taffish/kaiju",
+          "command": {
+            "name": "taf-kaiju"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "taxonomy-classification",
+              "microbiome",
+              "protein-search",
+              "database-indexing"
+            ],
+            "keywords": [
+              "kaiju",
+              "metagenomics",
+              "metatranscriptomics",
+              "taxonomic classification",
+              "protein database",
+              "fm-index",
+              "ncbi taxonomy",
+              "kaijup",
+              "kaijux",
+              "krona"
+            ],
+            "summary": "Kaiju 1.10.3 runtime for protein-level taxonomic classification, database construction, and taxonomy-aware result conversion.",
+            "description": "Kaiju 1.10.3 runtime for protein-level taxonomic classification, database construction, and taxonomy-aware result conversion."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/kaiju:1.10.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.10.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f3f8ee0766f485c15d310dce587ac11f6d02fff1885fe0c1e583cc7efbd5a350",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:5a46bda7c90b0f3a723c7cb87c72733e2c523830d35c1e7d8b882f35b4fa6e01",
+              "linux/arm64": "sha256:5b4e2cf258b1cb06160c9574019c51937b978d00e0a4917062a5b06393257361"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "kaiju",
+              "kaiju-multi",
+              "kaijup",
+              "kaijux",
+              "kaiju2krona",
+              "kaiju2table",
+              "kaiju-addTaxonNames",
+              "kaiju-mergeOutputs",
+              "kaiju-convertNR",
+              "kaiju-convertRefSeq",
+              "kaiju-mkbwt",
+              "kaiju-mkfmi",
+              "kaiju-makedb",
+              "kaiju-gbk2faa.pl",
+              "kaiju-db",
+              "python3",
+              "perl",
+              "curl",
+              "wget",
+              "awk",
+              "xargs",
+              "tar",
+              "gzip",
+              "gunzip",
+              "bzip2",
+              "bunzip2",
+              "xz",
+              "unxz",
+              "find",
+              "dirname",
+              "mkdir",
+              "cat",
+              "wc",
+              "seq",
+              "grep",
+              "sed",
+              "sort",
+              "sh",
+              "ldd"
+            ],
+            "test": [
+              "grep -F 'source_sha256=712dc0b73944349ddf0e49b61e780864244e901ca89cd5c80180a97130a724d5' /opt/kaiju/share/doc/kaiju/source.txt >/dev/null && grep -F 'upstream_commit=a36cd21d1c04d17a4f7e3744c17e8e8508e69e3b' /opt/kaiju/share/doc/kaiju/source.txt >/dev/null && grep -F 'runtime_banner_version=1.10.3' /opt/kaiju/share/doc/kaiju/source.txt >/dev/null",
+              "/opt/kaiju/share/testdata/kaiju-smoke.sh interfaces /tmp/taf-kaiju-index-interfaces-$$",
+              "/opt/kaiju/share/testdata/kaiju-smoke.sh buildtime /tmp/taf-kaiju-index-buildtime-$$",
+              "/opt/kaiju/share/testdata/kaiju-smoke.sh classify /tmp/taf-kaiju-index-classify-$$",
+              "/opt/kaiju/share/testdata/kaiju-smoke.sh postprocess /tmp/taf-kaiju-index-postprocess-$$",
+              "/opt/kaiju/share/testdata/kaiju-smoke.sh index /tmp/taf-kaiju-index-build-$$",
+              "/opt/kaiju/share/testdata/kaiju-smoke.sh gbk /tmp/taf-kaiju-index-gbk-$$",
+              "python3 /opt/kaiju/share/testdata/kaiju-resource-smoke.py upstream",
+              "python3 /opt/kaiju/share/testdata/kaiju-resource-smoke.py resources"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-19T16:20:29Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-19T16:20:46Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a7fcac39aaf20f563e0758036c621de310c00ec8",
+                "image_digest": "sha256:f3f8ee0766f485c15d310dce587ac11f6d02fff1885fe0c1e583cc7efbd5a350",
+                "smoke_sha256": "0bb9444c3d72fe6ccab685a5357205687e46a6768d4d8c7c8090ff9e3282bb5a",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-19T16:20:29Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a7fcac39aaf20f563e0758036c621de310c00ec8",
+                "image_digest": "sha256:f3f8ee0766f485c15d310dce587ac11f6d02fff1885fe0c1e583cc7efbd5a350",
+                "smoke_sha256": "0bb9444c3d72fe6ccab685a5357205687e46a6768d4d8c7c8090ff9e3282bb5a",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-19T16:20:29Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a7fcac39aaf20f563e0758036c621de310c00ec8",
+                "image_digest": "sha256:f3f8ee0766f485c15d310dce587ac11f6d02fff1885fe0c1e583cc7efbd5a350",
+                "smoke_sha256": "0bb9444c3d72fe6ccab685a5357205687e46a6768d4d8c7c8090ff9e3282bb5a",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-19T16:15:52Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/kaiju",
+            "ref": "v1.10.3-r1",
+            "commit": "a7fcac39aaf20f563e0758036c621de310c00ec8",
+            "html_url": "https://github.com/taffish/kaiju/tree/v1.10.3-r1"
+          },
+          "upstream": {
+            "name": "Kaiju",
+            "type": "github",
+            "homepage": "https://bioinformatics-centre.github.io/kaiju/",
+            "repository": "bioinformatics-centre/kaiju",
+            "release_url": "https://github.com/bioinformatics-centre/kaiju/releases/tag/v1.10.3",
+            "version": "1.10.3",
             "license": "GPL-3.0-or-later",
             "citation": "Menzel, Ng, and Krogh 2016, Fast and sensitive taxonomic classification for metagenomics with Kaiju, Nature Communications 7:11257",
             "doi": "10.1038/ncomms11257",
@@ -86689,7 +86898,7 @@
     },
     "taf-kaiju": {
       "package": "kaiju",
-      "version": "1.10.2-r1"
+      "version": "1.10.3-r1"
     },
     "taf-kallisto": {
       "package": "kallisto",
