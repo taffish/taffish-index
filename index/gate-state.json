@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-09-21T06:28:59Z",
+  "generated_at": "2026-09-21T16:07:25Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -26344,6 +26344,66 @@
       "message": null
     },
     {
+      "task_id": "taffish/vsearch|2.32.0-r1",
+      "plan_id": "02557690108164b203c4cc874dad6633ce15476edc906f250fd9c86035c20f45",
+      "manifest_id": "a3605c387e4e7726fd1bd70e6c67268f277d37ccc377c5d4b0ce1c42c74210d7",
+      "backend": "apptainer",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-09-21T16:11:36Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.3",
+      "runner_image": "ubuntu24/20260907.300.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "a23c58098694e06c9a33b00d2cacc08f9083e649",
+      "image_digest": "sha256:25ad5e069cb59724aab590008743bccecd8ff7f73243535a93549c05fb29c58d",
+      "smoke_sha256": "306cd02158345549a6d5f75ce57059ded01351ea056f37b0f0ea473f6dd19063",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/vsearch|2.32.0-r1",
+      "plan_id": "02557690108164b203c4cc874dad6633ce15476edc906f250fd9c86035c20f45",
+      "manifest_id": "a3605c387e4e7726fd1bd70e6c67268f277d37ccc377c5d4b0ce1c42c74210d7",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-09-21T16:10:59Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20260907.300.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "a23c58098694e06c9a33b00d2cacc08f9083e649",
+      "image_digest": "sha256:25ad5e069cb59724aab590008743bccecd8ff7f73243535a93549c05fb29c58d",
+      "smoke_sha256": "306cd02158345549a6d5f75ce57059ded01351ea056f37b0f0ea473f6dd19063",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/vsearch|2.32.0-r1",
+      "plan_id": "02557690108164b203c4cc874dad6633ce15476edc906f250fd9c86035c20f45",
+      "manifest_id": "a3605c387e4e7726fd1bd70e6c67268f277d37ccc377c5d4b0ce1c42c74210d7",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-09-21T16:11:23Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 4.9.3",
+      "runner_image": "ubuntu24/20260907.300.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "a23c58098694e06c9a33b00d2cacc08f9083e649",
+      "image_digest": "sha256:25ad5e069cb59724aab590008743bccecd8ff7f73243535a93549c05fb29c58d",
+      "smoke_sha256": "306cd02158345549a6d5f75ce57059ded01351ea056f37b0f0ea473f6dd19063",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
       "task_id": "taffish/weblogo|3.9.0-r1",
       "plan_id": "a93df99a48f93705bc8b093ac539f4d6fc3f941e2aef87a8ed6d90c1a68a7935",
       "manifest_id": "3d613ff8f6fa7c36f31492f3dc6df2abe0653718ffaf935a1123b970189e9c42",
@@ -29718,6 +29778,13 @@
       "source_commit": "945c9288a54f2c25360ecd7bd21b7a7d196fdf66",
       "image": "ghcr.io/taffish/vsearch:2.31.0-r1",
       "image_digest": "sha256:c15d59a6cf442cfb8e9671260a6679260eae9b22a690eda787650d8103c844dc"
+    },
+    {
+      "task_id": "taffish/vsearch|2.32.0-r1",
+      "source_ref": "v2.32.0-r1",
+      "source_commit": "a23c58098694e06c9a33b00d2cacc08f9083e649",
+      "image": "ghcr.io/taffish/vsearch:2.32.0-r1",
+      "image_digest": "sha256:25ad5e069cb59724aab590008743bccecd8ff7f73243535a93549c05fb29c58d"
     },
     {
       "task_id": "taffish/weblogo|3.9.0-r1",

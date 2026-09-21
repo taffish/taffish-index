@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-21T06:28:59Z",
+  "generated_at": "2026-09-21T16:07:25Z",
   "organization": "taffish",
   "counts": {
     "packages": 274,
-    "versions": 492,
+    "versions": 493,
     "commands": 274,
     "repositories": 274,
     "warnings": 0,
@@ -85515,9 +85515,9 @@
     },
     "vsearch": {
       "name": "vsearch",
-      "latest": "2.31.0-r1",
-      "recent_version": "2.31.0-r1",
-      "recent_at": "2026-06-25T17:26:01Z",
+      "latest": "2.32.0-r1",
+      "recent_version": "2.32.0-r1",
+      "recent_at": "2026-09-21T16:04:37Z",
       "repository_url": "https://github.com/taffish/vsearch",
       "command": {
         "name": "taf-vsearch"
@@ -85690,6 +85690,184 @@
             "repository": "torognes/vsearch",
             "release_url": "https://github.com/torognes/vsearch/releases/tag/v2.31.0",
             "version": "2.31.0",
+            "license": "GPL-3.0-or-later OR BSD-2-Clause",
+            "citation": "Rognes et al. 2016, VSEARCH: a versatile open source tool for metagenomics, PeerJ",
+            "doi": "10.7717/peerj.2584"
+          }
+        },
+        "2.32.0-r1": {
+          "name": "vsearch",
+          "kind": "tool",
+          "version": "2.32.0",
+          "release": 1,
+          "version_id": "2.32.0-r1",
+          "tag": "v2.32.0-r1",
+          "published_at": "2026-09-21T16:04:37Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/vsearch",
+          "repository_slug": "taffish/vsearch",
+          "command": {
+            "name": "taf-vsearch"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "microbiome",
+            "categories": [
+              "microbiome",
+              "amplicon-analysis",
+              "sequence-search",
+              "clustering",
+              "quality-control"
+            ],
+            "keywords": [
+              "vsearch",
+              "microbiome",
+              "amplicon",
+              "otu",
+              "chimera",
+              "clustering",
+              "dereplication",
+              "fastq",
+              "fasta",
+              "usearch"
+            ],
+            "summary": "VSEARCH 2.32.0 command-line runtime for amplicon and metagenomic sequence searching, clustering, dereplication, chimera detection, and FASTA/FASTQ processing.",
+            "description": "VSEARCH 2.32.0 command-line runtime for amplicon and metagenomic sequence searching, clustering, dereplication, chimera detection, and FASTA/FASTQ processing."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/vsearch:2.32.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.32.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:25ad5e069cb59724aab590008743bccecd8ff7f73243535a93549c05fb29c58d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:d645a5f833e8db7d64c35b5e5550636bff6dd78524f5f5ab4ad4bb4838fbc440",
+              "linux/arm64": "sha256:89cd84db800ea745cebb06e106d8c7642e21d0591ca49bc87f1aadd9405d2c73"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "vsearch",
+              "vsearch-db",
+              "python3",
+              "curl",
+              "gzip",
+              "bzip2",
+              "ldd",
+              "sh",
+              "bash",
+              "grep",
+              "sed",
+              "mv"
+            ],
+            "test": [
+              "python3 /opt/vsearch/share/testdata/vsearch-smoke.py identity",
+              "python3 /opt/vsearch/share/testdata/vsearch-smoke.py core",
+              "python3 /opt/vsearch/share/testdata/vsearch-smoke.py fastq",
+              "python3 /opt/vsearch/share/testdata/vsearch-smoke.py delta",
+              "python3 /opt/vsearch/share/testdata/vsearch-smoke.py database",
+              "python3 /opt/vsearch/share/testdata/vsearch-resource-smoke.py"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-21T16:10:59Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-21T16:11:36Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a23c58098694e06c9a33b00d2cacc08f9083e649",
+                "image_digest": "sha256:25ad5e069cb59724aab590008743bccecd8ff7f73243535a93549c05fb29c58d",
+                "smoke_sha256": "306cd02158345549a6d5f75ce57059ded01351ea056f37b0f0ea473f6dd19063",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-21T16:10:59Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a23c58098694e06c9a33b00d2cacc08f9083e649",
+                "image_digest": "sha256:25ad5e069cb59724aab590008743bccecd8ff7f73243535a93549c05fb29c58d",
+                "smoke_sha256": "306cd02158345549a6d5f75ce57059ded01351ea056f37b0f0ea473f6dd19063",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-21T16:11:23Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260907.300.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a23c58098694e06c9a33b00d2cacc08f9083e649",
+                "image_digest": "sha256:25ad5e069cb59724aab590008743bccecd8ff7f73243535a93549c05fb29c58d",
+                "smoke_sha256": "306cd02158345549a6d5f75ce57059ded01351ea056f37b0f0ea473f6dd19063",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-21T16:07:25Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/vsearch",
+            "ref": "v2.32.0-r1",
+            "commit": "a23c58098694e06c9a33b00d2cacc08f9083e649",
+            "html_url": "https://github.com/taffish/vsearch/tree/v2.32.0-r1"
+          },
+          "upstream": {
+            "name": "VSEARCH",
+            "type": "github",
+            "homepage": "https://github.com/torognes/vsearch",
+            "repository": "torognes/vsearch",
+            "release_url": "https://github.com/torognes/vsearch/releases/tag/v2.32.0",
+            "version": "2.32.0",
             "license": "GPL-3.0-or-later OR BSD-2-Clause",
             "citation": "Rognes et al. 2016, VSEARCH: a versatile open source tool for metagenomics, PeerJ",
             "doi": "10.7717/peerj.2584"
@@ -87696,7 +87874,7 @@
     },
     "taf-vsearch": {
       "package": "vsearch",
-      "version": "2.31.0-r1"
+      "version": "2.32.0-r1"
     },
     "taf-weblogo": {
       "package": "weblogo",
