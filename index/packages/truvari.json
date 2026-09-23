@@ -1,8 +1,8 @@
 {
   "name": "truvari",
-  "latest": "5.4.0-r1",
-  "recent_version": "5.4.0-r1",
-  "recent_at": "2026-06-08T10:58:29Z",
+  "latest": "5.5.0-r1",
+  "recent_version": "5.5.0-r1",
+  "recent_at": "2026-09-22T16:10:10Z",
   "repository_url": "https://github.com/taffish/truvari",
   "command": {
     "name": "taf-truvari"
@@ -182,6 +182,201 @@
         "repository": "ACEnglish/truvari",
         "release_url": "https://github.com/ACEnglish/truvari/releases/tag/v5.4.0",
         "version": "5.4.0",
+        "license": "MIT",
+        "citation": "English et al. 2022, Truvari: refined structural variant comparison preserves allelic diversity",
+        "doi": "10.1186/s13059-022-02840-6"
+      }
+    },
+    "5.5.0-r1": {
+      "name": "truvari",
+      "kind": "tool",
+      "version": "5.5.0",
+      "release": 1,
+      "version_id": "5.5.0-r1",
+      "tag": "v5.5.0-r1",
+      "published_at": "2026-09-22T16:10:10Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/truvari",
+      "repository_slug": "taffish/truvari",
+      "command": {
+        "name": "taf-truvari"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "structural-variation",
+        "categories": [
+          "structural-variation",
+          "variant-benchmarking",
+          "variant-merging",
+          "annotation",
+          "genomics",
+          "vcf"
+        ],
+        "keywords": [
+          "truvari",
+          "structural variant",
+          "sv",
+          "benchmarking",
+          "vcf",
+          "collapse",
+          "bench",
+          "phab",
+          "refine",
+          "variant annotation",
+          "giab"
+        ],
+        "summary": "Truvari 5.5.0 runtime for structural variant benchmarking, merging, harmonization, annotation, and VCF analysis.",
+        "description": "Truvari 5.5.0 runtime for structural variant benchmarking, merging, harmonization, annotation, and VCF analysis."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/truvari:5.5.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "5.5.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:45df71bf3e54737e677493de1d7e5e7ddde0771d203946c777c687b50f317a87",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:b71a5ef7b804eacacdb0430da5f831b72ec80d904c67e1d09bf18cca1f0f3770",
+          "linux/arm64": "sha256:a5475b616508a08ef27c6467aa814fdb29f6860d9228ccac24547f5044b4c76f"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "truvari",
+          "python",
+          "bcftools",
+          "samtools",
+          "bgzip",
+          "tabix",
+          "mafft",
+          "trf",
+          "trf409.linux64",
+          "RepeatMasker",
+          "nhmmer",
+          "hmmpress",
+          "hmmbuild",
+          "famdb.py",
+          "truvari-resources",
+          "perl",
+          "bash",
+          "sh",
+          "curl",
+          "mv"
+        ],
+        "test": [
+          "python /opt/truvari/share/testdata/truvari-smoke.py identity",
+          "python /opt/truvari/share/testdata/truvari-smoke.py bench",
+          "python /opt/truvari/share/testdata/truvari-smoke.py collapse",
+          "python /opt/truvari/share/testdata/truvari-smoke.py annotations",
+          "python /opt/truvari/share/testdata/truvari-smoke.py alignments",
+          "python /opt/truvari/share/testdata/truvari-smoke.py trf",
+          "python /opt/truvari/share/testdata/truvari-smoke.py repmask",
+          "python /opt/truvari/share/testdata/truvari-smoke.py phab",
+          "python /opt/truvari/share/testdata/truvari-smoke.py delta",
+          "python /opt/truvari/share/testdata/truvari-smoke.py html",
+          "python /opt/truvari/share/testdata/truvari-smoke.py famdb",
+          "python /opt/truvari/share/testdata/truvari-resource-smoke.py",
+          "python /opt/truvari/share/testdata/conda-licenses.py verify"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-23T03:24:14Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-23T03:24:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20260907.300.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4cc3ef3fdc21ffe5784ac269f0ec58f17a2a8f6e",
+            "image_digest": "sha256:45df71bf3e54737e677493de1d7e5e7ddde0771d203946c777c687b50f317a87",
+            "smoke_sha256": "302744ea0d46b446acce0bbb1ab4e736f35adb2a0584dc70ef4f7187478afb82",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-23T03:24:14Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260907.300.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4cc3ef3fdc21ffe5784ac269f0ec58f17a2a8f6e",
+            "image_digest": "sha256:45df71bf3e54737e677493de1d7e5e7ddde0771d203946c777c687b50f317a87",
+            "smoke_sha256": "302744ea0d46b446acce0bbb1ab4e736f35adb2a0584dc70ef4f7187478afb82",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-23T03:24:14Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "4cc3ef3fdc21ffe5784ac269f0ec58f17a2a8f6e",
+            "image_digest": "sha256:45df71bf3e54737e677493de1d7e5e7ddde0771d203946c777c687b50f317a87",
+            "smoke_sha256": "302744ea0d46b446acce0bbb1ab4e736f35adb2a0584dc70ef4f7187478afb82",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-23T03:20:20Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/truvari",
+        "ref": "v5.5.0-r1",
+        "commit": "4cc3ef3fdc21ffe5784ac269f0ec58f17a2a8f6e",
+        "html_url": "https://github.com/taffish/truvari/tree/v5.5.0-r1"
+      },
+      "upstream": {
+        "name": "Truvari",
+        "type": "github",
+        "homepage": "https://github.com/ACEnglish/truvari",
+        "repository": "ACEnglish/truvari",
+        "release_url": "https://github.com/ACEnglish/truvari/releases/tag/v5.5.0",
+        "version": "5.5.0",
         "license": "MIT",
         "citation": "English et al. 2022, Truvari: refined structural variant comparison preserves allelic diversity",
         "doi": "10.1186/s13059-022-02840-6"
