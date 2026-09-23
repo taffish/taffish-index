@@ -1,8 +1,8 @@
 {
   "name": "diamond",
-  "latest": "2.2.7-r1",
-  "recent_version": "2.2.7-r1",
-  "recent_at": "2026-09-18T16:18:54Z",
+  "latest": "2.2.8-r1",
+  "recent_version": "2.2.8-r1",
+  "recent_at": "2026-09-23T16:02:15Z",
   "repository_url": "https://github.com/taffish/diamond",
   "command": {
     "name": "taf-diamond"
@@ -1016,6 +1016,188 @@
         "repository": "bbuchfink/diamond",
         "release_url": "https://github.com/bbuchfink/diamond/releases/tag/v2.2.7",
         "version": "2.2.7",
+        "license": "GPL-3.0-or-later",
+        "citation": "Buchfink et al. 2021; Buchfink et al. 2026",
+        "doi": "10.1038/s41592-021-01101-x; 10.1038/s41592-026-03030-z",
+        "pmid": "33828273; 41876643"
+      }
+    },
+    "2.2.8-r1": {
+      "name": "diamond",
+      "kind": "tool",
+      "version": "2.2.8",
+      "release": 1,
+      "version_id": "2.2.8-r1",
+      "tag": "v2.2.8-r1",
+      "published_at": "2026-09-23T16:02:15Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/diamond",
+      "repository_slug": "taffish/diamond",
+      "command": {
+        "name": "taf-diamond"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "sequence-alignment",
+        "categories": [
+          "sequence-alignment",
+          "protein-search",
+          "homology-search",
+          "clustering",
+          "annotation"
+        ],
+        "keywords": [
+          "diamond",
+          "blastp",
+          "blastx",
+          "makedb",
+          "protein-alignment",
+          "sequence-search",
+          "dmnd",
+          "daa",
+          "linclust",
+          "deepclust"
+        ],
+        "summary": "DIAMOND 2.2.8 for fast protein sequence search, translated DNA-to-protein search, DIAMOND database creation, DAA viewing, and protein clustering workflows.",
+        "description": "DIAMOND 2.2.8 for fast protein sequence search, translated DNA-to-protein search, DIAMOND database creation, DAA viewing, and protein clustering workflows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/diamond:2.2.8-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.2.8-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:c59a08f3492004f93803b644ad46bf8849cb3ab4b035a038da98246305f245d0",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:c8dc33a6cba9d3c756b951d10370dce317d9cb8961565ef1168cf44019a24686"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "diamond",
+          "diamond-db",
+          "python3",
+          "curl",
+          "sh",
+          "grep",
+          "gzip",
+          "zstd",
+          "ldd",
+          "mv",
+          "mkdir",
+          "sha256sum"
+        ],
+        "test": [
+          "grep -Fx 'binary_sha256=33a765d192ae4f5b388f15fe2e7c23d3aaea0f9e3f6872efe8c324aec261fbc7' /opt/diamond/share/doc/source.txt >/dev/null && grep -Fx 'upstream_commit=745cd3b275da3dfe0e4721b75420122daa7e4d07' /opt/diamond/share/doc/source.txt >/dev/null",
+          "python3 /opt/diamond/share/test/diamond-smoke.py identity",
+          "python3 /opt/diamond/share/test/diamond-smoke.py interfaces",
+          "python3 /opt/diamond/share/test/diamond-smoke.py buildtime",
+          "python3 /opt/diamond/share/test/diamond-smoke.py protein",
+          "python3 /opt/diamond/share/test/diamond-smoke.py migration-boundary",
+          "python3 /opt/diamond/share/test/diamond-smoke.py translated",
+          "python3 /opt/diamond/share/test/diamond-smoke.py clustering",
+          "python3 /opt/diamond/share/test/diamond-smoke.py self",
+          "python3 /opt/diamond/share/test/diamond-smoke.py taxonomy",
+          "python3 /opt/diamond/share/test/diamond-smoke.py resources"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-23T16:08:45Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-23T16:09:04Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0ee3dd0ccd72e1cf76dcb5b474bef2e8de1221b3",
+            "image_digest": "sha256:c59a08f3492004f93803b644ad46bf8849cb3ab4b035a038da98246305f245d0",
+            "smoke_sha256": "327ab2a32b345338f08ae6fbeb734a34d51132a3a093dd73d7b69e6a91aad7b2",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-23T16:08:45Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0ee3dd0ccd72e1cf76dcb5b474bef2e8de1221b3",
+            "image_digest": "sha256:c59a08f3492004f93803b644ad46bf8849cb3ab4b035a038da98246305f245d0",
+            "smoke_sha256": "327ab2a32b345338f08ae6fbeb734a34d51132a3a093dd73d7b69e6a91aad7b2",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-23T16:08:47Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0ee3dd0ccd72e1cf76dcb5b474bef2e8de1221b3",
+            "image_digest": "sha256:c59a08f3492004f93803b644ad46bf8849cb3ab4b035a038da98246305f245d0",
+            "smoke_sha256": "327ab2a32b345338f08ae6fbeb734a34d51132a3a093dd73d7b69e6a91aad7b2",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-23T16:05:05Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/diamond",
+        "ref": "v2.2.8-r1",
+        "commit": "0ee3dd0ccd72e1cf76dcb5b474bef2e8de1221b3",
+        "html_url": "https://github.com/taffish/diamond/tree/v2.2.8-r1"
+      },
+      "upstream": {
+        "name": "DIAMOND",
+        "type": "github",
+        "homepage": "https://github.com/bbuchfink/diamond",
+        "repository": "bbuchfink/diamond",
+        "release_url": "https://github.com/bbuchfink/diamond/releases/tag/v2.2.8",
+        "version": "2.2.8",
         "license": "GPL-3.0-or-later",
         "citation": "Buchfink et al. 2021; Buchfink et al. 2026",
         "doi": "10.1038/s41592-021-01101-x; 10.1038/s41592-026-03030-z",
