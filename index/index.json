@@ -1,12 +1,12 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-24T06:13:55Z",
+  "generated_at": "2026-09-24T16:59:46Z",
   "organization": "taffish",
   "counts": {
-    "packages": 274,
-    "versions": 495,
-    "commands": 274,
-    "repositories": 274,
+    "packages": 275,
+    "versions": 496,
+    "commands": 275,
+    "repositories": 275,
     "warnings": 0,
     "failed": 0,
     "advisory_failed": 18,
@@ -82091,6 +82091,219 @@
         }
       }
     },
+    "trust4": {
+      "name": "trust4",
+      "latest": "1.1.10-r1",
+      "recent_version": "1.1.10-r1",
+      "recent_at": "2026-09-24T16:57:35Z",
+      "repository_url": "https://github.com/taffish/trust4",
+      "command": {
+        "name": "taf-trust4"
+      },
+      "versions": {
+        "1.1.10-r1": {
+          "name": "trust4",
+          "kind": "tool",
+          "version": "1.1.10",
+          "release": 1,
+          "version_id": "1.1.10-r1",
+          "tag": "v1.1.10-r1",
+          "published_at": "2026-09-24T16:57:35Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trust4",
+          "repository_slug": "taffish/trust4",
+          "command": {
+            "name": "taf-trust4"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "immune-repertoire",
+            "categories": [
+              "immune-repertoire",
+              "rna-seq",
+              "single-cell"
+            ],
+            "keywords": [
+              "trust4",
+              "tcr",
+              "bcr",
+              "cdr3",
+              "airr",
+              "smart-seq",
+              "vdj"
+            ],
+            "summary": "T-cell and B-cell receptor reconstruction from bulk and single-cell sequencing.",
+            "description": "T-cell and B-cell receptor reconstruction from bulk and single-cell sequencing."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trust4:1.1.10-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.1.10-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:708014a4acf80919ae603fe5234ee51c1eced2e094a46ccd06be96dc27372bec",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c6d9a94782a305f652d652fb041ad7dbd2b51a42c977531aa8a0ac2dd308dbca",
+              "linux/arm64": "sha256:dfad2061d8fabe968bcd984daf14f8a822c3fe81e0d08e63196bf6f134f7586b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "run-trust4",
+              "trust4",
+              "bam-extractor",
+              "fastq-extractor",
+              "annotator",
+              "BuildDatabaseFa.pl",
+              "BuildImgtAnnot.pl",
+              "BuildImgtVquestAnnot.pl",
+              "FilterAnnotatedAssembly.pl",
+              "trust-airr.pl",
+              "trust-barcoderep.pl",
+              "trust-simplerep.pl",
+              "trust-smartseq.pl",
+              "AddSequenceToCDR3File.pl",
+              "GetFullLengthAssembly.pl",
+              "airr-imgtgap.py",
+              "barcoderep-expand.py",
+              "barcoderep-filter.py",
+              "trust-barcoderep-to-10X.pl",
+              "trust-cluster.py",
+              "trust-stats.py",
+              "trust4-reference",
+              "perl",
+              "python3",
+              "wget",
+              "curl",
+              "grep",
+              "cat",
+              "rm",
+              "rmdir",
+              "sh",
+              "bash",
+              "diff",
+              "sort",
+              "wc",
+              "sha256sum"
+            ],
+            "test": [
+              "python3 /usr/share/trust4-taffish/smoke.py identity",
+              "python3 /usr/share/trust4-taffish/smoke.py help",
+              "python3 /usr/share/trust4-taffish/smoke.py bam",
+              "python3 /usr/share/trust4-taffish/smoke.py fastq",
+              "python3 /usr/share/trust4-taffish/smoke.py barcode",
+              "python3 /usr/share/trust4-taffish/smoke.py postprocess",
+              "python3 /usr/share/trust4-taffish/smoke.py smartseq",
+              "python3 /usr/share/trust4-taffish/smoke.py references",
+              "python3 /usr/share/trust4-taffish/smoke.py negative"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-24T17:03:24Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-24T17:03:40Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20260920.314.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "b0412b027a9f32b292ae442ef6bdbffc566d9778",
+                "image_digest": "sha256:708014a4acf80919ae603fe5234ee51c1eced2e094a46ccd06be96dc27372bec",
+                "smoke_sha256": "b96db3babbd9ddd1f1c21490ee2c225cef303a53c54d5c2b85abdc507215eb8e",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-24T17:03:24Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260920.314.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "b0412b027a9f32b292ae442ef6bdbffc566d9778",
+                "image_digest": "sha256:708014a4acf80919ae603fe5234ee51c1eced2e094a46ccd06be96dc27372bec",
+                "smoke_sha256": "b96db3babbd9ddd1f1c21490ee2c225cef303a53c54d5c2b85abdc507215eb8e",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-24T17:03:48Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260920.314.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "b0412b027a9f32b292ae442ef6bdbffc566d9778",
+                "image_digest": "sha256:708014a4acf80919ae603fe5234ee51c1eced2e094a46ccd06be96dc27372bec",
+                "smoke_sha256": "b96db3babbd9ddd1f1c21490ee2c225cef303a53c54d5c2b85abdc507215eb8e",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-24T16:59:46Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trust4",
+            "ref": "v1.1.10-r1",
+            "commit": "b0412b027a9f32b292ae442ef6bdbffc566d9778",
+            "html_url": "https://github.com/taffish/trust4/tree/v1.1.10-r1"
+          },
+          "upstream": {
+            "name": "TRUST4",
+            "type": "github",
+            "homepage": "https://github.com/liulab-dfci/TRUST4",
+            "repository": "liulab-dfci/TRUST4",
+            "release_url": "https://github.com/liulab-dfci/TRUST4/releases/tag/v1.1.10",
+            "version": "1.1.10",
+            "license": "MIT; bundled SAMtools libbam: MIT; IMGT reference data: CC-BY-4.0",
+            "citation": "Song et al. TRUST4: immune repertoire reconstruction from bulk and single-cell RNA-seq data. Nature Methods (2021).",
+            "doi": "10.1038/s41592-021-01142-2",
+            "pmid": "33986545"
+          }
+        }
+      }
+    },
     "truvari": {
       "name": "truvari",
       "latest": "5.5.0-r1",
@@ -88205,6 +88418,10 @@
       "package": "trnascan-se",
       "version": "2.0.13-r1"
     },
+    "taf-trust4": {
+      "package": "trust4",
+      "version": "1.1.10-r1"
+    },
     "taf-truvari": {
       "package": "truvari",
       "version": "5.5.0-r1"
@@ -89815,6 +90032,12 @@
       "repository": "taffish/trnascan-se",
       "packages": [
         "trnascan-se"
+      ]
+    },
+    "taffish/trust4": {
+      "repository": "taffish/trust4",
+      "packages": [
+        "trust4"
       ]
     },
     "taffish/truvari": {
