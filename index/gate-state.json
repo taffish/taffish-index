@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-09-26T06:11:30Z",
+  "generated_at": "2026-09-26T16:40:35Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -21844,6 +21844,66 @@
       "message": null
     },
     {
+      "task_id": "taffish/seqkit|2.14.0-r1",
+      "plan_id": "aad890da203d2e1fd17909e7cfd3b98238c49fc79b46aba0411c1718318eea49",
+      "manifest_id": "04f02915c1d2b62b71b9aaff62af44f23033ca50b913f9b09e7e72cf4065dfa0",
+      "backend": "apptainer",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-09-26T16:44:59Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.4",
+      "runner_image": "ubuntu24/20260920.314.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "c0dc08bbd759af24f6e434837e3ea479627fa812",
+      "image_digest": "sha256:b32749a3524b6fe1e0eb9e3d8634caa8200fd341d757b4b1fe67e55f1c9b66dd",
+      "smoke_sha256": "1b08e3ce9837aeefc785940d2a3cc607dd8f3b697dca6eabc423e68ff97dcec3",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/seqkit|2.14.0-r1",
+      "plan_id": "aad890da203d2e1fd17909e7cfd3b98238c49fc79b46aba0411c1718318eea49",
+      "manifest_id": "04f02915c1d2b62b71b9aaff62af44f23033ca50b913f9b09e7e72cf4065dfa0",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-09-26T16:44:42Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20260920.314.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "c0dc08bbd759af24f6e434837e3ea479627fa812",
+      "image_digest": "sha256:b32749a3524b6fe1e0eb9e3d8634caa8200fd341d757b4b1fe67e55f1c9b66dd",
+      "smoke_sha256": "1b08e3ce9837aeefc785940d2a3cc607dd8f3b697dca6eabc423e68ff97dcec3",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/seqkit|2.14.0-r1",
+      "plan_id": "aad890da203d2e1fd17909e7cfd3b98238c49fc79b46aba0411c1718318eea49",
+      "manifest_id": "04f02915c1d2b62b71b9aaff62af44f23033ca50b913f9b09e7e72cf4065dfa0",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-09-26T16:44:47Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 4.9.3",
+      "runner_image": "ubuntu24/20260920.314.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "c0dc08bbd759af24f6e434837e3ea479627fa812",
+      "image_digest": "sha256:b32749a3524b6fe1e0eb9e3d8634caa8200fd341d757b4b1fe67e55f1c9b66dd",
+      "smoke_sha256": "1b08e3ce9837aeefc785940d2a3cc607dd8f3b697dca6eabc423e68ff97dcec3",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
       "task_id": "taffish/seqtk|1.5-r1",
       "plan_id": "ecc996c7f6d97c166f7886309c3f12b3825b65cec6a70e67d09e132f901aadfe",
       "manifest_id": "0bc52c64508a8cb28acde94e903dedd4b5ad00cf037477c6195859f9c7e28339",
@@ -29493,6 +29553,13 @@
       "source_commit": "9a10e56e8e14497bd0deac98376ad5f28285fae3",
       "image": "ghcr.io/taffish/seqkit:2.13.0-r2",
       "image_digest": "sha256:0e387d64b8406bc05b130917c848e2abb2ed6dbb0bba25eeb152d004013405df"
+    },
+    {
+      "task_id": "taffish/seqkit|2.14.0-r1",
+      "source_ref": "v2.14.0-r1",
+      "source_commit": "c0dc08bbd759af24f6e434837e3ea479627fa812",
+      "image": "ghcr.io/taffish/seqkit:2.14.0-r1",
+      "image_digest": "sha256:b32749a3524b6fe1e0eb9e3d8634caa8200fd341d757b4b1fe67e55f1c9b66dd"
     },
     {
       "task_id": "taffish/seqtk|1.5-r1",

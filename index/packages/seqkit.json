@@ -1,8 +1,8 @@
 {
   "name": "seqkit",
-  "latest": "2.13.0-r2",
-  "recent_version": "2.13.0-r2",
-  "recent_at": "2026-05-24T01:18:50Z",
+  "latest": "2.14.0-r1",
+  "recent_version": "2.14.0-r1",
+  "recent_at": "2026-09-26T16:06:15Z",
   "repository_url": "https://github.com/taffish/seqkit",
   "command": {
     "name": "taf-seqkit"
@@ -348,6 +348,192 @@
         "repository": "shenwei356/seqkit",
         "release_url": "https://github.com/shenwei356/seqkit/releases/tag/v2.13.0",
         "version": "2.13.0",
+        "license": "MIT",
+        "citation": "Shen, Sipos and Zhao 2024; Shen et al. 2016",
+        "doi": "10.1002/imt2.191; 10.1371/journal.pone.0163962",
+        "pmid": "27706213"
+      }
+    },
+    "2.14.0-r1": {
+      "name": "seqkit",
+      "kind": "tool",
+      "version": "2.14.0",
+      "release": 1,
+      "version_id": "2.14.0-r1",
+      "tag": "v2.14.0-r1",
+      "published_at": "2026-09-26T16:06:15Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/seqkit",
+      "repository_slug": "taffish/seqkit",
+      "command": {
+        "name": "taf-seqkit"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "fasta",
+        "categories": [
+          "fasta",
+          "fastq",
+          "sequence-processing",
+          "quality-control",
+          "alignment-processing"
+        ],
+        "keywords": [
+          "seqkit",
+          "fasta",
+          "fastq",
+          "bam",
+          "gzip",
+          "xz",
+          "zstd",
+          "bzip2",
+          "lz4",
+          "statistics",
+          "subsequence",
+          "sampling",
+          "format-conversion"
+        ],
+        "summary": "SeqKit ultrafast toolkit for FASTA/Q sequence manipulation and lightweight BAM monitoring.",
+        "description": "SeqKit ultrafast toolkit for FASTA/Q sequence manipulation and lightweight BAM monitoring."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/seqkit:2.14.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.14.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:b32749a3524b6fe1e0eb9e3d8634caa8200fd341d757b4b1fe67e55f1c9b66dd",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:8a7b5a56245766c603f12266d518c200dcc0bdc3f3981b8586d9f3fb61ae44bf",
+          "linux/arm64": "sha256:88e6a707527cdba318b16bcdfdddc291d39dcdb5933bd4b862587608d1cc80e3"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "seqkit",
+          "sh",
+          "bash",
+          "grep",
+          "awk",
+          "cut",
+          "cmp",
+          "cp",
+          "mktemp",
+          "tail",
+          "ldd",
+          "rm",
+          "mkdir"
+        ],
+        "test": [
+          "sh /opt/seqkit/share/smoke.sh identity",
+          "sh /opt/seqkit/share/smoke.sh basic",
+          "sh /opt/seqkit/share/smoke.sh search",
+          "sh /opt/seqkit/share/smoke.sh convert",
+          "sh /opt/seqkit/share/smoke.sh compression",
+          "sh /opt/seqkit/share/smoke.sh delta",
+          "sh /opt/seqkit/share/smoke.sh replace",
+          "sh /opt/seqkit/share/smoke.sh monitor",
+          "sh /opt/seqkit/share/smoke.sh bam"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-26T16:44:42Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-26T16:44:59Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c0dc08bbd759af24f6e434837e3ea479627fa812",
+            "image_digest": "sha256:b32749a3524b6fe1e0eb9e3d8634caa8200fd341d757b4b1fe67e55f1c9b66dd",
+            "smoke_sha256": "1b08e3ce9837aeefc785940d2a3cc607dd8f3b697dca6eabc423e68ff97dcec3",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-26T16:44:42Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c0dc08bbd759af24f6e434837e3ea479627fa812",
+            "image_digest": "sha256:b32749a3524b6fe1e0eb9e3d8634caa8200fd341d757b4b1fe67e55f1c9b66dd",
+            "smoke_sha256": "1b08e3ce9837aeefc785940d2a3cc607dd8f3b697dca6eabc423e68ff97dcec3",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-26T16:44:47Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c0dc08bbd759af24f6e434837e3ea479627fa812",
+            "image_digest": "sha256:b32749a3524b6fe1e0eb9e3d8634caa8200fd341d757b4b1fe67e55f1c9b66dd",
+            "smoke_sha256": "1b08e3ce9837aeefc785940d2a3cc607dd8f3b697dca6eabc423e68ff97dcec3",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-26T16:40:35Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/seqkit",
+        "ref": "v2.14.0-r1",
+        "commit": "c0dc08bbd759af24f6e434837e3ea479627fa812",
+        "html_url": "https://github.com/taffish/seqkit/tree/v2.14.0-r1"
+      },
+      "upstream": {
+        "name": "SeqKit",
+        "type": "github",
+        "homepage": "https://bioinf.shenwei.me/seqkit/",
+        "repository": "shenwei356/seqkit",
+        "release_url": "https://github.com/shenwei356/seqkit/releases/tag/v2.14.0",
+        "version": "2.14.0",
         "license": "MIT",
         "citation": "Shen, Sipos and Zhao 2024; Shen et al. 2016",
         "doi": "10.1002/imt2.191; 10.1371/journal.pone.0163962",
