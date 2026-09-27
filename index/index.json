@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-09-27T06:38:54Z",
+  "generated_at": "2026-09-27T16:45:45Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 498,
+    "versions": 499,
     "commands": 275,
     "repositories": 275,
     "warnings": 0,
@@ -38456,9 +38456,9 @@
     },
     "macs3": {
       "name": "macs3",
-      "latest": "3.0.4-r1",
-      "recent_version": "3.0.4-r1",
-      "recent_at": "2026-06-18T15:07:41Z",
+      "latest": "3.0.5-r1",
+      "recent_version": "3.0.5-r1",
+      "recent_at": "2026-09-27T16:05:43Z",
       "repository_url": "https://github.com/taffish/macs3",
       "command": {
         "name": "taf-macs3"
@@ -38637,6 +38637,182 @@
             "citation": "Zhang et al. 2008, Model-based Analysis of ChIP-Seq (MACS)",
             "doi": "10.1186/gb-2008-9-9-r137",
             "pmid": "18798982"
+          }
+        },
+        "3.0.5-r1": {
+          "name": "macs3",
+          "kind": "tool",
+          "version": "3.0.5",
+          "release": 1,
+          "version_id": "3.0.5-r1",
+          "tag": "v3.0.5-r1",
+          "published_at": "2026-09-27T16:05:43Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/macs3",
+          "repository_slug": "taffish/macs3",
+          "command": {
+            "name": "taf-macs3"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "chip-seq",
+            "categories": [
+              "chip-seq",
+              "atac-seq",
+              "peak-calling",
+              "epigenomics",
+              "genomics"
+            ],
+            "keywords": [
+              "macs3",
+              "macs",
+              "chip-seq",
+              "atac-seq",
+              "peak calling",
+              "broad peaks",
+              "bedgraph",
+              "hmmratac",
+              "callpeak",
+              "pileup",
+              "bdgcmp"
+            ],
+            "summary": "MACS3 3.0.5 runtime for ChIP-seq, ATAC-seq, DNA enrichment peak calling, bedGraph operations, and HMMRATAC.",
+            "description": "MACS3 3.0.5 runtime for ChIP-seq, ATAC-seq, DNA enrichment peak calling, bedGraph operations, and HMMRATAC."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/macs3:3.0.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.0.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f299f9c4b03a5c77da58dea22b40c792ce8b95f1e839fcae3e2d348ca8cf9633",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a1b1885e62946d002fd0eeee5b27aeec7c2f16d2d0c248856b939a6812d8c4b5",
+              "linux/arm64": "sha256:cd4458cc418eaf2f4ddb333326a4bdd071e8765b49a6fb85b3711ea29c79aea4"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "macs3",
+              "python",
+              "python3",
+              "bash",
+              "sh",
+              "gzip",
+              "ldd",
+              "Rscript"
+            ],
+            "test": [
+              "python /opt/macs3/share/testdata/smoke.py identity",
+              "python /opt/macs3/share/testdata/smoke.py imports",
+              "python /opt/macs3/share/testdata/smoke.py peaks",
+              "python /opt/macs3/share/testdata/smoke.py anndata",
+              "python /opt/macs3/share/testdata/smoke.py hmm",
+              "python /opt/macs3/share/testdata/smoke.py plots",
+              "python /opt/macs3/share/testdata/smoke.py bedgraph"
+            ],
+            "status": "passed",
+            "checked_at": "2026-09-27T16:49:24Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-09-27T16:49:43Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20260920.314.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "402d4fbe591ba501d37d07ac6ac0dd365d231f29",
+                "image_digest": "sha256:f299f9c4b03a5c77da58dea22b40c792ce8b95f1e839fcae3e2d348ca8cf9633",
+                "smoke_sha256": "abad31359f4dd7d929c453153b760fb6d4a29afc10e909681ffe027ee03264ff",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-09-27T16:49:24Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260920.314.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "402d4fbe591ba501d37d07ac6ac0dd365d231f29",
+                "image_digest": "sha256:f299f9c4b03a5c77da58dea22b40c792ce8b95f1e839fcae3e2d348ca8cf9633",
+                "smoke_sha256": "abad31359f4dd7d929c453153b760fb6d4a29afc10e909681ffe027ee03264ff",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-09-27T16:49:28Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260920.314.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "402d4fbe591ba501d37d07ac6ac0dd365d231f29",
+                "image_digest": "sha256:f299f9c4b03a5c77da58dea22b40c792ce8b95f1e839fcae3e2d348ca8cf9633",
+                "smoke_sha256": "abad31359f4dd7d929c453153b760fb6d4a29afc10e909681ffe027ee03264ff",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-09-27T16:45:45Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/macs3",
+            "ref": "v3.0.5-r1",
+            "commit": "402d4fbe591ba501d37d07ac6ac0dd365d231f29",
+            "html_url": "https://github.com/taffish/macs3/tree/v3.0.5-r1"
+          },
+          "upstream": {
+            "name": "MACS3",
+            "type": "github",
+            "homepage": "https://macs3-project.github.io/MACS/",
+            "repository": "macs3-project/MACS",
+            "release_url": "https://github.com/macs3-project/MACS/releases/tag/v3.0.5",
+            "version": "3.0.5",
+            "license": "BSD-3-Clause",
+            "citation": "MACS3: A Peak-calling Platform for Bulk and Single-cell Regulatory Genomics (2026)",
+            "doi": "10.1093/gpbjnl/qzag097"
           }
         }
       }
@@ -88252,7 +88428,7 @@
     },
     "taf-macs3": {
       "package": "macs3",
-      "version": "3.0.4-r1"
+      "version": "3.0.5-r1"
     },
     "taf-mafft": {
       "package": "mafft",
