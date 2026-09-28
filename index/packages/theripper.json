@@ -1,8 +1,8 @@
 {
   "name": "theripper",
-  "latest": "2020.12.14-r1",
-  "recent_version": "2020.12.14-r1",
-  "recent_at": "2026-07-25T08:45:23Z",
+  "latest": "2020.12.14-r2",
+  "recent_version": "2020.12.14-r2",
+  "recent_at": "2026-09-28T16:10:27Z",
   "repository_url": "https://github.com/taffish/theripper",
   "command": {
     "name": "taf-theripper"
@@ -169,6 +169,188 @@
         "ref": "v2020.12.14-r1",
         "commit": "37c0c54abca264ef27886c0ff2144f62a2ebe950",
         "html_url": "https://github.com/taffish/theripper/tree/v2020.12.14-r1"
+      },
+      "upstream": {
+        "name": "TheRIPper",
+        "type": "github",
+        "homepage": "https://theripper.hawk.rocks/",
+        "repository": "TheRIPper-Fungi/TheRIPper",
+        "release_url": "https://github.com/TheRIPper-Fungi/TheRIPper/commit/6b4600476f8cac5e2bb1cecc23dbbe8958e91a9b",
+        "version": "6b4600476f8cac5e2bb1cecc23dbbe8958e91a9b",
+        "license": "GPL-3.0",
+        "citation": "van Wyk et al. 2019. The RIPper, a web-based tool for genome-wide quantification of Repeat-Induced Point (RIP) mutations.",
+        "doi": "10.7717/peerj.7447",
+        "pmid": "31523495"
+      }
+    },
+    "2020.12.14-r2": {
+      "name": "theripper",
+      "kind": "tool",
+      "version": "2020.12.14",
+      "release": 2,
+      "version_id": "2020.12.14-r2",
+      "tag": "v2020.12.14-r2",
+      "published_at": "2026-09-28T16:10:27Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/theripper",
+      "repository_slug": "taffish/theripper",
+      "command": {
+        "name": "taf-theripper"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "fungal-genomics",
+          "repeat-analysis",
+          "web-service"
+        ],
+        "keywords": [
+          "theripper",
+          "rip",
+          "repeat-induced-point-mutation",
+          "lrar",
+          "fungi",
+          "fasta",
+          "gff3"
+        ],
+        "summary": "TheRIPper CLI and optional Web service for genome-wide quantification of Repeat-Induced Point mutations.",
+        "description": "TheRIPper CLI and optional Web service for genome-wide quantification of Repeat-Induced Point mutations."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/theripper:2020.12.14-r2",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2020.12.14-r2",
+        "image_tag_matches_version": true,
+        "digest": "sha256:d27a75581f7b476c1f48b5b817d5b225469c2a762bfa16f2406ca039c83d565c",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:936ee9aa3a3e96ce8c999f878db2883cecd64eaa7a2b99a012da653bd863040b",
+          "linux/arm64": "sha256:6f29df8e38a6005282612dd1b20261d20e5eacac2dd5bfd98d696e7ef70beb98"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "theripper",
+          "theripper-cli",
+          "theripper-web",
+          "theripper-smoke",
+          "dotnet",
+          "bash",
+          "curl",
+          "awk",
+          "grep",
+          "cmp",
+          "wc",
+          "tr",
+          "find",
+          "sha256sum",
+          "ldd",
+          "mktemp",
+          "tail",
+          "sleep",
+          "rm",
+          "mkdir"
+        ],
+        "test": [
+          "theripper-smoke identity",
+          "theripper-smoke cli",
+          "theripper-smoke parser",
+          "theripper-smoke web",
+          "theripper-smoke loopback"
+        ],
+        "status": "passed",
+        "checked_at": "2026-09-28T16:25:32Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-09-28T16:25:47Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "79c506e58d365388568b64b4281c7c9ef7b87f5e",
+            "image_digest": "sha256:d27a75581f7b476c1f48b5b817d5b225469c2a762bfa16f2406ca039c83d565c",
+            "smoke_sha256": "08269b75f0ba037fbc2c0c091f22bebd7507813acd12483dd150c43a301df769",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-09-28T16:25:32Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "79c506e58d365388568b64b4281c7c9ef7b87f5e",
+            "image_digest": "sha256:d27a75581f7b476c1f48b5b817d5b225469c2a762bfa16f2406ca039c83d565c",
+            "smoke_sha256": "08269b75f0ba037fbc2c0c091f22bebd7507813acd12483dd150c43a301df769",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-09-28T16:25:32Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20260920.314.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "79c506e58d365388568b64b4281c7c9ef7b87f5e",
+            "image_digest": "sha256:d27a75581f7b476c1f48b5b817d5b225469c2a762bfa16f2406ca039c83d565c",
+            "smoke_sha256": "08269b75f0ba037fbc2c0c091f22bebd7507813acd12483dd150c43a301df769",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-09-28T16:20:34Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/theripper",
+        "ref": "v2020.12.14-r2",
+        "commit": "79c506e58d365388568b64b4281c7c9ef7b87f5e",
+        "html_url": "https://github.com/taffish/theripper/tree/v2020.12.14-r2"
       },
       "upstream": {
         "name": "TheRIPper",
