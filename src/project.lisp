@@ -133,6 +133,148 @@
       ((< (plist-ref a :release) (plist-ref b :release)) -1)
       (t 0))))
 
+;; Default-install fallback ordering is deliberately separate from the legacy
+;; comparator above: changing the latter would also change smoke scheduling.
+;; These helpers order versions; GitHub release metadata decides eligibility.
+(defun default-semver-identifiers-p (parts &key numeric-leading-zeroes)
+  (every (lambda (part)
+           (and (> (length part) 0)
+                (every (lambda (char)
+                         (or (ascii-alpha-char-p char)
+                             (digit-char-p char)
+                             (char= char #\-)))
+                       part)
+                (or numeric-leading-zeroes
+                    (not (digit-string-p part))
+                    (= (length part) 1)
+                    (not (char= (char part 0) #\0)))))
+         parts))
+
+(defun default-semver-parts (version)
+  (multiple-value-bind (precedence build) (split-once version #\+)
+    (multiple-value-bind (core prerelease) (split-once precedence #\-)
+      (let ((numbers (version-number-list core))
+            (pre-parts (and prerelease (split-string prerelease #\.))))
+        (when (and (= (length numbers) 3)
+                   (default-semver-identifiers-p (split-string core #\.))
+                   (or (null build)
+                       (default-semver-identifiers-p
+                        (split-string build #\.) :numeric-leading-zeroes t))
+                   (or (null prerelease)
+                       (default-semver-identifiers-p pre-parts)))
+          (list :core numbers :prerelease pre-parts))))))
+
+(defun default-numeric-prefix (version)
+  "Return the leading dot-separated numeric core and the remaining suffix."
+  (let ((end 0)
+        (numbers nil)
+        (size (length version)))
+    (loop
+      (let ((start end))
+        (loop while (and (< end size) (digit-char-p (char version end)))
+              do (incf end))
+        (when (= start end) (return))
+        (push (parse-integer version :start start :end end) numbers))
+      (unless (and (< end size)
+                   (char= (char version end) #\.)
+                   (< (1+ end) size)
+                   (digit-char-p (char version (1+ end))))
+        (return))
+      (incf end))
+    (values (nreverse numbers) (subseq version end))))
+
+(defun default-natural-parts (version)
+  "Numbers compare numerically; other characters retain case-sensitive order."
+  (let ((parts nil)
+        (position 0)
+        (size (length version)))
+    (loop while (< position size) do
+      (if (digit-char-p (char version position))
+          (let ((start position))
+            (loop while (and (< position size)
+                             (digit-char-p (char version position)))
+                  do (incf position))
+            (push (parse-integer version :start start :end position) parts))
+          (progn
+            (push (char version position) parts)
+            (incf position))))
+    (nreverse parts)))
+
+(defun compare-default-natural-strings (a b)
+  (loop with x = (default-natural-parts a)
+        with y = (default-natural-parts b)
+        while (and x y)
+        do (cond
+             ((and (integerp (car x)) (integerp (car y)))
+              (cond ((< (car x) (car y)) (return-from compare-default-natural-strings -1))
+                    ((> (car x) (car y)) (return-from compare-default-natural-strings 1))))
+             ((integerp (car x)) (return-from compare-default-natural-strings -1))
+             ((integerp (car y)) (return-from compare-default-natural-strings 1))
+             ((char< (car x) (car y)) (return-from compare-default-natural-strings -1))
+             ((char> (car x) (car y)) (return-from compare-default-natural-strings 1)))
+           (setf x (cdr x) y (cdr y))
+        finally (return (cond (x 1) (y -1) (t 0)))))
+
+(defun compare-default-prerelease (a b)
+  (loop with x = a
+        with y = b
+        while (and x y)
+        do (let ((xv (car x)) (yv (car y)))
+             (cond
+               ((and (digit-string-p xv) (digit-string-p yv))
+                (let ((xn (parse-integer xv)) (yn (parse-integer yv)))
+                  (cond ((< xn yn) (return-from compare-default-prerelease -1))
+                        ((> xn yn) (return-from compare-default-prerelease 1)))))
+               ((digit-string-p xv) (return-from compare-default-prerelease -1))
+               ((digit-string-p yv) (return-from compare-default-prerelease 1))
+               ((string< xv yv) (return-from compare-default-prerelease -1))
+               ((string> xv yv) (return-from compare-default-prerelease 1))))
+           (setf x (cdr x) y (cdr y))
+        finally (return (cond (x 1) (y -1) (t 0)))))
+
+(defun default-version-order-parts (version)
+  (let ((semver (default-semver-parts version)))
+    (multiple-value-bind (core suffix) (default-numeric-prefix version)
+      (cond
+        (semver
+         (let ((pre (plist-ref semver :prerelease)))
+           (values (plist-ref semver :core) (if pre 1 2) pre)))
+        ((and core (string= suffix "")) (values core 2 nil))
+        (core (values core 0 suffix))
+        (t (values nil 0 version))))))
+
+(defun compare-default-versions (a b)
+  "Compare default-install fallback versions without inferring release channels.
+Numeric cores retain zero-padding equivalence. Strict SemVer ignores build
+metadata and orders identifiers by SemVer precedence. Vendor suffixes use
+natural numeric runs; at the same core they precede strict SemVer prereleases
+and bare releases. Non-numeric vendor names follow numeric-core versions.
+The explicit categories keep ordering transitive even for mixed conventions."
+  (multiple-value-bind (a-core a-kind a-tail) (default-version-order-parts a)
+    (multiple-value-bind (b-core b-kind b-tail) (default-version-order-parts b)
+      (cond
+        ((and a-core b-core)
+         (let ((core-order (compare-number-lists a-core b-core)))
+           (cond
+             ((not (zerop core-order)) core-order)
+             ((< a-kind b-kind) -1)
+             ((> a-kind b-kind) 1)
+             ((= a-kind 2) 0)
+             ((= a-kind 1) (compare-default-prerelease a-tail b-tail))
+             (t (compare-default-natural-strings a-tail b-tail)))))
+        (a-core -1)
+        (b-core 1)
+        (t (compare-default-natural-strings a-tail b-tail))))))
+
+(defun compare-default-version-release (a b)
+  (let ((version-order (compare-default-versions (plist-ref a :version)
+                                               (plist-ref b :version))))
+    (cond
+      ((not (zerop version-order)) version-order)
+      ((> (plist-ref a :release) (plist-ref b :release)) 1)
+      ((< (plist-ref a :release) (plist-ref b :release)) -1)
+      (t 0))))
+
 (defun platform-token-char-p (char)
   (or (ascii-alpha-char-p char)
       (digit-char-p char)

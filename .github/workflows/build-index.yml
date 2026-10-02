@@ -45,6 +45,9 @@ jobs:
         run: |
           bash tests/action-plan.sh
           sbcl --script tests/project.lisp
+          sbcl --script tests/version-order.lisp
+          sbcl --script tests/release-metadata.lisp
+          sbcl --script tests/default-selection.lisp
           sbcl --script tests/concurrency.lisp
           sbcl --script tests/pipeline.lisp
 

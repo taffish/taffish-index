@@ -741,12 +741,13 @@
 (defun plan-payload-json (generated-at organization policy accepted tasks
                           failures rejected warnings prior-results source-head
                           &optional prior-retry-tasks prior-observations
-                            rejected-task-ids)
+                            rejected-task-ids default-selection)
   (json-object
    (cons "schema_version" *pipeline-plan-schema*)
    (cons "generated_at" generated-at)
    (cons "organization" (or organization :null))
    (cons "source_head" (or source-head :null))
+   (cons "default_selection" (or default-selection :null))
    (cons "policy" policy)
    (cons "accepted" (cons :array (mapcar #'project-record-json accepted)))
    (cons "tasks" (cons :array (mapcar #'pipeline-task-json tasks)))
@@ -867,21 +868,23 @@
          (rejected-releases
            (read-rejected-releases rejected-releases-file))
          (records nil)
-         (warnings nil))
+         (warnings nil)
+         (release-policies nil))
     (dolist (local-repo local-repos)
       ;; Explicit staged local inputs must have a durable source identity.
       ;; The legacy BUILD-INDEX entry point keeps its historical warning-based
       ;; local validation behavior.
       (push (clean-local-pipeline-record local-repo) records))
     (when org
-      (multiple-value-bind (github-records github-warnings)
+      (multiple-value-bind (github-records github-warnings github-policies)
           (scan-github-organization
            org
            :include-default-branch include-default-branch
            :include-archived include-archived
            :include-forks include-forks
            :jobs jobs)
-        (setf records (append github-records records)
+        (setf release-policies github-policies
+              records (append github-records records)
               warnings (append github-warnings warnings))))
     (setf records
           (apply-metadata-overrides-to-records records metadata-overrides))
@@ -911,7 +914,9 @@
                          (sorted-warning-plists (nreverse warnings))
                          prior-results (current-source-head)
                          prior-retry-tasks prior-observations
-                         rejected-task-ids)))
+                         rejected-task-ids
+                         (make-default-selection-context
+                          output release-policies :github-scan org))))
           (add-plan-id payload))))))
 
 (defun write-pipeline-plan (path &rest args)
@@ -2378,7 +2383,8 @@
                (merge-pathnames
                 (file-namestring report) destination)))))))))
 
-(defun write-index-bundle-transactionally (index-dir index report gate-state generated-at)
+(defun write-index-bundle-transactionally
+    (index-dir index report gate-state generated-at &optional selection-state)
   (let* ((output (absolute-directory-pathname index-dir))
          (staging
            (path-with-suffix-directory
@@ -2396,6 +2402,9 @@
            (write-report-files staging report generated-at)
            (write-json-file (merge-pathnames "gate-state.json" staging)
                             gate-state)
+           (when selection-state
+             (write-json-file (merge-pathnames "default-selection.json" staging)
+                              selection-state))
            (dolist (relative '("index.json" "reports/latest.json"
                                "gate-state.json"))
              (unless (file-exists-p (merge-pathnames relative staging))
@@ -2563,8 +2572,8 @@
                 (latest-advisory-failures historical-advisory-failures)
               (partition-advisory-failures
                advisory-failures release-universe)
-            (let ((index
-                    (build-index-json
+            (let* ((built-index
+                    (multiple-value-list (build-index-json
                      accepted warnings
                      :organization organization
                      :failures-count (length failures)
@@ -2574,7 +2583,12 @@
                      :historical-advisory-failed-count
                      (length historical-advisory-failures)
                      :rejected-count (length rejected)
-                     :generated-at generated-at))
+                     :generated-at generated-at
+                     :default-selection (json-ref plan "default_selection")
+                     :default-selection-failures failures)))
+                  (index (first built-index))
+                  (warnings (second built-index))
+                  (selection-state (third built-index))
                   (report
                     (build-report-json
                      failures warnings
@@ -2587,7 +2601,7 @@
                      :organization organization
                      :generated-at generated-at)))
               (write-index-bundle-transactionally
-               index-dir index report gate-state generated-at)
+               index-dir index report gate-state generated-at selection-state)
               index)))))))
 
 (defun aggregate-pipeline-files (plan-path manifest-path result-paths index-dir)

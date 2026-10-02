@@ -3258,6 +3258,292 @@ test = [\"sh -c 'exit 0'\"]
                (write-json-string round-tripped :indent nil)
                "legacy smoke JSON round trips byte-for-byte without new fields"))
 
+;;; Default-install policies are frozen in the plan, never in public version
+;;; records.  Exercise real aggregate promotion and the compatibility builder
+;;; with mock backend results and private temporary output only.
+
+(defun test-default-policy (records latest-tag &key (status "latest")
+                                                (release-status "available")
+                                                prerelease-tags)
+  (json-object
+   (cons (record-source-repository (first records))
+         (json-object
+          (cons "status" status)
+          (cons "latest_tag" (or latest-tag :null))
+          (cons "release_status" release-status)
+          (cons "releases"
+                (cons :object
+                      (when (string= release-status "available")
+                        (mapcar
+                         (lambda (record)
+                           (let ((tag (plist-ref record :tag)))
+                             (cons tag
+                                   (if (member tag prerelease-tags :test #'equal)
+                                       "prerelease" "stable"))))
+                         records))))))))
+
+(defun test-plan-with-default-selection (plan context)
+  (reidentify-document plan "plan_id"
+                       (list (cons "default_selection" context))))
+
+(defun test-index-default (index package)
+  (json-ref (json-ref (json-ref index "packages") package) "latest"))
+
+(with-test-directory (output "default-selection-roundtrip")
+  (let* ((low (make-complete-pipeline-record
+               (make-package-version-record 31 "selection-tool" "2.0.0-a.7.3" 1)))
+         (high (make-complete-pipeline-record
+                (make-package-version-record 32 "selection-tool" "2.0.0-a.7.10" 1)))
+         (pre (make-complete-pipeline-record
+               (make-package-version-record 33 "selection-tool" "99.0.0" 1)))
+         (records (list low high pre))
+         (policies (test-default-policy
+                    records (plist-ref low :tag)
+                    :prerelease-tags (list (plist-ref pre :tag))))
+         (context (make-default-selection-context output policies :github-scan t))
+         (bare-plan (make-classified-test-plan records nil nil nil))
+         (plan (test-plan-with-default-selection bare-plan context))
+         (manifest (make-test-manifest plan))
+         (documents (mapcar (lambda (backend)
+                              (make-backend-result-document manifest backend "passed"))
+                            *test-backends*)))
+    (check (not (equal (json-ref bare-plan "plan_id") (json-ref plan "plan_id")))
+           "default selection is included in the plan hash")
+    (check (signals-error-p
+            (lambda ()
+              (verify-document-id
+               (replace-json-field plan "default_selection" (json-object))
+               "plan_id" "tampered selection plan")))
+           "changing a frozen default selection invalidates the plan hash")
+    ;; Disk state deliberately disagrees with the plan.  Aggregate may read
+    ;; report history, but cannot reopen policy files or query GitHub.
+    (write-json-file (merge-pathnames "default-selection.json" output)
+                     (json-object (cons "poison" t)))
+    (let ((old-api (symbol-function 'github-api-json))
+          (old-reader (symbol-function 'read-default-selection-file))
+          (index nil))
+      (unwind-protect
+           (progn
+             (setf (symbol-function 'github-api-json)
+                   (lambda (&rest _args)
+                     (declare (ignore _args))
+                     (error "aggregate must not query GitHub"))
+                   (symbol-function 'read-default-selection-file)
+                   (lambda (&rest _args)
+                     (declare (ignore _args))
+                     (error "aggregate must not reopen policy files")))
+             (setf index (aggregate-pipeline
+                          plan manifest documents output :current-head "test-source-head")))
+        (setf (symbol-function 'github-api-json) old-api
+              (symbol-function 'read-default-selection-file) old-reader))
+      (check-equal (plist-ref low :version-id)
+                   (test-index-default index "selection-tool")
+                   "aggregate honors an explicit lower Latest and excludes the high prerelease")
+      (check-equal (plist-ref low :version-id)
+                   (json-ref (json-ref (json-ref index "commands") "taf-selection-tool")
+                             "version")
+                   "command defaults follow the selected package default")
+      (check-equal (write-json-string
+                    (json-ref (json-ref index "packages") "selection-tool"))
+                   (write-json-string
+                    (json-file (merge-pathnames "packages/selection-tool.json" output)))
+                   "split package output matches the aggregate index")
+      (check-equal (write-json-string
+                    (json-ref (json-ref index "commands") "taf-selection-tool"))
+                   (write-json-string
+                    (json-file (merge-pathnames "commands/taf-selection-tool.json" output)))
+                   "split command output matches the aggregate index")
+      (dolist (record records)
+        (check-equal
+         (write-json-string (project-record-json record))
+         (write-json-string
+          (json-ref
+           (json-ref (json-ref (json-ref index "packages") "selection-tool") "versions")
+           (plist-ref record :version-id)))
+         (format nil "selection leaves public version ~A unchanged"
+                 (plist-ref record :version-id))))
+      (check (null (json-ref index "default_selection"))
+             "internal selection metadata does not enter the public index")
+      (check-equal "prerelease"
+                   (json-ref
+                    (json-ref (json-ref
+                               (json-file (merge-pathnames "default-selection.json" output))
+                               "repositories")
+                              "taffish/selection-tool")
+                    (plist-ref pre :tag))
+                   "transactional promotion saves known prerelease channels in the sidecar"))
+    (let* ((unavailable (test-default-policy records nil :status "unavailable"
+                                            :release-status "unavailable"))
+           (next-context (make-default-selection-context output unavailable :github-scan t))
+           (next-plan (test-plan-with-default-selection bare-plan next-context))
+           (next-manifest (make-test-manifest next-plan))
+           (next-documents (mapcar (lambda (backend)
+                                    (make-backend-result-document next-manifest backend "passed"))
+                                  *test-backends*))
+           (next-index (aggregate-pipeline next-plan next-manifest next-documents output
+                                           :current-head "test-source-head")))
+      (check-equal (plist-ref low :version-id)
+                   (test-index-default next-index "selection-tool")
+                   "the next API-outage run retains the verified previous default")
+      (check-equal "prerelease" (selection-channel-for-record pre next-context)
+                   "API outage preserves the known prerelease exclusion")
+      (check (> (json-ref (json-ref next-index "counts") "warnings") 0)
+             "an unavailable release policy is reported as a warning"))
+    ;; Existing accepted snapshots remain in the ledger when a forced backend
+    ;; recheck fails.  Their retention must not make the failed candidate latest.
+    (dolist (failed-backend '("docker" "podman"))
+      (let* ((next-context
+               (make-default-selection-context
+                output
+                (test-default-policy records (plist-ref high :tag)
+                                     :prerelease-tags (list (plist-ref pre :tag)))
+                :github-scan t))
+             (next-plan
+               (test-plan-with-default-selection
+                (make-classified-test-plan
+                 records (list (make-test-task high 0 *test-backends* :allow-cache nil))
+                 nil nil)
+                next-context))
+             (next-manifest (make-test-manifest next-plan))
+             (next-documents
+               (mapcar (lambda (backend)
+                         (make-backend-result-document
+                          next-manifest backend
+                          (if (string= backend failed-backend) "failed" "passed")))
+                       *test-backends*))
+             (next-index (aggregate-pipeline next-plan next-manifest next-documents output
+                                             :current-head "test-source-head")))
+        (check-equal (plist-ref (if (string= failed-backend "docker") low high) :version-id)
+                     (test-index-default next-index "selection-tool")
+                     (if (string= failed-backend "docker")
+                         "a current required failure excludes the retained accepted Latest"
+                         "an advisory failure does not exclude the accepted Latest"))
+        (check (json-ref
+                (json-ref (json-ref (json-ref next-index "packages") "selection-tool") "versions")
+                (plist-ref high :version-id))
+               "default eligibility never removes the accepted historical version")))))
+
+(with-test-directory (output "default-selection-legacy")
+  (let* ((low (make-complete-pipeline-record
+               (make-package-version-record 41 "legacy-selection" "3.0.0" 1)))
+         (high (make-complete-pipeline-record
+                (make-package-version-record 42 "legacy-selection" "4.0.0" 1)))
+         (records (list low high))
+         (policies (test-default-policy records (plist-ref low :tag)))
+         (old-scan (symbol-function 'scan-github-organization))
+         (old-enrich (symbol-function 'enrich-record)))
+    (unwind-protect
+         (progn
+           (setf (symbol-function 'scan-github-organization)
+                 (lambda (&rest _args)
+                   (declare (ignore _args))
+                   (values records nil policies))
+                 (symbol-function 'enrich-record)
+                 (lambda (record _checked-at)
+                   (declare (ignore _checked-at))
+                   record))
+           (let ((index (build-index :org "taffish" :output-dir output)))
+             (check-equal (plist-ref low :version-id)
+                          (test-index-default index "legacy-selection")
+                          "the compatibility builder honors GitHub Latest")
+             (check (file-exists-p (merge-pathnames "default-selection.json" output))
+                    "the compatibility builder persists the shared channel sidecar"))
+           (setf policies (test-default-policy records nil :status "unavailable"
+                                               :release-status "unavailable"))
+           (let ((index (build-index :org "taffish" :output-dir output)))
+             (check-equal (plist-ref low :version-id)
+                          (test-index-default index "legacy-selection")
+                          "the compatibility builder reuses its verified default during API outage")))
+      (setf (symbol-function 'scan-github-organization) old-scan
+            (symbol-function 'enrich-record) old-enrich))))
+
+;;; A historical command name must continue resolving to a version that
+;;; actually declares that command, including after an API outage.
+
+(with-test-directory (output "default-selection-command-rename")
+  (let* ((old (make-complete-pipeline-record
+               (make-package-version-record 51 "renamed-tool" "1.0.0" 1)))
+         (new (copy-record-set
+               (make-complete-pipeline-record
+                (make-package-version-record 52 "renamed-tool" "2.0.0" 1))
+               :command-name "taf-renamed-tool-new"))
+         (records (list old new)))
+    (dolist (latest (list new old))
+      (let* ((context
+               (make-default-selection-context
+                output (test-default-policy records (plist-ref latest :tag)) :github-scan t))
+             (plan (test-plan-with-default-selection
+                    (make-classified-test-plan records nil nil nil) context))
+             (manifest (make-test-manifest plan))
+             (documents (mapcar (lambda (backend)
+                                  (make-backend-result-document manifest backend "passed"))
+                                *test-backends*))
+             (index (aggregate-pipeline plan manifest documents output
+                                         :current-head "test-source-head"))
+             (commands (json-ref index "commands")))
+        (check-equal (plist-ref latest :version-id)
+                     (test-index-default index "renamed-tool")
+                     "package Latest still follows explicit recommendation across a command rename")
+        (check-equal (plist-ref old :version-id)
+                     (json-ref (json-ref commands "taf-renamed-tool") "version")
+                     "the old command name selects a release that declares the old command")
+        (check-equal (plist-ref new :version-id)
+                     (json-ref (json-ref commands "taf-renamed-tool-new") "version")
+                     "the new command name selects a release that declares the new command")))
+    (let* ((context
+             (make-default-selection-context
+              output (test-default-policy records nil :status "unavailable"
+                                          :release-status "unavailable")
+              :github-scan t))
+           (plan (test-plan-with-default-selection
+                  (make-classified-test-plan records nil nil nil) context))
+           (manifest (make-test-manifest plan))
+           (documents (mapcar (lambda (backend)
+                                (make-backend-result-document manifest backend "passed"))
+                              *test-backends*))
+           (index (aggregate-pipeline plan manifest documents output
+                                       :current-head "test-source-head"))
+           (commands (json-ref index "commands")))
+      (check-equal (plist-ref old :version-id)
+                   (test-index-default index "renamed-tool")
+                   "API outage keeps the previous package recommendation after a rename")
+      (check-equal (plist-ref old :version-id)
+                   (json-ref (json-ref commands "taf-renamed-tool") "version")
+                   "API outage reuses the old command identity from public cached lookup")
+      (check-equal (plist-ref new :version-id)
+                   (json-ref (json-ref commands "taf-renamed-tool-new") "version")
+                   "API outage reuses the independently cached new command identity"))
+    (let ((old-scan (symbol-function 'scan-github-organization)))
+      (unwind-protect
+           (progn
+             (setf (symbol-function 'scan-github-organization)
+                   (lambda (&rest _args)
+                     (declare (ignore _args))
+                     (values records nil
+                             (test-default-policy
+                              records (plist-ref old :tag)
+                              :prerelease-tags (list (plist-ref new :tag))))))
+             (let ((plan
+                     (collect-pipeline-scan
+                      :org "taffish" :index-dir output :jobs 1
+                      :generated-at *test-generated-at*
+                      :generation *test-policy-generation*
+                      :platform *test-platform* :backends *test-backends*)))
+               (check-equal 0 (length (json-array-field plan "tasks"))
+                            "changing only GitHub release channels schedules no new smoke task")
+               (check-equal 2 (length (json-array-field plan "accepted"))
+                            "channel-only changes retain both accepted version snapshots")
+               (check-equal
+                "prerelease"
+                (json-ref
+                 (json-ref
+                  (json-ref
+                   (json-ref (json-ref plan "default_selection") "repositories")
+                   "taffish/renamed-tool") "releases")
+                 (plist-ref new :tag))
+                "channel-only changes are frozen in the new plan independently of smoke")))
+        (setf (symbol-function 'scan-github-organization) old-scan)))))
+
 (format t "1..~D~%" *test-count*)
 (if (zerop *failure-count*)
     (format t "All ~D pipeline tests passed.~%" *test-count*)

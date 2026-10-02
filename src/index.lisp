@@ -507,6 +507,254 @@
                   c)
           nil)))))
 
+;;;; Default-install selection is mutable registry policy, not version identity.
+;;;; Keep it outside public records and freeze it in the staged plan.
+
+(defparameter *default-selection-schema* "taffish.index/default-selection-v1")
+
+(defun read-default-selection-file (output-dir filename)
+  (let ((path (merge-pathnames filename
+                              (uiop:ensure-directory-pathname output-dir))))
+    (when (file-exists-p path)
+      (handler-case
+          (let ((value (parse-json (read-string-file path))))
+            (when (json-object-p value) value))
+        (error (c)
+          (format *error-output*
+                  "[taffish-index] warning: cannot read ~A: ~A~%" filename c)
+          nil)))))
+
+(defun default-selection-pointer (version record)
+  (when (and (stringp version) record)
+    (let ((source (json-ref record "source")))
+      (json-object
+       (cons "version_id" version)
+       (cons "repository" (json-ref source "repository"))
+       (cons "commit" (json-ref source "commit"))))))
+
+(defun make-default-selection-context (output-dir policies &key github-scan)
+  (let* ((index (read-default-selection-file output-dir "index.json"))
+         (state (read-default-selection-file output-dir "default-selection.json"))
+         (previous nil)
+         (previous-commands nil))
+    (dolist (pair (json-object-alist (json-ref index "packages")))
+      (let* ((entry (cdr pair))
+             (version (json-ref entry "latest"))
+             (record (and (stringp version)
+                          (json-ref (json-ref entry "versions") version)))
+             (pointer (default-selection-pointer version record)))
+        (when pointer (push (cons (car pair) pointer) previous))))
+    (dolist (pair (json-object-alist (json-ref index "commands")))
+      (let* ((entry (cdr pair))
+             (version (json-ref entry "version"))
+             (package (json-ref (json-ref index "packages") (json-ref entry "package")))
+             (record (and (stringp version)
+                          (json-ref (json-ref package "versions") version)))
+             (pointer (default-selection-pointer version record)))
+        (when pointer (push (cons (car pair) pointer) previous-commands))))
+    (json-object
+     (cons "github_scan" (bool-json github-scan))
+     (cons "repositories" (or policies (json-object)))
+     (cons "previous" (cons :object (sort previous #'string< :key #'car)))
+     (cons "previous_commands"
+           (cons :object (sort previous-commands #'string< :key #'car)))
+     (cons "prior_channels"
+           (or (and (equal (json-ref state "schema_version")
+                           *default-selection-schema*)
+                    (json-ref state "repositories"))
+               (json-object))))))
+
+(defun selection-policy-for-record (record context)
+  (json-ref (json-ref context "repositories") (record-source-repository record)))
+
+(defun selection-channel-for-record (record context)
+  (let* ((repository (record-source-repository record))
+         (tag (plist-ref record :tag))
+         (policy (selection-policy-for-record record context))
+         (live (json-ref (json-ref policy "releases") tag))
+         (prior (json-ref (json-ref (json-ref context "prior_channels")
+                                   repository) tag)))
+    (cond
+      ;; Even a partially failed request must not erase a known exclusion.
+      ((and (equal live "unknown")
+            (member prior '("prerelease" "draft") :test #'equal)) prior)
+      ((member live '("prerelease" "draft" "unknown") :test #'equal) live)
+      ((and (equal live "stable")
+            (equal (json-ref policy "release_status") "available")) "stable")
+      ((and (equal (json-ref policy "release_status") "available")
+            (member prior '("prerelease" "draft") :test #'equal)) prior)
+      ((equal (json-ref policy "release_status") "available") "tag-only")
+      ((stringp prior) prior)
+      ((and (null policy)
+            (or (not (eq (json-ref context "github_scan") t))
+                (equal (plist-ref record :source-ref) "local")))
+       "tag-only")
+      (t "unknown"))))
+
+(defun selection-failed-record-p (record failures)
+  (some (lambda (failure)
+          (or (equal (json-ref failure "task_id") (record-cache-key record))
+              (and (equal (json-ref failure "repository")
+                          (record-source-repository record))
+                   (or (equal (json-ref failure "version_id")
+                              (plist-ref record :version-id))
+                       (equal (json-ref failure "ref") (plist-ref record :tag))))))
+        failures))
+
+(defun default-record-newer-p (left right)
+  (let ((order (compare-default-version-release left right)))
+    (if (zerop order)
+        ;; Equal numeric spellings/build metadata must not depend on API order.
+        (string< (record-cache-key left) (record-cache-key right))
+        (> order 0))))
+
+(defun previous-default-record (name records context)
+  (let ((previous (json-ref (json-ref context "previous") name)))
+    (find-if
+     (lambda (record)
+       (and (equal (plist-ref record :version-id)
+                   (json-ref previous "version_id"))
+            (equal (record-source-repository record)
+                   (json-ref previous "repository"))
+            (equal (or (plist-ref record :source-commit) :null)
+                   (or (json-ref previous "commit") :null))))
+     records)))
+
+(defun select-package-default (name records context failures)
+  (let* ((eligible
+           (remove-if-not
+            (lambda (record)
+              (and (member (selection-channel-for-record record context)
+                           '("stable" "tag-only") :test #'equal)
+                   (not (selection-failed-record-p record failures))))
+            records))
+         (previous (previous-default-record name eligible context))
+         (latest
+           (find-if
+            (lambda (record)
+              (let ((policy (selection-policy-for-record record context)))
+                (and (equal (json-ref policy "status") "latest")
+                     (equal (plist-ref record :tag)
+                            (json-ref policy "latest_tag"))
+                     (equal (selection-channel-for-record record context)
+                            "stable"))))
+            eligible))
+         (unavailable
+           (some (lambda (record)
+                   (let ((policy (selection-policy-for-record record context)))
+                     (or (equal (json-ref policy "status") "unavailable")
+                         (and (null policy)
+                              (eq (json-ref context "github_scan") t)
+                              (not (equal (plist-ref record :source-ref) "local"))))))
+                 records))
+         (pending-latest
+           (some (lambda (record)
+                   (equal (json-ref (selection-policy-for-record record context)
+                                    "status") "latest"))
+                 records)))
+    (cond
+      (latest (values latest nil))
+      (unavailable
+       (values previous
+               "release policy unavailable; preserving only a verified previous default"))
+      (pending-latest
+       (values previous
+               "GitHub Latest is not an accepted, currently passing stable version; retaining the previous valid default"))
+      (t (values (first (sort (copy-list eligible) #'default-record-newer-p))
+                 (unless eligible "no eligible non-prerelease default; specify an explicit version"))))))
+
+(defun default-selection-state (records context generated-at)
+  (let ((repositories (make-hash-table :test #'equal)))
+    (labels ((put-channel (repository tag channel)
+               (when (and (stringp repository) (stringp tag) (stringp channel))
+                 (let ((channels
+                         (or (gethash repository repositories)
+                             (setf (gethash repository repositories)
+                                   (make-hash-table :test #'equal)))))
+                   ;; Unknown metadata is not evidence that a known pre/draft
+                   ;; became stable, including tags not yet accepted by Index.
+                   (unless (and (equal channel "unknown")
+                                (member (gethash tag channels)
+                                        '("prerelease" "draft") :test #'equal))
+                     (setf (gethash tag channels) channel))))))
+      (dolist (repo (json-object-alist (json-ref context "prior_channels")))
+        (dolist (entry (json-object-alist (cdr repo)))
+          (put-channel (car repo) (car entry) (cdr entry))))
+      (dolist (repo (json-object-alist (json-ref context "repositories")))
+        (dolist (entry (json-object-alist (json-ref (cdr repo) "releases")))
+          (when (or (not (equal (cdr entry) "stable"))
+                    (equal (json-ref (cdr repo) "release_status") "available"))
+            (put-channel (car repo) (car entry) (cdr entry)))))
+      (dolist (record records)
+        (put-channel (record-source-repository record) (plist-ref record :tag)
+                     (selection-channel-for-record record context))))
+    (json-object
+     (cons "schema_version" *default-selection-schema*)
+     (cons "generated_at" generated-at)
+     (cons "repositories"
+           (sorted-object-from-hash
+            repositories
+            (lambda (channels) (sorted-object-from-hash channels #'identity)))))))
+
+(defun command-default-selection-context (name command records context)
+  ;; A historical command is not an alias for a renamed command. If the known
+  ;; Latest supplies a different command, fall back within this command's own
+  ;; eligible versions. Unknown/unaccepted Latest still requires a valid prior.
+  (json-object
+   (cons "github_scan" (json-ref context "github_scan"))
+   (cons "prior_channels" (json-ref context "prior_channels"))
+   (cons "previous"
+         (json-object
+          (cons name (or (json-ref (json-ref context "previous_commands") command)
+                         (json-ref (json-ref context "previous") name)))))
+   (cons "repositories"
+         (cons :object
+               (mapcar
+                (lambda (pair)
+                  (let ((policy (cdr pair)))
+                    (cons
+                     (car pair)
+                     (if (and (equal (json-ref policy "status") "latest")
+                              (some (lambda (record)
+                                      (and (equal (record-source-repository record) (car pair))
+                                           (equal (plist-ref record :tag)
+                                                  (json-ref policy "latest_tag"))
+                                           (not (equal (plist-ref record :command-name) command))))
+                                    records))
+                         (github-release-policy "none" nil
+                                                (json-ref policy "release_status")
+                                                (json-ref policy "releases"))
+                         policy))))
+                (json-object-alist (json-ref context "repositories")))))))
+
+(defun apply-default-selection (packages commands context failures)
+  (let ((warnings nil))
+    (dolist (name (sort (loop for name being the hash-keys of packages collect name)
+                       #'string<))
+      (let* ((entry (gethash name packages))
+             (records (hash-values (getf entry :versions))))
+        (multiple-value-bind (selected warning)
+            (select-package-default name records context failures)
+          (setf (getf entry :latest) (and selected (plist-ref selected :version-id)))
+          (when warning
+            (push (warning-record (getf entry :repository-url) nil
+                                  (format nil "~A: ~A" name warning)) warnings)))))
+    (maphash
+     (lambda (command entry)
+       (let* ((name (getf entry :package))
+              (records (hash-values (getf (gethash name packages) :versions)))
+              (selected
+                (select-package-default
+                 name
+                 (remove-if-not (lambda (record)
+                                  (equal (plist-ref record :command-name) command))
+                                records)
+                 (command-default-selection-context name command records context)
+                 failures)))
+         (setf (getf entry :version) (and selected (plist-ref selected :version-id)))))
+     commands)
+    (nreverse warnings)))
+
 (defun record-cache-key (record)
   (format nil "~A|~A"
           (normalize-slug (or (plist-ref record :source-repository)
@@ -1083,41 +1331,49 @@
                              nil latest-advisory-failed-count-supplied-p)
                            (historical-advisory-failed-count
                              nil historical-advisory-failed-count-supplied-p)
-                           generated-at)
+                           generated-at default-selection default-selection-failures)
   (let ((packages (make-hash-table :test #'equal))
         (commands (make-hash-table :test #'equal))
         (repositories (make-hash-table :test #'equal)))
     (dolist (record (sort-records records))
       (register-record record packages commands repositories))
-    (json-object
-     (cons "schema_version" *schema-version*)
-     (cons "generated_at" (or generated-at (utc-timestamp)))
-     (cons "organization" (or organization :null))
-     (cons "counts"
-           (apply
-            #'json-object
-            (append
-             (list
-              (cons "packages" (hash-table-count packages))
-              (cons "versions" (length records))
-              (cons "commands" (hash-table-count commands))
-              (cons "repositories" (hash-table-count repositories))
-              (cons "warnings" (length warnings))
-              (cons "failed" (or failures-count 0)))
-             (when advisory-failed-count-supplied-p
-               (list (cons "advisory_failed"
-                           (or advisory-failed-count 0))))
-             (when latest-advisory-failed-count-supplied-p
-               (list (cons "latest_advisory_failed"
-                           (or latest-advisory-failed-count 0))))
-             (when historical-advisory-failed-count-supplied-p
-               (list (cons "historical_advisory_failed"
-                           (or historical-advisory-failed-count 0))))
-             (list (cons "rejected" (or rejected-count 0))))))
-     (cons "packages" (sorted-object-from-hash packages #'package-entry-json))
-     (cons "commands" (sorted-object-from-hash commands #'command-entry-json))
-     (cons "repositories" (sorted-object-from-hash repositories #'repository-entry-json))
-     (cons "warnings" (cons :array (mapcar #'warning-json warnings))))))
+    (setf warnings
+          (append warnings (apply-default-selection
+                            packages commands default-selection
+                            default-selection-failures)))
+    (values
+     (json-object
+      (cons "schema_version" *schema-version*)
+      (cons "generated_at" (or generated-at (utc-timestamp)))
+      (cons "organization" (or organization :null))
+      (cons "counts"
+            (apply
+             #'json-object
+             (append
+              (list
+               (cons "packages" (hash-table-count packages))
+               (cons "versions" (length records))
+               (cons "commands" (hash-table-count commands))
+               (cons "repositories" (hash-table-count repositories))
+               (cons "warnings" (length warnings))
+               (cons "failed" (or failures-count 0)))
+              (when advisory-failed-count-supplied-p
+                (list (cons "advisory_failed"
+                            (or advisory-failed-count 0))))
+              (when latest-advisory-failed-count-supplied-p
+                (list (cons "latest_advisory_failed"
+                            (or latest-advisory-failed-count 0))))
+              (when historical-advisory-failed-count-supplied-p
+                (list (cons "historical_advisory_failed"
+                            (or historical-advisory-failed-count 0))))
+              (list (cons "rejected" (or rejected-count 0))))))
+      (cons "packages" (sorted-object-from-hash packages #'package-entry-json))
+      (cons "commands" (sorted-object-from-hash commands #'command-entry-json))
+      (cons "repositories" (sorted-object-from-hash repositories #'repository-entry-json))
+      (cons "warnings" (cons :array (mapcar #'warning-json warnings))))
+     warnings
+     (default-selection-state records default-selection
+                              (or generated-at (utc-timestamp))))))
 
 (defun write-report-files (output-dir report generated-at)
   (let ((reports-dir (merge-pathnames "reports/" output-dir))
@@ -1154,20 +1410,22 @@
          (rejected-releases (read-rejected-releases rejected-releases-file))
          (generated-at (utc-timestamp))
          (records nil)
-         (warnings nil))
+         (warnings nil)
+         (release-policies nil))
     (dolist (local-repo local-repos)
       (handler-case
           (push (validate-local-project local-repo) records)
         (error (c)
           (push (warning-record local-repo nil (format nil "~A" c)) warnings))))
     (when org
-      (multiple-value-bind (github-records github-warnings)
+      (multiple-value-bind (github-records github-warnings github-policies)
           (scan-github-organization org
                                     :include-default-branch include-default-branch
                                     :include-archived include-archived
                                     :include-forks include-forks
                                     :jobs jobs)
-        (setf records (append github-records records)
+        (setf release-policies github-policies
+              records (append github-records records)
               warnings (append github-warnings warnings))))
     (setf records (apply-metadata-overrides-to-records records metadata-overrides))
     (multiple-value-setq (records warnings)
@@ -1180,19 +1438,25 @@
                          :rejected-map rejected-releases
                          :force-recheck force-recheck
                          :checked-at generated-at)
-      (let* ((final-warnings (nreverse warnings))
-             (index (build-index-json accepted-records
-                                      final-warnings
-                                      :organization org
-                                      :failures-count (length failures)
-                                      :rejected-count (length rejected)
-                                      :generated-at generated-at))
-             (report (build-report-json failures
+      (multiple-value-bind (index final-warnings selection-state)
+          (build-index-json accepted-records
+                            (nreverse warnings)
+                            :organization org
+                            :failures-count (length failures)
+                            :rejected-count (length rejected)
+                            :generated-at generated-at
+                            :default-selection-failures failures
+                            :default-selection
+                            (make-default-selection-context
+                             output release-policies :github-scan org))
+        (let ((report (build-report-json failures
                                         final-warnings
                                         :rejected rejected
                                         :organization org
                                         :generated-at generated-at)))
-        (delete-directory-contents output)
-        (write-split-index-files output index)
-        (write-report-files output report generated-at)
-        index))))
+          (delete-directory-contents output)
+          (write-split-index-files output index)
+          (write-report-files output report generated-at)
+          (write-json-file (merge-pathnames "default-selection.json" output)
+                           selection-state)
+          index)))))

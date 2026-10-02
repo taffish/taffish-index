@@ -68,6 +68,7 @@ index/index.json
 index/packages/<package>.json
 index/commands/<command>.json
 index/gate-state.json
+index/default-selection.json
 index/reports/latest.json
 index/reports/<timestamp>.json
 ```
@@ -125,7 +126,7 @@ trust-gate 失败分开报告。
 | `warnings` | 非致命扫描或校验 warning。 |
 
 每个 package 记录中包含一个 `versions` object，以 version id 为 key，例如
-`0.1.0-r1`。`latest` 字段继续表示按 version/release 语义得到的默认安装版本。
+`0.1.0-r1`。`latest` 字段表示按下述 Release 策略选择的默认安装推荐版本。
 可选的 `recent_at` 和 `recent_version` 字段表示最近成功发布并进入主 index 的
 release，用于网页展示和排序。
 
@@ -133,6 +134,31 @@ release，用于网页展示和排序。
 platform 约束、可选的人类可读 meta 字段、source ref 信息、可选发布时间
 元数据、可选 container 元数据、可选 smoke 元数据、trust 状态和可选 upstream
 元数据。
+
+### 默认安装推荐
+
+- 明确的 GitHub Release **Latest** 优先于版本号比较，包括维护者有意指定的较低版本；
+  该版本必须已通过 Index 收录门，且本轮没有 required gate/source failure。
+- GitHub `prerelease=true`、draft 和渠道未知的 Release 不能成为默认版本。已收录的
+  预发布仍保留在 `versions` 中供显式安装；不根据 `alpha`、`a.7.10`、`rc` 等名字推断渠道。
+- GitHub Latest 尚未收录、被 reject 或本轮验证失败时，只保留身份、渠道和 required 门
+  仍有效的上一推荐；没有有效上一推荐时，默认值留空。
+- 只有确认 GitHub 没有 Latest 时才自动比较。严格 SemVer 中纯数字标识按数值排序
+  （`a.7.10 > a.7.3`），非数字标识遵循 SemVer 字典序；其他 vendor 命名采用自然数字段
+  比较，app release 也按数值排序（`r10 > r2`）。仅有 tag 的旧发布可参与兜底，但已知的
+  pre/draft 仍排除。这套兜底排序不改变原有 smoke 调度。
+- API/网络错误不等于“没有 Latest”，此时只保留可验证的上一推荐。首次迁移时，旧
+  `latest` 本身不能证明渠道稳定；若无法验证，则留空并给出 warning。
+
+同一命令名下，package `latest` 与 command `version` 保持一致；若新版改名，旧命令仍只
+指向实际提供它的合格版本，不变成新命令的别名。默认值留空时写为 JSON `null`，package、
+command 查询入口和显式版本仍保留；公共 schema 与 version record 字段不变。
+`recent_version` 仍表示发布时间的新近程度，独立于安装推荐。
+
+`default-selection.json` 只缓存内部渠道状态，不是客户端 API。选择依据和上一推荐在
+plan 中冻结；aggregate 不再次查询 GitHub，并将缓存随 Index 原子发布。仅改变 Release
+渠道或 Latest 不使镜像/smoke 缓存失效。健康报告的版本排名和客户端已安装裸命令 alias
+保持各自原有行为；本策略控制从 Index 请求安装的版本。
 
 ## 包发现规则
 
@@ -476,6 +502,9 @@ schema、source head、policy、platform、task 覆盖、重复/缺失 backend�
 ```sh
 bash tests/action-plan.sh
 sbcl --script tests/project.lisp
+sbcl --script tests/version-order.lisp
+sbcl --script tests/release-metadata.lisp
+sbcl --script tests/default-selection.lisp
 sbcl --script tests/concurrency.lisp
 sbcl --script tests/pipeline.lisp
 ```

@@ -71,6 +71,7 @@ index/index.json
 index/packages/<package>.json
 index/commands/<command>.json
 index/gate-state.json
+index/default-selection.json
 index/reports/latest.json
 index/reports/<timestamp>.json
 ```
@@ -132,8 +133,8 @@ Top-level fields include:
 | `warnings` | Non-fatal scan or validation warnings. |
 
 Each package record contains a `versions` object keyed by version id, such as
-`0.1.0-r1`. The `latest` field keeps the default install version semantics
-based on version/release ordering. The optional `recent_at` and
+`0.1.0-r1`. The `latest` field is the default install recommendation, selected
+using the release policy below. The optional `recent_at` and
 `recent_version` fields identify the most recently published accepted release
 for registry display and sorting.
 
@@ -141,6 +142,42 @@ Each version record contains package metadata, runtime flags, dependency
 metadata, platform constraints, optional human-facing meta fields, source ref
 information, optional publication time metadata, optional container metadata,
 optional smoke metadata, trust status, and optional upstream metadata.
+
+### Default install recommendation
+
+- A verified GitHub Release **Latest** takes priority over version ordering,
+  including an intentionally lower maintenance version. It must already be
+  accepted by the index and have no current required-gate/source failure.
+- GitHub `prerelease=true`, drafts, and unknown release channels never become
+  defaults. Accepted prereleases remain in `versions` for explicit installation.
+  Strings such as `alpha`, `a.7.10`, or `rc` do not determine release channels.
+- If GitHub Latest is not yet accepted or is rejected/failing, retain the previous
+  recommendation only while its identity, channel and required gates remain valid.
+  With no valid previous recommendation, leave the default unset.
+- Only a confirmed absence of GitHub Latest enables automatic fallback. Strict
+  SemVer numeric identifiers compare numerically (`a.7.10 > a.7.3`), while
+  nonnumeric identifiers keep SemVer lexical precedence. Other vendor names use
+  natural numeric-run ordering; app releases compare numerically (`r10 > r2`).
+  Tag-only legacy releases remain eligible unless known
+  to have been prereleases/drafts. This fallback does not change smoke scheduling.
+- API/transport failures are not absence: preserve only a verified previous
+  recommendation. On first migration, an old `latest` alone is not evidence of a
+  stable channel. If it cannot be verified, leave the default unset and warn.
+
+Package `latest` and command `version` agree while the command name is unchanged.
+If a release renames its command, old command lookups remain limited to eligible
+versions actually providing that command; they do not become aliases for the new
+command. An unset default is JSON
+`null`; the package, command lookup and explicit versions remain available. The
+public schema and version-record fields are unchanged. `recent_version` still
+describes publication recency, independently of the install recommendation.
+
+`default-selection.json` is an internal channel cache, not a client API. Selection
+inputs and previous pointers are frozen into the plan; aggregate does not query
+GitHub again. The staged builder publishes this cache atomically with the index.
+Changing only a Release channel/Latest does not invalidate image or smoke caches.
+Health-report ranking and client-side installed-command alias selection retain
+their existing behavior; this policy controls the version requested from Index.
 
 ## Package Discovery
 
@@ -533,6 +570,9 @@ From this repository root:
 ```sh
 bash tests/action-plan.sh
 sbcl --script tests/project.lisp
+sbcl --script tests/version-order.lisp
+sbcl --script tests/release-metadata.lisp
+sbcl --script tests/default-selection.lisp
 sbcl --script tests/concurrency.lisp
 sbcl --script tests/pipeline.lisp
 ```
