@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-01T07:13:53Z",
+  "generated_at": "2026-10-02T04:31:19Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 504,
+    "versions": 505,
     "commands": 275,
     "repositories": 275,
     "warnings": 0,
@@ -37701,9 +37701,9 @@
     },
     "lastz": {
       "name": "lastz",
-      "latest": "1.04.52-r2",
-      "recent_version": "1.04.52-r2",
-      "recent_at": "2026-08-30T06:31:39Z",
+      "latest": "1.04.60-r1",
+      "recent_version": "1.04.60-r1",
+      "recent_at": "2026-10-01T16:53:54Z",
       "repository_url": "https://github.com/taffish/lastz",
       "command": {
         "name": "taf-lastz"
@@ -38081,6 +38081,207 @@
             "repository": "lastz/lastz",
             "release_url": "https://github.com/lastz/lastz/releases/tag/1.04.52",
             "version": "1.04.52",
+            "license": "MIT",
+            "citation": "Harris RS 2007, Improved pairwise alignment of genomic DNA"
+          }
+        },
+        "1.04.60-r1": {
+          "name": "lastz",
+          "kind": "tool",
+          "version": "1.04.60",
+          "release": 1,
+          "version_id": "1.04.60-r1",
+          "tag": "v1.04.60-r1",
+          "published_at": "2026-10-01T16:53:54Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/lastz",
+          "repository_slug": "taffish/lastz",
+          "command": {
+            "name": "taf-lastz"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-alignment",
+            "categories": [
+              "genome-alignment",
+              "pairwise-alignment",
+              "comparative-genomics",
+              "whole-genome-alignment"
+            ],
+            "keywords": [
+              "lastz",
+              "blastz",
+              "dna alignment",
+              "pairwise alignment",
+              "lav",
+              "axt",
+              "maf",
+              "sam",
+              "paf",
+              "cigar",
+              "2bit",
+              "nib"
+            ],
+            "summary": "LASTZ 1.04.60 command-line runtime for pairwise DNA sequence alignment, scoring inference, and common genomic alignment output formats.",
+            "description": "LASTZ 1.04.60 command-line runtime for pairwise DNA sequence alignment, scoring inference, and common genomic alignment output formats."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/lastz:1.04.60-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.04.60-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:eee161728a044f1758078cb3f23af8e96a16644b1823f437e79235c570153f2f",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:03d31cc323f1c87671c231d06fc59902109072d9bb2a0107fc5695d89cd5924b",
+              "linux/arm64": "sha256:cc902714ba6bd6983c53f59a398ba10570c51a50edb0613b9743afad9437e274"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "lastz",
+              "lastz_D",
+              "lastz_32",
+              "lastz_40",
+              "alignment_table.py",
+              "alignment_table_aids.py",
+              "any_to_qdna.py",
+              "axt_compare.py",
+              "build_fasta_hsx.py",
+              "cigar.py",
+              "create_scores_file.sh",
+              "expand_scores_file.py",
+              "fasta_fragments.py",
+              "fasta_softmask_intervals.py",
+              "gfa_compare.py",
+              "hassock_hash.py",
+              "hsx_file.py",
+              "install_py.py",
+              "lav_compare.py",
+              "lav_sort.py",
+              "maf_sort.py",
+              "merge_masking_intervals.py",
+              "pick_from_fasta_hsx.py",
+              "probabilities_to_scores.py",
+              "qcode_to_scores.py",
+              "tabular_to_maf.py",
+              "python3",
+              "bash",
+              "sed",
+              "grep",
+              "ldd",
+              "find",
+              "mktemp",
+              "tail",
+              "taf-lastz-smoke"
+            ],
+            "test": [
+              "taf-lastz-smoke source",
+              "taf-lastz-smoke versions",
+              "taf-lastz-smoke pycompile",
+              "taf-lastz-smoke align",
+              "taf-lastz-smoke helpers",
+              "taf-lastz-smoke masking"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-02T04:35:01Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-02T04:35:21Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20260927.320.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "5105dddc7d398bef7d42887d73b1e0d39ebb0da5",
+                "image_digest": "sha256:eee161728a044f1758078cb3f23af8e96a16644b1823f437e79235c570153f2f",
+                "smoke_sha256": "a051a2841fc5dd1cafc46d45710437679e0785fb356318a18e07071d1b10a0bd",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-02T04:35:01Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20260927.320.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "5105dddc7d398bef7d42887d73b1e0d39ebb0da5",
+                "image_digest": "sha256:eee161728a044f1758078cb3f23af8e96a16644b1823f437e79235c570153f2f",
+                "smoke_sha256": "a051a2841fc5dd1cafc46d45710437679e0785fb356318a18e07071d1b10a0bd",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-02T04:35:06Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20260927.320.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "5105dddc7d398bef7d42887d73b1e0d39ebb0da5",
+                "image_digest": "sha256:eee161728a044f1758078cb3f23af8e96a16644b1823f437e79235c570153f2f",
+                "smoke_sha256": "a051a2841fc5dd1cafc46d45710437679e0785fb356318a18e07071d1b10a0bd",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-02T04:31:19Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/lastz",
+            "ref": "v1.04.60-r1",
+            "commit": "5105dddc7d398bef7d42887d73b1e0d39ebb0da5",
+            "html_url": "https://github.com/taffish/lastz/tree/v1.04.60-r1"
+          },
+          "upstream": {
+            "name": "LASTZ",
+            "type": "github",
+            "homepage": "https://github.com/lastz/lastz",
+            "repository": "lastz/lastz",
+            "release_url": "https://github.com/lastz/lastz/releases/tag/1.04.60",
+            "version": "1.04.60",
             "license": "MIT",
             "citation": "Harris RS 2007, Improved pairwise alignment of genomic DNA"
           }
@@ -89313,7 +89514,7 @@
     },
     "taf-lastz": {
       "package": "lastz",
-      "version": "1.04.52-r2"
+      "version": "1.04.60-r1"
     },
     "taf-lightdock": {
       "package": "lightdock",
