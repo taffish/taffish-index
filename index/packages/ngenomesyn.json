@@ -1,8 +1,8 @@
 {
   "name": "ngenomesyn",
-  "latest": "1.43-r1",
-  "recent_version": "1.43-r1",
-  "recent_at": "2026-05-18T17:28:19Z",
+  "latest": "1.50-r1",
+  "recent_version": "1.50-r1",
+  "recent_at": "2026-10-04T16:45:46Z",
   "repository_url": "https://github.com/taffish/ngenomesyn",
   "command": {
     "name": "taf-ngenomesyn"
@@ -174,6 +174,210 @@
         "repository": "hewm2008/NGenomeSyn",
         "release_url": "https://github.com/hewm2008/NGenomeSyn/releases/tag/v1.43",
         "version": "1.43",
+        "license": "MIT",
+        "citation": "He et al. 2023",
+        "doi": "10.1093/bioinformatics/btad121",
+        "pmid": "36883694"
+      }
+    },
+    "1.50-r1": {
+      "name": "ngenomesyn",
+      "kind": "tool",
+      "version": "1.50",
+      "release": 1,
+      "version_id": "1.50-r1",
+      "tag": "v1.50-r1",
+      "published_at": "2026-10-04T16:45:46Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/ngenomesyn",
+      "repository_slug": "taffish/ngenomesyn",
+      "command": {
+        "name": "taf-ngenomesyn"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "comparative-genomics",
+        "categories": [
+          "comparative-genomics",
+          "synteny",
+          "genome-visualization",
+          "publication-graphics"
+        ],
+        "keywords": [
+          "ngenomesyn",
+          "synteny",
+          "svg",
+          "png",
+          "pdf",
+          "gui",
+          "minimap2",
+          "mummer"
+        ],
+        "summary": "NGenomeSyn synteny plotting CLI and official desktop GUI with SVG/PNG/PDF preview and pairwise link preparation.",
+        "description": "NGenomeSyn synteny plotting CLI and official desktop GUI with SVG/PNG/PDF preview and pairwise link preparation."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/ngenomesyn:1.50-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.50-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:943f93e967697caf3df3144ca27d519f5d9dea4ecfcdd4fa5fea18fa8bfa921d",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a39e571e55c7b3f350f05c9569bfa76880afe53825d19c932b36af1c6a1e4210",
+          "linux/arm64": "sha256:3b07c25c65fc3411ac38b87d14bcec41838c99300b3952a31addc27df42a70de"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "NGenomeSyn",
+          "GetTwoGenomeSyn.pl",
+          "GetTwoGenomeSyn",
+          "ngenomesyn-gui",
+          "ngenomesyn-smoke",
+          "perl",
+          "convert",
+          "rsvg-convert",
+          "minimap2",
+          "nucmer",
+          "delta-filter",
+          "show-coords",
+          "gzip",
+          "gnuplot",
+          "python3",
+          "Xvfb",
+          "openbox",
+          "x11vnc",
+          "websockify",
+          "xdotool",
+          "xdpyinfo",
+          "xprop",
+          "mupdf",
+          "xdg-open"
+        ],
+        "test": [
+          "ngenomesyn-smoke identity",
+          "ngenomesyn-smoke imports",
+          "ngenomesyn-smoke plot",
+          "ngenomesyn-smoke png-failure",
+          "ngenomesyn-smoke links",
+          "ngenomesyn-smoke mapping",
+          "ngenomesyn-gui --help",
+          "ngenomesyn-smoke gui-export",
+          "ngenomesyn-smoke gui-session",
+          "ngenomesyn-smoke gui-term",
+          "ngenomesyn-smoke gui-early",
+          "ngenomesyn-smoke gui-wm-start-fail",
+          "ngenomesyn-smoke gui-wm-stop-fail",
+          "ngenomesyn-smoke gui-port-occupied",
+          "ngenomesyn-smoke gui-endpoint-occupied",
+          "ngenomesyn-smoke gui-early-term",
+          "ngenomesyn-smoke gui-xvfb-forced",
+          "ngenomesyn-smoke gui-rfb-negative",
+          "ngenomesyn-smoke gui-hup",
+          "ngenomesyn-smoke gui-restart",
+          "ngenomesyn-smoke gui-geometry-min",
+          "ngenomesyn-smoke gui-geometry-invalid"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-04T16:58:49Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-04T16:59:02Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20260927.320.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "542319d1dcc1ee05de7235cba05538759a2e9db0",
+            "image_digest": "sha256:943f93e967697caf3df3144ca27d519f5d9dea4ecfcdd4fa5fea18fa8bfa921d",
+            "smoke_sha256": "634d7fcc9b3bc1a9f0dbdbfe847adf3127f1f51dbd0dcb455069057a174d6eb0",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-04T16:58:49Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20260927.320.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "542319d1dcc1ee05de7235cba05538759a2e9db0",
+            "image_digest": "sha256:943f93e967697caf3df3144ca27d519f5d9dea4ecfcdd4fa5fea18fa8bfa921d",
+            "smoke_sha256": "634d7fcc9b3bc1a9f0dbdbfe847adf3127f1f51dbd0dcb455069057a174d6eb0",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-04T16:58:51Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20260927.320.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "542319d1dcc1ee05de7235cba05538759a2e9db0",
+            "image_digest": "sha256:943f93e967697caf3df3144ca27d519f5d9dea4ecfcdd4fa5fea18fa8bfa921d",
+            "smoke_sha256": "634d7fcc9b3bc1a9f0dbdbfe847adf3127f1f51dbd0dcb455069057a174d6eb0",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-04T16:54:32Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/ngenomesyn",
+        "ref": "v1.50-r1",
+        "commit": "542319d1dcc1ee05de7235cba05538759a2e9db0",
+        "html_url": "https://github.com/taffish/ngenomesyn/tree/v1.50-r1"
+      },
+      "upstream": {
+        "name": "NGenomeSyn",
+        "type": "github",
+        "homepage": "https://github.com/hewm2008/NGenomeSyn",
+        "repository": "hewm2008/NGenomeSyn",
+        "release_url": "https://github.com/hewm2008/NGenomeSyn/releases/tag/v1.50",
+        "version": "1.50",
         "license": "MIT",
         "citation": "He et al. 2023",
         "doi": "10.1093/bioinformatics/btad121",
