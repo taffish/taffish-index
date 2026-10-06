@@ -1,8 +1,8 @@
 {
   "name": "ragtag",
-  "latest": "2.1.0-r1",
-  "recent_version": "2.1.0-r1",
-  "recent_at": "2026-06-16T04:46:59Z",
+  "latest": "2.1.1-r1",
+  "recent_version": "2.1.1-r1",
+  "recent_at": "2026-10-06T16:49:02Z",
   "repository_url": "https://github.com/taffish/ragtag",
   "command": {
     "name": "taf-ragtag"
@@ -195,6 +195,215 @@
         "repository": "malonge/RagTag",
         "release_url": "https://github.com/malonge/RagTag/releases/tag/v2.1.0",
         "version": "2.1.0",
+        "license": "MIT",
+        "citation": "Alonge et al. 2022, Automated assembly scaffolding elevates a new tomato system for high-throughput genome editing",
+        "doi": "10.1186/s13059-022-02823-7"
+      }
+    },
+    "2.1.1-r1": {
+      "name": "ragtag",
+      "kind": "tool",
+      "version": "2.1.1",
+      "release": 1,
+      "version_id": "2.1.1-r1",
+      "tag": "v2.1.1-r1",
+      "published_at": "2026-10-06T16:49:02Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/ragtag",
+      "repository_slug": "taffish/ragtag",
+      "command": {
+        "name": "taf-ragtag"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-assembly",
+        "categories": [
+          "genome-assembly",
+          "assembly-scaffolding",
+          "assembly-curation",
+          "comparative-genomics",
+          "reference-guided-assembly"
+        ],
+        "keywords": [
+          "ragtag",
+          "scaffolding",
+          "assembly correction",
+          "assembly patching",
+          "agp",
+          "paf",
+          "delta",
+          "minimap2",
+          "unimap",
+          "nucmer",
+          "mummer"
+        ],
+        "summary": "RagTag 2.1.1 command-line runtime for reference-guided assembly correction, scaffolding, patching, scaffold merging, and AGP/PAF/Delta assembly utilities.",
+        "description": "RagTag 2.1.1 command-line runtime for reference-guided assembly correction, scaffolding, patching, scaffold merging, and AGP/PAF/Delta assembly utilities."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/ragtag:2.1.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.1.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:4dddddc8c0256a0f72837ccf502510049c63d88b8f08faa0ba755852077230e9",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:e4dc08e0f8d6c9d97a6660728737deee8a1115b9bd5da61d207c90fc76e8b859",
+          "linux/arm64": "sha256:2fc1d404a9ab9e9c6bad80d91ff0e93e3cb3540b1271c7356f403bbd2d42f3c6"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "ragtag.py",
+          "ragtag_correct.py",
+          "ragtag_scaffold.py",
+          "ragtag_patch.py",
+          "ragtag_merge.py",
+          "ragtag_agp2fa.py",
+          "ragtag_agpcheck.py",
+          "ragtag_asmstats.py",
+          "ragtag_delta2paf.py",
+          "ragtag_paf2delta.py",
+          "ragtag_splitasm.py",
+          "ragtag_update_gff.py",
+          "ragtag_rename.py",
+          "ragtag_stats.py",
+          "ragtag_break_query.py",
+          "ragtag_create_links.py",
+          "ragtag-smoke",
+          "minimap2",
+          "unimap",
+          "nucmer",
+          "delta-filter",
+          "show-coords",
+          "mummerplot",
+          "gnuplot",
+          "samtools",
+          "bgzip",
+          "tabix",
+          "python3",
+          "perl",
+          "bash",
+          "sh",
+          "awk",
+          "grep",
+          "sed",
+          "ldd"
+        ],
+        "test": [
+          "ragtag-smoke identity",
+          "ragtag-smoke interface",
+          "ragtag-smoke linkage",
+          "ragtag-smoke reverse-merge",
+          "ragtag-smoke scaffold-minimap2",
+          "ragtag-smoke scaffold-unimap",
+          "ragtag-smoke scaffold-nucmer",
+          "ragtag-smoke correct",
+          "ragtag-smoke patch",
+          "ragtag-smoke merge",
+          "ragtag-smoke utilities",
+          "ragtag-smoke plot",
+          "ragtag-smoke errors"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-06T17:15:59Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-06T17:16:46Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20260927.320.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c693b8d3ae6b47550c3563a71ccb7afb38b69bcc",
+            "image_digest": "sha256:4dddddc8c0256a0f72837ccf502510049c63d88b8f08faa0ba755852077230e9",
+            "smoke_sha256": "8f7fc101c9b6628308917989631ad6c176a6132543ff257ec2db1b8e09c4bec5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-06T17:15:59Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c693b8d3ae6b47550c3563a71ccb7afb38b69bcc",
+            "image_digest": "sha256:4dddddc8c0256a0f72837ccf502510049c63d88b8f08faa0ba755852077230e9",
+            "smoke_sha256": "8f7fc101c9b6628308917989631ad6c176a6132543ff257ec2db1b8e09c4bec5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-06T17:16:13Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c693b8d3ae6b47550c3563a71ccb7afb38b69bcc",
+            "image_digest": "sha256:4dddddc8c0256a0f72837ccf502510049c63d88b8f08faa0ba755852077230e9",
+            "smoke_sha256": "8f7fc101c9b6628308917989631ad6c176a6132543ff257ec2db1b8e09c4bec5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-06T17:11:22Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/ragtag",
+        "ref": "v2.1.1-r1",
+        "commit": "c693b8d3ae6b47550c3563a71ccb7afb38b69bcc",
+        "html_url": "https://github.com/taffish/ragtag/tree/v2.1.1-r1"
+      },
+      "upstream": {
+        "name": "RagTag",
+        "type": "github",
+        "homepage": "https://github.com/malonge/RagTag",
+        "repository": "malonge/RagTag",
+        "release_url": "https://github.com/malonge/RagTag/releases/tag/v2.1.1",
+        "version": "2.1.1",
         "license": "MIT",
         "citation": "Alonge et al. 2022, Automated assembly scaffolding elevates a new tomato system for high-throughput genome editing",
         "doi": "10.1186/s13059-022-02823-7"
