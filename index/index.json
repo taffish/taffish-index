@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-08T07:29:58Z",
+  "generated_at": "2026-10-08T16:12:01Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 512,
+    "versions": 513,
     "commands": 275,
     "repositories": 275,
     "warnings": 0,
@@ -28443,9 +28443,9 @@
     },
     "gromacs": {
       "name": "gromacs",
-      "latest": "2026.3-r1",
-      "recent_version": "2026.3-r1",
-      "recent_at": "2026-06-30T08:24:40Z",
+      "latest": "2026.4-r1",
+      "recent_version": "2026.4-r1",
+      "recent_at": "2026-10-08T16:03:52Z",
       "repository_url": "https://github.com/taffish/gromacs",
       "command": {
         "name": "taf-gromacs"
@@ -28935,6 +28935,173 @@
             "license": "LGPL-2.1-or-later",
             "citation": "GROMACS development team 2026; Abraham et al. 2015",
             "doi": "10.5281/zenodo.20037885; 10.1016/j.softx.2015.06.001"
+          }
+        },
+        "2026.4-r1": {
+          "name": "gromacs",
+          "kind": "tool",
+          "version": "2026.4",
+          "release": 1,
+          "version_id": "2026.4-r1",
+          "tag": "v2026.4-r1",
+          "published_at": "2026-10-08T16:03:52Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/gromacs",
+          "repository_slug": "taffish/gromacs",
+          "command": {
+            "name": "taf-gromacs"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "molecular-dynamics",
+            "categories": [
+              "molecular-dynamics",
+              "molecular-simulation",
+              "structural-biology",
+              "computational-chemistry"
+            ],
+            "keywords": [
+              "gromacs",
+              "gmx",
+              "molecular-dynamics",
+              "simulation",
+              "mdrun",
+              "grompp",
+              "pdb2gmx",
+              "trajectory-analysis"
+            ],
+            "summary": "CPU-only GROMACS molecular dynamics simulation and analysis suite, including the gmx command-line tool, built-in force-field data, preparation commands, mdrun, and analysis subcommands.",
+            "description": "CPU-only GROMACS molecular dynamics simulation and analysis suite, including the gmx command-line tool, built-in force-field data, preparation commands, mdrun, and analysis subcommands."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/gromacs:2026.4-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2026.4-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4827a5d0336e0ae0ec7a9f3ccd56a81d0ea051549e2ce758847d6c0323d10182",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f25b328fa5d55f4bb2b2768e09103be4b1864c19ca30092463c6203e7f856d0a",
+              "linux/arm64": "sha256:5c92dff868193bd91e9b1c4471c3d9cac4777d77ea4fdd6d9e2c86dba6093261"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "gmx",
+              "gromacs-smoke"
+            ],
+            "test": [
+              "gromacs-smoke version",
+              "gromacs-smoke help",
+              "gromacs-smoke convert",
+              "gromacs-smoke prepare",
+              "gromacs-smoke simulate",
+              "gromacs-smoke resources",
+              "gromacs-smoke conditional",
+              "gromacs-smoke negative"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-08T16:17:10Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-08T16:17:26Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a94cdadfdff5e80c632881ec3cf35f632533e084",
+                "image_digest": "sha256:4827a5d0336e0ae0ec7a9f3ccd56a81d0ea051549e2ce758847d6c0323d10182",
+                "smoke_sha256": "7cf808c06fb48992f7499533458bb676a507a8ee2448d27460dce0e7c1af3109",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-08T16:17:10Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a94cdadfdff5e80c632881ec3cf35f632533e084",
+                "image_digest": "sha256:4827a5d0336e0ae0ec7a9f3ccd56a81d0ea051549e2ce758847d6c0323d10182",
+                "smoke_sha256": "7cf808c06fb48992f7499533458bb676a507a8ee2448d27460dce0e7c1af3109",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-08T16:16:59Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a94cdadfdff5e80c632881ec3cf35f632533e084",
+                "image_digest": "sha256:4827a5d0336e0ae0ec7a9f3ccd56a81d0ea051549e2ce758847d6c0323d10182",
+                "smoke_sha256": "7cf808c06fb48992f7499533458bb676a507a8ee2448d27460dce0e7c1af3109",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-08T16:12:01Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/gromacs",
+            "ref": "v2026.4-r1",
+            "commit": "a94cdadfdff5e80c632881ec3cf35f632533e084",
+            "html_url": "https://github.com/taffish/gromacs/tree/v2026.4-r1"
+          },
+          "upstream": {
+            "name": "GROMACS",
+            "type": "gitlab",
+            "homepage": "https://www.gromacs.org/",
+            "repository": "gromacs/gromacs",
+            "release_url": "https://manual.gromacs.org/2026.4/release-notes/2026/2026.4.html",
+            "version": "2026.4",
+            "license": "LGPL-2.1-or-later",
+            "citation": "GROMACS development team 2026; Abraham et al. 2015",
+            "doi": "10.5281/zenodo.23102386; 10.1016/j.softx.2015.06.001"
           }
         }
       }
@@ -90750,7 +90917,7 @@
     },
     "taf-gromacs": {
       "package": "gromacs",
-      "version": "2026.3-r1"
+      "version": "2026.4-r1"
     },
     "taf-gtdbtk": {
       "package": "gtdbtk",
