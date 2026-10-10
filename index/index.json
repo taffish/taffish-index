@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-10T07:15:08Z",
+  "generated_at": "2026-10-10T16:11:04Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 514,
+    "versions": 515,
     "commands": 275,
     "repositories": 275,
     "warnings": 0,
@@ -74983,9 +74983,9 @@
     },
     "seurat": {
       "name": "seurat",
-      "latest": "5.5.1-r1",
-      "recent_version": "5.5.1-r1",
-      "recent_at": "2026-06-30T09:48:46Z",
+      "latest": "5.6.0-r1",
+      "recent_version": "5.6.0-r1",
+      "recent_at": "2026-10-10T16:02:32Z",
       "repository_url": "https://github.com/taffish/seurat",
       "command": {
         "name": "taf-seurat"
@@ -75316,6 +75316,194 @@
             "repository": "https://github.com/satijalab/seurat",
             "release_url": "https://github.com/satijalab/seurat/releases/tag/v5.5.1",
             "version": "5.5.1",
+            "license": "MIT + file LICENSE",
+            "citation": "Hao et al. Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nature Biotechnology (2023) [Seurat v5].",
+            "doi": "10.1038/s41587-023-01767-y"
+          }
+        },
+        "5.6.0-r1": {
+          "name": "seurat",
+          "kind": "tool",
+          "version": "5.6.0",
+          "release": 1,
+          "version_id": "5.6.0-r1",
+          "tag": "v5.6.0-r1",
+          "published_at": "2026-10-10T16:02:32Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/seurat",
+          "repository_slug": "taffish/seurat",
+          "command": {
+            "name": "taf-seurat"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "scrna-seq",
+              "r",
+              "seurat",
+              "visualization"
+            ],
+            "keywords": [
+              "seurat",
+              "single-cell",
+              "scrna-seq",
+              "r",
+              "seuratobject",
+              "umap",
+              "pca",
+              "clustering",
+              "markers",
+              "shiny"
+            ],
+            "summary": "Source-built Seurat 5.6.0 R runtime with threaded analysis, BPCells, plotting, browser gadgets and explicitly prepared shared SeuratData resources.",
+            "description": "Source-built Seurat 5.6.0 R runtime with threaded analysis, BPCells, plotting, browser gadgets and explicitly prepared shared SeuratData resources."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/seurat:5.6.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.6.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d6d21dcd003d6559a5a61f4b8b58f30c518e2e583e1f9eb736e19394541d6b69",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1bd63b84dbbec6db74a08e6ff2ad290445ce44feec3038f2608c621fabf30a88"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "R",
+              "Rscript",
+              "seurat-runtime-info",
+              "seurat-check",
+              "seurat-resource",
+              "seurat-gadget",
+              "python3",
+              "bash",
+              "sh",
+              "pandoc"
+            ],
+            "test": [
+              "seurat-check identity",
+              "seurat-check modules",
+              "seurat-check workflow",
+              "seurat-check threading",
+              "seurat-check sct",
+              "seurat-check bpcells",
+              "seurat-check io",
+              "seurat-check static",
+              "seurat-check negative",
+              "Rscript --help && Rscript --version && seurat-runtime-info --help && seurat-check --help && seurat-resource --help && seurat-gadget --help",
+              "python3 /opt/seurat/seurat_resource_smoke.py",
+              "python3 /opt/seurat/seurat_gadget_smoke.py help",
+              "python3 /opt/seurat/seurat_gadget_smoke.py missing",
+              "python3 /opt/seurat/seurat_gadget_smoke.py ready-term",
+              "python3 /opt/seurat/seurat_gadget_smoke.py ready-int",
+              "python3 /opt/seurat/seurat_gadget_smoke.py startup-int",
+              "python3 /opt/seurat/seurat_gadget_smoke.py startup-term",
+              "python3 /opt/seurat/seurat_gadget_smoke.py failure",
+              "python3 /opt/seurat/seurat_gadget_smoke.py timeout",
+              "python3 /opt/seurat/seurat_gadget_smoke.py occupied"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-10T16:16:44Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-10T16:17:03Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a9d0005b09b72ce3c3c91f7651065aa962a19001",
+                "image_digest": "sha256:d6d21dcd003d6559a5a61f4b8b58f30c518e2e583e1f9eb736e19394541d6b69",
+                "smoke_sha256": "daaa0edff7af729ca5930bc52ef2cdd0cb2e0b93251fcbf0aea452cbc9278cf7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-10T16:16:44Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a9d0005b09b72ce3c3c91f7651065aa962a19001",
+                "image_digest": "sha256:d6d21dcd003d6559a5a61f4b8b58f30c518e2e583e1f9eb736e19394541d6b69",
+                "smoke_sha256": "daaa0edff7af729ca5930bc52ef2cdd0cb2e0b93251fcbf0aea452cbc9278cf7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-10T16:16:48Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a9d0005b09b72ce3c3c91f7651065aa962a19001",
+                "image_digest": "sha256:d6d21dcd003d6559a5a61f4b8b58f30c518e2e583e1f9eb736e19394541d6b69",
+                "smoke_sha256": "daaa0edff7af729ca5930bc52ef2cdd0cb2e0b93251fcbf0aea452cbc9278cf7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-10T16:11:04Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/seurat",
+            "ref": "v5.6.0-r1",
+            "commit": "a9d0005b09b72ce3c3c91f7651065aa962a19001",
+            "html_url": "https://github.com/taffish/seurat/tree/v5.6.0-r1"
+          },
+          "upstream": {
+            "name": "Seurat",
+            "type": "github",
+            "homepage": "https://satijalab.org/seurat/",
+            "repository": "https://github.com/satijalab/seurat",
+            "release_url": "https://github.com/satijalab/seurat/releases/tag/v5.6.0",
+            "version": "5.6.0",
             "license": "MIT + file LICENSE",
             "citation": "Hao et al. Dictionary learning for integrative, multimodal and scalable single-cell analysis. Nature Biotechnology (2023) [Seurat v5].",
             "doi": "10.1038/s41587-023-01767-y"
@@ -91629,7 +91817,7 @@
     },
     "taf-seurat": {
       "package": "seurat",
-      "version": "5.5.1-r1"
+      "version": "5.6.0-r1"
     },
     "taf-signac": {
       "package": "signac",
