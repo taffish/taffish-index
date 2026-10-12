@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-10-11T07:17:39Z",
+  "generated_at": "2026-10-12T00:36:21Z",
   "organization": "taffish",
   "policy": {
     "generation": "multibackend-1",
@@ -17,7 +17,7 @@
     "advisory_failed": 18,
     "latest_advisory_failed": 0,
     "historical_advisory_failed": 18,
-    "rejected": 12,
+    "rejected": 13,
     "warnings": 0
   },
   "failed": [],
@@ -462,6 +462,14 @@
       "reason": "Immutable release has invalid smoke metadata and should not be added to the main index.",
       "replacement": "1.10.0-r2",
       "image": "ghcr.io/taffish/deepvariant:1.10.0-r1"
+    },
+    {
+      "repository": "taffish/delly",
+      "ref": "v2.7.0-r1",
+      "version_id": "2.7.0-r1",
+      "reason": "Immutable release fails image builds on both amd64 and arm64 because the pinned Alpine zlib-dev-1.3.2-r0.apk download returns HTTP 404; use v2.7.0-r2 once published and accepted by the index.",
+      "replacement": "2.7.0-r2",
+      "image": "ghcr.io/taffish/delly:2.7.0-r1"
     },
     {
       "repository": "taffish/fastp",
