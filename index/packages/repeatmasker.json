@@ -1,8 +1,8 @@
 {
   "name": "repeatmasker",
-  "latest": "4.2.4-r1",
-  "recent_version": "4.2.4-r1",
-  "recent_at": "2026-06-19T02:40:58Z",
+  "latest": "4.2.5-r1",
+  "recent_version": "4.2.5-r1",
+  "recent_at": "2026-10-12T16:00:35Z",
   "repository_url": "https://github.com/taffish/repeatmasker",
   "command": {
     "name": "taf-repeatmasker"
@@ -757,6 +757,205 @@
         "release_url": "https://www.repeatmasker.org/RepeatMasker/",
         "version": "4.2.4",
         "license": "OSL-2.1 with separate FamDB/Dfam CC0 notices, RMBlast/NCBI components, and UCSC command-line utilities",
+        "citation": "Smit, Hubley, and Green; Dfam Consortium; Camacho et al. 2009 for BLAST+",
+        "doi": "10.1186/1471-2105-10-421",
+        "pmid": "20003500"
+      }
+    },
+    "4.2.5-r1": {
+      "name": "repeatmasker",
+      "kind": "tool",
+      "version": "4.2.5",
+      "release": 1,
+      "version_id": "4.2.5-r1",
+      "tag": "v4.2.5-r1",
+      "published_at": "2026-10-12T16:00:35Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/repeatmasker",
+      "repository_slug": "taffish/repeatmasker",
+      "command": {
+        "name": "taf-repeatmasker"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "repeat-annotation",
+        "categories": [
+          "repeat-annotation",
+          "genome-masking",
+          "genomics",
+          "transposable-elements",
+          "fasta"
+        ],
+        "keywords": [
+          "repeatmasker",
+          "interspersed repeats",
+          "low complexity dna",
+          "dfam",
+          "famdb",
+          "repbase",
+          "rmblast",
+          "trf",
+          "hmmer",
+          "softmask"
+        ],
+        "summary": "RepeatMasker screens DNA sequences for interspersed repeats and low-complexity DNA, producing repeat annotations and masked FASTA output.",
+        "description": "RepeatMasker screens DNA sequences for interspersed repeats and low-complexity DNA, producing repeat annotations and masked FASTA output."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/repeatmasker:4.2.5-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.2.5-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6f2fa95069316b56e4ad8cca220d73c2cd948a0f6efe0f95cf5887c69aa2cfaa",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:4201a4f82be05f601f57954576731ba1b9e5b7248c10986e3d2053d23e5300f6"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "RepeatMasker",
+          "taf-repeatmasker-entrypoint",
+          "taf-repeatmasker-dfam",
+          "taf-repeatmasker-landscape",
+          "taf-repeatmasker-smoke",
+          "ProcessRepeats",
+          "RepeatProteinMask",
+          "DupMasker",
+          "famdb.py",
+          "download_dfam.py",
+          "RM2Bed.py",
+          "rmOutToGFF3.pl",
+          "buildSummary.pl",
+          "calcDivergenceFromAlign.pl",
+          "createRepeatLandscape.pl",
+          "rmToTrackHub.pl",
+          "maskFile.pl",
+          "buildRMLibFromEMBL.pl",
+          "rmblastn",
+          "makeblastdb",
+          "blastx",
+          "trf",
+          "nhmmer",
+          "hmmsearch",
+          "twoBitInfo",
+          "bedToBigBed",
+          "whereis",
+          "python3",
+          "perl",
+          "curl",
+          "gzip"
+        ],
+        "test": [
+          "taf-repeatmasker-smoke identity",
+          "taf-repeatmasker-smoke help",
+          "taf-repeatmasker-smoke resource",
+          "taf-repeatmasker-smoke tiny",
+          "taf-repeatmasker-smoke utilities",
+          "taf-repeatmasker-smoke engines",
+          "taf-repeatmasker-smoke ucsc",
+          "taf-repeatmasker-smoke reports"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-12T16:31:46Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-12T16:32:24Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5c3b23f2ee8c46e11265f9ec8a746a35f4bf7217",
+            "image_digest": "sha256:6f2fa95069316b56e4ad8cca220d73c2cd948a0f6efe0f95cf5887c69aa2cfaa",
+            "smoke_sha256": "f225188e3739719c057f7eb8e9d4ebff73722499ed707bc0dda4c2e9ba947320",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-12T16:31:46Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5c3b23f2ee8c46e11265f9ec8a746a35f4bf7217",
+            "image_digest": "sha256:6f2fa95069316b56e4ad8cca220d73c2cd948a0f6efe0f95cf5887c69aa2cfaa",
+            "smoke_sha256": "f225188e3739719c057f7eb8e9d4ebff73722499ed707bc0dda4c2e9ba947320",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-12T16:31:47Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5c3b23f2ee8c46e11265f9ec8a746a35f4bf7217",
+            "image_digest": "sha256:6f2fa95069316b56e4ad8cca220d73c2cd948a0f6efe0f95cf5887c69aa2cfaa",
+            "smoke_sha256": "f225188e3739719c057f7eb8e9d4ebff73722499ed707bc0dda4c2e9ba947320",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-12T16:27:06Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/repeatmasker",
+        "ref": "v4.2.5-r1",
+        "commit": "5c3b23f2ee8c46e11265f9ec8a746a35f4bf7217",
+        "html_url": "https://github.com/taffish/repeatmasker/tree/v4.2.5-r1"
+      },
+      "upstream": {
+        "name": "RepeatMasker",
+        "type": "github",
+        "url": "https://github.com/Dfam-consortium/RepeatMasker",
+        "homepage": "https://www.repeatmasker.org/",
+        "repository": "Dfam-consortium/RepeatMasker",
+        "release_url": "https://github.com/Dfam-consortium/RepeatMasker/releases/tag/v4.2.5",
+        "version": "4.2.5",
+        "license": "OSL-2.1; utility-specific notices; FamDB CC0; RMBlast/NCBI notices; UCSC CLI MIT",
         "citation": "Smit, Hubley, and Green; Dfam Consortium; Camacho et al. 2009 for BLAST+",
         "doi": "10.1186/1471-2105-10-421",
         "pmid": "20003500"
