@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-13T07:48:02Z",
+  "generated_at": "2026-10-13T16:29:08Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 517,
+    "versions": 518,
     "commands": 275,
     "repositories": 275,
     "warnings": 0,
@@ -13259,14 +13259,206 @@
     },
     "compleasm": {
       "name": "compleasm",
-      "latest": "0.2.9-r1",
-      "recent_version": "0.2.9-r1",
-      "recent_at": "2026-07-25T11:54:07Z",
+      "latest": "0.2.10-r1",
+      "recent_version": "0.2.10-r1",
+      "recent_at": "2026-10-13T16:04:13Z",
       "repository_url": "https://github.com/taffish/compleasm",
       "command": {
         "name": "taf-compleasm"
       },
       "versions": {
+        "0.2.10-r1": {
+          "name": "compleasm",
+          "kind": "tool",
+          "version": "0.2.10",
+          "release": 1,
+          "version_id": "0.2.10-r1",
+          "tag": "v0.2.10-r1",
+          "published_at": "2026-10-13T16:04:13Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/compleasm",
+          "repository_slug": "taffish/compleasm",
+          "command": {
+            "name": "taf-compleasm"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "assembly-quality",
+              "completeness",
+              "busco",
+              "annotation"
+            ],
+            "keywords": [
+              "compleasm",
+              "busco",
+              "genome-completeness",
+              "miniprot",
+              "hmmer",
+              "sepp",
+              "odb10",
+              "odb12",
+              "odb12.2",
+              "orthologs",
+              "assembly-quality"
+            ],
+            "summary": "Fast genome and protein completeness assessment based on BUSCO marker genes and miniprot.",
+            "description": "Fast genome and protein completeness assessment based on BUSCO marker genes and miniprot."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/compleasm:0.2.10-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.2.10-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:177f903498ffe5c542fa6aaccbb7e33b5a54a76b31d253d90a421998adbb3214",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:d9e6bc27b0b085cc792e1974b3c3069fc3d5e4dd5405e18ae80fbe00aef639ac",
+              "linux/arm64": "sha256:f08ec3825a92afe9f2bb1b4b98b53fabb6723dfdfef28580177ba9ffde9a0a0f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "compleasm-db",
+              "compleasm-upstream",
+              "compleasm-smoke",
+              "curl",
+              "sh",
+              "compleasm",
+              "miniprot",
+              "hmmsearch",
+              "hmmbuild",
+              "hmmalign",
+              "run_sepp.py",
+              "pplacer",
+              "guppy",
+              "java",
+              "python"
+            ],
+            "test": [
+              "compleasm --version 2>&1 | grep -Fx 'compleasm 0.2.10' >/dev/null",
+              "test \"$(grep -F 'upstream_commit=' /opt/compleasm/share/doc/compleasm/SOURCE)\" = 'upstream_commit=a275e9f40ef595e6d2c30dabc0ad75d6490ae923' && python -c 'from importlib.metadata import version; import compleasm, dendropy, pandas, sepp; assert version(\"compleasm\") == \"0.2.10\"; assert version(\"sepp\") == \"4.5.6\"; assert version(\"DendroPy\") == \"5.0.8\"; assert version(\"pandas\") == \"2.2.3\"'",
+              "compleasm --help 2>&1 | grep -F 'Compleasm modules help' >/dev/null && compleasm run --help 2>&1 | grep -F -- '--odb' >/dev/null && compleasm analyze --help 2>&1 | grep -F 'usage: compleasm analyze' >/dev/null && compleasm download --help 2>&1 | grep -F 'usage: compleasm download' >/dev/null && compleasm list --help 2>&1 | grep -F 'usage: compleasm list' >/dev/null && compleasm miniprot --help 2>&1 | grep -F 'usage: compleasm miniprot' >/dev/null && compleasm protein --help 2>&1 | grep -F 'usage: compleasm protein' >/dev/null",
+              "miniprot --version 2>&1 | grep -F '0.18' >/dev/null && hmmsearch -h 2>&1 | grep -F 'HMMER 3.4' >/dev/null && run_sepp.py -h 2>&1 | grep -F 'usage: run_sepp.py' >/dev/null && command -v pplacer >/dev/null && command -v guppy >/dev/null && java -version >/dev/null 2>&1 && { java -jar /opt/conda/bin/seppJsonMerger.jar 2>&1 || true; } | grep -F 'Usage: merge.jar' >/dev/null",
+              "set -eu; tmp=/tmp/taf-compleasm-odb-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp/library\"; printf 'geneat1 type 2 100\\n' > \"$tmp/odb10.lengths\"; printf 'gene 100 5\\n' > \"$tmp/odb12.2.lengths\"; python -c 'from compleasm import load_length_cutoff; import sys; a=load_length_cutoff(sys.argv[1], \"odb10\"); b=load_length_cutoff(sys.argv[2], \"odb12.2\"); assert a[\"geneat1\"] == {\"length\": 100.0, \"sigma\": 2.0}; assert b[\"gene\"] == {\"length\": 100.0, \"sigma\": 5.0}' \"$tmp/odb10.lengths\" \"$tmp/odb12.2.lengths\"; touch \"$tmp/library/eukaryota_odb10.done\"; compleasm list --local --odb odb10 -L \"$tmp/library\" | grep -Fx 'eukaryota' >/dev/null",
+              "set -eu; tmp=/tmp/taf-compleasm-hmmer-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '# STOCKHOLM 1.0\\nseq1 MKTAYIAK\\nseq2 MKTAYIAK\\n//\\n' > toy.sto; hmmbuild toy.hmm toy.sto >/dev/null; printf '>target\\nMKTAYIAK\\n' > target.fa; hmmsearch --tblout hits.tsv toy.hmm target.fa >/dev/null; test -s hits.tsv; grep -F 'target' hits.tsv >/dev/null",
+              "set -eu; tmp=/tmp/taf-compleasm-miniprot-$$; trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; mkdir -p \"$tmp\"; cd \"$tmp\"; printf '>chr1\\nATGAAAACCGCTTACATTGCTAAACAACGTCAAATTTCTTTTGTTAAATCTCATTTTTCTCGTCAACTGGAAGAACGTCTGGGTCTGATTGAAGTTCAAGCTAATAAT\\n' > genome.fa; printf '>prot1\\nMKTAYIAKQRQISFVKSHFSRQLEERLGLIEVQANN\\n' > proteins.faa; compleasm miniprot -a genome.fa -p proteins.faa -o miniprot-out -t 1 >/dev/null; test -s miniprot-out/miniprot_output.gff; test -e miniprot-out/miniprot.done",
+              "compleasm-db --help >/dev/null && compleasm-db --db-root /tmp/dry-run-only --lineage eukaryota_odb12.2 --dry-run | grep -F c2615b6e >/dev/null",
+              "compleasm-smoke upstream-delta",
+              "compleasm-smoke resource",
+              "compleasm-smoke protein",
+              "compleasm-smoke assembly",
+              "compleasm-smoke negative",
+              "sha256sum -c /opt/compleasm/share/doc/compleasm/conda-notices.sha256 && python /opt/compleasm/lib/conda-licenses.py verify",
+              "python /opt/compleasm/lib/test-conda-licenses.py"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-13T16:34:59Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-13T16:35:48Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3e601fcb692cd290268123e1d905c6c0f7bdf4f4",
+                "image_digest": "sha256:177f903498ffe5c542fa6aaccbb7e33b5a54a76b31d253d90a421998adbb3214",
+                "smoke_sha256": "6010430d9c7bebab3b255cd3bba812e5f85da83709121699d5c8c409cc439a6b",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-13T16:34:59Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3e601fcb692cd290268123e1d905c6c0f7bdf4f4",
+                "image_digest": "sha256:177f903498ffe5c542fa6aaccbb7e33b5a54a76b31d253d90a421998adbb3214",
+                "smoke_sha256": "6010430d9c7bebab3b255cd3bba812e5f85da83709121699d5c8c409cc439a6b",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-13T16:35:04Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3e601fcb692cd290268123e1d905c6c0f7bdf4f4",
+                "image_digest": "sha256:177f903498ffe5c542fa6aaccbb7e33b5a54a76b31d253d90a421998adbb3214",
+                "smoke_sha256": "6010430d9c7bebab3b255cd3bba812e5f85da83709121699d5c8c409cc439a6b",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-13T16:29:08Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/compleasm",
+            "ref": "v0.2.10-r1",
+            "commit": "3e601fcb692cd290268123e1d905c6c0f7bdf4f4",
+            "html_url": "https://github.com/taffish/compleasm/tree/v0.2.10-r1"
+          },
+          "upstream": {
+            "name": "Compleasm",
+            "type": "github",
+            "homepage": "https://github.com/huangnengCSU/compleasm",
+            "repository": "huangnengCSU/compleasm",
+            "release_url": "https://github.com/huangnengCSU/compleasm/releases/tag/v0.2.10",
+            "version": "0.2.10",
+            "license": "Apache-2.0 AND MIT",
+            "citation": "Huang and Li 2023",
+            "doi": "10.1093/bioinformatics/btad595",
+            "pmid": "37758247"
+          }
+        },
         "0.2.7-r1": {
           "name": "compleasm",
           "kind": "tool",
@@ -91491,7 +91683,7 @@
     },
     "taf-compleasm": {
       "package": "compleasm",
-      "version": "0.2.9-r1"
+      "version": "0.2.10-r1"
     },
     "taf-cooler": {
       "package": "cooler",
