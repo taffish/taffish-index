@@ -1,8 +1,8 @@
 {
   "name": "bakta",
-  "latest": "1.12.1-r1",
-  "recent_version": "1.12.1-r1",
-  "recent_at": "2026-08-07T04:56:19Z",
+  "latest": "1.12.2-r1",
+  "recent_version": "1.12.2-r1",
+  "recent_at": "2026-10-14T09:08:07Z",
   "repository_url": "https://github.com/taffish/bakta",
   "command": {
     "name": "taf-bakta"
@@ -363,6 +363,193 @@
         "repository": "oschwengers/bakta",
         "release_url": "https://github.com/oschwengers/bakta/releases/tag/v1.12.1",
         "version": "1.12.1",
+        "license": "GPL-3.0",
+        "citation": "Schwengers et al. 2021",
+        "doi": "10.1099/mgen.0.000685"
+      }
+    },
+    "1.12.2-r1": {
+      "name": "bakta",
+      "kind": "tool",
+      "version": "1.12.2",
+      "release": 1,
+      "version_id": "1.12.2-r1",
+      "tag": "v1.12.2-r1",
+      "published_at": "2026-10-14T09:08:07Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bakta",
+      "repository_slug": "taffish/bakta",
+      "command": {
+        "name": "taf-bakta"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-annotation",
+        "categories": [
+          "genome-annotation",
+          "prokaryotic-genomics",
+          "bacterial-genomics",
+          "plasmid-annotation",
+          "functional-annotation"
+        ],
+        "keywords": [
+          "bakta",
+          "bacterial-genome-annotation",
+          "prokaryotic-annotation",
+          "plasmid",
+          "mag",
+          "gff3",
+          "genbank",
+          "amrfinder",
+          "diamond",
+          "trnascan-se",
+          "aragorn",
+          "infernal"
+        ],
+        "summary": "Bakta 1.12.2 bacterial, plasmid and MAG annotation with an explicit fixed-database installer and a local-only Bakta Web result viewer. Production databases remain external and explicitly selected.",
+        "description": "Bakta 1.12.2 bacterial, plasmid and MAG annotation with an explicit fixed-database installer and a local-only Bakta Web result viewer. Production databases remain external and explicitly selected."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bakta:1.12.2-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.12.2-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:e005c1e21ac350eb657bbb07b78a3a0bc97565c804d57002d6f381b016e83208",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:07a886e6fe9df7b13930c91aadcec3683404f21a1f1829bd2441b60f66910d0e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "bakta",
+          "bakta_db",
+          "bakta_proteins",
+          "bakta_plot",
+          "bakta_io",
+          "python3",
+          "diamond",
+          "blastn",
+          "makeblastdb",
+          "amrfinder",
+          "amrfinder_update",
+          "amrfinder_index",
+          "tRNAscan-SE",
+          "aragorn",
+          "cmscan",
+          "cmpress",
+          "pilercr",
+          "bakta-download-db-6.0",
+          "bakta-viewer",
+          "bakta-smoke"
+        ],
+        "test": [
+          "bakta-smoke identity",
+          "bakta-smoke dependencies",
+          "bakta-smoke core",
+          "bakta-smoke meta",
+          "bakta-smoke negative",
+          "bakta-smoke resources",
+          "bakta-smoke viewer"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-14T09:31:04Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:17Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5c67812da9f71570477b39c838846764258ab0d0",
+            "image_digest": "sha256:e005c1e21ac350eb657bbb07b78a3a0bc97565c804d57002d6f381b016e83208",
+            "smoke_sha256": "7942287ecd25a19ef24c3be93101e06ef8a46f4c3167da8d0151dea5f5bff27d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5c67812da9f71570477b39c838846764258ab0d0",
+            "image_digest": "sha256:e005c1e21ac350eb657bbb07b78a3a0bc97565c804d57002d6f381b016e83208",
+            "smoke_sha256": "7942287ecd25a19ef24c3be93101e06ef8a46f4c3167da8d0151dea5f5bff27d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5c67812da9f71570477b39c838846764258ab0d0",
+            "image_digest": "sha256:e005c1e21ac350eb657bbb07b78a3a0bc97565c804d57002d6f381b016e83208",
+            "smoke_sha256": "7942287ecd25a19ef24c3be93101e06ef8a46f4c3167da8d0151dea5f5bff27d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-14T09:26:19Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bakta",
+        "ref": "v1.12.2-r1",
+        "commit": "5c67812da9f71570477b39c838846764258ab0d0",
+        "html_url": "https://github.com/taffish/bakta/tree/v1.12.2-r1"
+      },
+      "upstream": {
+        "name": "Bakta",
+        "type": "github",
+        "homepage": "https://bakta.readthedocs.io/",
+        "repository": "oschwengers/bakta",
+        "release_url": "https://github.com/oschwengers/bakta/releases/tag/v1.12.2",
+        "version": "1.12.2",
         "license": "GPL-3.0",
         "citation": "Schwengers et al. 2021",
         "doi": "10.1099/mgen.0.000685"

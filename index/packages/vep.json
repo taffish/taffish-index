@@ -1,8 +1,8 @@
 {
   "name": "vep",
-  "latest": "116.2-r1",
-  "recent_version": "116.2-r1",
-  "recent_at": "2026-09-04T16:41:27Z",
+  "latest": "116.3-r1",
+  "recent_version": "116.3-r1",
+  "recent_at": "2026-10-14T09:07:59Z",
   "repository_url": "https://github.com/taffish/vep",
   "command": {
     "name": "taf-vep"
@@ -552,6 +552,205 @@
         "repository": "Ensembl/ensembl-vep",
         "release_url": "https://github.com/Ensembl/ensembl-vep/tree/release/116.2",
         "version": "116.2",
+        "license": "Apache-2.0",
+        "citation": "McLaren W, Gil L, Hunt SE, Riat HS, Ritchie GRS, Thormann A, Flicek P, Cunningham F. The Ensembl Variant Effect Predictor. Genome Biology. 2016;17:122.",
+        "doi": "10.1186/s13059-016-0974-4",
+        "pmid": "27268795"
+      }
+    },
+    "116.3-r1": {
+      "name": "vep",
+      "kind": "tool",
+      "version": "116.3",
+      "release": 1,
+      "version_id": "116.3-r1",
+      "tag": "v116.3-r1",
+      "published_at": "2026-10-14T09:07:59Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/vep",
+      "repository_slug": "taffish/vep",
+      "command": {
+        "name": "taf-vep"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "variant-annotation",
+        "categories": [
+          "variant-annotation",
+          "genomics",
+          "vcf",
+          "variant-effect",
+          "ensembl"
+        ],
+        "keywords": [
+          "vep",
+          "ensembl vep",
+          "variant effect predictor",
+          "variant annotation",
+          "vcf",
+          "csq",
+          "consequence",
+          "haplosaurus",
+          "variant recoder",
+          "filter_vep"
+        ],
+        "summary": "Ensembl Variant Effect Predictor (VEP) 116.3 runtime for annotating sequence variants and running related VEP helper tools.",
+        "description": "Ensembl Variant Effect Predictor (VEP) 116.3 runtime for annotating sequence variants and running related VEP helper tools."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/vep:116.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "116.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:b57ce65b8256ab112ce287bcf41913776fed970ab0f32b44cab9decb4933e651",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:2f12b5c6b32698e574f6253a9196c9772a24b2d11fe8026054952202967e111a",
+          "linux/arm64": "sha256:8a8cf5b5fcbaa99fac4173ce16a43944a03b7cd3aa22da7a5807312844875eed"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "vep",
+          "filter_vep",
+          "haplo",
+          "variant_recoder",
+          "INSTALL.pl",
+          "convert_cache.pl",
+          "vep-install-data-116",
+          "vep-install-plugin-data",
+          "vep-stats-view",
+          "vep-smoke",
+          "python3",
+          "perl",
+          "curl",
+          "bgzip",
+          "tabix",
+          "htsfile",
+          "genesplicer",
+          "python",
+          "python2",
+          "flock",
+          "df",
+          "sum",
+          "sha256sum",
+          "grep",
+          "which",
+          "gzip",
+          "tar",
+          "unzip"
+        ],
+        "test": [
+          "vep-smoke version",
+          "vep-smoke helpers",
+          "vep-smoke deps",
+          "vep-smoke installer",
+          "vep-smoke plugin-data",
+          "vep-smoke filter",
+          "vep-smoke gff",
+          "vep-smoke gzip",
+          "vep-smoke ncrna",
+          "vep-smoke html"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-14T09:31:04Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:17Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e17f597bfb71f40e67a1ff30b98a473511096624",
+            "image_digest": "sha256:b57ce65b8256ab112ce287bcf41913776fed970ab0f32b44cab9decb4933e651",
+            "smoke_sha256": "2a8da3ae366fcffb3879cf00e12973a97fa2ddc8fcd7aeb17a8591867dd9a486",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e17f597bfb71f40e67a1ff30b98a473511096624",
+            "image_digest": "sha256:b57ce65b8256ab112ce287bcf41913776fed970ab0f32b44cab9decb4933e651",
+            "smoke_sha256": "2a8da3ae366fcffb3879cf00e12973a97fa2ddc8fcd7aeb17a8591867dd9a486",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e17f597bfb71f40e67a1ff30b98a473511096624",
+            "image_digest": "sha256:b57ce65b8256ab112ce287bcf41913776fed970ab0f32b44cab9decb4933e651",
+            "smoke_sha256": "2a8da3ae366fcffb3879cf00e12973a97fa2ddc8fcd7aeb17a8591867dd9a486",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-14T09:26:19Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/vep",
+        "ref": "v116.3-r1",
+        "commit": "e17f597bfb71f40e67a1ff30b98a473511096624",
+        "html_url": "https://github.com/taffish/vep/tree/v116.3-r1"
+      },
+      "upstream": {
+        "name": "Ensembl Variant Effect Predictor (VEP)",
+        "type": "github",
+        "homepage": "https://www.ensembl.org/info/docs/tools/vep/index.html",
+        "repository": "Ensembl/ensembl-vep",
+        "release_url": "https://github.com/Ensembl/ensembl-vep/tree/release/116.3",
+        "version": "116.3",
         "license": "Apache-2.0",
         "citation": "McLaren W, Gil L, Hunt SE, Riat HS, Ritchie GRS, Thormann A, Flicek P, Cunningham F. The Ensembl Variant Effect Predictor. Genome Biology. 2016;17:122.",
         "doi": "10.1186/s13059-016-0974-4",

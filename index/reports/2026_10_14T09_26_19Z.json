@@ -1,0 +1,532 @@
+{
+  "schema_version": "taffish.index.report/v1",
+  "generated_at": "2026-10-14T09:26:19Z",
+  "organization": "taffish",
+  "policy": {
+    "generation": "multibackend-1",
+    "platform": "linux/amd64",
+    "backends": [
+      "docker",
+      "podman",
+      "apptainer"
+    ],
+    "required_mode": "declared-backend"
+  },
+  "counts": {
+    "failed": 0,
+    "advisory_failed": 18,
+    "latest_advisory_failed": 0,
+    "historical_advisory_failed": 18,
+    "rejected": 13,
+    "warnings": 0
+  },
+  "failed": [],
+  "advisory_failed": [
+    {
+      "repository": "taffish/bedops",
+      "ref": "v2.4.42-r1",
+      "version_id": "2.4.42-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates && starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/bedops/bin/__pycache__/starch-diffcpython-311.pyc.140041479193520'",
+      "image": "ghcr.io/taffish/bedops:2.4.42-r1",
+      "task_id": "taffish/bedops|2.4.42-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/cufflinks",
+      "ref": "v2.2.1-r1",
+      "version_id": "2.2.1-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140467899138768'",
+      "image": "ghcr.io/taffish/cufflinks:2.2.1-r1",
+      "task_id": "taffish/cufflinks|2.2.1-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/cufflinks",
+      "ref": "v2.2.1-r2",
+      "version_id": "2.2.1-r2",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.139762143560400'",
+      "image": "ghcr.io/taffish/cufflinks:2.2.1-r2",
+      "task_id": "taffish/cufflinks|2.2.1-r2",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/dorado",
+      "ref": "v2.1.2-r1",
+      "version_id": "2.1.2-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): /opt/dorado/share/testdata/dorado-smoke.sh model-policy\nstdout: \nstderr: mkdir: cannot create directory '/models': Read-only file system\n",
+      "image": "ghcr.io/taffish/dorado:2.1.2-r1",
+      "task_id": "taffish/dorado|2.1.2-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/gget",
+      "ref": "v0.30.8-r1",
+      "version_id": "0.30.8-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): /opt/gget/share/testdata/gget-smoke.sh muscle\nstdout: \nstderr: chmod: changing permissions of '/opt/gget/python/lib/python3.12/site-packages/gget/bins/Linux/muscle': Read-only file system\n",
+      "image": "ghcr.io/taffish/gget:0.30.8-r1",
+      "task_id": "taffish/gget|0.30.8-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/higlass",
+      "ref": "v0.10.4-r1",
+      "version_id": "0.10.4-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n",
+      "image": "ghcr.io/taffish/higlass:0.10.4-r1",
+      "task_id": "taffish/higlass|0.10.4-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/higlass",
+      "ref": "v0.10.4-r2",
+      "version_id": "0.10.4-r2",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n",
+      "image": "ghcr.io/taffish/higlass:0.10.4-r2",
+      "task_id": "taffish/higlass|0.10.4-r2",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/higlass",
+      "ref": "v2.3.4-r1",
+      "version_id": "2.3.4-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n",
+      "image": "ghcr.io/taffish/higlass:2.3.4-r1",
+      "task_id": "taffish/higlass|2.3.4-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/higlass",
+      "ref": "v2.3.5-r1",
+      "version_id": "2.3.5-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n",
+      "image": "ghcr.io/taffish/higlass:2.3.5-r1",
+      "task_id": "taffish/higlass|2.3.5-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/ilastik",
+      "ref": "v1.4.2-r1",
+      "version_id": "1.4.2-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): ilastik-smoke model-fixture\nstdout: \nstderr: ilastik-models: error: [Errno 30] Read-only file system: '/model-install'\n",
+      "image": "ghcr.io/taffish/ilastik:1.4.2-r1",
+      "task_id": "taffish/ilastik|1.4.2-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/isoquant",
+      "ref": "v4.0.0-r1",
+      "version_id": "4.0.0-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 99): /opt/isoquant/share/testdata/isoquant-smoke.sh pipeline\nstdout: \nstderr: isoquant-smoke: upstream-toy-pipeline\n",
+      "image": "ghcr.io/taffish/isoquant:4.0.0-r1",
+      "task_id": "taffish/isoquant|4.0.0-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/krona",
+      "ref": "v2.8.1-r2",
+      "version_id": "2.8.1-r2",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): test -z \"$(find /opt/krona/KronaTools \\( -name '._*' -o -name '.DS_Store' \\) -print -quit)\" && test -z \"$(find /opt/krona/KronaTools \\( ! -user root -o ! -group root \\) -print -quit)\"\nstdout: \nstderr: ",
+      "image": "ghcr.io/taffish/krona:2.8.1-r2",
+      "task_id": "taffish/krona|2.8.1-r2",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/lastz",
+      "ref": "v1.04.52-r1",
+      "version_id": "1.04.52-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.140312003044656'",
+      "image": "ghcr.io/taffish/lastz:1.04.52-r1",
+      "task_id": "taffish/lastz|1.04.52-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/mummer4",
+      "ref": "v4.0.1-r1",
+      "version_id": "4.0.1-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 129): tmp=/tmp/taf-mummer4-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf \">ref\\n\" > ref.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> ref.fa; i=$((i + 1)); done; printf \"\\n\" >> ref.fa; printf \">qry\\n\" > qry.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> qry.fa; i=$((i + 1)); done; printf \"\\n\" >> qry.fa; nucmer -p smoke ref.fa qry.fa >/tmp/taf-mummer4-nucmer.log 2>&1; test -s smoke.delta; delta-filter -m smoke.delta > smoke.m.delta; test -s smoke.m.delta; show-coords -T -H smoke.m.delta > smoke.coords; test -s smoke.coords; mummer -mum -b -c ref.fa qry.fa > smoke.mums; test -s smoke.mums; dnadiff -p diff ref.fa qry.fa >/tmp/taf-mummer4-dnadiff.log 2>&1; test -s diff.report; mummerplot -p plot -t png smoke.delta >/tmp/taf-mummer4-mummerplot.log 2>&1; test -s plot.gp; test -s plot.png; rm -rf \"$tmp\"\nstdout: \nstderr: ",
+      "image": "ghcr.io/taffish/mummer4:4.0.1-r1",
+      "task_id": "taffish/mummer4|4.0.1-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/nextclade",
+      "ref": "v3.23.0-r1",
+      "version_id": "3.23.0-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.EnDkoO/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/06 04:26:11 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n",
+      "image": "ghcr.io/taffish/nextclade:3.23.0-r1",
+      "task_id": "taffish/nextclade|3.23.0-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/p2rank",
+      "ref": "v2.5.1-r1",
+      "version_id": "2.5.1-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): tmp=/tmp/taf-p2rank-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; grep -v '^HETATM' /opt/p2rank/test_data/1fbl.pdb > \"$tmp/1fbl_nohet.pdb\"; prank predict -visualizations 0 -threads 1 -o \"$tmp/predict\" -f \"$tmp/1fbl_nohet.pdb\" > \"$tmp/predict.log\" 2>&1; test -s \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\"; test -s \"$tmp/predict/1fbl_nohet.pdb_residues.csv\"; grep -F \"pocket1\" \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\" >/dev/null; if grep -F \"Could not download\" \"$tmp/predict.log\"; then exit 1; fi; rm -rf \"$tmp\"\nstdout: [ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/PHE.cif OR store locally to /tmp/chemcomp/PHE.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/VAL.cif OR store locally to /tmp/chemcomp/VAL.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/LEU.cif OR store locally to /tmp/chemcomp/LEU.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download\n...[2180 characters omitted]...\n/ligands/download/LYS.cif OR store locally to /tmp/chemcomp/LYS.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/GLN.cif OR store locally to /tmp/chemcomp/GLN.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/MET.cif OR store locally to /tmp/chemcomp/MET.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/CYS.cif OR store locally to /tmp/chemcomp/CYS.cif.gz Error =files.rcsb.org\n\nstderr: ",
+      "image": "ghcr.io/taffish/p2rank:2.5.1-r1",
+      "task_id": "taffish/p2rank|2.5.1-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/ucsc-kent",
+      "ref": "v492-r1",
+      "version_id": "492-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140084247872096'",
+      "image": "ghcr.io/taffish/ucsc-kent:492-r1",
+      "task_id": "taffish/ucsc-kent|492-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/uniprot-idmapping",
+      "ref": "v0.1.0-r1",
+      "version_id": "0.1.0-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139987725559920'",
+      "image": "ghcr.io/taffish/uniprot-idmapping:0.1.0-r1",
+      "task_id": "taffish/uniprot-idmapping|0.1.0-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    }
+  ],
+  "latest_advisory_failed": [],
+  "historical_advisory_failed": [
+    {
+      "repository": "taffish/bedops",
+      "ref": "v2.4.42-r1",
+      "version_id": "2.4.42-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/bedops/bin/starch-diff /opt/bedops/bin/update-sort-bed-slurm /opt/bedops/bin/update-sort-bed-starch-slurm /opt/bedops/bin/update-sort-bed-migrate-candidates && starch-diff --help 2>&1 | grep -F \"Starch v2.2+ archives\" >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/bedops/bin/__pycache__/starch-diffcpython-311.pyc.140041479193520'",
+      "image": "ghcr.io/taffish/bedops:2.4.42-r1",
+      "task_id": "taffish/bedops|2.4.42-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/cufflinks",
+      "ref": "v2.2.1-r1",
+      "version_id": "2.2.1-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.140467899138768'",
+      "image": "ghcr.io/taffish/cufflinks:2.2.1-r1",
+      "task_id": "taffish/cufflinks|2.2.1-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/cufflinks",
+      "ref": "v2.2.1-r2",
+      "version_id": "2.2.1-r2",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile $(command -v cuffmerge)\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/cufflinks/bin/__pycache__/cuffmergecpython-311.pyc.139762143560400'",
+      "image": "ghcr.io/taffish/cufflinks:2.2.1-r2",
+      "task_id": "taffish/cufflinks|2.2.1-r2",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/dorado",
+      "ref": "v2.1.2-r1",
+      "version_id": "2.1.2-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): /opt/dorado/share/testdata/dorado-smoke.sh model-policy\nstdout: \nstderr: mkdir: cannot create directory '/models': Read-only file system\n",
+      "image": "ghcr.io/taffish/dorado:2.1.2-r1",
+      "task_id": "taffish/dorado|2.1.2-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/gget",
+      "ref": "v0.30.8-r1",
+      "version_id": "0.30.8-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): /opt/gget/share/testdata/gget-smoke.sh muscle\nstdout: \nstderr: chmod: changing permissions of '/opt/gget/python/lib/python3.12/site-packages/gget/bins/Linux/muscle': Read-only file system\n",
+      "image": "ghcr.io/taffish/gget:0.30.8-r1",
+      "task_id": "taffish/gget|0.30.8-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/higlass",
+      "ref": "v0.10.4-r1",
+      "version_id": "0.10.4-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n",
+      "image": "ghcr.io/taffish/higlass:0.10.4-r1",
+      "task_id": "taffish/higlass|0.10.4-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/higlass",
+      "ref": "v0.10.4-r2",
+      "version_id": "0.10.4-r2",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n",
+      "image": "ghcr.io/taffish/higlass:0.10.4-r2",
+      "task_id": "taffish/higlass|0.10.4-r2",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/higlass",
+      "ref": "v2.3.4-r1",
+      "version_id": "2.3.4-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n",
+      "image": "ghcr.io/taffish/higlass:2.3.4-r1",
+      "task_id": "taffish/higlass|2.3.4-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/higlass",
+      "ref": "v2.3.5-r1",
+      "version_id": "2.3.5-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): higlass-manage help | grep -F 'Available subcommands'\nstdout: \nstderr: Traceback (most recent call last):\n  File \"/usr/lib/python3.8/logging/config.py\", line 563, in configure\n    handler = self.configure_handler(handlers[name])\n  File \"/usr/lib/python3.8/logging/config.py\", line 744, in configure_handler\n    result = factory(**kwargs)\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1147, in __init__\n    StreamHandler.__init__(self, self._open())\n  File \"/usr/lib/python3.8/logging/__init__.py\", line 1176, in _open\n    return open(self.baseFilename, self.mode, encoding=self.encoding)\nOSError: [Errno 30] Read-only file system: '/data/log/hgs.log'\n\nThe above e\n...[416 characters omitted]...\n execute\n    django.setup()\n  File \"/usr/local/lib/python3.8/dist-packages/django/__init__.py\", line 19, in setup\n    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)\n  File \"/usr/local/lib/python3.8/dist-packages/django/utils/log.py\", line 76, in configure_logging\n    logging_config_func(logging_settings)\n  File \"/usr/lib/python3.8/logging/config.py\", line 808, in dictConfig\n    dictConfigClass(config).configure()\n  File \"/usr/lib/python3.8/logging/config.py\", line 570, in configure\n    raise ValueError('Unable to configure handler '\nValueError: Unable to configure handler 'file'\n",
+      "image": "ghcr.io/taffish/higlass:2.3.5-r1",
+      "task_id": "taffish/higlass|2.3.5-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/ilastik",
+      "ref": "v1.4.2-r1",
+      "version_id": "1.4.2-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): ilastik-smoke model-fixture\nstdout: \nstderr: ilastik-models: error: [Errno 30] Read-only file system: '/model-install'\n",
+      "image": "ghcr.io/taffish/ilastik:1.4.2-r1",
+      "task_id": "taffish/ilastik|1.4.2-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/isoquant",
+      "ref": "v4.0.0-r1",
+      "version_id": "4.0.0-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 99): /opt/isoquant/share/testdata/isoquant-smoke.sh pipeline\nstdout: \nstderr: isoquant-smoke: upstream-toy-pipeline\n",
+      "image": "ghcr.io/taffish/isoquant:4.0.0-r1",
+      "task_id": "taffish/isoquant|4.0.0-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/krona",
+      "ref": "v2.8.1-r2",
+      "version_id": "2.8.1-r2",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): test -z \"$(find /opt/krona/KronaTools \\( -name '._*' -o -name '.DS_Store' \\) -print -quit)\" && test -z \"$(find /opt/krona/KronaTools \\( ! -user root -o ! -group root \\) -print -quit)\"\nstdout: \nstderr: ",
+      "image": "ghcr.io/taffish/krona:2.8.1-r2",
+      "task_id": "taffish/krona|2.8.1-r2",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/lastz",
+      "ref": "v1.04.52-r1",
+      "version_id": "1.04.52-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/lastz/share/lastz/tools/lav_sort.py /opt/lastz/share/lastz/tools/maf_sort.py /opt/lastz/share/lastz/tabular_tools/alignment_table.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/lastz/share/lastz/tools/__pycache__/lav_sort.cpython-311.pyc.140312003044656'",
+      "image": "ghcr.io/taffish/lastz:1.04.52-r1",
+      "task_id": "taffish/lastz|1.04.52-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/mummer4",
+      "ref": "v4.0.1-r1",
+      "version_id": "4.0.1-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 129): tmp=/tmp/taf-mummer4-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; cd \"$tmp\"; printf \">ref\\n\" > ref.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> ref.fa; i=$((i + 1)); done; printf \"\\n\" >> ref.fa; printf \">qry\\n\" > qry.fa; i=0; while [ \"$i\" -lt 20 ]; do printf \"ACGTTGCAAGTCGATCGTACGATCGTAGCTAG\" >> qry.fa; i=$((i + 1)); done; printf \"\\n\" >> qry.fa; nucmer -p smoke ref.fa qry.fa >/tmp/taf-mummer4-nucmer.log 2>&1; test -s smoke.delta; delta-filter -m smoke.delta > smoke.m.delta; test -s smoke.m.delta; show-coords -T -H smoke.m.delta > smoke.coords; test -s smoke.coords; mummer -mum -b -c ref.fa qry.fa > smoke.mums; test -s smoke.mums; dnadiff -p diff ref.fa qry.fa >/tmp/taf-mummer4-dnadiff.log 2>&1; test -s diff.report; mummerplot -p plot -t png smoke.delta >/tmp/taf-mummer4-mummerplot.log 2>&1; test -s plot.gp; test -s plot.png; rm -rf \"$tmp\"\nstdout: \nstderr: ",
+      "image": "ghcr.io/taffish/mummer4:4.0.1-r1",
+      "task_id": "taffish/mummer4|4.0.1-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/nextclade",
+      "ref": "v3.23.0-r1",
+      "version_id": "3.23.0-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): nextclade-smoke web-ready-int\nstdout: \nstderr: Nextclade Web is starting.\n\nOpen this URL after mapping the container port to the host:\n  http://127.0.0.1:8765/\n\nIf this is running on a remote server over SSH, tunnel the host port first:\n  ssh -N -L 8765:127.0.0.1:8765 user@server\n\nThen open the same URL in your local browser.\n\nPress Ctrl-C to stop this Nextclade Web session.\nInternal HTTP log:\n  /tmp/nextclade-web-smoke.EnDkoO/http.log\nnextclade-web: service exited during startup with status 1\nnginx: [alert] could not open error log file: open() \"/var/lib/nginx/logs/error.log\" failed (30: Read-only file system)\n2026/09/06 04:26:11 [emerg] 28#28: mkdir() \"/var/lib/nginx/tmp/client_body\" failed (30: Read-only file system)\nnextclade-smoke: Web HTTP probe failed\n",
+      "image": "ghcr.io/taffish/nextclade:3.23.0-r1",
+      "task_id": "taffish/nextclade|3.23.0-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/p2rank",
+      "ref": "v2.5.1-r1",
+      "version_id": "2.5.1-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): tmp=/tmp/taf-p2rank-smoke-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; grep -v '^HETATM' /opt/p2rank/test_data/1fbl.pdb > \"$tmp/1fbl_nohet.pdb\"; prank predict -visualizations 0 -threads 1 -o \"$tmp/predict\" -f \"$tmp/1fbl_nohet.pdb\" > \"$tmp/predict.log\" 2>&1; test -s \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\"; test -s \"$tmp/predict/1fbl_nohet.pdb_residues.csv\"; grep -F \"pocket1\" \"$tmp/predict/1fbl_nohet.pdb_predictions.csv\" >/dev/null; if grep -F \"Could not download\" \"$tmp/predict.log\"; then exit 1; fi; rm -rf \"$tmp\"\nstdout: [ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/PHE.cif OR store locally to /tmp/chemcomp/PHE.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/VAL.cif OR store locally to /tmp/chemcomp/VAL.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/LEU.cif OR store locally to /tmp/chemcomp/LEU.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download\n...[2180 characters omitted]...\n/ligands/download/LYS.cif OR store locally to /tmp/chemcomp/LYS.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/GLN.cif OR store locally to /tmp/chemcomp/GLN.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/MET.cif OR store locally to /tmp/chemcomp/MET.cif.gz Error =files.rcsb.org\n[ERROR] DownloadChemCompProvider - Could not download https://files.rcsb.org/ligands/download/CYS.cif OR store locally to /tmp/chemcomp/CYS.cif.gz Error =files.rcsb.org\n\nstderr: ",
+      "image": "ghcr.io/taffish/p2rank:2.5.1-r1",
+      "task_id": "taffish/p2rank|2.5.1-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/ucsc-kent",
+      "ref": "v492-r1",
+      "version_id": "492-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): mkdir -p /tmp/taf-ucsc-kent-scripts && cd /tmp/taf-ucsc-kent-scripts && python3 -m py_compile /opt/ucsc-kent/bin/bedJoinTabOffset.py /opt/ucsc-kent/bin/ucscApiClient /opt/ucsc-kent/bin/chromToUcsc /opt/ucsc-kent/bin/tdbRename /opt/ucsc-kent/bin/tdbSort && perl -c /opt/ucsc-kent/bin/vai.pl >/dev/null && printf 'name1\\tvalue\\n' > data.tab && printf 'chr1\\t0\\t5\\tname1\\n' > in.bed && bedJoinTabOffset.py data.tab in.bed out.bed >/tmp/taf-ucsc-kent-bedJoin.log 2>&1 && grep -F \"$(printf 'chr1\\t0\\t5\\tname1\\t0\\t12')\" out.bed >/dev/null\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/ucsc-kent/bin/__pycache__/bedJoinTabOffset.cpython-311.pyc.140084247872096'",
+      "image": "ghcr.io/taffish/ucsc-kent:492-r1",
+      "task_id": "taffish/ucsc-kent|492-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    },
+    {
+      "repository": "taffish/uniprot-idmapping",
+      "ref": "v0.1.0-r1",
+      "version_id": "0.1.0-r1",
+      "stage": "smoke",
+      "message": "smoke command failed (apptainer, exit 1): python3 -m py_compile /opt/uniprot-idmapping/uniprot_idmapping.py /opt/uniprot-idmapping/tests/mock_uniprot_server.py\nstdout: \nstderr: [Errno 30] Read-only file system: '/opt/uniprot-idmapping/__pycache__/uniprot_idmapping.cpython-312.pyc.139987725559920'",
+      "image": "ghcr.io/taffish/uniprot-idmapping:0.1.0-r1",
+      "task_id": "taffish/uniprot-idmapping|0.1.0-r1",
+      "backend": "apptainer",
+      "failure_kind": "smoke"
+    }
+  ],
+  "rejected": [
+    {
+      "repository": "taffish/antismash",
+      "ref": "v8.0.4-r1",
+      "version_id": "8.0.4-r1",
+      "reason": "Immutable release has a Docker image build failure and should not be added to the main index.",
+      "replacement": "8.0.4-r2",
+      "image": "ghcr.io/taffish/antismash:8.0.4-r1"
+    },
+    {
+      "repository": "taffish/bakta",
+      "ref": "v1.12.0-r1",
+      "version_id": "1.12.0-r1",
+      "reason": "Immutable release has smoke metadata that calls bakta_db list, which requires online database version metadata and fails in the network-restricted index smoke environment; fixed by v1.12.0-r2.",
+      "replacement": "1.12.0-r2",
+      "image": "ghcr.io/taffish/bakta:1.12.0-r1"
+    },
+    {
+      "repository": "taffish/cooltools",
+      "ref": "v0.7.1-r1",
+      "version_id": "0.7.1-r1",
+      "reason": "Immutable release has a Docker image build failure and should not be added to the main index; fixed by v0.7.1-r2.",
+      "replacement": "0.7.1-r2",
+      "image": "ghcr.io/taffish/cooltools:0.7.1-r1"
+    },
+    {
+      "repository": "taffish/coverm",
+      "ref": "v0.8.0-r1",
+      "version_id": "0.8.0-r1",
+      "reason": "Immutable release has a broken linux/arm64 Docker image and should not be added to the main index; fixed by v0.8.0-r2.",
+      "replacement": "0.8.0-r2",
+      "image": "ghcr.io/taffish/coverm:0.8.0-r1"
+    },
+    {
+      "repository": "taffish/deepvariant",
+      "ref": "v1.10.0-r1",
+      "version_id": "1.10.0-r1",
+      "reason": "Immutable release has invalid smoke metadata and should not be added to the main index.",
+      "replacement": "1.10.0-r2",
+      "image": "ghcr.io/taffish/deepvariant:1.10.0-r1"
+    },
+    {
+      "repository": "taffish/delly",
+      "ref": "v2.7.0-r1",
+      "version_id": "2.7.0-r1",
+      "reason": "Immutable release fails image builds on both amd64 and arm64 because the pinned Alpine zlib-dev-1.3.2-r0.apk download returns HTTP 404; use v2.7.0-r2 once published and accepted by the index.",
+      "replacement": "2.7.0-r2",
+      "image": "ghcr.io/taffish/delly:2.7.0-r1"
+    },
+    {
+      "repository": "taffish/fastp",
+      "ref": "v1.3.3-r1",
+      "version_id": "1.3.3-r1",
+      "reason": "Immutable release has invalid smoke commands that reuse a temp directory across isolated smoke containers; fixed by v1.3.3-r2.",
+      "replacement": "1.3.3-r2",
+      "image": "ghcr.io/taffish/fastp:1.3.3-r1"
+    },
+    {
+      "repository": "taffish/interproscan",
+      "ref": "v5.77-108.0-r2",
+      "version_id": "5.77-108.0-r2",
+      "reason": "Immutable release has an incorrect default EBI data archive URL in interproscan-download-data, causing the helper to fail with 404; fixed by v5.77-108.0-r3.",
+      "replacement": "5.77-108.0-r3",
+      "image": "ghcr.io/taffish/interproscan:5.77-108.0-r2"
+    },
+    {
+      "repository": "taffish/metabat2",
+      "ref": "v2.18-r1",
+      "version_id": "2.18-r1",
+      "reason": "Immutable release has invalid smoke metadata and should not be added to the main index; fixed by v2.18-r2.",
+      "replacement": "2.18-r2",
+      "image": "ghcr.io/taffish/metabat2:2.18-r1"
+    },
+    {
+      "repository": "taffish/muscle",
+      "ref": "v5.3-r3",
+      "version_id": "5.3-r3",
+      "reason": "Immutable release has a Docker image build failure and should not be added to the main index.",
+      "replacement": "5.3-r4",
+      "image": "ghcr.io/taffish/muscle:5.3-r3"
+    },
+    {
+      "repository": "taffish/nanoplot",
+      "ref": "v1.47.1-r1",
+      "version_id": "1.47.1-r1",
+      "reason": "Immutable release failed index validation and should not be added to the main index; fixed by v1.47.1-r2.",
+      "replacement": "1.47.1-r2",
+      "image": "ghcr.io/taffish/nanoplot:1.47.1-r1"
+    },
+    {
+      "repository": "taffish/regenie",
+      "ref": "v4.1.2-r1",
+      "version_id": "4.1.2-r1",
+      "reason": "Immutable release has an incorrect Docker build-context path for docker/regenie-smoke.sh, causing the image build to fail; fixed by v4.1.2-r2.",
+      "replacement": "4.1.2-r2",
+      "image": "ghcr.io/taffish/regenie:4.1.2-r1"
+    },
+    {
+      "repository": "taffish/signac",
+      "ref": "v1.17.1-r1",
+      "version_id": "1.17.1-r1",
+      "reason": "Immutable release did not produce a Docker image because its GitHub Actions build exceeded the six-hour job limit; use v1.17.1-r2 instead.",
+      "replacement": "1.17.1-r2",
+      "image": "ghcr.io/taffish/signac:1.17.1-r1"
+    }
+  ],
+  "warnings": []
+}

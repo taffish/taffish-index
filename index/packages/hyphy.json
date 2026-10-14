@@ -1,8 +1,8 @@
 {
   "name": "hyphy",
-  "latest": "2.5.101-r1",
-  "recent_version": "2.5.101-r1",
-  "recent_at": "2026-08-19T16:11:15Z",
+  "latest": "2.5.103-r1",
+  "recent_version": "2.5.103-r1",
+  "recent_at": "2026-10-14T09:07:55Z",
   "repository_url": "https://github.com/taffish/hyphy",
   "command": {
     "name": "taf-hyphy"
@@ -173,6 +173,178 @@
         "repository": "veg/hyphy",
         "release_url": "https://github.com/veg/hyphy/releases/tag/2.5.101",
         "version": "2.5.101",
+        "license": "MIT",
+        "citation": "Kosakovsky Pond SL, Poon AFY, Velazquez R, Weaver S, Hepler NL, Murrell B, Shank SD, Magalis BR, Bouvier D, Nekrutenko A, Wisotsky S, Spielman SJ, Frost SDW, Muse SV. HyPhy 2.5-A Customizable Platform for Evolutionary Hypothesis Testing Using Phylogenies. Mol Biol Evol. 2020;37(1):295-299.",
+        "doi": "10.1093/molbev/msz197",
+        "pmid": "31504749"
+      }
+    },
+    "2.5.103-r1": {
+      "name": "hyphy",
+      "kind": "tool",
+      "version": "2.5.103",
+      "release": 1,
+      "version_id": "2.5.103-r1",
+      "tag": "v2.5.103-r1",
+      "published_at": "2026-10-14T09:07:55Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/hyphy",
+      "repository_slug": "taffish/hyphy",
+      "command": {
+        "name": "taf-hyphy"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "phylogenetics",
+        "categories": [
+          "phylogenetics",
+          "molecular-evolution",
+          "selection-analysis",
+          "recombination"
+        ],
+        "keywords": [
+          "hyphy",
+          "hbl",
+          "phylogeny",
+          "molecular evolution",
+          "natural selection",
+          "dn/ds",
+          "codon models",
+          "recombination",
+          "mpi",
+          "openmp"
+        ],
+        "summary": null,
+        "description": null
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/hyphy:2.5.103-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.5.103-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:9bdfc1dd54808b130e707c5c721dffbd5ec61122e9a78ed2f730fe98a6a49813",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:158524d50bfe60dfaff8ff15960dc0ac309838a0e5958b569a5d61b874ce0ed9",
+          "linux/arm64": "sha256:5fd7c7c10bfc631815258a366c5de7e03df9c278b939c8821eb110d18b085f5b"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "hyphy",
+          "HYPHYMP",
+          "HYPHYMPI",
+          "mpirun",
+          "hyphy-smoke"
+        ],
+        "test": [
+          "hyphy-smoke identity",
+          "hyphy-smoke help",
+          "hyphy-smoke hbl",
+          "hyphy-smoke slac",
+          "hyphy-smoke compressed",
+          "hyphy-smoke mpi",
+          "hyphy-smoke aicc"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-14T09:31:04Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:17Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3260457cf2da66bfcba4db870cd3fd1e36fbc53b",
+            "image_digest": "sha256:9bdfc1dd54808b130e707c5c721dffbd5ec61122e9a78ed2f730fe98a6a49813",
+            "smoke_sha256": "8cac05418c2151e12c94597667fd57ff4f39b3361f7760d50eeebb6350b816b1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3260457cf2da66bfcba4db870cd3fd1e36fbc53b",
+            "image_digest": "sha256:9bdfc1dd54808b130e707c5c721dffbd5ec61122e9a78ed2f730fe98a6a49813",
+            "smoke_sha256": "8cac05418c2151e12c94597667fd57ff4f39b3361f7760d50eeebb6350b816b1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3260457cf2da66bfcba4db870cd3fd1e36fbc53b",
+            "image_digest": "sha256:9bdfc1dd54808b130e707c5c721dffbd5ec61122e9a78ed2f730fe98a6a49813",
+            "smoke_sha256": "8cac05418c2151e12c94597667fd57ff4f39b3361f7760d50eeebb6350b816b1",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-14T09:26:19Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/hyphy",
+        "ref": "v2.5.103-r1",
+        "commit": "3260457cf2da66bfcba4db870cd3fd1e36fbc53b",
+        "html_url": "https://github.com/taffish/hyphy/tree/v2.5.103-r1"
+      },
+      "upstream": {
+        "name": "HyPhy",
+        "type": "github",
+        "homepage": "https://www.hyphy.org/",
+        "repository": "veg/hyphy",
+        "release_url": "https://github.com/veg/hyphy/releases/tag/2.5.103",
+        "version": "2.5.103",
         "license": "MIT",
         "citation": "Kosakovsky Pond SL, Poon AFY, Velazquez R, Weaver S, Hepler NL, Murrell B, Shank SD, Magalis BR, Bouvier D, Nekrutenko A, Wisotsky S, Spielman SJ, Frost SDW, Muse SV. HyPhy 2.5-A Customizable Platform for Evolutionary Hypothesis Testing Using Phylogenies. Mol Biol Evol. 2020;37(1):295-299.",
         "doi": "10.1093/molbev/msz197",

@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-14T06:12:49Z",
+  "generated_at": "2026-10-14T09:26:19Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 518,
+    "versions": 524,
     "commands": 275,
     "repositories": 275,
     "warnings": 0,
@@ -2788,9 +2788,9 @@
     },
     "bakta": {
       "name": "bakta",
-      "latest": "1.12.1-r1",
-      "recent_version": "1.12.1-r1",
-      "recent_at": "2026-08-07T04:56:19Z",
+      "latest": "1.12.2-r1",
+      "recent_version": "1.12.2-r1",
+      "recent_at": "2026-10-14T09:08:07Z",
       "repository_url": "https://github.com/taffish/bakta",
       "command": {
         "name": "taf-bakta"
@@ -3151,6 +3151,193 @@
             "repository": "oschwengers/bakta",
             "release_url": "https://github.com/oschwengers/bakta/releases/tag/v1.12.1",
             "version": "1.12.1",
+            "license": "GPL-3.0",
+            "citation": "Schwengers et al. 2021",
+            "doi": "10.1099/mgen.0.000685"
+          }
+        },
+        "1.12.2-r1": {
+          "name": "bakta",
+          "kind": "tool",
+          "version": "1.12.2",
+          "release": 1,
+          "version_id": "1.12.2-r1",
+          "tag": "v1.12.2-r1",
+          "published_at": "2026-10-14T09:08:07Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bakta",
+          "repository_slug": "taffish/bakta",
+          "command": {
+            "name": "taf-bakta"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genome-annotation",
+            "categories": [
+              "genome-annotation",
+              "prokaryotic-genomics",
+              "bacterial-genomics",
+              "plasmid-annotation",
+              "functional-annotation"
+            ],
+            "keywords": [
+              "bakta",
+              "bacterial-genome-annotation",
+              "prokaryotic-annotation",
+              "plasmid",
+              "mag",
+              "gff3",
+              "genbank",
+              "amrfinder",
+              "diamond",
+              "trnascan-se",
+              "aragorn",
+              "infernal"
+            ],
+            "summary": "Bakta 1.12.2 bacterial, plasmid and MAG annotation with an explicit fixed-database installer and a local-only Bakta Web result viewer. Production databases remain external and explicitly selected.",
+            "description": "Bakta 1.12.2 bacterial, plasmid and MAG annotation with an explicit fixed-database installer and a local-only Bakta Web result viewer. Production databases remain external and explicitly selected."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bakta:1.12.2-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.12.2-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e005c1e21ac350eb657bbb07b78a3a0bc97565c804d57002d6f381b016e83208",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:07a886e6fe9df7b13930c91aadcec3683404f21a1f1829bd2441b60f66910d0e"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "bakta",
+              "bakta_db",
+              "bakta_proteins",
+              "bakta_plot",
+              "bakta_io",
+              "python3",
+              "diamond",
+              "blastn",
+              "makeblastdb",
+              "amrfinder",
+              "amrfinder_update",
+              "amrfinder_index",
+              "tRNAscan-SE",
+              "aragorn",
+              "cmscan",
+              "cmpress",
+              "pilercr",
+              "bakta-download-db-6.0",
+              "bakta-viewer",
+              "bakta-smoke"
+            ],
+            "test": [
+              "bakta-smoke identity",
+              "bakta-smoke dependencies",
+              "bakta-smoke core",
+              "bakta-smoke meta",
+              "bakta-smoke negative",
+              "bakta-smoke resources",
+              "bakta-smoke viewer"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:17Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "5c67812da9f71570477b39c838846764258ab0d0",
+                "image_digest": "sha256:e005c1e21ac350eb657bbb07b78a3a0bc97565c804d57002d6f381b016e83208",
+                "smoke_sha256": "7942287ecd25a19ef24c3be93101e06ef8a46f4c3167da8d0151dea5f5bff27d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:04Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "5c67812da9f71570477b39c838846764258ab0d0",
+                "image_digest": "sha256:e005c1e21ac350eb657bbb07b78a3a0bc97565c804d57002d6f381b016e83208",
+                "smoke_sha256": "7942287ecd25a19ef24c3be93101e06ef8a46f4c3167da8d0151dea5f5bff27d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:15Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "5c67812da9f71570477b39c838846764258ab0d0",
+                "image_digest": "sha256:e005c1e21ac350eb657bbb07b78a3a0bc97565c804d57002d6f381b016e83208",
+                "smoke_sha256": "7942287ecd25a19ef24c3be93101e06ef8a46f4c3167da8d0151dea5f5bff27d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:26:19Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bakta",
+            "ref": "v1.12.2-r1",
+            "commit": "5c67812da9f71570477b39c838846764258ab0d0",
+            "html_url": "https://github.com/taffish/bakta/tree/v1.12.2-r1"
+          },
+          "upstream": {
+            "name": "Bakta",
+            "type": "github",
+            "homepage": "https://bakta.readthedocs.io/",
+            "repository": "oschwengers/bakta",
+            "release_url": "https://github.com/oschwengers/bakta/releases/tag/v1.12.2",
+            "version": "1.12.2",
             "license": "GPL-3.0",
             "citation": "Schwengers et al. 2021",
             "doi": "10.1099/mgen.0.000685"
@@ -20749,9 +20936,9 @@
     },
     "drep": {
       "name": "drep",
-      "latest": "3.4.2-r1",
-      "recent_version": "3.4.2-r1",
-      "recent_at": "2026-06-07T05:46:03Z",
+      "latest": "4.0.3-r1",
+      "recent_version": "4.0.3-r1",
+      "recent_at": "2026-10-14T09:04:20Z",
       "repository_url": "https://github.com/taffish/drep",
       "command": {
         "name": "taf-drep"
@@ -20930,6 +21117,198 @@
             "repository": "MrOlm/drep",
             "release_url": "https://github.com/MrOlm/drep/releases/tag/v3.4.2",
             "version": "3.4.2",
+            "license": "MIT",
+            "citation": "Olm, Brown, Brooks, Firek, Baker, Burstein, Soenjoyo, Thomas, Morowitz, and Banfield 2017",
+            "doi": "10.1038/ismej.2017.126",
+            "pmid": "28742071"
+          }
+        },
+        "4.0.3-r1": {
+          "name": "drep",
+          "kind": "tool",
+          "version": "4.0.3",
+          "release": 1,
+          "version_id": "4.0.3-r1",
+          "tag": "v4.0.3-r1",
+          "published_at": "2026-10-14T09:04:20Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/drep",
+          "repository_slug": "taffish/drep",
+          "command": {
+            "name": "taf-drep"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "mag",
+              "genome-dereplication",
+              "comparative-genomics",
+              "ani"
+            ],
+            "keywords": [
+              "drep",
+              "mag",
+              "dereplication",
+              "ani",
+              "skani",
+              "mash",
+              "mummer",
+              "fastani",
+              "prodigal",
+              "genome-quality",
+              "plasmid"
+            ],
+            "summary": "Unmodified dRep 4.0.3 for microbial genome comparison and dereplication with skani, Mash, MUMmer, fastANI and supplied genome quality tables.",
+            "description": "Unmodified dRep 4.0.3 for microbial genome comparison and dereplication with skani, Mash, MUMmer, fastANI and supplied genome quality tables."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/drep:4.0.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.0.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:47c0cfee8c5f17a32ebfd2f564a399893dd562c3c0b92913641e384075af575c",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7c460b3ea2496a7d03dccb386e2cd215f885a7acd8ef142c4cb0bf3e58e7070e",
+              "linux/arm64": "sha256:a654f66d6df89e095e256bc95074a37cad2c122c35f461adb4aa7a57c2298277"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "dRep",
+              "parse_stb.py",
+              "ScaffoldLevel_dRep.py",
+              "drep-smoke",
+              "python",
+              "python3",
+              "skani",
+              "mash",
+              "nucmer",
+              "delta-filter",
+              "show-coords",
+              "fastANI",
+              "prodigal",
+              "sh",
+              "bash",
+              "perl"
+            ],
+            "test": [
+              "drep-smoke identity",
+              "drep-smoke interface",
+              "drep-smoke dependencies",
+              "drep-smoke default",
+              "drep-smoke animf",
+              "drep-smoke anin",
+              "drep-smoke fastani",
+              "drep-smoke quality-csv",
+              "drep-smoke checkm1-table",
+              "drep-smoke checkm2-table",
+              "drep-smoke bypass",
+              "drep-smoke helpers",
+              "drep-smoke plasmid",
+              "drep-smoke missing-quality"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:17Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "2224e413b5ffc4a37298fee67dfc09a9bfa6ac99",
+                "image_digest": "sha256:47c0cfee8c5f17a32ebfd2f564a399893dd562c3c0b92913641e384075af575c",
+                "smoke_sha256": "08a8ab12c0adfd085e2b8ceb8572f6bc5285470645c0775f32ca0136934ad2c7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:04Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "2224e413b5ffc4a37298fee67dfc09a9bfa6ac99",
+                "image_digest": "sha256:47c0cfee8c5f17a32ebfd2f564a399893dd562c3c0b92913641e384075af575c",
+                "smoke_sha256": "08a8ab12c0adfd085e2b8ceb8572f6bc5285470645c0775f32ca0136934ad2c7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:15Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "2224e413b5ffc4a37298fee67dfc09a9bfa6ac99",
+                "image_digest": "sha256:47c0cfee8c5f17a32ebfd2f564a399893dd562c3c0b92913641e384075af575c",
+                "smoke_sha256": "08a8ab12c0adfd085e2b8ceb8572f6bc5285470645c0775f32ca0136934ad2c7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:26:19Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/drep",
+            "ref": "v4.0.3-r1",
+            "commit": "2224e413b5ffc4a37298fee67dfc09a9bfa6ac99",
+            "html_url": "https://github.com/taffish/drep/tree/v4.0.3-r1"
+          },
+          "upstream": {
+            "name": "dRep",
+            "type": "github",
+            "homepage": "https://drep.readthedocs.io/",
+            "repository": "MrOlm/drep",
+            "release_url": "https://github.com/MrOlm/drep/releases/tag/v4.0.3",
+            "version": "4.0.3",
             "license": "MIT",
             "citation": "Olm, Brown, Brooks, Firek, Baker, Burstein, Soenjoyo, Thomas, Morowitz, and Banfield 2017",
             "doi": "10.1038/ismej.2017.126",
@@ -23516,9 +23895,9 @@
     },
     "fastp": {
       "name": "fastp",
-      "latest": "1.3.7-r1",
-      "recent_version": "1.3.7-r1",
-      "recent_at": "2026-09-12T03:28:14Z",
+      "latest": "1.4.0-r1",
+      "recent_version": "1.4.0-r1",
+      "recent_at": "2026-10-14T09:07:56Z",
       "repository_url": "https://github.com/taffish/fastp",
       "command": {
         "name": "taf-fastp"
@@ -24583,6 +24962,190 @@
             "repository": "OpenGene/fastp",
             "release_url": "https://github.com/OpenGene/fastp/releases/tag/v1.3.7",
             "version": "1.3.7",
+            "license": "MIT",
+            "citation": "Chen 2025; Chen 2023; Chen et al. 2018",
+            "doi": "10.1002/imt2.70078; 10.1002/imt2.107; 10.1093/bioinformatics/bty560",
+            "pmid": "41112039; 30423086"
+          }
+        },
+        "1.4.0-r1": {
+          "name": "fastp",
+          "kind": "tool",
+          "version": "1.4.0",
+          "release": 1,
+          "version_id": "1.4.0-r1",
+          "tag": "v1.4.0-r1",
+          "published_at": "2026-10-14T09:07:56Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/fastp",
+          "repository_slug": "taffish/fastp",
+          "command": {
+            "name": "taf-fastp"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "quality-control",
+              "preprocessing",
+              "trimming",
+              "sequencing"
+            ],
+            "keywords": [
+              "fastp",
+              "fastq",
+              "qc",
+              "quality-control",
+              "adapter-trimming",
+              "filtering",
+              "umi",
+              "deduplication",
+              "html-report",
+              "json-report",
+              "illumina",
+              "mgi",
+              "paired-end"
+            ],
+            "summary": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports.",
+            "description": "Ultrafast all-in-one FASTQ preprocessing and quality control with filtering, trimming, adapter detection, UMI, deduplication, and HTML/JSON reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/fastp:1.4.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.4.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:ec3f57c32e6598989b5e2f3c7f2d1690e447e59bd79db46a83934feed1a7849a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:b69489cd220b206184609a7c5d3ac909156f6acaa06b36b00ddd26ce5a10b792",
+              "linux/arm64": "sha256:298d54649f81334284c2c46769c639a659f61a482131e145db4915a9f2fca86a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "fastp",
+              "parallel.py",
+              "python",
+              "python3",
+              "fastp-report-offline"
+            ],
+            "test": [
+              "fastp --version | grep -Fx 'fastp 1.4.0' >/dev/null",
+              "fastp --help 2>&1 | grep -F 'usage:' >/dev/null",
+              "parallel.py -h 2>&1 | grep -F 'A python script to use fastp' >/dev/null",
+              "ldd $(command -v fastp) | grep -F 'libisal' >/dev/null",
+              "fastp-report-offline --help | grep -F 'self-contained offline fastp' >/dev/null",
+              "python3 /usr/local/share/fastp/fastp-smoke.py se",
+              "python3 /usr/local/share/fastp/fastp-smoke.py thread-cap",
+              "python3 /usr/local/share/fastp/fastp-smoke.py stdin",
+              "python3 /usr/local/share/fastp/fastp-smoke.py paired",
+              "python3 /usr/local/share/fastp/fastp-smoke.py bgzf",
+              "python3 /usr/local/share/fastp/fastp-smoke.py fifo",
+              "python3 /usr/local/share/fastp/fastp-smoke.py batch",
+              "python3 /usr/local/share/fastp/fastp-smoke.py offline-report",
+              "python3 /usr/local/share/fastp/fastp-smoke.py negative",
+              "python3 /usr/local/share/fastp/fastp-smoke.py licenses"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:17Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c6eb7d3a1aad47075e4349308b48ae7a1732945a",
+                "image_digest": "sha256:ec3f57c32e6598989b5e2f3c7f2d1690e447e59bd79db46a83934feed1a7849a",
+                "smoke_sha256": "06bc57cff2bd8685db83b33330aa7a1b7aa9359b54bbdd89899f4e3b30e6b296",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:04Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c6eb7d3a1aad47075e4349308b48ae7a1732945a",
+                "image_digest": "sha256:ec3f57c32e6598989b5e2f3c7f2d1690e447e59bd79db46a83934feed1a7849a",
+                "smoke_sha256": "06bc57cff2bd8685db83b33330aa7a1b7aa9359b54bbdd89899f4e3b30e6b296",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:15Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c6eb7d3a1aad47075e4349308b48ae7a1732945a",
+                "image_digest": "sha256:ec3f57c32e6598989b5e2f3c7f2d1690e447e59bd79db46a83934feed1a7849a",
+                "smoke_sha256": "06bc57cff2bd8685db83b33330aa7a1b7aa9359b54bbdd89899f4e3b30e6b296",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:26:19Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/fastp",
+            "ref": "v1.4.0-r1",
+            "commit": "c6eb7d3a1aad47075e4349308b48ae7a1732945a",
+            "html_url": "https://github.com/taffish/fastp/tree/v1.4.0-r1"
+          },
+          "upstream": {
+            "name": "fastp",
+            "type": "github",
+            "homepage": "https://github.com/OpenGene/fastp",
+            "repository": "OpenGene/fastp",
+            "release_url": "https://github.com/OpenGene/fastp/releases/tag/v1.4.0",
+            "version": "1.4.0",
             "license": "MIT",
             "citation": "Chen 2025; Chen 2023; Chen et al. 2018",
             "doi": "10.1002/imt2.70078; 10.1002/imt2.107; 10.1093/bioinformatics/bty560",
@@ -29483,9 +30046,9 @@
     },
     "gtdbtk": {
       "name": "gtdbtk",
-      "latest": "2.7.2-r1",
-      "recent_version": "2.7.2-r1",
-      "recent_at": "2026-06-07T07:40:39Z",
+      "latest": "2.8.0-r1",
+      "recent_version": "2.8.0-r1",
+      "recent_at": "2026-10-14T09:08:06Z",
       "repository_url": "https://github.com/taffish/gtdbtk",
       "command": {
         "name": "taf-gtdbtk"
@@ -29682,6 +30245,204 @@
             "repository": "Ecogenomics/GTDBTk",
             "release_url": "https://github.com/Ecogenomics/GTDBTk/tree/2.7.2",
             "version": "2.7.2",
+            "license": "GPL-3.0-or-later",
+            "citation": "Chaumeil et al. 2022; Chaumeil et al. 2019",
+            "doi": "10.1093/bioinformatics/btac672; 10.1093/bioinformatics/btz848",
+            "pmid": "36287221; 31730192"
+          }
+        },
+        "2.8.0-r1": {
+          "name": "gtdbtk",
+          "kind": "tool",
+          "version": "2.8.0",
+          "release": 1,
+          "version_id": "2.8.0-r1",
+          "tag": "v2.8.0-r1",
+          "published_at": "2026-10-14T09:08:06Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/gtdbtk",
+          "repository_slug": "taffish/gtdbtk",
+          "command": {
+            "name": "taf-gtdbtk"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metagenomics",
+            "categories": [
+              "metagenomics",
+              "taxonomy",
+              "mag",
+              "sag",
+              "microbial-genomics",
+              "phylogenomics"
+            ],
+            "keywords": [
+              "gtdb-tk",
+              "gtdbtk",
+              "gtdb",
+              "taxonomy",
+              "mag",
+              "sag",
+              "bacterial-genomics",
+              "archaeal-genomics",
+              "skani",
+              "pplacer",
+              "prodigal",
+              "hmmer"
+            ],
+            "summary": "GTDB-Tk 2.8.0 runtime for assigning bacterial and archaeal genomes to the Genome Taxonomy Database. The large GTDB-Tk R232 reference package is external and user-provided through GTDBTK_DATA_PATH.",
+            "description": "GTDB-Tk 2.8.0 runtime for assigning bacterial and archaeal genomes to the Genome Taxonomy Database. The large GTDB-Tk R232 reference package is external and user-provided through GTDBTK_DATA_PATH."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/gtdbtk:2.8.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.8.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d77541bf247408dc67161511a69355cfe2ea2c64118a00f7362a976cc1063191",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:832115f5ba223a7f9cf3a0b8c82281b79e3b739db4d401947892b7ee9faf5a04"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "gtdbtk-smoke",
+              "hmmbuild",
+              "gtdbtk",
+              "gtdbtk-download-r232-db",
+              "gtdb_to_ncbi_majority_vote",
+              "gtdb_to_ncbi_majority_vote.py",
+              "prodigal",
+              "hmmsearch",
+              "hmmalign",
+              "hmmpress",
+              "hmmstat",
+              "hmmscan",
+              "phmmer",
+              "pplacer",
+              "guppy",
+              "FastTree",
+              "FastTreeMP",
+              "skani",
+              "python3",
+              "bash",
+              "sh",
+              "curl",
+              "wget",
+              "md5sum",
+              "gzip",
+              "tar",
+              "find",
+              "ln",
+              "awk",
+              "sed",
+              "grep"
+            ],
+            "test": [
+              "gtdbtk-smoke identity",
+              "gtdbtk-smoke help",
+              "gtdbtk-smoke dependencies",
+              "gtdbtk-smoke tiny",
+              "gtdbtk-smoke missing"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:17Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "f2f0077b8d13a5c29bef7792978a337dc1f91f23",
+                "image_digest": "sha256:d77541bf247408dc67161511a69355cfe2ea2c64118a00f7362a976cc1063191",
+                "smoke_sha256": "2f50dcaec963c987690510a02eb5d724c544c1f251207c8b129843a2aeb0ab1d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:04Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "f2f0077b8d13a5c29bef7792978a337dc1f91f23",
+                "image_digest": "sha256:d77541bf247408dc67161511a69355cfe2ea2c64118a00f7362a976cc1063191",
+                "smoke_sha256": "2f50dcaec963c987690510a02eb5d724c544c1f251207c8b129843a2aeb0ab1d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:15Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "f2f0077b8d13a5c29bef7792978a337dc1f91f23",
+                "image_digest": "sha256:d77541bf247408dc67161511a69355cfe2ea2c64118a00f7362a976cc1063191",
+                "smoke_sha256": "2f50dcaec963c987690510a02eb5d724c544c1f251207c8b129843a2aeb0ab1d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:26:19Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/gtdbtk",
+            "ref": "v2.8.0-r1",
+            "commit": "f2f0077b8d13a5c29bef7792978a337dc1f91f23",
+            "html_url": "https://github.com/taffish/gtdbtk/tree/v2.8.0-r1"
+          },
+          "upstream": {
+            "name": "GTDB-Tk",
+            "type": "github",
+            "homepage": "https://ecogenomics.github.io/GTDBTk/",
+            "repository": "Ecogenomics/GTDBTk",
+            "release_url": "https://github.com/Ecogenomics/GTDBTk/releases/tag/2.8.0",
+            "version": "2.8.0",
             "license": "GPL-3.0-or-later",
             "citation": "Chaumeil et al. 2022; Chaumeil et al. 2019",
             "doi": "10.1093/bioinformatics/btac672; 10.1093/bioinformatics/btz848",
@@ -33146,9 +33907,9 @@
     },
     "hyphy": {
       "name": "hyphy",
-      "latest": "2.5.101-r1",
-      "recent_version": "2.5.101-r1",
-      "recent_at": "2026-08-19T16:11:15Z",
+      "latest": "2.5.103-r1",
+      "recent_version": "2.5.103-r1",
+      "recent_at": "2026-10-14T09:07:55Z",
       "repository_url": "https://github.com/taffish/hyphy",
       "command": {
         "name": "taf-hyphy"
@@ -33319,6 +34080,178 @@
             "repository": "veg/hyphy",
             "release_url": "https://github.com/veg/hyphy/releases/tag/2.5.101",
             "version": "2.5.101",
+            "license": "MIT",
+            "citation": "Kosakovsky Pond SL, Poon AFY, Velazquez R, Weaver S, Hepler NL, Murrell B, Shank SD, Magalis BR, Bouvier D, Nekrutenko A, Wisotsky S, Spielman SJ, Frost SDW, Muse SV. HyPhy 2.5-A Customizable Platform for Evolutionary Hypothesis Testing Using Phylogenies. Mol Biol Evol. 2020;37(1):295-299.",
+            "doi": "10.1093/molbev/msz197",
+            "pmid": "31504749"
+          }
+        },
+        "2.5.103-r1": {
+          "name": "hyphy",
+          "kind": "tool",
+          "version": "2.5.103",
+          "release": 1,
+          "version_id": "2.5.103-r1",
+          "tag": "v2.5.103-r1",
+          "published_at": "2026-10-14T09:07:55Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/hyphy",
+          "repository_slug": "taffish/hyphy",
+          "command": {
+            "name": "taf-hyphy"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "phylogenetics",
+            "categories": [
+              "phylogenetics",
+              "molecular-evolution",
+              "selection-analysis",
+              "recombination"
+            ],
+            "keywords": [
+              "hyphy",
+              "hbl",
+              "phylogeny",
+              "molecular evolution",
+              "natural selection",
+              "dn/ds",
+              "codon models",
+              "recombination",
+              "mpi",
+              "openmp"
+            ],
+            "summary": null,
+            "description": null
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/hyphy:2.5.103-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.5.103-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9bdfc1dd54808b130e707c5c721dffbd5ec61122e9a78ed2f730fe98a6a49813",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:158524d50bfe60dfaff8ff15960dc0ac309838a0e5958b569a5d61b874ce0ed9",
+              "linux/arm64": "sha256:5fd7c7c10bfc631815258a366c5de7e03df9c278b939c8821eb110d18b085f5b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "hyphy",
+              "HYPHYMP",
+              "HYPHYMPI",
+              "mpirun",
+              "hyphy-smoke"
+            ],
+            "test": [
+              "hyphy-smoke identity",
+              "hyphy-smoke help",
+              "hyphy-smoke hbl",
+              "hyphy-smoke slac",
+              "hyphy-smoke compressed",
+              "hyphy-smoke mpi",
+              "hyphy-smoke aicc"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:17Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3260457cf2da66bfcba4db870cd3fd1e36fbc53b",
+                "image_digest": "sha256:9bdfc1dd54808b130e707c5c721dffbd5ec61122e9a78ed2f730fe98a6a49813",
+                "smoke_sha256": "8cac05418c2151e12c94597667fd57ff4f39b3361f7760d50eeebb6350b816b1",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:04Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3260457cf2da66bfcba4db870cd3fd1e36fbc53b",
+                "image_digest": "sha256:9bdfc1dd54808b130e707c5c721dffbd5ec61122e9a78ed2f730fe98a6a49813",
+                "smoke_sha256": "8cac05418c2151e12c94597667fd57ff4f39b3361f7760d50eeebb6350b816b1",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:15Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3260457cf2da66bfcba4db870cd3fd1e36fbc53b",
+                "image_digest": "sha256:9bdfc1dd54808b130e707c5c721dffbd5ec61122e9a78ed2f730fe98a6a49813",
+                "smoke_sha256": "8cac05418c2151e12c94597667fd57ff4f39b3361f7760d50eeebb6350b816b1",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:26:19Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/hyphy",
+            "ref": "v2.5.103-r1",
+            "commit": "3260457cf2da66bfcba4db870cd3fd1e36fbc53b",
+            "html_url": "https://github.com/taffish/hyphy/tree/v2.5.103-r1"
+          },
+          "upstream": {
+            "name": "HyPhy",
+            "type": "github",
+            "homepage": "https://www.hyphy.org/",
+            "repository": "veg/hyphy",
+            "release_url": "https://github.com/veg/hyphy/releases/tag/2.5.103",
+            "version": "2.5.103",
             "license": "MIT",
             "citation": "Kosakovsky Pond SL, Poon AFY, Velazquez R, Weaver S, Hepler NL, Murrell B, Shank SD, Magalis BR, Bouvier D, Nekrutenko A, Wisotsky S, Spielman SJ, Frost SDW, Muse SV. HyPhy 2.5-A Customizable Platform for Evolutionary Hypothesis Testing Using Phylogenies. Mol Biol Evol. 2020;37(1):295-299.",
             "doi": "10.1093/molbev/msz197",
@@ -88134,9 +89067,9 @@
     },
     "vep": {
       "name": "vep",
-      "latest": "116.2-r1",
-      "recent_version": "116.2-r1",
-      "recent_at": "2026-09-04T16:41:27Z",
+      "latest": "116.3-r1",
+      "recent_version": "116.3-r1",
+      "recent_at": "2026-10-14T09:07:59Z",
       "repository_url": "https://github.com/taffish/vep",
       "command": {
         "name": "taf-vep"
@@ -88686,6 +89619,205 @@
             "repository": "Ensembl/ensembl-vep",
             "release_url": "https://github.com/Ensembl/ensembl-vep/tree/release/116.2",
             "version": "116.2",
+            "license": "Apache-2.0",
+            "citation": "McLaren W, Gil L, Hunt SE, Riat HS, Ritchie GRS, Thormann A, Flicek P, Cunningham F. The Ensembl Variant Effect Predictor. Genome Biology. 2016;17:122.",
+            "doi": "10.1186/s13059-016-0974-4",
+            "pmid": "27268795"
+          }
+        },
+        "116.3-r1": {
+          "name": "vep",
+          "kind": "tool",
+          "version": "116.3",
+          "release": 1,
+          "version_id": "116.3-r1",
+          "tag": "v116.3-r1",
+          "published_at": "2026-10-14T09:07:59Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/vep",
+          "repository_slug": "taffish/vep",
+          "command": {
+            "name": "taf-vep"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "variant-annotation",
+            "categories": [
+              "variant-annotation",
+              "genomics",
+              "vcf",
+              "variant-effect",
+              "ensembl"
+            ],
+            "keywords": [
+              "vep",
+              "ensembl vep",
+              "variant effect predictor",
+              "variant annotation",
+              "vcf",
+              "csq",
+              "consequence",
+              "haplosaurus",
+              "variant recoder",
+              "filter_vep"
+            ],
+            "summary": "Ensembl Variant Effect Predictor (VEP) 116.3 runtime for annotating sequence variants and running related VEP helper tools.",
+            "description": "Ensembl Variant Effect Predictor (VEP) 116.3 runtime for annotating sequence variants and running related VEP helper tools."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/vep:116.3-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "116.3-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b57ce65b8256ab112ce287bcf41913776fed970ab0f32b44cab9decb4933e651",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:2f12b5c6b32698e574f6253a9196c9772a24b2d11fe8026054952202967e111a",
+              "linux/arm64": "sha256:8a8cf5b5fcbaa99fac4173ce16a43944a03b7cd3aa22da7a5807312844875eed"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "vep",
+              "filter_vep",
+              "haplo",
+              "variant_recoder",
+              "INSTALL.pl",
+              "convert_cache.pl",
+              "vep-install-data-116",
+              "vep-install-plugin-data",
+              "vep-stats-view",
+              "vep-smoke",
+              "python3",
+              "perl",
+              "curl",
+              "bgzip",
+              "tabix",
+              "htsfile",
+              "genesplicer",
+              "python",
+              "python2",
+              "flock",
+              "df",
+              "sum",
+              "sha256sum",
+              "grep",
+              "which",
+              "gzip",
+              "tar",
+              "unzip"
+            ],
+            "test": [
+              "vep-smoke version",
+              "vep-smoke helpers",
+              "vep-smoke deps",
+              "vep-smoke installer",
+              "vep-smoke plugin-data",
+              "vep-smoke filter",
+              "vep-smoke gff",
+              "vep-smoke gzip",
+              "vep-smoke ncrna",
+              "vep-smoke html"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:17Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "e17f597bfb71f40e67a1ff30b98a473511096624",
+                "image_digest": "sha256:b57ce65b8256ab112ce287bcf41913776fed970ab0f32b44cab9decb4933e651",
+                "smoke_sha256": "2a8da3ae366fcffb3879cf00e12973a97fa2ddc8fcd7aeb17a8591867dd9a486",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:04Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "e17f597bfb71f40e67a1ff30b98a473511096624",
+                "image_digest": "sha256:b57ce65b8256ab112ce287bcf41913776fed970ab0f32b44cab9decb4933e651",
+                "smoke_sha256": "2a8da3ae366fcffb3879cf00e12973a97fa2ddc8fcd7aeb17a8591867dd9a486",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-14T09:31:15Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261004.327.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "e17f597bfb71f40e67a1ff30b98a473511096624",
+                "image_digest": "sha256:b57ce65b8256ab112ce287bcf41913776fed970ab0f32b44cab9decb4933e651",
+                "smoke_sha256": "2a8da3ae366fcffb3879cf00e12973a97fa2ddc8fcd7aeb17a8591867dd9a486",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:26:19Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/vep",
+            "ref": "v116.3-r1",
+            "commit": "e17f597bfb71f40e67a1ff30b98a473511096624",
+            "html_url": "https://github.com/taffish/vep/tree/v116.3-r1"
+          },
+          "upstream": {
+            "name": "Ensembl Variant Effect Predictor (VEP)",
+            "type": "github",
+            "homepage": "https://www.ensembl.org/info/docs/tools/vep/index.html",
+            "repository": "Ensembl/ensembl-vep",
+            "release_url": "https://github.com/Ensembl/ensembl-vep/tree/release/116.3",
+            "version": "116.3",
             "license": "Apache-2.0",
             "citation": "McLaren W, Gil L, Hunt SE, Riat HS, Ritchie GRS, Thormann A, Flicek P, Cunningham F. The Ensembl Variant Effect Predictor. Genome Biology. 2016;17:122.",
             "doi": "10.1186/s13059-016-0974-4",
@@ -91527,7 +92659,7 @@
     },
     "taf-bakta": {
       "package": "bakta",
-      "version": "1.12.1-r1"
+      "version": "1.12.2-r1"
     },
     "taf-bam-qc-flow": {
       "package": "bam-qc-flow",
@@ -91759,7 +92891,7 @@
     },
     "taf-drep": {
       "package": "drep",
-      "version": "3.4.2-r1"
+      "version": "4.0.3-r1"
     },
     "taf-dssp": {
       "package": "dssp",
@@ -91795,7 +92927,7 @@
     },
     "taf-fastp": {
       "package": "fastp",
-      "version": "1.3.7-r1"
+      "version": "1.4.0-r1"
     },
     "taf-fastqc": {
       "package": "fastqc",
@@ -91867,7 +92999,7 @@
     },
     "taf-gtdbtk": {
       "package": "gtdbtk",
-      "version": "2.7.2-r1"
+      "version": "2.8.0-r1"
     },
     "taf-haphic": {
       "package": "haphic",
@@ -91903,7 +93035,7 @@
     },
     "taf-hyphy": {
       "package": "hyphy",
-      "version": "2.5.101-r1"
+      "version": "2.5.103-r1"
     },
     "taf-idr": {
       "package": "idr",
@@ -92547,7 +93679,7 @@
     },
     "taf-vep": {
       "package": "vep",
-      "version": "116.2-r1"
+      "version": "116.3-r1"
     },
     "taf-verifybamid": {
       "package": "verifybamid",

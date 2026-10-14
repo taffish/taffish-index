@@ -1,8 +1,8 @@
 {
   "name": "drep",
-  "latest": "3.4.2-r1",
-  "recent_version": "3.4.2-r1",
-  "recent_at": "2026-06-07T05:46:03Z",
+  "latest": "4.0.3-r1",
+  "recent_version": "4.0.3-r1",
+  "recent_at": "2026-10-14T09:04:20Z",
   "repository_url": "https://github.com/taffish/drep",
   "command": {
     "name": "taf-drep"
@@ -181,6 +181,198 @@
         "repository": "MrOlm/drep",
         "release_url": "https://github.com/MrOlm/drep/releases/tag/v3.4.2",
         "version": "3.4.2",
+        "license": "MIT",
+        "citation": "Olm, Brown, Brooks, Firek, Baker, Burstein, Soenjoyo, Thomas, Morowitz, and Banfield 2017",
+        "doi": "10.1038/ismej.2017.126",
+        "pmid": "28742071"
+      }
+    },
+    "4.0.3-r1": {
+      "name": "drep",
+      "kind": "tool",
+      "version": "4.0.3",
+      "release": 1,
+      "version_id": "4.0.3-r1",
+      "tag": "v4.0.3-r1",
+      "published_at": "2026-10-14T09:04:20Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/drep",
+      "repository_slug": "taffish/drep",
+      "command": {
+        "name": "taf-drep"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "mag",
+          "genome-dereplication",
+          "comparative-genomics",
+          "ani"
+        ],
+        "keywords": [
+          "drep",
+          "mag",
+          "dereplication",
+          "ani",
+          "skani",
+          "mash",
+          "mummer",
+          "fastani",
+          "prodigal",
+          "genome-quality",
+          "plasmid"
+        ],
+        "summary": "Unmodified dRep 4.0.3 for microbial genome comparison and dereplication with skani, Mash, MUMmer, fastANI and supplied genome quality tables.",
+        "description": "Unmodified dRep 4.0.3 for microbial genome comparison and dereplication with skani, Mash, MUMmer, fastANI and supplied genome quality tables."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/drep:4.0.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.0.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:47c0cfee8c5f17a32ebfd2f564a399893dd562c3c0b92913641e384075af575c",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:7c460b3ea2496a7d03dccb386e2cd215f885a7acd8ef142c4cb0bf3e58e7070e",
+          "linux/arm64": "sha256:a654f66d6df89e095e256bc95074a37cad2c122c35f461adb4aa7a57c2298277"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "dRep",
+          "parse_stb.py",
+          "ScaffoldLevel_dRep.py",
+          "drep-smoke",
+          "python",
+          "python3",
+          "skani",
+          "mash",
+          "nucmer",
+          "delta-filter",
+          "show-coords",
+          "fastANI",
+          "prodigal",
+          "sh",
+          "bash",
+          "perl"
+        ],
+        "test": [
+          "drep-smoke identity",
+          "drep-smoke interface",
+          "drep-smoke dependencies",
+          "drep-smoke default",
+          "drep-smoke animf",
+          "drep-smoke anin",
+          "drep-smoke fastani",
+          "drep-smoke quality-csv",
+          "drep-smoke checkm1-table",
+          "drep-smoke checkm2-table",
+          "drep-smoke bypass",
+          "drep-smoke helpers",
+          "drep-smoke plasmid",
+          "drep-smoke missing-quality"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-14T09:31:04Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:17Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2224e413b5ffc4a37298fee67dfc09a9bfa6ac99",
+            "image_digest": "sha256:47c0cfee8c5f17a32ebfd2f564a399893dd562c3c0b92913641e384075af575c",
+            "smoke_sha256": "08a8ab12c0adfd085e2b8ceb8572f6bc5285470645c0775f32ca0136934ad2c7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:04Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2224e413b5ffc4a37298fee67dfc09a9bfa6ac99",
+            "image_digest": "sha256:47c0cfee8c5f17a32ebfd2f564a399893dd562c3c0b92913641e384075af575c",
+            "smoke_sha256": "08a8ab12c0adfd085e2b8ceb8572f6bc5285470645c0775f32ca0136934ad2c7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-14T09:31:15Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261004.327.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2224e413b5ffc4a37298fee67dfc09a9bfa6ac99",
+            "image_digest": "sha256:47c0cfee8c5f17a32ebfd2f564a399893dd562c3c0b92913641e384075af575c",
+            "smoke_sha256": "08a8ab12c0adfd085e2b8ceb8572f6bc5285470645c0775f32ca0136934ad2c7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-14T09:26:19Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/drep",
+        "ref": "v4.0.3-r1",
+        "commit": "2224e413b5ffc4a37298fee67dfc09a9bfa6ac99",
+        "html_url": "https://github.com/taffish/drep/tree/v4.0.3-r1"
+      },
+      "upstream": {
+        "name": "dRep",
+        "type": "github",
+        "homepage": "https://drep.readthedocs.io/",
+        "repository": "MrOlm/drep",
+        "release_url": "https://github.com/MrOlm/drep/releases/tag/v4.0.3",
+        "version": "4.0.3",
         "license": "MIT",
         "citation": "Olm, Brown, Brooks, Firek, Baker, Burstein, Soenjoyo, Thomas, Morowitz, and Banfield 2017",
         "doi": "10.1038/ismej.2017.126",
