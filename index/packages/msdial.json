@@ -1,8 +1,8 @@
 {
   "name": "msdial",
-  "latest": "5.5.260323-r1",
-  "recent_version": "5.5.260323-r1",
-  "recent_at": "2026-08-16T16:45:12Z",
+  "latest": "5.5.260817-r1",
+  "recent_version": "5.5.260817-r1",
+  "recent_at": "2026-10-17T06:00:34Z",
   "repository_url": "https://github.com/taffish/msdial",
   "command": {
     "name": "taf-msdial"
@@ -177,6 +177,183 @@
         "release_url": "https://github.com/systemsomicslab/MsdialWorkbench/releases/tag/MSDIAL-v5.5.260323",
         "version": "5.5.260323",
         "license": "CC-BY-4.0",
+        "citation": "Tsugawa H, Ikeda K, Takahashi M, et al. A lipidome atlas in MS-DIAL 4. Nature Biotechnology 38, 1159-1163 (2020).",
+        "doi": "10.1038/s41587-020-0531-2"
+      }
+    },
+    "5.5.260817-r1": {
+      "name": "msdial",
+      "kind": "tool",
+      "version": "5.5.260817",
+      "release": 1,
+      "version_id": "5.5.260817-r1",
+      "tag": "v5.5.260817-r1",
+      "published_at": "2026-10-17T06:00:34Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/msdial",
+      "repository_slug": "taffish/msdial",
+      "command": {
+        "name": "taf-msdial"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metabolomics",
+        "categories": [
+          "metabolomics",
+          "lipidomics",
+          "mass-spectrometry",
+          "data-analysis",
+          "molecular-networking"
+        ],
+        "keywords": [
+          "ms-dial",
+          "msdialcui",
+          "lc-ms",
+          "gc-ms",
+          "ion mobility",
+          "mass spectrometry",
+          "metabolomics",
+          "lipidomics",
+          "mzml",
+          "netcdf",
+          "abf",
+          "molecular networking"
+        ],
+        "summary": "Source-built MS-DIAL 5.5.260817 Linux console with unchanged analysis algorithms, CLI compatibility fixes and explicit shared spectral-library installation.",
+        "description": "Source-built MS-DIAL 5.5.260817 Linux console with unchanged analysis algorithms, CLI compatibility fixes and explicit shared spectral-library installation."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/msdial:5.5.260817-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "5.5.260817-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:448bdacd4e20aca7e971d5d7c5903af7be7c9534c8467934dba9094df184bae4",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:cf5dc641c96849b970d62a4cbde8afb671a0db6003a4d8dd89c76691dffc78df"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "MSDIALCUI",
+          "msdial",
+          "msdial-smoke",
+          "msdial-resources",
+          "python3",
+          "bash",
+          "cp",
+          "grep",
+          "mktemp",
+          "readlink",
+          "rm"
+        ],
+        "test": [
+          "msdial-smoke identity",
+          "msdial-smoke core",
+          "msdial-smoke lcms",
+          "msdial-smoke eic",
+          "msdial-smoke errors",
+          "msdial-smoke resources"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-17T23:12:58Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-17T23:13:00Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20261012.334.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8c79e781cb3298be97f2e08475450e42de35226e",
+            "image_digest": "sha256:448bdacd4e20aca7e971d5d7c5903af7be7c9534c8467934dba9094df184bae4",
+            "smoke_sha256": "c9fddcf759adbdfb96cccb460bcfec9b974f1e48c6c176fcfcf410e227238ca5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-17T23:12:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261012.334.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8c79e781cb3298be97f2e08475450e42de35226e",
+            "image_digest": "sha256:448bdacd4e20aca7e971d5d7c5903af7be7c9534c8467934dba9094df184bae4",
+            "smoke_sha256": "c9fddcf759adbdfb96cccb460bcfec9b974f1e48c6c176fcfcf410e227238ca5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-17T23:12:46Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261012.334.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8c79e781cb3298be97f2e08475450e42de35226e",
+            "image_digest": "sha256:448bdacd4e20aca7e971d5d7c5903af7be7c9534c8467934dba9094df184bae4",
+            "smoke_sha256": "c9fddcf759adbdfb96cccb460bcfec9b974f1e48c6c176fcfcf410e227238ca5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-17T23:08:31Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/msdial",
+        "ref": "v5.5.260817-r1",
+        "commit": "8c79e781cb3298be97f2e08475450e42de35226e",
+        "html_url": "https://github.com/taffish/msdial/tree/v5.5.260817-r1"
+      },
+      "upstream": {
+        "name": "MS-DIAL",
+        "type": "github",
+        "homepage": "https://systemsomicslab.github.io/compms/msdial/main.html",
+        "repository": "https://github.com/systemsomicslab/MsdialWorkbench",
+        "release_url": "https://github.com/systemsomicslab/MsdialWorkbench/releases/tag/MSDIAL-v5.5.260817",
+        "version": "5.5.260817",
+        "license": "LGPL-3.0",
         "citation": "Tsugawa H, Ikeda K, Takahashi M, et al. A lipidome atlas in MS-DIAL 4. Nature Biotechnology 38, 1159-1163 (2020).",
         "doi": "10.1038/s41587-020-0531-2"
       }

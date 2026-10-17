@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-17T05:39:52Z",
+  "generated_at": "2026-10-17T23:08:31Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 527,
+    "versions": 529,
     "commands": 275,
     "repositories": 275,
     "warnings": 0,
@@ -48063,9 +48063,9 @@
     },
     "msdial": {
       "name": "msdial",
-      "latest": "5.5.260323-r1",
-      "recent_version": "5.5.260323-r1",
-      "recent_at": "2026-08-16T16:45:12Z",
+      "latest": "5.5.260817-r1",
+      "recent_version": "5.5.260817-r1",
+      "recent_at": "2026-10-17T06:00:34Z",
       "repository_url": "https://github.com/taffish/msdial",
       "command": {
         "name": "taf-msdial"
@@ -48240,6 +48240,183 @@
             "release_url": "https://github.com/systemsomicslab/MsdialWorkbench/releases/tag/MSDIAL-v5.5.260323",
             "version": "5.5.260323",
             "license": "CC-BY-4.0",
+            "citation": "Tsugawa H, Ikeda K, Takahashi M, et al. A lipidome atlas in MS-DIAL 4. Nature Biotechnology 38, 1159-1163 (2020).",
+            "doi": "10.1038/s41587-020-0531-2"
+          }
+        },
+        "5.5.260817-r1": {
+          "name": "msdial",
+          "kind": "tool",
+          "version": "5.5.260817",
+          "release": 1,
+          "version_id": "5.5.260817-r1",
+          "tag": "v5.5.260817-r1",
+          "published_at": "2026-10-17T06:00:34Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/msdial",
+          "repository_slug": "taffish/msdial",
+          "command": {
+            "name": "taf-msdial"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metabolomics",
+            "categories": [
+              "metabolomics",
+              "lipidomics",
+              "mass-spectrometry",
+              "data-analysis",
+              "molecular-networking"
+            ],
+            "keywords": [
+              "ms-dial",
+              "msdialcui",
+              "lc-ms",
+              "gc-ms",
+              "ion mobility",
+              "mass spectrometry",
+              "metabolomics",
+              "lipidomics",
+              "mzml",
+              "netcdf",
+              "abf",
+              "molecular networking"
+            ],
+            "summary": "Source-built MS-DIAL 5.5.260817 Linux console with unchanged analysis algorithms, CLI compatibility fixes and explicit shared spectral-library installation.",
+            "description": "Source-built MS-DIAL 5.5.260817 Linux console with unchanged analysis algorithms, CLI compatibility fixes and explicit shared spectral-library installation."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/msdial:5.5.260817-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.5.260817-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:448bdacd4e20aca7e971d5d7c5903af7be7c9534c8467934dba9094df184bae4",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:cf5dc641c96849b970d62a4cbde8afb671a0db6003a4d8dd89c76691dffc78df"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "MSDIALCUI",
+              "msdial",
+              "msdial-smoke",
+              "msdial-resources",
+              "python3",
+              "bash",
+              "cp",
+              "grep",
+              "mktemp",
+              "readlink",
+              "rm"
+            ],
+            "test": [
+              "msdial-smoke identity",
+              "msdial-smoke core",
+              "msdial-smoke lcms",
+              "msdial-smoke eic",
+              "msdial-smoke errors",
+              "msdial-smoke resources"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-17T23:12:58Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-17T23:13:00Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261012.334.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8c79e781cb3298be97f2e08475450e42de35226e",
+                "image_digest": "sha256:448bdacd4e20aca7e971d5d7c5903af7be7c9534c8467934dba9094df184bae4",
+                "smoke_sha256": "c9fddcf759adbdfb96cccb460bcfec9b974f1e48c6c176fcfcf410e227238ca5",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-17T23:12:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261012.334.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8c79e781cb3298be97f2e08475450e42de35226e",
+                "image_digest": "sha256:448bdacd4e20aca7e971d5d7c5903af7be7c9534c8467934dba9094df184bae4",
+                "smoke_sha256": "c9fddcf759adbdfb96cccb460bcfec9b974f1e48c6c176fcfcf410e227238ca5",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-17T23:12:46Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261012.334.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8c79e781cb3298be97f2e08475450e42de35226e",
+                "image_digest": "sha256:448bdacd4e20aca7e971d5d7c5903af7be7c9534c8467934dba9094df184bae4",
+                "smoke_sha256": "c9fddcf759adbdfb96cccb460bcfec9b974f1e48c6c176fcfcf410e227238ca5",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-17T23:08:31Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/msdial",
+            "ref": "v5.5.260817-r1",
+            "commit": "8c79e781cb3298be97f2e08475450e42de35226e",
+            "html_url": "https://github.com/taffish/msdial/tree/v5.5.260817-r1"
+          },
+          "upstream": {
+            "name": "MS-DIAL",
+            "type": "github",
+            "homepage": "https://systemsomicslab.github.io/compms/msdial/main.html",
+            "repository": "https://github.com/systemsomicslab/MsdialWorkbench",
+            "release_url": "https://github.com/systemsomicslab/MsdialWorkbench/releases/tag/MSDIAL-v5.5.260817",
+            "version": "5.5.260817",
+            "license": "LGPL-3.0",
             "citation": "Tsugawa H, Ikeda K, Takahashi M, et al. A lipidome atlas in MS-DIAL 4. Nature Biotechnology 38, 1159-1163 (2020).",
             "doi": "10.1038/s41587-020-0531-2"
           }
@@ -62848,9 +63025,9 @@
     },
     "rdkit": {
       "name": "rdkit",
-      "latest": "2026.03.6-r1",
-      "recent_version": "2026.03.6-r1",
-      "recent_at": "2026-09-10T02:39:33Z",
+      "latest": "2026.09.1-r1",
+      "recent_version": "2026.09.1-r1",
+      "recent_at": "2026-10-17T16:04:13Z",
       "repository_url": "https://github.com/taffish/rdkit",
       "command": {
         "name": "taf-rdkit"
@@ -63340,6 +63517,169 @@
             "repository": "rdkit/rdkit",
             "release_url": "https://github.com/rdkit/rdkit/releases/tag/Release_2026_03_6",
             "version": "2026.03.6",
+            "license": "BSD-3-Clause",
+            "citation": "RDKit: Open-source cheminformatics. https://www.rdkit.org",
+            "doi": "10.5281/zenodo.591637"
+          }
+        },
+        "2026.09.1-r1": {
+          "name": "rdkit",
+          "kind": "tool",
+          "version": "2026.09.1",
+          "release": 1,
+          "version_id": "2026.09.1-r1",
+          "tag": "v2026.09.1-r1",
+          "published_at": "2026-10-17T16:04:13Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rdkit",
+          "repository_slug": "taffish/rdkit",
+          "command": {
+            "name": "taf-rdkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "cheminformatics",
+            "categories": [
+              "cheminformatics",
+              "molecular-informatics",
+              "molecular-descriptors",
+              "machine-learning"
+            ],
+            "keywords": [
+              "rdkit",
+              "smiles",
+              "sdf",
+              "molecular fingerprints",
+              "molecular descriptors",
+              "substructure search",
+              "cheminformatics",
+              "molecule drawing"
+            ],
+            "summary": "RDKit 2026.09.1 Python cheminformatics runtime with native amd64/arm64 builds, core shared libraries, runtime data, upstream Contrib files, and scientific Python dependencies.",
+            "description": "RDKit 2026.09.1 Python cheminformatics runtime with native amd64/arm64 builds, core shared libraries, runtime data, upstream Contrib files, and scientific Python dependencies."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rdkit:2026.09.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2026.09.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:42a5aa67cb072c61d5c84932ebfbe378e6113bf3c079cfaa6ee08bd0ae139171",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:8ab295224beb6dc0b2048b43489c285bb9e0ebf175c258475cdecc0d98f181f7",
+              "linux/arm64": "sha256:4f7efcc52b708f8281aed9610eba27a51286435785bee8ecf82b16a58ef571fe"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "python",
+              "python3",
+              "rdkit-runtime-info"
+            ],
+            "test": [
+              "rdkit-runtime-info --json | grep -F '\"rdkit\": \"2026.09.1\"' >/dev/null && rdkit-runtime-info --json | grep -F '\"np-score\": \"available\"' >/dev/null && python -c 'import rdkit; from rdkit import Avalon, Chem, DataManip, Dbase, DistanceGeometry, ForceField, Geometry, ML, Numerics, SimDivFilters, VLib; from rdkit.Chem import AllChem, Draw, PandasTools, inchi, rdCoordGen, rdFreeSASA, rdMolDescriptors, rdSynthonSpaceSearch; assert rdkit.__version__ == \"2026.09.1\"; print(rdkit.__version__)' | grep -Fx '2026.09.1' >/dev/null",
+              "python --help 2>&1 | grep -F 'usage: python' >/dev/null && python -m rdkit.Chem.ChemUtils.SDFToCSV --help 2>&1 | grep -F 'Convert SDF file to CSV' >/dev/null && rdkit-runtime-info --help 2>&1 | grep -F 'runtime versions' >/dev/null",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-rdkit-smoke.XXXXXX); trap 'rm -rf \"$tmp\"' EXIT HUP INT TERM; python /opt/rdkit/share/testdata/rdkit-smoke.py \"$tmp/results\"; test -s \"$tmp/results/molecules.sdf\"; test -s \"$tmp/results/molecule.svg\"; test -s \"$tmp/results/molecule.png\"; test -s \"$tmp/results/molecule.pdf\"; test -s \"$tmp/results/tiny-space.spc\"; grep -F 'rdkit_version' \"$tmp/results/summary.tsv\" | grep -F '2026.09.1' >/dev/null; python -m rdkit.Chem.ChemUtils.SDFToCSV \"$tmp/results/molecules.sdf\" \"$tmp/results/molecules.csv\"; test -s \"$tmp/results/molecules.csv\"; grep -F 'SMILES' \"$tmp/results/molecules.csv\" >/dev/null; grep -F 'aspirin' \"$tmp/results/molecules.csv\" >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-17T23:12:58Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-17T23:13:00Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261012.334.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "6fe495653100765df2703fe9430da6358fed6c50",
+                "image_digest": "sha256:42a5aa67cb072c61d5c84932ebfbe378e6113bf3c079cfaa6ee08bd0ae139171",
+                "smoke_sha256": "e63c421e6acb6bc9a3487f54eeb780528ece638457247c93ba64950de087b1a7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-17T23:12:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261012.334.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "6fe495653100765df2703fe9430da6358fed6c50",
+                "image_digest": "sha256:42a5aa67cb072c61d5c84932ebfbe378e6113bf3c079cfaa6ee08bd0ae139171",
+                "smoke_sha256": "e63c421e6acb6bc9a3487f54eeb780528ece638457247c93ba64950de087b1a7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-17T23:12:46Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261012.334.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "6fe495653100765df2703fe9430da6358fed6c50",
+                "image_digest": "sha256:42a5aa67cb072c61d5c84932ebfbe378e6113bf3c079cfaa6ee08bd0ae139171",
+                "smoke_sha256": "e63c421e6acb6bc9a3487f54eeb780528ece638457247c93ba64950de087b1a7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-17T23:08:31Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rdkit",
+            "ref": "v2026.09.1-r1",
+            "commit": "6fe495653100765df2703fe9430da6358fed6c50",
+            "html_url": "https://github.com/taffish/rdkit/tree/v2026.09.1-r1"
+          },
+          "upstream": {
+            "name": "RDKit",
+            "type": "github",
+            "homepage": "https://www.rdkit.org/",
+            "repository": "rdkit/rdkit",
+            "release_url": "https://github.com/rdkit/rdkit/releases/tag/Release_2026_09_1",
+            "version": "2026.09.1",
             "license": "BSD-3-Clause",
             "citation": "RDKit: Open-source cheminformatics. https://www.rdkit.org",
             "doi": "10.5281/zenodo.591637"
@@ -93780,7 +94120,7 @@
     },
     "taf-msdial": {
       "package": "msdial",
-      "version": "5.5.260323-r1"
+      "version": "5.5.260817-r1"
     },
     "taf-multiqc": {
       "package": "multiqc",
@@ -93956,7 +94296,7 @@
     },
     "taf-rdkit": {
       "package": "rdkit",
-      "version": "2026.03.6-r1"
+      "version": "2026.09.1-r1"
     },
     "taf-regenie": {
       "package": "regenie",
