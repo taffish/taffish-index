@@ -1,8 +1,8 @@
 {
   "name": "semibin2",
-  "latest": "2.5.0-r1",
-  "recent_version": "2.5.0-r1",
-  "recent_at": "2026-09-20T16:02:03Z",
+  "latest": "2.6.0-r1",
+  "recent_version": "2.6.0-r1",
+  "recent_at": "2026-10-20T02:09:14Z",
   "repository_url": "https://github.com/taffish/semibin2",
   "command": {
     "name": "taf-semibin2"
@@ -712,6 +712,192 @@
         "repository": "BigDataBiology/SemiBin",
         "release_url": "https://github.com/BigDataBiology/SemiBin/releases/tag/v2.5.0",
         "version": "2.5.0",
+        "license": "MIT",
+        "citation": "Pan et al. 2022, SemiBin: metagenomic binning through contrastive learning; Pan et al. 2023, SemiBin2: self-supervised contrastive learning leads to better MAGs",
+        "doi": "10.1038/s41467-022-29843-y; 10.1093/bioinformatics/btad209"
+      }
+    },
+    "2.6.0-r1": {
+      "name": "semibin2",
+      "kind": "tool",
+      "version": "2.6.0",
+      "release": 1,
+      "version_id": "2.6.0-r1",
+      "tag": "v2.6.0-r1",
+      "published_at": "2026-10-20T02:09:14Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/semibin2",
+      "repository_slug": "taffish/semibin2",
+      "command": {
+        "name": "taf-semibin2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "metagenomics",
+        "categories": [
+          "metagenomics",
+          "binning",
+          "mag",
+          "assembly",
+          "deep-learning"
+        ],
+        "keywords": [
+          "semibin",
+          "semibin2",
+          "metagenomic-binning",
+          "mag",
+          "binning",
+          "pytorch",
+          "abundance",
+          "contigs",
+          "self-supervised-learning"
+        ],
+        "summary": "Semi-supervised and self-supervised metagenomic binning with SemiBin2.",
+        "description": "Semi-supervised and self-supervised metagenomic binning with SemiBin2."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/semibin2:2.6.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.6.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:73fceabdecb23df72ad60c0d7e2deb3bdb27e961e72053f6b2bb0a0020047410"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "SemiBin2",
+          "python",
+          "python3",
+          "samtools",
+          "bedtools",
+          "hmmsearch",
+          "hmmscan",
+          "hmmpress",
+          "prodigal",
+          "mmseqs",
+          "run_FragGeneScan.pl",
+          "FragGeneScan",
+          "semibin-db",
+          "curl",
+          "sh",
+          "grep",
+          "gzip",
+          "register-python-argcomplete",
+          "shtab"
+        ],
+        "test": [
+          "python /opt/semibin2/share/testdata/semibin-smoke.py core",
+          "python /opt/semibin2/share/testdata/semibin-smoke.py models",
+          "python /opt/semibin2/share/testdata/semibin-smoke.py features",
+          "python /opt/semibin2/share/testdata/semibin-smoke.py skills",
+          "python /opt/semibin2/share/testdata/semibin-smoke.py orfs",
+          "python /opt/semibin2/share/testdata/semibin-smoke.py completion",
+          "python /opt/semibin2/share/testdata/semibin-resource-smoke.py resources",
+          "python /opt/semibin2/share/testdata/conda-licenses.py verify",
+          "python /opt/semibin2/share/testdata/test-conda-licenses.py",
+          "python /opt/semibin2/share/testdata/test-resource-runtime.py"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-20T06:12:51Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "failed",
+            "checked_at": "2026-10-20T06:13:10Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20261018.339.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
+            "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+            "smoke_sha256": "5c4839d94313e50d56f64f366a830d36bae1953fa92dd87bd04e07af4d81229d",
+            "provenance": "taffish-index",
+            "failure_kind": "smoke",
+            "message": "smoke command failed (apptainer, exit 2): python /opt/semibin2/share/testdata/semibin-smoke.py core\nstdout: \nstderr: python: can't open file '/opt/semibin2/share/testdata/semibin-smoke.py': [Errno 13] Permission denied\n"
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-20T06:12:51Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261018.339.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
+            "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+            "smoke_sha256": "5c4839d94313e50d56f64f366a830d36bae1953fa92dd87bd04e07af4d81229d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-20T06:12:53Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261012.334.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
+            "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+            "smoke_sha256": "5c4839d94313e50d56f64f366a830d36bae1953fa92dd87bd04e07af4d81229d",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-20T06:06:34Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/semibin2",
+        "ref": "v2.6.0-r1",
+        "commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
+        "html_url": "https://github.com/taffish/semibin2/tree/v2.6.0-r1"
+      },
+      "upstream": {
+        "name": "SemiBin",
+        "type": "github",
+        "homepage": "https://semibin.readthedocs.io/",
+        "repository": "BigDataBiology/SemiBin",
+        "release_url": "https://github.com/BigDataBiology/SemiBin/releases/tag/v2.6.0",
+        "version": "2.6.0",
         "license": "MIT",
         "citation": "Pan et al. 2022, SemiBin: metagenomic binning through contrastive learning; Pan et al. 2023, SemiBin2: self-supervised contrastive learning leads to better MAGs",
         "doi": "10.1038/s41467-022-29843-y; 10.1093/bioinformatics/btad209"

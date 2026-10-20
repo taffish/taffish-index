@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-10-19T06:17:59Z",
+  "generated_at": "2026-10-20T06:06:34Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -23344,6 +23344,66 @@
       "message": null
     },
     {
+      "task_id": "taffish/semibin2|2.6.0-r1",
+      "plan_id": "8b2f04b2b74f1cd7ccf34e3d99c83266c0cd5fcf45790ce6e07c0823a40af81e",
+      "manifest_id": "6679f8fa734ab6cabf803bc4c5f480debc35dc3b4b18e9b8eeae2359d8cad7c9",
+      "backend": "apptainer",
+      "required": false,
+      "status": "failed",
+      "checked_at": "2026-10-20T06:13:10Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.4",
+      "runner_image": "ubuntu24/20261018.339.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
+      "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+      "smoke_sha256": "5c4839d94313e50d56f64f366a830d36bae1953fa92dd87bd04e07af4d81229d",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": "smoke",
+      "message": "smoke command failed (apptainer, exit 2): python /opt/semibin2/share/testdata/semibin-smoke.py core\nstdout: \nstderr: python: can't open file '/opt/semibin2/share/testdata/semibin-smoke.py': [Errno 13] Permission denied\n"
+    },
+    {
+      "task_id": "taffish/semibin2|2.6.0-r1",
+      "plan_id": "8b2f04b2b74f1cd7ccf34e3d99c83266c0cd5fcf45790ce6e07c0823a40af81e",
+      "manifest_id": "6679f8fa734ab6cabf803bc4c5f480debc35dc3b4b18e9b8eeae2359d8cad7c9",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-10-20T06:12:51Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20261018.339.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
+      "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+      "smoke_sha256": "5c4839d94313e50d56f64f366a830d36bae1953fa92dd87bd04e07af4d81229d",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/semibin2|2.6.0-r1",
+      "plan_id": "8b2f04b2b74f1cd7ccf34e3d99c83266c0cd5fcf45790ce6e07c0823a40af81e",
+      "manifest_id": "6679f8fa734ab6cabf803bc4c5f480debc35dc3b4b18e9b8eeae2359d8cad7c9",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-10-20T06:12:53Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 4.9.3",
+      "runner_image": "ubuntu24/20261012.334.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
+      "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+      "smoke_sha256": "5c4839d94313e50d56f64f366a830d36bae1953fa92dd87bd04e07af4d81229d",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
       "task_id": "taffish/seqkit|2.13.0-r1",
       "plan_id": "aa67c2489a7146c7ddbf98fe1437debd75cb3d226696c36f51f407d9d8a5439f",
       "manifest_id": "fe7d42e7770bc7051a55499af0ca82056e52db3b343a316f1f2ef367942ca9fa",
@@ -31648,6 +31708,13 @@
       "source_commit": "538f3206df9bdbeea4b1e05e96fdc5928dd8a0da",
       "image": "ghcr.io/taffish/semibin2:2.5.0-r1",
       "image_digest": "sha256:2ab5442e46634fc45da3a225eadef698f4ad2bfe971110fbd4b46e5f864ca46a"
+    },
+    {
+      "task_id": "taffish/semibin2|2.6.0-r1",
+      "source_ref": "v2.6.0-r1",
+      "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
+      "image": "ghcr.io/taffish/semibin2:2.6.0-r1",
+      "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728"
     },
     {
       "task_id": "taffish/seqkit|2.13.0-r1",
