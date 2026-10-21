@@ -1,8 +1,8 @@
 {
   "name": "plink2",
-  "latest": "2.0.0-a.7.13-r1",
-  "recent_version": "2.0.0-a.7.13-r1",
-  "recent_at": "2026-10-18T19:42:40Z",
+  "latest": "2.0.0-b.1.0-r1",
+  "recent_version": "2.0.0-b.1.0-r1",
+  "recent_at": "2026-10-21T04:13:46Z",
   "repository_url": "https://github.com/taffish/plink2",
   "command": {
     "name": "taf-plink2"
@@ -1079,6 +1079,200 @@
         "release_url": "https://github.com/chrchang/plink-ng/tree/v2.0.0-a.7.3",
         "version": "2.0.0-a.7.3",
         "license": "GPL-3.0-or-later for the PLINK 2.0 main application; LGPL-3.0-or-later for include libraries and vcf_subset; bundled SIMDe/libdeflate/zstd components retain their upstream licenses",
+        "citation": "Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ. Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience. 2015;4:7.",
+        "doi": "10.1186/s13742-015-0047-8",
+        "pmid": "25722852"
+      }
+    },
+    "2.0.0-b.1.0-r1": {
+      "name": "plink2",
+      "kind": "tool",
+      "version": "2.0.0-b.1.0",
+      "release": 1,
+      "version_id": "2.0.0-b.1.0-r1",
+      "tag": "v2.0.0-b.1.0-r1",
+      "published_at": "2026-10-21T04:13:46Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/plink2",
+      "repository_slug": "taffish/plink2",
+      "command": {
+        "name": "taf-plink2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "gwas",
+          "population-genetics",
+          "variant",
+          "genotype"
+        ],
+        "keywords": [
+          "plink 2.0",
+          "plink2",
+          "gwas",
+          "pgen",
+          "vcf",
+          "bgen",
+          "genotype",
+          "association",
+          "population genetics"
+        ],
+        "summary": "PLINK 2.0 beta 1.0 command-line runtime for genotype data management, statistics, GWAS, PGEN workflows, VCF subsetting and bundled LD-score/MTAG utilities.",
+        "description": "PLINK 2.0 beta 1.0 command-line runtime for genotype data management, statistics, GWAS, PGEN workflows, VCF subsetting and bundled LD-score/MTAG utilities."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/plink2:2.0.0-b.1.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.0.0-b.1.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:356f2779559a290246fe210e9803b31ccd4ab5fe38655bf0582458f18ce2e769",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:952bb56c75f9568efdcf5501fb1366715cf2642c261c8169b001392609a20f8f",
+          "linux/arm64": "sha256:55381b039edccac0f47d2c82d893433fb69bf2a2c0111cdab62182f430a2cdf1"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "plink2",
+          "vcf_subset",
+          "ldsc",
+          "mtag",
+          "pgen_compress",
+          "plink2-resources",
+          "plink2-smoke",
+          "python3",
+          "curl",
+          "gzip",
+          "awk",
+          "grep",
+          "sed",
+          "ldd",
+          "sh",
+          "bash",
+          "tail",
+          "cmp"
+        ],
+        "test": [
+          "plink2-smoke identity",
+          "plink2-smoke interface",
+          "plink2-smoke linkage",
+          "plink2-smoke core",
+          "plink2-smoke multiallelic",
+          "plink2-smoke subset",
+          "plink2-smoke errors",
+          "plink2-smoke adjust",
+          "plink2-smoke read-freq",
+          "plink2-smoke update-map",
+          "plink2-smoke mendel",
+          "plink2-smoke compress",
+          "plink2-smoke beta-merge",
+          "plink2-smoke ldsc",
+          "plink2-smoke mtag",
+          "plink2-smoke resources"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-21T06:22:35Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-21T06:22:40Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20261012.334.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e21f122e3b7df0dc7a48661c13f31a01d8a0f004",
+            "image_digest": "sha256:356f2779559a290246fe210e9803b31ccd4ab5fe38655bf0582458f18ce2e769",
+            "smoke_sha256": "207140bc930e7e9bc6b59f04f72bec1886a052c74acf14a41476a0cc74a38d24",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-21T06:22:35Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261018.339.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e21f122e3b7df0dc7a48661c13f31a01d8a0f004",
+            "image_digest": "sha256:356f2779559a290246fe210e9803b31ccd4ab5fe38655bf0582458f18ce2e769",
+            "smoke_sha256": "207140bc930e7e9bc6b59f04f72bec1886a052c74acf14a41476a0cc74a38d24",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-21T06:22:25Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261012.334.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e21f122e3b7df0dc7a48661c13f31a01d8a0f004",
+            "image_digest": "sha256:356f2779559a290246fe210e9803b31ccd4ab5fe38655bf0582458f18ce2e769",
+            "smoke_sha256": "207140bc930e7e9bc6b59f04f72bec1886a052c74acf14a41476a0cc74a38d24",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-21T06:17:21Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/plink2",
+        "ref": "v2.0.0-b.1.0-r1",
+        "commit": "e21f122e3b7df0dc7a48661c13f31a01d8a0f004",
+        "html_url": "https://github.com/taffish/plink2/tree/v2.0.0-b.1.0-r1"
+      },
+      "upstream": {
+        "name": "PLINK 2.0",
+        "type": "github",
+        "homepage": "https://www.cog-genomics.org/plink/2.0/",
+        "repository": "chrchang/plink-ng",
+        "release_url": "https://github.com/chrchang/plink-ng/releases/tag/v2.0.0-b.1.0",
+        "version": "2.0.0-b.1.0",
+        "license": "GPL-3.0-or-later for PLINK 2.0, ldsc and mtag; LGPL-3.0-or-later for include libraries and vcf_subset; bundled SIMDe/libdeflate/zstd/QD components retain their upstream licenses",
         "citation": "Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ. Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience. 2015;4:7.",
         "doi": "10.1186/s13742-015-0047-8",
         "pmid": "25722852"
