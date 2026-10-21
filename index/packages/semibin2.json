@@ -1,8 +1,8 @@
 {
   "name": "semibin2",
-  "latest": "2.6.0-r1",
-  "recent_version": "2.6.0-r1",
-  "recent_at": "2026-10-20T02:09:14Z",
+  "latest": "2.6.0-r2",
+  "recent_version": "2.6.0-r2",
+  "recent_at": "2026-10-21T09:40:54Z",
   "repository_url": "https://github.com/taffish/semibin2",
   "command": {
     "name": "taf-semibin2"
@@ -717,14 +717,14 @@
         "doi": "10.1038/s41467-022-29843-y; 10.1093/bioinformatics/btad209"
       }
     },
-    "2.6.0-r1": {
+    "2.6.0-r2": {
       "name": "semibin2",
       "kind": "tool",
       "version": "2.6.0",
-      "release": 1,
-      "version_id": "2.6.0-r1",
-      "tag": "v2.6.0-r1",
-      "published_at": "2026-10-20T02:09:14Z",
+      "release": 2,
+      "version_id": "2.6.0-r2",
+      "tag": "v2.6.0-r2",
+      "published_at": "2026-10-21T09:40:54Z",
       "published_at_source": "github-release",
       "license": "Apache-2.0",
       "repository_url": "https://github.com/taffish/semibin2",
@@ -774,16 +774,16 @@
         "dockerfile": "docker/Dockerfile"
       },
       "container": {
-        "image": "ghcr.io/taffish/semibin2:2.6.0-r1",
+        "image": "ghcr.io/taffish/semibin2:2.6.0-r2",
         "dockerfile": "docker/Dockerfile",
-        "image_tag": "2.6.0-r1",
+        "image_tag": "2.6.0-r2",
         "image_tag_matches_version": true,
-        "digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+        "digest": "sha256:47017c4852bc71b9cf9747f65f9b38b92e80d8a833a1f70c1bafd5329c392b67",
         "platforms": [
           "linux/amd64"
         ],
         "platform_digests": {
-          "linux/amd64": "sha256:73fceabdecb23df72ad60c0d7e2deb3bdb27e961e72053f6b2bb0a0020047410"
+          "linux/amd64": "sha256:8953691489961836fdbddf68fd6923b614ef1e13c58b9cc2d13596fddeea958e"
         }
       },
       "smoke": {
@@ -823,7 +823,7 @@
           "python /opt/semibin2/share/testdata/test-resource-runtime.py"
         ],
         "status": "passed",
-        "checked_at": "2026-10-20T06:12:51Z",
+        "checked_at": "2026-10-21T09:54:16Z",
         "backend_used": "docker",
         "policy_generation": "multibackend-1",
         "platform": "linux/amd64",
@@ -836,28 +836,28 @@
         ],
         "backend_results": {
           "apptainer": {
-            "status": "failed",
-            "checked_at": "2026-10-21T06:22:40Z",
+            "status": "passed",
+            "checked_at": "2026-10-21T09:54:53Z",
             "platform": "linux/amd64",
             "runtime_version": "apptainer version 1.5.4",
             "runner_image": "ubuntu24/20261012.334.1",
             "policy_generation": "multibackend-1",
-            "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
-            "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+            "source_commit": "87ecd9dfb74f8d1d8413acd8a74281c60c6ec9e1",
+            "image_digest": "sha256:47017c4852bc71b9cf9747f65f9b38b92e80d8a833a1f70c1bafd5329c392b67",
             "smoke_sha256": "5c4839d94313e50d56f64f366a830d36bae1953fa92dd87bd04e07af4d81229d",
             "provenance": "taffish-index",
-            "failure_kind": "smoke",
-            "message": "smoke command failed (apptainer, exit 2): python /opt/semibin2/share/testdata/semibin-smoke.py core\nstdout: \nstderr: python: can't open file '/opt/semibin2/share/testdata/semibin-smoke.py': [Errno 13] Permission denied\n"
+            "failure_kind": null,
+            "message": null
           },
           "docker": {
             "status": "passed",
-            "checked_at": "2026-10-20T06:12:51Z",
+            "checked_at": "2026-10-21T09:54:16Z",
             "platform": "linux/amd64",
             "runtime_version": "Docker version 28.0.4, build b8034c0",
-            "runner_image": "ubuntu24/20261018.339.1",
+            "runner_image": "ubuntu24/20261012.334.1",
             "policy_generation": "multibackend-1",
-            "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
-            "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+            "source_commit": "87ecd9dfb74f8d1d8413acd8a74281c60c6ec9e1",
+            "image_digest": "sha256:47017c4852bc71b9cf9747f65f9b38b92e80d8a833a1f70c1bafd5329c392b67",
             "smoke_sha256": "5c4839d94313e50d56f64f366a830d36bae1953fa92dd87bd04e07af4d81229d",
             "provenance": "taffish-index",
             "failure_kind": null,
@@ -865,13 +865,13 @@
           },
           "podman": {
             "status": "passed",
-            "checked_at": "2026-10-20T06:12:53Z",
+            "checked_at": "2026-10-21T09:54:23Z",
             "platform": "linux/amd64",
             "runtime_version": "podman version 4.9.3",
-            "runner_image": "ubuntu24/20261012.334.1",
+            "runner_image": "ubuntu24/20261018.339.1",
             "policy_generation": "multibackend-1",
-            "source_commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
-            "image_digest": "sha256:c66e5459ac62726d821c3bd1db0193a279de99887e172316ca530e7fa00fa728",
+            "source_commit": "87ecd9dfb74f8d1d8413acd8a74281c60c6ec9e1",
+            "image_digest": "sha256:47017c4852bc71b9cf9747f65f9b38b92e80d8a833a1f70c1bafd5329c392b67",
             "smoke_sha256": "5c4839d94313e50d56f64f366a830d36bae1953fa92dd87bd04e07af4d81229d",
             "provenance": "taffish-index",
             "failure_kind": null,
@@ -881,15 +881,15 @@
       },
       "trust": {
         "status": "passed",
-        "checked_at": "2026-10-21T06:17:21Z",
+        "checked_at": "2026-10-21T09:49:31Z",
         "policy": "taffish.index/trust-v2",
         "source": "taffish-index"
       },
       "source": {
         "repository": "taffish/semibin2",
-        "ref": "v2.6.0-r1",
-        "commit": "ec54ca9f6e058d7f42ad61f6ebfe530c917553db",
-        "html_url": "https://github.com/taffish/semibin2/tree/v2.6.0-r1"
+        "ref": "v2.6.0-r2",
+        "commit": "87ecd9dfb74f8d1d8413acd8a74281c60c6ec9e1",
+        "html_url": "https://github.com/taffish/semibin2/tree/v2.6.0-r2"
       },
       "upstream": {
         "name": "SemiBin",

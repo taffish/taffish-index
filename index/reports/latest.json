@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-10-21T06:17:21Z",
+  "generated_at": "2026-10-21T09:49:31Z",
   "organization": "taffish",
   "policy": {
     "generation": "multibackend-1",
@@ -14,10 +14,10 @@
   },
   "counts": {
     "failed": 0,
-    "advisory_failed": 19,
-    "latest_advisory_failed": 1,
+    "advisory_failed": 18,
+    "latest_advisory_failed": 0,
     "historical_advisory_failed": 18,
-    "rejected": 13,
+    "rejected": 14,
     "warnings": 0
   },
   "failed": [],
@@ -199,17 +199,6 @@
       "failure_kind": "smoke"
     },
     {
-      "repository": "taffish/semibin2",
-      "ref": "v2.6.0-r1",
-      "version_id": "2.6.0-r1",
-      "stage": "smoke",
-      "message": "smoke command failed (apptainer, exit 2): python /opt/semibin2/share/testdata/semibin-smoke.py core\nstdout: \nstderr: python: can't open file '/opt/semibin2/share/testdata/semibin-smoke.py': [Errno 13] Permission denied\n",
-      "image": "ghcr.io/taffish/semibin2:2.6.0-r1",
-      "task_id": "taffish/semibin2|2.6.0-r1",
-      "backend": "apptainer",
-      "failure_kind": "smoke"
-    },
-    {
       "repository": "taffish/ucsc-kent",
       "ref": "v492-r1",
       "version_id": "492-r1",
@@ -232,19 +221,7 @@
       "failure_kind": "smoke"
     }
   ],
-  "latest_advisory_failed": [
-    {
-      "repository": "taffish/semibin2",
-      "ref": "v2.6.0-r1",
-      "version_id": "2.6.0-r1",
-      "stage": "smoke",
-      "message": "smoke command failed (apptainer, exit 2): python /opt/semibin2/share/testdata/semibin-smoke.py core\nstdout: \nstderr: python: can't open file '/opt/semibin2/share/testdata/semibin-smoke.py': [Errno 13] Permission denied\n",
-      "image": "ghcr.io/taffish/semibin2:2.6.0-r1",
-      "task_id": "taffish/semibin2|2.6.0-r1",
-      "backend": "apptainer",
-      "failure_kind": "smoke"
-    }
-  ],
+  "latest_advisory_failed": [],
   "historical_advisory_failed": [
     {
       "repository": "taffish/bedops",
@@ -541,6 +518,14 @@
       "reason": "Immutable release has an incorrect Docker build-context path for docker/regenie-smoke.sh, causing the image build to fail; fixed by v4.1.2-r2.",
       "replacement": "4.1.2-r2",
       "image": "ghcr.io/taffish/regenie:4.1.2-r1"
+    },
+    {
+      "repository": "taffish/semibin2",
+      "ref": "v2.6.0-r1",
+      "version_id": "2.6.0-r1",
+      "reason": "Immutable release has mode 0644 on /opt/semibin2/share/testdata/, causing Permission denied during ordinary-user Apptainer smoke; use v2.6.0-r2 once published and accepted by the index.",
+      "replacement": "2.6.0-r2",
+      "image": "ghcr.io/taffish/semibin2:2.6.0-r1"
     },
     {
       "repository": "taffish/signac",
