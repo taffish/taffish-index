@@ -88,3 +88,10 @@ version_id = "2.7.0-r1"
 ref = "v2.7.0-r1"
 replacement = "2.7.0-r2"
 reason = "Immutable release fails image builds on both amd64 and arm64 because the pinned Alpine zlib-dev-1.3.2-r0.apk download returns HTTP 404; use v2.7.0-r2 once published and accepted by the index."
+
+[semibin2-2.6.0-r1]
+repository = "taffish/semibin2"
+version_id = "2.6.0-r1"
+ref = "v2.6.0-r1"
+replacement = "2.6.0-r2"
+reason = "Immutable release has mode 0644 on /opt/semibin2/share/testdata/, causing Permission denied during ordinary-user Apptainer smoke; use v2.6.0-r2 once published and accepted by the index."
