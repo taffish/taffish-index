@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-21T09:49:31Z",
+  "generated_at": "2026-10-22T06:09:51Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 534,
+    "versions": 535,
     "commands": 275,
     "repositories": 275,
     "warnings": 0,
@@ -70872,9 +70872,9 @@
     },
     "rseqc": {
       "name": "rseqc",
-      "latest": "5.0.5-r1",
-      "recent_version": "5.0.5-r1",
-      "recent_at": "2026-07-28T08:59:30Z",
+      "latest": "5.0.6-r1",
+      "recent_version": "5.0.6-r1",
+      "recent_at": "2026-10-21T22:19:01Z",
       "repository_url": "https://github.com/taffish/rseqc",
       "command": {
         "name": "taf-rseqc"
@@ -71497,6 +71497,217 @@
             "repository": "https://github.com/liguowang/RSeQC",
             "release_url": "https://pypi.org/project/RSeQC/5.0.5/",
             "version": "5.0.5",
+            "license": "GPL-3.0-or-later",
+            "citation": "Wang, Wang and Li 2012; Wang et al. 2016",
+            "doi": "10.1093/bioinformatics/bts356; 10.1186/s12859-016-0922-z",
+            "pmid": "22743226"
+          }
+        },
+        "5.0.6-r1": {
+          "name": "rseqc",
+          "kind": "tool",
+          "version": "5.0.6",
+          "release": 1,
+          "version_id": "5.0.6-r1",
+          "tag": "v5.0.6-r1",
+          "published_at": "2026-10-21T22:19:01Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/rseqc",
+          "repository_slug": "taffish/rseqc",
+          "command": {
+            "name": "taf-rseqc"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "quality-control",
+              "bam",
+              "sam",
+              "transcriptomics",
+              "single-cell"
+            ],
+            "keywords": [
+              "rseqc",
+              "rna-seq",
+              "qc",
+              "bam",
+              "sam",
+              "bed",
+              "gene body coverage",
+              "strandness",
+              "tin",
+              "single-cell rna-seq"
+            ],
+            "summary": "RSeQC 5.0.6 command suite for RNA-seq quality-control metrics from SAM/BAM alignments and BED/GTF annotations.",
+            "description": "RSeQC 5.0.6 command suite for RNA-seq quality-control metrics from SAM/BAM alignments and BED/GTF annotations."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/rseqc:5.0.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.0.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6dafc845fcfee318a26ace97b9c5a2ccb86c5d48c9f19db3ba66b4f9f62f4d74",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:4c77b7a69b2f4b9833f913fbca8bc064bce06e6c839d095507980fd0cf63fea8",
+              "linux/arm64": "sha256:f9a1fcf05c85c8a388ad08c23952ad58c3884caeaffaf14c89dabddb7dd34e7a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "bam_stat.py",
+              "infer_experiment.py",
+              "read_distribution.py",
+              "geneBody_coverage.py",
+              "geneBody_coverage2.py",
+              "tin.py",
+              "read_GC.py",
+              "read_NVC.py",
+              "read_quality.py",
+              "read_duplication.py",
+              "read_hexamer.py",
+              "FPKM_count.py",
+              "FPKM-UQ.py",
+              "RPKM_saturation.py",
+              "RNA_fragment_size.py",
+              "junction_annotation.py",
+              "junction_saturation.py",
+              "inner_distance.py",
+              "clipping_profile.py",
+              "deletion_profile.py",
+              "insertion_profile.py",
+              "mismatch_profile.py",
+              "bam2fq.py",
+              "bam2wig.py",
+              "divide_bam.py",
+              "split_bam.py",
+              "split_paired_bam.py",
+              "normalize_bigwig.py",
+              "overlay_bigwig.py",
+              "sc_bamStat.py",
+              "sc_editMatrix.py",
+              "sc_seqLogo.py",
+              "sc_seqQual.py",
+              "python",
+              "python3",
+              "Rscript",
+              "htseq-count",
+              "awk",
+              "gzip",
+              "bash",
+              "rseqc-smoke",
+              "rseqc-resources"
+            ],
+            "test": [
+              "rseqc-smoke identity",
+              "rseqc-smoke core",
+              "rseqc-smoke gc",
+              "rseqc-smoke logo",
+              "rseqc-smoke heatmap",
+              "rseqc-smoke edits",
+              "rseqc-smoke resources"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-22T06:14:18Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-22T06:14:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.4",
+                "runner_image": "ubuntu24/20261012.334.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "296ffec2542e0691d49d1f2893fcca1ddd2fd366",
+                "image_digest": "sha256:6dafc845fcfee318a26ace97b9c5a2ccb86c5d48c9f19db3ba66b4f9f62f4d74",
+                "smoke_sha256": "52cd732efa0f8e836160b684b6d30de97c7bbbb105f3a30a7b3405cbae418852",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-22T06:14:18Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261018.339.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "296ffec2542e0691d49d1f2893fcca1ddd2fd366",
+                "image_digest": "sha256:6dafc845fcfee318a26ace97b9c5a2ccb86c5d48c9f19db3ba66b4f9f62f4d74",
+                "smoke_sha256": "52cd732efa0f8e836160b684b6d30de97c7bbbb105f3a30a7b3405cbae418852",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-22T06:14:26Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261018.339.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "296ffec2542e0691d49d1f2893fcca1ddd2fd366",
+                "image_digest": "sha256:6dafc845fcfee318a26ace97b9c5a2ccb86c5d48c9f19db3ba66b4f9f62f4d74",
+                "smoke_sha256": "52cd732efa0f8e836160b684b6d30de97c7bbbb105f3a30a7b3405cbae418852",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-22T06:09:51Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/rseqc",
+            "ref": "v5.0.6-r1",
+            "commit": "296ffec2542e0691d49d1f2893fcca1ddd2fd366",
+            "html_url": "https://github.com/taffish/rseqc/tree/v5.0.6-r1"
+          },
+          "upstream": {
+            "name": "RSeQC",
+            "type": "pypi",
+            "homepage": "https://rseqc.sourceforge.net/",
+            "repository": "https://github.com/liguowang/RSeQC",
+            "release_url": "https://pypi.org/project/RSeQC/5.0.6/",
+            "version": "5.0.6",
             "license": "GPL-3.0-or-later",
             "citation": "Wang, Wang and Li 2012; Wang et al. 2016",
             "doi": "10.1093/bioinformatics/bts356; 10.1186/s12859-016-0922-z",
@@ -95324,7 +95535,7 @@
     },
     "taf-rseqc": {
       "package": "rseqc",
-      "version": "5.0.5-r1"
+      "version": "5.0.6-r1"
     },
     "taf-sage": {
       "package": "sage",
