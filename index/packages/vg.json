@@ -1,8 +1,8 @@
 {
   "name": "vg",
-  "latest": "1.77.0-r1",
-  "recent_version": "1.77.0-r1",
-  "recent_at": "2026-09-15T16:26:14Z",
+  "latest": "1.78.0-r1",
+  "recent_version": "1.78.0-r1",
+  "recent_at": "2026-10-22T16:28:54Z",
   "repository_url": "https://github.com/taffish/vg",
   "command": {
     "name": "taf-vg"
@@ -890,6 +890,191 @@
         "repository": "vgteam/vg",
         "release_url": "https://github.com/vgteam/vg/releases/tag/v1.77.0",
         "version": "1.77.0",
+        "license": "MIT",
+        "citation": "Garrison et al. 2018, Variation graph toolkit improves read mapping by representing genetic variation in the reference, Nature Biotechnology",
+        "doi": "10.1038/nbt.4227"
+      }
+    },
+    "1.78.0-r1": {
+      "name": "vg",
+      "kind": "tool",
+      "version": "1.78.0",
+      "release": 1,
+      "version_id": "1.78.0-r1",
+      "tag": "v1.78.0-r1",
+      "published_at": "2026-10-22T16:28:54Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/vg",
+      "repository_slug": "taffish/vg",
+      "command": {
+        "name": "taf-vg"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "pangenome",
+        "categories": [
+          "pangenome",
+          "variation-graph",
+          "graph-alignment",
+          "genotyping",
+          "variant-calling"
+        ],
+        "keywords": [
+          "vg",
+          "variation graph",
+          "pangenome graph",
+          "gfa",
+          "gbz",
+          "xg",
+          "gcsa2",
+          "gam",
+          "giraffe",
+          "genotyping",
+          "variant calling",
+          "graph construction"
+        ],
+        "summary": "VG 1.78.0 variation-graph toolkit with fixed Sequence Tube Map browser GUI and explicit shared GFA resource management.",
+        "description": "VG 1.78.0 variation-graph toolkit with fixed Sequence Tube Map browser GUI and explicit shared GFA resource management."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/vg:1.78.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.78.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:4dcf82504b1a5e471e914cf246ec4260e0d0be0dd5553ef75de1314865fc3126",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3f85fab4fd52b2475f554c7ffa10bf2fd6b4e46b9285baa9f01eec8f7a035328",
+          "linux/arm64": "sha256:45869d89182cc7caad89f74a5037d90447e5325296b95f6e0cb1a040670acd49"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "vg",
+          "samtools",
+          "bgzip",
+          "tabix",
+          "bash",
+          "sha256sum",
+          "python3",
+          "node",
+          "vg-tubemap",
+          "vg-resources",
+          "curl",
+          "gzip",
+          "cat"
+        ],
+        "test": [
+          "vg version > /tmp/vg-version.txt 2>&1 && grep -Fx 'vg version v1.78.0 \"Sharptooth\"' /tmp/vg-version.txt && grep -Fx 'tag_commit=315509da9be8a4ca7c94631b471d0d835dbd7a33' /opt/vg/share/doc/vg/source.txt && grep -Fx 'github_release_prerelease_at_packaging=false' /opt/vg/share/doc/vg/source.txt && grep -Fx 'tubemap_commit=33b7a7e5df9f8052974ef8e6c689a031dac6e2c9' /opt/vg/share/doc/vg/source.txt",
+          "{ vg help 2>&1 || true; } | grep -F 'usage: vg <command> [options]' && { vg convert --help 2>&1 || true; } | grep -F 'GFAZ format' && { vg giraffe --help 2>&1 || true; } | grep -F -- '--target-alignment-attempts'",
+          "vg-tubemap --help | grep -F -- '--data-dir' && vg-resources --help | grep -F 'verify' && samtools --version | grep -F 'samtools 1.22.1'",
+          "/opt/vg/share/testdata/vg-smoke.sh",
+          "python3 /opt/vg/share/testdata/resource-smoke.py",
+          "python3 /opt/vg/share/testdata/gui-smoke.py normal",
+          "python3 /opt/vg/share/testdata/gui-smoke.py interrupt",
+          "python3 /opt/vg/share/testdata/gui-smoke.py failure",
+          "python3 /opt/vg/share/testdata/gui-smoke.py hangup",
+          "python3 /opt/vg/share/testdata/licenses-smoke.py"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-23T06:10:29Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-23T06:10:54Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.4",
+            "runner_image": "ubuntu24/20261012.334.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bd34ea0029c1be133a9383280e46b15c902d5f53",
+            "image_digest": "sha256:4dcf82504b1a5e471e914cf246ec4260e0d0be0dd5553ef75de1314865fc3126",
+            "smoke_sha256": "35ae8c9a6a5df0ba6fc5d20d56b2115464aa01de103f22ddb320dbc6a67ecc9a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-23T06:10:29Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261012.334.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bd34ea0029c1be133a9383280e46b15c902d5f53",
+            "image_digest": "sha256:4dcf82504b1a5e471e914cf246ec4260e0d0be0dd5553ef75de1314865fc3126",
+            "smoke_sha256": "35ae8c9a6a5df0ba6fc5d20d56b2115464aa01de103f22ddb320dbc6a67ecc9a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-23T06:10:32Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261012.334.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bd34ea0029c1be133a9383280e46b15c902d5f53",
+            "image_digest": "sha256:4dcf82504b1a5e471e914cf246ec4260e0d0be0dd5553ef75de1314865fc3126",
+            "smoke_sha256": "35ae8c9a6a5df0ba6fc5d20d56b2115464aa01de103f22ddb320dbc6a67ecc9a",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-23T06:04:58Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/vg",
+        "ref": "v1.78.0-r1",
+        "commit": "bd34ea0029c1be133a9383280e46b15c902d5f53",
+        "html_url": "https://github.com/taffish/vg/tree/v1.78.0-r1"
+      },
+      "upstream": {
+        "name": "vg",
+        "type": "github",
+        "homepage": "https://github.com/vgteam/vg",
+        "repository": "vgteam/vg",
+        "release_url": "https://github.com/vgteam/vg/releases/tag/v1.78.0",
+        "version": "1.78.0",
         "license": "MIT",
         "citation": "Garrison et al. 2018, Variation graph toolkit improves read mapping by representing genetic variation in the reference, Nature Biotechnology",
         "doi": "10.1038/nbt.4227"
