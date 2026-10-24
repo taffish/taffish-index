@@ -1,14 +1,14 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-23T06:04:58Z",
+  "generated_at": "2026-10-24T04:45:11Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 536,
+    "versions": 537,
     "commands": 275,
     "repositories": 275,
-    "warnings": 0,
-    "failed": 0,
+    "warnings": 2,
+    "failed": 2,
     "advisory_failed": 18,
     "latest_advisory_failed": 0,
     "historical_advisory_failed": 18,
@@ -36640,9 +36640,9 @@
     },
     "isoquant": {
       "name": "isoquant",
-      "latest": "4.0.0-r2",
-      "recent_version": "4.0.0-r2",
-      "recent_at": "2026-09-02T05:40:44Z",
+      "latest": "4.1.0-r1",
+      "recent_version": "4.1.0-r1",
+      "recent_at": "2026-10-23T16:18:46Z",
       "repository_url": "https://github.com/taffish/isoquant",
       "command": {
         "name": "taf-isoquant"
@@ -37001,6 +37001,187 @@
             "repository": "ablab/IsoQuant",
             "release_url": "https://github.com/ablab/IsoQuant/releases/tag/v4.0.0",
             "version": "4.0.0",
+            "license": "GPL-2.0-only",
+            "citation": "Prjibelski AD, Mikheenko A, Joglekar A, et al. Accurate isoform discovery with IsoQuant using long reads. Nature Biotechnology. 2023;41:915-918.",
+            "doi": "10.1038/s41587-022-01565-y",
+            "pmid": "36593406"
+          }
+        },
+        "4.1.0-r1": {
+          "name": "isoquant",
+          "kind": "tool",
+          "version": "4.1.0",
+          "release": 1,
+          "version_id": "4.1.0-r1",
+          "tag": "v4.1.0-r1",
+          "published_at": "2026-10-23T16:18:46Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/isoquant",
+          "repository_slug": "taffish/isoquant",
+          "command": {
+            "name": "taf-isoquant"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "transcriptomics",
+            "categories": [
+              "transcriptomics",
+              "long-read",
+              "isoform-discovery",
+              "quantification",
+              "single-cell"
+            ],
+            "keywords": [
+              "isoquant",
+              "long-read-rna-seq",
+              "nanopore",
+              "pacbio",
+              "isoform",
+              "transcript-discovery",
+              "transcript-quantification",
+              "single-cell",
+              "spatial-transcriptomics",
+              "fusion"
+            ],
+            "summary": "Transcript discovery, quantification, barcode processing, and visualization for long-read RNA sequencing.",
+            "description": "Transcript discovery, quantification, barcode processing, and visualization for long-read RNA sequencing."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/isoquant:4.1.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "4.1.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f203124f2beabae170418a4ca50a9fb0c7e29addd70068ba069046b192e8aaf9",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:5e194fc2f13e4470985db37dd9fe0b8e50457c6b33f84af49a9feb78bcc54b6e",
+              "linux/arm64": "sha256:70c78c0edf01826a101ddeae8bb762935103c94406bbc0db7d04b0519853b51b"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "isoquant",
+              "isoquant-detect-barcodes",
+              "isoquant-visualize",
+              "python",
+              "python3",
+              "minimap2",
+              "samtools",
+              "STAR",
+              "STARlong",
+              "gzip",
+              "zcat",
+              "find",
+              "grep",
+              "sed",
+              "tail",
+              "sh"
+            ],
+            "test": [
+              "/opt/isoquant/share/testdata/isoquant-smoke.sh identity",
+              "/opt/isoquant/share/testdata/isoquant-smoke.sh modules",
+              "/opt/isoquant/share/testdata/isoquant-smoke.sh loom",
+              "/opt/isoquant/share/testdata/isoquant-smoke.sh pipeline"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-24T04:49:46Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-24T04:50:08Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "b6d73a8bdb3780af59b51c4d78e12ccc84f2d2ce",
+                "image_digest": "sha256:f203124f2beabae170418a4ca50a9fb0c7e29addd70068ba069046b192e8aaf9",
+                "smoke_sha256": "c8458d7ac0805f19ae969198960dd7dfe73fc72acf9c68c5b2c3d16a319abb87",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-24T04:49:46Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261012.334.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "b6d73a8bdb3780af59b51c4d78e12ccc84f2d2ce",
+                "image_digest": "sha256:f203124f2beabae170418a4ca50a9fb0c7e29addd70068ba069046b192e8aaf9",
+                "smoke_sha256": "c8458d7ac0805f19ae969198960dd7dfe73fc72acf9c68c5b2c3d16a319abb87",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-24T04:49:44Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "b6d73a8bdb3780af59b51c4d78e12ccc84f2d2ce",
+                "image_digest": "sha256:f203124f2beabae170418a4ca50a9fb0c7e29addd70068ba069046b192e8aaf9",
+                "smoke_sha256": "c8458d7ac0805f19ae969198960dd7dfe73fc72acf9c68c5b2c3d16a319abb87",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-24T04:45:11Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/isoquant",
+            "ref": "v4.1.0-r1",
+            "commit": "b6d73a8bdb3780af59b51c4d78e12ccc84f2d2ce",
+            "html_url": "https://github.com/taffish/isoquant/tree/v4.1.0-r1"
+          },
+          "upstream": {
+            "name": "IsoQuant",
+            "type": "github",
+            "homepage": "https://ablab.github.io/IsoQuant/",
+            "repository": "ablab/IsoQuant",
+            "release_url": "https://github.com/ablab/IsoQuant/releases/tag/v4.1.0",
+            "version": "4.1.0",
             "license": "GPL-2.0-only",
             "citation": "Prjibelski AD, Mikheenko A, Joglekar A, et al. Accurate isoform discovery with IsoQuant using long reads. Nature Biotechnology. 2023;41:915-918.",
             "doi": "10.1038/s41587-022-01565-y",
@@ -95312,7 +95493,7 @@
     },
     "taf-isoquant": {
       "package": "isoquant",
-      "version": "4.0.0-r2"
+      "version": "4.1.0-r1"
     },
     "taf-jcvi": {
       "package": "jcvi",
@@ -97627,5 +97808,16 @@
       ]
     }
   },
-  "warnings": []
+  "warnings": [
+    {
+      "repository": "https://github.com/taffish/orthofinder",
+      "ref": null,
+      "message": "orthofinder: GitHub Latest is not an accepted, currently passing stable version; retaining the previous valid default"
+    },
+    {
+      "repository": "https://github.com/taffish/sqanti3",
+      "ref": null,
+      "message": "sqanti3: GitHub Latest is not an accepted, currently passing stable version; retaining the previous valid default"
+    }
+  ]
 }
