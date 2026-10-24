@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-10-24T04:45:11Z",
+  "generated_at": "2026-10-24T05:59:14Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -25324,6 +25324,66 @@
       "message": null
     },
     {
+      "task_id": "taffish/sqanti3|6.1-r1",
+      "plan_id": "fc9bbffe401e657914aa9efe7bde00c16326ecd593286bd37d4188ef064f207b",
+      "manifest_id": "0e50891cd53667536a707b584b0a8579021405fc5ba7cc35c3e4d60b08f0956a",
+      "backend": "apptainer",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-10-24T06:04:56Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.5",
+      "runner_image": "ubuntu24/20261023.334.3",
+      "policy_generation": "multibackend-1",
+      "source_commit": "439351bc1de76afb48f0d2f9f25b07ecb09de3fb",
+      "image_digest": "sha256:e4bd497dd80ba84d701b95f1cde8cfb5a04509a50e0778f5f68aef42e5af78a7",
+      "smoke_sha256": "7f6967a42d8f49627ecac6678ba157b58d8f5f8b365b402b4c40899c3d911226",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/sqanti3|6.1-r1",
+      "plan_id": "fc9bbffe401e657914aa9efe7bde00c16326ecd593286bd37d4188ef064f207b",
+      "manifest_id": "0e50891cd53667536a707b584b0a8579021405fc5ba7cc35c3e4d60b08f0956a",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-10-24T06:04:15Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20261023.334.3",
+      "policy_generation": "multibackend-1",
+      "source_commit": "439351bc1de76afb48f0d2f9f25b07ecb09de3fb",
+      "image_digest": "sha256:e4bd497dd80ba84d701b95f1cde8cfb5a04509a50e0778f5f68aef42e5af78a7",
+      "smoke_sha256": "7f6967a42d8f49627ecac6678ba157b58d8f5f8b365b402b4c40899c3d911226",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/sqanti3|6.1-r1",
+      "plan_id": "fc9bbffe401e657914aa9efe7bde00c16326ecd593286bd37d4188ef064f207b",
+      "manifest_id": "0e50891cd53667536a707b584b0a8579021405fc5ba7cc35c3e4d60b08f0956a",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-10-24T06:04:24Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 4.9.3",
+      "runner_image": "ubuntu24/20261012.334.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "439351bc1de76afb48f0d2f9f25b07ecb09de3fb",
+      "image_digest": "sha256:e4bd497dd80ba84d701b95f1cde8cfb5a04509a50e0778f5f68aef42e5af78a7",
+      "smoke_sha256": "7f6967a42d8f49627ecac6678ba157b58d8f5f8b365b402b4c40899c3d911226",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
       "task_id": "taffish/squidpy|1.8.3-r1",
       "plan_id": "ecc996c7f6d97c166f7886309c3f12b3825b65cec6a70e67d09e132f901aadfe",
       "manifest_id": "0bc52c64508a8cb28acde94e903dedd4b5ad00cf037477c6195859f9c7e28339",
@@ -29345,8 +29405,7 @@
     }
   ],
   "retry_tasks": [
-    "taffish/orthofinder|3.2-r1",
-    "taffish/sqanti3|6.1-r1"
+    "taffish/orthofinder|3.2-r1"
   ],
   "observations": [
     {
@@ -32315,7 +32374,7 @@
       "source_ref": "v6.1-r1",
       "source_commit": "439351bc1de76afb48f0d2f9f25b07ecb09de3fb",
       "image": "ghcr.io/taffish/sqanti3:6.1-r1",
-      "image_digest": null
+      "image_digest": "sha256:e4bd497dd80ba84d701b95f1cde8cfb5a04509a50e0778f5f68aef42e5af78a7"
     },
     {
       "task_id": "taffish/squidpy|1.8.3-r1",

@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-10-24T04:45:11Z",
+  "generated_at": "2026-10-24T05:59:14Z",
   "organization": "taffish",
   "policy": {
     "generation": "multibackend-1",
@@ -13,12 +13,12 @@
     "required_mode": "declared-backend"
   },
   "counts": {
-    "failed": 2,
+    "failed": 1,
     "advisory_failed": 18,
     "latest_advisory_failed": 0,
     "historical_advisory_failed": 18,
     "rejected": 14,
-    "warnings": 2
+    "warnings": 1
   },
   "failed": [
     {
@@ -29,15 +29,6 @@
       "message": "failed to inspect image ghcr.io/taffish/orthofinder:3.2-r1: ERROR: ghcr.io/taffish/orthofinder:3.2-r1: not found\n (exit 1)",
       "image": "ghcr.io/taffish/orthofinder:3.2-r1",
       "task_id": "taffish/orthofinder|3.2-r1"
-    },
-    {
-      "repository": "taffish/sqanti3",
-      "ref": "v6.1-r1",
-      "version_id": "6.1-r1",
-      "stage": "digest",
-      "message": "failed to inspect image ghcr.io/taffish/sqanti3:6.1-r1: ERROR: ghcr.io/taffish/sqanti3:6.1-r1: not found\n (exit 1)",
-      "image": "ghcr.io/taffish/sqanti3:6.1-r1",
-      "task_id": "taffish/sqanti3|6.1-r1"
     }
   ],
   "advisory_failed": [
@@ -560,11 +551,6 @@
       "repository": "https://github.com/taffish/orthofinder",
       "ref": null,
       "message": "orthofinder: GitHub Latest is not an accepted, currently passing stable version; retaining the previous valid default"
-    },
-    {
-      "repository": "https://github.com/taffish/sqanti3",
-      "ref": null,
-      "message": "sqanti3: GitHub Latest is not an accepted, currently passing stable version; retaining the previous valid default"
     }
   ]
 }
