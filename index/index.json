@@ -1,18 +1,18 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-24T05:59:14Z",
+  "generated_at": "2026-10-25T04:29:30Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 538,
+    "versions": 540,
     "commands": 275,
     "repositories": 275,
-    "warnings": 1,
-    "failed": 1,
+    "warnings": 0,
+    "failed": 0,
     "advisory_failed": 18,
     "latest_advisory_failed": 0,
     "historical_advisory_failed": 18,
-    "rejected": 14
+    "rejected": 15
   },
   "packages": {
     "abricate": {
@@ -40884,9 +40884,9 @@
     },
     "macs3": {
       "name": "macs3",
-      "latest": "3.0.5-r1",
-      "recent_version": "3.0.5-r1",
-      "recent_at": "2026-09-27T16:05:43Z",
+      "latest": "3.1.0-r1",
+      "recent_version": "3.1.0-r1",
+      "recent_at": "2026-10-24T16:02:12Z",
       "repository_url": "https://github.com/taffish/macs3",
       "command": {
         "name": "taf-macs3"
@@ -41238,6 +41238,183 @@
             "repository": "macs3-project/MACS",
             "release_url": "https://github.com/macs3-project/MACS/releases/tag/v3.0.5",
             "version": "3.0.5",
+            "license": "BSD-3-Clause",
+            "citation": "MACS3: A Peak-calling Platform for Bulk and Single-cell Regulatory Genomics (2026)",
+            "doi": "10.1093/gpbjnl/qzag097"
+          }
+        },
+        "3.1.0-r1": {
+          "name": "macs3",
+          "kind": "tool",
+          "version": "3.1.0",
+          "release": 1,
+          "version_id": "3.1.0-r1",
+          "tag": "v3.1.0-r1",
+          "published_at": "2026-10-24T16:02:12Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/macs3",
+          "repository_slug": "taffish/macs3",
+          "command": {
+            "name": "taf-macs3"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "chip-seq",
+            "categories": [
+              "chip-seq",
+              "atac-seq",
+              "peak-calling",
+              "epigenomics",
+              "genomics"
+            ],
+            "keywords": [
+              "macs3",
+              "macs",
+              "chip-seq",
+              "atac-seq",
+              "peak calling",
+              "broad peaks",
+              "bedgraph",
+              "hmmratac",
+              "callpeak",
+              "pileup",
+              "bdgcmp"
+            ],
+            "summary": "MACS3 3.1.0 runtime for ChIP-seq, ATAC-seq, DNA enrichment peak calling, bedGraph operations, and HMMRATAC.",
+            "description": "MACS3 3.1.0 runtime for ChIP-seq, ATAC-seq, DNA enrichment peak calling, bedGraph operations, and HMMRATAC."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/macs3:3.1.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.1.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:97643d43627f4cef556065f3cb754448dfa311b239f52e6b5727b2ed96eedfa9",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1803c6a75519d730a1418718cee93c8e36ee9b950c8e9e2f34ab672543095b42",
+              "linux/arm64": "sha256:3958b798d5c44a2a9660d0b870ad4d8ab847d1f6ca613982c58138cb57978352"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "macs3",
+              "python",
+              "python3",
+              "bash",
+              "sh",
+              "gzip",
+              "ldd",
+              "Rscript"
+            ],
+            "test": [
+              "python /opt/macs3/share/testdata/smoke.py identity",
+              "python /opt/macs3/share/testdata/smoke.py imports",
+              "python /opt/macs3/share/testdata/smoke.py peaks",
+              "python /opt/macs3/share/testdata/smoke.py anndata",
+              "python /opt/macs3/share/testdata/smoke.py hmm",
+              "python /opt/macs3/share/testdata/smoke.py plots",
+              "python /opt/macs3/share/testdata/smoke.py bedgraph",
+              "python /opt/macs3/share/testdata/smoke.py parallel"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-25T04:33:46Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-25T04:34:10Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0de06cea709a08da82eed746345f50705e95bd88",
+                "image_digest": "sha256:97643d43627f4cef556065f3cb754448dfa311b239f52e6b5727b2ed96eedfa9",
+                "smoke_sha256": "66e6accdc80464abed5b34ee4d897d93bfe852b31a48faa2dd6c6f8e4d6611f7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-25T04:33:46Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0de06cea709a08da82eed746345f50705e95bd88",
+                "image_digest": "sha256:97643d43627f4cef556065f3cb754448dfa311b239f52e6b5727b2ed96eedfa9",
+                "smoke_sha256": "66e6accdc80464abed5b34ee4d897d93bfe852b31a48faa2dd6c6f8e4d6611f7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-25T04:33:57Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0de06cea709a08da82eed746345f50705e95bd88",
+                "image_digest": "sha256:97643d43627f4cef556065f3cb754448dfa311b239f52e6b5727b2ed96eedfa9",
+                "smoke_sha256": "66e6accdc80464abed5b34ee4d897d93bfe852b31a48faa2dd6c6f8e4d6611f7",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-25T04:29:30Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/macs3",
+            "ref": "v3.1.0-r1",
+            "commit": "0de06cea709a08da82eed746345f50705e95bd88",
+            "html_url": "https://github.com/taffish/macs3/tree/v3.1.0-r1"
+          },
+          "upstream": {
+            "name": "MACS3",
+            "type": "github",
+            "homepage": "https://macs3-project.github.io/MACS/",
+            "repository": "macs3-project/MACS",
+            "release_url": "https://github.com/macs3-project/MACS/releases/tag/v3.1.0",
+            "version": "3.1.0",
             "license": "BSD-3-Clause",
             "citation": "MACS3: A Peak-calling Platform for Bulk and Single-cell Regulatory Genomics (2026)",
             "doi": "10.1093/gpbjnl/qzag097"
@@ -54374,9 +54551,9 @@
     },
     "orthofinder": {
       "name": "orthofinder",
-      "latest": "3.1.5-r2",
-      "recent_version": "3.1.5-r2",
-      "recent_at": "2026-05-19T07:34:39Z",
+      "latest": "3.2-r2",
+      "recent_version": "3.2-r2",
+      "recent_at": "2026-10-25T04:15:40Z",
       "repository_url": "https://github.com/taffish/orthofinder",
       "command": {
         "name": "taf-orthofinder"
@@ -54792,6 +54969,212 @@
             "license": "GPL-3.0",
             "citation": "Emms and Kelly 2015; Emms and Kelly 2017; Emms and Kelly 2019; Emms and Kelly 2022; Emms et al. 2025",
             "doi": "10.1186/s13059-015-0721-2; 10.1093/molbev/msx259; 10.1186/s13059-019-1832-y; 10.1186/s13059-022-02652-8; 10.1101/2025.07.15.664860"
+          }
+        },
+        "3.2-r2": {
+          "name": "orthofinder",
+          "kind": "tool",
+          "version": "3.2",
+          "release": 2,
+          "version_id": "3.2-r2",
+          "tag": "v3.2-r2",
+          "published_at": "2026-10-25T04:15:40Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/orthofinder",
+          "repository_slug": "taffish/orthofinder",
+          "command": {
+            "name": "taf-orthofinder"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "orthology",
+            "categories": [
+              "orthology",
+              "comparative-genomics",
+              "phylogenomics",
+              "gene-tree",
+              "orthogroup"
+            ],
+            "keywords": [
+              "orthofinder",
+              "orthology",
+              "orthogroups",
+              "orthologues",
+              "gene-tree",
+              "species-tree",
+              "comparative-genomics",
+              "phylogenomics",
+              "diamond",
+              "famsa",
+              "muscle",
+              "fasttree",
+              "mcl"
+            ],
+            "summary": "Phylogenetic orthology inference for comparative genomics, including orthogroups, gene trees, species trees, gene duplications, orthologues, and comparative genomics statistics.",
+            "description": "Phylogenetic orthology inference for comparative genomics, including orthogroups, gene trees, species trees, gene duplications, orthologues, and comparative genomics statistics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/orthofinder:3.2-r2",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.2-r2",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e98b35bb0605df5967aa2171b1376f1d39fee1eb6a53659fa61677e4d5755c36",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a599efaf6c4d8799853423fcdf37a3bf6c2fb902779489602bd393d283edede6",
+              "linux/arm64": "sha256:18bcefe00bffd5034c1335f9fef4a77668fe8a530f343b5f4cf78641d0bd53ac"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "orthofinder",
+              "orthofinder-utils",
+              "primary_transcript",
+              "make_ultrametric",
+              "convert_orthofinder_tree_ids",
+              "create_hog_fastas",
+              "ncbi_primary_transcript",
+              "orthogroup_gene_count",
+              "split_ortholog_files",
+              "species_tree_alignment",
+              "mcl_orthogroup_sequences",
+              "python",
+              "diamond",
+              "famsa",
+              "muscle",
+              "FastTree",
+              "mcl",
+              "fastme",
+              "astral-pro",
+              "mafft",
+              "makeblastdb",
+              "blastp",
+              "blastn",
+              "mmseqs",
+              "raxmlHPC",
+              "gzip",
+              "tar",
+              "unzip",
+              "bash",
+              "sh",
+              "tail",
+              "orthofinder-smoke"
+            ],
+            "test": [
+              "orthofinder-smoke identity",
+              "orthofinder-smoke helpers",
+              "orthofinder-smoke primary",
+              "orthofinder-smoke diamond",
+              "orthofinder-smoke aligners",
+              "orthofinder-smoke default",
+              "orthofinder-smoke dendroblast",
+              "orthofinder-smoke muscle",
+              "orthofinder-smoke restart",
+              "orthofinder-smoke assign",
+              "orthofinder-smoke negative"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-25T04:33:46Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-25T04:34:10Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "ab15dac716e37e38863c2a17243175311f3b7a23",
+                "image_digest": "sha256:e98b35bb0605df5967aa2171b1376f1d39fee1eb6a53659fa61677e4d5755c36",
+                "smoke_sha256": "cb545d6e8c3d655753364b338019999fbc99080cac8831da7e4edcc2d1eb2eb0",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-25T04:33:46Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "ab15dac716e37e38863c2a17243175311f3b7a23",
+                "image_digest": "sha256:e98b35bb0605df5967aa2171b1376f1d39fee1eb6a53659fa61677e4d5755c36",
+                "smoke_sha256": "cb545d6e8c3d655753364b338019999fbc99080cac8831da7e4edcc2d1eb2eb0",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-25T04:33:57Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "ab15dac716e37e38863c2a17243175311f3b7a23",
+                "image_digest": "sha256:e98b35bb0605df5967aa2171b1376f1d39fee1eb6a53659fa61677e4d5755c36",
+                "smoke_sha256": "cb545d6e8c3d655753364b338019999fbc99080cac8831da7e4edcc2d1eb2eb0",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-25T04:29:30Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/orthofinder",
+            "ref": "v3.2-r2",
+            "commit": "ab15dac716e37e38863c2a17243175311f3b7a23",
+            "html_url": "https://github.com/taffish/orthofinder/tree/v3.2-r2"
+          },
+          "upstream": {
+            "name": "OrthoFinder",
+            "type": "github",
+            "homepage": "https://orthofinder.github.io/OrthoFinder/",
+            "repository": "OrthoFinder/OrthoFinder",
+            "release_url": "https://github.com/OrthoFinder/OrthoFinder/releases/tag/v3.2",
+            "version": "3.2",
+            "license": "GPL-3.0",
+            "citation": "Emms et al. 2026; Emms and Kelly 2015; Emms and Kelly 2017; Emms and Kelly 2019; Emms and Kelly 2022",
+            "doi": "10.1038/s41592-026-03126-6; 10.1186/s13059-015-0721-2; 10.1093/molbev/msx259; 10.1186/s13059-019-1832-y; 10.1186/s13059-022-02652-8; 10.1101/267914"
           }
         }
       }
@@ -95754,7 +96137,7 @@
     },
     "taf-macs3": {
       "package": "macs3",
-      "version": "3.0.5-r1"
+      "version": "3.1.0-r1"
     },
     "taf-mafft": {
       "package": "mafft",
@@ -95898,7 +96281,7 @@
     },
     "taf-orthofinder": {
       "package": "orthofinder",
-      "version": "3.1.5-r2"
+      "version": "3.2-r2"
     },
     "taf-oxdna": {
       "package": "oxdna",
@@ -98013,11 +98396,5 @@
       ]
     }
   },
-  "warnings": [
-    {
-      "repository": "https://github.com/taffish/orthofinder",
-      "ref": null,
-      "message": "orthofinder: GitHub Latest is not an accepted, currently passing stable version; retaining the previous valid default"
-    }
-  ]
+  "warnings": []
 }

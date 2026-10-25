@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.report/v1",
-  "generated_at": "2026-10-24T05:59:14Z",
+  "generated_at": "2026-10-25T04:29:30Z",
   "organization": "taffish",
   "policy": {
     "generation": "multibackend-1",
@@ -13,24 +13,14 @@
     "required_mode": "declared-backend"
   },
   "counts": {
-    "failed": 1,
+    "failed": 0,
     "advisory_failed": 18,
     "latest_advisory_failed": 0,
     "historical_advisory_failed": 18,
-    "rejected": 14,
-    "warnings": 1
+    "rejected": 15,
+    "warnings": 0
   },
-  "failed": [
-    {
-      "repository": "taffish/orthofinder",
-      "ref": "v3.2-r1",
-      "version_id": "3.2-r1",
-      "stage": "digest",
-      "message": "failed to inspect image ghcr.io/taffish/orthofinder:3.2-r1: ERROR: ghcr.io/taffish/orthofinder:3.2-r1: not found\n (exit 1)",
-      "image": "ghcr.io/taffish/orthofinder:3.2-r1",
-      "task_id": "taffish/orthofinder|3.2-r1"
-    }
-  ],
+  "failed": [],
   "advisory_failed": [
     {
       "repository": "taffish/bedops",
@@ -522,6 +512,14 @@
       "image": "ghcr.io/taffish/nanoplot:1.47.1-r1"
     },
     {
+      "repository": "taffish/orthofinder",
+      "ref": "v3.2-r1",
+      "version_id": "3.2-r1",
+      "reason": "Immutable release has a maintainer-reported defect and should not be added to the main index; use v3.2-r2 once published and accepted by the index.",
+      "replacement": "3.2-r2",
+      "image": "ghcr.io/taffish/orthofinder:3.2-r1"
+    },
+    {
       "repository": "taffish/regenie",
       "ref": "v4.1.2-r1",
       "version_id": "4.1.2-r1",
@@ -546,11 +544,5 @@
       "image": "ghcr.io/taffish/signac:1.17.1-r1"
     }
   ],
-  "warnings": [
-    {
-      "repository": "https://github.com/taffish/orthofinder",
-      "ref": null,
-      "message": "orthofinder: GitHub Latest is not an accepted, currently passing stable version; retaining the previous valid default"
-    }
-  ]
+  "warnings": []
 }
