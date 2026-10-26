@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-25T06:14:32Z",
+  "generated_at": "2026-10-26T06:22:52Z",
   "organization": "taffish",
   "counts": {
     "packages": 275,
-    "versions": 540,
+    "versions": 543,
     "commands": 275,
     "repositories": 275,
     "warnings": 0,
@@ -29379,9 +29379,9 @@
     },
     "goatools": {
       "name": "goatools",
-      "latest": "1.6.6-r1",
-      "recent_version": "1.6.6-r1",
-      "recent_at": "2026-10-21T04:11:31Z",
+      "latest": "1.6.7-r1",
+      "recent_version": "1.6.7-r1",
+      "recent_at": "2026-10-26T05:09:50Z",
       "repository_url": "https://github.com/taffish/goatools",
       "command": {
         "name": "taf-goatools"
@@ -29749,6 +29749,193 @@
             "repository": "tanghaibao/goatools",
             "release_url": "https://github.com/tanghaibao/goatools/tree/v1.6.6",
             "version": "1.6.6",
+            "license": "BSD-2-Clause",
+            "citation": "Klopfenstein DV et al. GOATOOLS: A Python library for Gene Ontology analyses. Scientific Reports. 2018;8:10872.",
+            "doi": "10.1038/s41598-018-28948-z",
+            "pmid": "30022098"
+          }
+        },
+        "1.6.7-r1": {
+          "name": "goatools",
+          "kind": "tool",
+          "version": "1.6.7",
+          "release": 1,
+          "version_id": "1.6.7-r1",
+          "tag": "v1.6.7-r1",
+          "published_at": "2026-10-26T05:09:50Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/goatools",
+          "repository_slug": "taffish/goatools",
+          "command": {
+            "name": "taf-goatools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "functional-genomics",
+            "categories": [
+              "functional-genomics",
+              "gene-ontology",
+              "enrichment-analysis",
+              "bioinformatics-utilities"
+            ],
+            "keywords": [
+              "goatools",
+              "gene ontology",
+              "go enrichment",
+              "goea",
+              "go dag",
+              "go slim",
+              "gaf",
+              "gpad",
+              "gene2go",
+              "cytoscape",
+              "networkx",
+              "pydot",
+              "pygraphviz"
+            ],
+            "summary": "GOATOOLS 1.6.7 command-line and Python runtime for Gene Ontology enrichment, ontology DAG analysis, GO slim mapping, annotation parsing, reporting, and Graphviz visualization.",
+            "description": "GOATOOLS 1.6.7 command-line and Python runtime for Gene Ontology enrichment, ontology DAG analysis, GO slim mapping, annotation parsing, reporting, and Graphviz visualization."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/goatools:1.6.7-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.6.7-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b5fb72164cbad6e0ed5bf2350fb71e3de19b717a273ce1e714b6a653f8b7c751",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a63162753fb570d6d028493499e1b241eee0f16d416ef7cef98235de8cc01c07",
+              "linux/arm64": "sha256:08391d4bd90680bc687d134de1a942d2b694cc6a984edfb0b6ff8c2331e35c1c"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "goatools",
+              "find_enrichment.py",
+              "go_plot.py",
+              "map_to_slim.py",
+              "wr_hier.py",
+              "plot_go_term.py",
+              "ncbi_gene_results_to_python.py",
+              "python",
+              "dot",
+              "curl",
+              "gzip",
+              "sh",
+              "grep",
+              "ldd",
+              "goatools-resources"
+            ],
+            "test": [
+              "/opt/goatools/share/testdata/goatools-smoke.sh identity",
+              "/opt/goatools/share/testdata/goatools-smoke.sh goea",
+              "/opt/goatools/share/testdata/goatools-smoke.sh spreadsheet",
+              "/opt/goatools/share/testdata/goatools-smoke.sh slim",
+              "/opt/goatools/share/testdata/goatools-smoke.sh graphics",
+              "/opt/goatools/share/testdata/goatools-smoke.sh algorithms",
+              "python /opt/goatools/share/testdata/test-resources.py",
+              "python /opt/goatools/share/testdata/test-network-policy.py",
+              "python /opt/goatools/share/testdata/test-semantic.py"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-26T06:27:46Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-26T06:28:08Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "21ce34b2adde0c035aed4a9f7085930a0d557a37",
+                "image_digest": "sha256:b5fb72164cbad6e0ed5bf2350fb71e3de19b717a273ce1e714b6a653f8b7c751",
+                "smoke_sha256": "aa7c1f29dbe6b97b38ddfa896e5c70e491c22baeb8dbfb6cb52e846202af729c",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-26T06:27:46Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "21ce34b2adde0c035aed4a9f7085930a0d557a37",
+                "image_digest": "sha256:b5fb72164cbad6e0ed5bf2350fb71e3de19b717a273ce1e714b6a653f8b7c751",
+                "smoke_sha256": "aa7c1f29dbe6b97b38ddfa896e5c70e491c22baeb8dbfb6cb52e846202af729c",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-26T06:27:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "21ce34b2adde0c035aed4a9f7085930a0d557a37",
+                "image_digest": "sha256:b5fb72164cbad6e0ed5bf2350fb71e3de19b717a273ce1e714b6a653f8b7c751",
+                "smoke_sha256": "aa7c1f29dbe6b97b38ddfa896e5c70e491c22baeb8dbfb6cb52e846202af729c",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-26T06:22:52Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/goatools",
+            "ref": "v1.6.7-r1",
+            "commit": "21ce34b2adde0c035aed4a9f7085930a0d557a37",
+            "html_url": "https://github.com/taffish/goatools/tree/v1.6.7-r1"
+          },
+          "upstream": {
+            "name": "GOATOOLS",
+            "type": "github",
+            "homepage": "https://github.com/tanghaibao/goatools",
+            "repository": "tanghaibao/goatools",
+            "release_url": "https://github.com/tanghaibao/goatools/tree/v1.6.7",
+            "version": "1.6.7",
             "license": "BSD-2-Clause",
             "citation": "Klopfenstein DV et al. GOATOOLS: A Python library for Gene Ontology analyses. Scientific Reports. 2018;8:10872.",
             "doi": "10.1038/s41598-018-28948-z",
@@ -52371,9 +52558,9 @@
     },
     "nextclade": {
       "name": "nextclade",
-      "latest": "3.25.0-r1",
-      "recent_version": "3.25.0-r1",
-      "recent_at": "2026-10-16T16:11:24Z",
+      "latest": "3.25.1-r1",
+      "recent_version": "3.25.1-r1",
+      "recent_at": "2026-10-25T16:21:02Z",
       "repository_url": "https://github.com/taffish/nextclade",
       "command": {
         "name": "taf-nextclade"
@@ -53117,6 +53304,197 @@
             "repository": "https://github.com/nextstrain/nextclade",
             "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.25.0",
             "version": "3.25.0",
+            "license": "MIT",
+            "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
+            "doi": "10.21105/joss.03773"
+          }
+        },
+        "3.25.1-r1": {
+          "name": "nextclade",
+          "kind": "tool",
+          "version": "3.25.1",
+          "release": 1,
+          "version_id": "3.25.1-r1",
+          "tag": "v3.25.1-r1",
+          "published_at": "2026-10-25T16:21:02Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/nextclade",
+          "repository_slug": "taffish/nextclade",
+          "command": {
+            "name": "taf-nextclade"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "phylogenetics",
+            "categories": [
+              "phylogenetics",
+              "genomics",
+              "viral-genomics",
+              "variant-calling",
+              "quality-control",
+              "visualization"
+            ],
+            "keywords": [
+              "nextstrain",
+              "nextclade",
+              "virus",
+              "alignment",
+              "clade-assignment",
+              "mutation-calling",
+              "phylogenetics",
+              "quality-control",
+              "web-ui"
+            ],
+            "summary": "Nextclade 3.25.1 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces.",
+            "description": "Nextclade 3.25.1 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/nextclade:3.25.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.25.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:a7869abe1b987418a8be21c1681f0cbea49594fd8c9b39f282f9f743031e8ae6",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a7e2712b37d2677fb579482a0bd14a429e7a4377181dae269fb2a0ee8ea7cc6e",
+              "linux/arm64": "sha256:c500a3a2acdb5c18ed8299d89b53ce6d5112b453b8205826a50db54d47a81a36"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "nextclade",
+              "nextalign",
+              "nextclade-web",
+              "nextclade-datasets",
+              "nextclade-smoke",
+              "nginx",
+              "jq",
+              "sha256sum",
+              "find",
+              "xargs",
+              "setsid",
+              "wget",
+              "timeout",
+              "cmp",
+              "env",
+              "sh",
+              "bash"
+            ],
+            "test": [
+              "nextclade-smoke identity",
+              "nextclade-smoke commands",
+              "nextclade-smoke core",
+              "nextclade-smoke mutation-patterns",
+              "nextclade-smoke cds-boundary",
+              "nextclade-smoke datasets",
+              "nextclade-smoke web-ready-int",
+              "nextclade-smoke web-ready-term",
+              "nextclade-smoke web-startup-int",
+              "nextclade-smoke web-handshake-int",
+              "nextclade-smoke web-critical",
+              "nextclade-smoke web-critical-zero",
+              "nextclade-smoke web-occupied-port",
+              "nextclade-smoke errors"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-26T06:27:46Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-26T06:28:08Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "35c594918994b32c615e2b9527e5d8cc3e1b77c9",
+                "image_digest": "sha256:a7869abe1b987418a8be21c1681f0cbea49594fd8c9b39f282f9f743031e8ae6",
+                "smoke_sha256": "b18df95191e9870627315568cb2f009b2d8059f52eb21db1736504b15cba0b4f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-26T06:27:46Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "35c594918994b32c615e2b9527e5d8cc3e1b77c9",
+                "image_digest": "sha256:a7869abe1b987418a8be21c1681f0cbea49594fd8c9b39f282f9f743031e8ae6",
+                "smoke_sha256": "b18df95191e9870627315568cb2f009b2d8059f52eb21db1736504b15cba0b4f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-26T06:27:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "35c594918994b32c615e2b9527e5d8cc3e1b77c9",
+                "image_digest": "sha256:a7869abe1b987418a8be21c1681f0cbea49594fd8c9b39f282f9f743031e8ae6",
+                "smoke_sha256": "b18df95191e9870627315568cb2f009b2d8059f52eb21db1736504b15cba0b4f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-26T06:22:52Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/nextclade",
+            "ref": "v3.25.1-r1",
+            "commit": "35c594918994b32c615e2b9527e5d8cc3e1b77c9",
+            "html_url": "https://github.com/taffish/nextclade/tree/v3.25.1-r1"
+          },
+          "upstream": {
+            "name": "Nextclade",
+            "type": "github",
+            "homepage": "https://clades.nextstrain.org",
+            "repository": "https://github.com/nextstrain/nextclade",
+            "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.25.1",
+            "version": "3.25.1",
             "license": "MIT",
             "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
             "doi": "10.21105/joss.03773"
@@ -81537,9 +81915,9 @@
     },
     "somalier": {
       "name": "somalier",
-      "latest": "0.3.5-r1",
-      "recent_version": "0.3.5-r1",
-      "recent_at": "2026-09-12T03:28:09Z",
+      "latest": "0.3.6-r1",
+      "recent_version": "0.3.6-r1",
+      "recent_at": "2026-10-26T05:09:44Z",
       "repository_url": "https://github.com/taffish/somalier",
       "command": {
         "name": "taf-somalier"
@@ -82096,6 +82474,196 @@
             "repository": "brentp/somalier",
             "release_url": "https://github.com/brentp/somalier/releases/tag/v0.3.5",
             "version": "0.3.5",
+            "license": "MIT",
+            "citation": "Pedersen BS, Bhetariya PJ, Brown J, et al. Somalier: rapid relatedness estimation for cancer and germline studies using efficient genome sketches. Genome Medicine. 2020;12:62.",
+            "doi": "10.1186/s13073-020-00761-2"
+          }
+        },
+        "0.3.6-r1": {
+          "name": "somalier",
+          "kind": "tool",
+          "version": "0.3.6",
+          "release": 1,
+          "version_id": "0.3.6-r1",
+          "tag": "v0.3.6-r1",
+          "published_at": "2026-10-26T05:09:44Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/somalier",
+          "repository_slug": "taffish/somalier",
+          "command": {
+            "name": "taf-somalier"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "quality-control",
+            "categories": [
+              "quality-control",
+              "sample-identity",
+              "relatedness",
+              "population-genetics"
+            ],
+            "keywords": [
+              "somalier",
+              "sample swap",
+              "sample identity",
+              "relatedness",
+              "pedigree",
+              "ancestry",
+              "contamination",
+              "bam",
+              "cram",
+              "vcf",
+              "gvcf"
+            ],
+            "summary": "Somalier 0.3.6 runtime for extracting compact genome sketches and checking sample identity, relatedness, ancestry, and contamination.",
+            "description": "Somalier 0.3.6 runtime for extracting compact genome sketches and checking sample identity, relatedness, ancestry, and contamination."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/somalier:0.3.6-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.3.6-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:306c58e1102cad782455225653b8ebec75b307ce4758895f211790b1d204ba7a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:acaac1ba0473edc178f383c0ebd7c0c69a557703e902c3ba7e6ace5c45ca0838",
+              "linux/arm64": "sha256:12fab6eafb42674ad178c85bd6cf0589001e9f0fc7f10e1b9cc37aec7b3e3611"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "somalier",
+              "somalier-resources",
+              "python3",
+              "curl",
+              "sh",
+              "awk",
+              "grep",
+              "gzip",
+              "ldd",
+              "mktemp",
+              "sed",
+              "cmp",
+              "sha256sum",
+              "tail"
+            ],
+            "test": [
+              "grep -F 'source_sha256=7dc3c8764d9dd962221b653353be0e444ac98e53d1c872e47d745674215f2da2' /opt/somalier/share/doc/somalier/source.txt >/dev/null && grep -F 'upstream_commit=43fdfdffc89cb19d4804f6b8ded448a5770779bf' /opt/somalier/share/doc/somalier/source.txt >/dev/null",
+              "/opt/somalier/share/testdata/somalier-smoke.sh identity",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-vcf",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-bam",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-cram",
+              "/opt/somalier/share/testdata/somalier-smoke.sh relate",
+              "/opt/somalier/share/testdata/somalier-smoke.sh ab-plot",
+              "/opt/somalier/share/testdata/somalier-smoke.sh contamination",
+              "/opt/somalier/share/testdata/somalier-smoke.sh find-sites",
+              "/opt/somalier/share/testdata/somalier-smoke.sh pedrel",
+              "/opt/somalier/share/testdata/somalier-smoke.sh ancestry",
+              "/opt/somalier/share/testdata/somalier-smoke.sh cigar-boundary",
+              "/opt/somalier/share/testdata/somalier-smoke.sh resources",
+              "/opt/somalier/share/testdata/somalier-smoke.sh reference-error",
+              "/opt/somalier/share/testdata/somalier-smoke.sh reference-counts",
+              "/opt/somalier/share/testdata/somalier-smoke.sh release-regressions"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-26T06:27:46Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-26T06:28:08Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "75b867db792dd91b78ddfbc92cc1b6cc593db4c4",
+                "image_digest": "sha256:306c58e1102cad782455225653b8ebec75b307ce4758895f211790b1d204ba7a",
+                "smoke_sha256": "78a2b5ed36f7bdac5043afd0f12b9a48248767c861cdbbc233a10dca4fe776dc",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-26T06:27:46Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "75b867db792dd91b78ddfbc92cc1b6cc593db4c4",
+                "image_digest": "sha256:306c58e1102cad782455225653b8ebec75b307ce4758895f211790b1d204ba7a",
+                "smoke_sha256": "78a2b5ed36f7bdac5043afd0f12b9a48248767c861cdbbc233a10dca4fe776dc",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-26T06:27:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261023.334.3",
+                "policy_generation": "multibackend-1",
+                "source_commit": "75b867db792dd91b78ddfbc92cc1b6cc593db4c4",
+                "image_digest": "sha256:306c58e1102cad782455225653b8ebec75b307ce4758895f211790b1d204ba7a",
+                "smoke_sha256": "78a2b5ed36f7bdac5043afd0f12b9a48248767c861cdbbc233a10dca4fe776dc",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-26T06:22:52Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/somalier",
+            "ref": "v0.3.6-r1",
+            "commit": "75b867db792dd91b78ddfbc92cc1b6cc593db4c4",
+            "html_url": "https://github.com/taffish/somalier/tree/v0.3.6-r1"
+          },
+          "upstream": {
+            "name": "Somalier",
+            "type": "github",
+            "homepage": "https://github.com/brentp/somalier",
+            "repository": "brentp/somalier",
+            "release_url": "https://github.com/brentp/somalier/releases/tag/v0.3.6",
+            "version": "0.3.6",
             "license": "MIT",
             "citation": "Pedersen BS, Bhetariya PJ, Brown J, et al. Somalier: rapid relatedness estimation for cancer and germline studies using efficient genome sketches. Genome Medicine. 2020;12:62.",
             "doi": "10.1186/s13073-020-00761-2"
@@ -96013,7 +96581,7 @@
     },
     "taf-goatools": {
       "package": "goatools",
-      "version": "1.6.6-r1"
+      "version": "1.6.7-r1"
     },
     "taf-gromacs": {
       "package": "gromacs",
@@ -96253,7 +96821,7 @@
     },
     "taf-nextclade": {
       "package": "nextclade",
-      "version": "3.25.0-r1"
+      "version": "3.25.1-r1"
     },
     "taf-ngenomesyn": {
       "package": "ngenomesyn",
@@ -96573,7 +97141,7 @@
     },
     "taf-somalier": {
       "package": "somalier",
-      "version": "0.3.5-r1"
+      "version": "0.3.6-r1"
     },
     "taf-sourmash": {
       "package": "sourmash",
