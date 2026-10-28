@@ -1,8 +1,8 @@
 {
   "name": "cooler",
-  "latest": "0.10.4-r1",
-  "recent_version": "0.10.4-r1",
-  "recent_at": "2026-06-13T03:36:25Z",
+  "latest": "0.11.0-r1",
+  "recent_version": "0.11.0-r1",
+  "recent_at": "2026-10-27T16:06:35Z",
   "repository_url": "https://github.com/taffish/cooler",
   "command": {
     "name": "taf-cooler"
@@ -175,6 +175,192 @@
         "repository": "https://github.com/open2c/cooler",
         "release_url": "https://github.com/open2c/cooler/releases/tag/v0.10.4",
         "version": "0.10.4",
+        "license": "BSD-3-Clause",
+        "citation": "Abdennur N, Mirny LA. Cooler: scalable storage for Hi-C data and other genomically labeled arrays. Bioinformatics (2020).",
+        "doi": "10.1093/bioinformatics/btz540"
+      }
+    },
+    "0.11.0-r1": {
+      "name": "cooler",
+      "kind": "tool",
+      "version": "0.11.0",
+      "release": 1,
+      "version_id": "0.11.0-r1",
+      "tag": "v0.11.0-r1",
+      "published_at": "2026-10-27T16:06:35Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/cooler",
+      "repository_slug": "taffish/cooler",
+      "command": {
+        "name": "taf-cooler"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "hi-c",
+        "categories": [
+          "hi-c",
+          "3d-genome",
+          "matrix",
+          "file-format",
+          "genomics"
+        ],
+        "keywords": [
+          "cooler",
+          "hi-c",
+          "cool",
+          "mcool",
+          "scool",
+          "hdf5",
+          "contact matrix",
+          "3d genome",
+          "open2c"
+        ],
+        "summary": "cooler 0.11.0 command-line and Python runtime for storing, ingesting, querying, balancing, coarsening, and visualizing Hi-C contact matrices in .cool/.mcool HDF5 format.",
+        "description": "cooler 0.11.0 command-line and Python runtime for storing, ingesting, querying, balancing, coarsening, and visualizing Hi-C contact matrices in .cool/.mcool HDF5 format."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/cooler:0.11.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.11.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:9e8ebb400e21965054d8a011af526078dd0dc85b0452925366d8791f66fe6f38",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:221f526a04d59c9e4f4d163a69966e5678ea8c288204bfaed34b3dd5190a386f",
+          "linux/arm64": "sha256:72522da0bc6bcfada54585f99a0f84675f5b32cddde29518d6dad46488e3fa56"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "cooler",
+          "cooler-gui",
+          "python",
+          "python3",
+          "bgzip",
+          "tabix",
+          "pairix",
+          "pairs_merger",
+          "streamer_1d",
+          "sort",
+          "cat",
+          "gzip",
+          "pigz",
+          "bash",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "python /opt/cooler/share/cooler_smoke.py identity",
+          "python /opt/cooler/share/cooler_smoke.py ingest",
+          "python /opt/cooler/share/cooler_smoke.py matrix",
+          "python /opt/cooler/share/cooler_smoke.py scool",
+          "python /opt/cooler/share/cooler_smoke.py negative",
+          "python /opt/cooler/share/cooler_smoke.py plot",
+          "python /opt/cooler/share/cooler_gui_smoke.py invalid",
+          "python /opt/cooler/share/cooler_gui_smoke.py service",
+          "python /opt/cooler/share/cooler_gui_smoke.py interrupt",
+          "python /opt/cooler/share/cooler_gui_smoke.py failure",
+          "python /opt/cooler/share/cooler_gui_smoke.py output"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-28T07:00:52Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-28T07:01:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261023.334.3",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b7a9e855e072a3d0b37c6400d416b8f4a77f18c0",
+            "image_digest": "sha256:9e8ebb400e21965054d8a011af526078dd0dc85b0452925366d8791f66fe6f38",
+            "smoke_sha256": "4554321ba3aaf6218fb6bb319650af0a2d0266bc58a9b3ad2f600adad897cead",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-28T07:00:52Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261023.334.3",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b7a9e855e072a3d0b37c6400d416b8f4a77f18c0",
+            "image_digest": "sha256:9e8ebb400e21965054d8a011af526078dd0dc85b0452925366d8791f66fe6f38",
+            "smoke_sha256": "4554321ba3aaf6218fb6bb319650af0a2d0266bc58a9b3ad2f600adad897cead",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-28T07:00:59Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b7a9e855e072a3d0b37c6400d416b8f4a77f18c0",
+            "image_digest": "sha256:9e8ebb400e21965054d8a011af526078dd0dc85b0452925366d8791f66fe6f38",
+            "smoke_sha256": "4554321ba3aaf6218fb6bb319650af0a2d0266bc58a9b3ad2f600adad897cead",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-28T06:54:16Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/cooler",
+        "ref": "v0.11.0-r1",
+        "commit": "b7a9e855e072a3d0b37c6400d416b8f4a77f18c0",
+        "html_url": "https://github.com/taffish/cooler/tree/v0.11.0-r1"
+      },
+      "upstream": {
+        "name": "cooler",
+        "type": "github",
+        "homepage": "https://cooler.readthedocs.io/",
+        "repository": "https://github.com/open2c/cooler",
+        "release_url": "https://github.com/open2c/cooler/releases/tag/v0.11.0",
+        "version": "0.11.0",
         "license": "BSD-3-Clause",
         "citation": "Abdennur N, Mirny LA. Cooler: scalable storage for Hi-C data and other genomically labeled arrays. Bioinformatics (2020).",
         "doi": "10.1093/bioinformatics/btz540"
