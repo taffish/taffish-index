@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-28T07:21:28Z",
+  "generated_at": "2026-10-28T16:30:02Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 546,
+    "versions": 549,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -394,9 +394,9 @@
     },
     "alevin-fry": {
       "name": "alevin-fry",
-      "latest": "0.18.3-r1",
-      "recent_version": "0.18.3-r1",
-      "recent_at": "2026-09-17T04:03:56Z",
+      "latest": "0.19.0-r1",
+      "recent_version": "0.19.0-r1",
+      "recent_at": "2026-10-28T16:02:54Z",
       "repository_url": "https://github.com/taffish/alevin-fry",
       "command": {
         "name": "taf-alevin-fry"
@@ -1650,6 +1650,212 @@
             "repository": "COMBINE-lab/alevin-fry",
             "release_url": "https://github.com/COMBINE-lab/alevin-fry/releases/tag/v0.18.3",
             "version": "0.18.3",
+            "license": "BSD-3-Clause",
+            "citation": "He D, Zakeri M, Sarkar H, Soneson C, Srivastava A, Patro R. Alevin-fry unlocks rapid, accurate and memory-frugal quantification of single-cell RNA-seq data. Nature Methods. 2022;19:316-322.",
+            "doi": "10.1038/s41592-022-01408-3",
+            "pmid": "35277707"
+          }
+        },
+        "0.19.0-r1": {
+          "name": "alevin-fry",
+          "kind": "tool",
+          "version": "0.19.0",
+          "release": 1,
+          "version_id": "0.19.0-r1",
+          "tag": "v0.19.0-r1",
+          "published_at": "2026-10-28T16:02:54Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/alevin-fry",
+          "repository_slug": "taffish/alevin-fry",
+          "command": {
+            "name": "taf-alevin-fry"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "single-nucleus",
+              "transcriptomics",
+              "gene-expression",
+              "chromatin-accessibility"
+            ],
+            "keywords": [
+              "alevin-fry",
+              "scrna-seq",
+              "snrna-seq",
+              "scatac-seq",
+              "rad",
+              "cell barcode",
+              "umi",
+              "usa mode",
+              "rna velocity",
+              "quantification"
+            ],
+            "summary": "Alevin-fry 0.19.0 for deterministic barcode correction, bounded RAD collation, sc/snRNA-seq quantification, direct quant-to-infer processing, SAM/BAM conversion, RAD viewing, supported scATAC-seq RAD processing, and QCatch 0.2.14 with standalone offline QC reports.",
+            "description": "Alevin-fry 0.19.0 for deterministic barcode correction, bounded RAD collation, sc/snRNA-seq quantification, direct quant-to-infer processing, SAM/BAM conversion, RAD viewing, supported scATAC-seq RAD processing, and QCatch 0.2.14 with standalone offline QC reports."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/alevin-fry:0.19.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.19.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:b72ee060d9484173cafd2346c89d0f365b73b53b32f6d6d8a400251b0d7c5686",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:5213a055d0c8380dea7009a31ff996d25c3e790aa029359ed2a36fd0858d1255",
+              "linux/arm64": "sha256:7888812cbda759a0c3937eceadb807b99f20dc260b9acb44f93003d19221203e"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "alevin-fry",
+              "sh",
+              "grep",
+              "gzip",
+              "ldd",
+              "tr",
+              "tail",
+              "awk",
+              "cmp",
+              "mktemp",
+              "ln",
+              "alevin-fry-allowlist",
+              "sha256sum",
+              "stat",
+              "df",
+              "cp",
+              "mv",
+              "chmod",
+              "chgrp",
+              "mkdir",
+              "rmdir",
+              "rm",
+              "wc",
+              "date",
+              "cat",
+              "env",
+              "od",
+              "sort",
+              "sed",
+              "qcatch",
+              "qcatch-offline",
+              "qcatch-gene-map",
+              "python3"
+            ],
+            "test": [
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh identity",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh interfaces",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh rad",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh rna",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh tiny",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh infer",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh streaming",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh chunks",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh allowlist",
+              "/opt/alevin-fry/share/testdata/alevin-fry-smoke.sh release019",
+              "qcatch --version",
+              "/opt/alevin-fry/share/testdata/qcatch-smoke.py"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-28T16:35:39Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-28T16:36:19Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "cd07aa4447b9c2f3837f577bd311a14ab33e547c",
+                "image_digest": "sha256:b72ee060d9484173cafd2346c89d0f365b73b53b32f6d6d8a400251b0d7c5686",
+                "smoke_sha256": "26752a2ddaf4b8d65bdffd975f203d19e0ed8018b2d8f469ed008ff0ff754168",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-28T16:35:39Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "cd07aa4447b9c2f3837f577bd311a14ab33e547c",
+                "image_digest": "sha256:b72ee060d9484173cafd2346c89d0f365b73b53b32f6d6d8a400251b0d7c5686",
+                "smoke_sha256": "26752a2ddaf4b8d65bdffd975f203d19e0ed8018b2d8f469ed008ff0ff754168",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-28T16:35:50Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "cd07aa4447b9c2f3837f577bd311a14ab33e547c",
+                "image_digest": "sha256:b72ee060d9484173cafd2346c89d0f365b73b53b32f6d6d8a400251b0d7c5686",
+                "smoke_sha256": "26752a2ddaf4b8d65bdffd975f203d19e0ed8018b2d8f469ed008ff0ff754168",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-28T16:30:02Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/alevin-fry",
+            "ref": "v0.19.0-r1",
+            "commit": "cd07aa4447b9c2f3837f577bd311a14ab33e547c",
+            "html_url": "https://github.com/taffish/alevin-fry/tree/v0.19.0-r1"
+          },
+          "upstream": {
+            "name": "alevin-fry",
+            "type": "github",
+            "homepage": "https://github.com/COMBINE-lab/alevin-fry",
+            "repository": "COMBINE-lab/alevin-fry",
+            "release_url": "https://github.com/COMBINE-lab/alevin-fry/releases/tag/v0.19.0",
+            "version": "0.19.0",
             "license": "BSD-3-Clause",
             "citation": "He D, Zakeri M, Sarkar H, Soneson C, Srivastava A, Patro R. Alevin-fry unlocks rapid, accurate and memory-frugal quantification of single-cell RNA-seq data. Nature Methods. 2022;19:316-322.",
             "doi": "10.1038/s41592-022-01408-3",
@@ -56853,9 +57059,9 @@
     },
     "panaroo": {
       "name": "panaroo",
-      "latest": "1.8.0-r1",
-      "recent_version": "1.8.0-r1",
-      "recent_at": "2026-08-12T08:43:47Z",
+      "latest": "1.8.1-r1",
+      "recent_version": "1.8.1-r1",
+      "recent_at": "2026-10-28T16:03:02Z",
       "repository_url": "https://github.com/taffish/panaroo",
       "command": {
         "name": "taf-panaroo"
@@ -57059,6 +57265,253 @@
             "repository": "gtonkinhill/panaroo",
             "release_url": "https://github.com/gtonkinhill/panaroo/releases/tag/v1.8.0",
             "version": "1.8.0",
+            "license": "MIT",
+            "citation": "Tonkin-Hill G et al. Producing polished prokaryotic pangenomes with the Panaroo pipeline. Genome Biology 21, 180 (2020).",
+            "doi": "10.1186/s13059-020-02090-4",
+            "pmid": "32698896"
+          }
+        },
+        "1.8.1-r1": {
+          "name": "panaroo",
+          "kind": "tool",
+          "version": "1.8.1",
+          "release": 1,
+          "version_id": "1.8.1-r1",
+          "tag": "v1.8.1-r1",
+          "published_at": "2026-10-28T16:03:02Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/panaroo",
+          "repository_slug": "taffish/panaroo",
+          "command": {
+            "name": "taf-panaroo"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "pangenomics",
+            "categories": [
+              "pangenomics",
+              "comparative-genomics",
+              "genome-annotation",
+              "quality-control"
+            ],
+            "keywords": [
+              "panaroo",
+              "bacterial pangenome",
+              "gff3",
+              "genbank",
+              "prokka",
+              "bakta",
+              "cd-hit",
+              "mash",
+              "mafft",
+              "prank",
+              "clustal omega",
+              "muscle",
+              "famsa"
+            ],
+            "summary": "Panaroo 1.8.1 for bacterial pangenome graph construction, cleaning, alignment, QC, integration, and downstream export.",
+            "description": "Panaroo 1.8.1 for bacterial pangenome graph construction, cleaning, alignment, QC, integration, and downstream export."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/panaroo:1.8.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.8.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2d227ec79418f4c02020298209ca30eb8a392fa4f143dfba4c996ac73ec96944",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f6d2e83813578b98a8406afa93985100dc1987c4c6465ccd9de8f0550dd4b391",
+              "linux/arm64": "sha256:8b1a385d5a17a0ce82036121f7a231b1d602b7b210da30015a2294e2714b6162"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "panaroo",
+              "run_prokka",
+              "panaroo-qc",
+              "panaroo-merge",
+              "panaroo-plot-abundance",
+              "panaroo-spydrpick",
+              "panaroo-img",
+              "panaroo-fmg",
+              "panaroo-msa",
+              "panaroo-gene-neighbourhood",
+              "panaroo-integrate",
+              "panaroo-filter-pa",
+              "panaroo-generate-gffs",
+              "panaroo-extract-gene",
+              "panaroo-convert-bakta-to-prokka-gff",
+              "panaroo-smoke",
+              "panaroo-mash-resources",
+              "java",
+              "cd-hit",
+              "cd-hit-est",
+              "mafft",
+              "prank",
+              "clustalo",
+              "muscle",
+              "famsa",
+              "mash",
+              "prokka",
+              "prodigal",
+              "barrnap",
+              "minced",
+              "python3",
+              "bash",
+              "sh",
+              "grep",
+              "sed",
+              "sha256sum",
+              "parallel",
+              "aragorn",
+              "hmmscan",
+              "hmmpress",
+              "blastp",
+              "tbl2asn",
+              "prokka-genbank_to_fasta_db",
+              "nhmmer",
+              "bedtools",
+              "which",
+              "makeblastdb",
+              "cmscan",
+              "cmpress",
+              "perl",
+              "egrep",
+              "find",
+              "file",
+              "awk",
+              "sort",
+              "tr",
+              "uniq",
+              "wc",
+              "head",
+              "readlink",
+              "dirname",
+              "basename",
+              "uname",
+              "cat",
+              "expr",
+              "mkdir",
+              "rm",
+              "cp",
+              "mv",
+              "chmod",
+              "mktemp",
+              "env",
+              "sleep",
+              "tar",
+              "gzip",
+              "more"
+            ],
+            "test": [
+              "panaroo-smoke identity",
+              "panaroo-smoke interfaces",
+              "panaroo-smoke core",
+              "panaroo-smoke aligners",
+              "panaroo-smoke formats",
+              "panaroo-smoke qc",
+              "panaroo-smoke prokka",
+              "panaroo-smoke resources"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-28T16:35:39Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-28T16:36:19Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "4568c43ef615c33f9055a8100176b254fd9dd81b",
+                "image_digest": "sha256:2d227ec79418f4c02020298209ca30eb8a392fa4f143dfba4c996ac73ec96944",
+                "smoke_sha256": "d69398dfdc24f30f59e0e8a693c03b87d3341b59c40832472ad4ff7664f965b4",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-28T16:35:39Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "4568c43ef615c33f9055a8100176b254fd9dd81b",
+                "image_digest": "sha256:2d227ec79418f4c02020298209ca30eb8a392fa4f143dfba4c996ac73ec96944",
+                "smoke_sha256": "d69398dfdc24f30f59e0e8a693c03b87d3341b59c40832472ad4ff7664f965b4",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-28T16:35:50Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "4568c43ef615c33f9055a8100176b254fd9dd81b",
+                "image_digest": "sha256:2d227ec79418f4c02020298209ca30eb8a392fa4f143dfba4c996ac73ec96944",
+                "smoke_sha256": "d69398dfdc24f30f59e0e8a693c03b87d3341b59c40832472ad4ff7664f965b4",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-28T16:30:02Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/panaroo",
+            "ref": "v1.8.1-r1",
+            "commit": "4568c43ef615c33f9055a8100176b254fd9dd81b",
+            "html_url": "https://github.com/taffish/panaroo/tree/v1.8.1-r1"
+          },
+          "upstream": {
+            "name": "Panaroo",
+            "type": "github",
+            "homepage": "https://gtonkinhill.github.io/panaroo/",
+            "repository": "gtonkinhill/panaroo",
+            "release_url": "https://github.com/gtonkinhill/panaroo/releases/tag/v1.8.1",
+            "version": "1.8.1",
             "license": "MIT",
             "citation": "Tonkin-Hill G et al. Producing polished prokaryotic pangenomes with the Panaroo pipeline. Genome Biology 21, 180 (2020).",
             "doi": "10.1186/s13059-020-02090-4",
@@ -80806,9 +81259,9 @@
     },
     "simpleaf": {
       "name": "simpleaf",
-      "latest": "0.30.0-r1",
-      "recent_version": "0.30.0-r1",
-      "recent_at": "2026-09-01T11:07:30Z",
+      "latest": "0.32.0-r1",
+      "recent_version": "0.32.0-r1",
+      "recent_at": "2026-10-28T16:09:47Z",
       "repository_url": "https://github.com/taffish/simpleaf",
       "command": {
         "name": "taf-simpleaf"
@@ -81548,6 +82001,200 @@
             "repository": "COMBINE-lab/simpleaf",
             "release_url": "https://github.com/COMBINE-lab/simpleaf/releases/tag/v0.30.0",
             "version": "0.30.0",
+            "license": "BSD-3-Clause"
+          }
+        },
+        "0.32.0-r1": {
+          "name": "simpleaf",
+          "kind": "tool",
+          "version": "0.32.0",
+          "release": 1,
+          "version_id": "0.32.0-r1",
+          "tag": "v0.32.0-r1",
+          "published_at": "2026-10-28T16:09:47Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/simpleaf",
+          "repository_slug": "taffish/simpleaf",
+          "command": {
+            "name": "taf-simpleaf"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "single-nucleus",
+              "transcriptomics",
+              "chromatin-accessibility",
+              "workflow"
+            ],
+            "keywords": [
+              "simpleaf",
+              "piscem",
+              "alevin-fry",
+              "macs3",
+              "scrna-seq",
+              "snrna-seq",
+              "scatac-seq",
+              "10x",
+              "barcode",
+              "umi",
+              "quantification",
+              "multiplex"
+            ],
+            "summary": "Simpleaf 0.32.0 with piscem 0.24.0, alevin-fry 0.19.0 with zstd, MACS3, offline registries, versioned shared resources, RAD v2, per-probe Flex and configurable UMI correction.",
+            "description": "Simpleaf 0.32.0 with piscem 0.24.0, alevin-fry 0.19.0 with zstd, MACS3, offline registries, versioned shared resources, RAD v2, per-probe Flex and configurable UMI correction."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/simpleaf:0.32.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.32.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:87b7e76f2e1a9c23670df16098ff4d3eb4b0a0553d45ac7861b1a697d21dacc2",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c410f5fb9e28b0e290907a2745acd6ad7c056e3db4f15a78afc8098507035585",
+              "linux/arm64": "sha256:930066310bb7c4d380fb5d1b02db2f0beacb997e85dfb9f6a1f62244369c51d6"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "simpleaf",
+              "simpleaf-resources",
+              "piscem",
+              "alevin-fry",
+              "macs3",
+              "python",
+              "python3",
+              "bash",
+              "sh",
+              "awk",
+              "grep",
+              "sed",
+              "tail",
+              "gzip",
+              "gunzip",
+              "unzip",
+              "wget",
+              "curl",
+              "ldd",
+              "find",
+              "xargs",
+              "mktemp",
+              "cp",
+              "touch"
+            ],
+            "test": [
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh identity",
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh interfaces",
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh registry",
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh index",
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh quant",
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh flex",
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh atac",
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh workflow",
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh macs",
+              "/opt/simpleaf/share/testdata/simpleaf-smoke.sh resources"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-28T16:35:39Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-28T16:36:19Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "45894211fdb4b6b803664a015dc2aa4e1a08d7c0",
+                "image_digest": "sha256:87b7e76f2e1a9c23670df16098ff4d3eb4b0a0553d45ac7861b1a697d21dacc2",
+                "smoke_sha256": "f6b9ed5cabf3e747806e45fc621e5e5f2e4e669d08fafcc3b9271ed0767243be",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-28T16:35:39Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "45894211fdb4b6b803664a015dc2aa4e1a08d7c0",
+                "image_digest": "sha256:87b7e76f2e1a9c23670df16098ff4d3eb4b0a0553d45ac7861b1a697d21dacc2",
+                "smoke_sha256": "f6b9ed5cabf3e747806e45fc621e5e5f2e4e669d08fafcc3b9271ed0767243be",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-28T16:35:50Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "45894211fdb4b6b803664a015dc2aa4e1a08d7c0",
+                "image_digest": "sha256:87b7e76f2e1a9c23670df16098ff4d3eb4b0a0553d45ac7861b1a697d21dacc2",
+                "smoke_sha256": "f6b9ed5cabf3e747806e45fc621e5e5f2e4e669d08fafcc3b9271ed0767243be",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-28T16:30:02Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/simpleaf",
+            "ref": "v0.32.0-r1",
+            "commit": "45894211fdb4b6b803664a015dc2aa4e1a08d7c0",
+            "html_url": "https://github.com/taffish/simpleaf/tree/v0.32.0-r1"
+          },
+          "upstream": {
+            "name": "simpleaf",
+            "type": "github",
+            "homepage": "https://combine-lab.github.io/simpleaf/",
+            "repository": "COMBINE-lab/simpleaf",
+            "release_url": "https://github.com/COMBINE-lab/simpleaf/releases/tag/v0.32.0",
+            "version": "0.32.0",
             "license": "BSD-3-Clause"
           }
         }
@@ -96804,7 +97451,7 @@
     },
     "taf-alevin-fry": {
       "package": "alevin-fry",
-      "version": "0.18.3-r1"
+      "version": "0.19.0-r1"
     },
     "taf-amrfinderplus": {
       "package": "amrfinderplus",
@@ -97452,7 +98099,7 @@
     },
     "taf-panaroo": {
       "package": "panaroo",
-      "version": "1.8.0-r1"
+      "version": "1.8.1-r1"
     },
     "taf-pandepth": {
       "package": "pandepth",
@@ -97708,7 +98355,7 @@
     },
     "taf-simpleaf": {
       "package": "simpleaf",
-      "version": "0.30.0-r1"
+      "version": "0.32.0-r1"
     },
     "taf-sniffles": {
       "package": "sniffles",
