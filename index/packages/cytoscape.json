@@ -1,0 +1,202 @@
+{
+  "name": "cytoscape",
+  "latest": "3.10.5-r1",
+  "recent_version": "3.10.5-r1",
+  "recent_at": "2026-10-28T07:16:30Z",
+  "repository_url": "https://github.com/taffish/cytoscape",
+  "command": {
+    "name": "taf-cytoscape"
+  },
+  "versions": {
+    "3.10.5-r1": {
+      "name": "cytoscape",
+      "kind": "tool",
+      "version": "3.10.5",
+      "release": 1,
+      "version_id": "3.10.5-r1",
+      "tag": "v3.10.5-r1",
+      "published_at": "2026-10-28T07:16:30Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/cytoscape",
+      "repository_slug": "taffish/cytoscape",
+      "command": {
+        "name": "taf-cytoscape"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "network-analysis",
+        "categories": [
+          "network-analysis",
+          "visualization"
+        ],
+        "keywords": [
+          "cytoscape",
+          "network",
+          "graph",
+          "gml",
+          "desktop",
+          "novnc"
+        ],
+        "summary": "Cytoscape Desktop with a supervised local noVNC viewer and GML import.",
+        "description": "Cytoscape Desktop with a supervised local noVNC viewer and GML import."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/cytoscape:3.10.5-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.10.5-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:32e886c30e3f0c3ebcd7e7de1482b3c5a57ea79cc828829d1991f46d2e7541c6",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:d09fae1ddceae42ddcb6c5f1e85accdce9a82bd5e84bc9b7b9871026a0dbee90",
+          "linux/arm64": "sha256:a3812258347b93c38d5a46753f51ff708dbf704db891edddf67249db47f59c64"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "cytoscape-gui",
+          "cytoscape-identity",
+          "cytoscape-smoke",
+          "java",
+          "python3",
+          "Xvfb",
+          "openbox",
+          "x11vnc",
+          "websockify",
+          "xdpyinfo",
+          "xprop",
+          "xwininfo",
+          "xdotool",
+          "bash",
+          "sh",
+          "awk",
+          "sed",
+          "grep",
+          "readlink",
+          "dirname",
+          "basename",
+          "uname",
+          "ps",
+          "sort",
+          "cat",
+          "tr",
+          "id",
+          "expr",
+          "mkdir",
+          "ls"
+        ],
+        "test": [
+          "cytoscape-smoke identity",
+          "cytoscape-smoke help",
+          "cytoscape-smoke arguments",
+          "cytoscape-smoke blank",
+          "cytoscape-smoke graph",
+          "cytoscape-smoke fault"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-28T07:27:33Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-28T07:28:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261023.334.3",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e1d817aa767795e9ddb1b5d3e21c7254d59f8552",
+            "image_digest": "sha256:32e886c30e3f0c3ebcd7e7de1482b3c5a57ea79cc828829d1991f46d2e7541c6",
+            "smoke_sha256": "19d20c18dbd560e5d6108198b0e4ecdf51f5b560e22cb406e89f8d749feaa941",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-28T07:27:33Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261023.334.3",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e1d817aa767795e9ddb1b5d3e21c7254d59f8552",
+            "image_digest": "sha256:32e886c30e3f0c3ebcd7e7de1482b3c5a57ea79cc828829d1991f46d2e7541c6",
+            "smoke_sha256": "19d20c18dbd560e5d6108198b0e4ecdf51f5b560e22cb406e89f8d749feaa941",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-28T07:27:34Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "e1d817aa767795e9ddb1b5d3e21c7254d59f8552",
+            "image_digest": "sha256:32e886c30e3f0c3ebcd7e7de1482b3c5a57ea79cc828829d1991f46d2e7541c6",
+            "smoke_sha256": "19d20c18dbd560e5d6108198b0e4ecdf51f5b560e22cb406e89f8d749feaa941",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-28T07:21:28Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/cytoscape",
+        "ref": "v3.10.5-r1",
+        "commit": "e1d817aa767795e9ddb1b5d3e21c7254d59f8552",
+        "html_url": "https://github.com/taffish/cytoscape/tree/v3.10.5-r1"
+      },
+      "upstream": {
+        "name": "Cytoscape",
+        "type": "github",
+        "homepage": "https://cytoscape.org/",
+        "repository": "cytoscape/cytoscape",
+        "release_url": "https://github.com/cytoscape/cytoscape/releases/tag/3.10.5",
+        "version": "3.10.5",
+        "license": "LGPL-2.1 with the upstream extension clarification; bundled components retain their licenses",
+        "citation": "Shannon P et al. Cytoscape: a software environment for integrated models of biomolecular interaction networks. Genome Research 13:2498-2504 (2003).",
+        "doi": "10.1101/gr.1239303",
+        "pmid": "14597658"
+      }
+    }
+  }
+}
