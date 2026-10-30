@@ -1,8 +1,8 @@
 {
   "name": "bcftools",
-  "latest": "1.24-r1",
-  "recent_version": "1.24-r1",
-  "recent_at": "2026-07-09T22:31:13Z",
+  "latest": "1.25-r1",
+  "recent_version": "1.25-r1",
+  "recent_at": "2026-10-30T06:15:13Z",
   "repository_url": "https://github.com/taffish/bcftools",
   "command": {
     "name": "taf-bcftools"
@@ -536,6 +536,202 @@
         "repository": "samtools/bcftools",
         "release_url": "https://github.com/samtools/bcftools/releases/tag/1.24",
         "version": "1.24",
+        "license": "MIT/Expat or GPL",
+        "citation": "Danecek et al. 2021",
+        "doi": "10.1093/gigascience/giab008",
+        "pmid": "33590861"
+      }
+    },
+    "1.25-r1": {
+      "name": "bcftools",
+      "kind": "tool",
+      "version": "1.25",
+      "release": 1,
+      "version_id": "1.25-r1",
+      "tag": "v1.25-r1",
+      "published_at": "2026-10-30T06:15:13Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bcftools",
+      "repository_slug": "taffish/bcftools",
+      "command": {
+        "name": "taf-bcftools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "variant-calling",
+          "vcf-bcf"
+        ],
+        "keywords": [
+          "vcf",
+          "bcf",
+          "variant",
+          "genotype",
+          "annotation",
+          "htslib",
+          "bgzip",
+          "tabix"
+        ],
+        "summary": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files.",
+        "description": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bcftools:1.25-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.25-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:f35bdb60dd25225f17826bc95c76dcde524094cdaa059aa6b8f82b5bb903c7cb",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0ab287f8603842b514b70821d3ecace0d8ed82694ea127901351d67418d03c4d",
+          "linux/arm64": "sha256:bf48aea87d4a377d33204c47289714a6877067a288143ac25f24543fbeb8802a"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "bcftools",
+          "bgzip",
+          "tabix",
+          "htsfile",
+          "annot-tsv",
+          "ref-cache",
+          "plot-vcfstats",
+          "plot-roh.py",
+          "roh-viz",
+          "run-roh.pl",
+          "color-chrs.pl",
+          "gff2gff",
+          "gff2gff.py",
+          "guess-ploidy.py",
+          "vcfutils.pl",
+          "vrfs-variances",
+          "python",
+          "python3",
+          "perl",
+          "bash",
+          "gzip",
+          "gunzip",
+          "wget",
+          "cat",
+          "cp",
+          "cmp",
+          "mktemp",
+          "mkdir",
+          "tee",
+          "mv",
+          "grep"
+        ],
+        "test": [
+          "sh /opt/bcftools/share/testdata/bcftools-smoke.sh identity",
+          "sh /opt/bcftools/share/testdata/bcftools-smoke.sh interfaces",
+          "sh /opt/bcftools/share/testdata/bcftools-smoke.sh plugin",
+          "sh /opt/bcftools/share/testdata/bcftools-smoke.sh index",
+          "sh /opt/bcftools/share/testdata/bcftools-smoke.sh release",
+          "sh /opt/bcftools/share/testdata/bcftools-smoke.sh plot",
+          "sh /opt/bcftools/share/testdata/bcftools-smoke.sh html",
+          "python3 -c 'import gffutils,matplotlib,numpy; assert gffutils.__version__ == \"0.13\"; assert matplotlib.__version__ == \"3.8.4\"; assert numpy.__version__ == \"1.26.4\"'"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-30T07:21:38Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:22:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c9693fc3f170a4b01e4160997cd8038f1e1e2de3",
+            "image_digest": "sha256:f35bdb60dd25225f17826bc95c76dcde524094cdaa059aa6b8f82b5bb903c7cb",
+            "smoke_sha256": "df57d1834ea80c8167d73e5c8b239fd502a4d8ff7d05c4d94f2f94f54142d9ba",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:21:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c9693fc3f170a4b01e4160997cd8038f1e1e2de3",
+            "image_digest": "sha256:f35bdb60dd25225f17826bc95c76dcde524094cdaa059aa6b8f82b5bb903c7cb",
+            "smoke_sha256": "df57d1834ea80c8167d73e5c8b239fd502a4d8ff7d05c4d94f2f94f54142d9ba",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:21:31Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c9693fc3f170a4b01e4160997cd8038f1e1e2de3",
+            "image_digest": "sha256:f35bdb60dd25225f17826bc95c76dcde524094cdaa059aa6b8f82b5bb903c7cb",
+            "smoke_sha256": "df57d1834ea80c8167d73e5c8b239fd502a4d8ff7d05c4d94f2f94f54142d9ba",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-30T07:15:16Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bcftools",
+        "ref": "v1.25-r1",
+        "commit": "c9693fc3f170a4b01e4160997cd8038f1e1e2de3",
+        "html_url": "https://github.com/taffish/bcftools/tree/v1.25-r1"
+      },
+      "upstream": {
+        "name": "BCFtools",
+        "type": "github",
+        "homepage": "https://www.htslib.org/",
+        "repository": "samtools/bcftools",
+        "release_url": "https://github.com/samtools/bcftools/releases/tag/1.25",
+        "version": "1.25",
         "license": "MIT/Expat or GPL",
         "citation": "Danecek et al. 2021",
         "doi": "10.1093/gigascience/giab008",

@@ -1,8 +1,8 @@
 {
   "name": "nextclade",
-  "latest": "3.25.1-r1",
-  "recent_version": "3.25.1-r1",
-  "recent_at": "2026-10-25T16:21:02Z",
+  "latest": "3.28.0-r1",
+  "recent_version": "3.28.0-r1",
+  "recent_at": "2026-10-29T16:41:27Z",
   "repository_url": "https://github.com/taffish/nextclade",
   "command": {
     "name": "taf-nextclade"
@@ -937,6 +937,201 @@
         "repository": "https://github.com/nextstrain/nextclade",
         "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.25.1",
         "version": "3.25.1",
+        "license": "MIT",
+        "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
+        "doi": "10.21105/joss.03773"
+      }
+    },
+    "3.28.0-r1": {
+      "name": "nextclade",
+      "kind": "tool",
+      "version": "3.28.0",
+      "release": 1,
+      "version_id": "3.28.0-r1",
+      "tag": "v3.28.0-r1",
+      "published_at": "2026-10-29T16:41:27Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/nextclade",
+      "repository_slug": "taffish/nextclade",
+      "command": {
+        "name": "taf-nextclade"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "phylogenetics",
+        "categories": [
+          "phylogenetics",
+          "genomics",
+          "viral-genomics",
+          "variant-calling",
+          "quality-control",
+          "visualization"
+        ],
+        "keywords": [
+          "nextstrain",
+          "nextclade",
+          "virus",
+          "alignment",
+          "clade-assignment",
+          "mutation-calling",
+          "phylogenetics",
+          "quality-control",
+          "web-ui"
+        ],
+        "summary": "Nextclade 3.28.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces.",
+        "description": "Nextclade 3.28.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/nextclade:3.28.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.28.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:89de93b517f66fd82e09b6fb7342adb81b3691b6f5fecd570ce33d445427fe1c",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:7b1ec6f690598283682a0730e34d7f907d9cd310f8bfbc36451ed32313f2c033",
+          "linux/arm64": "sha256:283c394a24c83167ea0394e339eca688a3038cf88e0f8b249e7aee349c4f307e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "nextclade",
+          "nextalign",
+          "nextclade-web",
+          "nextclade-datasets",
+          "nextclade-smoke",
+          "nginx",
+          "jq",
+          "sha256sum",
+          "find",
+          "xargs",
+          "setsid",
+          "wget",
+          "timeout",
+          "cmp",
+          "env",
+          "sh",
+          "bash"
+        ],
+        "test": [
+          "nextclade-smoke identity",
+          "nextclade-smoke commands",
+          "nextclade-smoke core",
+          "nextclade-smoke mutation-patterns",
+          "nextclade-smoke cds-boundary",
+          "nextclade-smoke output-errors",
+          "nextclade-smoke datasets",
+          "nextclade-smoke resource-space",
+          "nextclade-smoke web-ready-int",
+          "nextclade-smoke web-ready-term",
+          "nextclade-smoke web-startup-int",
+          "nextclade-smoke web-handshake-int",
+          "nextclade-smoke web-critical",
+          "nextclade-smoke web-critical-zero",
+          "nextclade-smoke web-occupied-port",
+          "nextclade-smoke web-output-close",
+          "nextclade-smoke web-cleanup-failure",
+          "nextclade-smoke errors"
+        ],
+        "status": "passed",
+        "checked_at": "2026-10-30T07:21:38Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:22:58Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2379843fe53eb496a7a7594c1f6d291d8784535d",
+            "image_digest": "sha256:89de93b517f66fd82e09b6fb7342adb81b3691b6f5fecd570ce33d445427fe1c",
+            "smoke_sha256": "574a86f4d6a6a134d43871cdba2fb12ac153af8e10122252b92a226d99389597",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:21:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2379843fe53eb496a7a7594c1f6d291d8784535d",
+            "image_digest": "sha256:89de93b517f66fd82e09b6fb7342adb81b3691b6f5fecd570ce33d445427fe1c",
+            "smoke_sha256": "574a86f4d6a6a134d43871cdba2fb12ac153af8e10122252b92a226d99389597",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:21:31Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "2379843fe53eb496a7a7594c1f6d291d8784535d",
+            "image_digest": "sha256:89de93b517f66fd82e09b6fb7342adb81b3691b6f5fecd570ce33d445427fe1c",
+            "smoke_sha256": "574a86f4d6a6a134d43871cdba2fb12ac153af8e10122252b92a226d99389597",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-10-30T07:15:16Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/nextclade",
+        "ref": "v3.28.0-r1",
+        "commit": "2379843fe53eb496a7a7594c1f6d291d8784535d",
+        "html_url": "https://github.com/taffish/nextclade/tree/v3.28.0-r1"
+      },
+      "upstream": {
+        "name": "Nextclade",
+        "type": "github",
+        "homepage": "https://clades.nextstrain.org",
+        "repository": "https://github.com/nextstrain/nextclade",
+        "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.28.0",
+        "version": "3.28.0",
         "license": "MIT",
         "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
         "doi": "10.21105/joss.03773"

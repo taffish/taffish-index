@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-29T07:12:24Z",
+  "generated_at": "2026-10-30T07:15:16Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 549,
+    "versions": 554,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -4843,9 +4843,9 @@
     },
     "bcftools": {
       "name": "bcftools",
-      "latest": "1.24-r1",
-      "recent_version": "1.24-r1",
-      "recent_at": "2026-07-09T22:31:13Z",
+      "latest": "1.25-r1",
+      "recent_version": "1.25-r1",
+      "recent_at": "2026-10-30T06:15:13Z",
       "repository_url": "https://github.com/taffish/bcftools",
       "command": {
         "name": "taf-bcftools"
@@ -5379,6 +5379,202 @@
             "repository": "samtools/bcftools",
             "release_url": "https://github.com/samtools/bcftools/releases/tag/1.24",
             "version": "1.24",
+            "license": "MIT/Expat or GPL",
+            "citation": "Danecek et al. 2021",
+            "doi": "10.1093/gigascience/giab008",
+            "pmid": "33590861"
+          }
+        },
+        "1.25-r1": {
+          "name": "bcftools",
+          "kind": "tool",
+          "version": "1.25",
+          "release": 1,
+          "version_id": "1.25-r1",
+          "tag": "v1.25-r1",
+          "published_at": "2026-10-30T06:15:13Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bcftools",
+          "repository_slug": "taffish/bcftools",
+          "command": {
+            "name": "taf-bcftools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "variant-calling",
+              "vcf-bcf"
+            ],
+            "keywords": [
+              "vcf",
+              "bcf",
+              "variant",
+              "genotype",
+              "annotation",
+              "htslib",
+              "bgzip",
+              "tabix"
+            ],
+            "summary": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files.",
+            "description": "Toolkit for variant calling and manipulating VCF/BCF genomic variant files."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bcftools:1.25-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.25-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:f35bdb60dd25225f17826bc95c76dcde524094cdaa059aa6b8f82b5bb903c7cb",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0ab287f8603842b514b70821d3ecace0d8ed82694ea127901351d67418d03c4d",
+              "linux/arm64": "sha256:bf48aea87d4a377d33204c47289714a6877067a288143ac25f24543fbeb8802a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "bcftools",
+              "bgzip",
+              "tabix",
+              "htsfile",
+              "annot-tsv",
+              "ref-cache",
+              "plot-vcfstats",
+              "plot-roh.py",
+              "roh-viz",
+              "run-roh.pl",
+              "color-chrs.pl",
+              "gff2gff",
+              "gff2gff.py",
+              "guess-ploidy.py",
+              "vcfutils.pl",
+              "vrfs-variances",
+              "python",
+              "python3",
+              "perl",
+              "bash",
+              "gzip",
+              "gunzip",
+              "wget",
+              "cat",
+              "cp",
+              "cmp",
+              "mktemp",
+              "mkdir",
+              "tee",
+              "mv",
+              "grep"
+            ],
+            "test": [
+              "sh /opt/bcftools/share/testdata/bcftools-smoke.sh identity",
+              "sh /opt/bcftools/share/testdata/bcftools-smoke.sh interfaces",
+              "sh /opt/bcftools/share/testdata/bcftools-smoke.sh plugin",
+              "sh /opt/bcftools/share/testdata/bcftools-smoke.sh index",
+              "sh /opt/bcftools/share/testdata/bcftools-smoke.sh release",
+              "sh /opt/bcftools/share/testdata/bcftools-smoke.sh plot",
+              "sh /opt/bcftools/share/testdata/bcftools-smoke.sh html",
+              "python3 -c 'import gffutils,matplotlib,numpy; assert gffutils.__version__ == \"0.13\"; assert matplotlib.__version__ == \"3.8.4\"; assert numpy.__version__ == \"1.26.4\"'"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-30T07:21:38Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:22:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c9693fc3f170a4b01e4160997cd8038f1e1e2de3",
+                "image_digest": "sha256:f35bdb60dd25225f17826bc95c76dcde524094cdaa059aa6b8f82b5bb903c7cb",
+                "smoke_sha256": "df57d1834ea80c8167d73e5c8b239fd502a4d8ff7d05c4d94f2f94f54142d9ba",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c9693fc3f170a4b01e4160997cd8038f1e1e2de3",
+                "image_digest": "sha256:f35bdb60dd25225f17826bc95c76dcde524094cdaa059aa6b8f82b5bb903c7cb",
+                "smoke_sha256": "df57d1834ea80c8167d73e5c8b239fd502a4d8ff7d05c4d94f2f94f54142d9ba",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:31Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c9693fc3f170a4b01e4160997cd8038f1e1e2de3",
+                "image_digest": "sha256:f35bdb60dd25225f17826bc95c76dcde524094cdaa059aa6b8f82b5bb903c7cb",
+                "smoke_sha256": "df57d1834ea80c8167d73e5c8b239fd502a4d8ff7d05c4d94f2f94f54142d9ba",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:15:16Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bcftools",
+            "ref": "v1.25-r1",
+            "commit": "c9693fc3f170a4b01e4160997cd8038f1e1e2de3",
+            "html_url": "https://github.com/taffish/bcftools/tree/v1.25-r1"
+          },
+          "upstream": {
+            "name": "BCFtools",
+            "type": "github",
+            "homepage": "https://www.htslib.org/",
+            "repository": "samtools/bcftools",
+            "release_url": "https://github.com/samtools/bcftools/releases/tag/1.25",
+            "version": "1.25",
             "license": "MIT/Expat or GPL",
             "citation": "Danecek et al. 2021",
             "doi": "10.1093/gigascience/giab008",
@@ -14757,9 +14953,9 @@
     },
     "cooler": {
       "name": "cooler",
-      "latest": "0.11.0-r1",
-      "recent_version": "0.11.0-r1",
-      "recent_at": "2026-10-27T16:06:35Z",
+      "latest": "0.12.1-r1",
+      "recent_version": "0.12.1-r1",
+      "recent_at": "2026-10-30T06:15:12Z",
       "repository_url": "https://github.com/taffish/cooler",
       "command": {
         "name": "taf-cooler"
@@ -15118,6 +15314,193 @@
             "repository": "https://github.com/open2c/cooler",
             "release_url": "https://github.com/open2c/cooler/releases/tag/v0.11.0",
             "version": "0.11.0",
+            "license": "BSD-3-Clause",
+            "citation": "Abdennur N, Mirny LA. Cooler: scalable storage for Hi-C data and other genomically labeled arrays. Bioinformatics (2020).",
+            "doi": "10.1093/bioinformatics/btz540"
+          }
+        },
+        "0.12.1-r1": {
+          "name": "cooler",
+          "kind": "tool",
+          "version": "0.12.1",
+          "release": 1,
+          "version_id": "0.12.1-r1",
+          "tag": "v0.12.1-r1",
+          "published_at": "2026-10-30T06:15:12Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/cooler",
+          "repository_slug": "taffish/cooler",
+          "command": {
+            "name": "taf-cooler"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "hi-c",
+            "categories": [
+              "hi-c",
+              "3d-genome",
+              "matrix",
+              "file-format",
+              "genomics"
+            ],
+            "keywords": [
+              "cooler",
+              "hi-c",
+              "cool",
+              "mcool",
+              "scool",
+              "hdf5",
+              "contact matrix",
+              "3d genome",
+              "open2c"
+            ],
+            "summary": "cooler 0.12.1 command-line and Python runtime for storing, ingesting, querying, balancing, coarsening, and visualizing Hi-C contact matrices in .cool/.mcool HDF5 format.",
+            "description": "cooler 0.12.1 command-line and Python runtime for storing, ingesting, querying, balancing, coarsening, and visualizing Hi-C contact matrices in .cool/.mcool HDF5 format."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/cooler:0.12.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.12.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:764428144862575478a84d863a32086d6486d915937a8ad1bc807f6e0b5691f5",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:912b6d990dd8ae85339c65c62e5aa2500649ec44c958ce6b45e59d02c3394a4f",
+              "linux/arm64": "sha256:6d4f92b44d575cd2d0e3a23b5af8b427ee6841b0e6b800361ce3dd158a1540d0"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "cooler",
+              "cooler-gui",
+              "python",
+              "python3",
+              "bgzip",
+              "tabix",
+              "pairix",
+              "pairs_merger",
+              "streamer_1d",
+              "sort",
+              "cat",
+              "gzip",
+              "pigz",
+              "bash",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "python /opt/cooler/share/cooler_smoke.py identity",
+              "python /opt/cooler/share/cooler_smoke.py ingest",
+              "python /opt/cooler/share/cooler_smoke.py matrix",
+              "python /opt/cooler/share/cooler_smoke.py scool",
+              "python /opt/cooler/share/cooler_smoke.py negative",
+              "python /opt/cooler/share/cooler_smoke.py update",
+              "python /opt/cooler/share/cooler_smoke.py plot",
+              "python /opt/cooler/share/cooler_gui_smoke.py invalid",
+              "python /opt/cooler/share/cooler_gui_smoke.py service",
+              "python /opt/cooler/share/cooler_gui_smoke.py interrupt",
+              "python /opt/cooler/share/cooler_gui_smoke.py failure",
+              "python /opt/cooler/share/cooler_gui_smoke.py output"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-30T07:21:38Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:22:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "5888362d8bbe1d39f793c4752e816e6052e79112",
+                "image_digest": "sha256:764428144862575478a84d863a32086d6486d915937a8ad1bc807f6e0b5691f5",
+                "smoke_sha256": "ea9792557c096452472c357203f83f32e0029eee22eb57a518e784a686913e53",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "5888362d8bbe1d39f793c4752e816e6052e79112",
+                "image_digest": "sha256:764428144862575478a84d863a32086d6486d915937a8ad1bc807f6e0b5691f5",
+                "smoke_sha256": "ea9792557c096452472c357203f83f32e0029eee22eb57a518e784a686913e53",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:31Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "5888362d8bbe1d39f793c4752e816e6052e79112",
+                "image_digest": "sha256:764428144862575478a84d863a32086d6486d915937a8ad1bc807f6e0b5691f5",
+                "smoke_sha256": "ea9792557c096452472c357203f83f32e0029eee22eb57a518e784a686913e53",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:15:16Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/cooler",
+            "ref": "v0.12.1-r1",
+            "commit": "5888362d8bbe1d39f793c4752e816e6052e79112",
+            "html_url": "https://github.com/taffish/cooler/tree/v0.12.1-r1"
+          },
+          "upstream": {
+            "name": "cooler",
+            "type": "github",
+            "homepage": "https://cooler.readthedocs.io/",
+            "repository": "https://github.com/open2c/cooler",
+            "release_url": "https://github.com/open2c/cooler/releases/tag/v0.12.1",
+            "version": "0.12.1",
             "license": "BSD-3-Clause",
             "citation": "Abdennur N, Mirny LA. Cooler: scalable storage for Hi-C data and other genomically labeled arrays. Bioinformatics (2020).",
             "doi": "10.1093/bioinformatics/btz540"
@@ -29973,9 +30356,9 @@
     },
     "goatools": {
       "name": "goatools",
-      "latest": "1.6.7-r1",
-      "recent_version": "1.6.7-r1",
-      "recent_at": "2026-10-26T05:09:50Z",
+      "latest": "1.6.8-r1",
+      "recent_version": "1.6.8-r1",
+      "recent_at": "2026-10-30T06:15:26Z",
       "repository_url": "https://github.com/taffish/goatools",
       "command": {
         "name": "taf-goatools"
@@ -30530,6 +30913,194 @@
             "repository": "tanghaibao/goatools",
             "release_url": "https://github.com/tanghaibao/goatools/tree/v1.6.7",
             "version": "1.6.7",
+            "license": "BSD-2-Clause",
+            "citation": "Klopfenstein DV et al. GOATOOLS: A Python library for Gene Ontology analyses. Scientific Reports. 2018;8:10872.",
+            "doi": "10.1038/s41598-018-28948-z",
+            "pmid": "30022098"
+          }
+        },
+        "1.6.8-r1": {
+          "name": "goatools",
+          "kind": "tool",
+          "version": "1.6.8",
+          "release": 1,
+          "version_id": "1.6.8-r1",
+          "tag": "v1.6.8-r1",
+          "published_at": "2026-10-30T06:15:26Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/goatools",
+          "repository_slug": "taffish/goatools",
+          "command": {
+            "name": "taf-goatools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "functional-genomics",
+            "categories": [
+              "functional-genomics",
+              "gene-ontology",
+              "enrichment-analysis",
+              "bioinformatics-utilities"
+            ],
+            "keywords": [
+              "goatools",
+              "gene ontology",
+              "go enrichment",
+              "goea",
+              "go dag",
+              "go slim",
+              "gaf",
+              "gpad",
+              "gene2go",
+              "cytoscape",
+              "networkx",
+              "pydot",
+              "pygraphviz"
+            ],
+            "summary": "GOATOOLS 1.6.8 command-line and Python runtime for Gene Ontology enrichment, ontology DAG analysis, GO slim mapping, annotation parsing, reporting, and Graphviz visualization.",
+            "description": "GOATOOLS 1.6.8 command-line and Python runtime for Gene Ontology enrichment, ontology DAG analysis, GO slim mapping, annotation parsing, reporting, and Graphviz visualization."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/goatools:1.6.8-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.6.8-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:204e4c3f628efc0742b1e591cd292fce2437a10472df771cd228499773c63b0a",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:bc5fa6086380f0680067df287579cd246010c6ac68106698002e99e83c690c92",
+              "linux/arm64": "sha256:b8f7946f8d9d4cce9bfe136133bdbfbd78241a3716daa6ed579cd412f8bc8aad"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "goatools",
+              "find_enrichment.py",
+              "go_plot.py",
+              "map_to_slim.py",
+              "wr_hier.py",
+              "plot_go_term.py",
+              "ncbi_gene_results_to_python.py",
+              "python",
+              "dot",
+              "curl",
+              "gzip",
+              "sh",
+              "grep",
+              "ldd",
+              "goatools-resources"
+            ],
+            "test": [
+              "/opt/goatools/share/testdata/goatools-smoke.sh identity",
+              "/opt/goatools/share/testdata/goatools-smoke.sh goea",
+              "/opt/goatools/share/testdata/goatools-smoke.sh spreadsheet",
+              "/opt/goatools/share/testdata/goatools-smoke.sh slim",
+              "/opt/goatools/share/testdata/goatools-smoke.sh graphics",
+              "/opt/goatools/share/testdata/goatools-smoke.sh algorithms",
+              "python /opt/goatools/share/testdata/test-resources.py",
+              "python /opt/goatools/share/testdata/test-network-policy.py",
+              "python /opt/goatools/share/testdata/test-semantic.py",
+              "python /opt/goatools/share/testdata/test-upstream.py"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-30T07:21:38Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:22:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "dc6da6fee139dd2f765eadf5ee2e5a2ab45fdb4c",
+                "image_digest": "sha256:204e4c3f628efc0742b1e591cd292fce2437a10472df771cd228499773c63b0a",
+                "smoke_sha256": "af352d2c45932c67e0e6239f4d252550fcd7043cd2d83027099204febe9b9317",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "dc6da6fee139dd2f765eadf5ee2e5a2ab45fdb4c",
+                "image_digest": "sha256:204e4c3f628efc0742b1e591cd292fce2437a10472df771cd228499773c63b0a",
+                "smoke_sha256": "af352d2c45932c67e0e6239f4d252550fcd7043cd2d83027099204febe9b9317",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:31Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "dc6da6fee139dd2f765eadf5ee2e5a2ab45fdb4c",
+                "image_digest": "sha256:204e4c3f628efc0742b1e591cd292fce2437a10472df771cd228499773c63b0a",
+                "smoke_sha256": "af352d2c45932c67e0e6239f4d252550fcd7043cd2d83027099204febe9b9317",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:15:16Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/goatools",
+            "ref": "v1.6.8-r1",
+            "commit": "dc6da6fee139dd2f765eadf5ee2e5a2ab45fdb4c",
+            "html_url": "https://github.com/taffish/goatools/tree/v1.6.8-r1"
+          },
+          "upstream": {
+            "name": "GOATOOLS",
+            "type": "github",
+            "homepage": "https://github.com/tanghaibao/goatools",
+            "repository": "tanghaibao/goatools",
+            "release_url": "https://github.com/tanghaibao/goatools/tree/v1.6.8",
+            "version": "1.6.8",
             "license": "BSD-2-Clause",
             "citation": "Klopfenstein DV et al. GOATOOLS: A Python library for Gene Ontology analyses. Scientific Reports. 2018;8:10872.",
             "doi": "10.1038/s41598-018-28948-z",
@@ -51909,9 +52480,9 @@
     },
     "ncbi-datasets": {
       "name": "ncbi-datasets",
-      "latest": "18.39.0-r1",
-      "recent_version": "18.39.0-r1",
-      "recent_at": "2026-10-15T16:02:20Z",
+      "latest": "18.40.0-r1",
+      "recent_version": "18.40.0-r1",
+      "recent_at": "2026-10-29T16:31:03Z",
       "repository_url": "https://github.com/taffish/ncbi-datasets",
       "command": {
         "name": "taf-ncbi-datasets"
@@ -53147,14 +53718,198 @@
             "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
             "doi": "10.1038/s41597-024-03571-y"
           }
+        },
+        "18.40.0-r1": {
+          "name": "ncbi-datasets",
+          "kind": "tool",
+          "version": "18.40.0",
+          "release": 1,
+          "version_id": "18.40.0-r1",
+          "tag": "v18.40.0-r1",
+          "published_at": "2026-10-29T16:31:03Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/ncbi-datasets",
+          "repository_slug": "taffish/ncbi-datasets",
+          "command": {
+            "name": "taf-ncbi-datasets"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "data-retrieval",
+              "database-query",
+              "metadata"
+            ],
+            "keywords": [
+              "ncbi datasets",
+              "datasets",
+              "dataformat",
+              "ncbi",
+              "genome",
+              "gene",
+              "taxonomy",
+              "virus",
+              "metadata",
+              "data package"
+            ],
+            "summary": "NCBI Datasets 18.40.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata.",
+            "description": "NCBI Datasets 18.40.0 CLI runtime for querying and downloading NCBI biological data packages and formatting their metadata."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/ncbi-datasets:18.40.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "18.40.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:1539f165a68ec627af8ffac0a13eb81e280fa4b9f7c01fec543fd2bfabd8c789",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:4cef7f456c9a025b1a9b0a38235c2e284e6fe26049d4b930ef20dd1b9496f690",
+              "linux/arm64": "sha256:182021d36f7217b4f6cff1330ec20e1e44c6daacdb6f5d0321cdf00d804f9831"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "datasets",
+              "dataformat",
+              "sh",
+              "grep",
+              "sed",
+              "wc",
+              "tr",
+              "head",
+              "cut",
+              "mkdir",
+              "rm",
+              "mktemp",
+              "unzip",
+              "tail",
+              "sha256sum",
+              "find",
+              "busybox"
+            ],
+            "test": [
+              "/opt/ncbi-datasets/share/testdata/check-runtime.sh && grep -Fx 'upstream_version=18.40.0' /opt/ncbi-datasets/share/doc/ncbi-datasets/source.txt >/dev/null && test -s /etc/ssl/certs/ca-certificates.crt",
+              "datasets --help 2>&1 | grep -F 'Data Retrieval Commands' >/dev/null && datasets summary genome accession --help 2>&1 | grep -F -- '--as-json-lines' >/dev/null && datasets summary genome accession --help 2>&1 | grep -F -- '--pretty' >/dev/null && datasets summary taxonomy taxon --help 2>&1 | grep -F -- '--as-json-lines' >/dev/null && datasets download genome accession --help 2>&1 | grep -F -- '--dehydrated' >/dev/null && datasets download gene gene-id --help 2>&1 | grep -F 'include all file types' >/dev/null && datasets download virus genome taxon --help 2>&1 | grep -F 'include all reports and sequence data' >/dev/null && datasets rehydrate --help 2>&1 | grep -F -- '--directory' >/dev/null && dataformat --help 2>&1 | grep -F 'Formatting Commands' >/dev/null && dataformat tsv genome --help 2>&1 | grep -F -- '--fields' >/dev/null && dataformat tsv sequence --help 2>&1 | grep -F -- '--list-templates' >/dev/null && dataformat tsv sequence --list-templates 2>&1 | grep -F 'summary-no-query' >/dev/null && dataformat excel genome --help 2>&1 | grep -F -- '--outputfile' >/dev/null",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh tsv",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh sequence",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh taxonomy",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh excel",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-smoke.sh invalid",
+              "/opt/ncbi-datasets/share/testdata/ncbi-datasets-pretty-smoke.sh"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-30T07:21:38Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:22:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "43af19b192c92714cd2471550ef09d97fa1772fe",
+                "image_digest": "sha256:1539f165a68ec627af8ffac0a13eb81e280fa4b9f7c01fec543fd2bfabd8c789",
+                "smoke_sha256": "8f5c9d0f87da64f57f19fdab907dba0d06c8073e99d682f970025ce0bd9fbcb0",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "43af19b192c92714cd2471550ef09d97fa1772fe",
+                "image_digest": "sha256:1539f165a68ec627af8ffac0a13eb81e280fa4b9f7c01fec543fd2bfabd8c789",
+                "smoke_sha256": "8f5c9d0f87da64f57f19fdab907dba0d06c8073e99d682f970025ce0bd9fbcb0",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:31Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "43af19b192c92714cd2471550ef09d97fa1772fe",
+                "image_digest": "sha256:1539f165a68ec627af8ffac0a13eb81e280fa4b9f7c01fec543fd2bfabd8c789",
+                "smoke_sha256": "8f5c9d0f87da64f57f19fdab907dba0d06c8073e99d682f970025ce0bd9fbcb0",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:15:16Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/ncbi-datasets",
+            "ref": "v18.40.0-r1",
+            "commit": "43af19b192c92714cd2471550ef09d97fa1772fe",
+            "html_url": "https://github.com/taffish/ncbi-datasets/tree/v18.40.0-r1"
+          },
+          "upstream": {
+            "name": "NCBI Datasets",
+            "type": "github",
+            "homepage": "https://www.ncbi.nlm.nih.gov/datasets/",
+            "repository": "ncbi/datasets",
+            "release_url": "https://github.com/ncbi/datasets/releases/tag/v18.40.0",
+            "version": "18.40.0",
+            "license": "Public Domain / United States Government Work",
+            "citation": "O'Leary NA et al. Exploring and retrieving sequence and metadata for species across the tree of life with NCBI Datasets. Scientific Data. 2024;11:732.",
+            "doi": "10.1038/s41597-024-03571-y"
+          }
         }
       }
     },
     "nextclade": {
       "name": "nextclade",
-      "latest": "3.25.1-r1",
-      "recent_version": "3.25.1-r1",
-      "recent_at": "2026-10-25T16:21:02Z",
+      "latest": "3.28.0-r1",
+      "recent_version": "3.28.0-r1",
+      "recent_at": "2026-10-29T16:41:27Z",
       "repository_url": "https://github.com/taffish/nextclade",
       "command": {
         "name": "taf-nextclade"
@@ -54089,6 +54844,201 @@
             "repository": "https://github.com/nextstrain/nextclade",
             "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.25.1",
             "version": "3.25.1",
+            "license": "MIT",
+            "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
+            "doi": "10.21105/joss.03773"
+          }
+        },
+        "3.28.0-r1": {
+          "name": "nextclade",
+          "kind": "tool",
+          "version": "3.28.0",
+          "release": 1,
+          "version_id": "3.28.0-r1",
+          "tag": "v3.28.0-r1",
+          "published_at": "2026-10-29T16:41:27Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/nextclade",
+          "repository_slug": "taffish/nextclade",
+          "command": {
+            "name": "taf-nextclade"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "phylogenetics",
+            "categories": [
+              "phylogenetics",
+              "genomics",
+              "viral-genomics",
+              "variant-calling",
+              "quality-control",
+              "visualization"
+            ],
+            "keywords": [
+              "nextstrain",
+              "nextclade",
+              "virus",
+              "alignment",
+              "clade-assignment",
+              "mutation-calling",
+              "phylogenetics",
+              "quality-control",
+              "web-ui"
+            ],
+            "summary": "Nextclade 3.28.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces.",
+            "description": "Nextclade 3.28.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/nextclade:3.28.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.28.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:89de93b517f66fd82e09b6fb7342adb81b3691b6f5fecd570ce33d445427fe1c",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7b1ec6f690598283682a0730e34d7f907d9cd310f8bfbc36451ed32313f2c033",
+              "linux/arm64": "sha256:283c394a24c83167ea0394e339eca688a3038cf88e0f8b249e7aee349c4f307e"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "nextclade",
+              "nextalign",
+              "nextclade-web",
+              "nextclade-datasets",
+              "nextclade-smoke",
+              "nginx",
+              "jq",
+              "sha256sum",
+              "find",
+              "xargs",
+              "setsid",
+              "wget",
+              "timeout",
+              "cmp",
+              "env",
+              "sh",
+              "bash"
+            ],
+            "test": [
+              "nextclade-smoke identity",
+              "nextclade-smoke commands",
+              "nextclade-smoke core",
+              "nextclade-smoke mutation-patterns",
+              "nextclade-smoke cds-boundary",
+              "nextclade-smoke output-errors",
+              "nextclade-smoke datasets",
+              "nextclade-smoke resource-space",
+              "nextclade-smoke web-ready-int",
+              "nextclade-smoke web-ready-term",
+              "nextclade-smoke web-startup-int",
+              "nextclade-smoke web-handshake-int",
+              "nextclade-smoke web-critical",
+              "nextclade-smoke web-critical-zero",
+              "nextclade-smoke web-occupied-port",
+              "nextclade-smoke web-output-close",
+              "nextclade-smoke web-cleanup-failure",
+              "nextclade-smoke errors"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-30T07:21:38Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:22:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "2379843fe53eb496a7a7594c1f6d291d8784535d",
+                "image_digest": "sha256:89de93b517f66fd82e09b6fb7342adb81b3691b6f5fecd570ce33d445427fe1c",
+                "smoke_sha256": "574a86f4d6a6a134d43871cdba2fb12ac153af8e10122252b92a226d99389597",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "2379843fe53eb496a7a7594c1f6d291d8784535d",
+                "image_digest": "sha256:89de93b517f66fd82e09b6fb7342adb81b3691b6f5fecd570ce33d445427fe1c",
+                "smoke_sha256": "574a86f4d6a6a134d43871cdba2fb12ac153af8e10122252b92a226d99389597",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-30T07:21:31Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "2379843fe53eb496a7a7594c1f6d291d8784535d",
+                "image_digest": "sha256:89de93b517f66fd82e09b6fb7342adb81b3691b6f5fecd570ce33d445427fe1c",
+                "smoke_sha256": "574a86f4d6a6a134d43871cdba2fb12ac153af8e10122252b92a226d99389597",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-30T07:15:16Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/nextclade",
+            "ref": "v3.28.0-r1",
+            "commit": "2379843fe53eb496a7a7594c1f6d291d8784535d",
+            "html_url": "https://github.com/taffish/nextclade/tree/v3.28.0-r1"
+          },
+          "upstream": {
+            "name": "Nextclade",
+            "type": "github",
+            "homepage": "https://clades.nextstrain.org",
+            "repository": "https://github.com/nextstrain/nextclade",
+            "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.28.0",
+            "version": "3.28.0",
             "license": "MIT",
             "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
             "doi": "10.21105/joss.03773"
@@ -97499,7 +98449,7 @@
     },
     "taf-bcftools": {
       "package": "bcftools",
-      "version": "1.24-r1"
+      "version": "1.25-r1"
     },
     "taf-beast2": {
       "package": "beast2",
@@ -97639,7 +98589,7 @@
     },
     "taf-cooler": {
       "package": "cooler",
-      "version": "0.11.0-r1"
+      "version": "0.12.1-r1"
     },
     "taf-cooltools": {
       "package": "cooltools",
@@ -97815,7 +98765,7 @@
     },
     "taf-goatools": {
       "package": "goatools",
-      "version": "1.6.7-r1"
+      "version": "1.6.8-r1"
     },
     "taf-gromacs": {
       "package": "gromacs",
@@ -98051,11 +99001,11 @@
     },
     "taf-ncbi-datasets": {
       "package": "ncbi-datasets",
-      "version": "18.39.0-r1"
+      "version": "18.40.0-r1"
     },
     "taf-nextclade": {
       "package": "nextclade",
-      "version": "3.25.1-r1"
+      "version": "3.28.0-r1"
     },
     "taf-ngenomesyn": {
       "package": "ngenomesyn",
