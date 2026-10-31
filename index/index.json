@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-10-30T07:15:16Z",
+  "generated_at": "2026-10-31T07:03:50Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 554,
+    "versions": 555,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -77684,9 +77684,9 @@
     },
     "samtools": {
       "name": "samtools",
-      "latest": "1.24-r1",
-      "recent_version": "1.24-r1",
-      "recent_at": "2026-07-09T23:46:16Z",
+      "latest": "1.25-r1",
+      "recent_version": "1.25-r1",
+      "recent_at": "2026-10-30T16:27:30Z",
       "repository_url": "https://github.com/taffish/samtools",
       "command": {
         "name": "taf-samtools"
@@ -78064,6 +78064,207 @@
             "repository": "samtools/samtools",
             "release_url": "https://github.com/samtools/samtools/releases/tag/1.24",
             "version": "1.24",
+            "license": "MIT/Expat",
+            "citation": "Danecek et al. 2021",
+            "doi": "10.1093/gigascience/giab008",
+            "pmid": "33590861"
+          }
+        },
+        "1.25-r1": {
+          "name": "samtools",
+          "kind": "tool",
+          "version": "1.25",
+          "release": 1,
+          "version_id": "1.25-r1",
+          "tag": "v1.25-r1",
+          "published_at": "2026-10-30T16:27:30Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/samtools",
+          "repository_slug": "taffish/samtools",
+          "command": {
+            "name": "taf-samtools"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "alignment",
+              "sam-bam-cram"
+            ],
+            "keywords": [
+              "sam",
+              "bam",
+              "cram",
+              "alignment",
+              "htslib",
+              "bgzip",
+              "tabix",
+              "ngs"
+            ],
+            "summary": "Toolkit for reading, writing, editing, indexing, viewing, and summarizing SAM/BAM/CRAM alignment files.",
+            "description": "Toolkit for reading, writing, editing, indexing, viewing, and summarizing SAM/BAM/CRAM alignment files."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/samtools:1.25-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.25-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:8203f0fd061c9738367840b642196a4d55be3a6d23d25efabe747719270dbff4",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:77396f49955fd7d14551e4e3b239c0231a91b5ab00954b49019bed34a9cca00f",
+              "linux/arm64": "sha256:4cd33abe476c43fab6becdf2782cb307a974d310f5446e1241bd0e96cfa19606"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 120,
+            "exist": [
+              "samtools",
+              "bgzip",
+              "tabix",
+              "htsfile",
+              "annot-tsv",
+              "ref-cache",
+              "ace2sam",
+              "maq2sam-long",
+              "maq2sam-short",
+              "md5fa",
+              "md5sum-lite",
+              "wgsim",
+              "blast2sam.pl",
+              "bowtie2sam.pl",
+              "export2sam.pl",
+              "fasta-sanitize.pl",
+              "interpolate_sam.pl",
+              "novo2sam.pl",
+              "plot-ampliconstats",
+              "plot-bamstats",
+              "psl2sam.pl",
+              "sam2vcf.pl",
+              "samtools.pl",
+              "seq_cache_populate.pl",
+              "seq_cache_populate.py",
+              "soap2sam.pl",
+              "wgsim_eval.pl",
+              "zoom2sam.pl",
+              "gnuplot",
+              "convert",
+              "python3",
+              "perl",
+              "gzip",
+              "gunzip"
+            ],
+            "test": [
+              "sh /opt/samtools/share/taffish/smoke.sh identity",
+              "sh /opt/samtools/share/taffish/smoke.sh help",
+              "sh /opt/samtools/share/taffish/smoke.sh core",
+              "sh /opt/samtools/share/taffish/smoke.sh delta",
+              "sh /opt/samtools/share/taffish/smoke.sh htslib",
+              "sh /opt/samtools/share/taffish/smoke.sh plot",
+              "sh /opt/samtools/share/taffish/smoke.sh amplicon",
+              "sh /opt/samtools/share/taffish/smoke.sh refcache",
+              "sh /opt/samtools/share/taffish/smoke.sh wgsim",
+              "sh /opt/samtools/share/taffish/smoke.sh extras"
+            ],
+            "status": "passed",
+            "checked_at": "2026-10-31T07:08:58Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-10-31T07:09:10Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9962fe9d707128c9920fd3841f0263a8aa0302cc",
+                "image_digest": "sha256:8203f0fd061c9738367840b642196a4d55be3a6d23d25efabe747719270dbff4",
+                "smoke_sha256": "cb41ad721a3a8d8f9ff2ea03f243a752ce4f426f370a8ebf5e2e71ca18e6986d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-10-31T07:08:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9962fe9d707128c9920fd3841f0263a8aa0302cc",
+                "image_digest": "sha256:8203f0fd061c9738367840b642196a4d55be3a6d23d25efabe747719270dbff4",
+                "smoke_sha256": "cb41ad721a3a8d8f9ff2ea03f243a752ce4f426f370a8ebf5e2e71ca18e6986d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-10-31T07:08:58Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261026.354.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9962fe9d707128c9920fd3841f0263a8aa0302cc",
+                "image_digest": "sha256:8203f0fd061c9738367840b642196a4d55be3a6d23d25efabe747719270dbff4",
+                "smoke_sha256": "cb41ad721a3a8d8f9ff2ea03f243a752ce4f426f370a8ebf5e2e71ca18e6986d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-10-31T07:03:50Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/samtools",
+            "ref": "v1.25-r1",
+            "commit": "9962fe9d707128c9920fd3841f0263a8aa0302cc",
+            "html_url": "https://github.com/taffish/samtools/tree/v1.25-r1"
+          },
+          "upstream": {
+            "name": "SAMtools",
+            "type": "github",
+            "homepage": "https://www.htslib.org/",
+            "repository": "samtools/samtools",
+            "release_url": "https://github.com/samtools/samtools/releases/tag/1.25",
+            "version": "1.25",
             "license": "MIT/Expat",
             "citation": "Danecek et al. 2021",
             "doi": "10.1093/gigascience/giab008",
@@ -99257,7 +99458,7 @@
     },
     "taf-samtools": {
       "package": "samtools",
-      "version": "1.24-r1"
+      "version": "1.25-r1"
     },
     "taf-scanpy": {
       "package": "scanpy",

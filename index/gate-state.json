@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-10-30T07:15:16Z",
+  "generated_at": "2026-10-31T07:03:50Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -23764,6 +23764,66 @@
       "message": null
     },
     {
+      "task_id": "taffish/samtools|1.25-r1",
+      "plan_id": "d4cf2b7e88879f71ec3e4a5fa26b29d8312f60b71a903bebee73ac3eba66bc89",
+      "manifest_id": "d0bb2362885ac294e915adb484fbfd230e5681588c837cefaabb04f164f868b8",
+      "backend": "apptainer",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-10-31T07:09:10Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.5",
+      "runner_image": "ubuntu24/20261026.354.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "9962fe9d707128c9920fd3841f0263a8aa0302cc",
+      "image_digest": "sha256:8203f0fd061c9738367840b642196a4d55be3a6d23d25efabe747719270dbff4",
+      "smoke_sha256": "cb41ad721a3a8d8f9ff2ea03f243a752ce4f426f370a8ebf5e2e71ca18e6986d",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/samtools|1.25-r1",
+      "plan_id": "d4cf2b7e88879f71ec3e4a5fa26b29d8312f60b71a903bebee73ac3eba66bc89",
+      "manifest_id": "d0bb2362885ac294e915adb484fbfd230e5681588c837cefaabb04f164f868b8",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-10-31T07:08:58Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20261026.354.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "9962fe9d707128c9920fd3841f0263a8aa0302cc",
+      "image_digest": "sha256:8203f0fd061c9738367840b642196a4d55be3a6d23d25efabe747719270dbff4",
+      "smoke_sha256": "cb41ad721a3a8d8f9ff2ea03f243a752ce4f426f370a8ebf5e2e71ca18e6986d",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/samtools|1.25-r1",
+      "plan_id": "d4cf2b7e88879f71ec3e4a5fa26b29d8312f60b71a903bebee73ac3eba66bc89",
+      "manifest_id": "d0bb2362885ac294e915adb484fbfd230e5681588c837cefaabb04f164f868b8",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-10-31T07:08:58Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 4.9.3",
+      "runner_image": "ubuntu24/20261026.354.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "9962fe9d707128c9920fd3841f0263a8aa0302cc",
+      "image_digest": "sha256:8203f0fd061c9738367840b642196a4d55be3a6d23d25efabe747719270dbff4",
+      "smoke_sha256": "cb41ad721a3a8d8f9ff2ea03f243a752ce4f426f370a8ebf5e2e71ca18e6986d",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
       "task_id": "taffish/scanpy|1.12.1-r1",
       "plan_id": "368a7a7d6dad89d9b8004e94a02257e661b61240a6adbb3fa16367a8773458d4",
       "manifest_id": "33bd271e45f8472f57402dca94d125d97b26d37af8a0d6aad1e2819f178f1608",
@@ -33137,6 +33197,13 @@
       "source_commit": "6bb4b79d44e55ddaf3e075d4a67156adeb1a8461",
       "image": "ghcr.io/taffish/samtools:1.24-r1",
       "image_digest": "sha256:6457cb3c9f4849f906222535ac16603172e5bdde812554fc58ce3eac6ca11e69"
+    },
+    {
+      "task_id": "taffish/samtools|1.25-r1",
+      "source_ref": "v1.25-r1",
+      "source_commit": "9962fe9d707128c9920fd3841f0263a8aa0302cc",
+      "image": "ghcr.io/taffish/samtools:1.25-r1",
+      "image_digest": "sha256:8203f0fd061c9738367840b642196a4d55be3a6d23d25efabe747719270dbff4"
     },
     {
       "task_id": "taffish/scanpy|1.12.1-r1",
