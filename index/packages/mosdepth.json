@@ -1,8 +1,8 @@
 {
   "name": "mosdepth",
-  "latest": "0.3.14-r2",
-  "recent_version": "0.3.14-r2",
-  "recent_at": "2026-05-24T01:06:01Z",
+  "latest": "0.3.15-r1",
+  "recent_version": "0.3.15-r1",
+  "recent_at": "2026-11-02T03:13:27Z",
   "repository_url": "https://github.com/taffish/mosdepth",
   "command": {
     "name": "taf-mosdepth"
@@ -350,6 +350,188 @@
         "repository": "brentp/mosdepth",
         "release_url": "https://github.com/brentp/mosdepth/releases/tag/v0.3.14",
         "version": "0.3.14",
+        "license": "MIT",
+        "citation": "Pedersen and Quinlan 2018, mosdepth: quick coverage calculation for genomes and exomes",
+        "doi": "10.1093/bioinformatics/btx699",
+        "pmid": "29096012"
+      }
+    },
+    "0.3.15-r1": {
+      "name": "mosdepth",
+      "kind": "tool",
+      "version": "0.3.15",
+      "release": 1,
+      "version_id": "0.3.15-r1",
+      "tag": "v0.3.15-r1",
+      "published_at": "2026-11-02T03:13:27Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/mosdepth",
+      "repository_slug": "taffish/mosdepth",
+      "command": {
+        "name": "taf-mosdepth"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "coverage",
+        "categories": [
+          "coverage",
+          "depth",
+          "alignment",
+          "quality-control",
+          "bam",
+          "cram"
+        ],
+        "keywords": [
+          "mosdepth",
+          "coverage",
+          "depth",
+          "bam",
+          "cram",
+          "bed",
+          "d4",
+          "per-base",
+          "per-region",
+          "quantize",
+          "thresholds",
+          "fragment-mode",
+          "exclude-tag"
+        ],
+        "summary": "Fast BAM/CRAM depth and coverage calculation for WGS, exome, and targeted sequencing.",
+        "description": "Fast BAM/CRAM depth and coverage calculation for WGS, exome, and targeted sequencing."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/mosdepth:0.3.15-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "0.3.15-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:c9578e5655a08c3aae469bb082e9041e2176daea89fcabd3580511d9d5aedc75",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a32c9b89c305b908b60b25633185729abef37eeda30f4403cc7f7c5a408b4e7e"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 120,
+        "exist": [
+          "mosdepth",
+          "mosdepth_d4",
+          "sh",
+          "grep",
+          "gzip",
+          "awk",
+          "python3",
+          "plot-dist.py"
+        ],
+        "test": [
+          "sh /opt/mosdepth/share/taffish/smoke.sh identity",
+          "sh /opt/mosdepth/share/taffish/smoke.sh help",
+          "sh /opt/mosdepth/share/taffish/smoke.sh summary",
+          "sh /opt/mosdepth/share/taffish/smoke.sh perbase",
+          "sh /opt/mosdepth/share/taffish/smoke.sh regions",
+          "sh /opt/mosdepth/share/taffish/smoke.sh quantize",
+          "sh /opt/mosdepth/share/taffish/smoke.sh tags",
+          "sh /opt/mosdepth/share/taffish/smoke.sh d4",
+          "sh /opt/mosdepth/share/taffish/smoke.sh chrom-end",
+          "sh /opt/mosdepth/share/taffish/smoke.sh plot",
+          "sh /opt/mosdepth/share/taffish/smoke.sh plot-errors"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-02T07:50:32Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-02T07:51:04Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bbb8c2ff43aeb67abafc15825e56707acaf7ca63",
+            "image_digest": "sha256:c9578e5655a08c3aae469bb082e9041e2176daea89fcabd3580511d9d5aedc75",
+            "smoke_sha256": "3a0816e9997cc3d2920bc855ed21fad1fa734157039c90b9b349e410a0ab0701",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-02T07:50:32Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bbb8c2ff43aeb67abafc15825e56707acaf7ca63",
+            "image_digest": "sha256:c9578e5655a08c3aae469bb082e9041e2176daea89fcabd3580511d9d5aedc75",
+            "smoke_sha256": "3a0816e9997cc3d2920bc855ed21fad1fa734157039c90b9b349e410a0ab0701",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-02T07:50:40Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "bbb8c2ff43aeb67abafc15825e56707acaf7ca63",
+            "image_digest": "sha256:c9578e5655a08c3aae469bb082e9041e2176daea89fcabd3580511d9d5aedc75",
+            "smoke_sha256": "3a0816e9997cc3d2920bc855ed21fad1fa734157039c90b9b349e410a0ab0701",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-02T07:45:00Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/mosdepth",
+        "ref": "v0.3.15-r1",
+        "commit": "bbb8c2ff43aeb67abafc15825e56707acaf7ca63",
+        "html_url": "https://github.com/taffish/mosdepth/tree/v0.3.15-r1"
+      },
+      "upstream": {
+        "name": "mosdepth",
+        "type": "github",
+        "homepage": "https://github.com/brentp/mosdepth",
+        "repository": "brentp/mosdepth",
+        "release_url": "https://github.com/brentp/mosdepth/releases/tag/v0.3.15",
+        "version": "0.3.15",
         "license": "MIT",
         "citation": "Pedersen and Quinlan 2018, mosdepth: quick coverage calculation for genomes and exomes",
         "doi": "10.1093/bioinformatics/btx699",
