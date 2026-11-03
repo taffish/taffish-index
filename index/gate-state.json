@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-11-02T07:45:00Z",
+  "generated_at": "2026-11-03T07:58:57Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -24184,6 +24184,66 @@
       "message": null
     },
     {
+      "task_id": "taffish/scanpy|1.12.5-r1",
+      "plan_id": "28c2703709b109b182d85c0c8700aeab53300b4b5404cbd21e7d3e21b86e7f86",
+      "manifest_id": "9cfa8daac2e0e674d0321c252330ae36d2f513860f688cd1ff06536dd9fe2e30",
+      "backend": "apptainer",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-11-03T08:05:25Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.5",
+      "runner_image": "ubuntu24/20261026.354.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "c4f9a0e5863383129a79f370582d34ab25f0073e",
+      "image_digest": "sha256:e614d827b504997a053929b8fbeb8139a5f4da827e4b050da5dcf5094e96c690",
+      "smoke_sha256": "7a44b13cb1693b691bd58ab4891896e7580bde689ea5160803b7deea4f150854",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/scanpy|1.12.5-r1",
+      "plan_id": "28c2703709b109b182d85c0c8700aeab53300b4b5404cbd21e7d3e21b86e7f86",
+      "manifest_id": "9cfa8daac2e0e674d0321c252330ae36d2f513860f688cd1ff06536dd9fe2e30",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-11-03T08:04:41Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20261026.354.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "c4f9a0e5863383129a79f370582d34ab25f0073e",
+      "image_digest": "sha256:e614d827b504997a053929b8fbeb8139a5f4da827e4b050da5dcf5094e96c690",
+      "smoke_sha256": "7a44b13cb1693b691bd58ab4891896e7580bde689ea5160803b7deea4f150854",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/scanpy|1.12.5-r1",
+      "plan_id": "28c2703709b109b182d85c0c8700aeab53300b4b5404cbd21e7d3e21b86e7f86",
+      "manifest_id": "9cfa8daac2e0e674d0321c252330ae36d2f513860f688cd1ff06536dd9fe2e30",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-11-03T08:04:43Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 4.9.3",
+      "runner_image": "ubuntu24/20261026.354.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "c4f9a0e5863383129a79f370582d34ab25f0073e",
+      "image_digest": "sha256:e614d827b504997a053929b8fbeb8139a5f4da827e4b050da5dcf5094e96c690",
+      "smoke_sha256": "7a44b13cb1693b691bd58ab4891896e7580bde689ea5160803b7deea4f150854",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
       "task_id": "taffish/scrnaseq-python|0.1.0-r1",
       "plan_id": "ecc996c7f6d97c166f7886309c3f12b3825b65cec6a70e67d09e132f901aadfe",
       "manifest_id": "0bc52c64508a8cb28acde94e903dedd4b5ad00cf037477c6195859f9c7e28339",
@@ -33366,6 +33426,13 @@
       "source_commit": "c62fca822f37e09cc80a4a0c145ca4f7a8945d22",
       "image": "ghcr.io/taffish/scanpy:1.12.4-r1",
       "image_digest": "sha256:b1165fa6c8f92c333846ca2035fcd8b304b49a9c36813575a7343444fb8bf90a"
+    },
+    {
+      "task_id": "taffish/scanpy|1.12.5-r1",
+      "source_ref": "v1.12.5-r1",
+      "source_commit": "c4f9a0e5863383129a79f370582d34ab25f0073e",
+      "image": "ghcr.io/taffish/scanpy:1.12.5-r1",
+      "image_digest": "sha256:e614d827b504997a053929b8fbeb8139a5f4da827e4b050da5dcf5094e96c690"
     },
     {
       "task_id": "taffish/scrnaseq-python|0.1.0-r1",
