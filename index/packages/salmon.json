@@ -1,8 +1,8 @@
 {
   "name": "salmon",
-  "latest": "2.8.0-r1",
-  "recent_version": "2.8.0-r1",
-  "recent_at": "2026-09-29T16:34:04Z",
+  "latest": "2.11.0-r1",
+  "recent_version": "2.11.0-r1",
+  "recent_at": "2026-11-04T16:23:53Z",
   "repository_url": "https://github.com/taffish/salmon",
   "command": {
     "name": "taf-salmon"
@@ -683,6 +683,204 @@
         "repository": "COMBINE-lab/salmon",
         "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.1.1",
         "version": "2.1.1",
+        "license": "BSD-3-Clause",
+        "citation": "Patro et al. 2017, Nature Methods",
+        "doi": "10.1038/nmeth.4197",
+        "pmid": "28263959"
+      }
+    },
+    "2.11.0-r1": {
+      "name": "salmon",
+      "kind": "tool",
+      "version": "2.11.0",
+      "release": 1,
+      "version_id": "2.11.0-r1",
+      "tag": "v2.11.0-r1",
+      "published_at": "2026-11-04T16:23:53Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/salmon",
+      "repository_slug": "taffish/salmon",
+      "command": {
+        "name": "taf-salmon"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "transcriptomics",
+          "quantification",
+          "alignment",
+          "indexing"
+        ],
+        "keywords": [
+          "salmon",
+          "rna-seq",
+          "transcript abundance",
+          "selective alignment",
+          "sketch",
+          "sshash",
+          "canonical k-mer",
+          "piscem",
+          "quant",
+          "quantmerge",
+          "adaptive threading",
+          "fifo",
+          "streaming"
+        ],
+        "summary": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, index-format-v3 canonical k-mer dictionaries, selective-alignment and sketch modes, RAD workflows, mapping export, alignment-based quantification, and quantification merging.",
+        "description": "Salmon transcript-level RNA-seq quantification with the Salmon 2 Rust CLI, index-format-v3 canonical k-mer dictionaries, selective-alignment and sketch modes, RAD workflows, mapping export, alignment-based quantification, and quantification merging."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/salmon:2.11.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.11.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:fc85b173f1d89562850cb877a4f22e4421b7ab693315334a1a32ee27ada32737",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:536dd1882243c0c909d7ddf24e9f1318764f431ac2f8d6a2b2274675adb334bd",
+          "linux/arm64": "sha256:914a48dbe0780a9465257754e39f2e8488fe1f8c84fa16d47e73997b3e009f89"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "salmon",
+          "ldd",
+          "locale",
+          "ps",
+          "gzip",
+          "od",
+          "awk",
+          "cmp",
+          "cp",
+          "sed",
+          "find",
+          "wc",
+          "sh",
+          "mktemp",
+          "tail",
+          "mkfifo"
+        ],
+        "test": [
+          "sh /opt/salmon/share/salmon-smoke.sh interfaces",
+          "sh /opt/salmon/share/salmon-smoke.sh index",
+          "sh /opt/salmon/share/salmon-smoke.sh compatibility",
+          "sh /opt/salmon/share/salmon-smoke.sh quant",
+          "sh /opt/salmon/share/salmon-smoke.sh pool",
+          "sh /opt/salmon/share/salmon-smoke.sh sketch",
+          "sh /opt/salmon/share/salmon-smoke.sh merge",
+          "sh /opt/salmon/share/salmon-smoke.sh alevin",
+          "sh /opt/salmon/share/salmon-smoke.sh alignment",
+          "sh /opt/salmon/share/salmon-smoke.sh genome",
+          "sh /opt/salmon/share/salmon-smoke.sh accel",
+          "sh /opt/salmon/share/salmon-smoke.sh bam",
+          "sh /opt/salmon/share/salmon-smoke.sh rad",
+          "sh /opt/salmon/share/salmon-smoke.sh radv2",
+          "sh /opt/salmon/share/salmon-smoke.sh deterministic",
+          "sh /opt/salmon/share/salmon-smoke.sh skip",
+          "sh /opt/salmon/share/salmon-smoke.sh streams",
+          "sh /opt/salmon/share/salmon-smoke.sh validation"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-05T08:02:21Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-05T08:03:25Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "313424f80c6893488e3956a3e71e10a5a1b5d669",
+            "image_digest": "sha256:fc85b173f1d89562850cb877a4f22e4421b7ab693315334a1a32ee27ada32737",
+            "smoke_sha256": "3d7a269839c270835e9995bfc1391e199d23b7c7bc30d0ec6f2a23251ad53fd7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-05T08:02:21Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "313424f80c6893488e3956a3e71e10a5a1b5d669",
+            "image_digest": "sha256:fc85b173f1d89562850cb877a4f22e4421b7ab693315334a1a32ee27ada32737",
+            "smoke_sha256": "3d7a269839c270835e9995bfc1391e199d23b7c7bc30d0ec6f2a23251ad53fd7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-05T08:03:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261101.114.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "313424f80c6893488e3956a3e71e10a5a1b5d669",
+            "image_digest": "sha256:fc85b173f1d89562850cb877a4f22e4421b7ab693315334a1a32ee27ada32737",
+            "smoke_sha256": "3d7a269839c270835e9995bfc1391e199d23b7c7bc30d0ec6f2a23251ad53fd7",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-05T07:57:37Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/salmon",
+        "ref": "v2.11.0-r1",
+        "commit": "313424f80c6893488e3956a3e71e10a5a1b5d669",
+        "html_url": "https://github.com/taffish/salmon/tree/v2.11.0-r1"
+      },
+      "upstream": {
+        "name": "Salmon",
+        "type": "github",
+        "homepage": "https://combine-lab.github.io/salmon/",
+        "repository": "COMBINE-lab/salmon",
+        "release_url": "https://github.com/COMBINE-lab/salmon/releases/tag/v2.11.0",
+        "version": "2.11.0",
         "license": "BSD-3-Clause",
         "citation": "Patro et al. 2017, Nature Methods",
         "doi": "10.1038/nmeth.4197",

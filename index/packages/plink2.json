@@ -1,8 +1,8 @@
 {
   "name": "plink2",
-  "latest": "2.0.0-b.1.2-r1",
-  "recent_version": "2.0.0-b.1.2-r1",
-  "recent_at": "2026-10-26T16:04:17Z",
+  "latest": "2.0.0-b.1.3-r1",
+  "recent_version": "2.0.0-b.1.3-r1",
+  "recent_at": "2026-11-04T16:22:33Z",
   "repository_url": "https://github.com/taffish/plink2",
   "command": {
     "name": "taf-plink2"
@@ -1467,6 +1467,202 @@
         "repository": "chrchang/plink-ng",
         "release_url": "https://github.com/chrchang/plink-ng/releases/tag/v2.0.0-b.1.2",
         "version": "2.0.0-b.1.2",
+        "license": "GPL-3.0-or-later for PLINK 2.0, ldsc and mtag; LGPL-3.0-or-later for include libraries and vcf_subset; bundled SIMDe/libdeflate/zstd/QD components retain their upstream licenses",
+        "citation": "Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ. Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience. 2015;4:7.",
+        "doi": "10.1186/s13742-015-0047-8",
+        "pmid": "25722852"
+      }
+    },
+    "2.0.0-b.1.3-r1": {
+      "name": "plink2",
+      "kind": "tool",
+      "version": "2.0.0-b.1.3",
+      "release": 1,
+      "version_id": "2.0.0-b.1.3-r1",
+      "tag": "v2.0.0-b.1.3-r1",
+      "published_at": "2026-11-04T16:22:33Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/plink2",
+      "repository_slug": "taffish/plink2",
+      "command": {
+        "name": "taf-plink2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "gwas",
+          "population-genetics",
+          "variant",
+          "genotype"
+        ],
+        "keywords": [
+          "plink 2.0",
+          "plink2",
+          "gwas",
+          "pgen",
+          "vcf",
+          "bgen",
+          "genotype",
+          "association",
+          "population genetics"
+        ],
+        "summary": "PLINK 2.0 beta 1.3 command-line runtime for genotype data management, statistics, GWAS, PGEN workflows, VCF subsetting and bundled LD-score/MTAG utilities.",
+        "description": "PLINK 2.0 beta 1.3 command-line runtime for genotype data management, statistics, GWAS, PGEN workflows, VCF subsetting and bundled LD-score/MTAG utilities."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/plink2:2.0.0-b.1.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.0.0-b.1.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:1cd4e6591e5e24362a47138296335b1ad5ba29571d01eb2cf0df88fd6c22d398",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a1a254f080367131fe13664f6d7e3972ca254452f589dee2faa639b7b38872d0",
+          "linux/arm64": "sha256:38ebf073c539fa28715fa402b5b660643199d31b0ac759835f8ff596a50890ee"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "plink2",
+          "vcf_subset",
+          "ldsc",
+          "mtag",
+          "pgen_compress",
+          "plink2-resources",
+          "plink2-smoke",
+          "python3",
+          "curl",
+          "gzip",
+          "awk",
+          "grep",
+          "sed",
+          "ldd",
+          "sh",
+          "bash",
+          "tail",
+          "cmp"
+        ],
+        "test": [
+          "plink2-smoke identity",
+          "plink2-smoke interface",
+          "plink2-smoke linkage",
+          "plink2-smoke core",
+          "plink2-smoke multiallelic",
+          "plink2-smoke subset",
+          "plink2-smoke errors",
+          "plink2-smoke adjust",
+          "plink2-smoke read-freq",
+          "plink2-smoke update-map",
+          "plink2-smoke mendel",
+          "plink2-smoke compress",
+          "plink2-smoke beta-merge",
+          "plink2-smoke ldsc",
+          "plink2-smoke mtag",
+          "plink2-smoke resources",
+          "plink2-smoke beta-missing",
+          "plink2-smoke beta-contigs"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-05T08:02:21Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-05T08:03:25Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c5d37f3777aa901c467fc438bfc2194ec508be15",
+            "image_digest": "sha256:1cd4e6591e5e24362a47138296335b1ad5ba29571d01eb2cf0df88fd6c22d398",
+            "smoke_sha256": "a9c56f020344d01d97cd8b55df612d27138a32c40a03efb7dbf4bdeac6c1f6a4",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-05T08:02:21Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c5d37f3777aa901c467fc438bfc2194ec508be15",
+            "image_digest": "sha256:1cd4e6591e5e24362a47138296335b1ad5ba29571d01eb2cf0df88fd6c22d398",
+            "smoke_sha256": "a9c56f020344d01d97cd8b55df612d27138a32c40a03efb7dbf4bdeac6c1f6a4",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-05T08:03:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261101.114.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c5d37f3777aa901c467fc438bfc2194ec508be15",
+            "image_digest": "sha256:1cd4e6591e5e24362a47138296335b1ad5ba29571d01eb2cf0df88fd6c22d398",
+            "smoke_sha256": "a9c56f020344d01d97cd8b55df612d27138a32c40a03efb7dbf4bdeac6c1f6a4",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-05T07:57:37Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/plink2",
+        "ref": "v2.0.0-b.1.3-r1",
+        "commit": "c5d37f3777aa901c467fc438bfc2194ec508be15",
+        "html_url": "https://github.com/taffish/plink2/tree/v2.0.0-b.1.3-r1"
+      },
+      "upstream": {
+        "name": "PLINK 2.0",
+        "type": "github",
+        "homepage": "https://www.cog-genomics.org/plink/2.0/",
+        "repository": "chrchang/plink-ng",
+        "release_url": "https://github.com/chrchang/plink-ng/releases/tag/v2.0.0-b.1.3",
+        "version": "2.0.0-b.1.3",
         "license": "GPL-3.0-or-later for PLINK 2.0, ldsc and mtag; LGPL-3.0-or-later for include libraries and vcf_subset; bundled SIMDe/libdeflate/zstd/QD components retain their upstream licenses",
         "citation": "Chang CC, Chow CC, Tellier LCAM, Vattikuti S, Purcell SM, Lee JJ. Second-generation PLINK: rising to the challenge of larger and richer datasets. GigaScience. 2015;4:7.",
         "doi": "10.1186/s13742-015-0047-8",

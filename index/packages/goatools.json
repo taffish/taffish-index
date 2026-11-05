@@ -1,8 +1,8 @@
 {
   "name": "goatools",
-  "latest": "1.6.8-r1",
-  "recent_version": "1.6.8-r1",
-  "recent_at": "2026-10-30T06:15:26Z",
+  "latest": "1.6.9-r1",
+  "recent_version": "1.6.9-r1",
+  "recent_at": "2026-11-05T02:20:53Z",
   "repository_url": "https://github.com/taffish/goatools",
   "command": {
     "name": "taf-goatools"
@@ -745,6 +745,195 @@
         "repository": "tanghaibao/goatools",
         "release_url": "https://github.com/tanghaibao/goatools/tree/v1.6.8",
         "version": "1.6.8",
+        "license": "BSD-2-Clause",
+        "citation": "Klopfenstein DV et al. GOATOOLS: A Python library for Gene Ontology analyses. Scientific Reports. 2018;8:10872.",
+        "doi": "10.1038/s41598-018-28948-z",
+        "pmid": "30022098"
+      }
+    },
+    "1.6.9-r1": {
+      "name": "goatools",
+      "kind": "tool",
+      "version": "1.6.9",
+      "release": 1,
+      "version_id": "1.6.9-r1",
+      "tag": "v1.6.9-r1",
+      "published_at": "2026-11-05T02:20:53Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/goatools",
+      "repository_slug": "taffish/goatools",
+      "command": {
+        "name": "taf-goatools"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "functional-genomics",
+        "categories": [
+          "functional-genomics",
+          "gene-ontology",
+          "enrichment-analysis",
+          "bioinformatics-utilities"
+        ],
+        "keywords": [
+          "goatools",
+          "gene ontology",
+          "go enrichment",
+          "goea",
+          "go dag",
+          "go slim",
+          "gaf",
+          "gpad",
+          "gene2go",
+          "cytoscape",
+          "networkx",
+          "pydot",
+          "pygraphviz"
+        ],
+        "summary": "GOATOOLS 1.6.9 command-line and Python runtime for Gene Ontology enrichment, ontology DAG analysis, GO slim mapping, annotation parsing, reporting, and Graphviz visualization.",
+        "description": "GOATOOLS 1.6.9 command-line and Python runtime for Gene Ontology enrichment, ontology DAG analysis, GO slim mapping, annotation parsing, reporting, and Graphviz visualization."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/goatools:1.6.9-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "1.6.9-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:ef8a0a17018c05c33bc4fc74aa57c198c95d027a5d88092cf52d45af1cb9be1c",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:30c719b1a3385ce70238c3a2c9b4eca931d1407df9436a071df63a60775a306f",
+          "linux/arm64": "sha256:1ba7fcff118c92bc6017e100dd21eb57ac85c5d39028faf158ee9e3cc76fa126"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "goatools",
+          "find_enrichment.py",
+          "go_plot.py",
+          "map_to_slim.py",
+          "wr_hier.py",
+          "plot_go_term.py",
+          "ncbi_gene_results_to_python.py",
+          "python",
+          "dot",
+          "curl",
+          "gzip",
+          "sh",
+          "grep",
+          "ldd",
+          "goatools-resources"
+        ],
+        "test": [
+          "/opt/goatools/share/testdata/goatools-smoke.sh identity",
+          "/opt/goatools/share/testdata/goatools-smoke.sh goea",
+          "/opt/goatools/share/testdata/goatools-smoke.sh spreadsheet",
+          "/opt/goatools/share/testdata/goatools-smoke.sh slim",
+          "/opt/goatools/share/testdata/goatools-smoke.sh graphics",
+          "/opt/goatools/share/testdata/goatools-smoke.sh algorithms",
+          "python /opt/goatools/share/testdata/test-resources.py",
+          "python /opt/goatools/share/testdata/test-network-policy.py",
+          "python /opt/goatools/share/testdata/test-semantic.py",
+          "python /opt/goatools/share/testdata/test-upstream.py",
+          "python /opt/goatools/share/testdata/test-169.py"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-05T08:02:21Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-05T08:03:25Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5faba30459498237acb16a123cc322cabd3207f2",
+            "image_digest": "sha256:ef8a0a17018c05c33bc4fc74aa57c198c95d027a5d88092cf52d45af1cb9be1c",
+            "smoke_sha256": "2c291b676594eec478b74aedbf4bfb4fbf59eec07af2745c032eb56765f6ca55",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-05T08:02:21Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261026.354.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5faba30459498237acb16a123cc322cabd3207f2",
+            "image_digest": "sha256:ef8a0a17018c05c33bc4fc74aa57c198c95d027a5d88092cf52d45af1cb9be1c",
+            "smoke_sha256": "2c291b676594eec478b74aedbf4bfb4fbf59eec07af2745c032eb56765f6ca55",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-05T08:03:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261101.114.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "5faba30459498237acb16a123cc322cabd3207f2",
+            "image_digest": "sha256:ef8a0a17018c05c33bc4fc74aa57c198c95d027a5d88092cf52d45af1cb9be1c",
+            "smoke_sha256": "2c291b676594eec478b74aedbf4bfb4fbf59eec07af2745c032eb56765f6ca55",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-05T07:57:37Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/goatools",
+        "ref": "v1.6.9-r1",
+        "commit": "5faba30459498237acb16a123cc322cabd3207f2",
+        "html_url": "https://github.com/taffish/goatools/tree/v1.6.9-r1"
+      },
+      "upstream": {
+        "name": "GOATOOLS",
+        "type": "github",
+        "homepage": "https://github.com/tanghaibao/goatools",
+        "repository": "tanghaibao/goatools",
+        "release_url": "https://github.com/tanghaibao/goatools/tree/v1.6.9",
+        "version": "1.6.9",
         "license": "BSD-2-Clause",
         "citation": "Klopfenstein DV et al. GOATOOLS: A Python library for Gene Ontology analyses. Scientific Reports. 2018;8:10872.",
         "doi": "10.1038/s41598-018-28948-z",
