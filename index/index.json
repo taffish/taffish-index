@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-11-05T07:57:37Z",
+  "generated_at": "2026-11-06T07:59:15Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 565,
+    "versions": 569,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -3895,9 +3895,9 @@
     },
     "bandage-ng": {
       "name": "bandage-ng",
-      "latest": "2026.10.1-r1",
-      "recent_version": "2026.10.1-r1",
-      "recent_at": "2026-10-20T16:08:36Z",
+      "latest": "2026.11.1-r1",
+      "recent_version": "2026.11.1-r1",
+      "recent_at": "2026-11-05T11:12:45Z",
       "repository_url": "https://github.com/taffish/bandage-ng",
       "command": {
         "name": "taf-bandage-ng"
@@ -4089,6 +4089,203 @@
             "repository": "asl/BandageNG",
             "release_url": "https://github.com/asl/BandageNG/releases/tag/v2026.10.1",
             "version": "2026.10.1",
+            "license": "GPL-3.0-or-later",
+            "citation": "BandageNG is a modern fork of Bandage for interactive visualization of de novo assembly graphs. BandageNG upstream currently lists citation as TBD; for the original Bandage publication see Wick et al. 2015, Bioinformatics.",
+            "doi": "10.1093/bioinformatics/btv383",
+            "pmid": "26099265"
+          }
+        },
+        "2026.11.1-r1": {
+          "name": "bandage-ng",
+          "kind": "tool",
+          "version": "2026.11.1",
+          "release": 1,
+          "version_id": "2026.11.1-r1",
+          "tag": "v2026.11.1-r1",
+          "published_at": "2026-11-05T11:12:45Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bandage-ng",
+          "repository_slug": "taffish/bandage-ng",
+          "command": {
+            "name": "taf-bandage-ng"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "assembly",
+              "assembly-graph",
+              "visualization",
+              "viewer"
+            ],
+            "keywords": [
+              "bandage-ng",
+              "bandageng",
+              "bandage",
+              "gfa",
+              "fastg",
+              "assembly-graph",
+              "connected-component",
+              "spades",
+              "megahit",
+              "novnc",
+              "vnc"
+            ],
+            "summary": "BandageNG 2026.11.1 for interactive assembly-graph visualization through a supervised browser-accessible noVNC session, with reproducible headless graph commands included.",
+            "description": "BandageNG 2026.11.1 for interactive assembly-graph visualization through a supervised browser-accessible noVNC session, with reproducible headless graph commands included."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bandage-ng:2026.11.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2026.11.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:0224bb00f545057ef6fbe18217e3f72e56b9dff11028de4e7d55ca6bc177d828",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7387fcd0567f955861ad1566644a68205bea326d86c5c9a2d934f133431c6163"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "BandageNG",
+              "bandage-ng",
+              "bandage-ng-gui",
+              "bandage-ng-smoke",
+              "Xvfb",
+              "x11vnc",
+              "websockify",
+              "twm",
+              "xdotool",
+              "makeblastdb",
+              "blastn",
+              "tblastn",
+              "minimap2",
+              "nhmmer",
+              "hmmsearch",
+              "hmmbuild",
+              "curl",
+              "sh",
+              "python3",
+              "xdpyinfo",
+              "xwininfo",
+              "dbus-run-session"
+            ],
+            "test": [
+              "bandage-ng-smoke identity",
+              "bandage-ng-smoke connected-component",
+              "python3 /usr/local/libexec/bandage-ng/search-contract.py blast",
+              "python3 /usr/local/libexec/bandage-ng/search-contract.py minimap2",
+              "python3 /usr/local/libexec/bandage-ng/search-contract.py hmmer",
+              "bandage-ng-smoke numeric-depth",
+              "bandage-ng-smoke gui-session-term",
+              "bandage-ng-smoke gui-startup-interrupt",
+              "bandage-ng-smoke gui-errors",
+              "bandage-ng-smoke wm-startup-failure",
+              "bandage-ng-smoke wm-runtime-failure",
+              "python3 /usr/local/libexec/bandage-ng/session-contract.py privacy",
+              "python3 /usr/local/libexec/bandage-ng/session-contract.py protocol",
+              "python3 /usr/local/libexec/bandage-ng/session-contract.py early",
+              "python3 /usr/local/libexec/bandage-ng/session-contract.py supervision"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9e4c65b33cef10e32ee38930002bb6ab4e0d2ae8",
+                "image_digest": "sha256:0224bb00f545057ef6fbe18217e3f72e56b9dff11028de4e7d55ca6bc177d828",
+                "smoke_sha256": "01b9e4f5e83ddab26071b3fd543ac3d45f411e7ddcd9f139ecbff558056e21f5",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:05Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9e4c65b33cef10e32ee38930002bb6ab4e0d2ae8",
+                "image_digest": "sha256:0224bb00f545057ef6fbe18217e3f72e56b9dff11028de4e7d55ca6bc177d828",
+                "smoke_sha256": "01b9e4f5e83ddab26071b3fd543ac3d45f411e7ddcd9f139ecbff558056e21f5",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:05Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9e4c65b33cef10e32ee38930002bb6ab4e0d2ae8",
+                "image_digest": "sha256:0224bb00f545057ef6fbe18217e3f72e56b9dff11028de4e7d55ca6bc177d828",
+                "smoke_sha256": "01b9e4f5e83ddab26071b3fd543ac3d45f411e7ddcd9f139ecbff558056e21f5",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-06T07:59:15Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bandage-ng",
+            "ref": "v2026.11.1-r1",
+            "commit": "9e4c65b33cef10e32ee38930002bb6ab4e0d2ae8",
+            "html_url": "https://github.com/taffish/bandage-ng/tree/v2026.11.1-r1"
+          },
+          "upstream": {
+            "name": "BandageNG",
+            "type": "github",
+            "homepage": "https://github.com/asl/BandageNG/wiki",
+            "repository": "asl/BandageNG",
+            "release_url": "https://github.com/asl/BandageNG/releases/tag/v2026.11.1",
+            "version": "2026.11.1",
             "license": "GPL-3.0-or-later",
             "citation": "BandageNG is a modern fork of Bandage for interactive visualization of de novo assembly graphs. BandageNG upstream currently lists citation as TBD; for the original Bandage publication see Wick et al. 2015, Bioinformatics.",
             "doi": "10.1093/bioinformatics/btv383",
@@ -19301,9 +19498,9 @@
     },
     "delly": {
       "name": "delly",
-      "latest": "2.7.0-r2",
-      "recent_version": "2.7.0-r2",
-      "recent_at": "2026-10-12T00:31:28Z",
+      "latest": "2.8.1-r1",
+      "recent_version": "2.8.1-r1",
+      "recent_at": "2026-11-05T11:12:47Z",
       "repository_url": "https://github.com/taffish/delly",
       "command": {
         "name": "taf-delly"
@@ -19846,6 +20043,192 @@
             "repository": "dellytools/delly",
             "release_url": "https://github.com/dellytools/delly/releases/tag/v2.7.0",
             "version": "2.7.0",
+            "license": "BSD-3-Clause",
+            "citation": "Rausch T, Zichner T, Schlattl A, Stutz AM, Benes V, Korbel JO. DELLY: structural variant discovery by integrated paired-end and split-read analysis. Bioinformatics. 2012;28(18):i333-i339.",
+            "doi": "10.1093/bioinformatics/bts378"
+          }
+        },
+        "2.8.1-r1": {
+          "name": "delly",
+          "kind": "tool",
+          "version": "2.8.1",
+          "release": 1,
+          "version_id": "2.8.1-r1",
+          "tag": "v2.8.1-r1",
+          "published_at": "2026-11-05T11:12:47Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/delly",
+          "repository_slug": "taffish/delly",
+          "command": {
+            "name": "taf-delly"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "structural-variation",
+            "categories": [
+              "structural-variation",
+              "copy-number-variation",
+              "variant-calling",
+              "short-read",
+              "long-read",
+              "genomics"
+            ],
+            "keywords": [
+              "delly",
+              "structural variant",
+              "copy-number variant",
+              "sv",
+              "cnv",
+              "short-read",
+              "long-read",
+              "assembly",
+              "germline",
+              "somatic",
+              "bam",
+              "cram",
+              "bcf"
+            ],
+            "summary": "Delly 2.8.1 runtime for short-read, long-read and assembly SV discovery, multi-allelic tandem repeat genotyping, sex-aware SV analysis and germline/somatic CNV analysis.",
+            "description": "Delly 2.8.1 runtime for short-read, long-read and assembly SV discovery, multi-allelic tandem repeat genotyping, sex-aware SV analysis and germline/somatic CNV analysis."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/delly:2.8.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.8.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9134e0dd46684a7f529dd48ef959105d368c421b9d8afc309c2115cc5566f8ee",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:3f225f423217e8524dd54c6061f6df027101814d557c3cadffd05bfdeda10f7c",
+              "linux/arm64": "sha256:d3d5ecc6c2755fa473a018fdc67f4db9a67f1a7b8130a826e7f42941e9dcf609"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "delly",
+              "sh",
+              "awk",
+              "grep",
+              "gzip",
+              "mktemp",
+              "sed",
+              "sha256sum",
+              "tail",
+              "mkfifo"
+            ],
+            "test": [
+              "/opt/delly/share/testdata/delly-smoke.sh identity",
+              "/opt/delly/share/testdata/delly-smoke.sh sr",
+              "/opt/delly/share/testdata/delly-smoke.sh lr",
+              "/opt/delly/share/testdata/delly-smoke.sh asm",
+              "/opt/delly/share/testdata/delly-smoke.sh cnv",
+              "/opt/delly/share/testdata/delly-smoke.sh cnv-lr",
+              "/opt/delly/share/testdata/delly-smoke.sh merge",
+              "/opt/delly/share/testdata/delly-smoke.sh filter",
+              "/opt/delly/share/testdata/delly-smoke.sh lr-genotype",
+              "/opt/delly/share/testdata/delly-smoke.sh map-guard",
+              "/opt/delly/share/testdata/delly-smoke.sh asm28",
+              "/opt/delly/share/testdata/delly-smoke.sh tr28"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0879a66a8576285a711db3b39ce9feacf6025e69",
+                "image_digest": "sha256:9134e0dd46684a7f529dd48ef959105d368c421b9d8afc309c2115cc5566f8ee",
+                "smoke_sha256": "f564a7dfa950843a2cfd1602cbdec8cc3039ba0864f27aca987a3c17fbe45d04",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:05Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0879a66a8576285a711db3b39ce9feacf6025e69",
+                "image_digest": "sha256:9134e0dd46684a7f529dd48ef959105d368c421b9d8afc309c2115cc5566f8ee",
+                "smoke_sha256": "f564a7dfa950843a2cfd1602cbdec8cc3039ba0864f27aca987a3c17fbe45d04",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:05Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0879a66a8576285a711db3b39ce9feacf6025e69",
+                "image_digest": "sha256:9134e0dd46684a7f529dd48ef959105d368c421b9d8afc309c2115cc5566f8ee",
+                "smoke_sha256": "f564a7dfa950843a2cfd1602cbdec8cc3039ba0864f27aca987a3c17fbe45d04",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-06T07:59:15Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/delly",
+            "ref": "v2.8.1-r1",
+            "commit": "0879a66a8576285a711db3b39ce9feacf6025e69",
+            "html_url": "https://github.com/taffish/delly/tree/v2.8.1-r1"
+          },
+          "upstream": {
+            "name": "Delly",
+            "type": "github",
+            "homepage": "https://github.com/dellytools/delly",
+            "repository": "dellytools/delly",
+            "release_url": "https://github.com/dellytools/delly/releases/tag/v2.8.1",
+            "version": "2.8.1",
             "license": "BSD-3-Clause",
             "citation": "Rausch T, Zichner T, Schlattl A, Stutz AM, Benes V, Korbel JO. DELLY: structural variant discovery by integrated paired-end and split-read analysis. Bioinformatics. 2012;28(18):i333-i339.",
             "doi": "10.1093/bioinformatics/bts378"
@@ -51115,9 +51498,9 @@
     },
     "msdial": {
       "name": "msdial",
-      "latest": "5.5.260817-r1",
-      "recent_version": "5.5.260817-r1",
-      "recent_at": "2026-10-17T06:00:34Z",
+      "latest": "5.5.261105-r1",
+      "recent_version": "5.5.261105-r1",
+      "recent_at": "2026-11-06T03:55:58Z",
       "repository_url": "https://github.com/taffish/msdial",
       "command": {
         "name": "taf-msdial"
@@ -51468,6 +51851,184 @@
             "repository": "https://github.com/systemsomicslab/MsdialWorkbench",
             "release_url": "https://github.com/systemsomicslab/MsdialWorkbench/releases/tag/MSDIAL-v5.5.260817",
             "version": "5.5.260817",
+            "license": "LGPL-3.0",
+            "citation": "Tsugawa H, Ikeda K, Takahashi M, et al. A lipidome atlas in MS-DIAL 4. Nature Biotechnology 38, 1159-1163 (2020).",
+            "doi": "10.1038/s41587-020-0531-2"
+          }
+        },
+        "5.5.261105-r1": {
+          "name": "msdial",
+          "kind": "tool",
+          "version": "5.5.261105",
+          "release": 1,
+          "version_id": "5.5.261105-r1",
+          "tag": "v5.5.261105-r1",
+          "published_at": "2026-11-06T03:55:58Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/msdial",
+          "repository_slug": "taffish/msdial",
+          "command": {
+            "name": "taf-msdial"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "metabolomics",
+            "categories": [
+              "metabolomics",
+              "lipidomics",
+              "mass-spectrometry",
+              "data-analysis",
+              "molecular-networking"
+            ],
+            "keywords": [
+              "ms-dial",
+              "msdialcui",
+              "lc-ms",
+              "gc-ms",
+              "ion mobility",
+              "mass spectrometry",
+              "metabolomics",
+              "lipidomics",
+              "mzml",
+              "netcdf",
+              "abf",
+              "molecular networking"
+            ],
+            "summary": "MS-DIAL Linux console with official analysis libraries, a corrected MSN command dispatcher and optional shared spectral libraries.",
+            "description": "MS-DIAL Linux console with official analysis libraries, a corrected MSN command dispatcher and optional shared spectral libraries."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/msdial:5.5.261105-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "5.5.261105-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:9ba33363944d863b4c41b697b351c75f505be6e4502d5e786de86e2bc434b43c",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:77923f384d8cbe48e844e6237e472ca9df422e876517f0c0ec32c2dac6cd517d"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "MSDIALCUI",
+              "msdial",
+              "msdial-smoke",
+              "msdial-resources",
+              "python3",
+              "bash",
+              "cp",
+              "grep",
+              "mktemp",
+              "readlink",
+              "rm"
+            ],
+            "test": [
+              "msdial-smoke identity",
+              "msdial-smoke core",
+              "msdial-smoke lcms",
+              "msdial-smoke eic",
+              "msdial-smoke delta",
+              "msdial-smoke errors",
+              "msdial-smoke resources"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3206a689e64fc87f92e22b0330bc603456c5f974",
+                "image_digest": "sha256:9ba33363944d863b4c41b697b351c75f505be6e4502d5e786de86e2bc434b43c",
+                "smoke_sha256": "fd139c5f7188200a04293fe1100adb727f769c47cbf1f94fbe2561f03ecc300f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:05Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3206a689e64fc87f92e22b0330bc603456c5f974",
+                "image_digest": "sha256:9ba33363944d863b4c41b697b351c75f505be6e4502d5e786de86e2bc434b43c",
+                "smoke_sha256": "fd139c5f7188200a04293fe1100adb727f769c47cbf1f94fbe2561f03ecc300f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:05Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "3206a689e64fc87f92e22b0330bc603456c5f974",
+                "image_digest": "sha256:9ba33363944d863b4c41b697b351c75f505be6e4502d5e786de86e2bc434b43c",
+                "smoke_sha256": "fd139c5f7188200a04293fe1100adb727f769c47cbf1f94fbe2561f03ecc300f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-06T07:59:15Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/msdial",
+            "ref": "v5.5.261105-r1",
+            "commit": "3206a689e64fc87f92e22b0330bc603456c5f974",
+            "html_url": "https://github.com/taffish/msdial/tree/v5.5.261105-r1"
+          },
+          "upstream": {
+            "name": "MS-DIAL",
+            "type": "github",
+            "homepage": "https://systemsomicslab.github.io/compms/msdial/main.html",
+            "repository": "https://github.com/systemsomicslab/MsdialWorkbench",
+            "release_url": "https://github.com/systemsomicslab/MsdialWorkbench/releases/tag/MSDIAL-v5.5.261105",
+            "version": "5.5.261105",
             "license": "LGPL-3.0",
             "citation": "Tsugawa H, Ikeda K, Takahashi M, et al. A lipidome atlas in MS-DIAL 4. Nature Biotechnology 38, 1159-1163 (2020).",
             "doi": "10.1038/s41587-020-0531-2"
@@ -93113,9 +93674,9 @@
     },
     "transdecoder": {
       "name": "transdecoder",
-      "latest": "6.0.0-r1",
-      "recent_version": "6.0.0-r1",
-      "recent_at": "2026-05-29T07:37:28Z",
+      "latest": "7.0.0-r1",
+      "recent_version": "7.0.0-r1",
+      "recent_at": "2026-11-05T16:07:06Z",
       "repository_url": "https://github.com/taffish/transdecoder",
       "command": {
         "name": "taf-transdecoder"
@@ -93302,6 +93863,203 @@
             "repository": "https://github.com/TransDecoder/TransDecoder",
             "release_url": "https://github.com/TransDecoder/TransDecoder/releases/tag/TransDecoder-v6.0.0",
             "version": "6.0.0",
+            "license": "BSD-3-Clause",
+            "citation": "Haas et al. 2013. De novo transcript sequence reconstruction from RNA-seq using the Trinity platform for reference generation and analysis; TransDecoder is distributed by the Trinity/TransDecoder project.",
+            "doi": "10.1038/nprot.2013.084",
+            "pmid": "23845962"
+          }
+        },
+        "7.0.0-r1": {
+          "name": "transdecoder",
+          "kind": "tool",
+          "version": "7.0.0",
+          "release": 1,
+          "version_id": "7.0.0-r1",
+          "tag": "v7.0.0-r1",
+          "published_at": "2026-11-05T16:07:06Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/transdecoder",
+          "repository_slug": "taffish/transdecoder",
+          "command": {
+            "name": "taf-transdecoder"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "transcriptomics",
+            "categories": [
+              "transcriptomics",
+              "genome-annotation",
+              "orf-prediction",
+              "protein-coding",
+              "rna-seq"
+            ],
+            "keywords": [
+              "transdecoder",
+              "orf",
+              "coding sequence",
+              "transcriptome",
+              "gtf",
+              "gff3",
+              "diamond",
+              "blast",
+              "pfam",
+              "hmmer",
+              "kozak",
+              "target-decoy",
+              "preset"
+            ],
+            "summary": "Perl TransDecoder for transcript ORF prediction, target-decoy filtering, reference presets, optional protein/Pfam evidence and genome projection.",
+            "description": "Perl TransDecoder for transcript ORF prediction, target-decoy filtering, reference presets, optional protein/Pfam evidence and genome projection."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/transdecoder:7.0.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "7.0.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:c2036677362ea91879ee25cfe90eaf2182c1222382c2548891bfdf3837d18d0b",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:0899842b11fbf9a4c6e271f31c0005e74449c58015d441607e32a5c994cdbfd7",
+              "linux/arm64": "sha256:6c64167a36253c666700b471a3bd8ddae4b5e4080c461782f1debcb2fe34ffd2"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "TransDecoder",
+              "TransDecoder.LongOrfs",
+              "TransDecoder.Predict",
+              "gtf_genome_to_cdna_fasta.pl",
+              "gtf_to_alignment_gff3.pl",
+              "cdna_alignment_orf_to_genome_orf.pl",
+              "fasta_prot_checker.pl",
+              "pfam_runner.pl",
+              "diamond",
+              "blastp",
+              "makeblastdb",
+              "hmmsearch",
+              "hmmpress",
+              "hmmscan",
+              "ParaFly",
+              "ffindex_from_fasta",
+              "perl",
+              "python3",
+              "bash",
+              "gzip",
+              "grep",
+              "wc",
+              "ffindex_apply_mpi",
+              "transdecoder-resources"
+            ],
+            "test": [
+              "transdecoder-smoke interface",
+              "transdecoder-smoke models",
+              "transdecoder-smoke preset",
+              "transdecoder-smoke learned",
+              "transdecoder-smoke phases",
+              "transdecoder-smoke genome",
+              "transdecoder-smoke blast",
+              "transdecoder-smoke reject",
+              "transdecoder-smoke resources"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:38Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "b954e29dffecaea02bff3359b4ef8559315c941f",
+                "image_digest": "sha256:c2036677362ea91879ee25cfe90eaf2182c1222382c2548891bfdf3837d18d0b",
+                "smoke_sha256": "41882a7971a99e488ff2fc00100520f5a04799cba434a0ce583fe06e47311139",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:05Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "b954e29dffecaea02bff3359b4ef8559315c941f",
+                "image_digest": "sha256:c2036677362ea91879ee25cfe90eaf2182c1222382c2548891bfdf3837d18d0b",
+                "smoke_sha256": "41882a7971a99e488ff2fc00100520f5a04799cba434a0ce583fe06e47311139",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-06T08:04:05Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "b954e29dffecaea02bff3359b4ef8559315c941f",
+                "image_digest": "sha256:c2036677362ea91879ee25cfe90eaf2182c1222382c2548891bfdf3837d18d0b",
+                "smoke_sha256": "41882a7971a99e488ff2fc00100520f5a04799cba434a0ce583fe06e47311139",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-06T07:59:15Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/transdecoder",
+            "ref": "v7.0.0-r1",
+            "commit": "b954e29dffecaea02bff3359b4ef8559315c941f",
+            "html_url": "https://github.com/taffish/transdecoder/tree/v7.0.0-r1"
+          },
+          "upstream": {
+            "name": "TransDecoder",
+            "type": "github",
+            "homepage": "https://github.com/TransDecoder/TransDecoder/wiki",
+            "repository": "https://github.com/TransDecoder/TransDecoder",
+            "release_url": "https://github.com/TransDecoder/TransDecoder/releases/tag/TransDecoder-v7.0.0",
+            "version": "7.0.0",
             "license": "BSD-3-Clause",
             "citation": "Haas et al. 2013. De novo transcript sequence reconstruction from RNA-seq using the Trinity platform for reference generation and analysis; TransDecoder is distributed by the Trinity/TransDecoder project.",
             "doi": "10.1038/nprot.2013.084",
@@ -100545,7 +101303,7 @@
     },
     "taf-bandage-ng": {
       "package": "bandage-ng",
-      "version": "2026.10.1-r1"
+      "version": "2026.11.1-r1"
     },
     "taf-barrnap": {
       "package": "barrnap",
@@ -100753,7 +101511,7 @@
     },
     "taf-delly": {
       "package": "delly",
-      "version": "2.7.0-r2"
+      "version": "2.8.1-r1"
     },
     "taf-diamond": {
       "package": "diamond",
@@ -101085,7 +101843,7 @@
     },
     "taf-msdial": {
       "package": "msdial",
-      "version": "5.5.260817-r1"
+      "version": "5.5.261105-r1"
     },
     "taf-multiqc": {
       "package": "multiqc",
@@ -101505,7 +102263,7 @@
     },
     "taf-transdecoder": {
       "package": "transdecoder",
-      "version": "6.0.0-r1"
+      "version": "7.0.0-r1"
     },
     "taf-trf": {
       "package": "trf",

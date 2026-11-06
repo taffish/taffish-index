@@ -1,8 +1,8 @@
 {
   "name": "delly",
-  "latest": "2.7.0-r2",
-  "recent_version": "2.7.0-r2",
-  "recent_at": "2026-10-12T00:31:28Z",
+  "latest": "2.8.1-r1",
+  "recent_version": "2.8.1-r1",
+  "recent_at": "2026-11-05T11:12:47Z",
   "repository_url": "https://github.com/taffish/delly",
   "command": {
     "name": "taf-delly"
@@ -545,6 +545,192 @@
         "repository": "dellytools/delly",
         "release_url": "https://github.com/dellytools/delly/releases/tag/v2.7.0",
         "version": "2.7.0",
+        "license": "BSD-3-Clause",
+        "citation": "Rausch T, Zichner T, Schlattl A, Stutz AM, Benes V, Korbel JO. DELLY: structural variant discovery by integrated paired-end and split-read analysis. Bioinformatics. 2012;28(18):i333-i339.",
+        "doi": "10.1093/bioinformatics/bts378"
+      }
+    },
+    "2.8.1-r1": {
+      "name": "delly",
+      "kind": "tool",
+      "version": "2.8.1",
+      "release": 1,
+      "version_id": "2.8.1-r1",
+      "tag": "v2.8.1-r1",
+      "published_at": "2026-11-05T11:12:47Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/delly",
+      "repository_slug": "taffish/delly",
+      "command": {
+        "name": "taf-delly"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "structural-variation",
+        "categories": [
+          "structural-variation",
+          "copy-number-variation",
+          "variant-calling",
+          "short-read",
+          "long-read",
+          "genomics"
+        ],
+        "keywords": [
+          "delly",
+          "structural variant",
+          "copy-number variant",
+          "sv",
+          "cnv",
+          "short-read",
+          "long-read",
+          "assembly",
+          "germline",
+          "somatic",
+          "bam",
+          "cram",
+          "bcf"
+        ],
+        "summary": "Delly 2.8.1 runtime for short-read, long-read and assembly SV discovery, multi-allelic tandem repeat genotyping, sex-aware SV analysis and germline/somatic CNV analysis.",
+        "description": "Delly 2.8.1 runtime for short-read, long-read and assembly SV discovery, multi-allelic tandem repeat genotyping, sex-aware SV analysis and germline/somatic CNV analysis."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/delly:2.8.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.8.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:9134e0dd46684a7f529dd48ef959105d368c421b9d8afc309c2115cc5566f8ee",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3f225f423217e8524dd54c6061f6df027101814d557c3cadffd05bfdeda10f7c",
+          "linux/arm64": "sha256:d3d5ecc6c2755fa473a018fdc67f4db9a67f1a7b8130a826e7f42941e9dcf609"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "delly",
+          "sh",
+          "awk",
+          "grep",
+          "gzip",
+          "mktemp",
+          "sed",
+          "sha256sum",
+          "tail",
+          "mkfifo"
+        ],
+        "test": [
+          "/opt/delly/share/testdata/delly-smoke.sh identity",
+          "/opt/delly/share/testdata/delly-smoke.sh sr",
+          "/opt/delly/share/testdata/delly-smoke.sh lr",
+          "/opt/delly/share/testdata/delly-smoke.sh asm",
+          "/opt/delly/share/testdata/delly-smoke.sh cnv",
+          "/opt/delly/share/testdata/delly-smoke.sh cnv-lr",
+          "/opt/delly/share/testdata/delly-smoke.sh merge",
+          "/opt/delly/share/testdata/delly-smoke.sh filter",
+          "/opt/delly/share/testdata/delly-smoke.sh lr-genotype",
+          "/opt/delly/share/testdata/delly-smoke.sh map-guard",
+          "/opt/delly/share/testdata/delly-smoke.sh asm28",
+          "/opt/delly/share/testdata/delly-smoke.sh tr28"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-06T08:04:05Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0879a66a8576285a711db3b39ce9feacf6025e69",
+            "image_digest": "sha256:9134e0dd46684a7f529dd48ef959105d368c421b9d8afc309c2115cc5566f8ee",
+            "smoke_sha256": "f564a7dfa950843a2cfd1602cbdec8cc3039ba0864f27aca987a3c17fbe45d04",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0879a66a8576285a711db3b39ce9feacf6025e69",
+            "image_digest": "sha256:9134e0dd46684a7f529dd48ef959105d368c421b9d8afc309c2115cc5566f8ee",
+            "smoke_sha256": "f564a7dfa950843a2cfd1602cbdec8cc3039ba0864f27aca987a3c17fbe45d04",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0879a66a8576285a711db3b39ce9feacf6025e69",
+            "image_digest": "sha256:9134e0dd46684a7f529dd48ef959105d368c421b9d8afc309c2115cc5566f8ee",
+            "smoke_sha256": "f564a7dfa950843a2cfd1602cbdec8cc3039ba0864f27aca987a3c17fbe45d04",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-06T07:59:15Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/delly",
+        "ref": "v2.8.1-r1",
+        "commit": "0879a66a8576285a711db3b39ce9feacf6025e69",
+        "html_url": "https://github.com/taffish/delly/tree/v2.8.1-r1"
+      },
+      "upstream": {
+        "name": "Delly",
+        "type": "github",
+        "homepage": "https://github.com/dellytools/delly",
+        "repository": "dellytools/delly",
+        "release_url": "https://github.com/dellytools/delly/releases/tag/v2.8.1",
+        "version": "2.8.1",
         "license": "BSD-3-Clause",
         "citation": "Rausch T, Zichner T, Schlattl A, Stutz AM, Benes V, Korbel JO. DELLY: structural variant discovery by integrated paired-end and split-read analysis. Bioinformatics. 2012;28(18):i333-i339.",
         "doi": "10.1093/bioinformatics/bts378"

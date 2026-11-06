@@ -1,8 +1,8 @@
 {
   "name": "bandage-ng",
-  "latest": "2026.10.1-r1",
-  "recent_version": "2026.10.1-r1",
-  "recent_at": "2026-10-20T16:08:36Z",
+  "latest": "2026.11.1-r1",
+  "recent_version": "2026.11.1-r1",
+  "recent_at": "2026-11-05T11:12:45Z",
   "repository_url": "https://github.com/taffish/bandage-ng",
   "command": {
     "name": "taf-bandage-ng"
@@ -194,6 +194,203 @@
         "repository": "asl/BandageNG",
         "release_url": "https://github.com/asl/BandageNG/releases/tag/v2026.10.1",
         "version": "2026.10.1",
+        "license": "GPL-3.0-or-later",
+        "citation": "BandageNG is a modern fork of Bandage for interactive visualization of de novo assembly graphs. BandageNG upstream currently lists citation as TBD; for the original Bandage publication see Wick et al. 2015, Bioinformatics.",
+        "doi": "10.1093/bioinformatics/btv383",
+        "pmid": "26099265"
+      }
+    },
+    "2026.11.1-r1": {
+      "name": "bandage-ng",
+      "kind": "tool",
+      "version": "2026.11.1",
+      "release": 1,
+      "version_id": "2026.11.1-r1",
+      "tag": "v2026.11.1-r1",
+      "published_at": "2026-11-05T11:12:45Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bandage-ng",
+      "repository_slug": "taffish/bandage-ng",
+      "command": {
+        "name": "taf-bandage-ng"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genomics",
+        "categories": [
+          "genomics",
+          "assembly",
+          "assembly-graph",
+          "visualization",
+          "viewer"
+        ],
+        "keywords": [
+          "bandage-ng",
+          "bandageng",
+          "bandage",
+          "gfa",
+          "fastg",
+          "assembly-graph",
+          "connected-component",
+          "spades",
+          "megahit",
+          "novnc",
+          "vnc"
+        ],
+        "summary": "BandageNG 2026.11.1 for interactive assembly-graph visualization through a supervised browser-accessible noVNC session, with reproducible headless graph commands included.",
+        "description": "BandageNG 2026.11.1 for interactive assembly-graph visualization through a supervised browser-accessible noVNC session, with reproducible headless graph commands included."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bandage-ng:2026.11.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2026.11.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:0224bb00f545057ef6fbe18217e3f72e56b9dff11028de4e7d55ca6bc177d828",
+        "platforms": [
+          "linux/amd64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:7387fcd0567f955861ad1566644a68205bea326d86c5c9a2d934f133431c6163"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "BandageNG",
+          "bandage-ng",
+          "bandage-ng-gui",
+          "bandage-ng-smoke",
+          "Xvfb",
+          "x11vnc",
+          "websockify",
+          "twm",
+          "xdotool",
+          "makeblastdb",
+          "blastn",
+          "tblastn",
+          "minimap2",
+          "nhmmer",
+          "hmmsearch",
+          "hmmbuild",
+          "curl",
+          "sh",
+          "python3",
+          "xdpyinfo",
+          "xwininfo",
+          "dbus-run-session"
+        ],
+        "test": [
+          "bandage-ng-smoke identity",
+          "bandage-ng-smoke connected-component",
+          "python3 /usr/local/libexec/bandage-ng/search-contract.py blast",
+          "python3 /usr/local/libexec/bandage-ng/search-contract.py minimap2",
+          "python3 /usr/local/libexec/bandage-ng/search-contract.py hmmer",
+          "bandage-ng-smoke numeric-depth",
+          "bandage-ng-smoke gui-session-term",
+          "bandage-ng-smoke gui-startup-interrupt",
+          "bandage-ng-smoke gui-errors",
+          "bandage-ng-smoke wm-startup-failure",
+          "bandage-ng-smoke wm-runtime-failure",
+          "python3 /usr/local/libexec/bandage-ng/session-contract.py privacy",
+          "python3 /usr/local/libexec/bandage-ng/session-contract.py protocol",
+          "python3 /usr/local/libexec/bandage-ng/session-contract.py early",
+          "python3 /usr/local/libexec/bandage-ng/session-contract.py supervision"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-06T08:04:05Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9e4c65b33cef10e32ee38930002bb6ab4e0d2ae8",
+            "image_digest": "sha256:0224bb00f545057ef6fbe18217e3f72e56b9dff11028de4e7d55ca6bc177d828",
+            "smoke_sha256": "01b9e4f5e83ddab26071b3fd543ac3d45f411e7ddcd9f139ecbff558056e21f5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9e4c65b33cef10e32ee38930002bb6ab4e0d2ae8",
+            "image_digest": "sha256:0224bb00f545057ef6fbe18217e3f72e56b9dff11028de4e7d55ca6bc177d828",
+            "smoke_sha256": "01b9e4f5e83ddab26071b3fd543ac3d45f411e7ddcd9f139ecbff558056e21f5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "9e4c65b33cef10e32ee38930002bb6ab4e0d2ae8",
+            "image_digest": "sha256:0224bb00f545057ef6fbe18217e3f72e56b9dff11028de4e7d55ca6bc177d828",
+            "smoke_sha256": "01b9e4f5e83ddab26071b3fd543ac3d45f411e7ddcd9f139ecbff558056e21f5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-06T07:59:15Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bandage-ng",
+        "ref": "v2026.11.1-r1",
+        "commit": "9e4c65b33cef10e32ee38930002bb6ab4e0d2ae8",
+        "html_url": "https://github.com/taffish/bandage-ng/tree/v2026.11.1-r1"
+      },
+      "upstream": {
+        "name": "BandageNG",
+        "type": "github",
+        "homepage": "https://github.com/asl/BandageNG/wiki",
+        "repository": "asl/BandageNG",
+        "release_url": "https://github.com/asl/BandageNG/releases/tag/v2026.11.1",
+        "version": "2026.11.1",
         "license": "GPL-3.0-or-later",
         "citation": "BandageNG is a modern fork of Bandage for interactive visualization of de novo assembly graphs. BandageNG upstream currently lists citation as TBD; for the original Bandage publication see Wick et al. 2015, Bioinformatics.",
         "doi": "10.1093/bioinformatics/btv383",

@@ -1,8 +1,8 @@
 {
   "name": "transdecoder",
-  "latest": "6.0.0-r1",
-  "recent_version": "6.0.0-r1",
-  "recent_at": "2026-05-29T07:37:28Z",
+  "latest": "7.0.0-r1",
+  "recent_version": "7.0.0-r1",
+  "recent_at": "2026-11-05T16:07:06Z",
   "repository_url": "https://github.com/taffish/transdecoder",
   "command": {
     "name": "taf-transdecoder"
@@ -189,6 +189,203 @@
         "repository": "https://github.com/TransDecoder/TransDecoder",
         "release_url": "https://github.com/TransDecoder/TransDecoder/releases/tag/TransDecoder-v6.0.0",
         "version": "6.0.0",
+        "license": "BSD-3-Clause",
+        "citation": "Haas et al. 2013. De novo transcript sequence reconstruction from RNA-seq using the Trinity platform for reference generation and analysis; TransDecoder is distributed by the Trinity/TransDecoder project.",
+        "doi": "10.1038/nprot.2013.084",
+        "pmid": "23845962"
+      }
+    },
+    "7.0.0-r1": {
+      "name": "transdecoder",
+      "kind": "tool",
+      "version": "7.0.0",
+      "release": 1,
+      "version_id": "7.0.0-r1",
+      "tag": "v7.0.0-r1",
+      "published_at": "2026-11-05T16:07:06Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/transdecoder",
+      "repository_slug": "taffish/transdecoder",
+      "command": {
+        "name": "taf-transdecoder"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "transcriptomics",
+        "categories": [
+          "transcriptomics",
+          "genome-annotation",
+          "orf-prediction",
+          "protein-coding",
+          "rna-seq"
+        ],
+        "keywords": [
+          "transdecoder",
+          "orf",
+          "coding sequence",
+          "transcriptome",
+          "gtf",
+          "gff3",
+          "diamond",
+          "blast",
+          "pfam",
+          "hmmer",
+          "kozak",
+          "target-decoy",
+          "preset"
+        ],
+        "summary": "Perl TransDecoder for transcript ORF prediction, target-decoy filtering, reference presets, optional protein/Pfam evidence and genome projection.",
+        "description": "Perl TransDecoder for transcript ORF prediction, target-decoy filtering, reference presets, optional protein/Pfam evidence and genome projection."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/transdecoder:7.0.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "7.0.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:c2036677362ea91879ee25cfe90eaf2182c1222382c2548891bfdf3837d18d0b",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:0899842b11fbf9a4c6e271f31c0005e74449c58015d441607e32a5c994cdbfd7",
+          "linux/arm64": "sha256:6c64167a36253c666700b471a3bd8ddae4b5e4080c461782f1debcb2fe34ffd2"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "TransDecoder",
+          "TransDecoder.LongOrfs",
+          "TransDecoder.Predict",
+          "gtf_genome_to_cdna_fasta.pl",
+          "gtf_to_alignment_gff3.pl",
+          "cdna_alignment_orf_to_genome_orf.pl",
+          "fasta_prot_checker.pl",
+          "pfam_runner.pl",
+          "diamond",
+          "blastp",
+          "makeblastdb",
+          "hmmsearch",
+          "hmmpress",
+          "hmmscan",
+          "ParaFly",
+          "ffindex_from_fasta",
+          "perl",
+          "python3",
+          "bash",
+          "gzip",
+          "grep",
+          "wc",
+          "ffindex_apply_mpi",
+          "transdecoder-resources"
+        ],
+        "test": [
+          "transdecoder-smoke interface",
+          "transdecoder-smoke models",
+          "transdecoder-smoke preset",
+          "transdecoder-smoke learned",
+          "transdecoder-smoke phases",
+          "transdecoder-smoke genome",
+          "transdecoder-smoke blast",
+          "transdecoder-smoke reject",
+          "transdecoder-smoke resources"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-06T08:04:05Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:38Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b954e29dffecaea02bff3359b4ef8559315c941f",
+            "image_digest": "sha256:c2036677362ea91879ee25cfe90eaf2182c1222382c2548891bfdf3837d18d0b",
+            "smoke_sha256": "41882a7971a99e488ff2fc00100520f5a04799cba434a0ce583fe06e47311139",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b954e29dffecaea02bff3359b4ef8559315c941f",
+            "image_digest": "sha256:c2036677362ea91879ee25cfe90eaf2182c1222382c2548891bfdf3837d18d0b",
+            "smoke_sha256": "41882a7971a99e488ff2fc00100520f5a04799cba434a0ce583fe06e47311139",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-06T08:04:05Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261101.360.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "b954e29dffecaea02bff3359b4ef8559315c941f",
+            "image_digest": "sha256:c2036677362ea91879ee25cfe90eaf2182c1222382c2548891bfdf3837d18d0b",
+            "smoke_sha256": "41882a7971a99e488ff2fc00100520f5a04799cba434a0ce583fe06e47311139",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-06T07:59:15Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/transdecoder",
+        "ref": "v7.0.0-r1",
+        "commit": "b954e29dffecaea02bff3359b4ef8559315c941f",
+        "html_url": "https://github.com/taffish/transdecoder/tree/v7.0.0-r1"
+      },
+      "upstream": {
+        "name": "TransDecoder",
+        "type": "github",
+        "homepage": "https://github.com/TransDecoder/TransDecoder/wiki",
+        "repository": "https://github.com/TransDecoder/TransDecoder",
+        "release_url": "https://github.com/TransDecoder/TransDecoder/releases/tag/TransDecoder-v7.0.0",
+        "version": "7.0.0",
         "license": "BSD-3-Clause",
         "citation": "Haas et al. 2013. De novo transcript sequence reconstruction from RNA-seq using the Trinity platform for reference generation and analysis; TransDecoder is distributed by the Trinity/TransDecoder project.",
         "doi": "10.1038/nprot.2013.084",
