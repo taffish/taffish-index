@@ -488,7 +488,9 @@ Smoke:
 - `timeout`, when present, must be a positive integer; missing `timeout` defaults to `60`.
 - `exist` and `test`, when present, must be arrays of non-empty strings.
 - `exist` and `test` cannot both be empty.
-- Default `TODO` placeholders are rejected.
+- In `exist` and `test`, the exact scaffold values `TODO` and `TODO --help` are
+  rejected (case-insensitive, ignoring surrounding whitespace). Commands such as
+  `autodock4 --help` remain valid.
 - Smoke commands are run by the index automation, not by local `taf check`.
 - `test` entries are TOML strings and are executed through `sh -c` inside the
   smoke container. TOML escapes such as `\"` are supported, but shell snippets

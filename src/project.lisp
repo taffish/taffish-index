@@ -333,11 +333,6 @@ The explicit categories keep ordering transitive even for mixed conventions."
     (error "~A must be a positive integer" field-name))
   value)
 
-(defun string-contains-p (needle haystack &key (test #'char=))
-  (and (stringp needle)
-       (stringp haystack)
-       (not (null (search needle haystack :test test)))))
-
 (defun ensure-string-array-field (value field-name)
   (when (null value)
     (return-from ensure-string-array-field nil))
@@ -350,7 +345,7 @@ The explicit categories keep ordering transitive even for mixed conventions."
       (let ((clean (trim-string item)))
         (when (blank-string-p clean)
           (error "~A must not contain blank strings" field-name))
-        (when (string-contains-p "TODO" clean :test #'char-equal)
+        (when (member clean '("TODO" "TODO --help") :test #'string-equal)
           (error "~A contains TODO placeholder: ~S" field-name clean))
         (push clean out)))
     (nreverse out)))

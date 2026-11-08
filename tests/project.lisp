@@ -53,7 +53,7 @@ command_mode = true
 [meta]
 domain = \"bio\"
 categories = [\"spatial-omics\"]
-keywords = [\"Moran's I\", \"Moran’s I\", \"5′ UTR\", \"Cα\", \"RNA-seq (bulk)\"]
+keywords = [\"Moran's I\", \"Moran’s I\", \"5′ UTR\", \"Cα\", \"RNA-seq (bulk)\", \"TODO\"]
 ")
 
 (check (valid-keyword-token-p "moran's i")
@@ -87,14 +87,39 @@ keywords = [\"Moran's I\", \"Moran’s I\", \"5′ UTR\", \"Cα\", \"RNA-seq (bu
                  "moran’s i"
                  "5′ utr"
                  "cα"
-                 "rna-seq (bulk)")
+                 "rna-seq (bulk)"
+                 "todo")
                keywords
-               "project validation preserves normalized printable keywords")
+               "project validation preserves normalized printable keywords, even TODO outside smoke")
   (let* ((json (json-object (cons "keywords" (cons :array keywords))))
          (decoded (parse-json (write-json-string json :indent nil))))
     (check-equal keywords
                  (json-array-values (json-ref decoded "keywords"))
                  "JSON serialization round-trips scientific keywords")))
+
+;; Exercise both smoke fields through project validation without executing any commands.
+(flet ((validate-smoke-item (field item)
+         (handler-case
+             (let ((record (validate-project-from-toml
+                            (format nil "~A~%[smoke]~%~(~A~) = [~S]~%"
+                                    *keyword-project-toml* field item)
+                            (lambda (path)
+                              (member path '("src/main.taf" "docs/help.md")
+                                      :test #'string=)))))
+               (values (getf (getf record :smoke) field) nil))
+           (error (condition) (values nil (princ-to-string condition))))))
+  (dolist (field '(:exist :test))
+    (let ((command (if (eq field :exist) "autodock4" "autodock4 --help")))
+      (multiple-value-bind (items reason)
+          (validate-smoke-item field (format nil " ~A " command))
+        (check-equal (list command) (or reason items)
+                     (format nil "[smoke].~(~A~) allows TODO inside a command" field))))
+    (dolist (placeholder '("TODO" "TODO --help" "  tOdO " " Todo --HELP  "))
+      (multiple-value-bind (items reason) (validate-smoke-item field placeholder)
+        (declare (ignore items))
+        (check (and reason (search (format nil "[smoke].~(~A~) contains TODO placeholder" field)
+                                   reason))
+               (format nil "[smoke].~(~A~) rejects the scaffold value ~S" field placeholder))))))
 
 (format t "1..~D~%" *test-count*)
 (if (zerop *failure-count*)

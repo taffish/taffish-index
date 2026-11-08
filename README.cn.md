@@ -433,7 +433,8 @@ Smoke：
 - `timeout` 如果存在，必须是正整数；缺省为 `60`。
 - `exist` 和 `test` 如果存在，必须是由非空字符串组成的数组。
 - `exist` 和 `test` 不能同时为空。
-- 默认 `TODO` 占位会被拒绝。
+- `exist` 和 `test` 只将整项匹配的 `TODO`、`TODO --help` 视为脚手架占位值
+  （忽略大小写和首尾空白）；`autodock4 --help` 等包含相同子串的命令仍然有效。
 - smoke 命令由 index 自动化运行，不由本地 `taf check` 运行。
 - `test` 条目是 TOML 字符串，并会在 smoke 容器中通过 `sh -c` 执行。index
   支持 `\"` 这类 TOML 转义；但如果命令本身需要嵌套引号，建议在 shell
