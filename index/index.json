@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-11-08T07:28:33Z",
+  "generated_at": "2026-11-09T08:05:45Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 571,
+    "versions": 572,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -86930,9 +86930,9 @@
     },
     "somalier": {
       "name": "somalier",
-      "latest": "0.3.6-r1",
-      "recent_version": "0.3.6-r1",
-      "recent_at": "2026-10-26T05:09:44Z",
+      "latest": "0.3.7-r1",
+      "recent_version": "0.3.7-r1",
+      "recent_at": "2026-11-08T16:02:46Z",
       "repository_url": "https://github.com/taffish/somalier",
       "command": {
         "name": "taf-somalier"
@@ -87679,6 +87679,196 @@
             "repository": "brentp/somalier",
             "release_url": "https://github.com/brentp/somalier/releases/tag/v0.3.6",
             "version": "0.3.6",
+            "license": "MIT",
+            "citation": "Pedersen BS, Bhetariya PJ, Brown J, et al. Somalier: rapid relatedness estimation for cancer and germline studies using efficient genome sketches. Genome Medicine. 2020;12:62.",
+            "doi": "10.1186/s13073-020-00761-2"
+          }
+        },
+        "0.3.7-r1": {
+          "name": "somalier",
+          "kind": "tool",
+          "version": "0.3.7",
+          "release": 1,
+          "version_id": "0.3.7-r1",
+          "tag": "v0.3.7-r1",
+          "published_at": "2026-11-08T16:02:46Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/somalier",
+          "repository_slug": "taffish/somalier",
+          "command": {
+            "name": "taf-somalier"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "quality-control",
+            "categories": [
+              "quality-control",
+              "sample-identity",
+              "relatedness",
+              "population-genetics"
+            ],
+            "keywords": [
+              "somalier",
+              "sample swap",
+              "sample identity",
+              "relatedness",
+              "pedigree",
+              "ancestry",
+              "contamination",
+              "bam",
+              "cram",
+              "vcf",
+              "gvcf"
+            ],
+            "summary": "Somalier 0.3.7 runtime for extracting compact genome sketches and checking sample identity, relatedness, ancestry, and contamination.",
+            "description": "Somalier 0.3.7 runtime for extracting compact genome sketches and checking sample identity, relatedness, ancestry, and contamination."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/somalier:0.3.7-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "0.3.7-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6f8b208deb2b15807307bc1289d95e7168313335865905f66ac24a190bca974f",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:95da70936e411cd1b4b0a86cbc99b3f21f780cb4e785d54c44963b18082fd49e",
+              "linux/arm64": "sha256:f4532b13163e0f9d58996b9d5bd4d1fb6f28ac9e1c20ef5eecb5f958a517b2e2"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 600,
+            "exist": [
+              "somalier",
+              "somalier-resources",
+              "python3",
+              "curl",
+              "sh",
+              "awk",
+              "grep",
+              "gzip",
+              "ldd",
+              "mktemp",
+              "sed",
+              "cmp",
+              "sha256sum",
+              "tail"
+            ],
+            "test": [
+              "grep -F 'source_sha256=d04c1a7f4fe3483664a6e4fa5403ca81e8cbbe7d8d5d75fa5633df8b0ac83fd6' /opt/somalier/share/doc/somalier/source.txt >/dev/null && grep -F 'upstream_commit=c9422c0d6bdb5781841d0f940a599db94e2915f5' /opt/somalier/share/doc/somalier/source.txt >/dev/null",
+              "/opt/somalier/share/testdata/somalier-smoke.sh identity",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-vcf",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-bam",
+              "/opt/somalier/share/testdata/somalier-smoke.sh extract-cram",
+              "/opt/somalier/share/testdata/somalier-smoke.sh relate",
+              "/opt/somalier/share/testdata/somalier-smoke.sh ab-plot",
+              "/opt/somalier/share/testdata/somalier-smoke.sh contamination",
+              "/opt/somalier/share/testdata/somalier-smoke.sh find-sites",
+              "/opt/somalier/share/testdata/somalier-smoke.sh pedrel",
+              "/opt/somalier/share/testdata/somalier-smoke.sh ancestry",
+              "/opt/somalier/share/testdata/somalier-smoke.sh cigar-boundary",
+              "/opt/somalier/share/testdata/somalier-smoke.sh resources",
+              "/opt/somalier/share/testdata/somalier-smoke.sh reference-error",
+              "/opt/somalier/share/testdata/somalier-smoke.sh reference-counts",
+              "/opt/somalier/share/testdata/somalier-smoke.sh release-regressions"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-09T08:11:39Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-09T08:12:13Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "68deefafaab9f499803bb4afe63a6b78f9d0eeaa",
+                "image_digest": "sha256:6f8b208deb2b15807307bc1289d95e7168313335865905f66ac24a190bca974f",
+                "smoke_sha256": "50badb73681cac0e6fc6c6807449f981e8260fbef89e970b6b513dae742e4032",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-09T08:11:39Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "68deefafaab9f499803bb4afe63a6b78f9d0eeaa",
+                "image_digest": "sha256:6f8b208deb2b15807307bc1289d95e7168313335865905f66ac24a190bca974f",
+                "smoke_sha256": "50badb73681cac0e6fc6c6807449f981e8260fbef89e970b6b513dae742e4032",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-09T08:11:45Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "68deefafaab9f499803bb4afe63a6b78f9d0eeaa",
+                "image_digest": "sha256:6f8b208deb2b15807307bc1289d95e7168313335865905f66ac24a190bca974f",
+                "smoke_sha256": "50badb73681cac0e6fc6c6807449f981e8260fbef89e970b6b513dae742e4032",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-09T08:05:45Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/somalier",
+            "ref": "v0.3.7-r1",
+            "commit": "68deefafaab9f499803bb4afe63a6b78f9d0eeaa",
+            "html_url": "https://github.com/taffish/somalier/tree/v0.3.7-r1"
+          },
+          "upstream": {
+            "name": "Somalier",
+            "type": "github",
+            "homepage": "https://github.com/brentp/somalier",
+            "repository": "brentp/somalier",
+            "release_url": "https://github.com/brentp/somalier/releases/tag/v0.3.7",
+            "version": "0.3.7",
             "license": "MIT",
             "citation": "Pedersen BS, Bhetariya PJ, Brown J, et al. Somalier: rapid relatedness estimation for cancer and germline studies using efficient genome sketches. Genome Medicine. 2020;12:62.",
             "doi": "10.1186/s13073-020-00761-2"
@@ -102535,7 +102725,7 @@
     },
     "taf-somalier": {
       "package": "somalier",
-      "version": "0.3.6-r1"
+      "version": "0.3.7-r1"
     },
     "taf-sourmash": {
       "package": "sourmash",
