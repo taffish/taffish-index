@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-11-11T07:47:49Z",
+  "generated_at": "2026-11-12T08:24:42Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 574,
+    "versions": 575,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -23237,9 +23237,9 @@
     },
     "edta": {
       "name": "edta",
-      "latest": "2.3.0-r2",
-      "recent_version": "2.3.0-r2",
-      "recent_at": "2026-05-18T06:18:59Z",
+      "latest": "2.3.5-r1",
+      "recent_version": "2.3.5-r1",
+      "recent_at": "2026-11-11T16:30:34Z",
       "repository_url": "https://github.com/taffish/edta",
       "command": {
         "name": "taf-edta"
@@ -23625,6 +23625,200 @@
             "repository": "oushujun/EDTA",
             "release_url": "https://github.com/oushujun/EDTA/releases/tag/v2.3.0",
             "version": "2.3.0",
+            "license": "GPL-3.0-only",
+            "citation": "Ou et al. 2019; Ou et al. 2024 for panEDTA",
+            "doi": "10.1186/s13059-019-1905-y",
+            "pmid": "31843001"
+          }
+        },
+        "2.3.5-r1": {
+          "name": "edta",
+          "kind": "tool",
+          "version": "2.3.5",
+          "release": 1,
+          "version_id": "2.3.5-r1",
+          "tag": "v2.3.5-r1",
+          "published_at": "2026-11-11T16:30:34Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/edta",
+          "repository_slug": "taffish/edta",
+          "command": {
+            "name": "taf-edta"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "repeat-annotation",
+              "transposable-elements",
+              "annotation",
+              "pangenome"
+            ],
+            "keywords": [
+              "edta",
+              "panedta",
+              "transposable-elements",
+              "repeatmasker",
+              "repeatmodeler",
+              "ltr-retriever",
+              "tir-learner",
+              "helitronscanner",
+              "te-annotation",
+              "repeat-library"
+            ],
+            "summary": "Extensive de novo TE Annotator for constructing high-quality transposable element libraries and genome repeat annotations.",
+            "description": "Extensive de novo TE Annotator for constructing high-quality transposable element libraries and genome repeat annotations."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/edta:2.3.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.3.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:5577e4fb8323753c181dbfea85db715ab949c9e92ad87aa2216e0b2ea75674af",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:f741268503d641e3f05099750af85866775a017efb6d9440896198f1c429da86"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "EDTA.pl",
+              "EDTA_raw.pl",
+              "EDTA_processK.pl",
+              "lib-test.py",
+              "panEDTA.sh",
+              "TE_sankey_plotter.py",
+              "RepeatMasker",
+              "RepeatModeler",
+              "BuildDatabase",
+              "LTR_retriever",
+              "LTR_FINDER_parallel",
+              "LTR_HARVEST_parallel",
+              "TIR-Learner",
+              "HelitronScanner",
+              "AnnoSINE_v2",
+              "TEsorter",
+              "makeblastdb",
+              "blastn",
+              "blastx",
+              "gt",
+              "grfmite-rs",
+              "trf",
+              "mdust",
+              "cd-hit-est",
+              "samtools",
+              "bedtools",
+              "Rscript",
+              "python3",
+              "perl",
+              "java",
+              "edta-smoke.py"
+            ],
+            "test": [
+              "edta-smoke.py identity",
+              "edta-smoke.py dependencies",
+              "edta-smoke.py resources",
+              "edta-smoke.py evaluation",
+              "edta-smoke.py plot"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-12T08:31:23Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-12T08:31:44Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "4c3905a1a9e4b21b62337404fc56a853485b47e3",
+                "image_digest": "sha256:5577e4fb8323753c181dbfea85db715ab949c9e92ad87aa2216e0b2ea75674af",
+                "smoke_sha256": "adfd3db874c8cd6203babd312c6717298d436c86c9604a4e81f68740907030be",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-12T08:31:23Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "4c3905a1a9e4b21b62337404fc56a853485b47e3",
+                "image_digest": "sha256:5577e4fb8323753c181dbfea85db715ab949c9e92ad87aa2216e0b2ea75674af",
+                "smoke_sha256": "adfd3db874c8cd6203babd312c6717298d436c86c9604a4e81f68740907030be",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-12T08:31:19Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261101.360.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "4c3905a1a9e4b21b62337404fc56a853485b47e3",
+                "image_digest": "sha256:5577e4fb8323753c181dbfea85db715ab949c9e92ad87aa2216e0b2ea75674af",
+                "smoke_sha256": "adfd3db874c8cd6203babd312c6717298d436c86c9604a4e81f68740907030be",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-12T08:24:42Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/edta",
+            "ref": "v2.3.5-r1",
+            "commit": "4c3905a1a9e4b21b62337404fc56a853485b47e3",
+            "html_url": "https://github.com/taffish/edta/tree/v2.3.5-r1"
+          },
+          "upstream": {
+            "type": "github",
+            "homepage": "https://github.com/oushujun/EDTA",
+            "repository": "oushujun/EDTA",
+            "release_url": "https://github.com/oushujun/EDTA/releases/tag/v2.3.5",
+            "version": "2.3.5",
             "license": "GPL-3.0-only",
             "citation": "Ou et al. 2019; Ou et al. 2024 for panEDTA",
             "doi": "10.1186/s13059-019-1905-y",
@@ -102438,7 +102632,7 @@
     },
     "taf-edta": {
       "package": "edta",
-      "version": "2.3.0-r2"
+      "version": "2.3.5-r1"
     },
     "taf-effectorp": {
       "package": "effectorp",
