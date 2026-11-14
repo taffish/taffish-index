@@ -1,8 +1,8 @@
 {
   "name": "oxdna",
-  "latest": "3.7.0-r1",
-  "recent_version": "3.7.0-r1",
-  "recent_at": "2026-07-22T06:23:44Z",
+  "latest": "3.8.0-r1",
+  "recent_version": "3.8.0-r1",
+  "recent_at": "2026-11-14T03:53:41Z",
   "repository_url": "https://github.com/taffish/oxdna",
   "command": {
     "name": "taf-oxdna"
@@ -179,6 +179,186 @@
         "release_url": "https://github.com/lorenzo-rovigatti/oxDNA/releases/tag/v3.7.0",
         "version": "3.7.0",
         "license": "GPL-3.0-only",
+        "citation": "Poppleton E, Matthies M, Mandal D, Romano F, Sulc P, Rovigatti L. oxDNA: coarse-grained simulations of nucleic acids made simple. Journal of Open Source Software. 2023;8(81):4693.",
+        "doi": "10.21105/joss.04693"
+      }
+    },
+    "3.8.0-r1": {
+      "name": "oxdna",
+      "kind": "tool",
+      "version": "3.8.0",
+      "release": 1,
+      "version_id": "3.8.0-r1",
+      "tag": "v3.8.0-r1",
+      "published_at": "2026-11-14T03:53:41Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/oxdna",
+      "repository_slug": "taffish/oxdna",
+      "command": {
+        "name": "taf-oxdna"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "molecular-dynamics",
+        "categories": [
+          "molecular-dynamics",
+          "nucleic-acids",
+          "structural-biology",
+          "simulation",
+          "trajectory-analysis"
+        ],
+        "keywords": [
+          "oxdna",
+          "oxrna",
+          "coarse-grained simulation",
+          "molecular dynamics",
+          "monte carlo",
+          "oxpy",
+          "oat",
+          "dna nanotechnology",
+          "rna nanotechnology",
+          "mpi"
+        ],
+        "summary": "oxDNA 3.8.0 portable CPU/MPI simulation runtime with oxpy, OAT 2.6.5, Zstandard trajectories and structure conversion.",
+        "description": "oxDNA 3.8.0 portable CPU/MPI simulation runtime with oxpy, OAT 2.6.5, Zstandard trajectories and structure conversion."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/oxdna:3.8.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.8.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:e18df8ca738e7fa81230bd41ffe337cbfe93e578b3e4407d82c6c3740a080986",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:ad4812255655d07c6479a9bc3dac70f2ec4eb30700842c61999b8748d418d9f0",
+          "linux/arm64": "sha256:2f76c91885f860bf7b9841fa5cf771b9b17306daa2a73aabffe63d906c6261a8"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "oxDNA",
+          "DNAnalysis",
+          "confGenerator",
+          "oxDNA_mpi",
+          "oxdna-python",
+          "oat",
+          "oxdna-generate-sa",
+          "oxdna-convert-topology",
+          "oxdna-decompress-zstd",
+          "encode_trj",
+          "decode_trj",
+          "mpirun"
+        ],
+        "test": [
+          "/opt/oxdna/share/testdata/oxdna-smoke.sh identity",
+          "/opt/oxdna/share/testdata/oxdna-smoke.sh simulation",
+          "/opt/oxdna/share/testdata/oxdna-smoke.sh mpi",
+          "/opt/oxdna/share/testdata/oxdna-smoke.sh oxpy",
+          "/opt/oxdna/share/testdata/oxdna-smoke.sh oat",
+          "/opt/oxdna/share/testdata/oxdna-smoke.sh structure",
+          "/opt/oxdna/share/testdata/oxdna-smoke.sh compression",
+          "/opt/oxdna/share/testdata/oxdna-smoke.sh models"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-14T07:44:36Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-14T07:44:51Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261111.127.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f090baa67796cead11e5908bac368d0533571b88",
+            "image_digest": "sha256:e18df8ca738e7fa81230bd41ffe337cbfe93e578b3e4407d82c6c3740a080986",
+            "smoke_sha256": "26945b77ad9bddba041fb3a415ab4ad851212374d58cc6d6b32fd15ef20b765c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-14T07:44:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261111.127.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f090baa67796cead11e5908bac368d0533571b88",
+            "image_digest": "sha256:e18df8ca738e7fa81230bd41ffe337cbfe93e578b3e4407d82c6c3740a080986",
+            "smoke_sha256": "26945b77ad9bddba041fb3a415ab4ad851212374d58cc6d6b32fd15ef20b765c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-14T07:44:36Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261111.127.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "f090baa67796cead11e5908bac368d0533571b88",
+            "image_digest": "sha256:e18df8ca738e7fa81230bd41ffe337cbfe93e578b3e4407d82c6c3740a080986",
+            "smoke_sha256": "26945b77ad9bddba041fb3a415ab4ad851212374d58cc6d6b32fd15ef20b765c",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-14T07:39:21Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/oxdna",
+        "ref": "v3.8.0-r1",
+        "commit": "f090baa67796cead11e5908bac368d0533571b88",
+        "html_url": "https://github.com/taffish/oxdna/tree/v3.8.0-r1"
+      },
+      "upstream": {
+        "name": "oxDNA",
+        "type": "github",
+        "homepage": "https://lorenzo-rovigatti.github.io/oxDNA/",
+        "repository": "lorenzo-rovigatti/oxDNA",
+        "release_url": "https://github.com/lorenzo-rovigatti/oxDNA/releases/tag/v3.8.0",
+        "version": "3.8.0",
+        "license": "GPL-3.0-or-later",
         "citation": "Poppleton E, Matthies M, Mandal D, Romano F, Sulc P, Rovigatti L. oxDNA: coarse-grained simulations of nucleic acids made simple. Journal of Open Source Software. 2023;8(81):4693.",
         "doi": "10.21105/joss.04693"
       }
