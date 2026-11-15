@@ -1,8 +1,8 @@
 {
   "name": "hicexplorer",
-  "latest": "3.7.6-r2",
-  "recent_version": "3.7.6-r2",
-  "recent_at": "2026-05-19T07:36:40Z",
+  "latest": "4.0.0-r1",
+  "recent_version": "4.0.0-r1",
+  "recent_at": "2026-11-14T16:10:08Z",
   "repository_url": "https://github.com/taffish/hicexplorer",
   "command": {
     "name": "taf-hicexplorer"
@@ -442,6 +442,234 @@
         "repository": "deeptools/HiCExplorer",
         "release_url": "https://github.com/deeptools/HiCExplorer/releases/tag/3.7.6",
         "version": "3.7.6",
+        "license": "GPL-3.0-or-later",
+        "citation": "Wolff et al. 2020; Wolff et al. 2018; Ramirez et al. 2018",
+        "doi": "10.1093/nar/gkaa220",
+        "pmid": "32301980"
+      }
+    },
+    "4.0.0-r1": {
+      "name": "hicexplorer",
+      "kind": "tool",
+      "version": "4.0.0",
+      "release": 1,
+      "version_id": "4.0.0-r1",
+      "tag": "v4.0.0-r1",
+      "published_at": "2026-11-14T16:10:08Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/hicexplorer",
+      "repository_slug": "taffish/hicexplorer",
+      "command": {
+        "name": "taf-hicexplorer"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "hic",
+        "categories": [
+          "hic",
+          "chromatin",
+          "genomics",
+          "visualization",
+          "quality-control"
+        ],
+        "keywords": [
+          "hicexplorer",
+          "hi-c",
+          "capture-hi-c",
+          "micro-c",
+          "contact-matrix",
+          "cooler",
+          "tad",
+          "loops",
+          "stripes",
+          "compartments",
+          "chicago"
+        ],
+        "summary": "HiCExplorer 4 command-line tools and Python API for building, analyzing, converting and visualizing contact matrices, with native offline QC reports.",
+        "description": "HiCExplorer 4 command-line tools and Python API for building, analyzing, converting and visualizing contact matrices, with native offline QC reports."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/hicexplorer:4.0.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "4.0.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:ba98f47e12a9547df659368a983321257debbb6a78c50c530ca56576b81c7585",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:941c33fb69547882b4cde5fca1802a0cf71969f2c3e1e98a1251bcc63bc9cc83",
+          "linux/arm64": "sha256:fd408984f2e40d848150321b63ff12636e23a4fabb3b8d8722aeedcad781f60b"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "hicexplorer",
+          "hicFindRestSite",
+          "hicAggregateContacts",
+          "hicBuildMatrix",
+          "hicBuildMatrixMicroC",
+          "hicCorrectMatrix",
+          "hicCorrelate",
+          "hicFindTADs",
+          "hicMergeMatrixBins",
+          "hicPlotMatrix",
+          "hicPlotDistVsCounts",
+          "hicSumMatrices",
+          "hicInfo",
+          "hicQC",
+          "hicCompareMatrices",
+          "hicPCA",
+          "hicTransform",
+          "hicPlotViewpoint",
+          "chicViewpointBackgroundModel",
+          "chicPlotViewpoint",
+          "chicViewpoint",
+          "chicAggregateStatistic",
+          "chicDifferentialTest",
+          "chicQualityControl",
+          "chicSignificantInteractions",
+          "hicConvertFormat",
+          "hicAdjustMatrix",
+          "hicNormalize",
+          "hicAverageRegions",
+          "hicPlotAverageRegions",
+          "hicDetectLoops",
+          "hicValidateLocations",
+          "hicMergeLoops",
+          "hicCompartmentalization",
+          "hicQuickQC",
+          "hicPlotSVL",
+          "hicCreateThresholdFile",
+          "hicHyperoptDetectLoops",
+          "hicHyperoptDetectLoopsHiCCUPS",
+          "hicMergeDomains",
+          "hicDifferentialTAD",
+          "chicExportData",
+          "hicInterIntraTAD",
+          "chicChicagoBackgroundModel",
+          "chicChicagoScores",
+          "chicChicagoSignificantInteractions",
+          "chicChicagoPlotViewpoint",
+          "hicDifferentialAnalysis",
+          "hicDetectStripes",
+          "hicArrowhead",
+          "hicMatrixQC",
+          "hicMergeTADbins",
+          "hicPrepareQCreport",
+          "python",
+          "samtools",
+          "bedtools",
+          "dot",
+          "pyGenomeTracks"
+        ],
+        "test": [
+          "python /usr/local/share/taffish/hicexplorer/check.py identity",
+          "python /usr/local/share/taffish/hicexplorer/check.py matrix",
+          "python /usr/local/share/taffish/hicexplorer/check.py build",
+          "python /usr/local/share/taffish/hicexplorer/check.py bam",
+          "python /usr/local/share/taffish/hicexplorer/check.py plots",
+          "python /usr/local/share/taffish/hicexplorer/check.py report",
+          "python /usr/local/share/taffish/hicexplorer/check.py new_tools",
+          "python /usr/local/share/taffish/hicexplorer/check.py negative"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-15T08:00:48Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-15T08:01:18Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261111.127.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c57c0f150684e51c7af7f4ecd89aae979fb0cb77",
+            "image_digest": "sha256:ba98f47e12a9547df659368a983321257debbb6a78c50c530ca56576b81c7585",
+            "smoke_sha256": "60c1037ae51277a60daf6322021869b236657c457772e33a0b6301cb56c1f31e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-15T08:00:48Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261111.370.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c57c0f150684e51c7af7f4ecd89aae979fb0cb77",
+            "image_digest": "sha256:ba98f47e12a9547df659368a983321257debbb6a78c50c530ca56576b81c7585",
+            "smoke_sha256": "60c1037ae51277a60daf6322021869b236657c457772e33a0b6301cb56c1f31e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-15T08:01:02Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261111.127.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c57c0f150684e51c7af7f4ecd89aae979fb0cb77",
+            "image_digest": "sha256:ba98f47e12a9547df659368a983321257debbb6a78c50c530ca56576b81c7585",
+            "smoke_sha256": "60c1037ae51277a60daf6322021869b236657c457772e33a0b6301cb56c1f31e",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-15T07:55:27Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/hicexplorer",
+        "ref": "v4.0.0-r1",
+        "commit": "c57c0f150684e51c7af7f4ecd89aae979fb0cb77",
+        "html_url": "https://github.com/taffish/hicexplorer/tree/v4.0.0-r1"
+      },
+      "upstream": {
+        "name": "HiCExplorer",
+        "type": "github",
+        "homepage": "https://hicexplorer.readthedocs.io/",
+        "repository": "deeptools/HiCExplorer",
+        "release_url": "https://github.com/deeptools/HiCExplorer/releases/tag/4.0.0",
+        "version": "4.0.0",
         "license": "GPL-3.0-or-later",
         "citation": "Wolff et al. 2020; Wolff et al. 2018; Ramirez et al. 2018",
         "doi": "10.1093/nar/gkaa220",
