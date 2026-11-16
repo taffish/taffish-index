@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-11-15T07:55:27Z",
+  "generated_at": "2026-11-16T08:03:11Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 581,
+    "versions": 582,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -82090,9 +82090,9 @@
     },
     "scanpy": {
       "name": "scanpy",
-      "latest": "1.12.5-r1",
-      "recent_version": "1.12.5-r1",
-      "recent_at": "2026-11-02T16:03:38Z",
+      "latest": "1.13.0-r1",
+      "recent_version": "1.13.0-r1",
+      "recent_at": "2026-11-15T16:03:20Z",
       "repository_url": "https://github.com/taffish/scanpy",
       "command": {
         "name": "taf-scanpy"
@@ -82935,6 +82935,177 @@
             "repository": "https://github.com/scverse/scanpy",
             "release_url": "https://github.com/scverse/scanpy/releases/tag/1.12.5",
             "version": "1.12.5",
+            "license": "BSD-3-Clause",
+            "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
+            "doi": "10.1186/s13059-017-1382-0",
+            "pmid": "29409532"
+          }
+        },
+        "1.13.0-r1": {
+          "name": "scanpy",
+          "kind": "tool",
+          "version": "1.13.0",
+          "release": 1,
+          "version_id": "1.13.0-r1",
+          "tag": "v1.13.0-r1",
+          "published_at": "2026-11-15T16:03:20Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/scanpy",
+          "repository_slug": "taffish/scanpy",
+          "command": {
+            "name": "taf-scanpy"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "single-cell",
+            "categories": [
+              "single-cell",
+              "transcriptomics",
+              "python",
+              "scverse",
+              "visualization"
+            ],
+            "keywords": [
+              "scanpy",
+              "single-cell",
+              "scrna-seq",
+              "anndata",
+              "h5ad",
+              "leiden",
+              "umap",
+              "pca"
+            ],
+            "summary": "Scanpy 1.13.0 CPU Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, static plotting and optional standalone interactive HTML.",
+            "description": "Scanpy 1.13.0 CPU Python runtime and upstream CLI for scalable single-cell gene-expression analysis with AnnData, preprocessing, clustering, marker testing, static plotting and optional standalone interactive HTML."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/scanpy:1.13.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "1.13.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:d0b6d98c543b7a8e5775b336ba60938c01e2962bd0ff07cc9f3d9100d228720c",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:c0f57c09b8fb70260d2a09385247008912ca0321f8955aafb3542f9ef6c9f54e",
+              "linux/arm64": "sha256:5ab7b10c6428612317baefa378ce20243e3292f7e59ca41db048ff8dac01a25a"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "scanpy",
+              "scanpy-prepare-datasets",
+              "python",
+              "python3",
+              "pip",
+              "bash",
+              "sh"
+            ],
+            "test": [
+              "actual=\"$(python -c 'import importlib.metadata as md; print(md.version(\"scanpy\"))')\" && test \"$actual\" = '1.13.0' && actual=\"$(python -c 'import importlib.metadata as md; print(md.version(\"scikit-misc\"))')\" && test \"$actual\" = '0.5.2' && actual=\"$(python -c 'import importlib.metadata as md; print(md.version(\"openpyxl\"))')\" && test \"$actual\" = '3.1.5' && actual=\"$(python -c 'import importlib.metadata as md; print(md.version(\"et-xmlfile\"))')\" && test \"$actual\" = '2.0.0' && python -c 'import importlib.metadata as md; import scanpy as sc, anndata, et_xmlfile, fast_array_utils, h5py, igraph, leidenalg, matplotlib, natsort, networkx, numba, numpy, openpyxl, pandas, pynndescent, scipy, scverse_misc, seaborn, sklearn, statsmodels, umap; from skmisc.loess import loess; print(md.version(\"scanpy\"))' | grep -Fx '1.13.0' >/dev/null && scanpy --help 2>&1 | grep -E 'usage:|Usage:' >/dev/null && scanpy settings | grep -F 'TAFFISH_IMPLICIT_DATASET_DOWNLOADS_DISABLED' >/dev/null && grep -Fx 'upstream_commit=3962176e93ba148bc0f61443c517877d736f2b3b' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'wheel_sha256=1a93f9d2136f1441ae5dfd3fcdbc3d809f6f15cc6581ab7863cd17c5c4cdd22d' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'scikit_misc_sdist_sha256=49fa30e4051b341edc7422db66a12c0f59d468729285bfe644d10924dc51be0a' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'openpyxl_wheel_sha256=5282c12b107bffeef825f4617dc029afaf41d0ea60823bbb665ef3079dc79de2' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'et_xmlfile_wheel_sha256=7a91720bc756843502c3b7504c77b8fe44217c85c537d85037f0f536151b2caa' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'dataset_catalog_sha256=0ed3e3a3e7b04363ecaeb9943efdbc631ec2dd7f2585d249dd6a08824ae29887' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'dataset_helper_sha256=7ad57b8767724aa9a4042e34775e6c4fad9904ca8aa37e5ed52137c2f3df6420' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'dataset_policy_sha256=3599d39c7065b5a906540a62753b71b6a82e58c0b0dbaed4a6f39cb34406e28f' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && grep -Fx 'smoke_script_sha256=9c62900e8d3285bccb2cf30a5c1783598423d48c8f07af1a08d178cd947629e7' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && printf '%s  %s\\n' '7ad57b8767724aa9a4042e34775e6c4fad9904ca8aa37e5ed52137c2f3df6420' /opt/scanpy/bin/scanpy-prepare-datasets '3599d39c7065b5a906540a62753b71b6a82e58c0b0dbaed4a6f39cb34406e28f' /opt/scanpy/lib/python3.13/site-packages/sitecustomize.py '9c62900e8d3285bccb2cf30a5c1783598423d48c8f07af1a08d178cd947629e7' /opt/scanpy/share/testdata/scanpy_smoke.py | sha256sum -c - >/dev/null && grep -Fx 'dataset_policy=managed-v1 with persistent verified or explicit unverified roots' /opt/scanpy/share/doc/scanpy/SOURCE >/dev/null && test -f /opt/scanpy/share/scanpy/TAFFISH_IMPLICIT_DATASET_DOWNLOADS_DISABLED && test ! -L /opt/scanpy/share/scanpy/TAFFISH_IMPLICIT_DATASET_DOWNLOADS_DISABLED && printf '%s  %s\n' '0ed3e3a3e7b04363ecaeb9943efdbc631ec2dd7f2585d249dd6a08824ae29887' /opt/scanpy/share/scanpy/dataset-catalog.json | sha256sum -c - >/dev/null && test -s /opt/scanpy/share/doc/scanpy/LICENSE.upstream && test -s /opt/scanpy/share/doc/scanpy/LICENSE.scikit-misc && test -s /opt/scanpy/share/doc/scanpy/LICENSE.scikit-misc-loess && test -s /opt/scanpy/share/doc/scanpy/LICENSE.openpyxl && test -s /opt/scanpy/share/doc/scanpy/LICENSE.et-xmlfile && test -s /opt/scanpy/share/doc/scanpy/LICENSE.et-xmlfile-python",
+              "scanpy-prepare-datasets --list-datasets | grep -F 'pbmc3k-raw' >/dev/null && scanpy-prepare-datasets --dataset pbmc3k-raw --dry-run | grep -F 'pbmc3k-raw' >/dev/null && scanpy-prepare-datasets --dataset pbmc3k-raw --dry-run | grep -Fx 'required_free_bytes=53687091' >/dev/null && if scanpy-prepare-datasets --dataset pbmc3k-raw --min-free-gb nan --dry-run >/dev/null 2>&1; then exit 1; fi && if scanpy-prepare-datasets --dataset all --dry-run >/dev/null 2>&1; then exit 1; fi",
+              "tmp=/tmp/taf-scanpy-regression-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; NUMBA_DISABLE_JIT=1 python /opt/scanpy/share/testdata/scanpy_smoke.py --regressions-only \"$tmp/out\" | grep -Fx 'regressions=ok' >/dev/null && rm -rf \"$tmp\"",
+              "tmp=/tmp/taf-scanpy-workflow-$$; rm -rf \"$tmp\"; mkdir -p \"$tmp\"; python /opt/scanpy/share/testdata/scanpy_smoke.py \"$tmp/out\" && test -s \"$tmp/out/scanpy_smoke.h5ad\" && test -s \"$tmp/out/pca.png\" && test -s \"$tmp/out/pca-interactive.html\" && test -s \"$tmp/out/markers.tsv\" && test -s \"$tmp/out/versions.tsv\" && grep -F 'gene' \"$tmp/out/markers.tsv\" >/dev/null && grep -F 'scanpy' \"$tmp/out/versions.tsv\" >/dev/null && grep -F 'openpyxl' \"$tmp/out/versions.tsv\" >/dev/null && grep -F 'et-xmlfile' \"$tmp/out/versions.tsv\" >/dev/null && rm -rf \"$tmp\"",
+              "python /opt/scanpy/share/testdata/scanpy_smoke.py --policy-only | grep -Fx 'dataset_policy=fail-closed' >/dev/null"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-16T08:10:00Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-16T08:11:08Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261111.127.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8b9df2484d3b81a25cd5e1488614b682839e32f2",
+                "image_digest": "sha256:d0b6d98c543b7a8e5775b336ba60938c01e2962bd0ff07cc9f3d9100d228720c",
+                "smoke_sha256": "71cfb31164d9398b2a6140a14c4ccf6029c0ce2988d625059e0a21af07a10cde",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-16T08:10:00Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261111.370.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8b9df2484d3b81a25cd5e1488614b682839e32f2",
+                "image_digest": "sha256:d0b6d98c543b7a8e5775b336ba60938c01e2962bd0ff07cc9f3d9100d228720c",
+                "smoke_sha256": "71cfb31164d9398b2a6140a14c4ccf6029c0ce2988d625059e0a21af07a10cde",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-16T08:10:18Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261111.127.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "8b9df2484d3b81a25cd5e1488614b682839e32f2",
+                "image_digest": "sha256:d0b6d98c543b7a8e5775b336ba60938c01e2962bd0ff07cc9f3d9100d228720c",
+                "smoke_sha256": "71cfb31164d9398b2a6140a14c4ccf6029c0ce2988d625059e0a21af07a10cde",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-16T08:03:11Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/scanpy",
+            "ref": "v1.13.0-r1",
+            "commit": "8b9df2484d3b81a25cd5e1488614b682839e32f2",
+            "html_url": "https://github.com/taffish/scanpy/tree/v1.13.0-r1"
+          },
+          "upstream": {
+            "name": "Scanpy",
+            "type": "github",
+            "homepage": "https://scanpy.readthedocs.io/",
+            "repository": "https://github.com/scverse/scanpy",
+            "release_url": "https://github.com/scverse/scanpy/releases/tag/1.13.0",
+            "version": "1.13.0",
             "license": "BSD-3-Clause",
             "citation": "Wolf, Angerer, and Theis. SCANPY: large-scale single-cell gene expression data analysis. Genome Biology 19, 15 (2018).",
             "doi": "10.1186/s13059-017-1382-0",
@@ -104382,7 +104553,7 @@
     },
     "taf-scanpy": {
       "package": "scanpy",
-      "version": "1.12.5-r1"
+      "version": "1.13.0-r1"
     },
     "taf-scrnaseq-python": {
       "package": "scrnaseq-python",
