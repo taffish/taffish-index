@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-11-16T08:03:11Z",
+  "generated_at": "2026-11-17T09:17:49Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 582,
+    "versions": 583,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -96682,9 +96682,9 @@
     },
     "trimgalore": {
       "name": "trimgalore",
-      "latest": "2.4.0-r1",
-      "recent_version": "2.4.0-r1",
-      "recent_at": "2026-11-10T16:05:14Z",
+      "latest": "2.5.0-r1",
+      "recent_version": "2.5.0-r1",
+      "recent_at": "2026-11-16T16:02:03Z",
       "repository_url": "https://github.com/taffish/trimgalore",
       "command": {
         "name": "taf-trimgalore"
@@ -97211,6 +97211,184 @@
             "repository": "FelixKrueger/TrimGalore",
             "release_url": "https://github.com/FelixKrueger/TrimGalore/releases/tag/v2.4.0",
             "version": "2.4.0",
+            "license": "GPL-3.0-only",
+            "citation": "Felix Krueger. Trim Galore. Concept DOI: 10.5281/zenodo.5127898.",
+            "doi": "10.5281/zenodo.5127898"
+          }
+        },
+        "2.5.0-r1": {
+          "name": "trimgalore",
+          "kind": "tool",
+          "version": "2.5.0",
+          "release": 1,
+          "version_id": "2.5.0-r1",
+          "tag": "v2.5.0-r1",
+          "published_at": "2026-11-16T16:02:03Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trimgalore",
+          "repository_slug": "taffish/trimgalore",
+          "command": {
+            "name": "taf-trimgalore"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "fastq",
+            "categories": [
+              "fastq",
+              "adapter-trimming",
+              "quality-control",
+              "sequencing",
+              "rrbs"
+            ],
+            "keywords": [
+              "trim-galore",
+              "trimgalore",
+              "trim_galore",
+              "fastq",
+              "ubam",
+              "rrbs",
+              "fastqc",
+              "clumpify"
+            ],
+            "summary": "Trim and quality-check sequencing reads, or reorder FASTQ records without trimming. Generate offline FastQC reports from FASTQ or unaligned BAM.",
+            "description": "Trim and quality-check sequencing reads, or reorder FASTQ records without trimming. Generate offline FastQC reports from FASTQ or unaligned BAM."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trimgalore:2.5.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.5.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:cafc9c60ea67d7176556a2fb4ba79d1a1556d1e5cff581a2378b5453b096cebc",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:1ba173bebc30078470b2e8ea1cf2e23ec1b0e66a650e2faebb184868680e7b53",
+              "linux/arm64": "sha256:30406816d037d1926fde1ca468d44b01b502c41f564c2f549cf71f0397e90094"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "trim_galore",
+              "bash",
+              "gzip",
+              "unzip",
+              "ldd",
+              "awk",
+              "cmp",
+              "paste",
+              "sort",
+              "tail"
+            ],
+            "test": [
+              "/usr/local/libexec/taf-trimgalore-smoke identity",
+              "/usr/local/libexec/taf-trimgalore-smoke help",
+              "/usr/local/libexec/taf-trimgalore-smoke single",
+              "/usr/local/libexec/taf-trimgalore-smoke paired",
+              "/usr/local/libexec/taf-trimgalore-smoke rrbs",
+              "/usr/local/libexec/taf-trimgalore-smoke fastqc",
+              "/usr/local/libexec/taf-trimgalore-smoke gzip",
+              "/usr/local/libexec/taf-trimgalore-smoke ubam",
+              "/usr/local/libexec/taf-trimgalore-smoke reorder",
+              "/usr/local/libexec/taf-trimgalore-smoke library"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-17T09:24:18Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-17T09:26:42Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261111.127.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "dbd749e92ab3c382be7c604cb62012a9b6970532",
+                "image_digest": "sha256:cafc9c60ea67d7176556a2fb4ba79d1a1556d1e5cff581a2378b5453b096cebc",
+                "smoke_sha256": "66154bb0f4933b97bcaae137e1dca8197b5f55b92910364f3e8fbf15e7546dcf",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-17T09:24:18Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261111.127.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "dbd749e92ab3c382be7c604cb62012a9b6970532",
+                "image_digest": "sha256:cafc9c60ea67d7176556a2fb4ba79d1a1556d1e5cff581a2378b5453b096cebc",
+                "smoke_sha256": "66154bb0f4933b97bcaae137e1dca8197b5f55b92910364f3e8fbf15e7546dcf",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-17T09:24:08Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261111.127.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "dbd749e92ab3c382be7c604cb62012a9b6970532",
+                "image_digest": "sha256:cafc9c60ea67d7176556a2fb4ba79d1a1556d1e5cff581a2378b5453b096cebc",
+                "smoke_sha256": "66154bb0f4933b97bcaae137e1dca8197b5f55b92910364f3e8fbf15e7546dcf",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-17T09:17:49Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trimgalore",
+            "ref": "v2.5.0-r1",
+            "commit": "dbd749e92ab3c382be7c604cb62012a9b6970532",
+            "html_url": "https://github.com/taffish/trimgalore/tree/v2.5.0-r1"
+          },
+          "upstream": {
+            "name": "Trim Galore",
+            "type": "github",
+            "homepage": "https://www.trimgalore.com/",
+            "repository": "FelixKrueger/TrimGalore",
+            "release_url": "https://github.com/FelixKrueger/TrimGalore/releases/tag/v2.5.0",
+            "version": "2.5.0",
             "license": "GPL-3.0-only",
             "citation": "Felix Krueger. Trim Galore. Concept DOI: 10.5281/zenodo.5127898.",
             "doi": "10.5281/zenodo.5127898"
@@ -104705,7 +104883,7 @@
     },
     "taf-trimgalore": {
       "package": "trimgalore",
-      "version": "2.4.0-r1"
+      "version": "2.5.0-r1"
     },
     "taf-trinity": {
       "package": "trinity",

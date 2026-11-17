@@ -1,6 +1,6 @@
 {
   "schema_version": "taffish.index.gate-state/v1",
-  "generated_at": "2026-11-16T08:03:11Z",
+  "generated_at": "2026-11-17T09:17:49Z",
   "policy_generation": "multibackend-1",
   "results": [
     {
@@ -30004,6 +30004,66 @@
       "message": null
     },
     {
+      "task_id": "taffish/trimgalore|2.5.0-r1",
+      "plan_id": "bde56f07e50cd108f482c38f1a16a21c8be34f39e8a7e8bb92b6233b14c5f462",
+      "manifest_id": "d92a2decb8816dc7b5093b451f6c1247f713fd5d50995a7799e129c6621e02a1",
+      "backend": "apptainer",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-11-17T09:26:42Z",
+      "platform": "linux/amd64",
+      "runtime_version": "apptainer version 1.5.5",
+      "runner_image": "ubuntu24/20261111.127.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "dbd749e92ab3c382be7c604cb62012a9b6970532",
+      "image_digest": "sha256:cafc9c60ea67d7176556a2fb4ba79d1a1556d1e5cff581a2378b5453b096cebc",
+      "smoke_sha256": "66154bb0f4933b97bcaae137e1dca8197b5f55b92910364f3e8fbf15e7546dcf",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/trimgalore|2.5.0-r1",
+      "plan_id": "bde56f07e50cd108f482c38f1a16a21c8be34f39e8a7e8bb92b6233b14c5f462",
+      "manifest_id": "d92a2decb8816dc7b5093b451f6c1247f713fd5d50995a7799e129c6621e02a1",
+      "backend": "docker",
+      "required": true,
+      "status": "passed",
+      "checked_at": "2026-11-17T09:24:18Z",
+      "platform": "linux/amd64",
+      "runtime_version": "Docker version 28.0.4, build b8034c0",
+      "runner_image": "ubuntu24/20261111.127.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "dbd749e92ab3c382be7c604cb62012a9b6970532",
+      "image_digest": "sha256:cafc9c60ea67d7176556a2fb4ba79d1a1556d1e5cff581a2378b5453b096cebc",
+      "smoke_sha256": "66154bb0f4933b97bcaae137e1dca8197b5f55b92910364f3e8fbf15e7546dcf",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
+      "task_id": "taffish/trimgalore|2.5.0-r1",
+      "plan_id": "bde56f07e50cd108f482c38f1a16a21c8be34f39e8a7e8bb92b6233b14c5f462",
+      "manifest_id": "d92a2decb8816dc7b5093b451f6c1247f713fd5d50995a7799e129c6621e02a1",
+      "backend": "podman",
+      "required": false,
+      "status": "passed",
+      "checked_at": "2026-11-17T09:24:08Z",
+      "platform": "linux/amd64",
+      "runtime_version": "podman version 4.9.3",
+      "runner_image": "ubuntu24/20261111.127.1",
+      "policy_generation": "multibackend-1",
+      "source_commit": "dbd749e92ab3c382be7c604cb62012a9b6970532",
+      "image_digest": "sha256:cafc9c60ea67d7176556a2fb4ba79d1a1556d1e5cff581a2378b5453b096cebc",
+      "smoke_sha256": "66154bb0f4933b97bcaae137e1dca8197b5f55b92910364f3e8fbf15e7546dcf",
+      "provenance": "taffish-index",
+      "cache_reused": false,
+      "failure_kind": null,
+      "message": null
+    },
+    {
       "task_id": "taffish/trinity|2.15.2-r1",
       "plan_id": "ab1c2cea5a6e34f454b7d4c328679d9a24a90a923489e1a4e450ddd1ea7787e4",
       "manifest_id": "5205925778232866ec41c803b4be504958058df5507efa8b021a5f5b95f6a981",
@@ -35545,6 +35605,13 @@
       "source_commit": "9c5315c253c0d133188be19ec195242739c61c1a",
       "image": "ghcr.io/taffish/trimgalore:2.4.0-r1",
       "image_digest": "sha256:764eefc93fb56f1b3faa4ad7b5a45cdae63409f16db652849bb6eb32b365d62b"
+    },
+    {
+      "task_id": "taffish/trimgalore|2.5.0-r1",
+      "source_ref": "v2.5.0-r1",
+      "source_commit": "dbd749e92ab3c382be7c604cb62012a9b6970532",
+      "image": "ghcr.io/taffish/trimgalore:2.5.0-r1",
+      "image_digest": "sha256:cafc9c60ea67d7176556a2fb4ba79d1a1556d1e5cff581a2378b5453b096cebc"
     },
     {
       "task_id": "taffish/trinity|2.15.2-r1",
