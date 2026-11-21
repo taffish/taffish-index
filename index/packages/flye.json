@@ -1,8 +1,8 @@
 {
   "name": "flye",
-  "latest": "2.9.6-r1",
-  "recent_version": "2.9.6-r1",
-  "recent_at": "2026-06-10T01:05:58Z",
+  "latest": "2.9.7-r1",
+  "recent_version": "2.9.7-r1",
+  "recent_at": "2026-11-20T16:18:10Z",
   "repository_url": "https://github.com/taffish/flye",
   "command": {
     "name": "taf-flye"
@@ -175,6 +175,175 @@
         "repository": "mikolmogorov/Flye",
         "release_url": "https://github.com/mikolmogorov/Flye/releases/tag/2.9.6",
         "version": "2.9.6",
+        "license": "BSD-3-Clause",
+        "citation": "Kolmogorov et al. 2019; Kolmogorov et al. 2020",
+        "doi": "10.1038/s41587-019-0072-8; 10.1038/s41592-020-00971-x"
+      }
+    },
+    "2.9.7-r1": {
+      "name": "flye",
+      "kind": "tool",
+      "version": "2.9.7",
+      "release": 1,
+      "version_id": "2.9.7-r1",
+      "tag": "v2.9.7-r1",
+      "published_at": "2026-11-20T16:18:10Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/flye",
+      "repository_slug": "taffish/flye",
+      "command": {
+        "name": "taf-flye"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "genome-assembly",
+        "categories": [
+          "genome-assembly",
+          "long-read",
+          "metagenomics",
+          "de-novo-assembly"
+        ],
+        "keywords": [
+          "flye",
+          "metaflye",
+          "pacbio",
+          "ont",
+          "nanopore",
+          "hifi",
+          "long reads",
+          "repeat graph",
+          "assembly",
+          "contigs",
+          "gfa"
+        ],
+        "summary": "Flye long-read de novo assembler for PacBio and Oxford Nanopore reads, including isolate and metagenome repeat-graph assembly modes.",
+        "description": "Flye long-read de novo assembler for PacBio and Oxford Nanopore reads, including isolate and metagenome repeat-graph assembly modes."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/flye:2.9.7-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.9.7-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:8166f2ea83ffae54b668376b12904d5a87353216a46c6674e1e6c736fb9e98bb",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:91c58945b3c36fc501925e2efd2bd2545146f092b9b51f17d90f567f766b48c0",
+          "linux/arm64": "sha256:1f57cfe6e401e9c4f1d1b803b1381a5d3a93ae556f62b5d33c14e1acdb681faf"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 600,
+        "exist": [
+          "flye",
+          "flye-modules",
+          "flye-minimap2",
+          "flye-samtools",
+          "python3",
+          "bash",
+          "gzip"
+        ],
+        "test": [
+          "python3 /usr/local/libexec/flye-smoke.py identity",
+          "python3 /usr/local/libexec/flye-smoke.py assembly"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-21T08:26:18Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-21T08:26:40Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261116.133.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c1ec5693ee096cd0f24209ec711bfb7033e799e7",
+            "image_digest": "sha256:8166f2ea83ffae54b668376b12904d5a87353216a46c6674e1e6c736fb9e98bb",
+            "smoke_sha256": "f3ace722f5d813da099ba5d95d8c82516edf0d8c2d6ade5d48892ebae68ef306",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-21T08:26:18Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261116.133.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c1ec5693ee096cd0f24209ec711bfb7033e799e7",
+            "image_digest": "sha256:8166f2ea83ffae54b668376b12904d5a87353216a46c6674e1e6c736fb9e98bb",
+            "smoke_sha256": "f3ace722f5d813da099ba5d95d8c82516edf0d8c2d6ade5d48892ebae68ef306",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-21T08:26:18Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261116.133.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c1ec5693ee096cd0f24209ec711bfb7033e799e7",
+            "image_digest": "sha256:8166f2ea83ffae54b668376b12904d5a87353216a46c6674e1e6c736fb9e98bb",
+            "smoke_sha256": "f3ace722f5d813da099ba5d95d8c82516edf0d8c2d6ade5d48892ebae68ef306",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-21T08:21:11Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/flye",
+        "ref": "v2.9.7-r1",
+        "commit": "c1ec5693ee096cd0f24209ec711bfb7033e799e7",
+        "html_url": "https://github.com/taffish/flye/tree/v2.9.7-r1"
+      },
+      "upstream": {
+        "name": "Flye",
+        "type": "github",
+        "homepage": "https://github.com/mikolmogorov/Flye",
+        "repository": "mikolmogorov/Flye",
+        "release_url": "https://github.com/mikolmogorov/Flye/releases/tag/2.9.7",
+        "version": "2.9.7",
         "license": "BSD-3-Clause",
         "citation": "Kolmogorov et al. 2019; Kolmogorov et al. 2020",
         "doi": "10.1038/s41587-019-0072-8; 10.1038/s41592-020-00971-x"
