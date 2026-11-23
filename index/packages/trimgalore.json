@@ -1,8 +1,8 @@
 {
   "name": "trimgalore",
-  "latest": "2.5.0-r1",
-  "recent_version": "2.5.0-r1",
-  "recent_at": "2026-11-16T16:02:03Z",
+  "latest": "2.6.0-r1",
+  "recent_version": "2.6.0-r1",
+  "recent_at": "2026-11-22T16:20:01Z",
   "repository_url": "https://github.com/taffish/trimgalore",
   "command": {
     "name": "taf-trimgalore"
@@ -707,6 +707,185 @@
         "repository": "FelixKrueger/TrimGalore",
         "release_url": "https://github.com/FelixKrueger/TrimGalore/releases/tag/v2.5.0",
         "version": "2.5.0",
+        "license": "GPL-3.0-only",
+        "citation": "Felix Krueger. Trim Galore. Concept DOI: 10.5281/zenodo.5127898.",
+        "doi": "10.5281/zenodo.5127898"
+      }
+    },
+    "2.6.0-r1": {
+      "name": "trimgalore",
+      "kind": "tool",
+      "version": "2.6.0",
+      "release": 1,
+      "version_id": "2.6.0-r1",
+      "tag": "v2.6.0-r1",
+      "published_at": "2026-11-22T16:20:01Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/trimgalore",
+      "repository_slug": "taffish/trimgalore",
+      "command": {
+        "name": "taf-trimgalore"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "fastq",
+        "categories": [
+          "fastq",
+          "adapter-trimming",
+          "quality-control",
+          "sequencing",
+          "rrbs"
+        ],
+        "keywords": [
+          "trim-galore",
+          "trimgalore",
+          "trim_galore",
+          "fastq",
+          "ubam",
+          "rrbs",
+          "fastqc",
+          "clumpify"
+        ],
+        "summary": "Trim and quality-check sequencing reads, or reorder FASTQ records without trimming. Generate offline FastQC reports from FASTQ or unaligned BAM.",
+        "description": "Trim and quality-check sequencing reads, or reorder FASTQ records without trimming. Generate offline FastQC reports from FASTQ or unaligned BAM."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/trimgalore:2.6.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.6.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:a8cf3dd7a74fa85326b2f6c1d0073a0c5b1c65350ab1a4ca83eb0c75ed62a5f2",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:36b975ab31388ba6f4f36e9baac64467ad097cb830fef8687846990c3dbabd27",
+          "linux/arm64": "sha256:ad2ce493d6a6af88f12fa11fe922133f16022bd0620fd8f1798553243b7e6d53"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 240,
+        "exist": [
+          "trim_galore",
+          "bash",
+          "gzip",
+          "unzip",
+          "ldd",
+          "awk",
+          "cmp",
+          "paste",
+          "sort",
+          "tail"
+        ],
+        "test": [
+          "/usr/local/libexec/taf-trimgalore-smoke identity",
+          "/usr/local/libexec/taf-trimgalore-smoke help",
+          "/usr/local/libexec/taf-trimgalore-smoke single",
+          "/usr/local/libexec/taf-trimgalore-smoke paired",
+          "/usr/local/libexec/taf-trimgalore-smoke rrbs",
+          "/usr/local/libexec/taf-trimgalore-smoke fastqc",
+          "/usr/local/libexec/taf-trimgalore-smoke raw-fastqc",
+          "/usr/local/libexec/taf-trimgalore-smoke gzip",
+          "/usr/local/libexec/taf-trimgalore-smoke ubam",
+          "/usr/local/libexec/taf-trimgalore-smoke reorder",
+          "/usr/local/libexec/taf-trimgalore-smoke library"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-23T09:18:08Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-23T09:22:32Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261116.133.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3781e9201a2599ff1b9b16de4e86d5430bc7e17e",
+            "image_digest": "sha256:a8cf3dd7a74fa85326b2f6c1d0073a0c5b1c65350ab1a4ca83eb0c75ed62a5f2",
+            "smoke_sha256": "92ee050535fd6798a1a7f383b7ce3d5693c746cf56372b6849eca7d527e26c96",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-23T09:18:08Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261116.133.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3781e9201a2599ff1b9b16de4e86d5430bc7e17e",
+            "image_digest": "sha256:a8cf3dd7a74fa85326b2f6c1d0073a0c5b1c65350ab1a4ca83eb0c75ed62a5f2",
+            "smoke_sha256": "92ee050535fd6798a1a7f383b7ce3d5693c746cf56372b6849eca7d527e26c96",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-23T09:18:06Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261116.133.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "3781e9201a2599ff1b9b16de4e86d5430bc7e17e",
+            "image_digest": "sha256:a8cf3dd7a74fa85326b2f6c1d0073a0c5b1c65350ab1a4ca83eb0c75ed62a5f2",
+            "smoke_sha256": "92ee050535fd6798a1a7f383b7ce3d5693c746cf56372b6849eca7d527e26c96",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-23T09:12:17Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/trimgalore",
+        "ref": "v2.6.0-r1",
+        "commit": "3781e9201a2599ff1b9b16de4e86d5430bc7e17e",
+        "html_url": "https://github.com/taffish/trimgalore/tree/v2.6.0-r1"
+      },
+      "upstream": {
+        "name": "Trim Galore",
+        "type": "github",
+        "homepage": "https://www.trimgalore.com/",
+        "repository": "FelixKrueger/TrimGalore",
+        "release_url": "https://github.com/FelixKrueger/TrimGalore/releases/tag/v2.6.0",
+        "version": "2.6.0",
         "license": "GPL-3.0-only",
         "citation": "Felix Krueger. Trim Galore. Concept DOI: 10.5281/zenodo.5127898.",
         "doi": "10.5281/zenodo.5127898"
