@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-11-24T11:05:09Z",
+  "generated_at": "2026-11-25T09:54:40Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 595,
+    "versions": 597,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -7629,9 +7629,9 @@
     },
     "bismark": {
       "name": "bismark",
-      "latest": "3.3.0-r1",
-      "recent_version": "3.3.0-r1",
-      "recent_at": "2026-11-21T04:42:02Z",
+      "latest": "3.4.0-r1",
+      "recent_version": "3.4.0-r1",
+      "recent_at": "2026-11-24T16:03:22Z",
       "repository_url": "https://github.com/taffish/bismark",
       "command": {
         "name": "taf-bismark"
@@ -8219,6 +8219,204 @@
             "repository": "FelixKrueger/Bismark",
             "release_url": "https://github.com/FelixKrueger/Bismark/releases/tag/bismark-rust-v3.3.0",
             "version": "3.3.0",
+            "license": "GPL-3.0-only",
+            "citation": "Krueger F, Andrews SR. Bismark: a flexible aligner and methylation caller for Bisulfite-Seq applications. Bioinformatics. 2011;27(11):1571-1572.",
+            "doi": "10.1093/bioinformatics/btr167",
+            "pmid": "21493656"
+          }
+        },
+        "3.4.0-r1": {
+          "name": "bismark",
+          "kind": "tool",
+          "version": "3.4.0",
+          "release": 1,
+          "version_id": "3.4.0-r1",
+          "tag": "v3.4.0-r1",
+          "published_at": "2026-11-24T16:03:22Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bismark",
+          "repository_slug": "taffish/bismark",
+          "command": {
+            "name": "taf-bismark"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "epigenomics",
+            "categories": [
+              "epigenomics",
+              "bisulfite-sequencing",
+              "methylation",
+              "alignment",
+              "genome-indexing"
+            ],
+            "keywords": [
+              "bismark",
+              "bisulfite sequencing",
+              "wgbs",
+              "rrbs",
+              "em-seq",
+              "nome-seq",
+              "5-base",
+              "dna methylation",
+              "bowtie 2",
+              "hisat2",
+              "minimap2",
+              "methylation extraction"
+            ],
+            "summary": "Bismark Rust Suite 3.4.0 with all 12 canonical tools and the pinned Bowtie 2, HISAT2, minimap2, rammap, and bwa-mem3 alignment backends.",
+            "description": "Bismark Rust Suite 3.4.0 with all 12 canonical tools and the pinned Bowtie 2, HISAT2, minimap2, rammap, and bwa-mem3 alignment backends."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bismark:3.4.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.4.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:e1628edcd41abc3e4871ae65ade9fb7dfbdb55f120536869a148429b9480191b",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e446f41806fd762d5356e5abde0db0777b868236ec19817d3f24e7bce858a220",
+              "linux/arm64": "sha256:0a2de9e745d9a5231b36ea470d72de8191cce26fb4b3cac4d6c8fe465e4ed35d"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "bismark",
+              "bismark.bin",
+              "deduplicate_bismark",
+              "bismark_methylation_extractor",
+              "bismark2bedGraph",
+              "coverage2cytosine",
+              "bismark_genome_preparation",
+              "bam2nuc",
+              "NOMe_filtering",
+              "filter_non_conversion",
+              "methylation_consistency",
+              "bismark2report",
+              "bismark2summary",
+              "bowtie2",
+              "bowtie2-build",
+              "bowtie2-inspect",
+              "hisat2",
+              "hisat2-build",
+              "hisat2-inspect",
+              "minimap2",
+              "rammap",
+              "bwa-mem3",
+              "perl",
+              "python3",
+              "ps",
+              "mkfifo"
+            ],
+            "test": [
+              "/opt/bismark/share/testdata/bismark-smoke.sh identity",
+              "/opt/bismark/share/testdata/bismark-smoke.sh backend-bowtie2",
+              "/opt/bismark/share/testdata/bismark-smoke.sh backend-hisat2",
+              "/opt/bismark/share/testdata/bismark-smoke.sh backend-minimap2",
+              "/opt/bismark/share/testdata/bismark-smoke.sh backend-rammap",
+              "/opt/bismark/share/testdata/bismark-smoke.sh backend-rammap-subprocess",
+              "/opt/bismark/share/testdata/bismark-smoke.sh postprocess",
+              "/opt/bismark/share/testdata/bismark-smoke.sh streaming",
+              "/opt/bismark/share/testdata/bismark-smoke.sh bwamem3"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-25T10:00:55Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-25T10:01:14Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261116.376.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0506419d0d5d035bfbcb815b076346bfbc1ee7ea",
+                "image_digest": "sha256:e1628edcd41abc3e4871ae65ade9fb7dfbdb55f120536869a148429b9480191b",
+                "smoke_sha256": "efdf8425dc54a0f73a1d712d837c786d303eb077a2533324f43645cae1a5e6d5",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-25T10:00:55Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261116.376.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0506419d0d5d035bfbcb815b076346bfbc1ee7ea",
+                "image_digest": "sha256:e1628edcd41abc3e4871ae65ade9fb7dfbdb55f120536869a148429b9480191b",
+                "smoke_sha256": "efdf8425dc54a0f73a1d712d837c786d303eb077a2533324f43645cae1a5e6d5",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-25T10:01:01Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261116.376.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "0506419d0d5d035bfbcb815b076346bfbc1ee7ea",
+                "image_digest": "sha256:e1628edcd41abc3e4871ae65ade9fb7dfbdb55f120536869a148429b9480191b",
+                "smoke_sha256": "efdf8425dc54a0f73a1d712d837c786d303eb077a2533324f43645cae1a5e6d5",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-25T09:54:40Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bismark",
+            "ref": "v3.4.0-r1",
+            "commit": "0506419d0d5d035bfbcb815b076346bfbc1ee7ea",
+            "html_url": "https://github.com/taffish/bismark/tree/v3.4.0-r1"
+          },
+          "upstream": {
+            "name": "Bismark",
+            "type": "github",
+            "homepage": "https://felixkrueger.github.io/Bismark/",
+            "repository": "FelixKrueger/Bismark",
+            "release_url": "https://github.com/FelixKrueger/Bismark/releases/tag/bismark-rust-v3.4.0",
+            "version": "3.4.0",
             "license": "GPL-3.0-only",
             "citation": "Krueger F, Andrews SR. Bismark: a flexible aligner and methylation caller for Bisulfite-Seq applications. Bioinformatics. 2011;27(11):1571-1572.",
             "doi": "10.1093/bioinformatics/btr167",
@@ -38657,9 +38855,9 @@
     },
     "igv": {
       "name": "igv",
-      "latest": "2.19.8-r1",
-      "recent_version": "2.19.8-r1",
-      "recent_at": "2026-06-19T00:52:26Z",
+      "latest": "2.19.9-r1",
+      "recent_version": "2.19.9-r1",
+      "recent_at": "2026-11-24T16:02:31Z",
       "repository_url": "https://github.com/taffish/igv",
       "command": {
         "name": "taf-igv"
@@ -39023,6 +39221,188 @@
             "repository": "igvteam/igv",
             "release_url": "https://github.com/igvteam/igv/tree/v2.19.8",
             "version": "2.19.8",
+            "license": "MIT",
+            "citation": "Thorvaldsdottir, Robinson, and Mesirov. 2013. Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration.",
+            "doi": "10.1093/bib/bbs017",
+            "pmid": "22517427"
+          }
+        },
+        "2.19.9-r1": {
+          "name": "igv",
+          "kind": "tool",
+          "version": "2.19.9",
+          "release": 1,
+          "version_id": "2.19.9-r1",
+          "tag": "v2.19.9-r1",
+          "published_at": "2026-11-24T16:02:31Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/igv",
+          "repository_slug": "taffish/igv",
+          "command": {
+            "name": "taf-igv"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "genomics",
+            "categories": [
+              "genomics",
+              "genome-browser",
+              "variant-review",
+              "visualization",
+              "viewer"
+            ],
+            "keywords": [
+              "igv",
+              "integrative-genomics-viewer",
+              "genome-browser",
+              "bam",
+              "cram",
+              "vcf",
+              "bed",
+              "gff",
+              "bigwig",
+              "novnc",
+              "vnc"
+            ],
+            "summary": "IGV Desktop 2.19.9 for interactive genome browsing and variant review through a browser-accessible noVNC session, with IGVTools utilities included.",
+            "description": "IGV Desktop 2.19.9 for interactive genome browsing and variant review through a browser-accessible noVNC session, with IGVTools utilities included."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/igv:2.19.9-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.19.9-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:dfc703b9bdc395f9f4f9355ca7b90f4b31f7e9dd213304f2daabbc0f5cdacda9",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e4d42daf1788ab84567d109823c9444b26c8a58c2c66818f24d9939e644ad405",
+              "linux/arm64": "sha256:7e9e5e34bae112bca14a88fef3378ad3edd9dddfad170031996f9a87c3bc42ed"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 240,
+            "exist": [
+              "igv",
+              "igv-gui",
+              "igvtools",
+              "igvtools_gui",
+              "igvtools_gui_hidpi",
+              "igv-resources",
+              "java",
+              "python3",
+              "Xvfb",
+              "x11vnc",
+              "websockify",
+              "openbox",
+              "xdotool",
+              "curl",
+              "sh"
+            ],
+            "test": [
+              "python3 /opt/igv/libexec/igv-check.py identity",
+              "python3 /opt/igv/libexec/igv-check.py tools",
+              "python3 /opt/igv/libexec/igv-check.py resource",
+              "python3 /opt/igv/libexec/igv-check.py gui",
+              "python3 /opt/igv/libexec/igv-check.py tools-gui"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-25T10:00:55Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-25T10:01:14Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261116.376.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "89230218d25d5ee742b79c3d6dd8d443eeb91949",
+                "image_digest": "sha256:dfc703b9bdc395f9f4f9355ca7b90f4b31f7e9dd213304f2daabbc0f5cdacda9",
+                "smoke_sha256": "e58cdf4f3e8110e744aab0cc5a49bff10748487eac3deb3add840eac1da0a864",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-25T10:00:55Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261116.376.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "89230218d25d5ee742b79c3d6dd8d443eeb91949",
+                "image_digest": "sha256:dfc703b9bdc395f9f4f9355ca7b90f4b31f7e9dd213304f2daabbc0f5cdacda9",
+                "smoke_sha256": "e58cdf4f3e8110e744aab0cc5a49bff10748487eac3deb3add840eac1da0a864",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-25T10:01:01Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261116.376.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "89230218d25d5ee742b79c3d6dd8d443eeb91949",
+                "image_digest": "sha256:dfc703b9bdc395f9f4f9355ca7b90f4b31f7e9dd213304f2daabbc0f5cdacda9",
+                "smoke_sha256": "e58cdf4f3e8110e744aab0cc5a49bff10748487eac3deb3add840eac1da0a864",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-25T09:54:40Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/igv",
+            "ref": "v2.19.9-r1",
+            "commit": "89230218d25d5ee742b79c3d6dd8d443eeb91949",
+            "html_url": "https://github.com/taffish/igv/tree/v2.19.9-r1"
+          },
+          "upstream": {
+            "name": "Integrative Genomics Viewer",
+            "type": "github",
+            "homepage": "https://igv.org/doc/desktop/",
+            "repository": "igvteam/igv",
+            "release_url": "https://github.com/igvteam/igv/tree/v2.19.9",
+            "version": "2.19.9",
             "license": "MIT",
             "citation": "Thorvaldsdottir, Robinson, and Mesirov. 2013. Integrative Genomics Viewer (IGV): high-performance genomics data visualization and exploration.",
             "doi": "10.1093/bib/bbs017",
@@ -106198,7 +106578,7 @@
     },
     "taf-bismark": {
       "package": "bismark",
-      "version": "3.3.0-r1"
+      "version": "3.4.0-r1"
     },
     "taf-blast": {
       "package": "blast",
@@ -106534,7 +106914,7 @@
     },
     "taf-igv": {
       "package": "igv",
-      "version": "2.19.8-r1"
+      "version": "2.19.9-r1"
     },
     "taf-ilastik": {
       "package": "ilastik",

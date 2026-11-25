@@ -1,8 +1,8 @@
 {
   "name": "bismark",
-  "latest": "3.3.0-r1",
-  "recent_version": "3.3.0-r1",
-  "recent_at": "2026-11-21T04:42:02Z",
+  "latest": "3.4.0-r1",
+  "recent_version": "3.4.0-r1",
+  "recent_at": "2026-11-24T16:03:22Z",
   "repository_url": "https://github.com/taffish/bismark",
   "command": {
     "name": "taf-bismark"
@@ -590,6 +590,204 @@
         "repository": "FelixKrueger/Bismark",
         "release_url": "https://github.com/FelixKrueger/Bismark/releases/tag/bismark-rust-v3.3.0",
         "version": "3.3.0",
+        "license": "GPL-3.0-only",
+        "citation": "Krueger F, Andrews SR. Bismark: a flexible aligner and methylation caller for Bisulfite-Seq applications. Bioinformatics. 2011;27(11):1571-1572.",
+        "doi": "10.1093/bioinformatics/btr167",
+        "pmid": "21493656"
+      }
+    },
+    "3.4.0-r1": {
+      "name": "bismark",
+      "kind": "tool",
+      "version": "3.4.0",
+      "release": 1,
+      "version_id": "3.4.0-r1",
+      "tag": "v3.4.0-r1",
+      "published_at": "2026-11-24T16:03:22Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bismark",
+      "repository_slug": "taffish/bismark",
+      "command": {
+        "name": "taf-bismark"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "epigenomics",
+        "categories": [
+          "epigenomics",
+          "bisulfite-sequencing",
+          "methylation",
+          "alignment",
+          "genome-indexing"
+        ],
+        "keywords": [
+          "bismark",
+          "bisulfite sequencing",
+          "wgbs",
+          "rrbs",
+          "em-seq",
+          "nome-seq",
+          "5-base",
+          "dna methylation",
+          "bowtie 2",
+          "hisat2",
+          "minimap2",
+          "methylation extraction"
+        ],
+        "summary": "Bismark Rust Suite 3.4.0 with all 12 canonical tools and the pinned Bowtie 2, HISAT2, minimap2, rammap, and bwa-mem3 alignment backends.",
+        "description": "Bismark Rust Suite 3.4.0 with all 12 canonical tools and the pinned Bowtie 2, HISAT2, minimap2, rammap, and bwa-mem3 alignment backends."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bismark:3.4.0-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.4.0-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:e1628edcd41abc3e4871ae65ade9fb7dfbdb55f120536869a148429b9480191b",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:e446f41806fd762d5356e5abde0db0777b868236ec19817d3f24e7bce858a220",
+          "linux/arm64": "sha256:0a2de9e745d9a5231b36ea470d72de8191cce26fb4b3cac4d6c8fe465e4ed35d"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "bismark",
+          "bismark.bin",
+          "deduplicate_bismark",
+          "bismark_methylation_extractor",
+          "bismark2bedGraph",
+          "coverage2cytosine",
+          "bismark_genome_preparation",
+          "bam2nuc",
+          "NOMe_filtering",
+          "filter_non_conversion",
+          "methylation_consistency",
+          "bismark2report",
+          "bismark2summary",
+          "bowtie2",
+          "bowtie2-build",
+          "bowtie2-inspect",
+          "hisat2",
+          "hisat2-build",
+          "hisat2-inspect",
+          "minimap2",
+          "rammap",
+          "bwa-mem3",
+          "perl",
+          "python3",
+          "ps",
+          "mkfifo"
+        ],
+        "test": [
+          "/opt/bismark/share/testdata/bismark-smoke.sh identity",
+          "/opt/bismark/share/testdata/bismark-smoke.sh backend-bowtie2",
+          "/opt/bismark/share/testdata/bismark-smoke.sh backend-hisat2",
+          "/opt/bismark/share/testdata/bismark-smoke.sh backend-minimap2",
+          "/opt/bismark/share/testdata/bismark-smoke.sh backend-rammap",
+          "/opt/bismark/share/testdata/bismark-smoke.sh backend-rammap-subprocess",
+          "/opt/bismark/share/testdata/bismark-smoke.sh postprocess",
+          "/opt/bismark/share/testdata/bismark-smoke.sh streaming",
+          "/opt/bismark/share/testdata/bismark-smoke.sh bwamem3"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-25T10:00:55Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-25T10:01:14Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261116.376.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0506419d0d5d035bfbcb815b076346bfbc1ee7ea",
+            "image_digest": "sha256:e1628edcd41abc3e4871ae65ade9fb7dfbdb55f120536869a148429b9480191b",
+            "smoke_sha256": "efdf8425dc54a0f73a1d712d837c786d303eb077a2533324f43645cae1a5e6d5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-25T10:00:55Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261116.376.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0506419d0d5d035bfbcb815b076346bfbc1ee7ea",
+            "image_digest": "sha256:e1628edcd41abc3e4871ae65ade9fb7dfbdb55f120536869a148429b9480191b",
+            "smoke_sha256": "efdf8425dc54a0f73a1d712d837c786d303eb077a2533324f43645cae1a5e6d5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-25T10:01:01Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261116.376.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "0506419d0d5d035bfbcb815b076346bfbc1ee7ea",
+            "image_digest": "sha256:e1628edcd41abc3e4871ae65ade9fb7dfbdb55f120536869a148429b9480191b",
+            "smoke_sha256": "efdf8425dc54a0f73a1d712d837c786d303eb077a2533324f43645cae1a5e6d5",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-25T09:54:40Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bismark",
+        "ref": "v3.4.0-r1",
+        "commit": "0506419d0d5d035bfbcb815b076346bfbc1ee7ea",
+        "html_url": "https://github.com/taffish/bismark/tree/v3.4.0-r1"
+      },
+      "upstream": {
+        "name": "Bismark",
+        "type": "github",
+        "homepage": "https://felixkrueger.github.io/Bismark/",
+        "repository": "FelixKrueger/Bismark",
+        "release_url": "https://github.com/FelixKrueger/Bismark/releases/tag/bismark-rust-v3.4.0",
+        "version": "3.4.0",
         "license": "GPL-3.0-only",
         "citation": "Krueger F, Andrews SR. Bismark: a flexible aligner and methylation caller for Bisulfite-Seq applications. Bioinformatics. 2011;27(11):1571-1572.",
         "doi": "10.1093/bioinformatics/btr167",
