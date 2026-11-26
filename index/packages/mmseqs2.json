@@ -1,8 +1,8 @@
 {
   "name": "mmseqs2",
-  "latest": "19-r1",
-  "recent_version": "19-r1",
-  "recent_at": "2026-11-21T16:00:44Z",
+  "latest": "20-r1",
+  "recent_version": "20-r1",
+  "recent_at": "2026-11-25T16:43:59Z",
   "repository_url": "https://github.com/taffish/mmseqs2",
   "command": {
     "name": "taf-mmseqs2"
@@ -733,6 +733,187 @@
         "repository": "soedinglab/MMseqs2",
         "release_url": "https://github.com/soedinglab/MMseqs2/releases/tag/19-ab57c",
         "version": "19-ab57c",
+        "license": "MIT",
+        "citation": "Steinegger and Soeding 2017; Steinegger and Soeding 2018; Mirdita et al. 2019; Mirdita et al. 2021; Kallenborn et al. 2025",
+        "doi": "10.1038/nbt.3988; 10.1038/s41467-018-04964-5; 10.1093/bioinformatics/bty1057; 10.1093/bioinformatics/btab184; 10.1038/s41592-025-02819-8"
+      }
+    },
+    "20-r1": {
+      "name": "mmseqs2",
+      "kind": "tool",
+      "version": "20",
+      "release": 1,
+      "version_id": "20-r1",
+      "tag": "v20-r1",
+      "published_at": "2026-11-25T16:43:59Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/mmseqs2",
+      "repository_slug": "taffish/mmseqs2",
+      "command": {
+        "name": "taf-mmseqs2"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "sequence-search",
+        "categories": [
+          "sequence-search",
+          "sequence-clustering",
+          "taxonomy",
+          "protein",
+          "nucleotide"
+        ],
+        "keywords": [
+          "mmseqs2",
+          "mmseqs",
+          "sequence-search",
+          "sequence-clustering",
+          "easy-search",
+          "easy-cluster",
+          "taxonomy",
+          "metagenomics",
+          "protein",
+          "nucleotide"
+        ],
+        "summary": "CPU sequence search, clustering and taxonomy with native offline HTML and optional verified shared resources.",
+        "description": "CPU sequence search, clustering and taxonomy with native offline HTML and optional verified shared resources."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/mmseqs2:20-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "20-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:27136d6dce67850f2ae7cfa6f34f56e13d9e261436d9b8e8ca0a8fc2f6cbab22",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:3ed086f49e842a7bd6e50904b60ce1b092c574f9e7e0d52743666e82f1a0d982",
+          "linux/arm64": "sha256:eb8b562f0372bea0177d898655efb9fba8272535d67916c6e61913e55e2436b2"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 300,
+        "exist": [
+          "mmseqs",
+          "mmseqs2-db",
+          "python3",
+          "bash",
+          "gawk",
+          "grep",
+          "curl",
+          "wget",
+          "xargs",
+          "tar",
+          "gzip",
+          "bzip2",
+          "xz"
+        ],
+        "test": [
+          "python3 /opt/mmseqs2/smoke.py meta",
+          "python3 /opt/mmseqs2/smoke.py database",
+          "python3 /opt/mmseqs2/smoke.py search",
+          "python3 /opt/mmseqs2/smoke.py paired_msa",
+          "python3 /opt/mmseqs2/smoke.py clustering",
+          "python3 /opt/mmseqs2/smoke.py html",
+          "python3 /opt/mmseqs2/smoke.py taxonomy",
+          "python3 /opt/mmseqs2/smoke.py resources"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-26T09:46:26Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-26T09:46:55Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261116.376.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8489b0bae41d8f37eb00b5e277e14e2d66fc93e7",
+            "image_digest": "sha256:27136d6dce67850f2ae7cfa6f34f56e13d9e261436d9b8e8ca0a8fc2f6cbab22",
+            "smoke_sha256": "21e73b8e89520193c531ca99df91c2916149b7550b1e4898c93805327893e678",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-26T09:46:26Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261116.376.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8489b0bae41d8f37eb00b5e277e14e2d66fc93e7",
+            "image_digest": "sha256:27136d6dce67850f2ae7cfa6f34f56e13d9e261436d9b8e8ca0a8fc2f6cbab22",
+            "smoke_sha256": "21e73b8e89520193c531ca99df91c2916149b7550b1e4898c93805327893e678",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-26T09:48:33Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "8489b0bae41d8f37eb00b5e277e14e2d66fc93e7",
+            "image_digest": "sha256:27136d6dce67850f2ae7cfa6f34f56e13d9e261436d9b8e8ca0a8fc2f6cbab22",
+            "smoke_sha256": "21e73b8e89520193c531ca99df91c2916149b7550b1e4898c93805327893e678",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-26T09:39:19Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/mmseqs2",
+        "ref": "v20-r1",
+        "commit": "8489b0bae41d8f37eb00b5e277e14e2d66fc93e7",
+        "html_url": "https://github.com/taffish/mmseqs2/tree/v20-r1"
+      },
+      "upstream": {
+        "name": "MMseqs2",
+        "type": "github",
+        "homepage": "https://github.com/soedinglab/MMseqs2",
+        "repository": "soedinglab/MMseqs2",
+        "release_url": "https://github.com/soedinglab/MMseqs2/releases/tag/20-ae60e",
+        "version": "20-ae60e",
         "license": "MIT",
         "citation": "Steinegger and Soeding 2017; Steinegger and Soeding 2018; Mirdita et al. 2019; Mirdita et al. 2021; Kallenborn et al. 2025",
         "doi": "10.1038/nbt.3988; 10.1038/s41467-018-04964-5; 10.1093/bioinformatics/bty1057; 10.1093/bioinformatics/btab184; 10.1038/s41592-025-02819-8"

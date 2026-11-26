@@ -1,8 +1,8 @@
 {
   "name": "trinity",
-  "latest": "2.16.1-r1",
-  "recent_version": "2.16.1-r1",
-  "recent_at": "2026-11-23T16:03:33Z",
+  "latest": "2.16.3-r1",
+  "recent_version": "2.16.3-r1",
+  "recent_at": "2026-11-25T17:55:06Z",
   "repository_url": "https://github.com/taffish/trinity",
   "command": {
     "name": "taf-trinity"
@@ -597,6 +597,217 @@
         "repository": "trinityrnaseq/trinityrnaseq",
         "release_url": "https://github.com/trinityrnaseq/trinityrnaseq/releases/tag/Trinity-v2.16.1",
         "version": "2.16.1",
+        "license": "BSD-3-Clause with bundled third-party components including ParaFly, seqtk-trinity, Trimmomatic, collectl, bamsifter/htslib, and Ubuntu-packaged runtime tools",
+        "citation": "Grabherr et al. 2011; Haas et al. 2013",
+        "doi": "10.1038/nbt.1883; 10.1038/nprot.2013.084",
+        "pmid": "21572440; 23845962"
+      }
+    },
+    "2.16.3-r1": {
+      "name": "trinity",
+      "kind": "tool",
+      "version": "2.16.3",
+      "release": 1,
+      "version_id": "2.16.3-r1",
+      "tag": "v2.16.3-r1",
+      "published_at": "2026-11-25T17:55:06Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/trinity",
+      "repository_slug": "taffish/trinity",
+      "command": {
+        "name": "taf-trinity"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "transcriptomics",
+          "de-novo-assembly",
+          "transcript-assembly",
+          "short-read"
+        ],
+        "keywords": [
+          "trinity",
+          "rna-seq",
+          "transcriptome assembly",
+          "inchworm",
+          "chrysalis",
+          "butterfly",
+          "insilico normalization",
+          "salmon",
+          "jellyfish",
+          "bowtie2"
+        ],
+        "summary": "Trinity de novo RNA-seq assembly, in-silico normalization, and compatible Salmon 2.x final filtering.",
+        "description": "Trinity de novo RNA-seq assembly, in-silico normalization, and compatible Salmon 2.x final filtering."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/trinity:2.16.3-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.16.3-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:30e851ab9d769cf35da8903d568d7c8a198478c84e38b83ae7c069dad1bee419",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:280049a91dabb1ded0e291c6078396fcfa56e1ba6d035293b82be725fe6e42ce",
+          "linux/arm64": "sha256:244842343272dfcbfb553a6a6082da2ed6c9a7678bfb418dbb7515edd14c35f1"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "Trinity",
+          "TrinityStats.pl",
+          "align_and_estimate_abundance.pl",
+          "abundance_estimates_to_matrix.pl",
+          "insilico_read_normalization.pl",
+          "ParaFly",
+          "seqtk-trinity",
+          "inchworm",
+          "Chrysalis",
+          "QuantifyGraph",
+          "GraphFromFasta",
+          "ReadsToTranscripts",
+          "bamsifter",
+          "slclust",
+          "collectl",
+          "bowtie2",
+          "bowtie2-build",
+          "jellyfish",
+          "samtools",
+          "salmon",
+          "blastn",
+          "makeblastdb",
+          "java",
+          "perl",
+          "python3",
+          "bash",
+          "gzip",
+          "bzip2",
+          "xz",
+          "grep",
+          "ldd",
+          "sort",
+          "sed",
+          "awk",
+          "cat",
+          "mkdir",
+          "rm",
+          "cp",
+          "mv",
+          "touch",
+          "head",
+          "tail",
+          "cut"
+        ],
+        "test": [
+          "python3 /usr/local/libexec/trinity-check.py identity",
+          "python3 /usr/local/libexec/trinity-check.py help",
+          "python3 /usr/local/libexec/trinity-check.py stats",
+          "python3 /usr/local/libexec/trinity-check.py normalize",
+          "python3 /usr/local/libexec/trinity-check.py assembly",
+          "python3 /usr/local/libexec/trinity-check.py checkpoint",
+          "python3 /usr/local/libexec/trinity-check.py matrix"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-26T09:46:26Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-26T09:46:55Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261116.376.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "acb7d118c34a246b4b50816d09afcba8ee05921d",
+            "image_digest": "sha256:30e851ab9d769cf35da8903d568d7c8a198478c84e38b83ae7c069dad1bee419",
+            "smoke_sha256": "cf91747cb87a902b07bc927321b86af03c695ba24752c55411bb8db48a47a76f",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-26T09:46:26Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261116.376.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "acb7d118c34a246b4b50816d09afcba8ee05921d",
+            "image_digest": "sha256:30e851ab9d769cf35da8903d568d7c8a198478c84e38b83ae7c069dad1bee419",
+            "smoke_sha256": "cf91747cb87a902b07bc927321b86af03c695ba24752c55411bb8db48a47a76f",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-26T09:48:33Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "acb7d118c34a246b4b50816d09afcba8ee05921d",
+            "image_digest": "sha256:30e851ab9d769cf35da8903d568d7c8a198478c84e38b83ae7c069dad1bee419",
+            "smoke_sha256": "cf91747cb87a902b07bc927321b86af03c695ba24752c55411bb8db48a47a76f",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-26T09:39:19Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/trinity",
+        "ref": "v2.16.3-r1",
+        "commit": "acb7d118c34a246b4b50816d09afcba8ee05921d",
+        "html_url": "https://github.com/taffish/trinity/tree/v2.16.3-r1"
+      },
+      "upstream": {
+        "name": "Trinity",
+        "type": "github",
+        "homepage": "https://github.com/trinityrnaseq/trinityrnaseq/wiki",
+        "repository": "trinityrnaseq/trinityrnaseq",
+        "release_url": "https://github.com/trinityrnaseq/trinityrnaseq/releases/tag/Trinity-v2.16.3",
+        "version": "2.16.3",
         "license": "BSD-3-Clause with bundled third-party components including ParaFly, seqtk-trinity, Trimmomatic, collectl, bamsifter/htslib, and Ubuntu-packaged runtime tools",
         "citation": "Grabherr et al. 2011; Haas et al. 2013",
         "doi": "10.1038/nbt.1883; 10.1038/nprot.2013.084",
