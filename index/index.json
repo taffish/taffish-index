@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-11-26T09:39:19Z",
+  "generated_at": "2026-11-27T09:44:36Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 599,
+    "versions": 601,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -22792,9 +22792,9 @@
     },
     "dorado": {
       "name": "dorado",
-      "latest": "2.1.2-r2",
-      "recent_version": "2.1.2-r2",
-      "recent_at": "2026-08-31T03:51:38Z",
+      "latest": "2.2.0-r1",
+      "recent_version": "2.2.0-r1",
+      "recent_at": "2026-11-26T16:03:40Z",
       "repository_url": "https://github.com/taffish/dorado",
       "command": {
         "name": "taf-dorado"
@@ -23650,6 +23650,184 @@
             "release_url": "https://github.com/nanoporetech/dorado/releases/tag/v2.1.2",
             "version": "2.1.2",
             "license": "Oxford Nanopore Technologies PLC Public License v1.0",
+            "citation": "Oxford Nanopore Technologies. Dorado: Oxford Nanopore's basecaller. https://github.com/nanoporetech/dorado"
+          }
+        },
+        "2.2.0-r1": {
+          "name": "dorado",
+          "kind": "tool",
+          "version": "2.2.0",
+          "release": 1,
+          "version_id": "2.2.0-r1",
+          "tag": "v2.2.0-r1",
+          "published_at": "2026-11-26T16:03:40Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/dorado",
+          "repository_slug": "taffish/dorado",
+          "command": {
+            "name": "taf-dorado"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "nanopore",
+            "categories": [
+              "nanopore",
+              "basecalling",
+              "long-read",
+              "alignment",
+              "variant-calling"
+            ],
+            "keywords": [
+              "dorado",
+              "nanopore",
+              "ont",
+              "pod5",
+              "basecalling",
+              "duplex",
+              "modified-bases",
+              "barcoding",
+              "polish",
+              "smallvar"
+            ],
+            "summary": "Oxford Nanopore Dorado 2.2.0 analysis engine and basecaller.",
+            "description": "Oxford Nanopore Dorado 2.2.0 analysis engine and basecaller."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/dorado:2.2.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.2.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:341967078c2c073bcc0a4bd93f14592e54d7871070707420513c538e4f71eabf",
+            "platforms": [
+              "linux/amd64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:e3677e884e7174ee35bd74d965fd0fb309959603f33b12115b575c936f8b15b2"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "dorado",
+              "dorado-download-models",
+              "sh",
+              "bash",
+              "curl",
+              "grep",
+              "python3",
+              "sha256sum",
+              "rm",
+              "mkdir",
+              "wc"
+            ],
+            "test": [
+              "dorado --version 2>&1 | grep -Fx '2.2.0+645d4e4' >/dev/null && test -s /opt/dorado/share/licenses/dorado/LICENCE.txt && grep -F 'Research Purposes' /opt/dorado/share/licenses/dorado/LICENCE.txt >/dev/null && grep -F 'claims no redistribution right' /opt/dorado/share/licenses/dorado/MODEL-RESOURCE-NOTICE.txt >/dev/null && curl --version 2>&1 | grep -F 'curl ' >/dev/null",
+              "dorado --help 2>&1 | grep -F 'basecaller' >/dev/null && dorado --help 2>&1 | grep -F 'download' >/dev/null && dorado --help 2>&1 | grep -F 'smallvar' >/dev/null",
+              "dorado basecaller --help 2>&1 | grep -F -- '--device' >/dev/null && dorado download --help 2>&1 | grep -F -- '--model' >/dev/null && dorado download --list-structured 2>/dev/null | grep -F 'simplex_models' >/dev/null && dorado smallvar --help 2>&1 | grep -F -- '--gvcf' >/dev/null && dorado smallvar --help 2>&1 | grep -F -- '--hemizygous-regions' >/dev/null",
+              "/opt/dorado/share/testdata/dorado-smoke.sh help",
+              "/opt/dorado/share/testdata/dorado-smoke.sh licences",
+              "/opt/dorado/share/testdata/dorado-smoke.sh model-contract",
+              "/opt/dorado/share/testdata/dorado-smoke.sh model-fixture",
+              "/opt/dorado/share/testdata/dorado-smoke.sh model-policy",
+              "/opt/dorado/share/testdata/dorado-smoke.sh trim",
+              "/opt/dorado/share/testdata/dorado-smoke.sh aligner"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-27T09:49:22Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-27T09:49:26Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a597da51167fb96b18fc6b7f4253ba44aa757434",
+                "image_digest": "sha256:341967078c2c073bcc0a4bd93f14592e54d7871070707420513c538e4f71eabf",
+                "smoke_sha256": "7cafae4efa35eeaf6095af88eff0170690b51722606b641aac3f48618ef7ab47",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-27T09:49:22Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a597da51167fb96b18fc6b7f4253ba44aa757434",
+                "image_digest": "sha256:341967078c2c073bcc0a4bd93f14592e54d7871070707420513c538e4f71eabf",
+                "smoke_sha256": "7cafae4efa35eeaf6095af88eff0170690b51722606b641aac3f48618ef7ab47",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-27T09:49:23Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261116.133.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "a597da51167fb96b18fc6b7f4253ba44aa757434",
+                "image_digest": "sha256:341967078c2c073bcc0a4bd93f14592e54d7871070707420513c538e4f71eabf",
+                "smoke_sha256": "7cafae4efa35eeaf6095af88eff0170690b51722606b641aac3f48618ef7ab47",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-27T09:44:36Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/dorado",
+            "ref": "v2.2.0-r1",
+            "commit": "a597da51167fb96b18fc6b7f4253ba44aa757434",
+            "html_url": "https://github.com/taffish/dorado/tree/v2.2.0-r1"
+          },
+          "upstream": {
+            "name": "Dorado",
+            "type": "github",
+            "homepage": "https://github.com/nanoporetech/dorado",
+            "repository": "nanoporetech/dorado",
+            "release_url": "https://github.com/nanoporetech/dorado/releases/tag/v2.2.0",
+            "version": "2.2.0",
+            "license": "Oxford Nanopore Technologies PLC Public License v2.0",
             "citation": "Oxford Nanopore Technologies. Dorado: Oxford Nanopore's basecaller. https://github.com/nanoporetech/dorado"
           }
         }
@@ -58452,9 +58630,9 @@
     },
     "nextclade": {
       "name": "nextclade",
-      "latest": "3.29.1-r1",
-      "recent_version": "3.29.1-r1",
-      "recent_at": "2026-11-21T16:01:59Z",
+      "latest": "3.30.0-r1",
+      "recent_version": "3.30.0-r1",
+      "recent_at": "2026-11-26T16:04:25Z",
       "repository_url": "https://github.com/taffish/nextclade",
       "command": {
         "name": "taf-nextclade"
@@ -59976,6 +60154,203 @@
             "repository": "https://github.com/nextstrain/nextclade",
             "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.29.1",
             "version": "3.29.1",
+            "license": "MIT",
+            "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
+            "doi": "10.21105/joss.03773"
+          }
+        },
+        "3.30.0-r1": {
+          "name": "nextclade",
+          "kind": "tool",
+          "version": "3.30.0",
+          "release": 1,
+          "version_id": "3.30.0-r1",
+          "tag": "v3.30.0-r1",
+          "published_at": "2026-11-26T16:04:25Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/nextclade",
+          "repository_slug": "taffish/nextclade",
+          "command": {
+            "name": "taf-nextclade"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "phylogenetics",
+            "categories": [
+              "phylogenetics",
+              "genomics",
+              "viral-genomics",
+              "variant-calling",
+              "quality-control",
+              "visualization"
+            ],
+            "keywords": [
+              "nextstrain",
+              "nextclade",
+              "virus",
+              "alignment",
+              "clade-assignment",
+              "mutation-calling",
+              "phylogenetics",
+              "quality-control",
+              "web-ui"
+            ],
+            "summary": "Nextclade 3.30.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces.",
+            "description": "Nextclade 3.30.0 viral genome alignment, mutation calling, clade assignment, quality control and phylogenetic placement with CLI and browser interfaces."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/nextclade:3.30.0-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.30.0-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:7fbe897405e4a0bce6e3a31db1010ba58daa0adc27fe6102321d1fb353ea0cc0",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:7c7bba6b231a814e58ba0f99146bf8d8c0402fcdd43cde497e043abff62217ee",
+              "linux/arm64": "sha256:4b8d9885ad9c543b2073e62257221759abc49bac5e7e196963085ef46a22916f"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 300,
+            "exist": [
+              "nextclade",
+              "nextalign",
+              "nextclade-web",
+              "nextclade-datasets",
+              "nextclade-smoke",
+              "nginx",
+              "jq",
+              "sha256sum",
+              "find",
+              "xargs",
+              "setsid",
+              "wget",
+              "timeout",
+              "cmp",
+              "env",
+              "sh",
+              "bash"
+            ],
+            "test": [
+              "nextclade-smoke identity",
+              "nextclade-smoke commands",
+              "nextclade-smoke core",
+              "nextclade-smoke qc-length-scaling",
+              "nextclade-smoke mutation-patterns",
+              "nextclade-smoke cds-boundary",
+              "nextclade-smoke output-errors",
+              "nextclade-smoke datasets",
+              "nextclade-smoke resource-space",
+              "nextclade-smoke resource-inputs",
+              "nextclade-smoke web-ready-int",
+              "nextclade-smoke web-ready-term",
+              "nextclade-smoke web-startup-int",
+              "nextclade-smoke web-handshake-int",
+              "nextclade-smoke web-critical",
+              "nextclade-smoke web-critical-zero",
+              "nextclade-smoke web-occupied-port",
+              "nextclade-smoke web-output-close",
+              "nextclade-smoke web-cleanup-failure",
+              "nextclade-smoke errors"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-27T09:49:22Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-27T09:49:26Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "ed94ddf2f518a6e4cb28f4625c02e2713b003bf4",
+                "image_digest": "sha256:7fbe897405e4a0bce6e3a31db1010ba58daa0adc27fe6102321d1fb353ea0cc0",
+                "smoke_sha256": "157b278ad31fc4959fd1b7858cb7085f14decaeb80b10e592422d08c2d09881d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-27T09:49:22Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "ed94ddf2f518a6e4cb28f4625c02e2713b003bf4",
+                "image_digest": "sha256:7fbe897405e4a0bce6e3a31db1010ba58daa0adc27fe6102321d1fb353ea0cc0",
+                "smoke_sha256": "157b278ad31fc4959fd1b7858cb7085f14decaeb80b10e592422d08c2d09881d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-27T09:49:23Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261116.133.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "ed94ddf2f518a6e4cb28f4625c02e2713b003bf4",
+                "image_digest": "sha256:7fbe897405e4a0bce6e3a31db1010ba58daa0adc27fe6102321d1fb353ea0cc0",
+                "smoke_sha256": "157b278ad31fc4959fd1b7858cb7085f14decaeb80b10e592422d08c2d09881d",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-27T09:44:36Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/nextclade",
+            "ref": "v3.30.0-r1",
+            "commit": "ed94ddf2f518a6e4cb28f4625c02e2713b003bf4",
+            "html_url": "https://github.com/taffish/nextclade/tree/v3.30.0-r1"
+          },
+          "upstream": {
+            "name": "Nextclade",
+            "type": "github",
+            "homepage": "https://clades.nextstrain.org",
+            "repository": "https://github.com/nextstrain/nextclade",
+            "release_url": "https://github.com/nextstrain/nextclade/releases/tag/3.30.0",
+            "version": "3.30.0",
             "license": "MIT",
             "citation": "Aksamentov I, Roemer C, Hodcroft EB, Neher RA. Nextclade: clade assignment, mutation calling and quality control for viral genomes. Journal of Open Source Software. 2021;6(67):3773.",
             "doi": "10.21105/joss.03773"
@@ -107146,7 +107521,7 @@
     },
     "taf-dorado": {
       "package": "dorado",
-      "version": "2.1.2-r2"
+      "version": "2.2.0-r1"
     },
     "taf-doubletdetection": {
       "package": "doubletdetection",
@@ -107494,7 +107869,7 @@
     },
     "taf-nextclade": {
       "package": "nextclade",
-      "version": "3.29.1-r1"
+      "version": "3.30.0-r1"
     },
     "taf-ngenomesyn": {
       "package": "ngenomesyn",
