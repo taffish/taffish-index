@@ -1,10 +1,10 @@
 {
   "schema_version": "taffish.index/v1",
-  "generated_at": "2026-11-27T09:44:36Z",
+  "generated_at": "2026-11-28T08:57:36Z",
   "organization": "taffish",
   "counts": {
     "packages": 276,
-    "versions": 601,
+    "versions": 605,
     "commands": 276,
     "repositories": 276,
     "warnings": 0,
@@ -6756,9 +6756,9 @@
     },
     "bioconductor-bioviz": {
       "name": "bioconductor-bioviz",
-      "latest": "3.23-r2",
-      "recent_version": "3.23-r2",
-      "recent_at": "2026-05-28T15:43:16Z",
+      "latest": "3.24-r1",
+      "recent_version": "3.24-r1",
+      "recent_at": "2026-11-27T16:07:04Z",
       "repository_url": "https://github.com/taffish/bioconductor-bioviz",
       "command": {
         "name": "taf-bioconductor-bioviz"
@@ -7107,14 +7107,186 @@
             "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
             "citation": "Bioconductor project; package-specific citations are available from citation(package)"
           }
+        },
+        "3.24-r1": {
+          "name": "bioconductor-bioviz",
+          "kind": "tool",
+          "version": "3.24",
+          "release": 1,
+          "version_id": "3.24-r1",
+          "tag": "v3.24-r1",
+          "published_at": "2026-11-27T16:07:04Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bioconductor-bioviz",
+          "repository_slug": "taffish/bioconductor-bioviz",
+          "command": {
+            "name": "taf-bioconductor-bioviz"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "visualization",
+            "categories": [
+              "visualization",
+              "bioconductor",
+              "phylogenetics",
+              "plotting",
+              "r"
+            ],
+            "keywords": [
+              "bioconductor",
+              "r",
+              "rscript",
+              "ggtree",
+              "treeio",
+              "ape",
+              "ggplot2",
+              "svglite",
+              "ragg",
+              "newick",
+              "phylogeny",
+              "bioinformatics plots"
+            ],
+            "summary": "A TAFFISH-maintained R/Bioconductor 3.24 bioinformatics visualization runtime with a stable tree plotting helper CLI.",
+            "description": "A TAFFISH-maintained R/Bioconductor 3.24 bioinformatics visualization runtime with a stable tree plotting helper CLI."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bioconductor-bioviz:3.24-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.24-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:2c0c27a614c3adf17eec5d8c29742b6eabd9ffd5ef3a9e9752f31f0fabb76312",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:4c4f370e33faca387019a1b14d47562064ddd7af4111511149eee93c7cb1acbd",
+              "linux/arm64": "sha256:2c39a8ee1d9fb00b58e901857321077875ce2de0588bd83cb2a06bd21f47d879"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "R",
+              "Rscript",
+              "bioviz-runtime-info",
+              "bioviz-tree",
+              "bash",
+              "grep",
+              "sed"
+            ],
+            "test": [
+              "Rscript --version 2>&1 | grep -F 'Rscript (R) version 4.6.2' >/dev/null && Rscript -e 'stopifnot(as.character(BiocManager::version()) == \"3.24\")' && bioviz-runtime-info | grep -F 'Bioconductor\t3.24' >/dev/null",
+              "Rscript -e 'pkgs <- c(\"ape\",\"treeio\",\"ggtree\",\"tidytree\",\"ggplot2\",\"svglite\",\"ragg\",\"optparse\",\"jsonlite\",\"readr\",\"data.table\",\"ggrepel\",\"patchwork\",\"cowplot\",\"scales\",\"viridis\",\"RColorBrewer\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly=TRUE)]; if (length(missing)) stop(paste(\"missing\", paste(missing, collapse=\",\")))'",
+              "bioviz-tree --version | grep -Fx 'bioviz-tree 0.2.0 (Bioconductor 3.24)' >/dev/null && bioviz-tree --help 2>&1 | grep -F 'Tree plotting helper for Newick phylogenies' >/dev/null",
+              "tmp=$(mktemp -d /tmp/taf-bioviz-tree-rect.XXXXXX); cd \"$tmp\"; printf '%s\n' '((seq1:0.1,seq2:0.2):0.3,(seq3:0.2,seq4:0.4):0.1);' > tree.nwk && printf '%b\n' 'sample\tgroup\tregion' 'seq1\tA\tleaf' 'seq2\tA\tleaf' 'seq3\tB\troot' 'seq4\tB\troot' > metadata.tsv && printf '%b\n' 'sequence_id\tlabel' 'seq1\tAlpha one with a long journal label' 'seq2\tAlpha two with a long journal label' 'seq3\tBeta one with a long journal label' 'seq4\tBeta two with a long journal label' > label-map.tsv && bioviz-tree --tree tree.nwk --metadata metadata.tsv --label-map label-map.tsv --color-by group --layout rectangular --formats pdf,png,svg --style journal --title Journal Style Smoke --outdir out && test -s out/tree.pdf && test -s out/tree.png && test -s out/tree.svg && test -s out/tree_plot_summary.tsv && test -s out/run.manifest.json && grep -F 'metadata_matched_tips' out/tree_plot_summary.tsv >/dev/null && grep -F 'style\tjournal' out/tree_plot_summary.tsv >/dev/null && grep -F 'scale_bar\tauto' out/tree_plot_summary.tsv >/dev/null && grep -F 'title\tJournal Style Smoke' out/tree_plot_summary.tsv >/dev/null && grep -F 'plot_width' out/tree_plot_summary.tsv >/dev/null && grep -F 'ggtree' out/versions.tsv >/dev/null && rm -rf \"$tmp\"",
+              "tmp=$(mktemp -d /tmp/taf-bioviz-tree-circ.XXXXXX); cd \"$tmp\"; printf '%s\n' '((a:0.1,b:0.2):0.3,(c:0.2,d:0.4):0.1);' > tree.nwk && bioviz-tree --tree tree.nwk --layout circular --formats png --hide-tip-labels --outdir out && test -s out/tree.png && grep -F 'layout\tcircular' out/tree_plot_summary.tsv >/dev/null && rm -rf \"$tmp\""
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:20Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:26Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "daa66553bbd30ffb092f4975038707664a6543c8",
+                "image_digest": "sha256:2c0c27a614c3adf17eec5d8c29742b6eabd9ffd5ef3a9e9752f31f0fabb76312",
+                "smoke_sha256": "e138ded20420f813cccb906f2cdd6bc74de8fbdd327187c42e716be5509bef8f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:20Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "daa66553bbd30ffb092f4975038707664a6543c8",
+                "image_digest": "sha256:2c0c27a614c3adf17eec5d8c29742b6eabd9ffd5ef3a9e9752f31f0fabb76312",
+                "smoke_sha256": "e138ded20420f813cccb906f2cdd6bc74de8fbdd327187c42e716be5509bef8f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:13Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "daa66553bbd30ffb092f4975038707664a6543c8",
+                "image_digest": "sha256:2c0c27a614c3adf17eec5d8c29742b6eabd9ffd5ef3a9e9752f31f0fabb76312",
+                "smoke_sha256": "e138ded20420f813cccb906f2cdd6bc74de8fbdd327187c42e716be5509bef8f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-28T08:57:36Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bioconductor-bioviz",
+            "ref": "v3.24-r1",
+            "commit": "daa66553bbd30ffb092f4975038707664a6543c8",
+            "html_url": "https://github.com/taffish/bioconductor-bioviz/tree/v3.24-r1"
+          },
+          "upstream": {
+            "name": "Bioconductor bioinformatics visualization runtime",
+            "type": "official",
+            "homepage": "https://bioconductor.org/",
+            "release_url": "https://www.bioconductor.org/news/bioc_3_24_release/",
+            "version": "3.24",
+            "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
+            "citation": "Bioconductor project; package-specific citations are available from citation(package)"
+          }
         }
       }
     },
     "bioconductor-rnaseq": {
       "name": "bioconductor-rnaseq",
-      "latest": "3.23-r1",
-      "recent_version": "3.23-r1",
-      "recent_at": "2026-05-21T15:15:16Z",
+      "latest": "3.24-r1",
+      "recent_version": "3.24-r1",
+      "recent_at": "2026-11-27T16:06:57Z",
       "repository_url": "https://github.com/taffish/bioconductor-rnaseq",
       "command": {
         "name": "taf-bioconductor-rnaseq"
@@ -7293,6 +7465,188 @@
             "homepage": "https://bioconductor.org/",
             "release_url": "https://www.bioconductor.org/news/bioc_3_23_release/",
             "version": "3.23",
+            "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
+            "citation": "Bioconductor project; package-specific citations are available from citation(package)"
+          }
+        },
+        "3.24-r1": {
+          "name": "bioconductor-rnaseq",
+          "kind": "tool",
+          "version": "3.24",
+          "release": 1,
+          "version_id": "3.24-r1",
+          "tag": "v3.24-r1",
+          "published_at": "2026-11-27T16:06:57Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/bioconductor-rnaseq",
+          "repository_slug": "taffish/bioconductor-rnaseq",
+          "command": {
+            "name": "taf-bioconductor-rnaseq"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "bioconductor",
+              "differential-expression",
+              "transcriptomics",
+              "statistics"
+            ],
+            "keywords": [
+              "bioconductor",
+              "r",
+              "rscript",
+              "rna-seq",
+              "deseq2",
+              "edger",
+              "limma",
+              "tximport",
+              "tximeta",
+              "apeglm",
+              "ashr",
+              "sva",
+              "ruvseq",
+              "pca",
+              "complexheatmap"
+            ],
+            "summary": "A TAFFISH-maintained R/Bioconductor 3.24 RNA-seq statistics runtime with stable helper CLIs for downstream flows.",
+            "description": "A TAFFISH-maintained R/Bioconductor 3.24 RNA-seq statistics runtime with stable helper CLIs for downstream flows."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/bioconductor-rnaseq:3.24-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "3.24-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:6ae7ae1f39b7f97dd41fcc711c9455d5d2face7df40d0e3536a6ffb0494bac12",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:207822b733a7b33d333c23d9139ad1cae327d95cabe01348c9c5b2e5a8dd9223",
+              "linux/arm64": "sha256:3aa91d7f404c55ba522149f8af65d64e33330f207eda13b7cfdb36250f7e0680"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "R",
+              "Rscript",
+              "rnaseq-runtime-info",
+              "rnaseq-deseq2",
+              "rnaseq-tximport",
+              "rnaseq-pca",
+              "rnaseq-resources",
+              "rnaseq-tximeta",
+              "python3",
+              "curl",
+              "bash",
+              "pandoc"
+            ],
+            "test": [
+              "Rscript /opt/bioconductor-rnaseq/R/smoke.R identity",
+              "Rscript /opt/bioconductor-rnaseq/R/smoke.R modules",
+              "Rscript /opt/bioconductor-rnaseq/R/smoke.R help",
+              "Rscript /opt/bioconductor-rnaseq/R/smoke.R pca",
+              "Rscript /opt/bioconductor-rnaseq/R/smoke.R tximport",
+              "Rscript /opt/bioconductor-rnaseq/R/smoke.R deseq2",
+              "python3 -B /opt/bioconductor-rnaseq/share/test-resources.py"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:20Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:26Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c1e924a5ad7292e2ac8ed1ec484fc4aa9b309c2e",
+                "image_digest": "sha256:6ae7ae1f39b7f97dd41fcc711c9455d5d2face7df40d0e3536a6ffb0494bac12",
+                "smoke_sha256": "8ac5cb23ced1100a0dfaf23386899b163a4fb1119216ff54de8c2e81ed145668",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:20Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c1e924a5ad7292e2ac8ed1ec484fc4aa9b309c2e",
+                "image_digest": "sha256:6ae7ae1f39b7f97dd41fcc711c9455d5d2face7df40d0e3536a6ffb0494bac12",
+                "smoke_sha256": "8ac5cb23ced1100a0dfaf23386899b163a4fb1119216ff54de8c2e81ed145668",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:13Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "c1e924a5ad7292e2ac8ed1ec484fc4aa9b309c2e",
+                "image_digest": "sha256:6ae7ae1f39b7f97dd41fcc711c9455d5d2face7df40d0e3536a6ffb0494bac12",
+                "smoke_sha256": "8ac5cb23ced1100a0dfaf23386899b163a4fb1119216ff54de8c2e81ed145668",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-28T08:57:36Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/bioconductor-rnaseq",
+            "ref": "v3.24-r1",
+            "commit": "c1e924a5ad7292e2ac8ed1ec484fc4aa9b309c2e",
+            "html_url": "https://github.com/taffish/bioconductor-rnaseq/tree/v3.24-r1"
+          },
+          "upstream": {
+            "name": "Bioconductor RNA-seq analysis runtime",
+            "type": "official",
+            "homepage": "https://bioconductor.org/",
+            "release_url": "https://www.bioconductor.org/news/bioc_3_24_release/",
+            "version": "3.24",
             "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
             "citation": "Bioconductor project; package-specific citations are available from citation(package)"
           }
@@ -13401,9 +13755,9 @@
     },
     "clipkit": {
       "name": "clipkit",
-      "latest": "2.14.0-r1",
-      "recent_version": "2.14.0-r1",
-      "recent_at": "2026-08-06T17:55:08Z",
+      "latest": "2.16.1-r1",
+      "recent_version": "2.16.1-r1",
+      "recent_at": "2026-11-27T13:23:31Z",
       "repository_url": "https://github.com/taffish/clipkit",
       "command": {
         "name": "taf-clipkit"
@@ -14443,6 +14797,186 @@
             "repository": "JLSteenwyk/ClipKIT",
             "release_url": "https://github.com/JLSteenwyk/ClipKIT/releases/tag/v2.14.0",
             "version": "2.14.0",
+            "license": "MIT",
+            "citation": "Steenwyk et al. 2020, ClipKIT: a multiple sequence alignment trimming software for accurate phylogenomic inference",
+            "doi": "10.1371/journal.pbio.3001007"
+          }
+        },
+        "2.16.1-r1": {
+          "name": "clipkit",
+          "kind": "tool",
+          "version": "2.16.1",
+          "release": 1,
+          "version_id": "2.16.1-r1",
+          "tag": "v2.16.1-r1",
+          "published_at": "2026-11-27T13:23:31Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/clipkit",
+          "repository_slug": "taffish/clipkit",
+          "command": {
+            "name": "taf-clipkit"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "multiple-sequence-alignment",
+            "categories": [
+              "multiple-sequence-alignment",
+              "alignment-trimming",
+              "phylogenetics",
+              "sequence-analysis"
+            ],
+            "keywords": [
+              "clipkit",
+              "msa",
+              "alignment trimming",
+              "smart-gap",
+              "gappy",
+              "kpic",
+              "phylogenomics",
+              "ecomp",
+              "stop-codon masking",
+              "codon-aware"
+            ],
+            "summary": "Alignment trimming software for phylogenetics and phylogenomics.",
+            "description": "Alignment trimming software for phylogenetics and phylogenomics."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/clipkit:2.16.1-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.16.1-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:240aa346c59a15465bb15a6991f0f49a3fd8a4bb44e9c0ddba5b0e9f17fbd1ef",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:a628caf930420db9716884ea6766f94ff7dedf1cf751b1cf9ec44b4b71cf4ea3",
+              "linux/arm64": "sha256:8c1f04143a324b9baf89e38d6ce205bc805272964fa4efb182e49bdc28ec2456"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 180,
+            "exist": [
+              "clipkit",
+              "python",
+              "python3",
+              "bash",
+              "grep",
+              "sed",
+              "gzip",
+              "ldd",
+              "find",
+              "xargs",
+              "mktemp"
+            ],
+            "test": [
+              "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; version=$(clipkit --version) && test \"$version\" = 'clipkit 2.16.1' && clipkit --help > help.log 2>&1 && grep -F 'Usage: clipkit <input>' help.log >/dev/null && grep -F 'smart-gap' help.log >/dev/null && grep -F 'remove_stop_codons' help.log >/dev/null && grep -F 'ambiguity_handling' help.log >/dev/null && python -c 'import sys, Bio, clipkit, numpy, zstandard; assert sys.version_info[:2] == (3, 12); from clipkit.modes import AmbiguityHandling; from clipkit.version import __version__; assert __version__ == \"2.16.1\"; assert AmbiguityHandling.missing.value == \"missing\"' && python -c 'assert open(\"/opt/clipkit/share/doc/clipkit/python-packages.txt\").read().splitlines() == [\"biopython==1.87\", \"clipkit==2.16.1\", \"numpy==1.26.4\", \"zstandard==0.25.0\"]' && grep -F 'commit=4e2834c001fa2c82c5921ee7e52b4a58b59e3508' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'wheel_sha256=08c27dd017852dded330a04946ec09f323c05215ef7aa8bfb1cfc59e946e6e85' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'source_sha256=9de2b3273560618fa8624733ef2aaecc604deedeb5105c74af9ec12b5f4969a0' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'ecomp_sha256=f9f9b2a1084757586a797708a5198156347164516393462a04a5cd624d568065' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && find /opt/clipkit/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > \"$tmp/ldd.log\" && ! grep -F 'not found' \"$tmp/ldd.log\" >/dev/null",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; printf '>one\nA\n>two\nA\n>three\nR\n>four\nR\n' > in.fa && clipkit in.fa -m kpi -s nt -o missing.fa -of fasta --report_json missing.json --plot_trim_report missing.html > missing.log 2>&1 && clipkit in.fa -m kpi -s nt --ambiguity_handling fractional -o fractional.fa -of fasta --report_json fractional.json > fractional.log 2>&1 && clipkit in.fa -m kpi -s nt --ambiguity_handling literal -o literal.fa -of fasta --report_json literal.json > literal.log 2>&1 && test -s missing.fa && test -s fractional.fa && test -s literal.fa && test -s missing.html && grep -F 'Ambiguity handling: missing' missing.log >/dev/null && grep -F '\"ambiguity_handling\": \"missing\"' missing.html >/dev/null && grep -F '\"site_ambiguity\"' missing.html >/dev/null && grep -F 'R' literal.fa >/dev/null && python -c 'import json; missing=json.load(open(\"missing.json\")); fractional=json.load(open(\"fractional.json\")); literal=json.load(open(\"literal.json\")); assert missing[\"ambiguity_handling\"] == \"missing\"; assert fractional[\"ambiguity_handling\"] == \"fractional\"; assert literal[\"ambiguity_handling\"] == \"literal\"; assert missing[\"stats\"][\"output_length\"] == fractional[\"stats\"][\"output_length\"] == 0; assert literal[\"stats\"][\"output_length\"] == 1' && python -c 'from clipkit import clipkit; from clipkit.modes import AmbiguityHandling, TrimmingMode; alignment=\">one\\nA\\n>two\\nA\\n>three\\nR\\n>four\\nR\\n\"; missing, _=clipkit(raw_alignment=alignment, mode=TrimmingMode.kpi, sequence_type=\"nt\"); literal, _=clipkit(raw_alignment=alignment, mode=TrimmingMode.kpi, sequence_type=\"nt\", ambiguity_handling=AmbiguityHandling.literal); assert missing.ambiguity_handling is AmbiguityHandling.missing; assert missing.msa.length == 0; assert literal.msa.length == 1'",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; printf '>stop\nATGTAATGA\n>control\nATGCAACAA\n' > in.fa && clipkit in.fa --mode gappy --gaps 0.9 --sequence_type nt --codon --remove_stop_codons all --output out.fa --output_file_format fasta --log --report_json report.json > run.log 2>&1 && test -s out.fa && test -s out.fa.log && test -s report.json && grep -F 'ATG------' out.fa >/dev/null && grep -F 'Stop codon masking mode: all' run.log >/dev/null && python -c 'import json; data=json.load(open(\"report.json\")); assert data[\"stop_codon_masking\"] == {\"mode\": \"all\", \"terminal_masked\": 1, \"internal_masked\": 1, \"total_masked\": 2}'",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; printf '>s1\nACGTACGT\n>s2\nACGTA-GT\n>s3\nACGTA-GT\n>s4\nACGTA-GT\n' > in.fa && clipkit in.fa -m gappy -g 0.5 -o out.fa -of fasta -l -c --report_json report.json --plot_trim_report report.html > run.log 2>&1 && test -s out.fa && test -s out.fa.log && test -s out.fa.complement && test -s report.json && test -s report.html && grep -F '>s1' out.fa >/dev/null && grep -F 'Trimmed alignment: out.fa' run.log >/dev/null && python -c 'import json; data=json.load(open(\"report.json\")); assert data[\"status\"] == \"completed\"; assert data[\"mode\"] == \"gappy\"'",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; printf '>s1\nACGTACGTACGT\n>s2\nACGTACGTACGT\n>s3\nACGTA-GTACGT\n' > in.fa && clipkit in.fa --validate_only --report_json validate.json > validate.log 2>&1 && test -s validate.json && grep -F 'Validation successful' validate.log >/dev/null && python -c 'import json; data=json.load(open(\"validate.json\")); assert data[\"status\"] == \"validated\"; assert data[\"validate_only\"] is True'",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; cp /opt/clipkit/share/doc/clipkit/test.ecomp in.ecomp && clipkit in.ecomp -o out.fa -of fasta --report_json ecomp.json -q && test -s out.fa && test -s ecomp.json && python -c 'import json; data=json.load(open(\"ecomp.json\")); assert data[\"status\"] == \"completed\"; assert data[\"output_file_format\"] == \"fasta\"'",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; python -c 'import numpy as np; from clipkit.msa import MSA; n=1024; records=np.full((n,n), \"A\", dtype=\"U1\"); records[:512,0]=\"-\"; records[512:768,0]=\"C\"; msa=MSA([{\"id\":str(i)} for i in range(n)], records, gap_chars=[\"-\"]); assert records.size > 1000000; assert msa.site_gappyness[0] == 0.5; assert msa.site_entropy[0] == 1.0; assert msa.site_composition_bias[0] == 0.0; assert msa.column_character_frequencies[0] == {\"A\":256, \"C\":256}'",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; python -c 'import numpy as np; from clipkit.modes import TrimmingMode; from clipkit.msa import MSA; headers=[{\"id\":str(i)} for i in range(4)]; upper=np.array([list(s) for s in [\"AA-CGT\", \"AC-CGT\", \"CAAC-T\", \"CCAG-T\"]], dtype=\"U1\"); mixed=upper.copy(); mixed[0,1]=\"a\"; upper_msa=MSA(headers, upper, gap_chars=[\"-\"], ambiguity_handling=\"literal\"); mixed_msa=MSA(headers, mixed, gap_chars=[\"-\"], requires_uppercase_normalization=True, ambiguity_handling=\"literal\"); upper_msa.trim(mode=TrimmingMode.kpic_gappy, gap_threshold=0.5); mixed_msa.trim(mode=TrimmingMode.kpic_gappy, gap_threshold=0.5); assert [\"\".join(row) for row in upper_msa.sites_kept.tolist()] == [\"AAT\", \"ACT\", \"CAT\", \"CCT\"]; assert [\"\".join(row) for row in mixed_msa.sites_kept.tolist()] == [\"AaT\", \"ACT\", \"CAT\", \"CCT\"]; assert upper_msa.site_gappyness.tolist() == mixed_msa.site_gappyness.tolist() == [0.0, 0.0, 0.5, 0.0, 0.5, 0.0]'",
+              "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; python -c 'from clipkit import clipkit; run, stats = clipkit(raw_alignment=\">stop\\nATGTAAACCTGA\\n>control\\nATGCAAACCCAA\\n\", mode=\"gappy\", gaps=0.9, sequence_type=\"nt\", codon=True, remove_stop_codons=\"all\"); assert str(run.trimmed[0].seq) == \"ATG---ACC---\"; assert run.stop_codon_masking.summary == {\"mode\": \"all\", \"terminal_masked\": 1, \"internal_masked\": 1, \"total_masked\": 2}; assert stats.output_length == 12'",
+              "python /opt/clipkit/share/doc/clipkit/report-regression.py"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:20Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:26Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "aa831dc548cf743c3124af5e16f0df43a80aa58d",
+                "image_digest": "sha256:240aa346c59a15465bb15a6991f0f49a3fd8a4bb44e9c0ddba5b0e9f17fbd1ef",
+                "smoke_sha256": "0d8b9411d2842dfa18f63066efe27f511a4da098ad7058750d3b6be598dcfce6",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:20Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "aa831dc548cf743c3124af5e16f0df43a80aa58d",
+                "image_digest": "sha256:240aa346c59a15465bb15a6991f0f49a3fd8a4bb44e9c0ddba5b0e9f17fbd1ef",
+                "smoke_sha256": "0d8b9411d2842dfa18f63066efe27f511a4da098ad7058750d3b6be598dcfce6",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:13Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "aa831dc548cf743c3124af5e16f0df43a80aa58d",
+                "image_digest": "sha256:240aa346c59a15465bb15a6991f0f49a3fd8a4bb44e9c0ddba5b0e9f17fbd1ef",
+                "smoke_sha256": "0d8b9411d2842dfa18f63066efe27f511a4da098ad7058750d3b6be598dcfce6",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-28T08:57:36Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/clipkit",
+            "ref": "v2.16.1-r1",
+            "commit": "aa831dc548cf743c3124af5e16f0df43a80aa58d",
+            "html_url": "https://github.com/taffish/clipkit/tree/v2.16.1-r1"
+          },
+          "upstream": {
+            "name": "ClipKIT",
+            "type": "github",
+            "homepage": "https://jlsteenwyk.com/ClipKIT/",
+            "repository": "JLSteenwyk/ClipKIT",
+            "release_url": "https://github.com/JLSteenwyk/ClipKIT/releases/tag/v2.16.1",
+            "version": "2.16.1",
             "license": "MIT",
             "citation": "Steenwyk et al. 2020, ClipKIT: a multiple sequence alignment trimming software for accurate phylogenomic inference",
             "doi": "10.1371/journal.pbio.3001007"
@@ -100382,9 +100916,9 @@
     },
     "trinity": {
       "name": "trinity",
-      "latest": "2.16.3-r1",
-      "recent_version": "2.16.3-r1",
-      "recent_at": "2026-11-25T17:55:06Z",
+      "latest": "2.16.5-r1",
+      "recent_version": "2.16.5-r1",
+      "recent_at": "2026-11-27T13:23:30Z",
       "repository_url": "https://github.com/taffish/trinity",
       "command": {
         "name": "taf-trinity"
@@ -101190,6 +101724,217 @@
             "repository": "trinityrnaseq/trinityrnaseq",
             "release_url": "https://github.com/trinityrnaseq/trinityrnaseq/releases/tag/Trinity-v2.16.3",
             "version": "2.16.3",
+            "license": "BSD-3-Clause with bundled third-party components including ParaFly, seqtk-trinity, Trimmomatic, collectl, bamsifter/htslib, and Ubuntu-packaged runtime tools",
+            "citation": "Grabherr et al. 2011; Haas et al. 2013",
+            "doi": "10.1038/nbt.1883; 10.1038/nprot.2013.084",
+            "pmid": "21572440; 23845962"
+          }
+        },
+        "2.16.5-r1": {
+          "name": "trinity",
+          "kind": "tool",
+          "version": "2.16.5",
+          "release": 1,
+          "version_id": "2.16.5-r1",
+          "tag": "v2.16.5-r1",
+          "published_at": "2026-11-27T13:23:30Z",
+          "published_at_source": "github-release",
+          "license": "Apache-2.0",
+          "repository_url": "https://github.com/taffish/trinity",
+          "repository_slug": "taffish/trinity",
+          "command": {
+            "name": "taf-trinity"
+          },
+          "runtime": {
+            "pipe": true,
+            "command_mode": true
+          },
+          "dependencies": {},
+          "platform": {
+            "os": [],
+            "arch": [],
+            "container": "optional",
+            "min_cpus": null,
+            "min_memory_mb": null
+          },
+          "meta": {
+            "domain": "bio",
+            "category": "rna-seq",
+            "categories": [
+              "rna-seq",
+              "transcriptomics",
+              "de-novo-assembly",
+              "transcript-assembly",
+              "short-read"
+            ],
+            "keywords": [
+              "trinity",
+              "rna-seq",
+              "transcriptome assembly",
+              "inchworm",
+              "chrysalis",
+              "butterfly",
+              "insilico normalization",
+              "salmon",
+              "jellyfish",
+              "bowtie2"
+            ],
+            "summary": "Trinity de novo RNA-seq assembly, in-silico normalization, and compatible Salmon 2.x final filtering.",
+            "description": "Trinity de novo RNA-seq assembly, in-silico normalization, and compatible Salmon 2.x final filtering."
+          },
+          "paths": {
+            "main": "src/main.taf",
+            "help": "docs/help.md",
+            "dockerfile": "docker/Dockerfile"
+          },
+          "container": {
+            "image": "ghcr.io/taffish/trinity:2.16.5-r1",
+            "dockerfile": "docker/Dockerfile",
+            "image_tag": "2.16.5-r1",
+            "image_tag_matches_version": true,
+            "digest": "sha256:4dd464abb41d1c92a4348c58bc33eb15deaabd11d1aae21b00c32e63ebef985d",
+            "platforms": [
+              "linux/amd64",
+              "linux/arm64"
+            ],
+            "platform_digests": {
+              "linux/amd64": "sha256:95b5767a667d81d1cef91a374c7df6009421615019dd87b06d00cdff6a5ee1d1",
+              "linux/arm64": "sha256:74ff81f1bd543598275b3bd6f96f9c7b6dd9258c9c780e28d106d1ebc6a46bdb"
+            }
+          },
+          "smoke": {
+            "backend": "docker",
+            "timeout": 900,
+            "exist": [
+              "Trinity",
+              "TrinityStats.pl",
+              "align_and_estimate_abundance.pl",
+              "abundance_estimates_to_matrix.pl",
+              "insilico_read_normalization.pl",
+              "ParaFly",
+              "seqtk-trinity",
+              "inchworm",
+              "Chrysalis",
+              "QuantifyGraph",
+              "GraphFromFasta",
+              "ReadsToTranscripts",
+              "bamsifter",
+              "slclust",
+              "collectl",
+              "bowtie2",
+              "bowtie2-build",
+              "jellyfish",
+              "samtools",
+              "salmon",
+              "blastn",
+              "makeblastdb",
+              "java",
+              "perl",
+              "python3",
+              "bash",
+              "gzip",
+              "bzip2",
+              "xz",
+              "grep",
+              "ldd",
+              "sort",
+              "sed",
+              "awk",
+              "cat",
+              "mkdir",
+              "rm",
+              "cp",
+              "mv",
+              "touch",
+              "head",
+              "tail",
+              "cut"
+            ],
+            "test": [
+              "python3 /usr/local/libexec/trinity-check.py identity",
+              "python3 /usr/local/libexec/trinity-check.py help",
+              "python3 /usr/local/libexec/trinity-check.py stats",
+              "python3 /usr/local/libexec/trinity-check.py normalize",
+              "python3 /usr/local/libexec/trinity-check.py assembly",
+              "python3 /usr/local/libexec/trinity-check.py checkpoint",
+              "python3 /usr/local/libexec/trinity-check.py matrix"
+            ],
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:20Z",
+            "backend_used": "docker",
+            "policy_generation": "multibackend-1",
+            "platform": "linux/amd64",
+            "required_backends": [
+              "docker"
+            ],
+            "advisory_backends": [
+              "podman",
+              "apptainer"
+            ],
+            "backend_results": {
+              "apptainer": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:26Z",
+                "platform": "linux/amd64",
+                "runtime_version": "apptainer version 1.5.5",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9cc1b8698383082ae8d36e93d06ff68fa31274b1",
+                "image_digest": "sha256:4dd464abb41d1c92a4348c58bc33eb15deaabd11d1aae21b00c32e63ebef985d",
+                "smoke_sha256": "cf91747cb87a902b07bc927321b86af03c695ba24752c55411bb8db48a47a76f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "docker": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:20Z",
+                "platform": "linux/amd64",
+                "runtime_version": "Docker version 28.0.4, build b8034c0",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9cc1b8698383082ae8d36e93d06ff68fa31274b1",
+                "image_digest": "sha256:4dd464abb41d1c92a4348c58bc33eb15deaabd11d1aae21b00c32e63ebef985d",
+                "smoke_sha256": "cf91747cb87a902b07bc927321b86af03c695ba24752c55411bb8db48a47a76f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              },
+              "podman": {
+                "status": "passed",
+                "checked_at": "2026-11-28T09:02:13Z",
+                "platform": "linux/amd64",
+                "runtime_version": "podman version 4.9.3",
+                "runner_image": "ubuntu24/20261122.23.1",
+                "policy_generation": "multibackend-1",
+                "source_commit": "9cc1b8698383082ae8d36e93d06ff68fa31274b1",
+                "image_digest": "sha256:4dd464abb41d1c92a4348c58bc33eb15deaabd11d1aae21b00c32e63ebef985d",
+                "smoke_sha256": "cf91747cb87a902b07bc927321b86af03c695ba24752c55411bb8db48a47a76f",
+                "provenance": "taffish-index",
+                "failure_kind": null,
+                "message": null
+              }
+            }
+          },
+          "trust": {
+            "status": "passed",
+            "checked_at": "2026-11-28T08:57:36Z",
+            "policy": "taffish.index/trust-v2",
+            "source": "taffish-index"
+          },
+          "source": {
+            "repository": "taffish/trinity",
+            "ref": "v2.16.5-r1",
+            "commit": "9cc1b8698383082ae8d36e93d06ff68fa31274b1",
+            "html_url": "https://github.com/taffish/trinity/tree/v2.16.5-r1"
+          },
+          "upstream": {
+            "name": "Trinity",
+            "type": "github",
+            "homepage": "https://github.com/trinityrnaseq/trinityrnaseq/wiki",
+            "repository": "trinityrnaseq/trinityrnaseq",
+            "release_url": "https://github.com/trinityrnaseq/trinityrnaseq/releases/tag/Trinity-v2.16.5",
+            "version": "2.16.5",
             "license": "BSD-3-Clause with bundled third-party components including ParaFly, seqtk-trinity, Trimmomatic, collectl, bamsifter/htslib, and Ubuntu-packaged runtime tools",
             "citation": "Grabherr et al. 2011; Haas et al. 2013",
             "doi": "10.1038/nbt.1883; 10.1038/nprot.2013.084",
@@ -107333,11 +108078,11 @@
     },
     "taf-bioconductor-bioviz": {
       "package": "bioconductor-bioviz",
-      "version": "3.23-r2"
+      "version": "3.24-r1"
     },
     "taf-bioconductor-rnaseq": {
       "package": "bioconductor-rnaseq",
-      "version": "3.23-r1"
+      "version": "3.24-r1"
     },
     "taf-biser": {
       "package": "biser",
@@ -107437,7 +108182,7 @@
     },
     "taf-clipkit": {
       "package": "clipkit",
-      "version": "2.14.0-r1"
+      "version": "2.16.1-r1"
     },
     "taf-clustal-omega": {
       "package": "clustal-omega",
@@ -108281,7 +109026,7 @@
     },
     "taf-trinity": {
       "package": "trinity",
-      "version": "2.16.3-r1"
+      "version": "2.16.5-r1"
     },
     "taf-trnascan-se": {
       "package": "trnascan-se",

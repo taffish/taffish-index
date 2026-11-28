@@ -1,8 +1,8 @@
 {
   "name": "bioconductor-rnaseq",
-  "latest": "3.23-r1",
-  "recent_version": "3.23-r1",
-  "recent_at": "2026-05-21T15:15:16Z",
+  "latest": "3.24-r1",
+  "recent_version": "3.24-r1",
+  "recent_at": "2026-11-27T16:06:57Z",
   "repository_url": "https://github.com/taffish/bioconductor-rnaseq",
   "command": {
     "name": "taf-bioconductor-rnaseq"
@@ -181,6 +181,188 @@
         "homepage": "https://bioconductor.org/",
         "release_url": "https://www.bioconductor.org/news/bioc_3_23_release/",
         "version": "3.23",
+        "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
+        "citation": "Bioconductor project; package-specific citations are available from citation(package)"
+      }
+    },
+    "3.24-r1": {
+      "name": "bioconductor-rnaseq",
+      "kind": "tool",
+      "version": "3.24",
+      "release": 1,
+      "version_id": "3.24-r1",
+      "tag": "v3.24-r1",
+      "published_at": "2026-11-27T16:06:57Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bioconductor-rnaseq",
+      "repository_slug": "taffish/bioconductor-rnaseq",
+      "command": {
+        "name": "taf-bioconductor-rnaseq"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "rna-seq",
+        "categories": [
+          "rna-seq",
+          "bioconductor",
+          "differential-expression",
+          "transcriptomics",
+          "statistics"
+        ],
+        "keywords": [
+          "bioconductor",
+          "r",
+          "rscript",
+          "rna-seq",
+          "deseq2",
+          "edger",
+          "limma",
+          "tximport",
+          "tximeta",
+          "apeglm",
+          "ashr",
+          "sva",
+          "ruvseq",
+          "pca",
+          "complexheatmap"
+        ],
+        "summary": "A TAFFISH-maintained R/Bioconductor 3.24 RNA-seq statistics runtime with stable helper CLIs for downstream flows.",
+        "description": "A TAFFISH-maintained R/Bioconductor 3.24 RNA-seq statistics runtime with stable helper CLIs for downstream flows."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bioconductor-rnaseq:3.24-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.24-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:6ae7ae1f39b7f97dd41fcc711c9455d5d2face7df40d0e3536a6ffb0494bac12",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:207822b733a7b33d333c23d9139ad1cae327d95cabe01348c9c5b2e5a8dd9223",
+          "linux/arm64": "sha256:3aa91d7f404c55ba522149f8af65d64e33330f207eda13b7cfdb36250f7e0680"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "R",
+          "Rscript",
+          "rnaseq-runtime-info",
+          "rnaseq-deseq2",
+          "rnaseq-tximport",
+          "rnaseq-pca",
+          "rnaseq-resources",
+          "rnaseq-tximeta",
+          "python3",
+          "curl",
+          "bash",
+          "pandoc"
+        ],
+        "test": [
+          "Rscript /opt/bioconductor-rnaseq/R/smoke.R identity",
+          "Rscript /opt/bioconductor-rnaseq/R/smoke.R modules",
+          "Rscript /opt/bioconductor-rnaseq/R/smoke.R help",
+          "Rscript /opt/bioconductor-rnaseq/R/smoke.R pca",
+          "Rscript /opt/bioconductor-rnaseq/R/smoke.R tximport",
+          "Rscript /opt/bioconductor-rnaseq/R/smoke.R deseq2",
+          "python3 -B /opt/bioconductor-rnaseq/share/test-resources.py"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-28T09:02:20Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:26Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c1e924a5ad7292e2ac8ed1ec484fc4aa9b309c2e",
+            "image_digest": "sha256:6ae7ae1f39b7f97dd41fcc711c9455d5d2face7df40d0e3536a6ffb0494bac12",
+            "smoke_sha256": "8ac5cb23ced1100a0dfaf23386899b163a4fb1119216ff54de8c2e81ed145668",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c1e924a5ad7292e2ac8ed1ec484fc4aa9b309c2e",
+            "image_digest": "sha256:6ae7ae1f39b7f97dd41fcc711c9455d5d2face7df40d0e3536a6ffb0494bac12",
+            "smoke_sha256": "8ac5cb23ced1100a0dfaf23386899b163a4fb1119216ff54de8c2e81ed145668",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:13Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "c1e924a5ad7292e2ac8ed1ec484fc4aa9b309c2e",
+            "image_digest": "sha256:6ae7ae1f39b7f97dd41fcc711c9455d5d2face7df40d0e3536a6ffb0494bac12",
+            "smoke_sha256": "8ac5cb23ced1100a0dfaf23386899b163a4fb1119216ff54de8c2e81ed145668",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-28T08:57:36Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bioconductor-rnaseq",
+        "ref": "v3.24-r1",
+        "commit": "c1e924a5ad7292e2ac8ed1ec484fc4aa9b309c2e",
+        "html_url": "https://github.com/taffish/bioconductor-rnaseq/tree/v3.24-r1"
+      },
+      "upstream": {
+        "name": "Bioconductor RNA-seq analysis runtime",
+        "type": "official",
+        "homepage": "https://bioconductor.org/",
+        "release_url": "https://www.bioconductor.org/news/bioc_3_24_release/",
+        "version": "3.24",
         "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
         "citation": "Bioconductor project; package-specific citations are available from citation(package)"
       }

@@ -1,8 +1,8 @@
 {
   "name": "clipkit",
-  "latest": "2.14.0-r1",
-  "recent_version": "2.14.0-r1",
-  "recent_at": "2026-08-06T17:55:08Z",
+  "latest": "2.16.1-r1",
+  "recent_version": "2.16.1-r1",
+  "recent_at": "2026-11-27T13:23:31Z",
   "repository_url": "https://github.com/taffish/clipkit",
   "command": {
     "name": "taf-clipkit"
@@ -1042,6 +1042,186 @@
         "repository": "JLSteenwyk/ClipKIT",
         "release_url": "https://github.com/JLSteenwyk/ClipKIT/releases/tag/v2.14.0",
         "version": "2.14.0",
+        "license": "MIT",
+        "citation": "Steenwyk et al. 2020, ClipKIT: a multiple sequence alignment trimming software for accurate phylogenomic inference",
+        "doi": "10.1371/journal.pbio.3001007"
+      }
+    },
+    "2.16.1-r1": {
+      "name": "clipkit",
+      "kind": "tool",
+      "version": "2.16.1",
+      "release": 1,
+      "version_id": "2.16.1-r1",
+      "tag": "v2.16.1-r1",
+      "published_at": "2026-11-27T13:23:31Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/clipkit",
+      "repository_slug": "taffish/clipkit",
+      "command": {
+        "name": "taf-clipkit"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "multiple-sequence-alignment",
+        "categories": [
+          "multiple-sequence-alignment",
+          "alignment-trimming",
+          "phylogenetics",
+          "sequence-analysis"
+        ],
+        "keywords": [
+          "clipkit",
+          "msa",
+          "alignment trimming",
+          "smart-gap",
+          "gappy",
+          "kpic",
+          "phylogenomics",
+          "ecomp",
+          "stop-codon masking",
+          "codon-aware"
+        ],
+        "summary": "Alignment trimming software for phylogenetics and phylogenomics.",
+        "description": "Alignment trimming software for phylogenetics and phylogenomics."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/clipkit:2.16.1-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "2.16.1-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:240aa346c59a15465bb15a6991f0f49a3fd8a4bb44e9c0ddba5b0e9f17fbd1ef",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:a628caf930420db9716884ea6766f94ff7dedf1cf751b1cf9ec44b4b71cf4ea3",
+          "linux/arm64": "sha256:8c1f04143a324b9baf89e38d6ce205bc805272964fa4efb182e49bdc28ec2456"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 180,
+        "exist": [
+          "clipkit",
+          "python",
+          "python3",
+          "bash",
+          "grep",
+          "sed",
+          "gzip",
+          "ldd",
+          "find",
+          "xargs",
+          "mktemp"
+        ],
+        "test": [
+          "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; version=$(clipkit --version) && test \"$version\" = 'clipkit 2.16.1' && clipkit --help > help.log 2>&1 && grep -F 'Usage: clipkit <input>' help.log >/dev/null && grep -F 'smart-gap' help.log >/dev/null && grep -F 'remove_stop_codons' help.log >/dev/null && grep -F 'ambiguity_handling' help.log >/dev/null && python -c 'import sys, Bio, clipkit, numpy, zstandard; assert sys.version_info[:2] == (3, 12); from clipkit.modes import AmbiguityHandling; from clipkit.version import __version__; assert __version__ == \"2.16.1\"; assert AmbiguityHandling.missing.value == \"missing\"' && python -c 'assert open(\"/opt/clipkit/share/doc/clipkit/python-packages.txt\").read().splitlines() == [\"biopython==1.87\", \"clipkit==2.16.1\", \"numpy==1.26.4\", \"zstandard==0.25.0\"]' && grep -F 'commit=4e2834c001fa2c82c5921ee7e52b4a58b59e3508' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'wheel_sha256=08c27dd017852dded330a04946ec09f323c05215ef7aa8bfb1cfc59e946e6e85' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'source_sha256=9de2b3273560618fa8624733ef2aaecc604deedeb5105c74af9ec12b5f4969a0' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && grep -F 'ecomp_sha256=f9f9b2a1084757586a797708a5198156347164516393462a04a5cd624d568065' /opt/clipkit/share/doc/clipkit/source.txt >/dev/null && find /opt/clipkit/venv -type f -name '*.so' -print0 | xargs -0 -r ldd > \"$tmp/ldd.log\" && ! grep -F 'not found' \"$tmp/ldd.log\" >/dev/null",
+          "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; printf '>one\nA\n>two\nA\n>three\nR\n>four\nR\n' > in.fa && clipkit in.fa -m kpi -s nt -o missing.fa -of fasta --report_json missing.json --plot_trim_report missing.html > missing.log 2>&1 && clipkit in.fa -m kpi -s nt --ambiguity_handling fractional -o fractional.fa -of fasta --report_json fractional.json > fractional.log 2>&1 && clipkit in.fa -m kpi -s nt --ambiguity_handling literal -o literal.fa -of fasta --report_json literal.json > literal.log 2>&1 && test -s missing.fa && test -s fractional.fa && test -s literal.fa && test -s missing.html && grep -F 'Ambiguity handling: missing' missing.log >/dev/null && grep -F '\"ambiguity_handling\": \"missing\"' missing.html >/dev/null && grep -F '\"site_ambiguity\"' missing.html >/dev/null && grep -F 'R' literal.fa >/dev/null && python -c 'import json; missing=json.load(open(\"missing.json\")); fractional=json.load(open(\"fractional.json\")); literal=json.load(open(\"literal.json\")); assert missing[\"ambiguity_handling\"] == \"missing\"; assert fractional[\"ambiguity_handling\"] == \"fractional\"; assert literal[\"ambiguity_handling\"] == \"literal\"; assert missing[\"stats\"][\"output_length\"] == fractional[\"stats\"][\"output_length\"] == 0; assert literal[\"stats\"][\"output_length\"] == 1' && python -c 'from clipkit import clipkit; from clipkit.modes import AmbiguityHandling, TrimmingMode; alignment=\">one\\nA\\n>two\\nA\\n>three\\nR\\n>four\\nR\\n\"; missing, _=clipkit(raw_alignment=alignment, mode=TrimmingMode.kpi, sequence_type=\"nt\"); literal, _=clipkit(raw_alignment=alignment, mode=TrimmingMode.kpi, sequence_type=\"nt\", ambiguity_handling=AmbiguityHandling.literal); assert missing.ambiguity_handling is AmbiguityHandling.missing; assert missing.msa.length == 0; assert literal.msa.length == 1'",
+          "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; printf '>stop\nATGTAATGA\n>control\nATGCAACAA\n' > in.fa && clipkit in.fa --mode gappy --gaps 0.9 --sequence_type nt --codon --remove_stop_codons all --output out.fa --output_file_format fasta --log --report_json report.json > run.log 2>&1 && test -s out.fa && test -s out.fa.log && test -s report.json && grep -F 'ATG------' out.fa >/dev/null && grep -F 'Stop codon masking mode: all' run.log >/dev/null && python -c 'import json; data=json.load(open(\"report.json\")); assert data[\"stop_codon_masking\"] == {\"mode\": \"all\", \"terminal_masked\": 1, \"internal_masked\": 1, \"total_masked\": 2}'",
+          "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; printf '>s1\nACGTACGT\n>s2\nACGTA-GT\n>s3\nACGTA-GT\n>s4\nACGTA-GT\n' > in.fa && clipkit in.fa -m gappy -g 0.5 -o out.fa -of fasta -l -c --report_json report.json --plot_trim_report report.html > run.log 2>&1 && test -s out.fa && test -s out.fa.log && test -s out.fa.complement && test -s report.json && test -s report.html && grep -F '>s1' out.fa >/dev/null && grep -F 'Trimmed alignment: out.fa' run.log >/dev/null && python -c 'import json; data=json.load(open(\"report.json\")); assert data[\"status\"] == \"completed\"; assert data[\"mode\"] == \"gappy\"'",
+          "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; printf '>s1\nACGTACGTACGT\n>s2\nACGTACGTACGT\n>s3\nACGTA-GTACGT\n' > in.fa && clipkit in.fa --validate_only --report_json validate.json > validate.log 2>&1 && test -s validate.json && grep -F 'Validation successful' validate.log >/dev/null && python -c 'import json; data=json.load(open(\"validate.json\")); assert data[\"status\"] == \"validated\"; assert data[\"validate_only\"] is True'",
+          "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; cp /opt/clipkit/share/doc/clipkit/test.ecomp in.ecomp && clipkit in.ecomp -o out.fa -of fasta --report_json ecomp.json -q && test -s out.fa && test -s ecomp.json && python -c 'import json; data=json.load(open(\"ecomp.json\")); assert data[\"status\"] == \"completed\"; assert data[\"output_file_format\"] == \"fasta\"'",
+          "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; python -c 'import numpy as np; from clipkit.msa import MSA; n=1024; records=np.full((n,n), \"A\", dtype=\"U1\"); records[:512,0]=\"-\"; records[512:768,0]=\"C\"; msa=MSA([{\"id\":str(i)} for i in range(n)], records, gap_chars=[\"-\"]); assert records.size > 1000000; assert msa.site_gappyness[0] == 0.5; assert msa.site_entropy[0] == 1.0; assert msa.site_composition_bias[0] == 0.0; assert msa.column_character_frequencies[0] == {\"A\":256, \"C\":256}'",
+          "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; python -c 'import numpy as np; from clipkit.modes import TrimmingMode; from clipkit.msa import MSA; headers=[{\"id\":str(i)} for i in range(4)]; upper=np.array([list(s) for s in [\"AA-CGT\", \"AC-CGT\", \"CAAC-T\", \"CCAG-T\"]], dtype=\"U1\"); mixed=upper.copy(); mixed[0,1]=\"a\"; upper_msa=MSA(headers, upper, gap_chars=[\"-\"], ambiguity_handling=\"literal\"); mixed_msa=MSA(headers, mixed, gap_chars=[\"-\"], requires_uppercase_normalization=True, ambiguity_handling=\"literal\"); upper_msa.trim(mode=TrimmingMode.kpic_gappy, gap_threshold=0.5); mixed_msa.trim(mode=TrimmingMode.kpic_gappy, gap_threshold=0.5); assert [\"\".join(row) for row in upper_msa.sites_kept.tolist()] == [\"AAT\", \"ACT\", \"CAT\", \"CCT\"]; assert [\"\".join(row) for row in mixed_msa.sites_kept.tolist()] == [\"AaT\", \"ACT\", \"CAT\", \"CCT\"]; assert upper_msa.site_gappyness.tolist() == mixed_msa.site_gappyness.tolist() == [0.0, 0.0, 0.5, 0.0, 0.5, 0.0]'",
+          "set -eu; tmp=$(mktemp -d /tmp/taf-clipkit-XXXXXX); trap 'rc=$?; if [ \"$rc\" -eq 0 ]; then rm -rf -- \"$tmp\"; else printf \"Smoke failed; diagnostics: %s\\n\" \"$tmp\" >&2; for f in \"$tmp\"/*.log; do if [ -f \"$f\" ]; then cat \"$f\" >&2; fi; done; fi; exit \"$rc\"' EXIT; cd \"$tmp\"; python -c 'from clipkit import clipkit; run, stats = clipkit(raw_alignment=\">stop\\nATGTAAACCTGA\\n>control\\nATGCAAACCCAA\\n\", mode=\"gappy\", gaps=0.9, sequence_type=\"nt\", codon=True, remove_stop_codons=\"all\"); assert str(run.trimmed[0].seq) == \"ATG---ACC---\"; assert run.stop_codon_masking.summary == {\"mode\": \"all\", \"terminal_masked\": 1, \"internal_masked\": 1, \"total_masked\": 2}; assert stats.output_length == 12'",
+          "python /opt/clipkit/share/doc/clipkit/report-regression.py"
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-28T09:02:20Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:26Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "aa831dc548cf743c3124af5e16f0df43a80aa58d",
+            "image_digest": "sha256:240aa346c59a15465bb15a6991f0f49a3fd8a4bb44e9c0ddba5b0e9f17fbd1ef",
+            "smoke_sha256": "0d8b9411d2842dfa18f63066efe27f511a4da098ad7058750d3b6be598dcfce6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "aa831dc548cf743c3124af5e16f0df43a80aa58d",
+            "image_digest": "sha256:240aa346c59a15465bb15a6991f0f49a3fd8a4bb44e9c0ddba5b0e9f17fbd1ef",
+            "smoke_sha256": "0d8b9411d2842dfa18f63066efe27f511a4da098ad7058750d3b6be598dcfce6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:13Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "aa831dc548cf743c3124af5e16f0df43a80aa58d",
+            "image_digest": "sha256:240aa346c59a15465bb15a6991f0f49a3fd8a4bb44e9c0ddba5b0e9f17fbd1ef",
+            "smoke_sha256": "0d8b9411d2842dfa18f63066efe27f511a4da098ad7058750d3b6be598dcfce6",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-28T08:57:36Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/clipkit",
+        "ref": "v2.16.1-r1",
+        "commit": "aa831dc548cf743c3124af5e16f0df43a80aa58d",
+        "html_url": "https://github.com/taffish/clipkit/tree/v2.16.1-r1"
+      },
+      "upstream": {
+        "name": "ClipKIT",
+        "type": "github",
+        "homepage": "https://jlsteenwyk.com/ClipKIT/",
+        "repository": "JLSteenwyk/ClipKIT",
+        "release_url": "https://github.com/JLSteenwyk/ClipKIT/releases/tag/v2.16.1",
+        "version": "2.16.1",
         "license": "MIT",
         "citation": "Steenwyk et al. 2020, ClipKIT: a multiple sequence alignment trimming software for accurate phylogenomic inference",
         "doi": "10.1371/journal.pbio.3001007"

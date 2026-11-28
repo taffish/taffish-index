@@ -1,8 +1,8 @@
 {
   "name": "bioconductor-bioviz",
-  "latest": "3.23-r2",
-  "recent_version": "3.23-r2",
-  "recent_at": "2026-05-28T15:43:16Z",
+  "latest": "3.24-r1",
+  "recent_version": "3.24-r1",
+  "recent_at": "2026-11-27T16:07:04Z",
   "repository_url": "https://github.com/taffish/bioconductor-bioviz",
   "command": {
     "name": "taf-bioconductor-bioviz"
@@ -348,6 +348,178 @@
         "homepage": "https://bioconductor.org/",
         "release_url": "https://www.bioconductor.org/news/bioc_3_23_release/",
         "version": "3.23",
+        "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
+        "citation": "Bioconductor project; package-specific citations are available from citation(package)"
+      }
+    },
+    "3.24-r1": {
+      "name": "bioconductor-bioviz",
+      "kind": "tool",
+      "version": "3.24",
+      "release": 1,
+      "version_id": "3.24-r1",
+      "tag": "v3.24-r1",
+      "published_at": "2026-11-27T16:07:04Z",
+      "published_at_source": "github-release",
+      "license": "Apache-2.0",
+      "repository_url": "https://github.com/taffish/bioconductor-bioviz",
+      "repository_slug": "taffish/bioconductor-bioviz",
+      "command": {
+        "name": "taf-bioconductor-bioviz"
+      },
+      "runtime": {
+        "pipe": true,
+        "command_mode": true
+      },
+      "dependencies": {},
+      "platform": {
+        "os": [],
+        "arch": [],
+        "container": "optional",
+        "min_cpus": null,
+        "min_memory_mb": null
+      },
+      "meta": {
+        "domain": "bio",
+        "category": "visualization",
+        "categories": [
+          "visualization",
+          "bioconductor",
+          "phylogenetics",
+          "plotting",
+          "r"
+        ],
+        "keywords": [
+          "bioconductor",
+          "r",
+          "rscript",
+          "ggtree",
+          "treeio",
+          "ape",
+          "ggplot2",
+          "svglite",
+          "ragg",
+          "newick",
+          "phylogeny",
+          "bioinformatics plots"
+        ],
+        "summary": "A TAFFISH-maintained R/Bioconductor 3.24 bioinformatics visualization runtime with a stable tree plotting helper CLI.",
+        "description": "A TAFFISH-maintained R/Bioconductor 3.24 bioinformatics visualization runtime with a stable tree plotting helper CLI."
+      },
+      "paths": {
+        "main": "src/main.taf",
+        "help": "docs/help.md",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "container": {
+        "image": "ghcr.io/taffish/bioconductor-bioviz:3.24-r1",
+        "dockerfile": "docker/Dockerfile",
+        "image_tag": "3.24-r1",
+        "image_tag_matches_version": true,
+        "digest": "sha256:2c0c27a614c3adf17eec5d8c29742b6eabd9ffd5ef3a9e9752f31f0fabb76312",
+        "platforms": [
+          "linux/amd64",
+          "linux/arm64"
+        ],
+        "platform_digests": {
+          "linux/amd64": "sha256:4c4f370e33faca387019a1b14d47562064ddd7af4111511149eee93c7cb1acbd",
+          "linux/arm64": "sha256:2c39a8ee1d9fb00b58e901857321077875ce2de0588bd83cb2a06bd21f47d879"
+        }
+      },
+      "smoke": {
+        "backend": "docker",
+        "timeout": 900,
+        "exist": [
+          "R",
+          "Rscript",
+          "bioviz-runtime-info",
+          "bioviz-tree",
+          "bash",
+          "grep",
+          "sed"
+        ],
+        "test": [
+          "Rscript --version 2>&1 | grep -F 'Rscript (R) version 4.6.2' >/dev/null && Rscript -e 'stopifnot(as.character(BiocManager::version()) == \"3.24\")' && bioviz-runtime-info | grep -F 'Bioconductor\t3.24' >/dev/null",
+          "Rscript -e 'pkgs <- c(\"ape\",\"treeio\",\"ggtree\",\"tidytree\",\"ggplot2\",\"svglite\",\"ragg\",\"optparse\",\"jsonlite\",\"readr\",\"data.table\",\"ggrepel\",\"patchwork\",\"cowplot\",\"scales\",\"viridis\",\"RColorBrewer\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly=TRUE)]; if (length(missing)) stop(paste(\"missing\", paste(missing, collapse=\",\")))'",
+          "bioviz-tree --version | grep -Fx 'bioviz-tree 0.2.0 (Bioconductor 3.24)' >/dev/null && bioviz-tree --help 2>&1 | grep -F 'Tree plotting helper for Newick phylogenies' >/dev/null",
+          "tmp=$(mktemp -d /tmp/taf-bioviz-tree-rect.XXXXXX); cd \"$tmp\"; printf '%s\n' '((seq1:0.1,seq2:0.2):0.3,(seq3:0.2,seq4:0.4):0.1);' > tree.nwk && printf '%b\n' 'sample\tgroup\tregion' 'seq1\tA\tleaf' 'seq2\tA\tleaf' 'seq3\tB\troot' 'seq4\tB\troot' > metadata.tsv && printf '%b\n' 'sequence_id\tlabel' 'seq1\tAlpha one with a long journal label' 'seq2\tAlpha two with a long journal label' 'seq3\tBeta one with a long journal label' 'seq4\tBeta two with a long journal label' > label-map.tsv && bioviz-tree --tree tree.nwk --metadata metadata.tsv --label-map label-map.tsv --color-by group --layout rectangular --formats pdf,png,svg --style journal --title Journal Style Smoke --outdir out && test -s out/tree.pdf && test -s out/tree.png && test -s out/tree.svg && test -s out/tree_plot_summary.tsv && test -s out/run.manifest.json && grep -F 'metadata_matched_tips' out/tree_plot_summary.tsv >/dev/null && grep -F 'style\tjournal' out/tree_plot_summary.tsv >/dev/null && grep -F 'scale_bar\tauto' out/tree_plot_summary.tsv >/dev/null && grep -F 'title\tJournal Style Smoke' out/tree_plot_summary.tsv >/dev/null && grep -F 'plot_width' out/tree_plot_summary.tsv >/dev/null && grep -F 'ggtree' out/versions.tsv >/dev/null && rm -rf \"$tmp\"",
+          "tmp=$(mktemp -d /tmp/taf-bioviz-tree-circ.XXXXXX); cd \"$tmp\"; printf '%s\n' '((a:0.1,b:0.2):0.3,(c:0.2,d:0.4):0.1);' > tree.nwk && bioviz-tree --tree tree.nwk --layout circular --formats png --hide-tip-labels --outdir out && test -s out/tree.png && grep -F 'layout\tcircular' out/tree_plot_summary.tsv >/dev/null && rm -rf \"$tmp\""
+        ],
+        "status": "passed",
+        "checked_at": "2026-11-28T09:02:20Z",
+        "backend_used": "docker",
+        "policy_generation": "multibackend-1",
+        "platform": "linux/amd64",
+        "required_backends": [
+          "docker"
+        ],
+        "advisory_backends": [
+          "podman",
+          "apptainer"
+        ],
+        "backend_results": {
+          "apptainer": {
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:26Z",
+            "platform": "linux/amd64",
+            "runtime_version": "apptainer version 1.5.5",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "daa66553bbd30ffb092f4975038707664a6543c8",
+            "image_digest": "sha256:2c0c27a614c3adf17eec5d8c29742b6eabd9ffd5ef3a9e9752f31f0fabb76312",
+            "smoke_sha256": "e138ded20420f813cccb906f2cdd6bc74de8fbdd327187c42e716be5509bef8f",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "docker": {
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:20Z",
+            "platform": "linux/amd64",
+            "runtime_version": "Docker version 28.0.4, build b8034c0",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "daa66553bbd30ffb092f4975038707664a6543c8",
+            "image_digest": "sha256:2c0c27a614c3adf17eec5d8c29742b6eabd9ffd5ef3a9e9752f31f0fabb76312",
+            "smoke_sha256": "e138ded20420f813cccb906f2cdd6bc74de8fbdd327187c42e716be5509bef8f",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          },
+          "podman": {
+            "status": "passed",
+            "checked_at": "2026-11-28T09:02:13Z",
+            "platform": "linux/amd64",
+            "runtime_version": "podman version 4.9.3",
+            "runner_image": "ubuntu24/20261122.23.1",
+            "policy_generation": "multibackend-1",
+            "source_commit": "daa66553bbd30ffb092f4975038707664a6543c8",
+            "image_digest": "sha256:2c0c27a614c3adf17eec5d8c29742b6eabd9ffd5ef3a9e9752f31f0fabb76312",
+            "smoke_sha256": "e138ded20420f813cccb906f2cdd6bc74de8fbdd327187c42e716be5509bef8f",
+            "provenance": "taffish-index",
+            "failure_kind": null,
+            "message": null
+          }
+        }
+      },
+      "trust": {
+        "status": "passed",
+        "checked_at": "2026-11-28T08:57:36Z",
+        "policy": "taffish.index/trust-v2",
+        "source": "taffish-index"
+      },
+      "source": {
+        "repository": "taffish/bioconductor-bioviz",
+        "ref": "v3.24-r1",
+        "commit": "daa66553bbd30ffb092f4975038707664a6543c8",
+        "html_url": "https://github.com/taffish/bioconductor-bioviz/tree/v3.24-r1"
+      },
+      "upstream": {
+        "name": "Bioconductor bioinformatics visualization runtime",
+        "type": "official",
+        "homepage": "https://bioconductor.org/",
+        "release_url": "https://www.bioconductor.org/news/bioc_3_24_release/",
+        "version": "3.24",
         "license": "Multiple open-source licenses across Bioconductor, CRAN, R, and system packages",
         "citation": "Bioconductor project; package-specific citations are available from citation(package)"
       }
